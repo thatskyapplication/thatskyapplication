@@ -2,7 +2,6 @@ import { strictEqual } from "node:assert";
 import test from "node:test";
 import { URL } from "node:url";
 import {
-	PATCH_NOTE_REDIRECTS,
 	PATCH_NOTES,
 	isPublishedPatchNote,
 	patchNoteVersion,
@@ -18,7 +17,6 @@ function dayAfter(date: string) {
 test("Definitions are valid and chronological.", () => {
 	let previousDate = "";
 	const identifiers = new Set<string>();
-	const redirected = new Set<string>();
 	const urls = new Set<string>();
 
 	for (const patchNote of PATCH_NOTES) {
@@ -44,14 +42,7 @@ test("Definitions are valid and chronological.", () => {
 		strictEqual(parsedURL.hostname, "thatgamecompany.helpshift.com");
 		strictEqual(urls.has(patchNote.url), false, `${patchNote.url} is duplicated`);
 		urls.add(patchNote.url);
-
-		for (const identifier of [patchNote.identifier, ...(patchNote.aliases ?? [])]) {
-			strictEqual(PATCH_NOTE_REDIRECTS.get(identifier), patchNote.url);
-			redirected.add(identifier);
-		}
 	}
-
-	strictEqual(PATCH_NOTE_REDIRECTS.size, redirected.size);
 });
 
 test("The upcoming patch note is the earliest one on or after a date.", () => {

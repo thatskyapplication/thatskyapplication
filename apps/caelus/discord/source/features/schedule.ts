@@ -15,7 +15,7 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import { t } from "i18next";
-import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/patch-notes";
+import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,

@@ -26,7 +26,7 @@
 		"@sentry/node": "catalog:",
 		"@sentry/node-native": "catalog:",
 		"@sentry/profiling-node": "catalog:",
-		"@thatskyapplication/patch-notes": "workspace:^",
+		"@thatskyapplication/sky-links": "workspace:^",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "catalog:",
 		"diff": "^9.0.0",

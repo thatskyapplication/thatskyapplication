@@ -20,7 +20,6 @@ import {
 	APPLICATION_NAME,
 	INVITE_APPLICATION_URL,
 	INVITE_SUPPORT_SERVER_URL,
-	THATSKYLINK_URL,
 } from "~/utility/constants";
 
 const HUB = { x: 50, y: 46 } as const;
@@ -143,7 +142,7 @@ const SOCIAL_LINKS = [
 
 const FOOTER_LINKS = [
 	{ label: "Invite Caelus", to: INVITE_APPLICATION_URL, external: true },
-	{ label: "thatskylink", to: THATSKYLINK_URL, external: true },
+	{ label: "thatskylink", to: "/thatskylink", external: false },
 	{ label: "Terms & privacy", to: "/caelus/terms-privacy", external: false },
 	{ label: "Acknowledgements", to: "/acknowledgements", external: false },
 ] as const;

@@ -13,11 +13,7 @@ import {
 	Zap,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import {
-	INVITE_APPLICATION_URL,
-	INVITE_SUPPORT_SERVER_URL,
-	THATSKYLINK_URL,
-} from "~/utility/constants";
+import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 
 export interface NavigationItem {
 	to: string;
@@ -87,6 +83,12 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					icon: <History className="h-5 w-5" />,
 					description: t("spirits.description-short", { ns: "features" }),
 				},
+				{
+					to: "/thatskylink",
+					label: "thatskylink",
+					icon: <LinkIcon className="h-5 w-5" />,
+					description: t("thatskylink.description-short", { ns: "features" }),
+				},
 			],
 		},
 		{
@@ -104,13 +106,6 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					label: "Invite Caelus",
 					icon: <Bot className="h-5 w-5" />,
 					description: "Add Caelus to your Discord server.",
-					external: true,
-				},
-				{
-					to: THATSKYLINK_URL,
-					label: "thatskylink",
-					icon: <LinkIcon className="h-5 w-5" />,
-					description: "Browse and suggest community redirect links.",
 					external: true,
 				},
 				{

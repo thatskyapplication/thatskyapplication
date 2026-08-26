@@ -1,7 +1,7 @@
 import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/patch-notes";
+import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,

@@ -1,7 +1,5 @@
 import { httpServerIntegration, withSentry } from "@sentry/cloudflare";
-import { LATEST_PATCH_NOTE } from "@thatskyapplication/patch-notes";
-import { REDIRECTS } from "./redirects.js";
-import { THIS_MONTH_IN_SKY_MONTH_NAMES, THIS_MONTH_IN_SKY_REGEX } from "./utility/constants.js";
+import { resolveRedirect, THATSKYLINK_PAGE_URL } from "@thatskyapplication/sky-links";
 
 export default withSentry(
 	(env: Env) => ({
@@ -16,44 +14,11 @@ export default withSentry(
 			}
 
 			const url = new URL(request.url);
-			const pathname = url.pathname.toLowerCase().slice(1);
+			const redirect = resolveRedirect(url.pathname.toLowerCase().slice(1));
 
-			if (pathname.startsWith("profiles/")) {
-				const userId = pathname.slice(9);
-
-				if (userId) {
-					return Response.redirect(`https://thatskyapplication.com/sky-profiles/${userId}`, 301);
-				}
-			}
-
-			const tmisMatch = THIS_MONTH_IN_SKY_REGEX.exec(pathname);
-
-			if (tmisMatch) {
-				const [, year, rawMonth] = tmisMatch;
-				const month = Number(rawMonth);
-
-				if (month >= 1 && month <= 12) {
-					return Response.redirect(
-						`https://www.thatskygame.com/news/this-month-in-sky-${THIS_MONTH_IN_SKY_MONTH_NAMES[month - 1]}-${year}-edition`,
-						301,
-					);
-				}
-			}
-
-			if (pathname === "p") {
-				return Response.redirect(LATEST_PATCH_NOTE.url, 302);
-			}
-
-			const redirect = REDIRECTS.get(pathname);
-
-			if (redirect) {
-				return Response.redirect(redirect, 301);
-			}
-
-			return Response.redirect(
-				"https://github.com/thatskyapplication/thatskyapplication/tree/main/apps/thatskylink",
-				302,
-			);
+			return redirect
+				? Response.redirect(redirect.url, redirect.status)
+				: Response.redirect(THATSKYLINK_PAGE_URL, 302);
 		},
 	} satisfies ExportedHandler<Env>,
 );

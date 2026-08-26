@@ -5,7 +5,7 @@ on:
       - main
     paths:
       - apps/caelus/discord/**/*
-      - packages/patch-notes/**/*
+      - packages/sky-links/**/*
       - packages/utility/**/*
   workflow_dispatch:
 concurrency:

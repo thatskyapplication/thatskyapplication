@@ -3985,6 +3985,20 @@ export default {
 			"order-label": "Spirit history order",
 			"order-rarity": "Order by rarity",
 		},
+		thatskylink: {
+			description: "A link redirector for Sky: Children of the Light.",
+			"description-short": "A link redirector for everything Sky.",
+			"meta-description":
+				"A link redirector for Sky: Children of the Light. Browse every short link, from the wiki and patch notes to Sky profiles and This Month in Sky.",
+			"search-placeholder": "Search links…",
+			links: "Links",
+			patterns: "Patterns",
+			"patch-notes": "Patch notes",
+			"sky-profiles": "Follow this with a user id to open that Sky kid's Sky profile.",
+			"this-month-in-sky":
+				"Follow this with a year and a month to open that This Month in Sky entry.",
+			"latest-patch-notes": "Always points to the most recent patch notes ({{version}}).",
+		},
 		welcome: {
 			preview: "This is the preview area for your welcome message. It is currently empty.",
 			title: "Welcome setup",

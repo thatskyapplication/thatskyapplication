@@ -1,7 +1,7 @@
 import { Autocomplete } from "@base-ui/react/autocomplete";
 import { clsx } from "clsx";
 import { Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import {
@@ -10,7 +10,13 @@ import {
 	type Emoji,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
+import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
+import {
+	SEARCH_ICON_CLASS,
+	SEARCH_INPUT_CLASS,
+	SEARCH_INPUT_SURFACE_CLASS,
+} from "~/utility/styles.js";
 
 const CATALOGUE_SEARCH_RESULT_LIMIT = 100 as const;
 
@@ -34,6 +40,8 @@ export function CatalogueSearchAutocomplete<Entry extends CatalogueSearchEntry>(
 	const { t } = useTranslation();
 	const [query, setQuery] = useState("");
 	const [open, setOpen] = useState(false);
+	const searchRef = useRef<HTMLInputElement>(null);
+	useSearchShortcut(searchRef);
 	const hasQuery = query.trim().length > 0;
 	const entries = useMemo(() => (hasQuery ? getEntries() : []), [getEntries, hasQuery]);
 	const results = useMemo(
@@ -54,11 +62,12 @@ export function CatalogueSearchAutocomplete<Entry extends CatalogueSearchEntry>(
 			value={query}
 		>
 			<div className="relative">
-				<Search className="pointer-events-none absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 text-gray-600 dark:text-gray-400" />
+				<Search className={SEARCH_ICON_CLASS} />
 				<Autocomplete.Input
 					aria-label={t("search-label", { ns: "general" })}
-					className="w-full rounded-lg border border-gray-200 bg-gray-100 py-2.5 pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400"
+					className={clsx(SEARCH_INPUT_CLASS, SEARCH_INPUT_SURFACE_CLASS)}
 					placeholder={placeholder}
+					ref={searchRef}
 					{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 				/>
 			</div>

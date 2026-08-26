@@ -6,13 +6,13 @@ WORKDIR /thatskyapplication
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 RUN npm install --global "pnpm@$(node --print 'require("./package.json").devEngines.packageManager.version')"
 
-COPY packages/patch-notes/package.json packages/patch-notes/
+COPY packages/sky-links/package.json packages/sky-links/
 COPY packages/utility/package.json packages/utility/
 COPY apps/website/package.json apps/website/
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 	pnpm install --frozen-lockfile
 
-COPY packages/patch-notes packages/patch-notes
+COPY packages/sky-links packages/sky-links
 COPY packages/utility packages/utility
 COPY apps/website apps/website
 

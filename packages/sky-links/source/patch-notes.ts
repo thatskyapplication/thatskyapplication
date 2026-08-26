@@ -793,22 +793,6 @@ export function upcomingPatchNote(date: string) {
 	return PATCH_NOTES.find((patchNote) => patchNote.date >= date) ?? null;
 }
 
-const patchNoteRedirects = new Map<PatchNoteIdentifier, HTTPSURL>();
-
-for (const patchNote of PATCH_NOTES) {
-	if (!isPublishedPatchNote(patchNote)) {
-		continue;
-	}
-
-	patchNoteRedirects.set(patchNote.identifier, patchNote.url);
-
-	for (const alias of patchNote.aliases ?? []) {
-		patchNoteRedirects.set(alias, patchNote.url);
-	}
-}
-
-export const PATCH_NOTE_REDIRECTS: ReadonlyMap<PatchNoteIdentifier, HTTPSURL> = patchNoteRedirects;
-
 const latestPatchNote = PATCH_NOTES.findLast(isPublishedPatchNote);
 
 if (latestPatchNote === undefined) {

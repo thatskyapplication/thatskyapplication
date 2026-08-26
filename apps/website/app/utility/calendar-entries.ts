@@ -1,9 +1,5 @@
 import type { TFunction } from "i18next";
-import {
-	isPublishedPatchNote,
-	PATCH_NOTES,
-	patchNoteVersion,
-} from "@thatskyapplication/patch-notes";
+import { isPublishedPatchNote, PATCH_NOTES, patchNoteVersion } from "@thatskyapplication/sky-links";
 import {
 	aviarysFireworkFestivalSchedule,
 	communityEventsBetween,
