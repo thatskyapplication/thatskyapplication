@@ -5,6 +5,7 @@ preserve_hierarchy: true
 files:
   - source: packages/utility/en-gb.json
     dest: /caelus.json
+    type: i18next_json
     update_option: update_as_unapproved
     translation: /packages/utility/source/locales/%locale%.json
     translation_replace:

@@ -73,6 +73,7 @@ import {
 	type SkyProfilePersonalityTypes,
 	SkyProfileWingedLightType,
 	skySeasons,
+	SkyProfileEditTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { COMMAND_CACHE } from "../../caches/commands.js";
 import { GUILD_CACHE } from "../../caches/guilds.js";
@@ -549,10 +550,7 @@ export async function skyProfileShowEdit(
 						lng: locale,
 						ns: "features",
 					}),
-					label: t(`sky-profile.edit-type-label.${skyProfileEditType}`, {
-						lng: locale,
-						ns: "features",
-					}),
+					label: t(SkyProfileEditTypeToLocaleKey[skyProfileEditType], { lng: locale }),
 					value: skyProfileEditType.toString(),
 				})),
 				placeholder: t("sky-profile.edit-placeholder", { lng: locale, ns: "features" }),
@@ -566,7 +564,7 @@ export async function skyProfileShowEdit(
 			{
 				type: ComponentType.Button,
 				custom_id: CustomId.SkyProfileViewReset,
-				label: t("sky-profile.edit-reset-button-label", { lng: locale, ns: "features" }),
+				label: t("reset", { lng: locale, ns: "general" }),
 				style: ButtonStyle.Secondary,
 			},
 		],
@@ -981,7 +979,7 @@ export async function skyProfileExploreProfile(
 								custom_id: `${CustomId.SkyProfileExplorerProfileReport}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
-								label: t("sky-profile.explore-profile-report-button", {
+								label: t("sky-profile.report", {
 									lng: locale,
 									ns: "features",
 								}),
@@ -1267,7 +1265,7 @@ export async function skyProfileExploreLikedProfile(
 								custom_id: `${CustomId.SkyProfileExplorerLikesProfileReport}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
-								label: t("sky-profile.explore-profile-report-button", {
+								label: t("sky-profile.report", {
 									lng: locale,
 									ns: "features",
 								}),
@@ -1383,7 +1381,7 @@ export async function skyProfileReport(
 								type: ComponentType.Button,
 								custom_id: `${CustomId.SkyProfileExplorerConfirmReport}§${userId}`,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
-								label: t("sky-profile.report-confirm-button", { lng: locale, ns: "features" }),
+								label: t("sky-profile.report", { lng: locale, ns: "features" }),
 								style: ButtonStyle.Danger,
 							},
 						],
@@ -1565,7 +1563,7 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("sky-profile.edit-modal-label-name-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Name], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-name-description", {
 					lng: locale,
 					ns: "features",
@@ -1573,7 +1571,7 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 			},
 		],
 		custom_id: CustomId.SkyProfileNameModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1607,7 +1605,7 @@ async function skyProfileShowDescriptionModal(
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("sky-profile.edit-modal-label-description-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Description], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-description-description", {
 					lng: locale,
 					ns: "features",
@@ -1615,7 +1613,7 @@ async function skyProfileShowDescriptionModal(
 			},
 		],
 		custom_id: CustomId.SkyProfileDescriptionModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1634,7 +1632,7 @@ async function skyProfileShowIconModal(interaction: APIMessageComponentSelectMen
 					min_values: 1,
 					required: true,
 				},
-				label: t("sky-profile.edit-modal-label-icon-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Icon], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-icon-description", {
 					lng: locale,
 					ns: "features",
@@ -1642,7 +1640,7 @@ async function skyProfileShowIconModal(interaction: APIMessageComponentSelectMen
 			},
 		],
 		custom_id: CustomId.SkyProfileIconModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1661,7 +1659,7 @@ async function skyProfileShowBannerModal(interaction: APIMessageComponentSelectM
 					min_values: 1,
 					required: true,
 				},
-				label: t("sky-profile.edit-modal-label-banner-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Banner], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-banner-description", {
 					lng: locale,
 					ns: "features",
@@ -1669,7 +1667,7 @@ async function skyProfileShowBannerModal(interaction: APIMessageComponentSelectM
 			},
 		],
 		custom_id: CustomId.SkyProfileBannerModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1766,7 +1764,7 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("sky-profile.edit-modal-label-hangout-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Hangout], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-hangout-description", {
 					lng: locale,
 					ns: "features",
@@ -1774,7 +1772,7 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 			},
 		],
 		custom_id: CustomId.SkyProfileHangoutModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -2242,10 +2240,7 @@ export async function skyProfileShowReset(interaction: APIMessageComponentButton
 								max_values: SKY_PROFILE_RESET_TYPE_VALUES.length,
 								min_values: 1,
 								options: SKY_PROFILE_RESET_TYPE_VALUES.map((skyProfileResetType) => ({
-									label: t(`sky-profile.edit-type-label.${skyProfileResetType}`, {
-										lng: locale,
-										ns: "features",
-									}),
+									label: t(SkyProfileEditTypeToLocaleKey[skyProfileResetType], { lng: locale }),
 									value: skyProfileResetType.toString(),
 								})),
 								placeholder: t("sky-profile.reset-string-select-menu-placeholder", {
@@ -2434,7 +2429,7 @@ async function skyProfileComponents(
 	if (typeof wingedLight === "number") {
 		if (wingedLight === SkyProfileWingedLightType.Capeless) {
 			miscellaneous.push(
-				`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${t("sky-profile.winged-light-capeless", { lng: locale, ns: "features" })}`,
+				`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${t(`sky-profile-winged-light-types.${SkyProfileWingedLightType.Capeless}`, { lng: locale, ns: "general" })}`,
 			);
 		} else {
 			const catalogue = await fetchCatalogue(userId);

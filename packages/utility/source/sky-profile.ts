@@ -96,3 +96,19 @@ export const SkyProfileEditType = {
 
 export type SkyProfileEditTypes = (typeof SkyProfileEditType)[keyof typeof SkyProfileEditType];
 export const SKY_PROFILE_EDIT_TYPE_VALUES = Object.values(SkyProfileEditType);
+
+export const SkyProfileEditTypeToLocaleKey = {
+	[SkyProfileEditType.Name]: `features:sky-profile.edit-type-label.${SkyProfileEditType.Name}`,
+	[SkyProfileEditType.Icon]: `features:sky-profile.edit-type-label.${SkyProfileEditType.Icon}`,
+	[SkyProfileEditType.Banner]: `features:sky-profile.edit-type-label.${SkyProfileEditType.Banner}`,
+	[SkyProfileEditType.Description]: `features:sky-profile.edit-type-label.${SkyProfileEditType.Description}`,
+	[SkyProfileEditType.WingedLight]: `features:sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`,
+	[SkyProfileEditType.Hangout]: `features:sky-profile.edit-type-label.${SkyProfileEditType.Hangout}`,
+	[SkyProfileEditType.Seasons]: "general:season-plural",
+	[SkyProfileEditType.Platforms]: `features:sky-profile.edit-type-label.${SkyProfileEditType.Platforms}`,
+	[SkyProfileEditType.CatalogueProgression]: `features:sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`,
+	[SkyProfileEditType.GuessRank]: `features:sky-profile.edit-type-label.${SkyProfileEditType.GuessRank}`,
+	[SkyProfileEditType.Personality]: `features:sky-profile.edit-type-label.${SkyProfileEditType.Personality}`,
+	[SkyProfileEditType.Country]: `features:sky-profile.edit-type-label.${SkyProfileEditType.Country}`,
+	[SkyProfileEditType.Spirit]: `features:sky-profile.edit-type-label.${SkyProfileEditType.Spirit}`,
+} as const satisfies Readonly<Record<SkyProfileEditTypes, string>>;

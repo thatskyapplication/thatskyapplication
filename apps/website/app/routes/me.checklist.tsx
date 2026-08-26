@@ -278,7 +278,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
 											)}
 										>
-											{t("daily-guides.seasonal-candles", { ns: "features" })}
+											{t("seasonal-candles", { ns: "general" })}
 										</div>
 										<div className="text-xs text-gray-500 dark:text-gray-400">
 											{seasonalCandlesComplete

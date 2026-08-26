@@ -64,6 +64,7 @@ import {
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
+	dailyQuestLabel,
 } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";
@@ -144,12 +145,12 @@ export function questAutocomplete(focused: string, locale: Locale) {
 	return focused === ""
 		? []
 		: DAILY_QUEST_VALUES.filter((dailyQuest) =>
-				t(`quests.${dailyQuest}`, { lng: locale, ns: "general" })
+				dailyQuestLabel(dailyQuest, t, { lng: locale })
 					.toUpperCase()
 					.includes(focused.toUpperCase()),
 			)
 				.map((dailyQuest) => {
-					let quest = t(`quests.${dailyQuest}`, { lng: locale, ns: "general" });
+					let quest = dailyQuestLabel(dailyQuest, t, { lng: locale });
 
 					if (quest.length > MAXIMUM_AUTOCOMPLETE_NAME_LIMIT) {
 						quest = `${quest.slice(0, MAXIMUM_AUTOCOMPLETE_NAME_LIMIT - 3)}...`;
@@ -169,7 +170,7 @@ export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTo
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `### ${t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+					content: `### ${dailyQuestLabel(quest, t, { lng: locale })}`,
 				},
 				url
 					? { type: ComponentType.MediaGallery, items: [{ media: { url } }] }
@@ -297,12 +298,12 @@ function isDailyGuidesDistributable({
 	if (!can({ permission: permissions, guild, member: me, channel: resolvedChannelForPermission })) {
 		errors.push(
 			isThread
-				? t(`daily-guides.error-missing-permissions-thread${website ? "-website" : ""}`, {
+				? t(`common.error-missing-permissions-thread${website ? "-website" : ""}`, {
 						lng: locale,
 						ns: "features",
 						channel: website ? channel.name : `<#${channel.id}>`,
 					})
-				: t(`daily-guides.error-missing-permissions${website ? "-website" : ""}`, {
+				: t(`common.error-missing-permissions${website ? "-website" : ""}`, {
 						lng: locale,
 						ns: "features",
 						channel: website ? channel.name : `<#${channel.id}>`,
@@ -417,7 +418,7 @@ export async function setupResponse(
 				...isDailyGuidesDistributable({ guild, channel, me: await guild.fetchMe(), locale }),
 			);
 		} else {
-			feedback.push(t("daily-guides.setup-no-channel-detected", { lng: locale, ns: "features" }));
+			feedback.push(t("common.no-channel-detected", { lng: locale, ns: "features" }));
 		}
 	} else {
 		feedback.push(t("daily-guides.setup-no-channel-selected", { lng: locale, ns: "features" }));
@@ -494,8 +495,8 @@ export async function setupResponse(
 						type: ComponentType.TextDisplay,
 						content:
 							feedback.length > 0
-								? `${t("daily-guides.setup-stopped", { lng: locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.join("\n")}`
-								: t("daily-guides.setup-sending", {
+								? `${t("common.stopped", { lng: locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.join("\n")}`
+								: t("common.sending", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
@@ -703,15 +704,20 @@ function dailyGuidesEventData(date: Temporal.ZonedDateTime, locale: Locale) {
 			};
 		}
 
+		const eventDaysLeft = Math.ceil(end.since(date).total({ unit: "days", relativeTo: date })) - 1;
+
 		return {
 			end,
 			start,
-			text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("days-left.event", {
-				lng: locale,
-				ns: "general",
-				count: Math.ceil(end.since(date).total({ unit: "days", relativeTo: date })) - 1,
-				name: eventName,
-			})}`,
+			text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t(
+				eventDaysLeft === 0 ? "days-left.event-ends-today" : "days-left.event",
+				{
+					lng: locale,
+					ns: "general",
+					count: eventDaysLeft,
+					name: eventName,
+				},
+			)}`,
 		};
 	});
 
@@ -820,10 +826,9 @@ async function distributionData({
 			upcomingMaintenance.push({
 				end: maintenance.end,
 				start: maintenance.start,
-				text: t("daily-guides.maintenance-upcoming", {
+				text: t("daily-guides.maintenance-tomorrow", {
 					ns: "features",
 					lng: locale,
-					count: 1,
 					time: new Intl.DateTimeFormat(locale, {
 						timeZone: TIME_ZONE,
 						timeStyle: "short",
@@ -897,7 +902,7 @@ async function distributionData({
 			content: `### ${t("daily-guides.quests-heading", { lng: locale, ns: "features" })}\n${quests
 				.map(
 					({ quest, url }, index) =>
-						`${index + 1}. ${type === DailyGuidesDistributionType.Compact && url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+						`${index + 1}. ${type === DailyGuidesDistributionType.Compact && url ? `[${dailyQuestLabel(quest, t, { lng: locale })}](${url})` : dailyQuestLabel(quest, t, { lng: locale })}`,
 				)
 				.join("\n")}`,
 		});
@@ -937,7 +942,7 @@ async function distributionData({
 					type: ComponentType.MediaGallery,
 					items: questsWithMedia.map(({ quest, url }) => ({
 						media: { url },
-						description: t(`quests.${quest}`, { lng: locale, ns: "general" }),
+						description: dailyQuestLabel(quest, t, { lng: locale }),
 					})),
 				});
 
@@ -992,14 +997,20 @@ async function distributionData({
 	if (season) {
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
+		const seasonDaysLeft =
+			Math.ceil(season.end.since(now).total({ unit: "days", relativeTo: now })) - 1;
+
 		footerItems.push({
 			end: season.end,
 			start: season.start,
-			text: `${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}${t("days-left.season", {
-				lng: locale,
-				ns: "general",
-				count: Math.ceil(season.end.since(now).total({ unit: "days", relativeTo: now })) - 1,
-			})}`,
+			text: `${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}${t(
+				seasonDaysLeft === 0 ? "days-left.season-ends-today" : "days-left.season",
+				{
+					lng: locale,
+					ns: "general",
+					count: seasonDaysLeft,
+				},
+			)}`,
 		});
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
@@ -1013,19 +1024,21 @@ async function distributionData({
 		) ?? []) {
 			const candlePrefix = formatEmoji(candleEmoji);
 
+			const doubleSeasonalLightDaysLeft =
+				Math.ceil(doubleSeasonalLight.end.since(today).total({ unit: "days", relativeTo: today })) -
+				1;
+
 			footerItems.push({
 				end: doubleSeasonalLight.end,
 				start: doubleSeasonalLight.start,
 				text:
 					Temporal.ZonedDateTime.compare(today, doubleSeasonalLight.start) >= 0
-						? `${candlePrefix} ${t("days-left.double-seasonal-light", {
-								lng: locale,
-								ns: "general",
-								count:
-									Math.ceil(
-										doubleSeasonalLight.end.since(today).total({ unit: "days", relativeTo: today }),
-									) - 1,
-							})}`
+						? `${candlePrefix} ${t(
+								doubleSeasonalLightDaysLeft === 0
+									? "days-left.double-seasonal-light-ends-today"
+									: "days-left.double-seasonal-light",
+								{ lng: locale, ns: "general", count: doubleSeasonalLightDaysLeft },
+							)}`
 						: `${candlePrefix} ${t("daily-guides.double-seasonal-light-upcoming", {
 								lng: locale,
 								ns: "features",
@@ -1051,7 +1064,7 @@ async function distributionData({
 			}),
 		});
 
-		let seasonalCandlesContent = `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n\n`;
+		let seasonalCandlesContent = `### ${t("seasonal-candles", { lng: locale, ns: "general" })}\n\n`;
 
 		if (type === DailyGuidesDistributionType.Compact && seasonalCandlesRotation) {
 			seasonalCandlesContent += `[${t("view", { lng: locale, ns: "general" })}](${seasonalCandlesRotation})\n`;
@@ -1103,17 +1116,25 @@ async function distributionData({
 			),
 		);
 
+		const returningSpiritsDaysLeft =
+			Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1;
+
 		footerItems.push({
 			end,
 			start,
 			text: active
-				? t("daily-guides.returning-spirits-active-list", {
-						lng: locale,
-						ns: "features",
-						count: Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1,
-						returningSpirits: returningSpiritsName,
-						spirits,
-					})
+				? t(
+						returningSpiritsDaysLeft === 0
+							? "daily-guides.returning-spirits-leave-today"
+							: "daily-guides.returning-spirits-active-list",
+						{
+							lng: locale,
+							ns: "features",
+							count: returningSpiritsDaysLeft,
+							returningSpirits: returningSpiritsName,
+							spirits,
+						},
+					)
 				: t("daily-guides.returning-spirits-upcoming-list", {
 						lng: locale,
 						ns: "features",
@@ -1145,7 +1166,7 @@ async function distributionData({
 			locale,
 		});
 	} else {
-		shardEruptionContent += t("shard-eruption.none", { lng: locale, ns: "features" });
+		shardEruptionContent += t("none", { lng: locale, ns: "general" });
 	}
 
 	containerComponents.push({
@@ -1189,9 +1210,10 @@ async function distributionData({
 		if (travellingRockURL && type === DailyGuidesDistributionType.Compact) {
 			travellingRockContent += `[${t("view", { lng: locale, ns: "general" })}](${travellingRockURL})`;
 		} else if (travellingRockNotSpawned) {
-			travellingRockContent += t("daily-guides.shard-eruption-none", {
+			travellingRockContent += t("none", {
 				lng: locale,
-				ns: "features",
+				ns: "general",
+				context: "travelling-rock",
 			});
 		}
 
@@ -1249,17 +1271,21 @@ async function distributionData({
 			const dyeEmojis = radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join("");
 
 			if (Temporal.ZonedDateTime.compare(today, radianceEvent.start) >= 0) {
+				const radianceDaysLeft =
+					Math.ceil(radianceEvent.end.since(today).total({ unit: "days", relativeTo: today })) - 1;
+
 				footerItems.push({
 					end: radianceEvent.end,
 					start: radianceEvent.start,
-					text: `${dyePrefix} ${t("days-left.event", {
-						lng: locale,
-						ns: "general",
-						count:
-							Math.ceil(radianceEvent.end.since(today).total({ unit: "days", relativeTo: today })) -
-							1,
-						name: radianceName,
-					})} ${dyeEmojis}`,
+					text: `${dyePrefix} ${t(
+						radianceDaysLeft === 0 ? "days-left.event-ends-today" : "days-left.event",
+						{
+							lng: locale,
+							ns: "general",
+							count: radianceDaysLeft,
+							name: radianceName,
+						},
+					)} ${dyeEmojis}`,
 				});
 			} else {
 				footerItems.push({
@@ -1281,21 +1307,22 @@ async function distributionData({
 	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
 		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
 	)) {
+		const doubleTreasureCandlesDaysLeft =
+			Math.ceil(
+				doubleTreasureCandleEvent.end.since(today).total({ unit: "days", relativeTo: today }),
+			) - 1;
+
 		footerItems.push({
 			end: doubleTreasureCandleEvent.end,
 			start: doubleTreasureCandleEvent.start,
 			text:
 				Temporal.ZonedDateTime.compare(today, doubleTreasureCandleEvent.start) >= 0
-					? `${doubleTreasureCandlePrefix} ${t("days-left.double-treasure-candles", {
-							lng: locale,
-							ns: "general",
-							count:
-								Math.ceil(
-									doubleTreasureCandleEvent.end
-										.since(today)
-										.total({ unit: "days", relativeTo: today }),
-								) - 1,
-						})}`
+					? `${doubleTreasureCandlePrefix} ${t(
+							doubleTreasureCandlesDaysLeft === 0
+								? "days-left.double-treasure-candles-ends-today"
+								: "days-left.double-treasure-candles",
+							{ lng: locale, ns: "general", count: doubleTreasureCandlesDaysLeft },
+						)}`
 					: `${doubleTreasureCandlePrefix} ${t("daily-guides.double-treasure-candles-upcoming", {
 							lng: locale,
 							ns: "features",
@@ -1317,17 +1344,23 @@ async function distributionData({
 
 		for (const doubleHeartEvent of doubleHeartEvents) {
 			if (Temporal.ZonedDateTime.compare(today, doubleHeartEvent.start) >= 0) {
+				const doubleHeartsDaysLeft =
+					Math.ceil(doubleHeartEvent.end.since(today).total({ unit: "days", relativeTo: today })) -
+					1;
+
 				footerItems.push({
 					end: doubleHeartEvent.end,
 					start: doubleHeartEvent.start,
-					text: `${heartPrefix} ${t("days-left.double-hearts", {
-						lng: locale,
-						ns: "general",
-						count:
-							Math.ceil(
-								doubleHeartEvent.end.since(today).total({ unit: "days", relativeTo: today }),
-							) - 1,
-					})}`,
+					text: `${heartPrefix} ${t(
+						doubleHeartsDaysLeft === 0
+							? "days-left.double-hearts-ends-today"
+							: "days-left.double-hearts",
+						{
+							lng: locale,
+							ns: "general",
+							count: doubleHeartsDaysLeft,
+						},
+					)}`,
 				});
 			} else {
 				footerItems.push({
@@ -1349,18 +1382,27 @@ async function distributionData({
 	const upcomingUpdate = upcomingPatchNote(today.toPlainDate().toString());
 
 	if (upcomingUpdate) {
+		const daysUntilUpdate = today
+			.toPlainDate()
+			.until(Temporal.PlainDate.from(upcomingUpdate.date)).days;
+
 		footerItems.push({
 			start: Temporal.PlainDate.from(upcomingUpdate.date).toZonedDateTime(TIME_ZONE),
-			text: t("daily-guides.update-upcoming", {
-				lng: locale,
-				ns: "features",
-				count: today.toPlainDate().until(Temporal.PlainDate.from(upcomingUpdate.date)).days,
-				update: t("schedule.update-version", {
+			text: t(
+				daysUntilUpdate === 0
+					? "daily-guides.update-releases-today"
+					: "daily-guides.update-upcoming",
+				{
 					lng: locale,
 					ns: "features",
-					version: patchNoteVersion(upcomingUpdate.identifier),
-				}),
-			}),
+					count: daysUntilUpdate,
+					update: t("schedule.update-version", {
+						lng: locale,
+						ns: "features",
+						version: patchNoteVersion(upcomingUpdate.identifier),
+					}),
+				},
+			),
 		});
 	}
 
@@ -1556,12 +1598,12 @@ export async function interactive(
 	const questOptions = [];
 
 	for (const quest of quests) {
-		if (quest === null) {
+		if (quest === null || !isDailyQuest(quest)) {
 			continue;
 		}
 
 		questOptions.push({
-			label: t(`quests.${quest}`, { lng: locale, ns: "general" }),
+			label: dailyQuestLabel(quest, t, { lng: locale }),
 			value: quest.toString(),
 		});
 	}
@@ -1842,10 +1884,10 @@ export async function set(
 	}
 
 	const oldData = {
-		quest1: oldQuest1 === null ? null : t(`quests.${oldQuest1}`, { ns: "general" }),
-		quest2: oldQuest2 === null ? null : t(`quests.${oldQuest2}`, { ns: "general" }),
-		quest3: oldQuest3 === null ? null : t(`quests.${oldQuest3}`, { ns: "general" }),
-		quest4: oldQuest4 === null ? null : t(`quests.${oldQuest4}`, { ns: "general" }),
+		quest1: oldQuest1 === null || !isDailyQuest(oldQuest1) ? null : dailyQuestLabel(oldQuest1, t),
+		quest2: oldQuest2 === null || !isDailyQuest(oldQuest2) ? null : dailyQuestLabel(oldQuest2, t),
+		quest3: oldQuest3 === null || !isDailyQuest(oldQuest3) ? null : dailyQuestLabel(oldQuest3, t),
+		quest4: oldQuest4 === null || !isDailyQuest(oldQuest4) ? null : dailyQuestLabel(oldQuest4, t),
 		travellingRock,
 		travellingRockNotSpawned,
 	};
@@ -1901,22 +1943,10 @@ export async function set(
 	const finalTravellingRockNotSpawned =
 		data.travelling_rock_not_spawned ?? travellingRockNotSpawned;
 	const newData = {
-		quest1:
-			newQuest1 === null || !isDailyQuest(newQuest1)
-				? null
-				: t(`quests.${newQuest1}`, { ns: "general" }),
-		quest2:
-			newQuest2 === null || !isDailyQuest(newQuest2)
-				? null
-				: t(`quests.${newQuest2}`, { ns: "general" }),
-		quest3:
-			newQuest3 === null || !isDailyQuest(newQuest3)
-				? null
-				: t(`quests.${newQuest3}`, { ns: "general" }),
-		quest4:
-			newQuest4 === null || !isDailyQuest(newQuest4)
-				? null
-				: t(`quests.${newQuest4}`, { ns: "general" }),
+		quest1: newQuest1 === null || !isDailyQuest(newQuest1) ? null : dailyQuestLabel(newQuest1, t),
+		quest2: newQuest2 === null || !isDailyQuest(newQuest2) ? null : dailyQuestLabel(newQuest2, t),
+		quest3: newQuest3 === null || !isDailyQuest(newQuest3) ? null : dailyQuestLabel(newQuest3, t),
+		quest4: newQuest4 === null || !isDailyQuest(newQuest4) ? null : dailyQuestLabel(newQuest4, t),
 		travellingRock: finalTravellingRock,
 		travellingRockNotSpawned: finalTravellingRockNotSpawned,
 	};
@@ -1961,17 +1991,17 @@ export async function questsReorder(
 	};
 
 	const oldQuests = {
-		quest1: quest1 === null ? null : t(`quests.${quest1}`, { ns: "general" }),
-		quest2: quest2 === null ? null : t(`quests.${quest2}`, { ns: "general" }),
-		quest3: quest3 === null ? null : t(`quests.${quest3}`, { ns: "general" }),
-		quest4: quest4 === null ? null : t(`quests.${quest4}`, { ns: "general" }),
+		quest1: quest1 === null || !isDailyQuest(quest1) ? null : dailyQuestLabel(quest1, t),
+		quest2: quest2 === null || !isDailyQuest(quest2) ? null : dailyQuestLabel(quest2, t),
+		quest3: quest3 === null || !isDailyQuest(quest3) ? null : dailyQuestLabel(quest3, t),
+		quest4: quest4 === null || !isDailyQuest(quest4) ? null : dailyQuestLabel(quest4, t),
 	};
 
 	const newQuests = {
-		quest1: t(`quests.${newQuest1}`, { ns: "general" }),
-		quest2: t(`quests.${newQuest2}`, { ns: "general" }),
-		quest3: newQuest3 === null ? null : t(`quests.${newQuest3}`, { ns: "general" }),
-		quest4: newQuest4 === null ? null : t(`quests.${newQuest4}`, { ns: "general" }),
+		quest1: isDailyQuest(newQuest1) ? dailyQuestLabel(newQuest1, t) : null,
+		quest2: isDailyQuest(newQuest2) ? dailyQuestLabel(newQuest2, t) : null,
+		quest3: newQuest3 === null || !isDailyQuest(newQuest3) ? null : dailyQuestLabel(newQuest3, t),
+		quest4: newQuest4 === null || !isDailyQuest(newQuest4) ? null : dailyQuestLabel(newQuest4, t),
 	};
 
 	await logModification({

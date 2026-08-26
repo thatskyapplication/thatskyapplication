@@ -10,6 +10,8 @@ import {
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SkyProfileMissingNameSource,
 	type SkyProfileMissingNameSources,
+	SkyProfileEditType,
+	SkyProfileEditTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { COMMAND_CACHE } from "../../caches/commands.js";
 import database from "../../database.js";
@@ -90,7 +92,7 @@ async function skyProfileMissingNameModal(
 			},
 			{
 				type: ComponentType.Label,
-				label: t("sky-profile.edit-modal-label-name-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Name], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-name-description", {
 					lng: locale,
 					ns: "features",

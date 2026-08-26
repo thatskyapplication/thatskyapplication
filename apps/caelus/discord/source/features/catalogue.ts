@@ -67,6 +67,7 @@ import {
 	spiritOriginTranslationKey,
 	spirits,
 	sumCosts,
+	CatalogueCollectionToLocaleKey,
 } from "@thatskyapplication/utility";
 import database from "../database.js";
 import { client } from "../discord.js";
@@ -99,13 +100,6 @@ import {
 } from "../utility/functions.js";
 
 const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
-
-const CATALOGUE_COLLECTION_TRANSLATION_KEY = {
-	[CatalogueCollection.StarterPacks]: "catalogue.starter-packs",
-	[CatalogueCollection.SecretArea]: "catalogue.secret-area",
-	[CatalogueCollection.ClothingShop]: "catalogue.clothing-shop",
-	[CatalogueCollection.NestingWorkshop]: "catalogue.nesting-workshop",
-} as const satisfies Readonly<Record<CatalogueCollection, string>>;
 
 function breadcrumb(locale: Locale, current: string, trail: readonly string[] = []) {
 	return `-# ${[t("catalogue.main-title", { lng: locale, ns: "features" }), ...trail, current].join(
@@ -536,7 +530,7 @@ async function start({
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.events", { lng: locale, ns: "features" })}\n\n${eventProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: eventProgressResult })}`,
+					content: `### ${t("events", { lng: locale, ns: "general" })}\n\n${eventProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: eventProgressResult })}`,
 				},
 			],
 		},
@@ -596,7 +590,7 @@ async function start({
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.nesting-workshop", { lng: locale, ns: "features" })}\n\n${nestingWorkshopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: nestingWorkshopProgressResult })}`,
+					content: `### ${t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], { lng: locale })}\n\n${nestingWorkshopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: nestingWorkshopProgressResult })}`,
 				},
 			],
 		},
@@ -677,10 +671,7 @@ function searchResultName(
 			detail = t(spiritOriginTranslationKey(target.spirit), { lng: locale, ns: "general" });
 			break;
 		case CatalogueSearchType.Collection:
-			detail = t(CATALOGUE_COLLECTION_TRANSLATION_KEY[target.collection], {
-				lng: locale,
-				ns: "features",
-			});
+			detail = t(CatalogueCollectionToLocaleKey[target.collection], { lng: locale });
 
 			break;
 	}
@@ -979,7 +970,7 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 					"",
 					seasonalCurrencyTable,
 					"",
-					`## ${t("catalogue.events", { lng: locale, ns: "features" })}`,
+					`## ${t("events", { lng: locale, ns: "general" })}`,
 					"",
 					eventsTable,
 					"",
@@ -1057,7 +1048,7 @@ function traversalContainer({
 	}
 
 	const events: APISelectMenuOption = {
-		label: t("catalogue.events", { lng: locale, ns: "features" }),
+		label: t("events", { lng: locale, ns: "general" }),
 		value: CustomId.CatalogueViewEvents,
 	};
 
@@ -1093,7 +1084,7 @@ function traversalContainer({
 	}
 
 	const nestingWorkshop: APISelectMenuOption = {
-		label: t("catalogue.nesting-workshop", { lng: locale, ns: "features" }),
+		label: t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], { lng: locale }),
 		value: CustomId.CatalogueViewNestingWorkshop,
 	};
 
@@ -1718,7 +1709,7 @@ export async function viewEvents(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-	const current = t("catalogue.events", { lng: locale, ns: "features" });
+	const current = t("events", { lng: locale, ns: "general" });
 	const title = `## ${current}\n\n${breadcrumb(locale, current)}`;
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -2155,7 +2146,7 @@ async function viewEvent(
 	const eventName = t(event.name, { lng: locale, ns: "general" });
 	const heading = `[${eventName}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`;
 	const title = `## ${heading}\n\n${breadcrumb(locale, eventName, [
-		t("catalogue.events", { lng: locale, ns: "features" }),
+		t("events", { lng: locale, ns: "general" }),
 	])}\n\n${t("time-range", {
 		lng: locale,
 		ns: "general",
@@ -2600,7 +2591,9 @@ export async function viewNestingWorkshop(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-	const current = t("catalogue.nesting-workshop", { lng: locale, ns: "features" });
+	const current = t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], {
+		lng: locale,
+	});
 
 	const itemSelectionOptions = NESTING_WORKSHOP.items.map((item) =>
 		itemToSelectMenuOption(item, catalogue?.data, locale),

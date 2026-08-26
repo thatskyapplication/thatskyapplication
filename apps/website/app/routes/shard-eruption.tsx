@@ -298,7 +298,7 @@ function ShardEruptionCard({
 					))}
 				</>
 			) : (
-				<p className="pt-6">{t("shard-eruption.none", { ns: "features" })}</p>
+				<p className="pt-6">{t("none", { ns: "general" })}</p>
 			)}
 		</div>
 	);
@@ -386,7 +386,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 						anchorDate={anchorDate}
 						className={DATE_NAVIGATION_CLASS}
 						getDateURL={(date) => `?date=${date}`}
-						label={t("shard-eruption.jump-to-date", { ns: "features" })}
+						label={t("jump-to-date", { ns: "general" })}
 						locale={locale}
 						maximumDate={maximumDate}
 						minimumDate={minimumDate}

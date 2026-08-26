@@ -23,6 +23,7 @@ import {
 	TIME_ZONE,
 	TRAVELLING_DATES,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
+	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import type { ExternalLinkListItem } from "~/components/ExternalLinkList";
 import {
@@ -366,14 +367,14 @@ export function calendarEntriesBetween({
 
 	if (dayMarkers) {
 		const skyRangeLimit = rangeEnd.withTimeZone(TIME_ZONE);
-		const shardEruptionLabel = t(`features:schedule.type.${ScheduleType.ShardEruption}`);
-		const eyeOfEdenLabel = t(`features:schedule.type.${ScheduleType.EyeOfEden}`);
-		const nestingWorkshopLabel = t(`features:schedule.type.${ScheduleType.NestingWorkshop}`);
+		const shardEruptionLabel = t(ScheduleTypeToLocaleKey[ScheduleType.ShardEruption]);
+		const eyeOfEdenLabel = t(ScheduleTypeToLocaleKey[ScheduleType.EyeOfEden]);
+		const nestingWorkshopLabel = t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop]);
 
 		const nestingWorkshopWikiURL = t(SCHEDULE_TYPE_TO_WIKI_KEY[ScheduleType.NestingWorkshop]!);
 
 		const internationalSpaceStationLabel = t(
-			`features:schedule.type.${ScheduleType.InternationalSpaceStation}`,
+			ScheduleTypeToLocaleKey[ScheduleType.InternationalSpaceStation],
 		);
 
 		const internationalSpaceStationWikiURL = t(
@@ -381,7 +382,7 @@ export function calendarEntriesBetween({
 		);
 
 		const aviarysFireworkFestivalLabel = t(
-			`features:schedule.type.${ScheduleType.AviarysFireworkFestival}`,
+			ScheduleTypeToLocaleKey[ScheduleType.AviarysFireworkFestival],
 		);
 
 		const aviarysFireworkFestivalWikiURL = t(

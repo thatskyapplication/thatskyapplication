@@ -22,22 +22,21 @@
 		"hearts": "ハート",
 		"ascended-candles": "星のキャンドル",
 		"seasonal-candles": "シーズンキャンドル",
+		"jump-to-date": "",
+		"none": "",
+		"reset": "リセット",
+		"none_travelling-rock": "",
 		"seasonal-hearts": "シーズンハート",
 		"days-left": {
-			"season_zero": "このシーズンは本日で終了します。",
-			"season_one": "シーズン終了まであと{{count}} 日。",
+			"season-ends-today": "このシーズンは本日で終了します。",
+			"event-ends-today": "{{name}} は本日で終了します。",
+			"double-hearts-ends-today": "ハート2倍期間は今日で終了します。",
+			"double-seasonal-light-ends-today": "シーズンキャンドル２倍期間は今日で終了します。",
+			"double-treasure-candles-ends-today": "大キャンドル２倍期間は今日で終了します。",
 			"season_other": "シーズン終了まであと{{count}} 日。",
-			"event_zero": "{{name}} は本日で終了します。",
-			"event_one": "{{name}}終了まであと{{count}}日。",
 			"event_other": "{{name}}終了まであと{{count}}日。",
-			"double-hearts_zero": "ハート2倍期間は今日で終了します。",
-			"double-hearts_one": "ハート２倍期間終了まであと{{count}}日",
 			"double-hearts_other": "ハート２倍期間終了まであと{{count}}日",
-			"double-seasonal-light_zero": "シーズンキャンドル２倍期間は今日で終了します。",
-			"double-seasonal-light_one": "シーズンキャンドル２倍期間終了まであと{{count}}日",
 			"double-seasonal-light_other": "シーズンキャンドル２倍期間終了まであと{{count}}日",
-			"double-treasure-candles_zero": "大キャンドル２倍期間は今日で終了します。",
-			"double-treasure-candles_one": "大キャンドル２倍期間終了まであと{{count}}日",
 			"double-treasure-candles_other": "大キャンドル２倍期間終了まであと{{count}}日"
 		},
 		"error-timed-out": "タイムアウトしました。",
@@ -118,30 +117,18 @@
 			"Wandering Carnival": "さすらいカーニバル",
 			"The Last City": "最後の街"
 		},
-		"notification-types": {
+		"occurrences": {
 			"0": "デイリー更新",
-			"1": "暴風域",
 			"2": "国際宇宙ステーション",
 			"3": "ドラゴン",
 			"4": "間欠泉",
 			"5": "パン焼き",
-			"6": "亀",
+			"6": "ウミガメ",
 			"7": "闇の破片(黒)",
 			"8": "闇の破片(赤)",
-			"9": "AURORA",
 			"10": "ならい",
-			"11": "花鳥花火大会",
-			"12": "$t(general:travelling-spirit)",
 			"13": "スケーター",
-			"14": "巣づくり工房",
-			"15": "$t(general:maintenance)",
-			"16": "$t(general:events)",
-			"17": "$t(general:event-names.radiance-event)",
-			"18": "$t(general:season-plural)",
-			"19": "$t(general:event-names.double-hearts)",
-			"20": "シーズンキャンドル2倍",
-			"21": "$t(general:event-names.double-treasure-candles)",
-			"22": "$t(general:returning-spirits)"
+			"14": "巣づくり工房"
 		},
 		"page": "ページ",
 		"quests-common": {
@@ -318,9 +305,6 @@
 			"167": "花鳥郷でシナモンと高い塔の上まで飛んで行く",
 			"168": "花鳥郷でシナモンといっしょに水遊びする",
 			"169": "大競技会のいずれかの競技をプレーする",
-			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(areas.Village of Dreams)\"})",
-			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(areas.Village of Dreams)\"})",
-			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(areas.Village Theatre)\"})",
 			"173": "のんびり屋の音楽家が夢見の劇場で助けを必要としているようです",
 			"174": "ヘアスタイルを変える",
 			"175": "ネックレスアイテムを変える",
@@ -330,30 +314,6 @@
 			"179": "ズボンを変える",
 			"180": "お洒落な日々のランウェイでシェアメモリーズを鑑賞する",
 			"181": "お洒落な日々の祭壇でシェアメモリーズを記録する",
-			"182": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.118)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"183": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.115)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"184": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.122)\",\"location\":\"$t(areas.Village of Dreams)\"})",
-			"185": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.115)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
-			"186": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.115)\",\"location\":\"$t(areas.Crab Fields)\"})",
-			"187": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.116)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"188": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.14)\",\"location\":\"$t(areas.Forest Brook)\"})",
-			"189": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.13)\",\"location\":\"$t(areas.Forest Brook)\"})",
-			"190": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.118)\",\"location\":\"$t(areas.The Graveyard)\"})",
-			"191": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.15)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"192": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.15)\",\"location\":\"$t(areas.Elevated Clearing)\"})",
-			"193": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.117)\",\"location\":\"$t(areas.Forgotten Ark)\"})",
-			"194": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.15)\",\"location\":\"$t(realms.Hidden Forest)\"})",
-			"195": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.118)\",\"location\":\"$t(areas.Forgotten Ark)\"})",
-			"196": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.18)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"197": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.116)\",\"location\":\"$t(areas.Forgotten Ark)\"})",
-			"198": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(areas.Prairie Peaks)\"})",
-			"199": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.17)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"200": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.20)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"201": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Sanctuary Islands)\"})",
-			"202": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(areas.Sanctuary Islands)\"})",
-			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(areas.Sanctuary Islands)\"})",
-			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Prairie Village)\"})",
-			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(areas.Prairie Village)\"})",
 			"206": "星月夜の砂漠で宝を探す繊細な漁師またはしたり顔の生徒を手伝いましょう",
 			"207": "楽園で宝を探す豪快に笑う砲手または含み笑いのスカウトを手伝いましょう",
 			"208": "雨林で宝を探すおっちょこちょいな水夫長または大樹の案内人を手伝いましょう",
@@ -368,10 +328,6 @@
 			"217": "楽園で宝を探す動じない提督または夢見がちな森の民を手伝いましょう",
 			"218": "雨林で宝を探す繊細な漁師またはしたり顔の生徒を手伝いましょう",
 			"219": "夢見の町で宝を探す豪快に笑う砲手または含み笑いのスカウトを手伝いましょう",
-			"220": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.136)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
-			"221": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Prairie Peaks)\"})",
-			"222": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.145)\",\"location\":\"$t(areas.Prairie Peaks)\"})",
-			"223": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.14)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"224": "凍った湖で目撃された青い鳥について調査する",
 			"225": "君憶う保存庫で目撃された青い鳥を調査する",
 			"226": "夢見の劇場で目撃された青い鳥を調査する",
@@ -380,35 +336,15 @@
 			"229": "君憶う保存庫で青い鳥がどこにいるかの手掛かりを見つける",
 			"230": "夢見の劇場で青い鳥がどこにいるかの手掛かりを見つける",
 			"231": "雨林の開拓地で青い鳥がどこにいるかの手掛かりを見つける",
-			"232": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.117)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"233": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"234": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.112)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"235": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.111)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"236": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.110)\",\"location\":\"$t(areas.Bird Nest)\"})",
 			"237": "闇の蟹を持ち上げる",
 			"238": "花鳥郷にある半壊の鐘塔のシェアスペースを少しの間鑑賞する",
-			"239": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.83)\",\"location\":\"$t(areas.Aviary Village)\"})",
-			"240": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.61)\",\"location\":\"$t(areas.Aviary Village)\"})",
-			"241": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Aviary Village)\"})",
 			"242": "賞賛する鐘の造り手とシェアスペースを鑑賞しましょう",
 			"243": "夢見がちな森の民とシェアスペースを鑑賞しましょう",
 			"244": "ハグ好きの隠者とシェアスペースを鑑賞しましょう",
 			"245": "おっちょこちょいな水夫長とシェアスペースを鑑賞しましょう",
-			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(areas.Prairie Village)\"})",
-			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(areas.Temple of the Prairie)\"})",
-			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "資料庫で祈る侍者が夏を記録するのを手伝いましょう",
-			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Vault Rest)\"})",
-			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
-			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(areas.Forest Brook)\"})",
-			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(areas.Wasteland Rest)\"})",
-			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
 			"258": "峡谷の陸通りで彷徨う光をつかまえる",
 			"259": "今日の冒険に渡りの季節の精霊を招待する",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(areas.Prairie Cave)\"})",
 			"261": "他のプレイヤーと感情表現を使う",
 			"262": "雨林の小川で彷徨う光をつかまえる",
 			"263": "鳥の巣で彷徨う光をつかまえる",
@@ -422,24 +358,18 @@
 			"271": "楽園の島々で巨大なマンタに乗る",
 			"272": "腕利きの工匠とシェアスペースを鑑賞しましょう",
 			"273": "蝶々の住処で、たくさんの蝶と一緒に飛行する",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(areas.Forest Brook)\"})",
 			"275": "カチカチ蟹穴でナットの箒レースを完了する",
 			"276": "カチカチ蟹穴の地下で、オースティンが蟹を5匹集めるのを手伝う",
 			"277": "カチカチ蟹穴で、スキッドモアが大砲を5回撃つのを手伝う",
 			"278": "カチカチ蟹穴でヨシが用意したぐつぐつ煮える大釜に飛び込みましょう",
-			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})",
 			"280": "夢見の町の釣り竿を使って何か良いものを釣り上げる",
 			"281": "夢見の町でハグ好きの隠者を見つけ、レースに参加する",
 			"282": "夢見の町で、60秒間Skyボールをプレイする",
 			"283": "誰かに雪玉を投げる",
 			"284": "雨林の高台広場で先祖の食卓を片付ける",
-			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(areas.Crab Fields)\"})",
 			"286": "光のマンタを蝕む闇から解放する",
-			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(areas.Starlight Desert)\"})",
 			"288": "隠者の峠で彷徨う光をつかまえる",
 			"289": "風の街道で彷徨う光をつかまえる",
-			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(areas.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(areas.Hermit Valley)\"})",
 			"292": "草原の庭園でひまわりの種のかけらを収穫する",
 			"293": "草原の庭園でメッセージ・ヒマワリを植える",
 			"294": "草原で笑う光採取者と音楽を演奏する",
@@ -533,7 +463,7 @@
 		"events": "イベント",
 		"travelling-spirit-initialism": "",
 		"event-names": {
-			"double-seasonal-light": "",
+			"double-seasonal-light": "シーズンキャンドル2倍",
 			"double-treasure-candles": "",
 			"halloween-office-event": "",
 			"days-of-giving": "感謝の日々",
@@ -2351,7 +2281,7 @@
 		"maintenance-description-singular": "",
 		"maintenance-description-many": "",
 		"maintenance-description-many-with-times": "",
-		"navigation-back": "",
+		"navigation-back": "戻る",
 		"navigation-next": "",
 		"close": "",
 		"today": "",
@@ -2359,6 +2289,19 @@
 		"wiki": ""
 	},
 	"commands": {
+		"common": {
+			"user": "ユーザー",
+			"type": "ジャンル",
+			"goal": "目標",
+			"start": "開始",
+			"hide": "",
+			"hide-description": "",
+			"name": "名前",
+			"history": "来歴",
+			"search": "検索",
+			"daily-guides": "デイリーガイド",
+			"winged-light": "光の翼"
+		},
 		"about": {
 			"command-name": "概要",
 			"command-description": "Skyの不思議なお手伝いさん、わたしについてです！"
@@ -2369,9 +2312,7 @@
 			"ascended-candles": {
 				"command-name": "星のキャンドル",
 				"command-description": "任意の数の星のキャンドルを獲得するのにかかる日数を計算します。",
-				"command-option-start-name": "開始",
 				"command-option-start-description": "開始時の星のキャンドル所持数。",
-				"command-option-goal-name": "目標",
 				"command-option-goal-description": "目標の星のキャンドル所持数。",
 				"command-option-eye-of-eden-name": "暴風域",
 				"command-option-eye-of-eden-description": "計算に原罪を含めるか。",
@@ -2381,21 +2322,16 @@
 			"event-tickets": {
 				"command-name": "イベントチケット",
 				"command-description": "任意の数のイベントチケットを獲得するのにかかる日数を計算します。",
-				"command-option-start-name": "開始",
 				"command-option-start-description": "開始時のイベントチケット所持数。",
-				"command-option-goal-name": "目標",
 				"command-option-goal-description": "目標のイベントチケット所持数。"
 			},
 			"seasonal-candles": {
 				"command-name": "シーズンキャンドル",
 				"command-description": "任意の数のシーズンキャンドルを獲得するのにかかる日数を計算します。",
-				"command-option-start-name": "開始",
 				"command-option-start-description": "開始時のシーズンキャンドル所持数。",
-				"command-option-goal-name": "目標",
 				"command-option-goal-description": "目標のシーズンキャンドル所持数。"
 			},
 			"winged-light": {
-				"command-name": "光の翼",
 				"command-description": "",
 				"command-option-wing-buffs-name": "",
 				"command-option-wing-buffs-description": ""
@@ -2404,7 +2340,6 @@
 		"catalogue": {
 			"command-name": "カタログ",
 			"command-description": "あなた専用のSkyカタログ。",
-			"command-option-search-name": "",
 			"command-option-search-description": ""
 		},
 		"checklist": {
@@ -2415,7 +2350,6 @@
 			"command-name": "設定",
 			"command-description": "このサーバーの通知設定をします。",
 			"daily-guides": {
-				"command-name": "デイリーガイド",
 				"command-description": "このサーバーにデイリーガイドを設置するコマンドです。"
 			},
 			"me": {
@@ -2432,9 +2366,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "デイリーガイド",
 			"command-description": "デイリーガイドを表示します。",
-			"command-option-type-name": "",
 			"command-option-type-description": ""
 		},
 		"data": {
@@ -2454,20 +2386,17 @@
 			"game": {
 				"command-name": "ゲーム",
 				"command-description": "クイズゲームを始めましょう！",
-				"command-option-type-name": "ジャンル",
 				"command-option-type-description": "どのジャンルのクイズで遊びますか？"
 			},
 			"leaderboard": {
 				"command-name": "ランキング",
 				"command-description": "ランキングを見ましょう！",
-				"command-option-type-name": "ジャンル",
 				"command-option-type-description": "どのクイズについて知りたいですか？"
 			}
 		},
 		"hair-tousle": {
 			"command-name": "なでなで",
 			"command-description": "誰かをなでなでしましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "髪がくしゃくしゃになるまで撫でたい相手。"
 		},
 		"heart": {
@@ -2476,36 +2405,30 @@
 			"gift": {
 				"command-name": "ギフト",
 				"command-description": "誰かにハートを送りましょう！",
-				"command-option-user-name": "",
 				"command-option-user-description": ""
 			},
 			"history": {
-				"command-name": "",
 				"command-description": "仲間とのハートの思い出を見ましょう！"
 			}
 		},
 		"high-five": {
 			"command-name": "ハイタッチ",
 			"command-description": "誰かとハイタッチしましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "ハイタッチしたい相手。"
 		},
 		"hug": {
 			"command-name": "ハグ",
 			"command-description": "誰かとハグしましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "ぎゅーっと抱きしめたい相手。"
 		},
 		"krill": {
 			"command-name": "エビ",
 			"command-description": "相手に暗黒竜をぶつけましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "エビの犠牲者を選ぶ。"
 		},
 		"play-fight": {
 			"command-name": "けんかごっこ",
 			"command-description": "誰かとけんかごっこをしましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "けんかごっこをふっかける相手。"
 		},
 		"quest": {
@@ -2517,10 +2440,7 @@
 		"schedule": {
 			"command-name": "スケジュール",
 			"command-description": "Skyの各イベントスケジュールを呼び出します！",
-			"command-option-type-name": "",
-			"command-option-type-description": "",
-			"command-option-hide-name": "",
-			"command-option-hide-description": ""
+			"command-option-type-description": ""
 		},
 		"shard-eruption": {
 			"command-name": "闇の破片",
@@ -2540,24 +2460,19 @@
 			"edit": {
 				"command-name": "",
 				"command-description": "あなたのSkyプロフィールを作成します。",
-				"command-option-name-name": "名前",
-				"command-option-name-description": "あなたの星の子のお名前はなんですか？",
 				"command-option-icon-name": "アイコン",
 				"command-option-icon-description": "アイコンをアップロードしましょう！",
 				"command-option-banner-name": "バナー",
 				"command-option-banner-description": "バナーをアップロードしましょう！(Webサイト表示用)",
-				"command-option-winged-light-name": "光の翼",
 				"command-option-winged-light-description": "あなたの光の翼の最大枚数は？",
 				"command-option-winged-light-choice-name": {
 					"0": "カタログから推測する。",
 					"1": "ケープなし。"
 				},
 				"command-option-spirit-name": "精霊",
-				"command-option-spirit-description": "あなたが一番好きな精霊は？",
 				"command-option-country-name": "国",
 				"command-option-country-description": "あなたが住んでいる国を伝えますか？",
 				"command-option-hangout-name": "遊び場",
-				"command-option-hangout-description": "あなたが好きな場所はどこですか？",
 				"command-option-catalogue-progression-name": "カタログの進捗",
 				"command-option-catalogue-progression-description": "あなたのカタログの進捗を公開しますか？",
 				"command-option-guess-rank-name": "クイズランキング",
@@ -2566,26 +2481,18 @@
 			"explore": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
 				"command-option-name-description": ""
 			},
 			"show": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "",
-				"command-option-user-description": "",
-				"command-option-hide-name": "",
-				"command-option-hide-description": ""
+				"command-option-user-description": ""
 			}
-		},
-		"Sky-Profile": {
-			"command-name": "Skyプロフィール"
 		},
 		"spirits": {
 			"command-name": "精霊",
 			"command-description": "精霊の情報を調べましょう！",
 			"history": {
-				"command-name": "来歴",
 				"command-description": "長い間訪れていない精霊を含む、精霊が再訪した履歴をご覧ください。",
 				"command-option-order-name": "オーダー",
 				"command-option-order-description": "精霊の表示順を選択します。",
@@ -2595,7 +2502,6 @@
 				}
 			},
 			"search": {
-				"command-name": "検索",
 				"command-description": "精霊の情報を表示します。",
 				"command-option-query-name": "キーワード",
 				"command-option-query-description": "精霊の名前・季節・エモート・姿勢・呼びかけ。"
@@ -2603,6 +2509,15 @@
 		}
 	},
 	"features": {
+		"common": {
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
+			"no-channel-detected": "",
+			"sending": "",
+			"stopped": ""
+		},
 		"about": {
 			"description": "",
 			"magical-companion": "",
@@ -2622,13 +2537,11 @@
 			"goal": "",
 			"required": "",
 			"ascended-candles": {
-				"goal-achieved": "",
 				"no-source": "",
 				"title": "",
 				"goal-first-achievable": "",
 				"minimum-time-beginning": "",
-				"minimum-time-eye-of-eden": "",
-				"minimum-time-shard-eruptions": "闇の破片"
+				"minimum-time-eye-of-eden": ""
 			},
 			"event-tickets": {
 				"no-event": "",
@@ -2640,25 +2553,22 @@
 			},
 			"seasonal-candles": {
 				"no-season": "",
-				"day_one": "",
-				"day_other": "",
-				"day-season-pass_one": "",
-				"day-season-pass_other": "",
 				"title": "",
-				"double-seasonal-light-calculation": ""
+				"double-seasonal-light-calculation": "",
+				"day_other": "",
+				"day-season-pass_other": ""
 			},
 			"winged-light": {
 				"started-with": "",
 				"reborn-with": "",
 				"total": "",
-				"wedge-next_other": "",
-				"wedge-total_other": "",
-				"title": ""
+				"wedge-next": "",
+				"title": "",
+				"wedge-total_other": ""
 			}
 		},
 		"calendar": {
 			"name": "",
-			"description": "",
 			"description-short": "",
 			"view-month": "",
 			"view-week": "",
@@ -2674,30 +2584,24 @@
 			"next-year": "",
 			"legend": "",
 			"nothing-scheduled": "",
-			"duration_one": "",
-			"duration_other": "",
-			"jump-to-date": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
 			"during-the-day": "",
 			"view-date": "",
-			"cadence_one": "",
-			"cadence_other": "",
-			"community-event": ""
+			"community-event": "",
+			"duration_other": "",
+			"cadence_other": ""
 		},
 		"catalogue": {
 			"main-title": "カタログ",
-			"description": "",
 			"description-short": "",
 			"main-description": "",
 			"standard-spirits": "",
 			"elders": "",
-			"events": "$t(general:events)",
 			"starter-packs": "",
 			"secret-area": "",
 			"clothing-shop": "",
-			"nesting-workshop": "",
 			"main-no-progress": "",
 			"main-progress": "",
 			"search-placeholder": "",
@@ -2763,7 +2667,6 @@
 			"description": "{{user}}さん、Skyでの活躍を記録しましょう！",
 			"description-short": "Skyでの活躍を記録しましょう。",
 			"complete": "完了",
-			"reset": "リセット",
 			"daily-quests-message-incomplete": "デイリークエストは全て完了しましたか？",
 			"daily-quests-message-complete": "デイリークエストを全て達成しました！お見事です！",
 			"daily-quests-show-button-label": "デイリーガイドを見る",
@@ -2796,52 +2699,35 @@
 				"1": ""
 			},
 			"setup-description": "",
-			"setup-no-channel-detected": "",
 			"setup-no-channel-selected": "",
 			"setup-channel-select-menu-placeholder": "",
 			"setup-type-string-select-menu-placeholder": "",
-			"setup-stopped": "",
-			"setup-sending": "",
 			"quests-heading": "クエスト",
 			"treasure-candles": "キャンドルのかたまり",
-			"seasonal-candles": "シーズンキャンドル",
 			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
-			"shard-eruption-none": "",
 			"travelling-rock": "小さな岩の冒険",
 			"infographic-acknowledgement-item": "",
-			"season-upcoming_one": "",
-			"season-upcoming_other": "",
-			"double-hearts-upcoming_one": "",
-			"double-hearts-upcoming_other": "",
-			"double-seasonal-light-upcoming_one": "",
-			"double-seasonal-light-upcoming_other": "",
-			"double-treasure-candles-upcoming_one": "",
-			"double-treasure-candles-upcoming_other": "",
-			"returning-spirits-active-list_zero": "",
-			"returning-spirits-active-list_one": "",
-			"returning-spirits-active-list_other": "",
-			"returning-spirits-upcoming-list_one": "",
-			"returning-spirits-upcoming-list_other": "",
-			"event-upcoming_one": "",
-			"event-upcoming_other": "",
+			"returning-spirits-leave-today": "",
 			"event-upcoming-time": "",
-			"maintenance-upcoming_one": "",
-			"maintenance-upcoming_other": "",
-			"update-upcoming_zero": "",
-			"update-upcoming_one": "",
-			"update-upcoming_other": "",
+			"maintenance-tomorrow": "",
+			"update-releases-today": "",
 			"not-yet-updated": "",
 			"not-yet-updated-support-server": "",
 			"error-thread-archived": "このスレッドはアーカイブされました。",
 			"error-thread-locked": "このスレッドはロックされています。",
-			"error-missing-permissions": "",
-			"error-missing-permissions-website": "",
-			"error-missing-permissions-thread": "",
-			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "",
-			"quest-no-infographic": ""
+			"quest-no-infographic": "",
+			"season-upcoming_other": "",
+			"double-hearts-upcoming_other": "",
+			"double-seasonal-light-upcoming_other": "",
+			"double-treasure-candles-upcoming_other": "",
+			"returning-spirits-active-list_other": "",
+			"returning-spirits-upcoming-list_other": "",
+			"event-upcoming_other": "",
+			"maintenance-upcoming_other": "",
+			"update-upcoming_other": ""
 		},
 		"data": {
 			"delete-message": "",
@@ -2884,13 +2770,11 @@
 		},
 		"guess": {
 			"type": {
-				"0": "$t(general:spirit-plural)",
-				"1": "",
-				"2": "$t(general:events)"
+				"1": ""
 			},
 			"title": "この絵に当てはまるのは？",
 			"guess-in": "残り{{time}}!",
-			"footer": "ジャンル: $t(guess.type.{{type}}) | スコア: {{streak}} | ハイスコア: {{highestStreak}}",
+			"footer": "ジャンル: {{type}} | スコア: {{streak}} | ハイスコア: {{highestStreak}}",
 			"end-game": "ゲーム終了",
 			"try-again": "もう一回？",
 			"game-over": "Game Over",
@@ -2899,7 +2783,7 @@
 			"too-late": "時間切れです！",
 			"game-interaction-not-self": "別ユーザーのゲームはプレイできません！",
 			"leaderboard-nothing": "ランキングには何もありません。1位になってみませんか？",
-			"leaderboard-title": "$t(guess.type.{{type}}) ランキング",
+			"leaderboard-title": "{{type}} ランキング",
 			"leaderboard-you": "あなた: {{rank}}位 ({{streak}})"
 		},
 		"heart": {
@@ -2923,7 +2807,7 @@
 			"history-received-message-extra": ""
 		},
 		"me": {
-			"title": "Me",
+			"title": "わたし",
 			"message": "わたしをカスタマイズしてみませんか？✨\n\nこのサーバー上で、わたしのbio・アバター・バナーの変更ができます。カスタマイズボタンを押して、わたしの見え方を設定しましょう！\n\n下の削除ボタンを押して、設定済みの各項目をデフォルトの状態に戻します。",
 			"customise-me-button-label": "わたしのカスタマイズ！",
 			"customise-me-modal-title": "わたしのカスタマイズ",
@@ -2931,7 +2815,6 @@
 			"customise-me-modal-label-bio-description": "このサーバーに表示するわたしのbioを記入します。",
 			"customise-me-modal-label-avatar-label": "Avatar",
 			"customise-me-modal-label-avatar-description": "このサーバーに表示するわたしのアバターをアップロードします。",
-			"customise-me-modal-label-banner-label": "Banner",
 			"customise-me-modal-label-banner-description": "このサーバーに表示するわたしのバナーをアップロードします。",
 			"delete-bio-button-label": "bioの削除",
 			"delete-avatar-button-label": "アバターの削除",
@@ -2939,7 +2822,6 @@
 			"rate-limit": ""
 		},
 		"notifications": {
-			"back": "戻る",
 			"title": "",
 			"setup-description": "",
 			"setup-option-sending": "",
@@ -2947,12 +2829,8 @@
 			"setup-option-not-set-up": "",
 			"setup-type-string-select-menu-placeholder": "",
 			"edit-offset-now-description": "",
-			"edit-no-channel-detected": "",
 			"edit-channel-and-role-required": "",
 			"edit-offset-required": "",
-			"edit-stopped": "",
-			"edit-sending": "",
-			"error-missing-permissions": "",
 			"error-cannot-mention-role": "",
 			"messages": {
 				"0": {
@@ -3054,59 +2932,33 @@
 			"edit-offset-string-select-menu-placeholder": ""
 		},
 		"schedule": {
+			"timestamps": "",
+			"detailed-breakdown-requires": "",
+			"detailed-breakdown-two-hourly-message": "",
 			"type": {
-				"0": "デイリーリセット",
-				"1": "原罪",
-				"2": "",
-				"3": "$t(general:travelling-spirit)",
-				"4": "",
-				"5": "間欠泉",
-				"6": "高台広場",
-				"7": "ウミガメ",
-				"8": "$t(general:shard-eruption)",
-				"9": "",
-				"10": "",
-				"11": "",
-				"12": "",
 				"13": "",
-				"14": "",
 				"15": "",
-				"16": "$t(general:cosmetic-names.2498)",
 				"17": "",
-				"18": "$t(general:maintenance)",
-				"19": "$t(general:event-names.radiance-event)",
-				"20": "$t(general:event)",
-				"21": "$t(general:season)",
-				"22": "$t(general:returning-spirits)",
 				"23": ""
 			},
 			"name": "スケジュール",
-			"description": "",
 			"description-short": "",
 			"local-time-notice": "",
 			"sky-time": "",
 			"overview-active": "",
 			"overview-available": "",
 			"overview-upcoming": "",
-			"overview-unavailable": "",
-			"overview-next": "",
 			"overview-next-timestamp": "",
 			"overview-next-available-timestamp": "",
-			"overview-ends": "",
 			"overview-ends-timestamp": "",
-			"overview-in": "",
 			"overview": "",
 			"update-version": "",
 			"event-ongoing": "",
 			"event-will-occur": "",
-			"next-daily-reset": "",
 			"overview-detailed-breakdown-message": "",
 			"overview-detailed-breakdown-string-select-menu-placeholder": "",
 			"detailed-breakdown-daily-reset-message": "",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "",
-			"next-eye-of-eden": "",
 			"detailed-breakdown-eye-of-eden-message": "",
-			"detailed-breakdown-international-space-station-time": "",
 			"detailed-breakdown-international-space-station-wiki-button-url": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E7%A7%98%E5%AF%86%E3%81%AE%E3%82%A8%E3%83%AA%E3%82%A2#%E5%9B%BD%E9%9A%9B%E5%AE%87%E5%AE%99%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3(ISS)",
 			"detailed-breakdown-international-space-station-message": "",
 			"detailed-breakdown-international-space-station-requires": "",
@@ -3119,11 +2971,8 @@
 			"detailed-breakdown-returning-spirits-message-future": "",
 			"detailed-breakdown-returning-spirits-message-none": "",
 			"detailed-breakdown-polluted-geyser-wiki-button-url": "",
-			"detailed-breakdown-polluted-geyser-message": "",
 			"detailed-breakdown-grandma-wiki-button-url": "",
-			"detailed-breakdown-grandma-message": "",
 			"detailed-breakdown-turtle-wiki-button-url": "",
-			"detailed-breakdown-turtle-message": "",
 			"detailed-breakdown-shard-eruptions-view": "",
 			"detailed-breakdown-shard-eruptions-website": "",
 			"detailed-breakdown-shard-eruptions-upcoming": "",
@@ -3132,7 +2981,6 @@
 			"detailed-breakdown-dreams-skater-message": "",
 			"detailed-breakdown-aurora-wiki-button-url": "https://sky-children-of-the-light.fandom.com/ja/wiki/AURORA%E3%82%B3%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%88",
 			"detailed-breakdown-aurora-message": "",
-			"detailed-breakdown-aurora-requires": "",
 			"detailed-breakdown-passage-wiki-button-url": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E3%81%AA%E3%82%89%E3%81%84%E3%81%AE%E5%AD%A3%E7%AF%80#%E7%B2%BE%E9%9C%8A%E3%81%AE%E8%A8%98%E6%86%B6%E3%81%AE%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88",
 			"detailed-breakdown-passage-message": "",
 			"detailed-breakdown-aviarys-firework-festival-message": "",
@@ -3144,19 +2992,15 @@
 			"detailed-breakdown-nine-coloured-deer-time-720": "",
 			"detailed-breakdown-nine-coloured-deer-time-1200": "",
 			"detailed-breakdown-nine-coloured-deer-message": "",
-			"detailed-breakdown-nine-coloured-deer-requires": "",
-			"next-nesting-workshop": "",
 			"detailed-breakdown-nesting-workshop-wiki-button-url": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E5%B7%A3%E3%81%A5%E3%81%8F%E3%82%8A%E5%B7%A5%E6%88%BF",
 			"detailed-breakdown-nesting-workshop-message": "",
 			"detailed-breakdown-vault-elders-blessing-wiki-button-url": "",
 			"detailed-breakdown-vault-elders-blessing-message": "",
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E3%81%B5%E3%81%9F%E3%81%A4%E3%81%AE%E7%81%AF%E7%81%AB%E3%81%AE%E5%AD%A3%E7%AF%80_%E2%88%92%E5%89%8D%E7%AF%87%E2%88%92#%E8%A8%98%E6%86%B6%E3%81%AE%E6%98%A0%E5%86%99%E6%A9%9F",
 			"detailed-breakdown-projector-of-memories-message": "",
-			"detailed-breakdown-projector-of-memories-requires": "",
 			"detailed-breakdown-radiance-message": "",
 			"detailed-breakdown-radiance-event": "",
-			"detailed-breakdown-nothing-planned": "",
-			"back": ""
+			"detailed-breakdown-nothing-planned": ""
 		},
 		"settings": {
 			"name": "",
@@ -3166,15 +3010,13 @@
 			"time-format-twenty-four": "24時間"
 		},
 		"shard-eruption": {
-			"name-plural": "",
+			"name-plural": "闇の破片",
 			"description-short": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
 			"browse-no-shard": "",
-			"none": "",
 			"browse": "",
-			"jump-to-date": "",
 			"realm-area": "$t(general:realms.{{realm}})（$t(general:areas.{{area}})）"
 		},
 		"sky-profile": {
@@ -3189,6 +3031,7 @@
 			"select-a-spirit": "",
 			"random": "ランダム",
 			"me": "あなた",
+			"report": "",
 			"country-unspecified": "不明/地球のどこか",
 			"search-none": "Skyプロフィールがありません。",
 			"unknown-country": "",
@@ -3197,7 +3040,6 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
-			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",
@@ -3209,13 +3051,11 @@
 			"explore-profile-like-button-like": "",
 			"explore-profile-like-button-unlike": "",
 			"explore-profile-explore-button": "",
-			"explore-profile-report-button": "",
 			"explore-likes-none": "",
 			"explore-likes-description": "",
 			"no-sky-profile-explore-likes": "",
 			"like-own-profile": "",
 			"report-description": "",
-			"report-confirm-button": "",
 			"report-modal-title": "",
 			"report-modal-label-reason-label": "",
 			"report-modal-label-reason-description": "",
@@ -3227,7 +3067,6 @@
 				"3": "概要",
 				"4": "光の翼",
 				"5": "遊び場",
-				"6": "$t(general:season-plural)",
 				"7": "プラットフォーム",
 				"8": "カタログの進捗",
 				"9": "クイズゲームランキング",
@@ -3248,23 +3087,17 @@
 				"9": "あなたのクイズゲームのランキングを公開しますか？",
 				"10": "",
 				"11": "",
-				"12": ""
+				"12": "あなたが一番好きな精霊は？"
 			},
-			"edit-modal-title": "Skyプロフィール",
-			"edit-modal-label-name-label": "名前",
 			"edit-modal-label-name-description": "あなたの星の子のお名前は？",
-			"edit-modal-label-description-label": "概要",
 			"edit-modal-label-description-description": "あなたの星の子の概要を綴りましょう！",
-			"edit-modal-label-icon-label": "アイコン",
 			"edit-modal-label-icon-description": "あなたの星の子のアイコンをアップロードしましょう！",
-			"edit-modal-label-banner-label": "バナー",
 			"edit-modal-label-banner-description": "あなたの星の子のバナーをアップロードしましょう！これはWebサイトのみで表示されます。",
 			"edit-winged-light-description": "",
 			"edit-winged-light-string-select-menu-placeholder": "",
 			"edit-winged-light-invalid": "",
 			"edit-catalogue-progression-invalid": "",
 			"edit-guess-rank-invalid": "",
-			"edit-modal-label-hangout-label": "",
 			"edit-modal-label-hangout-description": "",
 			"edit-seasons-string-select-menu-placeholder": "",
 			"edit-platforms-string-select-menu-placeholder": "",
@@ -3279,7 +3112,6 @@
 			},
 			"edit-platform-invalid": "",
 			"edit-personality-invalid": "",
-			"personality": "",
 			"personality-types": {
 				"0": "助言者",
 				"1": "覇者",
@@ -3303,7 +3135,6 @@
 			"reset-string-select-menu-placeholder": "",
 			"country": "",
 			"winged-light": "",
-			"winged-light-capeless": "",
 			"winged-light-max": "",
 			"favourite-spirit": "",
 			"favourite-hangout": "",
@@ -3367,6 +3198,18 @@
 			"order-natural": "再訪順",
 			"order-label": "",
 			"order-rarity": "レア度順"
+		},
+		"thatskylink": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"links": "",
+			"patterns": "",
+			"patch-notes": "",
+			"sky-profiles": "",
+			"this-month-in-sky": "",
+			"latest-patch-notes": ""
 		},
 		"welcome": {
 			"preview": "",

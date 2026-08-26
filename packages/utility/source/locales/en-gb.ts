@@ -7,7 +7,7 @@ import {
 } from "../daily-guides.js";
 import { GuessType, type GuessTypes } from "../guess.js";
 import { SkyProfileMissingNameSource, type SkyProfileMissingNameSources } from "../heart.js";
-import { AreaName, isRealm, REALM_NAME_VALUES, RealmName } from "../kingdom/geography.js";
+import { AreaName, REALM_NAME_VALUES } from "../kingdom/geography.js";
 import { SpiritKind } from "../models/spirits.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
@@ -28,10 +28,6 @@ import {
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
 } from "../utility/spirits.js";
-
-function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | AreaName) {
-	return `$t(quests-common.meet-up-with, ${JSON.stringify({ spirit: `$t(spirits.${spiritId})`, location: `$t(${isRealm(location) ? "realms" : "areas"}.${location})` })})`;
-}
 
 export default {
 	general: {
@@ -58,21 +54,25 @@ export default {
 		hearts: "Hearts",
 		"ascended-candles": "Ascended candles",
 		"seasonal-candles": "Seasonal candles",
+		"jump-to-date": "Jump to a date",
+		none: "None",
+		reset: "Reset",
+		"none_travelling-rock": "None",
 		"seasonal-hearts": "Seasonal hearts",
 		"days-left": {
-			season_zero: "The season ends today.",
+			"season-ends-today": "The season ends today.",
 			season_one: "{{count}} day left in the season.",
 			season_other: "{{count}} days left in the season.",
-			event_zero: "{{name}} ends today.",
+			"event-ends-today": "{{name}} ends today.",
 			event_one: "{{count}} day left in {{name}}.",
 			event_other: "{{count}} days left in {{name}}.",
-			"double-hearts_zero": "Double hearts ends today.",
+			"double-hearts-ends-today": "Double hearts ends today.",
 			"double-hearts_one": "{{count}} day left of double hearts.",
 			"double-hearts_other": "{{count}} days left of double hearts.",
-			"double-seasonal-light_zero": "Double seasonal light ends today.",
+			"double-seasonal-light-ends-today": "Double seasonal light ends today.",
 			"double-seasonal-light_one": "{{count}} day left of double seasonal light.",
 			"double-seasonal-light_other": "{{count}} days left of double seasonal light.",
-			"double-treasure-candles_zero": "Double treasure candles ends today.",
+			"double-treasure-candles-ends-today": "Double treasure candles ends today.",
 			"double-treasure-candles_one": "{{count}} day left of double treasure candles.",
 			"double-treasure-candles_other": "{{count}} days left of double treasure candles.",
 		},
@@ -146,9 +146,8 @@ export default {
 			[AreaName.WanderingCarnival]: "Wandering Carnival",
 			[AreaName.TheLastCity]: "The Last City",
 		} satisfies Record<AreaName, string>,
-		"notification-types": {
+		occurrences: {
 			[NotificationType.DailyReset]: "Daily reset",
-			[NotificationType.EyeOfEden]: "Eye of Eden",
 			[NotificationType.InternationalSpaceStation]: "International Space Station",
 			[NotificationType.Dragon]: "Dragon",
 			[NotificationType.PollutedGeyser]: "Polluted geyser",
@@ -156,21 +155,10 @@ export default {
 			[NotificationType.Turtle]: "Turtle",
 			[NotificationType.RegularShardEruption]: "Shard eruption (regular)",
 			[NotificationType.StrongShardEruption]: "Shard eruption (strong)",
-			[NotificationType.AURORA]: "AURORA",
 			[NotificationType.Passage]: "Passage",
-			[NotificationType.AviarysFireworkFestival]: "Aviary's Firework Festival",
-			[NotificationType.TravellingSpirit]: "$t(general:travelling-spirit)",
 			[NotificationType.DreamsSkater]: "Dreams skater",
 			[NotificationType.NestingWorkshop]: "Nesting Workshop",
-			[NotificationType.Maintenance]: "$t(general:maintenance)",
-			[NotificationType.Events]: "$t(general:events)",
-			[NotificationType.RadianceEvent]: "$t(general:event-names.radiance-event)",
-			[NotificationType.Seasons]: "$t(general:season-plural)",
-			[NotificationType.DoubleHearts]: "$t(general:event-names.double-hearts)",
-			[NotificationType.DoubleSeasonalLight]: "Double seasonal light",
-			[NotificationType.DoubleTreasureCandles]: "$t(general:event-names.double-treasure-candles)",
-			[NotificationType.ReturningSpirits]: "$t(general:returning-spirits)",
-		} satisfies Record<NotificationTypes, string>,
+		} satisfies Partial<Record<NotificationTypes, string>>,
 		page: "Page",
 		"quests-common": {
 			"meet-up-with": "Meet up with {{spirit}} in {{location}}",
@@ -377,18 +365,6 @@ export default {
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
 				"Splash in the water with Cinnamoroll in Aviary Village",
 			[DailyQuest.PlayAnyTournamentSport]: "Play any Tournament sport",
-			[DailyQuest.MeetUpWithModestDancerInVillageOfDreams]: questsMeetUpWith(
-				SpiritId.ModestDancer,
-				AreaName.VillageOfDreams,
-			),
-			[DailyQuest.MeetUpWithForgetfulStorytellerInVillageOfDreams]: questsMeetUpWith(
-				SpiritId.ForgetfulStoryteller,
-				AreaName.VillageOfDreams,
-			),
-			[DailyQuest.MeetUpWithFranticStagehandInVillageTheatre]: questsMeetUpWith(
-				SpiritId.FranticStagehand,
-				AreaName.VillageTheatre,
-			),
 			[DailyQuest.MellowMusicianNeedsHelpWithSomethingInVillageTheatre]:
 				"Mellow Musician needs help with something in Village Theatre",
 			[DailyQuest.ChangeYourHairstyle]: "Change your hairstyle",
@@ -401,102 +377,6 @@ export default {
 				"View a shared memory at a Style Runway Shrine",
 			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
 				"Record a shared memory at a Style Runway Shrine",
-			[DailyQuest.MeetUpWithCacklingCannoneerInTreasureReef]: questsMeetUpWith(
-				SpiritId.CacklingCannoneer,
-				AreaName.TreasureReef,
-			),
-			[DailyQuest.MeetUpWithAnxiousAnglerInTreasureReef]: questsMeetUpWith(
-				SpiritId.AnxiousAngler,
-				AreaName.TreasureReef,
-			),
-			[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]: questsMeetUpWith(
-				SpiritId.MellowMusician,
-				AreaName.VillageOfDreams,
-			),
-			[DailyQuest.MeetUpWithAnxiousAnglerInGoldenWasteland]: questsMeetUpWith(
-				SpiritId.AnxiousAngler,
-				RealmName.GoldenWasteland,
-			),
-			[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]: questsMeetUpWith(
-				SpiritId.AnxiousAngler,
-				AreaName.CrabFields,
-			),
-			[DailyQuest.MeetUpWithCeasingCommodoreInTreasureReef]: questsMeetUpWith(
-				SpiritId.CeasingCommodore,
-				AreaName.TreasureReef,
-			),
-			[DailyQuest.MeetUpWithBlushingProspectorInForestBrook]: questsMeetUpWith(
-				SpiritId.BlushingProspector,
-				AreaName.ForestBrook,
-			),
-			[DailyQuest.MeetUpWithShiveringTrailblazerInForestBrook]: questsMeetUpWith(
-				SpiritId.ShiveringTrailblazer,
-				AreaName.ForestBrook,
-			),
-			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: questsMeetUpWith(
-				SpiritId.CacklingCannoneer,
-				AreaName.TheGraveyard,
-			),
-			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: questsMeetUpWith(
-				SpiritId.HideNSeekPioneer,
-				AreaName.Boneyard,
-			),
-			[DailyQuest.MeetUpWithHideNSeekPioneerInElevatedClearing]: questsMeetUpWith(
-				SpiritId.HideNSeekPioneer,
-				AreaName.ElevatedClearing,
-			),
-			[DailyQuest.MeetUpWithBumblingBoatswainInForgottenArk]: questsMeetUpWith(
-				SpiritId.BumblingBoatswain,
-				AreaName.ForgottenArk,
-			),
-			[DailyQuest.MeetUpWithHideNSeekPioneerInHiddenForest]: questsMeetUpWith(
-				SpiritId.HideNSeekPioneer,
-				RealmName.HiddenForest,
-			),
-			[DailyQuest.MeetUpWithCacklingCannoneerInForgottenArk]: questsMeetUpWith(
-				SpiritId.CacklingCannoneer,
-				AreaName.ForgottenArk,
-			),
-			[DailyQuest.MeetUpWithApologeticLumberjackInBoneyard]: questsMeetUpWith(
-				SpiritId.ApologeticLumberjack,
-				AreaName.Boneyard,
-			),
-			[DailyQuest.MeetUpWithCeasingCommodoreInForgottenArk]: questsMeetUpWith(
-				SpiritId.CeasingCommodore,
-				AreaName.ForgottenArk,
-			),
-			[DailyQuest.MeetUpWithJollyGeologistInPrairiePeaks]: questsMeetUpWith(
-				SpiritId.JollyGeologist,
-				AreaName.PrairiePeaks,
-			),
-			[DailyQuest.MeetUpWithDismayedHunterInBoneyard]: questsMeetUpWith(
-				SpiritId.DismayedHunter,
-				AreaName.Boneyard,
-			),
-			[DailyQuest.MeetUpWithWhaleWhispererInBoneyard]: questsMeetUpWith(
-				SpiritId.WhaleWhisperer,
-				AreaName.Boneyard,
-			),
-			[DailyQuest.MeetUpWithAsceticMonkInSanctuaryIslands]: questsMeetUpWith(
-				SpiritId.AsceticMonk,
-				AreaName.SanctuaryIslands,
-			),
-			[DailyQuest.MeetUpWithNightbirdWhispererInSanctuaryIslands]: questsMeetUpWith(
-				SpiritId.NightbirdWhisperer,
-				AreaName.SanctuaryIslands,
-			),
-			[DailyQuest.MeetUpWithJollyGeologistInSanctuaryIslands]: questsMeetUpWith(
-				SpiritId.JollyGeologist,
-				AreaName.SanctuaryIslands,
-			),
-			[DailyQuest.MeetUpWithAsceticMonkInPrairieVillage]: questsMeetUpWith(
-				SpiritId.AsceticMonk,
-				AreaName.PrairieVillage,
-			),
-			[DailyQuest.MeetUpWithNightbirdWhispererInPrairieVillage]: questsMeetUpWith(
-				SpiritId.NightbirdWhisperer,
-				AreaName.PrairieVillage,
-			),
 			[DailyQuest.HelpAnxiousAnglerOrScoldingStudentFindTreasureInStarlightDesert]:
 				"Help Anxious Angler or Scolding Student find treasure in Starlight Desert",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
@@ -525,22 +405,6 @@ export default {
 				"Help the Anxious Angler or the Scolding Student find treasure in Hidden Forest",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"Help the Cackling Cannoneer or the Chuckling Scout find treasure in Village of Dreams",
-			[DailyQuest.MeetUpWithPleadingChildInRepositoryOfRefuge]: questsMeetUpWith(
-				SpiritId.PleadingChild,
-				AreaName.RepositoryOfRefuge,
-			),
-			[DailyQuest.MeetUpWithAsceticMonkInPrairiePeaks]: questsMeetUpWith(
-				SpiritId.AsceticMonk,
-				AreaName.PrairiePeaks,
-			),
-			[DailyQuest.MeetUpWithReassuringRangerInPrairiePeaks]: questsMeetUpWith(
-				SpiritId.ReassuringRanger,
-				AreaName.PrairiePeaks,
-			),
-			[DailyQuest.MeetUpWithBlushingProspectorInValleyOfTriumph]: questsMeetUpWith(
-				SpiritId.BlushingProspector,
-				RealmName.ValleyOfTriumph,
-			),
 			[DailyQuest.InvestigateABlueBirdSightingInTheFrozenLake]:
 				"Investigate a blue bird sighting in the Frozen Lake",
 			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
@@ -557,41 +421,9 @@ export default {
 				"Find a clue of the Blue Bird's whereabouts in Village Theater",
 			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
 				"Find a clue of the Blue Bird's whereabouts in the Forest Clearing",
-			[DailyQuest.MeetUpWithBumblingBoatswainInTreasureReef]: questsMeetUpWith(
-				SpiritId.BumblingBoatswain,
-				AreaName.TreasureReef,
-			),
-			[DailyQuest.MeetUpWithTalentedBuilderInBirdNest]: questsMeetUpWith(
-				SpiritId.TalentedBuilder,
-				AreaName.BirdNest,
-			),
-			[DailyQuest.MeetUpWithTinkeringChimesmithInBirdNest]: questsMeetUpWith(
-				SpiritId.TinkeringChimesmith,
-				AreaName.BirdNest,
-			),
-			[DailyQuest.MeetUpWithLightWhispererInBirdNest]: questsMeetUpWith(
-				SpiritId.LightWhisperer,
-				AreaName.BirdNest,
-			),
-			[DailyQuest.MeetUpWithLivelyNavigatorInBirdNest]: questsMeetUpWith(
-				SpiritId.LivelyNavigator,
-				AreaName.BirdNest,
-			),
 			[DailyQuest.PickUpACrab]: "Pick up a crab",
 			[DailyQuest.AdmireSharedSpacesAtTheBrokenBellTowerInAviaryVillageForAShortWhile]:
 				"Admire Shared Spaces at the Broken Bell Tower in Aviary Village for a short while",
-			[DailyQuest.MeetUpWithGratefulShellCollectorInAviaryVillage]: questsMeetUpWith(
-				SpiritId.GratefulShellCollector,
-				AreaName.AviaryVillage,
-			),
-			[DailyQuest.MeetUpWithSparklerParentInAviaryVillage]: questsMeetUpWith(
-				SpiritId.SparklerParent,
-				AreaName.AviaryVillage,
-			),
-			[DailyQuest.MeetUpWithAsceticMonkInAviaryVillage]: questsMeetUpWith(
-				SpiritId.AsceticMonk,
-				AreaName.AviaryVillage,
-			),
 			[DailyQuest.AdmireSharedSpacesWithApplaudingBellmaker]:
 				"Admire Shared Spaces with Applauding Bellmaker",
 			[DailyQuest.AdmireSharedSpacesWithDaydreamForester]:
@@ -599,60 +431,12 @@ export default {
 			[DailyQuest.AdmireSharedSpacesWithBearhugHermit]: "Admire Shared Spaces with Bearhug Hermit",
 			[DailyQuest.AdmireSharedSpacesWithBumblingBoatswain]:
 				"Admire Shared Spaces with Bumbling Boatswain",
-			[DailyQuest.MeetUpWithFlightGuideInPrairieVillage]: questsMeetUpWith(
-				SpiritId.FlightGuide,
-				AreaName.PrairieVillage,
-			),
-			[DailyQuest.MeetUpWithLaughingLightCatcherInValleyOfTriumph]: questsMeetUpWith(
-				SpiritId.LaughingLightCatcher,
-				RealmName.ValleyOfTriumph,
-			),
-			[DailyQuest.MeetUpWithCourageousSoldierInValleyOfTriumph]: questsMeetUpWith(
-				SpiritId.CourageousSoldier,
-				RealmName.ValleyOfTriumph,
-			),
-			[DailyQuest.MeetUpWithFlightGuideInPrairieTemple]: questsMeetUpWith(
-				SpiritId.FlightGuide,
-				AreaName.TempleOfThePrairie,
-			),
-			[DailyQuest.MeetUpWithBackflippingChampionInValleyOfTriumph]: questsMeetUpWith(
-				SpiritId.BackflippingChampion,
-				RealmName.ValleyOfTriumph,
-			),
 			[DailyQuest.HelpThePrayingAcolyteArchiveSummerInTheArchives]:
 				"Help Praying Acolyte archive summer in the Vault Archive",
-			[DailyQuest.MeetUpWithThoughtfulDirectorInVaultOfKnowledge]: questsMeetUpWith(
-				SpiritId.ThoughtfulDirector,
-				AreaName.VaultRest,
-			),
-			[DailyQuest.MeetUpWithApplaudingBellmakerInDaylightPrairie]: questsMeetUpWith(
-				SpiritId.ApplaudingBellmaker,
-				RealmName.DaylightPrairie,
-			),
-			[DailyQuest.MeetUpWithFestivalSpinDancerInForestBrook]: questsMeetUpWith(
-				SpiritId.FestivalSpinDancer,
-				AreaName.ForestBrook,
-			),
-			[DailyQuest.MeetUpWithAdmiringActorInBirdNest]: questsMeetUpWith(
-				SpiritId.AdmiringActor,
-				AreaName.BirdNest,
-			),
-			[DailyQuest.MeetUpWithTroupeJugglerInWastelandRest]: questsMeetUpWith(
-				SpiritId.TroupeJuggler,
-				AreaName.WastelandRest,
-			),
-			[DailyQuest.MeetUpWithThoughtfulDirectorInRepositoryOfRefuge]: questsMeetUpWith(
-				SpiritId.ThoughtfulDirector,
-				AreaName.RepositoryOfRefuge,
-			),
 			[DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace]:
 				"Catch the wandering lights along the Lower Valley Track",
 			[DailyQuest.InviteASeasonOfMigrationSpiritToAdventureWithYouToday]:
 				"Invite a Season of Migration spirit to adventure with you today",
-			[DailyQuest.MeetUpWithTumblingTroublemakerInPrairieCave]: questsMeetUpWith(
-				SpiritId.TumblingTroublemaker,
-				AreaName.PrairieCave,
-			),
 			[DailyQuest.UseExpressionsWithPlayers]: "Use expressions with players",
 			[DailyQuest.CatchTheWanderingLightsInTheForestBrook]:
 				"Catch the wandering lights in the Forest Brook",
@@ -676,10 +460,6 @@ export default {
 				"Admire Shared Spaces with Talented Builder",
 			[DailyQuest.FlyWithManyButterfliesInButterflyFields]:
 				"Fly with many butterflies in Butterfly Fields",
-			[DailyQuest.MeetUpWithMelancholyMopeInForestBrook]: questsMeetUpWith(
-				SpiritId.MelancholyMope,
-				AreaName.ForestBrook,
-			),
 			[DailyQuest.FinishNatsBroomstickRaceInCacklingCrab]:
 				"Finish Nat's broomstick race in the Cackling Crab",
 			[DailyQuest.HelpAustinCollect5CrabsInTheBasementOfTheCacklingCrab]:
@@ -688,10 +468,6 @@ export default {
 				"Help Skidmore fire the cannons 3 times in the Cackling Crab",
 			[DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab]:
 				"Hop into Yoshi's cauldron brew in the Cackling Crab",
-			[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: questsMeetUpWith(
-				SpiritId.OddballOutcast,
-				RealmName.HiddenForest,
-			),
 			[DailyQuest.CatchSomethingGoodWithAFishingPoleInVillageOfDreams]:
 				"Catch something good with a fishing pole in Village of Dreams",
 			[DailyQuest.FindBearhugHermitInVillageOfDreamsAndPlayARace]:
@@ -701,26 +477,10 @@ export default {
 			[DailyQuest.ThrowASnowballAtSomeone]: "Throw a snowball at someone",
 			[DailyQuest.TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing]:
 				"Tidy up the Ancestor's table in the Elevated Clearing",
-			[DailyQuest.MeetUpWithCrabWhispererInCrabFields]: questsMeetUpWith(
-				SpiritId.CrabWhisperer,
-				AreaName.CrabFields,
-			),
 			[DailyQuest.RescueAMantaFromDarkness]: "Rescue a manta from darkness",
-			[DailyQuest.MeetUpWithDuetsGuideInStarlightDesert]: questsMeetUpWith(
-				SpiritId.DuetsGuide,
-				AreaName.StarlightDesert,
-			),
 			[DailyQuest.CatchTheWanderingLightsAtopHermitValley]:
 				"Catch the wandering lights atop Hermit Valley",
 			[DailyQuest.CatchThe3LightsInTheWindPaths]: "Catch the wandering lights in The Wind Paths",
-			[DailyQuest.MeetUpWithTalentedBuilderInTheWindPaths]: questsMeetUpWith(
-				SpiritId.TalentedBuilder,
-				AreaName.TheWindPaths,
-			),
-			[DailyQuest.MeetUpWithBearhugHermitInHermitValley]: questsMeetUpWith(
-				SpiritId.BearhugHermit,
-				AreaName.HermitValley,
-			),
 			[DailyQuest.HarvestTheSunflowerSeedLightAtTheGardenInDaylightPrairie]:
 				"Harvest the Sunflower Seed Light at the Garden in Daylight Prairie",
 			[DailyQuest.PlantASunflowerMessageAtTheGardenInDaylightPrairie]:
@@ -760,7 +520,7 @@ export default {
 				"Help Ceasing Commodore or Bearhug Hermit find treasure in Village of Dreams",
 			[DailyQuest.WaveToAPlayer]: "Wave to a player",
 			[DailyQuest.ProposeAKiteDesignInPrairieHeights]: "Propose a kite design in Prairie Heights",
-		} satisfies Record<DailyQuests, string>,
+		} satisfies Partial<Record<DailyQuests, string>>,
 		light: "Light",
 		season: "Season",
 		"season-plural": "Seasons",
@@ -2847,6 +2607,19 @@ export default {
 		wiki: "Wiki",
 	},
 	commands: {
+		common: {
+			user: "user",
+			type: "type",
+			goal: "goal",
+			start: "start",
+			hide: "hide",
+			"hide-description": "Ensure only you can see the response.",
+			name: "name",
+			history: "history",
+			search: "search",
+			"daily-guides": "daily-guides",
+			"winged-light": "winged-light",
+		},
 		about: {
 			"command-name": "about",
 			"command-description": "About me, the wondrous little Sky helper!",
@@ -2858,9 +2631,7 @@ export default {
 				"command-name": "ascended-candles",
 				"command-description":
 					"Calculates the number of days it would take to achieve a number of ascended candles.",
-				"command-option-start-name": "start",
 				"command-option-start-description": "The starting number of ascended candles.",
-				"command-option-goal-name": "goal",
 				"command-option-goal-description": "The desired number of ascended candles.",
 				"command-option-eye-of-eden-name": "eye-of-eden",
 				"command-option-eye-of-eden-description":
@@ -2873,22 +2644,17 @@ export default {
 				"command-name": "event-tickets",
 				"command-description":
 					"Calculates the number of days it would take to achieve a number of event tickets.",
-				"command-option-start-name": "start",
 				"command-option-start-description": "The starting number of event tickets.",
-				"command-option-goal-name": "goal",
 				"command-option-goal-description": "The desired number of event tickets.",
 			},
 			"seasonal-candles": {
 				"command-name": "seasonal-candles",
 				"command-description":
 					"Calculates the number of days it would take to achieve a number of seasonal candles.",
-				"command-option-start-name": "start",
 				"command-option-start-description": "The starting number of seasonal candles.",
-				"command-option-goal-name": "goal",
 				"command-option-goal-description": "The desired number of seasonal candles.",
 			},
 			"winged-light": {
-				"command-name": "winged-light",
 				"command-description": "Calculates how much winged light one should possess.",
 				"command-option-wing-buffs-name": "wing-buffs",
 				"command-option-wing-buffs-description":
@@ -2898,7 +2664,6 @@ export default {
 		catalogue: {
 			"command-name": "catalogue",
 			"command-description": "Your very own Sky catalogue.",
-			"command-option-search-name": "search",
 			"command-option-search-description": "Go straight to a season, event, or spirit.",
 		},
 		checklist: {
@@ -2909,7 +2674,6 @@ export default {
 			"command-name": "configure",
 			"command-description": "Configure settings for the server.",
 			"daily-guides": {
-				"command-name": "daily-guides",
 				"command-description": "The command to set up daily guides in the server.",
 			},
 			me: {
@@ -2927,9 +2691,7 @@ export default {
 			},
 		},
 		"daily-guides": {
-			"command-name": "daily-guides",
 			"command-description": "Show the daily guides.",
-			"command-option-type-name": "type",
 			"command-option-type-description": "Choose a type to view daily guides in!",
 		},
 		data: {
@@ -2949,20 +2711,17 @@ export default {
 			game: {
 				"command-name": "game",
 				"command-description": "Begin the guessing game!",
-				"command-option-type-name": "type",
 				"command-option-type-description": "What type of game do you wish to play?",
 			},
 			leaderboard: {
 				"command-name": "leaderboard",
 				"command-description": "View the leaderboard!",
-				"command-option-type-name": "type",
 				"command-option-type-description": "What type of game would you like to view?",
 			},
 		},
 		"hair-tousle": {
 			"command-name": "hair-tousle",
 			"command-description": "Give someone a hair tousle!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual whose hair will be tousled.",
 		},
 		heart: {
@@ -2971,36 +2730,30 @@ export default {
 			gift: {
 				"command-name": "gift",
 				"command-description": "Choose someone to gift a heart to!",
-				"command-option-user-name": "user",
 				"command-option-user-description": "The user to gift a heart to.",
 			},
 			history: {
-				"command-name": "history",
 				"command-description": "Display a history of your hearts!",
 			},
 		},
 		"high-five": {
 			"command-name": "high-five",
 			"command-description": "High-five someone!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to high-five.",
 		},
 		hug: {
 			"command-name": "hug",
 			"command-description": "Hug someone!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to be hugged.",
 		},
 		krill: {
 			"command-name": "krill",
 			"command-description": "Krill someone!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to be krilled.",
 		},
 		"play-fight": {
 			"command-name": "play-fight",
 			"command-description": "Fight someone!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to play fight.",
 		},
 		quest: {
@@ -3012,10 +2765,7 @@ export default {
 		schedule: {
 			"command-name": "schedule",
 			"command-description": "Returns a schedule of events in Sky!",
-			"command-option-type-name": "type",
 			"command-option-type-description": "View a detailed breakdown of a specific schedule?",
-			"command-option-hide-name": "hide",
-			"command-option-hide-description": "Ensure only you can see the response.",
 		},
 		"shard-eruption": {
 			"command-name": "shard-eruption",
@@ -3035,24 +2785,19 @@ export default {
 			edit: {
 				"command-name": "edit",
 				"command-description": "Edit your Sky profile.",
-				"command-option-name-name": "name",
-				"command-option-name-description": "What's your in-game name?",
 				"command-option-icon-name": "icon",
 				"command-option-icon-description": "Upload your icon!",
 				"command-option-banner-name": "banner",
 				"command-option-banner-description": "Upload your banner (only on the website)!",
-				"command-option-winged-light-name": "winged-light",
 				"command-option-winged-light-description": "What is your maximum winged light?",
 				"command-option-winged-light-choice-name": {
 					[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue.",
 					[SkyProfileWingedLightType.Capeless]: "Capeless.",
 				} satisfies Record<SkyProfileWingedLightTypes, string>,
 				"command-option-spirit-name": "spirit",
-				"command-option-spirit-description": "What's your favourite spirit?",
 				"command-option-country-name": "country",
 				"command-option-country-description": "Feel like specifying your country?",
 				"command-option-hangout-name": "hangout",
-				"command-option-hangout-description": "Where do you like to hang out?",
 				"command-option-catalogue-progression-name": "catalogue-progression",
 				"command-option-catalogue-progression-description": "Show your catalogue progression?",
 				"command-option-guess-rank-name": "guess-rank",
@@ -3061,26 +2806,18 @@ export default {
 			explore: {
 				"command-name": "explore",
 				"command-description": "Explore the Sky profiles of others!",
-				"command-option-name-name": "name",
 				"command-option-name-description": "Search a Sky profile via a name!",
 			},
 			show: {
 				"command-name": "show",
 				"command-description": "Shows the Sky profile of someone.",
-				"command-option-user-name": "user",
 				"command-option-user-description": "The user whose Sky profile you wish to see.",
-				"command-option-hide-name": "hide",
-				"command-option-hide-description": "Ensure only you can see the response.",
 			},
-		},
-		"Sky-Profile": {
-			"command-name": "Sky Profile",
 		},
 		spirits: {
 			"command-name": "spirits",
 			"command-description": "Look up a spirit's information!",
 			history: {
-				"command-name": "history",
 				"command-description":
 					"See a history of spirits that visit, including spirits that have been away for a long time.",
 				"command-option-order-name": "order",
@@ -3092,7 +2829,6 @@ export default {
 				} satisfies Record<SpiritsHistoryOrderTypes, string>,
 			},
 			search: {
-				"command-name": "search",
 				"command-description": "Reveal information about a spirit.",
 				"command-option-query-name": "query",
 				"command-option-query-description":
@@ -3101,6 +2837,16 @@ export default {
 		},
 	},
 	features: {
+		common: {
+			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",
+			"error-missing-permissions-website": `View Channel & Send Messages are required for "{{channel}}".`,
+			"error-missing-permissions-thread":
+				"`View Channel` & `Send Messages in Threads` are required for {{channel}}.",
+			"error-missing-permissions-thread-website": `View Channel & Send Messages in Threads are required for "{{channel}}".`,
+			"no-channel-detected": "No channel detected. Was it deleted?",
+			sending: "Sending {{emoji}}",
+			stopped: "Stopped {{emoji}}",
+		},
 		about: {
 			description:
 				"### Translating\n\nWilling to help translate? Spotted a translation mistake? We translate over at [Crowdin]({{crowdinURL}}), and your contributions will help everyone!\n### Daily guides\n\nDo you look up the daily guides? They're manually filled in every day at reset. Why not be one of those awesome people?\n### Friendship actions\n\nThe GIFs you see for hugging, hair tousling, krilling, etc. are all contributed by the community. Submit your own into the mix!\n### Reporting issues & giving feedback\n\nFound a bug? Want to give feedback? Join the [support server]({{supportServerInviteURL}}) and let us know all about it!\n### Sponsoring\n\nYou can help keep Caelus afloat by sponsoring! You can sponsor via [GitHub]({{githubSponsorsURL}}) or within Discord itself via the button below!",
@@ -3124,13 +2870,11 @@ export default {
 			goal: "Goal: ",
 			required: "Required: ",
 			"ascended-candles": {
-				"goal-achieved": "You have already achieved your goal!",
 				"no-source": "You must have a source for gaining ascended candles!",
 				title: "Ascended candle calculator",
 				"goal-first-achievable": "This goal is first achievable at {{date}} ({{relative}}).",
 				"minimum-time-beginning": "Minimum time derived by:",
 				"minimum-time-eye-of-eden": "Eye of Eden statues",
-				"minimum-time-shard-eruptions": "Shard eruptions",
 			},
 			"event-tickets": {
 				"no-event": "There is no event currently active with event tickets.",
@@ -3154,15 +2898,14 @@ export default {
 				"started-with": "Started with",
 				"reborn-with": "Reborn with",
 				total: "Total",
-				"wedge-next_other": "Next wedge: {{count}}",
+				"wedge-next": "Next wedge: {{amount}}",
+				"wedge-total_one": "{{count}} wedge",
 				"wedge-total_other": "{{count}} wedges",
 				title: "Winged light calculator",
 			},
 		},
 		calendar: {
 			name: "Calendar",
-			description:
-				"See seasons, events, travelling spirits, returning spirits, and more laid out on a calendar.",
 			"description-short": "See what's on in Sky on a calendar.",
 			"view-month": "Month",
 			"view-week": "Week",
@@ -3180,7 +2923,6 @@ export default {
 			"nothing-scheduled": "Nothing is scheduled.",
 			duration_one: "{{count}} day",
 			duration_other: "{{count}} days",
-			"jump-to-date": "Jump to a date",
 			"time-zone-local": "Local time",
 			"time-zone-label": "Time zone",
 			"all-day": "All day",
@@ -3192,17 +2934,14 @@ export default {
 		},
 		catalogue: {
 			"main-title": "Catalogue",
-			description: "Keep a catalogue and track all of your Sky cosmetics.",
 			"description-short": "Keep track of your Sky cosmetics.",
 			"main-description":
 				"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal progress: {{progress}}%",
 			"standard-spirits": "Standard spirits",
 			elders: "Elders",
-			events: "$t(general:events)",
 			"starter-packs": "Starter packs",
 			"secret-area": "Secret area",
 			"clothing-shop": "Clothing shop",
-			"nesting-workshop": "Nesting Workshop",
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
 			"search-placeholder": "Search seasons, events, and spirits...",
@@ -3269,7 +3008,6 @@ export default {
 			description: "Keep track of your Sky activities, {{user}}!",
 			"description-short": "Keep track of your Sky activities.",
 			complete: "Complete",
-			reset: "Reset",
 			"daily-quests-message-incomplete": "Have you completed daily quests?",
 			"daily-quests-message-complete": "Daily quests completed! Great job!",
 			"daily-quests-show-button-label": "Show daily guides",
@@ -3305,20 +3043,15 @@ export default {
 			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
 			"setup-description":
 				"Set up delivery of daily guides in your server! Use the select menus below to select a channel and to select an optional desired format.",
-			"setup-no-channel-detected": "No channel detected. Was it deleted?",
 			"setup-no-channel-selected": "No channel selected.",
 			"setup-channel-select-menu-placeholder": "Select a channel to use for daily guides.",
 			"setup-type-string-select-menu-placeholder": "Select an optional format.",
-			"setup-stopped": "Stopped {{emoji}}",
-			"setup-sending": "Sending {{emoji}}",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",
-			"seasonal-candles": "Seasonal candles",
 			"seasonal-candles-remain-with-season-pass":
 				"{{remaining}} remain ({{remainingSeasonPass}} with a Season Pass)",
 			"shard-eruption-data": "Data",
 			"shard-eruption-timestamps": "Timestamps",
-			"shard-eruption-none": "None",
 			"travelling-rock": "Travelling rock",
 			"infographic-acknowledgement-item": "Infographic {{infographic}} by {{acknowledgement}}",
 			"season-upcoming_one": "The new season starts tomorrow.",
@@ -3329,7 +3062,7 @@ export default {
 			"double-seasonal-light-upcoming_other": "Double seasonal light starts in {{count}} days.",
 			"double-treasure-candles-upcoming_one": "Double treasure candles starts tomorrow.",
 			"double-treasure-candles-upcoming_other": "Double treasure candles starts in {{count}} days.",
-			"returning-spirits-active-list_zero": "{{returningSpirits}} leave today: {{spirits}}.",
+			"returning-spirits-leave-today": "{{returningSpirits}} leave today: {{spirits}}.",
 			"returning-spirits-active-list_one":
 				"{{returningSpirits}} leave in {{count}} day: {{spirits}}.",
 			"returning-spirits-active-list_other":
@@ -3340,9 +3073,10 @@ export default {
 			"event-upcoming_one": "{{event}} starts tomorrow.",
 			"event-upcoming_other": "{{event}} starts in {{count}} days.",
 			"event-upcoming-time": "{{event}} starts at {{time}}.",
-			"maintenance-upcoming_one": "Maintenance starts at {{time}} tomorrow.",
+			"maintenance-tomorrow": "Maintenance starts at {{time}} tomorrow.",
+			"maintenance-upcoming_one": "Maintenance starts in {{count}} day.",
 			"maintenance-upcoming_other": "Maintenance starts in {{count}} days.",
-			"update-upcoming_zero": "The {{update}} releases today.",
+			"update-releases-today": "The {{update}} releases today.",
 			"update-upcoming_one": "The {{update}} releases tomorrow.",
 			"update-upcoming_other": "The {{update}} releases in {{count}} days.",
 			"not-yet-updated":
@@ -3351,11 +3085,6 @@ export default {
 				"Daily guides are waiting for an awesome Sky kid to update them. See {{channel}} to find out how to update them for the community!\n\nWe're currently missing the following:",
 			"error-thread-archived": "The thread is archived.",
 			"error-thread-locked": "The thread is locked.",
-			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",
-			"error-missing-permissions-website": `View Channel & Send Messages are required for "{{channel}}".`,
-			"error-missing-permissions-thread":
-				"`View Channel` & `Send Messages in Threads` are required for {{channel}}.",
-			"error-missing-permissions-thread-website": `View Channel & Send Messages in Threads are required for "{{channel}}".`,
 			"quest-unknown": "Woah, that's a daily we do not know. Maybe try another?",
 			"quest-no-infographic": "This quest does not have an infographic.",
 		},
@@ -3407,13 +3136,11 @@ export default {
 		},
 		guess: {
 			type: {
-				[GuessType.Spirits]: "$t(general:spirit-plural)",
 				[GuessType.SpiritsHard]: "$t(general:spirit-plural) (hard)",
-				[GuessType.Events]: "$t(general:events)",
-			} satisfies Record<GuessTypes, string>,
+			} satisfies Partial<Record<GuessTypes, string>>,
 			title: "Where does this come from?",
 			"guess-in": "Guess {{time}}!",
-			footer: "Type: $t(guess.type.{{type}}) | Streak: {{streak}} | Highest: {{highestStreak}}",
+			footer: "Type: {{type}} | Streak: {{streak}} | Highest: {{highestStreak}}",
 			"end-game": "End game",
 			"try-again": "Try again?",
 			"game-over": "Game over",
@@ -3422,7 +3149,7 @@ export default {
 			"too-late": "You were too late to guess!",
 			"game-interaction-not-self": "You didn't start this game!",
 			"leaderboard-nothing": "There is nothing on the leaderboard. Why not be the first?",
-			"leaderboard-title": "$t(guess.type.{{type}}) leaderboard",
+			"leaderboard-title": "{{type}} leaderboard",
 			"leaderboard-you": "You: #{{rank}} ({{streak}})",
 		},
 		heart: {
@@ -3471,7 +3198,6 @@ export default {
 			"customise-me-modal-label-bio-description": "Type a bio for me to display in your server.",
 			"customise-me-modal-label-avatar-label": "Avatar",
 			"customise-me-modal-label-avatar-description": "Upload an avatar to display in your server.",
-			"customise-me-modal-label-banner-label": "Banner",
 			"customise-me-modal-label-banner-description": "Upload a banner to display in your server.",
 			"delete-bio-button-label": "Delete bio",
 			"delete-avatar-button-label": "Delete avatar",
@@ -3480,7 +3206,6 @@ export default {
 				"Updates are being performed too quickly. Please wait a while before trying again! {{emoji}}",
 		},
 		notifications: {
-			back: "Back",
 			title: "Notifications",
 			"setup-description":
 				"You may choose a channel to receive notifications in! Use the select menu below to select a notification type.",
@@ -3489,12 +3214,8 @@ export default {
 			"setup-option-not-set-up": "Not set up.",
 			"setup-type-string-select-menu-placeholder": "Select a notification type.",
 			"edit-offset-now-description": "Notify as soon as the event occurs.",
-			"edit-no-channel-detected": "No channel detected. Was it deleted?",
 			"edit-channel-and-role-required": "A channel and a role is required.",
 			"edit-offset-required": "An offset is required.",
-			"edit-stopped": "Stopped {{emoji}}",
-			"edit-sending": "Sending {{emoji}}",
-			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",
 			"error-cannot-mention-role":
 				"Cannot mention the {{role}} role. Ensure `Mention @everyone, @here and All Roles` permission is enabled for {{me}} in {{channel}} or make the role mentionable.",
 			messages: {
@@ -3608,63 +3329,37 @@ export default {
 			"edit-offset-string-select-menu-placeholder": "Select an offset.",
 		},
 		schedule: {
+			timestamps: "{{timestamp1}} ({{timestamp2}})",
+			"detailed-breakdown-requires": "-# Requires {{emoji}}",
+			"detailed-breakdown-two-hourly-message":
+				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			type: {
-				[ScheduleType.DailyReset]: "Daily reset",
-				[ScheduleType.EyeOfEden]: "Eye of Eden",
-				[ScheduleType.InternationalSpaceStation]: "International Space Station",
-				[ScheduleType.TravellingSpirit]: "$t(general:travelling-spirit)",
-				[ScheduleType.Dragon]: "Dragon",
-				[ScheduleType.PollutedGeyser]: "Polluted geyser",
-				[ScheduleType.Grandma]: "Grandma",
-				[ScheduleType.Turtle]: "Turtle",
-				[ScheduleType.ShardEruption]: "$t(general:shard-eruption)",
-				[ScheduleType.DreamsSkater]: "Dreams skater",
-				[ScheduleType.AURORA]: "AURORA",
-				[ScheduleType.Passage]: "Passage",
-				[ScheduleType.AviarysFireworkFestival]: "Aviary's Firework Festival",
 				[ScheduleType.NineColouredDeer]: "Nine-coloured deer",
-				[ScheduleType.NestingWorkshop]: "Nesting Workshop",
 				[ScheduleType.VaultEldersBlessing]: "Vault Elder's blessing",
-				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 				[ScheduleType.MeteorShower]: "Meteor shower",
-				[ScheduleType.Maintenance]: "$t(general:maintenance)",
-				[ScheduleType.RadianceEvent]: "$t(general:event-names.radiance-event)",
-				[ScheduleType.Events]: "$t(general:event)",
-				[ScheduleType.Season]: "$t(general:season)",
-				[ScheduleType.ReturningSpirits]: "$t(general:returning-spirits)",
 				[ScheduleType.Update]: "Update",
-			} satisfies Record<ScheduleTypes, string>,
+			} satisfies Partial<Record<ScheduleTypes, string>>,
 			name: "Schedule",
-			description:
-				"See a schedule of events such as the polluted geyser, grandma, turtle, Vault Elder's blessing, and more!",
 			"description-short": "View a schedule of events in Sky.",
 			"local-time-notice": "All times are shown in your local time.",
 			"sky-time": "Sky time",
 			"overview-active": "Active",
 			"overview-available": "{{emoji}} Available!",
 			"overview-upcoming": "Upcoming",
-			"overview-unavailable": "Unavailable",
-			"overview-next": "Next:",
 			"overview-next-timestamp": "Next: {{timestamp}}",
 			"overview-next-available-timestamp": "Next available {{timestamp}}",
-			"overview-ends": "Ends:",
 			"overview-ends-timestamp": "Ends: {{timestamp}}",
-			"overview-in": "In:",
 			overview: "**{{type}}:** {{details}}",
 			"update-version": "{{version}} update",
 			"event-ongoing": "The event is ongoing!",
 			"event-will-occur": "The event will occur again {{timestamp}}.",
-			"next-daily-reset": "{{timestamp1}} ({{timestamp2}})",
 			"overview-detailed-breakdown-message": "You may select an event to see a detailed breakdown!",
 			"overview-detailed-breakdown-string-select-menu-placeholder":
 				"View a detailed breakdown of an event?",
 			"detailed-breakdown-daily-reset-message":
 				"The new day happens at {{time}}. You may send your friends light again, there will be a new set of daily quests to complete, and more!",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "Daily guides",
-			"next-eye-of-eden": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-eye-of-eden-message":
 				"Once a week on Sundays, the Eye of Eden will give ascended candles a week. Next Sunday is at {{time}}.\n\nShard eruptions also offer ascended candles.",
-			"detailed-breakdown-international-space-station-time": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-international-space-station-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Secret_Area#The_International_Space_Station_(ISS)",
 			"detailed-breakdown-international-space-station-message":
@@ -3687,16 +3382,10 @@ export default {
 				"There are currently no announced returning spirits.",
 			"detailed-breakdown-polluted-geyser-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Polluted_Geyser",
-			"detailed-breakdown-polluted-geyser-message":
-				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-grandma-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Grandma's_Dinner_Event",
-			"detailed-breakdown-grandma-message":
-				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-turtle-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Sunset_Sanctuary_Turtle",
-			"detailed-breakdown-turtle-message":
-				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-shard-eruptions-view": "View shard eruptions",
 			"detailed-breakdown-shard-eruptions-website": "Website",
 			"detailed-breakdown-shard-eruptions-upcoming":
@@ -3711,7 +3400,6 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/wiki/AURORA_Concert",
 			"detailed-breakdown-aurora-message":
 				"Available every 2 hours from {{timestamp}} lasting 48 minutes.\n\n{{timestamps}}\n\n{{status}}",
-			"detailed-breakdown-aurora-requires": "-# Requires {{emoji}}",
 			"detailed-breakdown-passage-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_Passage#Spirit_Memory_Quests",
 			"detailed-breakdown-passage-message":
@@ -3730,8 +3418,6 @@ export default {
 			"detailed-breakdown-nine-coloured-deer-time-1200": "{{timestamp}} (Disappears)",
 			"detailed-breakdown-nine-coloured-deer-message":
 				"Available every 30 minutes from {{timestamp}} lasting 20 minutes.\n{{timestamps}}\n\n{{status}}",
-			"detailed-breakdown-nine-coloured-deer-requires": "-# Requires {{emoji}}",
-			"next-nesting-workshop": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-nesting-workshop-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Nesting_Workshop",
 			"detailed-breakdown-nesting-workshop-message":
@@ -3744,12 +3430,10 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1#Projector_of_Memories",
 			"detailed-breakdown-projector-of-memories-message":
 				"Available every 80 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
-			"detailed-breakdown-projector-of-memories-requires": "-# Requires {{emoji}}",
 			"detailed-breakdown-radiance-message":
 				"Radiance events increase the availability of certain dyes.\n\n{{result}}",
 			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",
 			"detailed-breakdown-nothing-planned": "There are no upcoming events.",
-			back: "Back",
 		},
 		settings: {
 			name: "Settings",
@@ -3766,14 +3450,12 @@ export default {
 			"no-shard-eruptions-today": "There are no shard eruptions today.",
 			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
 			"browse-no-shard": "No shard eruptions.",
-			none: "None",
 			browse: "Browse",
-			"jump-to-date": "Jump to a date",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))",
 		},
 		"sky-profile": {
-			name: "Sky profile",
-			"name-plural": "Sky profiles",
+			name: "Sky Profile",
+			"name-plural": "Sky Profiles",
 			"description-short": "Explore everyone's Sky profiles.",
 			"description-website": "Discover Sky profiles from the community.",
 			"description-recent": "See the most recent Sky profiles!",
@@ -3783,6 +3465,7 @@ export default {
 			"select-a-spirit": "Select a spirit",
 			random: "Random",
 			me: "Me",
+			report: "Report",
 			"country-unspecified": "Unspecified",
 			"search-none": "No Sky profiles.",
 			"unknown-country": "Please select a country!",
@@ -3793,7 +3476,6 @@ export default {
 			"no-sky-profile-edit":
 				"You do not have a Sky profile yet. Build one!\nSky profiles show up on {{url}} too!",
 			"edit-placeholder": "What do you want to edit?",
-			"edit-reset-button-label": "Reset",
 			"no-sky-profile-application": "Do applications have Sky profiles? Hm. Who knows?",
 			"no-sky-profile-invoker": "You do not have a Sky profile! Why not create one?",
 			"no-sky-profile-other":
@@ -3808,14 +3490,12 @@ export default {
 			"explore-profile-like-button-like": "Like",
 			"explore-profile-like-button-unlike": "Unlike",
 			"explore-profile-explore-button": "Explore",
-			"explore-profile-report-button": "Report",
 			"explore-likes-none": "You have no Sky profiles that you've liked.",
 			"explore-likes-description": "You {{emoji}} these Sky profiles!",
 			"no-sky-profile-explore-likes": "Could not go to that Sky kid's Sky profile. Try browsing?",
 			"like-own-profile": "You can't like your own Sky profile!",
 			"report-description":
 				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
-			"report-confirm-button": "Report",
 			"report-modal-title": "Report Sky Profile",
 			"report-modal-label-reason-label": "Reason",
 			"report-modal-label-reason-description": "What's wrong with this Sky profile?",
@@ -3828,14 +3508,13 @@ export default {
 				[SkyProfileEditType.Banner]: "Banner",
 				[SkyProfileEditType.WingedLight]: "Winged light",
 				[SkyProfileEditType.Hangout]: "Hangout",
-				[SkyProfileEditType.Seasons]: "$t(general:season-plural)",
 				[SkyProfileEditType.Platforms]: "Platforms",
 				[SkyProfileEditType.CatalogueProgression]: "Catalogue progression",
 				[SkyProfileEditType.GuessRank]: "Guessing rank",
 				[SkyProfileEditType.Personality]: "Personality",
 				[SkyProfileEditType.Country]: "Country",
 				[SkyProfileEditType.Spirit]: "Spirit",
-			} satisfies Record<SkyProfileEditTypes, string>,
+			} satisfies Partial<Record<SkyProfileEditTypes, string>>,
 			"edit-type-description": {
 				[SkyProfileEditType.Name]: "What name do you go by?",
 				[SkyProfileEditType.Icon]: "Upload an icon?",
@@ -3849,17 +3528,11 @@ export default {
 				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
 				[SkyProfileEditType.Personality]: "What's your personality?",
 				[SkyProfileEditType.Country]: "Where are you from?",
-				[SkyProfileEditType.Spirit]:
-					"$t(commands:sky-profile.edit.command-option-spirit-description)",
+				[SkyProfileEditType.Spirit]: "What's your favourite spirit?",
 			} satisfies Record<SkyProfileEditTypes, string>,
-			"edit-modal-title": "Sky Profile",
-			"edit-modal-label-name-label": "Name",
 			"edit-modal-label-name-description": "What's your in-game name?",
-			"edit-modal-label-description-label": "Description",
 			"edit-modal-label-description-description": "Type a lovely description about your Sky kid!",
-			"edit-modal-label-icon-label": "Icon",
 			"edit-modal-label-icon-description": "Upload an icon for your Sky kid!",
-			"edit-modal-label-banner-label": "Banner",
 			"edit-modal-label-banner-description":
 				"Upload a banner for your Sky kid! This is only used on the website.",
 			"edit-winged-light-description":
@@ -3869,7 +3542,6 @@ export default {
 			"edit-winged-light-invalid": "Invalid winged light selected.",
 			"edit-catalogue-progression-invalid": "Invalid catalogue progression selected.",
 			"edit-guess-rank-invalid": "Invalid guessing rank selected.",
-			"edit-modal-label-hangout-label": "Hangout",
 			"edit-modal-label-hangout-description": "Where's your favourite place to hang out?",
 			"edit-seasons-string-select-menu-placeholder": "Select the seasons you participated in!",
 			"edit-platforms-string-select-menu-placeholder": "Select the platforms you play on!",
@@ -3884,7 +3556,6 @@ export default {
 			} satisfies Record<PlatformIds, string>,
 			"edit-platform-invalid": "Invalid platform selected. Please try again.",
 			"edit-personality-invalid": "Invalid personality selected. Please try again.",
-			personality: "Personality",
 			"personality-types": {
 				[SkyProfilePersonalityType.Counsellor]: "Counsellor",
 				[SkyProfilePersonalityType.Champion]: "Champion",
@@ -3908,7 +3579,6 @@ export default {
 			"reset-string-select-menu-placeholder": "What do you wish to reset?",
 			country: "Country:",
 			"winged-light": "Winged light:",
-			"winged-light-capeless": "Capeless",
 			"winged-light-max": "Max",
 			"favourite-spirit": "Favourite spirit:",
 			"favourite-hangout": "Favourite hangout:",

@@ -23,6 +23,8 @@ import {
 	skyCurrentSeason,
 	skyEvents,
 	skySeasons,
+	CatalogueCollection,
+	CatalogueCollectionToLocaleKey,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { CARD_CLASS, eventAnchor } from "~/utility/catalogue.js";
@@ -78,7 +80,7 @@ export function StartView({
 			},
 			{
 				percentage: percentage(catalogueEventItems(skyEvents().values())),
-				title: t("catalogue.events", { ns: "features" }),
+				title: t("events", { ns: "general" }),
 				to: "?view=events",
 			},
 			{
@@ -98,7 +100,7 @@ export function StartView({
 			},
 			{
 				percentage: percentage(NESTING_WORKSHOP.items),
-				title: t("catalogue.nesting-workshop", { ns: "features" }),
+				title: t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop]),
 				to: "?view=nesting-workshop",
 			},
 		];

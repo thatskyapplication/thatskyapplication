@@ -22,21 +22,25 @@
 		"hearts": "Corazones",
 		"ascended-candles": "Velas Ascendidas",
 		"seasonal-candles": "Velas de Temporada",
+		"jump-to-date": "",
+		"none": "Ninguna",
+		"reset": "",
+		"none_travelling-rock": "",
 		"seasonal-hearts": "Corazones de Temporada",
 		"days-left": {
-			"season_zero": "La temporada termina hoy.",
+			"season-ends-today": "La temporada termina hoy.",
+			"event-ends-today": "{{name}} termina hoy.",
+			"double-hearts-ends-today": "La promoción de corazones dobles termina hoy.",
+			"double-seasonal-light-ends-today": "El horario de doble luz estacional termina hoy.",
+			"double-treasure-candles-ends-today": "",
 			"season_one": "Resta {{count}} día en la temporada.",
 			"season_other": "Restan {{count}} días en la temporada.",
-			"event_zero": "{{name}} termina hoy.",
-			"event_one": "Quedan {{count}} días de {{name}}.",
+			"event_one": "Queda {{count}} día de {{name}}.",
 			"event_other": "Quedan {{count}} días de {{name}}.",
-			"double-hearts_zero": "La promoción de corazones dobles termina hoy.",
 			"double-hearts_one": "",
 			"double-hearts_other": "",
-			"double-seasonal-light_zero": "El horario de doble luz estacional termina hoy.",
 			"double-seasonal-light_one": "",
 			"double-seasonal-light_other": "",
-			"double-treasure-candles_zero": "",
 			"double-treasure-candles_one": "",
 			"double-treasure-candles_other": ""
 		},
@@ -118,9 +122,8 @@
 			"Wandering Carnival": "Carnaval errante",
 			"The Last City": "La Última Ciudad"
 		},
-		"notification-types": {
+		"occurrences": {
 			"0": "",
-			"1": "Ojo de edén",
 			"2": "Estación Espacial Internacional",
 			"3": "Dragón",
 			"4": "Géiser Contaminado",
@@ -128,20 +131,9 @@
 			"6": "Tortuga",
 			"7": "Fragmentación Regular",
 			"8": "Fragmentación Fuerte",
-			"9": "AURORA",
 			"10": "",
-			"11": "",
-			"12": "$t(general:travelling-spirit)",
 			"13": "",
-			"14": "",
-			"15": "$t(general:maintenance)",
-			"16": "$t(general:events)",
-			"17": "$t(general:event-names.radiance-event)",
-			"18": "$t(general:season-plural)",
-			"19": "$t(general:event-names.double-hearts)",
-			"20": "Doble luz estacional",
-			"21": "$t(general:event-names.double-treasure-candles)",
-			"22": "$t(general:returning-spirits)"
+			"14": "Taller acogedor"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -318,9 +310,6 @@
 			"167": "Vuela hasta la torre con Cinnamoroll en la aldea aviaria",
 			"168": "Chapotea en el agua con Cinnamoroll en la aldea aviaria",
 			"169": "Juega a cualquier deporte del torneo",
-			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(areas.Village of Dreams)\"})",
-			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(areas.Village of Dreams)\"})",
-			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(areas.Village Theatre)\"})",
 			"173": "",
 			"174": "Cambia tu peinado",
 			"175": "Cambia de collar",
@@ -330,30 +319,6 @@
 			"179": "Cambia tus pantalones",
 			"180": "Mira un recuerdo compartido en un altar de pasarela",
 			"181": "Graba un recuerdo compartido en un altar de pasarela",
-			"182": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.118)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"183": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.115)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"184": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.122)\",\"location\":\"$t(areas.Village of Dreams)\"})",
-			"185": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.115)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
-			"186": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.115)\",\"location\":\"$t(areas.Crab Fields)\"})",
-			"187": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.116)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"188": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.14)\",\"location\":\"$t(areas.Forest Brook)\"})",
-			"189": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.13)\",\"location\":\"$t(areas.Forest Brook)\"})",
-			"190": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.118)\",\"location\":\"$t(areas.The Graveyard)\"})",
-			"191": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.15)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"192": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.15)\",\"location\":\"$t(areas.Elevated Clearing)\"})",
-			"193": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.117)\",\"location\":\"$t(areas.Forgotten Ark)\"})",
-			"194": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.15)\",\"location\":\"$t(realms.Hidden Forest)\"})",
-			"195": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.118)\",\"location\":\"$t(areas.Forgotten Ark)\"})",
-			"196": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.18)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"197": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.116)\",\"location\":\"$t(areas.Forgotten Ark)\"})",
-			"198": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(areas.Prairie Peaks)\"})",
-			"199": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.17)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"200": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.20)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"201": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Sanctuary Islands)\"})",
-			"202": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(areas.Sanctuary Islands)\"})",
-			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(areas.Sanctuary Islands)\"})",
-			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Prairie Village)\"})",
-			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(areas.Prairie Village)\"})",
 			"206": "Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el desierto Luz de Estrellas",
 			"207": "Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en las Islas Santuario",
 			"208": "Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el Bosque Escondido",
@@ -368,10 +333,6 @@
 			"217": "Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en las Islas Santuario",
 			"218": "Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el Bosque Escondido",
 			"219": "Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en la aldea de los sueños",
-			"220": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.136)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
-			"221": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Prairie Peaks)\"})",
-			"222": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.145)\",\"location\":\"$t(areas.Prairie Peaks)\"})",
-			"223": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.14)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"224": "Investiga el avistamiento de un pájaro azul en el Lago Congelado",
 			"225": "Investiga un avistamiento del pájaro azul en el depósito de la bóveda",
 			"226": "Investiga un avistamiento del pájaro azul en el teatro de la aldea",
@@ -380,35 +341,15 @@
 			"229": "Busca una pista sobre el paradero del pájaro azul en el depósito de la bóveda",
 			"230": "Busca una pista sobre el paradero del pájaro azul en el teatro de la aldea",
 			"231": "Busca una pista sobre el paradero del pájaro azul en el bosque escondido",
-			"232": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.117)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"233": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"234": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.112)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"235": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.111)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"236": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.110)\",\"location\":\"$t(areas.Bird Nest)\"})",
 			"237": "Recoge un cangrejo",
 			"238": "Admira los espacios compartidos del campanario destrozado de la aldea aviaria por un momento",
-			"239": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.83)\",\"location\":\"$t(areas.Aviary Village)\"})",
-			"240": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.61)\",\"location\":\"$t(areas.Aviary Village)\"})",
-			"241": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Aviary Village)\"})",
 			"242": "Admira los espacios compartidos con la campanera que aplaude",
 			"243": "Admira los espacios compartidos con la guardabosques soñador",
 			"244": "Admira los espacios compartidos con la yeti abrazoso",
 			"245": "Admira los espacios compartidos con la contramaestre torpe",
-			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(areas.Prairie Village)\"})",
-			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(areas.Temple of the Prairie)\"})",
-			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "Ayuda al Acólito orador a clasificar el verano en el Archivo de la Bóveda",
-			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Vault Rest)\"})",
-			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
-			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(areas.Forest Brook)\"})",
-			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(areas.Wasteland Rest)\"})",
-			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
 			"258": "Atrapa las luces errantes en el Camino Inferior del Valle",
 			"259": "Invita a algún espíritu de la Temporada de la Migración a que hoy se embarque en una aventura contigo",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(areas.Prairie Cave)\"})",
 			"261": "Usa expresiones con los jugadores",
 			"262": "Atrapa las luces errantes en el Arroyo del Bosque",
 			"263": "Atrapa las luces errantes alrededor del nido del pájaro",
@@ -422,24 +363,18 @@
 			"271": "Monta una manta gigante en las Islas Santuario",
 			"272": "",
 			"273": "Vuela con muchas mariposas en Mariposas de la Planicie",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(areas.Forest Brook)\"})",
 			"275": "Completa la carrera de escobas voladoras de Nat en El cangrejo carcajeante",
 			"276": "Ayuda a Austin a reunir 5 cangrejos en el sótano de El cangrejo carcajeante",
 			"277": "Ayuda a Skidmore a disparar los cañones 3 veces en El cangrejo carcajeante",
 			"278": "Salta al brebaje del caldero de Yoshi en el Cangrejo Carcajeante",
-			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})",
 			"280": "Atrapa algo bueno con una caña en la Aldea de los sueños",
 			"281": "Encuentra al Yeti Abrazoso en la Aldea de los sueños y corre una carrera",
 			"282": "Juega Skybol durante 60 segundos en la Aldea de los sueños",
 			"283": "Arrójale una bola de nueve a alguien",
 			"284": "Limpia la mesa de los ancestros en el Claro Elevado",
-			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(areas.Crab Fields)\"})",
 			"286": "Rescata a una Manta de la oscuridad",
-			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(areas.Starlight Desert)\"})",
 			"288": "Atrapa las luces errantes en la cima de la Ladera del yeti",
 			"289": "Atrapa las luces errantes en los Caminos del Viento",
-			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(areas.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(areas.Hermit Valley)\"})",
 			"292": "Consigue luz de las semillas de girasol en el jardín de la Planicie Luz de Día",
 			"293": "Planta un mensaje de girasol en el jardín de la Planicie Luz de Día",
 			"294": "Toca música con la cazadora de luz risueña en la Planicie Luz de Día",
@@ -533,7 +468,7 @@
 		"events": "Eventos",
 		"travelling-spirit-initialism": "",
 		"event-names": {
-			"double-seasonal-light": "",
+			"double-seasonal-light": "Doble luz estacional",
 			"double-treasure-candles": "",
 			"halloween-office-event": "",
 			"days-of-giving": "",
@@ -2359,6 +2294,19 @@
 		"wiki": ""
 	},
 	"commands": {
+		"common": {
+			"user": "usuario",
+			"type": "",
+			"goal": "meta",
+			"start": "inicio",
+			"hide": "",
+			"hide-description": "",
+			"name": "",
+			"history": "historial",
+			"search": "buscar",
+			"daily-guides": "guías-diarias",
+			"winged-light": "luz-alada"
+		},
 		"about": {
 			"command-name": "sobre",
 			"command-description": "Sobre mí, ¡el pequeño y maravilloso ayudante de Sky!"
@@ -2369,9 +2317,7 @@
 			"ascended-candles": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": "",
 				"command-option-eye-of-eden-name": "",
 				"command-option-eye-of-eden-description": "",
@@ -2381,21 +2327,16 @@
 			"event-tickets": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": ""
 			},
 			"seasonal-candles": {
 				"command-name": "velas-de-temporada",
 				"command-description": "Este comando indica cuántos días se necesitan para conseguir cierta cantidad de velas de temporada.",
-				"command-option-start-name": "inicio",
 				"command-option-start-description": "Número inicial de velas de temporada.",
-				"command-option-goal-name": "meta",
 				"command-option-goal-description": "Número de velas de temporada que deseas"
 			},
 			"winged-light": {
-				"command-name": "luz-alada",
 				"command-description": "Calcula cuánta luz alada deberías tener.",
 				"command-option-wing-buffs-name": "",
 				"command-option-wing-buffs-description": ""
@@ -2404,7 +2345,6 @@
 		"catalogue": {
 			"command-name": "catálogo",
 			"command-description": "Tu propio catálogo de Sky.",
-			"command-option-search-name": "",
 			"command-option-search-description": ""
 		},
 		"checklist": {
@@ -2415,7 +2355,6 @@
 			"command-name": "",
 			"command-description": "",
 			"daily-guides": {
-				"command-name": "guías-diarias",
 				"command-description": "El comando para poner las guías diarias en el servidor."
 			},
 			"me": {
@@ -2432,9 +2371,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "guías-diarias",
 			"command-description": "Mostrar las guías diarias.",
-			"command-option-type-name": "",
 			"command-option-type-description": ""
 		},
 		"data": {
@@ -2454,20 +2391,17 @@
 			"game": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			},
 			"leaderboard": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			}
 		},
 		"hair-tousle": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"heart": {
@@ -2476,36 +2410,30 @@
 			"gift": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "",
 				"command-option-user-description": ""
 			},
 			"history": {
-				"command-name": "",
 				"command-description": ""
 			}
 		},
 		"high-five": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"hug": {
 			"command-name": "abrazo",
 			"command-description": "¡Abraza a alguien!",
-			"command-option-user-name": "usuario",
 			"command-option-user-description": "El individuo para ser abrazado."
 		},
 		"krill": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"play-fight": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"quest": {
@@ -2517,10 +2445,7 @@
 		"schedule": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-type-name": "",
-			"command-option-type-description": "",
-			"command-option-hide-name": "",
-			"command-option-hide-description": ""
+			"command-option-type-description": ""
 		},
 		"shard-eruption": {
 			"command-name": "",
@@ -2540,24 +2465,19 @@
 			"edit": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
-				"command-option-name-description": "",
 				"command-option-icon-name": "",
 				"command-option-icon-description": "",
 				"command-option-banner-name": "",
 				"command-option-banner-description": "",
-				"command-option-winged-light-name": "",
 				"command-option-winged-light-description": "",
 				"command-option-winged-light-choice-name": {
 					"0": "",
 					"1": ""
 				},
 				"command-option-spirit-name": "",
-				"command-option-spirit-description": "",
 				"command-option-country-name": "",
 				"command-option-country-description": "",
 				"command-option-hangout-name": "",
-				"command-option-hangout-description": "",
 				"command-option-catalogue-progression-name": "",
 				"command-option-catalogue-progression-description": "",
 				"command-option-guess-rank-name": "",
@@ -2566,26 +2486,18 @@
 			"explore": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
 				"command-option-name-description": ""
 			},
 			"show": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "",
-				"command-option-user-description": "",
-				"command-option-hide-name": "",
-				"command-option-hide-description": ""
+				"command-option-user-description": ""
 			}
-		},
-		"Sky-Profile": {
-			"command-name": ""
 		},
 		"spirits": {
 			"command-name": "espíritus",
 			"command-description": "¡Mira la información de un espíritu!",
 			"history": {
-				"command-name": "historial",
 				"command-description": "Mira el historial de espíritus que han venido, incluyendo aquellos que no lo han hecho hace tiempo.",
 				"command-option-order-name": "orden",
 				"command-option-order-description": "Elige un tipo de orden para los espíritus.",
@@ -2595,7 +2507,6 @@
 				}
 			},
 			"search": {
-				"command-name": "buscar",
 				"command-description": "Revelar información sobre un espíritu.",
 				"command-option-query-name": "consulta",
 				"command-option-query-description": "El nombre, temporada, expresión, postura o llamada del espíritu."
@@ -2603,6 +2514,15 @@
 		}
 	},
 	"features": {
+		"common": {
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
+			"no-channel-detected": "",
+			"sending": "",
+			"stopped": ""
+		},
 		"about": {
 			"description": "",
 			"magical-companion": "",
@@ -2622,13 +2542,11 @@
 			"goal": "",
 			"required": "",
 			"ascended-candles": {
-				"goal-achieved": "",
 				"no-source": "",
 				"title": "",
 				"goal-first-achievable": "",
 				"minimum-time-beginning": "",
-				"minimum-time-eye-of-eden": "",
-				"minimum-time-shard-eruptions": ""
+				"minimum-time-eye-of-eden": ""
 			},
 			"event-tickets": {
 				"no-event": "",
@@ -2640,25 +2558,25 @@
 			},
 			"seasonal-candles": {
 				"no-season": "",
+				"title": "Calculadora de Velas de Temporada",
+				"double-seasonal-light-calculation": "",
 				"day_one": "Resultado: {{count}} día",
 				"day_other": "Resultado: {{count}} días",
 				"day-season-pass_one": "({{count}} día con el Pase).",
-				"day-season-pass_other": "({{count}} días con el Pase).",
-				"title": "Calculadora de Velas de Temporada",
-				"double-seasonal-light-calculation": ""
+				"day-season-pass_other": "({{count}} días con el Pase)."
 			},
 			"winged-light": {
 				"started-with": "Empezaste con",
 				"reborn-with": "Renaciste con",
 				"total": "",
-				"wedge-next_other": "Siguiente nivel: {{count}}",
-				"wedge-total_other": "Nivel {{count}}",
-				"title": "Calculadora de Luz Alada"
+				"wedge-next": "Siguiente nivel: {{amount}}",
+				"title": "Calculadora de Luz Alada",
+				"wedge-total_one": "Nivel {{count}}",
+				"wedge-total_other": "Nivel {{count}}"
 			}
 		},
 		"calendar": {
 			"name": "",
-			"description": "",
 			"description-short": "",
 			"view-month": "",
 			"view-week": "",
@@ -2674,30 +2592,26 @@
 			"next-year": "",
 			"legend": "",
 			"nothing-scheduled": "",
-			"duration_one": "",
-			"duration_other": "",
-			"jump-to-date": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
 			"during-the-day": "",
 			"view-date": "",
+			"community-event": "",
+			"duration_one": "",
+			"duration_other": "",
 			"cadence_one": "",
-			"cadence_other": "",
-			"community-event": ""
+			"cadence_other": ""
 		},
 		"catalogue": {
 			"main-title": "Catálogo",
-			"description": "",
 			"description-short": "",
 			"main-description": "¡Bienvenido a tu catálogo!\n\nAquí puedes llevar un seguimiento de todos los cosméticos del juego, con cálculos dinámicos como las velas de temporada restantes en una temporada activa, convirtiéndolo en una poderosa herramienta para utilizar.\n\nProgreso total: {{progress}}%",
 			"standard-spirits": "Espíritus estándar",
 			"elders": "Ancianos",
-			"events": "$t(general:events)",
 			"starter-packs": "Packs de inicio",
 			"secret-area": "Área secreta",
 			"clothing-shop": "",
-			"nesting-workshop": "Taller acogedor",
 			"main-no-progress": "Sin progreso",
 			"main-progress": "Progreso: {{number}}%",
 			"search-placeholder": "",
@@ -2763,7 +2677,6 @@
 			"description": "",
 			"description-short": "",
 			"complete": "",
-			"reset": "",
 			"daily-quests-message-incomplete": "",
 			"daily-quests-message-complete": "",
 			"daily-quests-show-button-label": "",
@@ -2796,22 +2709,27 @@
 				"1": ""
 			},
 			"setup-description": "",
-			"setup-no-channel-detected": "",
 			"setup-no-channel-selected": "",
 			"setup-channel-select-menu-placeholder": "",
 			"setup-type-string-select-menu-placeholder": "",
-			"setup-stopped": "",
-			"setup-sending": "",
 			"quests-heading": "Misiones",
 			"treasure-candles": "",
-			"seasonal-candles": "",
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} quedan ({{remainingSeasonPass}} con Pase de Temporada)",
 			"shard-eruption-data": "Datos",
 			"shard-eruption-timestamps": "Marcas de tiempo",
-			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"infographic-acknowledgement-item": "",
-			"season-upcoming_one": "",
+			"returning-spirits-leave-today": "",
+			"event-upcoming-time": "",
+			"maintenance-tomorrow": "",
+			"update-releases-today": "",
+			"not-yet-updated": "",
+			"not-yet-updated-support-server": "",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"quest-unknown": "Vaya, esa es una diaria que no conocemos. ¿Mejor prueba otra?",
+			"quest-no-infographic": "Esta misión no tiene una infografía.",
+			"season-upcoming_one": "La nueva temporada empieza mañana.",
 			"season-upcoming_other": "La nueva temporada empieza en {{count}} días.",
 			"double-hearts-upcoming_one": "",
 			"double-hearts-upcoming_other": "",
@@ -2819,29 +2737,16 @@
 			"double-seasonal-light-upcoming_other": "",
 			"double-treasure-candles-upcoming_one": "",
 			"double-treasure-candles-upcoming_other": "",
-			"returning-spirits-active-list_zero": "",
 			"returning-spirits-active-list_one": "",
 			"returning-spirits-active-list_other": "",
 			"returning-spirits-upcoming-list_one": "",
 			"returning-spirits-upcoming-list_other": "",
 			"event-upcoming_one": "",
 			"event-upcoming_other": "",
-			"event-upcoming-time": "",
 			"maintenance-upcoming_one": "",
 			"maintenance-upcoming_other": "",
-			"update-upcoming_zero": "",
 			"update-upcoming_one": "",
-			"update-upcoming_other": "",
-			"not-yet-updated": "",
-			"not-yet-updated-support-server": "",
-			"error-thread-archived": "",
-			"error-thread-locked": "",
-			"error-missing-permissions": "",
-			"error-missing-permissions-website": "",
-			"error-missing-permissions-thread": "",
-			"error-missing-permissions-thread-website": "",
-			"quest-unknown": "Vaya, esa es una diaria que no conocemos. ¿Mejor prueba otra?",
-			"quest-no-infographic": "Esta misión no tiene una infografía."
+			"update-upcoming_other": ""
 		},
 		"data": {
 			"delete-message": "",
@@ -2884,9 +2789,7 @@
 		},
 		"guess": {
 			"type": {
-				"0": "$t(general:spirit-plural)",
-				"1": "",
-				"2": "$t(general:events)"
+				"1": ""
 			},
 			"title": "",
 			"guess-in": "",
@@ -2931,7 +2834,6 @@
 			"customise-me-modal-label-bio-description": "",
 			"customise-me-modal-label-avatar-label": "",
 			"customise-me-modal-label-avatar-description": "",
-			"customise-me-modal-label-banner-label": "",
 			"customise-me-modal-label-banner-description": "",
 			"delete-bio-button-label": "",
 			"delete-avatar-button-label": "",
@@ -2939,7 +2841,6 @@
 			"rate-limit": ""
 		},
 		"notifications": {
-			"back": "Atrás",
 			"title": "",
 			"setup-description": "",
 			"setup-option-sending": "",
@@ -2947,12 +2848,8 @@
 			"setup-option-not-set-up": "",
 			"setup-type-string-select-menu-placeholder": "",
 			"edit-offset-now-description": "",
-			"edit-no-channel-detected": "",
 			"edit-channel-and-role-required": "",
 			"edit-offset-required": "",
-			"edit-stopped": "",
-			"edit-sending": "",
-			"error-missing-permissions": "",
 			"error-cannot-mention-role": "",
 			"messages": {
 				"0": {
@@ -3054,59 +2951,33 @@
 			"edit-offset-string-select-menu-placeholder": ""
 		},
 		"schedule": {
+			"timestamps": "",
+			"detailed-breakdown-requires": "",
+			"detailed-breakdown-two-hourly-message": "",
 			"type": {
-				"0": "",
-				"1": "",
-				"2": "",
-				"3": "$t(general:travelling-spirit)",
-				"4": "",
-				"5": "",
-				"6": "",
-				"7": "",
-				"8": "$t(general:shard-eruption)",
-				"9": "",
-				"10": "",
-				"11": "",
-				"12": "",
 				"13": "",
-				"14": "",
 				"15": "",
-				"16": "$t(general:cosmetic-names.2498)",
 				"17": "",
-				"18": "$t(general:maintenance)",
-				"19": "$t(general:event-names.radiance-event)",
-				"20": "$t(general:event)",
-				"21": "$t(general:season)",
-				"22": "$t(general:returning-spirits)",
 				"23": ""
 			},
 			"name": "",
-			"description": "",
 			"description-short": "",
 			"local-time-notice": "",
 			"sky-time": "",
 			"overview-active": "",
 			"overview-available": "",
 			"overview-upcoming": "",
-			"overview-unavailable": "",
-			"overview-next": "",
 			"overview-next-timestamp": "",
 			"overview-next-available-timestamp": "",
-			"overview-ends": "",
 			"overview-ends-timestamp": "",
-			"overview-in": "",
 			"overview": "",
 			"update-version": "",
 			"event-ongoing": "",
 			"event-will-occur": "",
-			"next-daily-reset": "",
 			"overview-detailed-breakdown-message": "",
 			"overview-detailed-breakdown-string-select-menu-placeholder": "",
 			"detailed-breakdown-daily-reset-message": "",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "",
-			"next-eye-of-eden": "",
 			"detailed-breakdown-eye-of-eden-message": "",
-			"detailed-breakdown-international-space-station-time": "",
 			"detailed-breakdown-international-space-station-wiki-button-url": "https://sky-ninosdelaluz.fandom.com/es/wiki/%C3%81rea_secreta_(La_Oficina)#La_estaci%C3%B3n_espacial",
 			"detailed-breakdown-international-space-station-message": "",
 			"detailed-breakdown-international-space-station-requires": "",
@@ -3119,11 +2990,8 @@
 			"detailed-breakdown-returning-spirits-message-future": "",
 			"detailed-breakdown-returning-spirits-message-none": "",
 			"detailed-breakdown-polluted-geyser-wiki-button-url": "",
-			"detailed-breakdown-polluted-geyser-message": "",
 			"detailed-breakdown-grandma-wiki-button-url": "",
-			"detailed-breakdown-grandma-message": "",
 			"detailed-breakdown-turtle-wiki-button-url": "",
-			"detailed-breakdown-turtle-message": "",
 			"detailed-breakdown-shard-eruptions-view": "",
 			"detailed-breakdown-shard-eruptions-website": "",
 			"detailed-breakdown-shard-eruptions-upcoming": "",
@@ -3132,7 +3000,6 @@
 			"detailed-breakdown-dreams-skater-message": "",
 			"detailed-breakdown-aurora-wiki-button-url": "",
 			"detailed-breakdown-aurora-message": "",
-			"detailed-breakdown-aurora-requires": "",
 			"detailed-breakdown-passage-wiki-button-url": "",
 			"detailed-breakdown-passage-message": "",
 			"detailed-breakdown-aviarys-firework-festival-message": "",
@@ -3144,19 +3011,15 @@
 			"detailed-breakdown-nine-coloured-deer-time-720": "",
 			"detailed-breakdown-nine-coloured-deer-time-1200": "",
 			"detailed-breakdown-nine-coloured-deer-message": "",
-			"detailed-breakdown-nine-coloured-deer-requires": "",
-			"next-nesting-workshop": "",
 			"detailed-breakdown-nesting-workshop-wiki-button-url": "",
 			"detailed-breakdown-nesting-workshop-message": "",
 			"detailed-breakdown-vault-elders-blessing-wiki-button-url": "",
 			"detailed-breakdown-vault-elders-blessing-message": "",
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "",
 			"detailed-breakdown-projector-of-memories-message": "",
-			"detailed-breakdown-projector-of-memories-requires": "",
 			"detailed-breakdown-radiance-message": "",
 			"detailed-breakdown-radiance-event": "",
-			"detailed-breakdown-nothing-planned": "",
-			"back": ""
+			"detailed-breakdown-nothing-planned": ""
 		},
 		"settings": {
 			"name": "",
@@ -3172,9 +3035,7 @@
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "No hay erupciones de fragmentos en este día.",
 			"browse-no-shard": "",
-			"none": "Ninguna",
 			"browse": "Echar un vistazo",
-			"jump-to-date": "",
 			"realm-area": ""
 		},
 		"sky-profile": {
@@ -3189,6 +3050,7 @@
 			"select-a-spirit": "",
 			"random": "",
 			"me": "",
+			"report": "",
 			"country-unspecified": "",
 			"search-none": "",
 			"unknown-country": "",
@@ -3197,7 +3059,6 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
-			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",
@@ -3209,13 +3070,11 @@
 			"explore-profile-like-button-like": "",
 			"explore-profile-like-button-unlike": "",
 			"explore-profile-explore-button": "",
-			"explore-profile-report-button": "",
 			"explore-likes-none": "",
 			"explore-likes-description": "",
 			"no-sky-profile-explore-likes": "",
 			"like-own-profile": "",
 			"report-description": "",
-			"report-confirm-button": "",
 			"report-modal-title": "",
 			"report-modal-label-reason-label": "",
 			"report-modal-label-reason-description": "",
@@ -3227,7 +3086,6 @@
 				"3": "",
 				"4": "",
 				"5": "",
-				"6": "$t(general:season-plural)",
 				"7": "",
 				"8": "",
 				"9": "",
@@ -3250,21 +3108,15 @@
 				"11": "",
 				"12": ""
 			},
-			"edit-modal-title": "",
-			"edit-modal-label-name-label": "",
 			"edit-modal-label-name-description": "",
-			"edit-modal-label-description-label": "",
 			"edit-modal-label-description-description": "",
-			"edit-modal-label-icon-label": "",
 			"edit-modal-label-icon-description": "",
-			"edit-modal-label-banner-label": "",
 			"edit-modal-label-banner-description": "",
 			"edit-winged-light-description": "",
 			"edit-winged-light-string-select-menu-placeholder": "",
 			"edit-winged-light-invalid": "",
 			"edit-catalogue-progression-invalid": "",
 			"edit-guess-rank-invalid": "",
-			"edit-modal-label-hangout-label": "",
 			"edit-modal-label-hangout-description": "",
 			"edit-seasons-string-select-menu-placeholder": "",
 			"edit-platforms-string-select-menu-placeholder": "",
@@ -3279,7 +3131,6 @@
 			},
 			"edit-platform-invalid": "",
 			"edit-personality-invalid": "",
-			"personality": "",
 			"personality-types": {
 				"0": "Consejero",
 				"1": "Campeón",
@@ -3303,7 +3154,6 @@
 			"reset-string-select-menu-placeholder": "",
 			"country": "",
 			"winged-light": "",
-			"winged-light-capeless": "",
 			"winged-light-max": "",
 			"favourite-spirit": "",
 			"favourite-hangout": "",
@@ -3367,6 +3217,18 @@
 			"order-natural": "Orden según aparición",
 			"order-label": "",
 			"order-rarity": "Orden según rareza"
+		},
+		"thatskylink": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"links": "",
+			"patterns": "",
+			"patch-notes": "",
+			"sky-profiles": "",
+			"this-month-in-sky": "",
+			"latest-patch-notes": ""
 		},
 		"welcome": {
 			"preview": "",

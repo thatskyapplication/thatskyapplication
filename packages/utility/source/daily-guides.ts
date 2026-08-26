@@ -1,6 +1,8 @@
 import { ChannelType } from "discord-api-types/v10";
 import { isActive } from "./dates.js";
+import { AreaName, isRealm, RealmName } from "./kingdom/geography.js";
 import { dailyGuidesQuestRoute } from "./routes.js";
+import { SpiritId, type SpiritIds } from "./utility/spirits.js";
 
 export const DailyGuidesDistributionType = {
 	Compact: 0,
@@ -328,6 +330,263 @@ export const DailyQuest = {
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
 export type DailyQuests = (typeof DAILY_QUEST_VALUES)[number];
+
+interface MeetUpWithQuest {
+	readonly spirit: SpiritIds;
+	readonly location: RealmName | AreaName;
+}
+
+export const DailyQuestToMeetUp: Readonly<Partial<Record<DailyQuests, MeetUpWithQuest>>> = {
+	[DailyQuest.MeetUpWithModestDancerInVillageOfDreams]: {
+		spirit: SpiritId.ModestDancer,
+		location: AreaName.VillageOfDreams,
+	},
+	[DailyQuest.MeetUpWithForgetfulStorytellerInVillageOfDreams]: {
+		spirit: SpiritId.ForgetfulStoryteller,
+		location: AreaName.VillageOfDreams,
+	},
+	[DailyQuest.MeetUpWithFranticStagehandInVillageTheatre]: {
+		spirit: SpiritId.FranticStagehand,
+		location: AreaName.VillageTheatre,
+	},
+	[DailyQuest.MeetUpWithCacklingCannoneerInTreasureReef]: {
+		spirit: SpiritId.CacklingCannoneer,
+		location: AreaName.TreasureReef,
+	},
+	[DailyQuest.MeetUpWithAnxiousAnglerInTreasureReef]: {
+		spirit: SpiritId.AnxiousAngler,
+		location: AreaName.TreasureReef,
+	},
+	[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]: {
+		spirit: SpiritId.MellowMusician,
+		location: AreaName.VillageOfDreams,
+	},
+	[DailyQuest.MeetUpWithAnxiousAnglerInGoldenWasteland]: {
+		spirit: SpiritId.AnxiousAngler,
+		location: RealmName.GoldenWasteland,
+	},
+	[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]: {
+		spirit: SpiritId.AnxiousAngler,
+		location: AreaName.CrabFields,
+	},
+	[DailyQuest.MeetUpWithCeasingCommodoreInTreasureReef]: {
+		spirit: SpiritId.CeasingCommodore,
+		location: AreaName.TreasureReef,
+	},
+	[DailyQuest.MeetUpWithBlushingProspectorInForestBrook]: {
+		spirit: SpiritId.BlushingProspector,
+		location: AreaName.ForestBrook,
+	},
+	[DailyQuest.MeetUpWithShiveringTrailblazerInForestBrook]: {
+		spirit: SpiritId.ShiveringTrailblazer,
+		location: AreaName.ForestBrook,
+	},
+	[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: {
+		spirit: SpiritId.CacklingCannoneer,
+		location: AreaName.TheGraveyard,
+	},
+	[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: {
+		spirit: SpiritId.HideNSeekPioneer,
+		location: AreaName.Boneyard,
+	},
+	[DailyQuest.MeetUpWithHideNSeekPioneerInElevatedClearing]: {
+		spirit: SpiritId.HideNSeekPioneer,
+		location: AreaName.ElevatedClearing,
+	},
+	[DailyQuest.MeetUpWithBumblingBoatswainInForgottenArk]: {
+		spirit: SpiritId.BumblingBoatswain,
+		location: AreaName.ForgottenArk,
+	},
+	[DailyQuest.MeetUpWithHideNSeekPioneerInHiddenForest]: {
+		spirit: SpiritId.HideNSeekPioneer,
+		location: RealmName.HiddenForest,
+	},
+	[DailyQuest.MeetUpWithCacklingCannoneerInForgottenArk]: {
+		spirit: SpiritId.CacklingCannoneer,
+		location: AreaName.ForgottenArk,
+	},
+	[DailyQuest.MeetUpWithApologeticLumberjackInBoneyard]: {
+		spirit: SpiritId.ApologeticLumberjack,
+		location: AreaName.Boneyard,
+	},
+	[DailyQuest.MeetUpWithCeasingCommodoreInForgottenArk]: {
+		spirit: SpiritId.CeasingCommodore,
+		location: AreaName.ForgottenArk,
+	},
+	[DailyQuest.MeetUpWithJollyGeologistInPrairiePeaks]: {
+		spirit: SpiritId.JollyGeologist,
+		location: AreaName.PrairiePeaks,
+	},
+	[DailyQuest.MeetUpWithDismayedHunterInBoneyard]: {
+		spirit: SpiritId.DismayedHunter,
+		location: AreaName.Boneyard,
+	},
+	[DailyQuest.MeetUpWithWhaleWhispererInBoneyard]: {
+		spirit: SpiritId.WhaleWhisperer,
+		location: AreaName.Boneyard,
+	},
+	[DailyQuest.MeetUpWithAsceticMonkInSanctuaryIslands]: {
+		spirit: SpiritId.AsceticMonk,
+		location: AreaName.SanctuaryIslands,
+	},
+	[DailyQuest.MeetUpWithNightbirdWhispererInSanctuaryIslands]: {
+		spirit: SpiritId.NightbirdWhisperer,
+		location: AreaName.SanctuaryIslands,
+	},
+	[DailyQuest.MeetUpWithJollyGeologistInSanctuaryIslands]: {
+		spirit: SpiritId.JollyGeologist,
+		location: AreaName.SanctuaryIslands,
+	},
+	[DailyQuest.MeetUpWithAsceticMonkInPrairieVillage]: {
+		spirit: SpiritId.AsceticMonk,
+		location: AreaName.PrairieVillage,
+	},
+	[DailyQuest.MeetUpWithNightbirdWhispererInPrairieVillage]: {
+		spirit: SpiritId.NightbirdWhisperer,
+		location: AreaName.PrairieVillage,
+	},
+	[DailyQuest.MeetUpWithPleadingChildInRepositoryOfRefuge]: {
+		spirit: SpiritId.PleadingChild,
+		location: AreaName.RepositoryOfRefuge,
+	},
+	[DailyQuest.MeetUpWithAsceticMonkInPrairiePeaks]: {
+		spirit: SpiritId.AsceticMonk,
+		location: AreaName.PrairiePeaks,
+	},
+	[DailyQuest.MeetUpWithReassuringRangerInPrairiePeaks]: {
+		spirit: SpiritId.ReassuringRanger,
+		location: AreaName.PrairiePeaks,
+	},
+	[DailyQuest.MeetUpWithBlushingProspectorInValleyOfTriumph]: {
+		spirit: SpiritId.BlushingProspector,
+		location: RealmName.ValleyOfTriumph,
+	},
+	[DailyQuest.MeetUpWithBumblingBoatswainInTreasureReef]: {
+		spirit: SpiritId.BumblingBoatswain,
+		location: AreaName.TreasureReef,
+	},
+	[DailyQuest.MeetUpWithTalentedBuilderInBirdNest]: {
+		spirit: SpiritId.TalentedBuilder,
+		location: AreaName.BirdNest,
+	},
+	[DailyQuest.MeetUpWithTinkeringChimesmithInBirdNest]: {
+		spirit: SpiritId.TinkeringChimesmith,
+		location: AreaName.BirdNest,
+	},
+	[DailyQuest.MeetUpWithLightWhispererInBirdNest]: {
+		spirit: SpiritId.LightWhisperer,
+		location: AreaName.BirdNest,
+	},
+	[DailyQuest.MeetUpWithLivelyNavigatorInBirdNest]: {
+		spirit: SpiritId.LivelyNavigator,
+		location: AreaName.BirdNest,
+	},
+	[DailyQuest.MeetUpWithGratefulShellCollectorInAviaryVillage]: {
+		spirit: SpiritId.GratefulShellCollector,
+		location: AreaName.AviaryVillage,
+	},
+	[DailyQuest.MeetUpWithSparklerParentInAviaryVillage]: {
+		spirit: SpiritId.SparklerParent,
+		location: AreaName.AviaryVillage,
+	},
+	[DailyQuest.MeetUpWithAsceticMonkInAviaryVillage]: {
+		spirit: SpiritId.AsceticMonk,
+		location: AreaName.AviaryVillage,
+	},
+	[DailyQuest.MeetUpWithFlightGuideInPrairieVillage]: {
+		spirit: SpiritId.FlightGuide,
+		location: AreaName.PrairieVillage,
+	},
+	[DailyQuest.MeetUpWithLaughingLightCatcherInValleyOfTriumph]: {
+		spirit: SpiritId.LaughingLightCatcher,
+		location: RealmName.ValleyOfTriumph,
+	},
+	[DailyQuest.MeetUpWithCourageousSoldierInValleyOfTriumph]: {
+		spirit: SpiritId.CourageousSoldier,
+		location: RealmName.ValleyOfTriumph,
+	},
+	[DailyQuest.MeetUpWithFlightGuideInPrairieTemple]: {
+		spirit: SpiritId.FlightGuide,
+		location: AreaName.TempleOfThePrairie,
+	},
+	[DailyQuest.MeetUpWithBackflippingChampionInValleyOfTriumph]: {
+		spirit: SpiritId.BackflippingChampion,
+		location: RealmName.ValleyOfTriumph,
+	},
+	[DailyQuest.MeetUpWithThoughtfulDirectorInVaultOfKnowledge]: {
+		spirit: SpiritId.ThoughtfulDirector,
+		location: AreaName.VaultRest,
+	},
+	[DailyQuest.MeetUpWithApplaudingBellmakerInDaylightPrairie]: {
+		spirit: SpiritId.ApplaudingBellmaker,
+		location: RealmName.DaylightPrairie,
+	},
+	[DailyQuest.MeetUpWithFestivalSpinDancerInForestBrook]: {
+		spirit: SpiritId.FestivalSpinDancer,
+		location: AreaName.ForestBrook,
+	},
+	[DailyQuest.MeetUpWithAdmiringActorInBirdNest]: {
+		spirit: SpiritId.AdmiringActor,
+		location: AreaName.BirdNest,
+	},
+	[DailyQuest.MeetUpWithTroupeJugglerInWastelandRest]: {
+		spirit: SpiritId.TroupeJuggler,
+		location: AreaName.WastelandRest,
+	},
+	[DailyQuest.MeetUpWithThoughtfulDirectorInRepositoryOfRefuge]: {
+		spirit: SpiritId.ThoughtfulDirector,
+		location: AreaName.RepositoryOfRefuge,
+	},
+	[DailyQuest.MeetUpWithTumblingTroublemakerInPrairieCave]: {
+		spirit: SpiritId.TumblingTroublemaker,
+		location: AreaName.PrairieCave,
+	},
+	[DailyQuest.MeetUpWithMelancholyMopeInForestBrook]: {
+		spirit: SpiritId.MelancholyMope,
+		location: AreaName.ForestBrook,
+	},
+	[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: {
+		spirit: SpiritId.OddballOutcast,
+		location: RealmName.HiddenForest,
+	},
+	[DailyQuest.MeetUpWithCrabWhispererInCrabFields]: {
+		spirit: SpiritId.CrabWhisperer,
+		location: AreaName.CrabFields,
+	},
+	[DailyQuest.MeetUpWithDuetsGuideInStarlightDesert]: {
+		spirit: SpiritId.DuetsGuide,
+		location: AreaName.StarlightDesert,
+	},
+	[DailyQuest.MeetUpWithTalentedBuilderInTheWindPaths]: {
+		spirit: SpiritId.TalentedBuilder,
+		location: AreaName.TheWindPaths,
+	},
+	[DailyQuest.MeetUpWithBearhugHermitInHermitValley]: {
+		spirit: SpiritId.BearhugHermit,
+		location: AreaName.HermitValley,
+	},
+};
+
+export function dailyQuestLabel(
+	quest: DailyQuests,
+	translate: (key: string, options: Record<string, string>) => string,
+	options: Record<string, string> = {},
+) {
+	const meetUp = DailyQuestToMeetUp[quest];
+
+	if (!meetUp) {
+		return translate(`general:quests.${quest}`, options);
+	}
+
+	return translate("general:quests-common.meet-up-with", {
+		...options,
+		spirit: translate(`general:spirits.${meetUp.spirit}`, options),
+		location: translate(
+			`general:${isRealm(meetUp.location) ? "realms" : "areas"}.${meetUp.location}`,
+			options,
+		),
+	});
+}
 
 export function isDailyQuest(dailyQuest: number): dailyQuest is DailyQuests {
 	return DAILY_QUEST_VALUES.includes(dailyQuest as DailyQuests);

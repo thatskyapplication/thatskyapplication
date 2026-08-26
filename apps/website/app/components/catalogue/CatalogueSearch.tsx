@@ -7,6 +7,7 @@ import {
 	catalogueSearchEntries,
 	CatalogueSearchType,
 	spiritOriginTranslationKey,
+	CatalogueCollectionToLocaleKey,
 } from "@thatskyapplication/utility";
 import { eventAnchor, eventFamilyYears } from "~/utility/catalogue.js";
 import {
@@ -16,26 +17,12 @@ import {
 } from "~/utility/emojis.js";
 import { CatalogueSearchAutocomplete } from "./CatalogueSearchAutocomplete.js";
 
-const CATALOGUE_COLLECTIONS = {
-	[CatalogueCollection.StarterPacks]: {
-		view: "starter-packs",
-		translationKey: "catalogue.starter-packs",
-	},
-	[CatalogueCollection.SecretArea]: {
-		view: "secret-area",
-		translationKey: "catalogue.secret-area",
-	},
-	[CatalogueCollection.ClothingShop]: {
-		view: "clothing-shop",
-		translationKey: "catalogue.clothing-shop",
-	},
-	[CatalogueCollection.NestingWorkshop]: {
-		view: "nesting-workshop",
-		translationKey: "catalogue.nesting-workshop",
-	},
-} as const satisfies Readonly<
-	Record<CatalogueCollection, { view: string; translationKey: string }>
->;
+const CATALOGUE_COLLECTION_VIEWS = {
+	[CatalogueCollection.StarterPacks]: "starter-packs",
+	[CatalogueCollection.SecretArea]: "secret-area",
+	[CatalogueCollection.ClothingShop]: "clothing-shop",
+	[CatalogueCollection.NestingWorkshop]: "nesting-workshop",
+} as const satisfies Readonly<Record<CatalogueCollection, string>>;
 
 function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 	const { cosmeticDisplay, target } = entry;
@@ -73,8 +60,11 @@ function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 			};
 		}
 		case CatalogueSearchType.Collection: {
-			const { view, translationKey } = CATALOGUE_COLLECTIONS[target.collection];
-			return { to: `?view=${view}`, emoji: null, detail: t(translationKey, { ns: "features" }) };
+			return {
+				to: `?view=${CATALOGUE_COLLECTION_VIEWS[target.collection]}`,
+				emoji: null,
+				detail: t(CatalogueCollectionToLocaleKey[target.collection]),
+			};
 		}
 	}
 }

@@ -15,7 +15,12 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { t } from "i18next";
-import { formatEmoji, MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
+import {
+	formatEmoji,
+	MAXIMUM_ASSET_SIZE,
+	SkyProfileEditType,
+	SkyProfileEditTypeToLocaleKey,
+} from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
@@ -193,7 +198,7 @@ export async function meHandleCustomiseMeButton(
 					min_values: 1,
 					required: false,
 				},
-				label: t("me.customise-me-modal-label-banner-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Banner], { lng: locale }),
 				description: t("me.customise-me-modal-label-banner-description", {
 					lng: locale,
 					ns: "features",

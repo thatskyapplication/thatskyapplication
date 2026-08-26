@@ -60,7 +60,7 @@ void init({
 		escapeValue: false,
 	},
 	missingKeyHandler: (lngs, namespace, key) =>
-		pino.warn(
+		pino.error(
 			`Locale ${lngs.join(", ")} had a missing translation in namespace ${namespace} for "${key}".`,
 		),
 	ns: ["general", "commands", "features"],

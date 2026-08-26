@@ -15,6 +15,7 @@ import { isRouteErrorResponse } from "react-router";
 import { HydratedRouter } from "react-router/dom";
 import { LOCALE_RESOURCES_ELEMENT_ID } from "~/utility/constants";
 import { isLocale } from "~/utility/locale.js";
+import { reportMissingTranslation } from "~/utility/missing-translation.js";
 
 const BROWSER_TRANSLATION_CLASSES = ["translated-ltr", "translated-rtl"] as const;
 const BROWSER_TRANSLATION_ELEMENT_ID = "goog-gt-tt" as const;
@@ -85,10 +86,7 @@ async function main() {
 		fallbackLng: Locale.EnglishGB,
 		interpolation: { escapeValue: false },
 		lng: language,
-		missingKeyHandler: (lngs, namespace, key) =>
-			console.warn(
-				`Locale ${lngs.join(", ")} had a missing translation in namespace ${namespace} for "${key}".`,
-			),
+		missingKeyHandler: reportMissingTranslation,
 		resources,
 		returnEmptyString: false,
 		saveMissing: true,

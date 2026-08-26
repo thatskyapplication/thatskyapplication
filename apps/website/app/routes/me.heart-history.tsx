@@ -221,7 +221,12 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 									style={{ backgroundImage: `url(${heartEmojiURL})` }}
 								/>
 								{doubleHeart.active
-									? t("days-left.double-hearts", { ns: "general", count: doubleHeart.days })
+									? t(
+											doubleHeart.days === 0
+												? "days-left.double-hearts-ends-today"
+												: "days-left.double-hearts",
+											{ ns: "general", count: doubleHeart.days },
+										)
 									: t("daily-guides.double-hearts-upcoming", {
 											ns: "features",
 											count: doubleHeart.days,

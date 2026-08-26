@@ -91,9 +91,9 @@ export async function checklist({
 						type: ComponentType.Button,
 						style: ButtonStyle.Danger,
 						custom_id: `${CustomId.ChecklistDailyQuestsComplete}§1`,
-						label: t("checklist.reset", {
+						label: t("reset", {
 							lng: locale,
-							ns: "features",
+							ns: "general",
 						}),
 					}
 				: {
@@ -145,9 +145,9 @@ export async function checklist({
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
 							custom_id: `${CustomId.ChecklistSeasonalCandlesComplete}§1`,
-							label: t("checklist.reset", {
+							label: t("reset", {
 								lng: locale,
-								ns: "features",
+								ns: "general",
 							}),
 						}
 					: {
@@ -195,9 +195,9 @@ export async function checklist({
 						type: ComponentType.Button,
 						style: ButtonStyle.Danger,
 						custom_id: `${CustomId.ChecklistEyeOfEdenComplete}§1`,
-						label: t("checklist.reset", {
+						label: t("reset", {
 							lng: locale,
-							ns: "features",
+							ns: "general",
 						}),
 					}
 				: {
@@ -230,9 +230,9 @@ export async function checklist({
 						type: ComponentType.Button,
 						style: ButtonStyle.Danger,
 						custom_id: `${CustomId.ChecklistShardEruptionsComplete}§1`,
-						label: t("checklist.reset", {
+						label: t("reset", {
 							lng: locale,
-							ns: "features",
+							ns: "general",
 						}),
 					}
 				: {
@@ -282,9 +282,9 @@ export async function checklist({
 						type: ComponentType.Button,
 						style: ButtonStyle.Danger,
 						custom_id: `${CustomId.ChecklistDyeWorkshopComplete}§1`,
-						label: t("checklist.reset", {
+						label: t("reset", {
 							lng: locale,
-							ns: "features",
+							ns: "general",
 						}),
 					}
 				: {
@@ -323,9 +323,9 @@ export async function checklist({
 						type: ComponentType.Button,
 						style: ButtonStyle.Danger,
 						custom_id: `${CustomId.ChecklistDoNotDisturbBlessingComplete}§1`,
-						label: t("checklist.reset", {
+						label: t("reset", {
 							lng: locale,
-							ns: "features",
+							ns: "general",
 						}),
 					}
 				: {
@@ -368,9 +368,9 @@ export async function checklist({
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
 							custom_id: `${CustomId.ChecklistEventTicketsComplete}§1`,
-							label: t("checklist.reset", {
+							label: t("reset", {
 								lng: locale,
-								ns: "features",
+								ns: "general",
 							}),
 						}
 					: {

@@ -29,6 +29,7 @@ import {
 	SkyProfilePersonalityToMBTI,
 	SkyProfileWingedLightType,
 	WEBSITE_URL,
+	SkyProfileEditTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { ActionLink } from "~/components/ActionButton";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
@@ -342,9 +343,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							</span>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Country}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Country])}
 								</p>
 								<p className="my-0">{displayNames.of(data.country)}</p>
 							</div>
@@ -359,13 +358,13 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							/>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.WingedLight])}
 								</p>
 								<p className="my-0">
 									{maximumWingedLight.capeless
-										? t("sky-profile.winged-light-capeless", { ns: "features" })
+										? t(`sky-profile-winged-light-types.${SkyProfileWingedLightType.Capeless}`, {
+												ns: "general",
+											})
 										: maximumWingedLight.isMax
 											? `${maximumWingedLight.count} (${t("sky-profile.winged-light-max", { ns: "features" })})`
 											: maximumWingedLight.count.toString()}
@@ -382,9 +381,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							/>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Spirit}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Spirit])}
 								</p>
 								<p className="my-0">{t(`spirits.${data.spirit}`, { ns: "general" })}</p>
 							</div>
@@ -399,7 +396,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							/>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
-									{t("sky-profile.personality", { ns: "features" })}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Personality])}
 								</p>
 								<p className="my-0">
 									{t("sky-profile.personality-with-mbti", {
@@ -416,9 +413,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							<MapPinIcon className="mr-2 h-6 w-6" />
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Hangout}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Hangout])}
 								</p>
 								<p className="my-0">{data.hangout}</p>
 							</div>
@@ -429,9 +424,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							<BookOpenCheck className="mr-2 h-6 w-6" />
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.CatalogueProgression])}
 								</p>
 								<p className="my-0">{catalogueProgression}%</p>
 							</div>

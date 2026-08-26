@@ -52,6 +52,7 @@ import {
 	travellingSpiritSchedule,
 	turtleSchedule,
 	vaultEldersBlessingSchedule,
+	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
@@ -77,7 +78,7 @@ import {
 function dailyResetNext(now: Temporal.ZonedDateTime, locale: Locale) {
 	const timestamp = epochSeconds(nextDailyReset(now));
 
-	return t("schedule.next-daily-reset", {
+	return t("schedule.timestamps", {
 		lng: locale,
 		ns: "features",
 		timestamp1: `<t:${timestamp}:t>`,
@@ -95,7 +96,7 @@ function dailyResetDetailedBreakdown(
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
 		custom_id: CustomId.ScheduleDetailedBreakdownViewShardEruptions,
-		label: t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" }),
+		label: t(ScheduleTypeToLocaleKey[ScheduleType.ShardEruption], { lng: locale }),
 	};
 
 	if (shard) {
@@ -118,7 +119,7 @@ function dailyResetDetailedBreakdown(
 					type: ComponentType.Button,
 					style: ButtonStyle.Secondary,
 					custom_id: CustomId.ScheduleDetailedBreakdownViewDailyGuides,
-					label: t("schedule.detailed-breakdown-daily-reset-daily-guides-button-label", {
+					label: t("daily-guides.name", {
 						lng: locale,
 						ns: "features",
 					}),
@@ -133,7 +134,7 @@ function dailyResetDetailedBreakdown(
 function eyeOfEdenNext(now: Temporal.ZonedDateTime, locale: Locale) {
 	const timestamp = epochSeconds(nextEyeOfEden(now));
 
-	return t("schedule.next-eye-of-eden", {
+	return t("schedule.timestamps", {
 		lng: locale,
 		ns: "features",
 		timestamp1: `<t:${timestamp}:s>`,
@@ -151,7 +152,7 @@ function eyeOfEdenDetailedBreakdown(
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
 		custom_id: CustomId.ScheduleDetailedBreakdownViewShardEruptions,
-		label: t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" }),
+		label: t(ScheduleTypeToLocaleKey[ScheduleType.ShardEruption], { lng: locale }),
 	};
 
 	if (shard) {
@@ -192,7 +193,7 @@ function internationalSpaceStationDetailedBreakdown(
 	for (const internationalSpaceStationDate of internationalSpaceStationDates(date)) {
 		const issDateUnix = epochSeconds(internationalSpaceStationDate);
 
-		let string = t("schedule.detailed-breakdown-international-space-station-time", {
+		let string = t("schedule.timestamps", {
 			lng: locale,
 			ns: "features",
 			timestamp1: `<t:${issDateUnix}:f>`,
@@ -519,7 +520,7 @@ function pollutedGeyserDetailedBreakdown(
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-polluted-geyser-message", {
+			content: t("schedule.detailed-breakdown-two-hourly-message", {
 				lng: locale,
 				ns: "features",
 				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
@@ -574,7 +575,7 @@ function grandmaDetailedBreakdown(
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-grandma-message", {
+			content: t("schedule.detailed-breakdown-two-hourly-message", {
 				lng: locale,
 				ns: "features",
 				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
@@ -629,7 +630,7 @@ function turtleDetailedBreakdown(
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-turtle-message", {
+			content: t("schedule.detailed-breakdown-two-hourly-message", {
 				lng: locale,
 				ns: "features",
 				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
@@ -833,7 +834,7 @@ function auroraDetailedBreakdown(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-aurora-requires", {
+			content: t("schedule.detailed-breakdown-requires", {
 				lng: locale,
 				ns: "features",
 				emoji: formatEmoji(CAPE_EMOJIS.Cape96),
@@ -1053,7 +1054,7 @@ function nineColouredDeerDetailedBreakdown(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-nine-coloured-deer-requires", {
+			content: t("schedule.detailed-breakdown-requires", {
 				lng: locale,
 				ns: "features",
 				emoji: formatEmoji(CAPE_EMOJIS.Cape125),
@@ -1065,7 +1066,7 @@ function nineColouredDeerDetailedBreakdown(
 function nestingWorkshopNext(now: Temporal.ZonedDateTime, locale: Locale) {
 	const timestamp = epochSeconds(nextNestingWorkshop(now)!);
 
-	return t("schedule.next-nesting-workshop", {
+	return t("schedule.timestamps", {
 		lng: locale,
 		ns: "features",
 		timestamp1: `<t:${timestamp}:s>`,
@@ -1194,7 +1195,7 @@ function projectorOfMemoriesDetailedBreakdown(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-projector-of-memories-requires", {
+			content: t("schedule.detailed-breakdown-requires", {
 				lng: locale,
 				ns: "features",
 				emoji: formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106),
@@ -1251,7 +1252,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.Maintenance}`, { lng: locale, ns: "features" }),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.Maintenance], { lng: locale }),
 				details:
 					Temporal.ZonedDateTime.compare(activeMaintenance.start, now) <= 0
 						? `${formatEmoji(MISCELLANEOUS_EMOJIS.Report)} ${t("time-range", {
@@ -1302,7 +1303,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" }),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.DailyReset], { lng: locale }),
 				details: dailyResetNext(now, locale),
 			}),
 		},
@@ -1311,7 +1312,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" }),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.EyeOfEden], { lng: locale }),
 				details: eyeOfEdenNext(now, locale),
 			}),
 		},
@@ -1320,10 +1321,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.ShardEruption}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.ShardEruption], { lng: locale }),
 				details: shardEruption.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1342,10 +1340,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.TravellingSpirit], { lng: locale }),
 				details: travellingSpirit.now
 					? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${travellingSpirit.now}`
 					: t("schedule.overview-next-available-timestamp", {
@@ -1362,10 +1357,7 @@ export async function scheduleOverview(
 						content: t("schedule.overview", {
 							lng: locale,
 							ns: "features",
-							type: t(`schedule.type.${ScheduleType.ReturningSpirits}`, {
-								lng: locale,
-								ns: "features",
-							}),
+							type: t(ScheduleTypeToLocaleKey[ScheduleType.ReturningSpirits], { lng: locale }),
 							details: returningSpirits.active
 								? t("schedule.overview-ends-timestamp", {
 										lng: locale,
@@ -1386,10 +1378,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop], { lng: locale }),
 				details: nestingWorkshopNext(now, locale),
 			}),
 		},
@@ -1398,10 +1387,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.AviarysFireworkFestival], { lng: locale }),
 				details: aviarysFireworkFestival.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1420,10 +1406,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.InternationalSpaceStation], { lng: locale }),
 				details: internationalSpaceStation.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1447,10 +1430,7 @@ export async function scheduleOverview(
 					t("schedule.overview", {
 						lng: locale,
 						ns: "features",
-						type: t(`schedule.type.${ScheduleType.RadianceEvent}`, {
-							lng: locale,
-							ns: "features",
-						}),
+						type: t(ScheduleTypeToLocaleKey[ScheduleType.RadianceEvent], { lng: locale }),
 						details: radianceEvent.now
 							? `${t("schedule.overview-available", {
 									lng: locale,
@@ -1560,10 +1540,7 @@ export async function scheduleOverview(
 					t("schedule.overview", {
 						lng: locale,
 						ns: "features",
-						type: t(`schedule.type.${ScheduleType.Season}`, {
-							lng: locale,
-							ns: "features",
-						}),
+						type: t(ScheduleTypeToLocaleKey[ScheduleType.Season], { lng: locale }),
 						details: `${season.season}: ${
 							season.now
 								? t("schedule.overview-ends-timestamp", {
@@ -1591,10 +1568,7 @@ export async function scheduleOverview(
 					t("schedule.overview", {
 						lng: locale,
 						ns: "features",
-						type: t(`schedule.type.${ScheduleType.Events}`, {
-							lng: locale,
-							ns: "features",
-						}),
+						type: t(ScheduleTypeToLocaleKey[ScheduleType.Events], { lng: locale }),
 						details: `${event.event}: ${
 							event.now
 								? t("schedule.overview-ends-timestamp", {
@@ -1620,10 +1594,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.PollutedGeyser], { lng: locale }),
 				details: pollutedGeyser.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1642,10 +1613,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.Grandma}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.Grandma], { lng: locale }),
 				details: grandma.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1664,10 +1632,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.Turtle}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.Turtle], { lng: locale }),
 				details: turtle.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1686,10 +1651,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.AURORA}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.AURORA], { lng: locale }),
 				details: aurora.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1708,10 +1670,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.DreamsSkater], { lng: locale }),
 				details: dreamsSkater.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1733,10 +1692,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.MeteorShower}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.MeteorShower], { lng: locale }),
 				details: meteorShower.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1758,10 +1714,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.VaultEldersBlessing], { lng: locale }),
 				details: vaultEldersBlessing.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1780,10 +1733,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.Passage}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.Passage], { lng: locale }),
 				details: t("schedule.overview-next-available-timestamp", {
 					lng: locale,
 					ns: "features",
@@ -1796,10 +1746,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.NineColouredDeer], { lng: locale }),
 				details: nineColouredDeer.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1818,10 +1765,7 @@ export async function scheduleOverview(
 			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
-					lng: locale,
-					ns: "features",
-				}),
+				type: t(ScheduleTypeToLocaleKey[ScheduleType.ProjectorOfMemories], { lng: locale }),
 				details: projectorOfMemories.now
 					? t("schedule.overview-available", {
 							lng: locale,
@@ -1839,74 +1783,50 @@ export async function scheduleOverview(
 
 	const options: APISelectMenuOption[] = [
 		{
-			label: t(`schedule.type.${ScheduleType.DailyReset}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.DailyReset], { lng: locale }),
 			value: ScheduleType.DailyReset.toString(),
 			emoji: MISCELLANEOUS_EMOJIS.DailyReset,
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.EyeOfEden}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.EyeOfEden], { lng: locale }),
 			value: ScheduleType.EyeOfEden.toString(),
 			emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.ShardEruption}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.ShardEruption], { lng: locale }),
 			value: ScheduleType.ShardEruption.toString(),
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.TravellingSpirit], { lng: locale }),
 			value: ScheduleType.TravellingSpirit.toString(),
 		},
 		...(returningSpirits
 			? [
 					{
-						label: t(`schedule.type.${ScheduleType.ReturningSpirits}`, {
-							lng: locale,
-							ns: "features",
-						}),
+						label: t(ScheduleTypeToLocaleKey[ScheduleType.ReturningSpirits], { lng: locale }),
 						value: ScheduleType.ReturningSpirits.toString(),
 					} satisfies APISelectMenuOption,
 				]
 			: []),
 		{
-			label: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop], { lng: locale }),
 			value: ScheduleType.NestingWorkshop.toString(),
 			emoji: SEASON_EMOJIS.Nesting,
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.AviarysFireworkFestival], { lng: locale }),
 			value: ScheduleType.AviarysFireworkFestival.toString(),
 			emoji: EVENT_EMOJIS.AviarysFireworkFestival,
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.InternationalSpaceStation], { lng: locale }),
 			value: ScheduleType.InternationalSpaceStation.toString(),
 		},
 	];
 
 	if (radianceEvents.length > 0) {
 		options.push({
-			label: t(`schedule.type.${ScheduleType.RadianceEvent}`, { lng: locale, ns: "features" }),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.RadianceEvent], { lng: locale }),
 			value: ScheduleType.RadianceEvent.toString(),
 			emoji: MISCELLANEOUS_EMOJIS.Dye,
 		});
@@ -1914,39 +1834,24 @@ export async function scheduleOverview(
 
 	options.push(
 		{
-			label: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.PollutedGeyser], { lng: locale }),
 			value: ScheduleType.PollutedGeyser.toString(),
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.Grandma}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.Grandma], { lng: locale }),
 			value: ScheduleType.Grandma.toString(),
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.Turtle}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.Turtle], { lng: locale }),
 			value: ScheduleType.Turtle.toString(),
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.AURORA}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.AURORA], { lng: locale }),
 			value: ScheduleType.AURORA.toString(),
 			emoji: CAPE_EMOJIS.Cape96,
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.DreamsSkater], { lng: locale }),
 			value: ScheduleType.DreamsSkater.toString(),
 			emoji: SEASON_EMOJIS.Dreams,
 		},
@@ -1954,10 +1859,7 @@ export async function scheduleOverview(
 
 	if (meteorShower) {
 		options.push({
-			label: t(`schedule.type.${ScheduleType.MeteorShower}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.MeteorShower], { lng: locale }),
 			value: ScheduleType.MeteorShower.toString(),
 			emoji: EVENT_EMOJIS.Love,
 		});
@@ -1965,34 +1867,22 @@ export async function scheduleOverview(
 
 	options.push(
 		{
-			label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.VaultEldersBlessing], { lng: locale }),
 			value: ScheduleType.VaultEldersBlessing.toString(),
 			emoji: CAPE_EMOJIS.Cape156,
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.Passage}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.Passage], { lng: locale }),
 			value: ScheduleType.Passage.toString(),
 			emoji: SEASON_EMOJIS.Passage,
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.NineColouredDeer], { lng: locale }),
 			value: ScheduleType.NineColouredDeer.toString(),
 			emoji: CAPE_EMOJIS.Cape125,
 		},
 		{
-			label: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
-				lng: locale,
-				ns: "features",
-			}),
+			label: t(ScheduleTypeToLocaleKey[ScheduleType.ProjectorOfMemories], { lng: locale }),
 			value: ScheduleType.ProjectorOfMemories.toString(),
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
 		},
@@ -2198,7 +2088,7 @@ export async function scheduleDetailedBreakdown(
 
 	const titleTextDisplay: APITextDisplayComponent = {
 		type: ComponentType.TextDisplay,
-		content: `## ${t(`schedule.type.${type}`, { lng: locale, ns: "features" })}`,
+		content: `## ${t(ScheduleTypeToLocaleKey[type], { lng: locale })}`,
 	};
 
 	const title: APIComponentInContainer = wikiURL
@@ -2237,7 +2127,7 @@ export async function scheduleDetailedBreakdown(
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
 							custom_id: CustomId.ScheduleViewOverview,
-							label: t("schedule.back", { lng: locale, ns: "features" }),
+							label: t("navigation-back", { lng: locale, ns: "general" }),
 							emoji: { name: "⬅️" },
 						},
 					],

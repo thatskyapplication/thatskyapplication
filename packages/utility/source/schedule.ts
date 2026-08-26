@@ -1,8 +1,10 @@
+import { Cosmetic } from "./cosmetics.js";
 import { isActive, skyDate, TIME_ZONE } from "./dates.js";
 import { skyNotEndedEvents } from "./events/index.js";
 import { RETURNING_DATES, TRAVELLING_DATES } from "./kingdom/seasons/index.js";
 import { SHARD_ERUPTION_START_DATE, shardEruption } from "./shard-eruption.js";
 import { EventId } from "./utility/event.js";
+import { SpiritId } from "./utility/spirits.js";
 
 export const ScheduleType = {
 	DailyReset: 0,
@@ -33,6 +35,33 @@ export const ScheduleType = {
 
 export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
 export type ScheduleTypes = (typeof SCHEDULE_TYPE_VALUES)[number];
+
+export const ScheduleTypeToLocaleKey = {
+	[ScheduleType.DailyReset]: "general:occurrences.0",
+	[ScheduleType.EyeOfEden]: "general:areas.Eye of Eden",
+	[ScheduleType.InternationalSpaceStation]: "general:occurrences.2",
+	[ScheduleType.TravellingSpirit]: "general:travelling-spirit",
+	[ScheduleType.Dragon]: "general:occurrences.3",
+	[ScheduleType.PollutedGeyser]: "general:occurrences.4",
+	[ScheduleType.Grandma]: "general:occurrences.5",
+	[ScheduleType.Turtle]: "general:occurrences.6",
+	[ScheduleType.ShardEruption]: "general:shard-eruption",
+	[ScheduleType.DreamsSkater]: "general:occurrences.13",
+	[ScheduleType.AURORA]: `general:spirits.${SpiritId.AURORA}`,
+	[ScheduleType.Passage]: "general:occurrences.10",
+	[ScheduleType.AviarysFireworkFestival]: "general:event-names.aviarys-firework-festival",
+	[ScheduleType.NineColouredDeer]: `features:schedule.type.${ScheduleType.NineColouredDeer}`,
+	[ScheduleType.NestingWorkshop]: "general:occurrences.14",
+	[ScheduleType.VaultEldersBlessing]: `features:schedule.type.${ScheduleType.VaultEldersBlessing}`,
+	[ScheduleType.ProjectorOfMemories]: `general:cosmetic-names.${Cosmetic.ProjectorOfMemories}`,
+	[ScheduleType.MeteorShower]: `features:schedule.type.${ScheduleType.MeteorShower}`,
+	[ScheduleType.Maintenance]: "general:maintenance",
+	[ScheduleType.RadianceEvent]: "general:event-names.radiance-event",
+	[ScheduleType.Events]: "general:event",
+	[ScheduleType.Season]: "general:season",
+	[ScheduleType.ReturningSpirits]: "general:returning-spirits",
+	[ScheduleType.Update]: `features:schedule.type.${ScheduleType.Update}`,
+} as const satisfies Readonly<Record<ScheduleTypes, string>>;
 const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [6, 13, 20, 27] as const;
 const INTERNATIONAL_SPACE_STATION_START_DATE = Temporal.PlainDate.from("2019-09-22");

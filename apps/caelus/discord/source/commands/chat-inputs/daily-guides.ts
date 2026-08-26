@@ -14,7 +14,7 @@ import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
-	name: t("daily-guides.command-name", { ns: "commands" }),
+	name: t("common.daily-guides", { ns: "commands" }),
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		const options = new OptionResolver(interaction);
 

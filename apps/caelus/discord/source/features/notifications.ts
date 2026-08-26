@@ -22,6 +22,7 @@ import {
 	NotificationOffsetToMaximumValues,
 	type NotificationTypes,
 	type Packet,
+	NotificationTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";
@@ -88,7 +89,7 @@ function isNotificationSendable(
 		})
 	) {
 		errors.push(
-			t("notifications.error-missing-permissions", {
+			t("common.error-missing-permissions", {
 				lng: locale,
 				ns: "features",
 				channel: `<#${channel.id}>`,
@@ -257,9 +258,8 @@ export async function setupResponse(
 													lng: interaction.locale,
 													ns: "features",
 												}),
-										label: t(`notification-types.${notificationType}`, {
+										label: t(NotificationTypeToLocaleKey[notificationType], {
 											lng: interaction.locale,
-											ns: "general",
 										}),
 										value: String(notificationType),
 									};
@@ -352,7 +352,7 @@ export async function displayNotificationType(
 			);
 		} else {
 			feedback.push(
-				t("notifications.edit-no-channel-detected", {
+				t("common.no-channel-detected", {
 					lng: interaction.locale,
 					ns: "features",
 				}),
@@ -380,7 +380,7 @@ export async function displayNotificationType(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `## ${t(`notification-types.${notificationType}`, { lng: interaction.locale, ns: "general" })}`,
+						content: `## ${t(NotificationTypeToLocaleKey[notificationType], { lng: interaction.locale })}`,
 					},
 					{
 						type: ComponentType.Separator,
@@ -452,8 +452,8 @@ export async function displayNotificationType(
 						type: ComponentType.TextDisplay,
 						content:
 							feedback.length > 0
-								? `${t("notifications.edit-stopped", { lng: interaction.locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.length > 1 ? feedback.map((string) => `- ${string}`).join("\n") : feedback[0]}`
-								: t("notifications.edit-sending", {
+								? `${t("common.stopped", { lng: interaction.locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.length > 1 ? feedback.map((string) => `- ${string}`).join("\n") : feedback[0]}`
+								: t("common.sending", {
 										lng: interaction.locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
@@ -467,7 +467,7 @@ export async function displayNotificationType(
 								style: ButtonStyle.Primary,
 								custom_id: CustomId.NotificationsViewSetup,
 								emoji: { name: "⏪" },
-								label: t("notifications.back", { lng: interaction.locale, ns: "features" }),
+								label: t("navigation-back", { lng: interaction.locale, ns: "general" }),
 							},
 						],
 					},

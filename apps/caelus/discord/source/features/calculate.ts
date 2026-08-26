@@ -52,7 +52,7 @@ export async function ascendedCandles(
 
 	if (start >= goal) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("calculate.ascended-candles.goal-achieved", { lng: locale, ns: "features" }),
+			content: t("calculate.goal-already-achieved", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -143,7 +143,7 @@ export async function ascendedCandles(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `${t("calculate.ascended-candles.minimum-time-beginning", { lng: locale, ns: "features" })}\n${eyeOfEden ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-eye-of-eden", { lng: locale, ns: "features" })}\n${shardEruptions ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-shard-eruptions", { lng: locale, ns: "features" })}`,
+						content: `${t("calculate.ascended-candles.minimum-time-beginning", { lng: locale, ns: "features" })}\n${eyeOfEden ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-eye-of-eden", { lng: locale, ns: "features" })}\n${shardEruptions ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("shard-eruption.name-plural", { lng: locale, ns: "features" })}`,
 					},
 				],
 			},
@@ -281,14 +281,17 @@ export async function eventTickets(
 					{
 						type: ComponentType.TextDisplay,
 						content: events
-							.map(({ name, end }) =>
-								t("days-left.event", {
+							.map(({ name, end }) => {
+								const daysLeft =
+									Math.ceil(end.since(now).total({ unit: "days", relativeTo: now })) - 1;
+
+								return t(daysLeft === 0 ? "days-left.event-ends-today" : "days-left.event", {
 									lng: locale,
 									ns: "general",
-									count: Math.ceil(end.since(now).total({ unit: "days", relativeTo: now })) - 1,
+									count: daysLeft,
 									name: t(name, { lng: locale, ns: "general" }),
-								}),
-							)
+								});
+							})
 							.join("\n"),
 					},
 				],
@@ -444,12 +447,14 @@ export async function seasonalCandles(
 		});
 	}
 
+	const seasonDaysLeft = season.end.since(today).total({ unit: "days", relativeTo: today }) - 1;
+
 	containerComponents.push({
 		type: ComponentType.TextDisplay,
-		content: t("days-left.season", {
+		content: t(seasonDaysLeft === 0 ? "days-left.season-ends-today" : "days-left.season", {
 			lng: locale,
 			ns: "general",
-			count: season.end.since(today).total({ unit: "days", relativeTo: today }) - 1,
+			count: seasonDaysLeft,
 		}),
 	});
 
@@ -517,7 +522,7 @@ export async function wingedLight(
 
 	if (nextThreshold) {
 		wedgeText.push(
-			`${t("calculate.winged-light.wedge-next", { lng: locale, ns: "features", count: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`,
+			`${t("calculate.winged-light.wedge-next", { lng: locale, ns: "features", amount: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`,
 		);
 	}
 

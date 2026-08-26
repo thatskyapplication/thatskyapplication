@@ -22,22 +22,21 @@
 		"hearts": "",
 		"ascended-candles": "",
 		"seasonal-candles": "",
+		"jump-to-date": "",
+		"none": "",
+		"reset": "",
+		"none_travelling-rock": "",
 		"seasonal-hearts": "",
 		"days-left": {
-			"season_zero": "",
-			"season_one": "Mùa này kết thúc sau {{count}} ngày.",
+			"season-ends-today": "",
+			"event-ends-today": "",
+			"double-hearts-ends-today": "",
+			"double-seasonal-light-ends-today": "",
+			"double-treasure-candles-ends-today": "",
 			"season_other": "Mùa này kết thúc sau {{count}} ngày.",
-			"event_zero": "",
-			"event_one": "",
 			"event_other": "",
-			"double-hearts_zero": "",
-			"double-hearts_one": "",
 			"double-hearts_other": "",
-			"double-seasonal-light_zero": "",
-			"double-seasonal-light_one": "",
 			"double-seasonal-light_other": "",
-			"double-treasure-candles_zero": "",
-			"double-treasure-candles_one": "",
 			"double-treasure-candles_other": ""
 		},
 		"error-timed-out": "",
@@ -118,9 +117,8 @@
 			"Wandering Carnival": "Lễ Hội Lưu Động",
 			"The Last City": "Thành Phố Cuối Cùng"
 		},
-		"notification-types": {
+		"occurrences": {
 			"0": "",
-			"1": "Mắt Địa Đàng",
 			"2": "",
 			"3": "",
 			"4": "",
@@ -128,20 +126,9 @@
 			"6": "",
 			"7": "",
 			"8": "",
-			"9": "",
 			"10": "",
-			"11": "",
-			"12": "$t(general:travelling-spirit)",
 			"13": "",
-			"14": "",
-			"15": "$t(general:maintenance)",
-			"16": "$t(general:events)",
-			"17": "$t(general:event-names.radiance-event)",
-			"18": "$t(general:season-plural)",
-			"19": "$t(general:event-names.double-hearts)",
-			"20": "",
-			"21": "$t(general:event-names.double-treasure-candles)",
-			"22": "$t(general:returning-spirits)"
+			"14": ""
 		},
 		"page": "",
 		"quests-common": {
@@ -318,9 +305,6 @@
 			"167": "Bay lên tòa tháp cùng Cinnamoroll ở Làng Chuồng Chim",
 			"168": "Hãy té nước cùng Cinnamoroll tại Làng Chuồng Chim",
 			"169": "Tham gia bất kỳ trò chơi nào trong Giải đấu",
-			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(areas.Village of Dreams)\"})",
-			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(areas.Village of Dreams)\"})",
-			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(areas.Village Theatre)\"})",
 			"173": "",
 			"174": "Thay kiểu tóc",
 			"175": "Thay đổi vòng cổ của bạn",
@@ -330,30 +314,6 @@
 			"179": "Thay quần",
 			"180": "Xem Ký Ức Chung tại một ngôi đền thời trang",
 			"181": "Ghi lại Ký Ức Chung tại một ngôi đền thời trang",
-			"182": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.118)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"183": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.115)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"184": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.122)\",\"location\":\"$t(areas.Village of Dreams)\"})",
-			"185": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.115)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
-			"186": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.115)\",\"location\":\"$t(areas.Crab Fields)\"})",
-			"187": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.116)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"188": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.14)\",\"location\":\"$t(areas.Forest Brook)\"})",
-			"189": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.13)\",\"location\":\"$t(areas.Forest Brook)\"})",
-			"190": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.118)\",\"location\":\"$t(areas.The Graveyard)\"})",
-			"191": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.15)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"192": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.15)\",\"location\":\"$t(areas.Elevated Clearing)\"})",
-			"193": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.117)\",\"location\":\"$t(areas.Forgotten Ark)\"})",
-			"194": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.15)\",\"location\":\"$t(realms.Hidden Forest)\"})",
-			"195": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.118)\",\"location\":\"$t(areas.Forgotten Ark)\"})",
-			"196": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.18)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"197": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.116)\",\"location\":\"$t(areas.Forgotten Ark)\"})",
-			"198": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(areas.Prairie Peaks)\"})",
-			"199": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.17)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"200": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.20)\",\"location\":\"$t(areas.Boneyard)\"})",
-			"201": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Sanctuary Islands)\"})",
-			"202": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(areas.Sanctuary Islands)\"})",
-			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(areas.Sanctuary Islands)\"})",
-			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Prairie Village)\"})",
-			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(areas.Prairie Village)\"})",
 			"206": "Giúp Ngư Dân Lo Lắng hoặc Đội Trưởng Quản Lý tìm kho báu tại Sa Mạc Ánh Sao",
 			"207": "Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Quần Đảo Thánh Địa",
 			"208": "Giúp Thủy Thủ Hậu Đậu hoặc Người Dẫn Đoàn tìm kho báu tại Rừng Mưa",
@@ -368,10 +328,6 @@
 			"217": "Giúp Thuyền Trưởng Uy Nghiêm hoặc Người Đi Rừng Mộng Du tìm kho báu tại Quần Đảo Thánh Địa",
 			"218": "Giúp Ngư Dân Lo Lắng hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa",
 			"219": "Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Làng Mộng Mơ",
-			"220": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.136)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
-			"221": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Prairie Peaks)\"})",
-			"222": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.145)\",\"location\":\"$t(areas.Prairie Peaks)\"})",
-			"223": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.14)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"224": "Điều tra một dấu vết Chim Xanh tại Hồ Băng",
 			"225": "Điều tra một dấu vết Chim Xanh tại Kho Chứa",
 			"226": "Điều tra một dấu vết Chim Xanh tại Nhà Hát Làng",
@@ -380,35 +336,15 @@
 			"229": "Tìm manh mối về tung tích của Chim Xanh tại Kho Chứa",
 			"230": "Tìm manh mối về tung tích của Chim Xanh tại Nhà Hát Làng",
 			"231": "Tìm manh mối về tung tích của Chim Xanh tại Khu Rừng Trống",
-			"232": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.117)\",\"location\":\"$t(areas.Treasure Reef)\"})",
-			"233": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"234": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.112)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"235": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.111)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"236": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.110)\",\"location\":\"$t(areas.Bird Nest)\"})",
 			"237": "Nhặt một con Cua",
 			"238": "Ngắm Không Gian Chung tại Tháp Chuông Vỡ trong Làng Chuồng Chim trong chốc lát",
-			"239": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.83)\",\"location\":\"$t(areas.Aviary Village)\"})",
-			"240": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.61)\",\"location\":\"$t(areas.Aviary Village)\"})",
-			"241": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(areas.Aviary Village)\"})",
 			"242": "Ngắm Không Gian Chung cùng Thợ Đồng Hồ Vỗ Tay",
 			"243": "Ngắm Không Gian Chung cùng Người Đi Rừng Mộng Du",
 			"244": "Ngắm Không Gian Chung cùng Tu Sĩ Gấu Ôm",
 			"245": "Ngắm Không Gian Chung cùng Thủy Thủ Hậu Đậu",
-			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(areas.Prairie Village)\"})",
-			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(areas.Temple of the Prairie)\"})",
-			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "Giúp Thánh Đồ Cầu Nguyện lưu trữ mùa hè tại Kho Lưu Trữ",
-			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Vault Rest)\"})",
-			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
-			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(areas.Forest Brook)\"})",
-			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(areas.Wasteland Rest)\"})",
-			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
 			"258": "Bắt các ánh sáng lang thang dọc Đường Thung Lũng Dưới",
 			"259": "Mời một tinh linh Mùa Di Cư cùng phiêu lưu với bạn hôm nay",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(areas.Prairie Cave)\"})",
 			"261": "Dùng các biểu cảm với người chơi",
 			"262": "Bắt các ánh sáng lang thang ở Suối Nhỏ Trong Rừng",
 			"263": "Bắt các ánh sáng lang thang xung quanh Tổ Chim",
@@ -422,24 +358,18 @@
 			"271": "Cưỡi một con cá đuối khổng lồ ở Quần Đảo Thánh Địa",
 			"272": "",
 			"273": "Bay với nhiều con bướm ở Cánh Đồng Bướm",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(areas.Forest Brook)\"})",
 			"275": "Hoàn thành đua chổi của Nat ở Khu vực Cua kêu Thần bí",
 			"276": "Giúp Austin thu thập 5 con cua trong tầng hầm tại Khu vực Cua kêu Thần bí",
 			"277": "Giúp Skidmore bắn đại bác 3 lần ở Khu vực Cua kêu Thần bí",
 			"278": "Nhảy vào nồi phép của Yoshi tại Quán Cua Cười Khúc Khích",
-			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})",
 			"280": "Bắt được thứ gì đó tốt bằng cần câu ở Làng Mộng Mơ",
 			"281": "Tìm Tu Sĩ Gấu Ôm ở Làng Mộng Mơ và tham gia một cuộc đua",
 			"282": "Chơi Thiên Cầu trong 60 giây ở Làng Mộng Mơ",
 			"283": "Ném một quả cầu tuyết vào ai đó",
 			"284": "Dọn dẹp Bàn Tổ Tiên trong Bãi Đất Cao",
-			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(areas.Crab Fields)\"})",
 			"286": "Giải cứu một con Cá Đuối khỏi bóng tối",
-			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(areas.Starlight Desert)\"})",
 			"288": "Bắt các ánh sáng lang thang trên Thung Lũng Ẩn Sĩ",
 			"289": "Bắt các ánh sáng lang thang ở Con Đường Gió",
-			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(areas.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(areas.Hermit Valley)\"})",
 			"292": "Thu hoạch Ánh Sáng Hạt Hoa Hướng Dương tại Vườn ở Thảo Nguyên Ánh Sáng",
 			"293": "Trồng một tin nhắn Hoa Hướng Dương tại Vườn ở Thảo Nguyên Ánh Sáng",
 			"294": "Chơi nhạc cùng Nông Dân Vui Vẻ ở Thảo Nguyên Ánh Sáng",
@@ -2359,6 +2289,19 @@
 		"wiki": ""
 	},
 	"commands": {
+		"common": {
+			"user": "",
+			"type": "",
+			"goal": "",
+			"start": "",
+			"hide": "",
+			"hide-description": "",
+			"name": "",
+			"history": "",
+			"search": "",
+			"daily-guides": "",
+			"winged-light": ""
+		},
 		"about": {
 			"command-name": "",
 			"command-description": ""
@@ -2369,9 +2312,7 @@
 			"ascended-candles": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": "",
 				"command-option-eye-of-eden-name": "",
 				"command-option-eye-of-eden-description": "",
@@ -2381,21 +2322,16 @@
 			"event-tickets": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": ""
 			},
 			"seasonal-candles": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": ""
 			},
 			"winged-light": {
-				"command-name": "",
 				"command-description": "",
 				"command-option-wing-buffs-name": "",
 				"command-option-wing-buffs-description": ""
@@ -2404,7 +2340,6 @@
 		"catalogue": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-search-name": "",
 			"command-option-search-description": ""
 		},
 		"checklist": {
@@ -2415,7 +2350,6 @@
 			"command-name": "",
 			"command-description": "",
 			"daily-guides": {
-				"command-name": "",
 				"command-description": ""
 			},
 			"me": {
@@ -2432,9 +2366,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "",
 			"command-description": "",
-			"command-option-type-name": "",
 			"command-option-type-description": ""
 		},
 		"data": {
@@ -2454,20 +2386,17 @@
 			"game": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			},
 			"leaderboard": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			}
 		},
 		"hair-tousle": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"heart": {
@@ -2476,36 +2405,30 @@
 			"gift": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "",
 				"command-option-user-description": ""
 			},
 			"history": {
-				"command-name": "",
 				"command-description": ""
 			}
 		},
 		"high-five": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"hug": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"krill": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"play-fight": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"quest": {
@@ -2517,10 +2440,7 @@
 		"schedule": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-type-name": "",
-			"command-option-type-description": "",
-			"command-option-hide-name": "",
-			"command-option-hide-description": ""
+			"command-option-type-description": ""
 		},
 		"shard-eruption": {
 			"command-name": "",
@@ -2540,24 +2460,19 @@
 			"edit": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
-				"command-option-name-description": "",
 				"command-option-icon-name": "",
 				"command-option-icon-description": "",
 				"command-option-banner-name": "",
 				"command-option-banner-description": "",
-				"command-option-winged-light-name": "",
 				"command-option-winged-light-description": "",
 				"command-option-winged-light-choice-name": {
 					"0": "",
 					"1": ""
 				},
 				"command-option-spirit-name": "",
-				"command-option-spirit-description": "",
 				"command-option-country-name": "",
 				"command-option-country-description": "",
 				"command-option-hangout-name": "",
-				"command-option-hangout-description": "",
 				"command-option-catalogue-progression-name": "",
 				"command-option-catalogue-progression-description": "",
 				"command-option-guess-rank-name": "",
@@ -2566,26 +2481,18 @@
 			"explore": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
 				"command-option-name-description": ""
 			},
 			"show": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "",
-				"command-option-user-description": "",
-				"command-option-hide-name": "",
-				"command-option-hide-description": ""
+				"command-option-user-description": ""
 			}
-		},
-		"Sky-Profile": {
-			"command-name": ""
 		},
 		"spirits": {
 			"command-name": "",
 			"command-description": "",
 			"history": {
-				"command-name": "",
 				"command-description": "",
 				"command-option-order-name": "",
 				"command-option-order-description": "",
@@ -2595,7 +2502,6 @@
 				}
 			},
 			"search": {
-				"command-name": "",
 				"command-description": "",
 				"command-option-query-name": "",
 				"command-option-query-description": ""
@@ -2603,6 +2509,15 @@
 		}
 	},
 	"features": {
+		"common": {
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
+			"no-channel-detected": "",
+			"sending": "",
+			"stopped": ""
+		},
 		"about": {
 			"description": "",
 			"magical-companion": "",
@@ -2622,13 +2537,11 @@
 			"goal": "",
 			"required": "",
 			"ascended-candles": {
-				"goal-achieved": "",
 				"no-source": "",
 				"title": "",
 				"goal-first-achievable": "",
 				"minimum-time-beginning": "",
-				"minimum-time-eye-of-eden": "",
-				"minimum-time-shard-eruptions": ""
+				"minimum-time-eye-of-eden": ""
 			},
 			"event-tickets": {
 				"no-event": "",
@@ -2640,25 +2553,22 @@
 			},
 			"seasonal-candles": {
 				"no-season": "",
-				"day_one": "",
-				"day_other": "",
-				"day-season-pass_one": "",
-				"day-season-pass_other": "",
 				"title": "",
-				"double-seasonal-light-calculation": ""
+				"double-seasonal-light-calculation": "",
+				"day_other": "",
+				"day-season-pass_other": ""
 			},
 			"winged-light": {
 				"started-with": "",
 				"reborn-with": "",
 				"total": "",
-				"wedge-next_other": "",
-				"wedge-total_other": "",
-				"title": ""
+				"wedge-next": "",
+				"title": "",
+				"wedge-total_other": ""
 			}
 		},
 		"calendar": {
 			"name": "",
-			"description": "",
 			"description-short": "",
 			"view-month": "",
 			"view-week": "",
@@ -2674,30 +2584,24 @@
 			"next-year": "",
 			"legend": "",
 			"nothing-scheduled": "",
-			"duration_one": "",
-			"duration_other": "",
-			"jump-to-date": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
 			"during-the-day": "",
 			"view-date": "",
-			"cadence_one": "",
-			"cadence_other": "",
-			"community-event": ""
+			"community-event": "",
+			"duration_other": "",
+			"cadence_other": ""
 		},
 		"catalogue": {
 			"main-title": "",
-			"description": "",
 			"description-short": "",
 			"main-description": "",
 			"standard-spirits": "",
 			"elders": "",
-			"events": "$t(general:events)",
 			"starter-packs": "",
 			"secret-area": "",
 			"clothing-shop": "",
-			"nesting-workshop": "",
 			"main-no-progress": "",
 			"main-progress": "",
 			"search-placeholder": "",
@@ -2763,7 +2667,6 @@
 			"description": "",
 			"description-short": "",
 			"complete": "",
-			"reset": "",
 			"daily-quests-message-incomplete": "",
 			"daily-quests-message-complete": "",
 			"daily-quests-show-button-label": "",
@@ -2796,52 +2699,35 @@
 				"1": ""
 			},
 			"setup-description": "",
-			"setup-no-channel-detected": "",
 			"setup-no-channel-selected": "",
 			"setup-channel-select-menu-placeholder": "",
 			"setup-type-string-select-menu-placeholder": "",
-			"setup-stopped": "",
-			"setup-sending": "",
 			"quests-heading": "",
 			"treasure-candles": "",
-			"seasonal-candles": "",
 			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
-			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"infographic-acknowledgement-item": "",
-			"season-upcoming_one": "",
-			"season-upcoming_other": "",
-			"double-hearts-upcoming_one": "",
-			"double-hearts-upcoming_other": "",
-			"double-seasonal-light-upcoming_one": "",
-			"double-seasonal-light-upcoming_other": "",
-			"double-treasure-candles-upcoming_one": "",
-			"double-treasure-candles-upcoming_other": "",
-			"returning-spirits-active-list_zero": "",
-			"returning-spirits-active-list_one": "",
-			"returning-spirits-active-list_other": "",
-			"returning-spirits-upcoming-list_one": "",
-			"returning-spirits-upcoming-list_other": "",
-			"event-upcoming_one": "",
-			"event-upcoming_other": "",
+			"returning-spirits-leave-today": "",
 			"event-upcoming-time": "",
-			"maintenance-upcoming_one": "",
-			"maintenance-upcoming_other": "",
-			"update-upcoming_zero": "",
-			"update-upcoming_one": "",
-			"update-upcoming_other": "",
+			"maintenance-tomorrow": "",
+			"update-releases-today": "",
 			"not-yet-updated": "",
 			"not-yet-updated-support-server": "",
 			"error-thread-archived": "",
 			"error-thread-locked": "",
-			"error-missing-permissions": "",
-			"error-missing-permissions-website": "",
-			"error-missing-permissions-thread": "",
-			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "",
-			"quest-no-infographic": ""
+			"quest-no-infographic": "",
+			"season-upcoming_other": "",
+			"double-hearts-upcoming_other": "",
+			"double-seasonal-light-upcoming_other": "",
+			"double-treasure-candles-upcoming_other": "",
+			"returning-spirits-active-list_other": "",
+			"returning-spirits-upcoming-list_other": "",
+			"event-upcoming_other": "",
+			"maintenance-upcoming_other": "",
+			"update-upcoming_other": ""
 		},
 		"data": {
 			"delete-message": "",
@@ -2884,9 +2770,7 @@
 		},
 		"guess": {
 			"type": {
-				"0": "$t(general:spirit-plural)",
-				"1": "",
-				"2": "$t(general:events)"
+				"1": ""
 			},
 			"title": "",
 			"guess-in": "",
@@ -2931,7 +2815,6 @@
 			"customise-me-modal-label-bio-description": "",
 			"customise-me-modal-label-avatar-label": "",
 			"customise-me-modal-label-avatar-description": "",
-			"customise-me-modal-label-banner-label": "",
 			"customise-me-modal-label-banner-description": "",
 			"delete-bio-button-label": "",
 			"delete-avatar-button-label": "",
@@ -2939,7 +2822,6 @@
 			"rate-limit": ""
 		},
 		"notifications": {
-			"back": "",
 			"title": "",
 			"setup-description": "",
 			"setup-option-sending": "",
@@ -2947,12 +2829,8 @@
 			"setup-option-not-set-up": "",
 			"setup-type-string-select-menu-placeholder": "",
 			"edit-offset-now-description": "",
-			"edit-no-channel-detected": "",
 			"edit-channel-and-role-required": "",
 			"edit-offset-required": "",
-			"edit-stopped": "",
-			"edit-sending": "",
-			"error-missing-permissions": "",
 			"error-cannot-mention-role": "",
 			"messages": {
 				"0": {
@@ -3054,59 +2932,33 @@
 			"edit-offset-string-select-menu-placeholder": ""
 		},
 		"schedule": {
+			"timestamps": "",
+			"detailed-breakdown-requires": "",
+			"detailed-breakdown-two-hourly-message": "",
 			"type": {
-				"0": "",
-				"1": "",
-				"2": "",
-				"3": "$t(general:travelling-spirit)",
-				"4": "",
-				"5": "",
-				"6": "",
-				"7": "",
-				"8": "$t(general:shard-eruption)",
-				"9": "",
-				"10": "",
-				"11": "",
-				"12": "",
 				"13": "",
-				"14": "",
 				"15": "",
-				"16": "$t(general:cosmetic-names.2498)",
 				"17": "",
-				"18": "$t(general:maintenance)",
-				"19": "$t(general:event-names.radiance-event)",
-				"20": "$t(general:event)",
-				"21": "$t(general:season)",
-				"22": "$t(general:returning-spirits)",
 				"23": ""
 			},
 			"name": "",
-			"description": "",
 			"description-short": "",
 			"local-time-notice": "",
 			"sky-time": "",
 			"overview-active": "",
 			"overview-available": "",
 			"overview-upcoming": "",
-			"overview-unavailable": "",
-			"overview-next": "",
 			"overview-next-timestamp": "",
 			"overview-next-available-timestamp": "",
-			"overview-ends": "",
 			"overview-ends-timestamp": "",
-			"overview-in": "",
 			"overview": "",
 			"update-version": "",
 			"event-ongoing": "",
 			"event-will-occur": "",
-			"next-daily-reset": "",
 			"overview-detailed-breakdown-message": "",
 			"overview-detailed-breakdown-string-select-menu-placeholder": "",
 			"detailed-breakdown-daily-reset-message": "",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "",
-			"next-eye-of-eden": "",
 			"detailed-breakdown-eye-of-eden-message": "",
-			"detailed-breakdown-international-space-station-time": "",
 			"detailed-breakdown-international-space-station-wiki-button-url": "",
 			"detailed-breakdown-international-space-station-message": "",
 			"detailed-breakdown-international-space-station-requires": "",
@@ -3119,11 +2971,8 @@
 			"detailed-breakdown-returning-spirits-message-future": "",
 			"detailed-breakdown-returning-spirits-message-none": "",
 			"detailed-breakdown-polluted-geyser-wiki-button-url": "",
-			"detailed-breakdown-polluted-geyser-message": "",
 			"detailed-breakdown-grandma-wiki-button-url": "",
-			"detailed-breakdown-grandma-message": "",
 			"detailed-breakdown-turtle-wiki-button-url": "",
-			"detailed-breakdown-turtle-message": "",
 			"detailed-breakdown-shard-eruptions-view": "",
 			"detailed-breakdown-shard-eruptions-website": "",
 			"detailed-breakdown-shard-eruptions-upcoming": "",
@@ -3132,7 +2981,6 @@
 			"detailed-breakdown-dreams-skater-message": "",
 			"detailed-breakdown-aurora-wiki-button-url": "",
 			"detailed-breakdown-aurora-message": "",
-			"detailed-breakdown-aurora-requires": "",
 			"detailed-breakdown-passage-wiki-button-url": "",
 			"detailed-breakdown-passage-message": "",
 			"detailed-breakdown-aviarys-firework-festival-message": "",
@@ -3144,19 +2992,15 @@
 			"detailed-breakdown-nine-coloured-deer-time-720": "",
 			"detailed-breakdown-nine-coloured-deer-time-1200": "",
 			"detailed-breakdown-nine-coloured-deer-message": "",
-			"detailed-breakdown-nine-coloured-deer-requires": "",
-			"next-nesting-workshop": "",
 			"detailed-breakdown-nesting-workshop-wiki-button-url": "",
 			"detailed-breakdown-nesting-workshop-message": "",
 			"detailed-breakdown-vault-elders-blessing-wiki-button-url": "",
 			"detailed-breakdown-vault-elders-blessing-message": "",
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "",
 			"detailed-breakdown-projector-of-memories-message": "",
-			"detailed-breakdown-projector-of-memories-requires": "",
 			"detailed-breakdown-radiance-message": "",
 			"detailed-breakdown-radiance-event": "",
-			"detailed-breakdown-nothing-planned": "",
-			"back": ""
+			"detailed-breakdown-nothing-planned": ""
 		},
 		"settings": {
 			"name": "",
@@ -3172,9 +3016,7 @@
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
 			"browse-no-shard": "",
-			"none": "",
 			"browse": "",
-			"jump-to-date": "",
 			"realm-area": ""
 		},
 		"sky-profile": {
@@ -3189,6 +3031,7 @@
 			"select-a-spirit": "",
 			"random": "",
 			"me": "",
+			"report": "",
 			"country-unspecified": "",
 			"search-none": "",
 			"unknown-country": "",
@@ -3197,7 +3040,6 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
-			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",
@@ -3209,13 +3051,11 @@
 			"explore-profile-like-button-like": "",
 			"explore-profile-like-button-unlike": "",
 			"explore-profile-explore-button": "",
-			"explore-profile-report-button": "",
 			"explore-likes-none": "",
 			"explore-likes-description": "",
 			"no-sky-profile-explore-likes": "",
 			"like-own-profile": "",
 			"report-description": "",
-			"report-confirm-button": "",
 			"report-modal-title": "",
 			"report-modal-label-reason-label": "",
 			"report-modal-label-reason-description": "",
@@ -3227,7 +3067,6 @@
 				"3": "",
 				"4": "",
 				"5": "",
-				"6": "$t(general:season-plural)",
 				"7": "",
 				"8": "",
 				"9": "",
@@ -3250,21 +3089,15 @@
 				"11": "",
 				"12": ""
 			},
-			"edit-modal-title": "",
-			"edit-modal-label-name-label": "",
 			"edit-modal-label-name-description": "",
-			"edit-modal-label-description-label": "",
 			"edit-modal-label-description-description": "",
-			"edit-modal-label-icon-label": "",
 			"edit-modal-label-icon-description": "",
-			"edit-modal-label-banner-label": "",
 			"edit-modal-label-banner-description": "",
 			"edit-winged-light-description": "",
 			"edit-winged-light-string-select-menu-placeholder": "",
 			"edit-winged-light-invalid": "",
 			"edit-catalogue-progression-invalid": "",
 			"edit-guess-rank-invalid": "",
-			"edit-modal-label-hangout-label": "",
 			"edit-modal-label-hangout-description": "",
 			"edit-seasons-string-select-menu-placeholder": "",
 			"edit-platforms-string-select-menu-placeholder": "",
@@ -3279,7 +3112,6 @@
 			},
 			"edit-platform-invalid": "",
 			"edit-personality-invalid": "",
-			"personality": "",
 			"personality-types": {
 				"0": "Người Cố Vấn",
 				"1": "Nhà Vô Địch",
@@ -3303,7 +3135,6 @@
 			"reset-string-select-menu-placeholder": "",
 			"country": "",
 			"winged-light": "",
-			"winged-light-capeless": "",
 			"winged-light-max": "",
 			"favourite-spirit": "",
 			"favourite-hangout": "",
@@ -3367,6 +3198,18 @@
 			"order-natural": "",
 			"order-label": "",
 			"order-rarity": ""
+		},
+		"thatskylink": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"links": "",
+			"patterns": "",
+			"patch-notes": "",
+			"sky-profiles": "",
+			"this-month-in-sky": "",
+			"latest-patch-notes": ""
 		},
 		"welcome": {
 			"preview": "",
