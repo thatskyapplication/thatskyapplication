@@ -31,7 +31,7 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { t } from "i18next";
 import pQueue from "p-queue";
-import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/patch-notes";
+import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
 	communityUpcomingEvents,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,

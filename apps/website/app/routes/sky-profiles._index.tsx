@@ -22,6 +22,7 @@ import database from "~/database.server";
 import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
 import { useCDN, useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
+import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import type { loader as rootLoader } from "~/root";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
@@ -325,6 +326,8 @@ function SkyProfilesFilters({
 	const { t } = useTranslation();
 	const submit = useSubmit();
 	const formRef = useRef<HTMLFormElement>(null);
+	const searchRef = useRef<HTMLInputElement>(null);
+	useSearchShortcut(searchRef);
 
 	const submitFilters = (formData: FormData) => {
 		const parameters = new URLSearchParams();
@@ -358,6 +361,7 @@ function SkyProfilesFilters({
 				id="sky-profile-name-search"
 				name="name"
 				placeholder={t("sky-profile.search-by-name", { ns: "features" })}
+				ref={searchRef}
 				type="search"
 				{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 			/>

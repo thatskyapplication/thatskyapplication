@@ -11,6 +11,7 @@ const PUBLIC_PATHS = [
 	"/shard-eruption",
 	"/sky-profiles",
 	"/spirits",
+	"/thatskylink",
 ] as const;
 
 function sitemapEntry(path: string) {

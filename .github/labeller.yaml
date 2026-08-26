@@ -2,7 +2,7 @@ a:caelus:
   - changed-files:
       - any-glob-to-any-file:
           - apps/caelus/**/*
-          - packages/patch-notes/**/*
+          - packages/sky-links/**/*
 a:friendship-tree-generator:
   - changed-files:
       - any-glob-to-any-file: packages/friendship-tree-generator/**/*
@@ -19,7 +19,8 @@ a:thatskylink:
   - changed-files:
       - any-glob-to-any-file:
           - apps/thatskylink/**/*
-          - packages/patch-notes/**/*
+          - apps/website/app/routes/thatskylink.tsx
+          - packages/sky-links/**/*
 a:utility:
   - changed-files:
       - any-glob-to-any-file: packages/utility/**/*
@@ -27,7 +28,7 @@ a:website:
   - changed-files:
       - any-glob-to-any-file:
           - apps/website/**/*
-          - packages/patch-notes/**/*
+          - packages/sky-links/**/*
 f:calendar:
   - changed-files:
       - any-glob-to-any-file:
@@ -36,7 +37,7 @@ f:calendar:
           - apps/website/app/utility/calendar-day.server.ts
           - apps/website/app/utility/calendar-entries.server.ts
           - apps/website/app/utility/calendar.ts
-          - packages/patch-notes/**/*
+          - packages/sky-links/**/*
 f:catalogue:
   - changed-files:
       - any-glob-to-any-file:

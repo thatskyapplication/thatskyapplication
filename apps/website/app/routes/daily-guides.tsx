@@ -4,7 +4,7 @@ import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { HeadersArgs } from "react-router";
 import { data, Link } from "react-router";
-import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/patch-notes";
+import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
 	communityUpcomingEvents,
 	type DailyGuidesDaysCountItem,

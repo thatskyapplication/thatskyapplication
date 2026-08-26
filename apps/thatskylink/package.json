@@ -8,19 +8,18 @@
 		"dev": "wrangler dev",
 		"format": "oxlint --fix . && oxfmt .",
 		"lint": "oxfmt --check . && oxlint .",
-		"test": "tsx --test source/*.test.ts && wrangler types --check && tsc --noEmit",
+		"test": "wrangler types --check && tsc --noEmit",
 		"types": "wrangler types"
 	},
 	"dependencies": {
 		"@sentry/cloudflare": "^10.70.0",
-		"@thatskyapplication/patch-notes": "workspace:^"
+		"@thatskyapplication/sky-links": "workspace:^"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",
 		"oxfmt": "catalog:",
 		"oxlint": "catalog:",
 		"oxlint-tsgolint": "catalog:",
-		"tsx": "catalog:",
 		"typescript": "catalog:",
 		"wrangler": "^4.125.0"
 	}
