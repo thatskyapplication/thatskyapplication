@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Create token
         id: create-token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0.
         with:
           client-id: ${{ vars.APPLICATION_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -25,15 +25,15 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1.
         with:
           token: &github-token ${{ steps.create-token.outputs.token }}
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10.
 
       - name: Install Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0.
         with:
           cache: pnpm
           node-version-file: package.json
@@ -47,7 +47,7 @@ jobs:
       - name: Create source file
         run: pnpm --filter @thatskyapplication/utility run crowdin
 
-      - uses: crowdin/github-action@v2
+      - uses: crowdin/github-action@8f01d54f70f1713ee3f09d82c2bbb2daeac28689 # v2.17.1.
         with:
           upload_sources: true
           upload_translations: ${{ inputs.upload_translations || false }}
