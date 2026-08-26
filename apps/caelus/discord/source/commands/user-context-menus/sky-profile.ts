@@ -4,7 +4,7 @@ import { client } from "../../discord.js";
 import { skyProfileExploreProfile } from "../../features/sky-profile/index.js";
 
 export default {
-	name: t("Sky-Profile.command-name", { ns: "commands" }),
+	name: t("sky-profile.name", { ns: "features" }),
 	async userContextMenu(interaction: APIUserApplicationCommandInteraction) {
 		const { data, locale } = interaction;
 		const user = interaction.data.resolved.users[data.target_id]!;
