@@ -4,6 +4,7 @@ import { skyNotEndedEvents } from "./events/index.js";
 import { RETURNING_DATES, TRAVELLING_DATES } from "./kingdom/seasons/index.js";
 import { SHARD_ERUPTION_START_DATE, shardEruption } from "./shard-eruption.js";
 import { EventId } from "./utility/event.js";
+import { SpiritId } from "./utility/spirits.js";
 
 export const ScheduleType = {
 	DailyReset: 0,
@@ -46,7 +47,7 @@ export const ScheduleTypeToLocaleKey = {
 	[ScheduleType.Turtle]: "general:notification-types.6",
 	[ScheduleType.ShardEruption]: "general:shard-eruption",
 	[ScheduleType.DreamsSkater]: "general:notification-types.13",
-	[ScheduleType.AURORA]: "general:notification-types.9",
+	[ScheduleType.AURORA]: `general:spirits.${SpiritId.AURORA}`,
 	[ScheduleType.Passage]: "general:notification-types.10",
 	[ScheduleType.AviarysFireworkFestival]: "general:event-names.aviarys-firework-festival",
 	[ScheduleType.NineColouredDeer]: `features:schedule.type.${ScheduleType.NineColouredDeer}`,

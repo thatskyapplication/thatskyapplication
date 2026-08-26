@@ -151,7 +151,6 @@ export default {
 			[NotificationType.Turtle]: "Turtle",
 			[NotificationType.RegularShardEruption]: "Shard eruption (regular)",
 			[NotificationType.StrongShardEruption]: "Shard eruption (strong)",
-			[NotificationType.AURORA]: "AURORA",
 			[NotificationType.Passage]: "Passage",
 			[NotificationType.DreamsSkater]: "Dreams skater",
 			[NotificationType.NestingWorkshop]: "Nesting Workshop",

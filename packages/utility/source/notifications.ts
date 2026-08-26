@@ -1,3 +1,5 @@
+import { SpiritId } from "./utility/spirits.js";
+
 export const NotificationType = {
 	DailyReset: 0,
 	EyeOfEden: 1,
@@ -37,7 +39,7 @@ export const NotificationTypeToLocaleKey = {
 	[NotificationType.Turtle]: `general:notification-types.${NotificationType.Turtle}`,
 	[NotificationType.RegularShardEruption]: `general:notification-types.${NotificationType.RegularShardEruption}`,
 	[NotificationType.StrongShardEruption]: `general:notification-types.${NotificationType.StrongShardEruption}`,
-	[NotificationType.AURORA]: `general:notification-types.${NotificationType.AURORA}`,
+	[NotificationType.AURORA]: `general:spirits.${SpiritId.AURORA}`,
 	[NotificationType.Passage]: `general:notification-types.${NotificationType.Passage}`,
 	[NotificationType.AviarysFireworkFestival]: "general:event-names.aviarys-firework-festival",
 	[NotificationType.TravellingSpirit]: "general:travelling-spirit",
