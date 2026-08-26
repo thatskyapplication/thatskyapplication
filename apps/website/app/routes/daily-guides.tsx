@@ -206,10 +206,13 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const seasonalCandleEmoji = season ? SeasonIdToSeasonalCandleEmoji[season.id] : null;
 
 	if (season) {
-		const daysLeftText = t("days-left.season", {
-			ns: "general",
-			count: Math.ceil(season.end.since(now).total({ unit: "days", relativeTo: now })) - 1,
-		});
+		const seasonDaysLeft =
+			Math.ceil(season.end.since(now).total({ unit: "days", relativeTo: now })) - 1;
+
+		const daysLeftText = t(
+			seasonDaysLeft === 0 ? "days-left.season-ends-today" : "days-left.season",
+			{ ns: "general", count: seasonDaysLeft },
+		);
 
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
@@ -243,10 +246,12 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			daysCount.push({
 				content:
 					Temporal.ZonedDateTime.compare(today, doubleSeasonalLight.start) >= 0
-						? t("days-left.double-seasonal-light", {
-								ns: "general",
-								count: daysLeft,
-							})
+						? t(
+								daysLeft === 0
+									? "days-left.double-seasonal-light-ends-today"
+									: "days-left.double-seasonal-light",
+								{ ns: "general", count: daysLeft },
+							)
 						: t("daily-guides.double-seasonal-light-upcoming", {
 								ns: "features",
 								count: Math.floor(daysUntilStart),
@@ -282,13 +287,21 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 
 	if (returningSpirits) {
 		const { active, start, end, spiritIds } = returningSpirits;
+		const returningSpiritsDaysLeft =
+			Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1;
+
 		const countdown = active
-			? t("daily-guides.returning-spirits-active-list", {
-					ns: "features",
-					count: Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1,
-					returningSpirits: returningSpiritsName,
-					spirits: RETURNING_SPIRITS_LIST_PLACEHOLDER,
-				})
+			? t(
+					returningSpiritsDaysLeft === 0
+						? "daily-guides.returning-spirits-leave-today"
+						: "daily-guides.returning-spirits-active-list",
+					{
+						ns: "features",
+						count: returningSpiritsDaysLeft,
+						returningSpirits: returningSpiritsName,
+						spirits: RETURNING_SPIRITS_LIST_PLACEHOLDER,
+					},
+				)
 			: t("daily-guides.returning-spirits-upcoming-list", {
 					ns: "features",
 					count: start.since(today).total({ unit: "days", relativeTo: today }),
@@ -337,10 +350,13 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			continue;
 		}
 
+		const eventDaysLeft =
+			Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1;
+
 		daysCount.push({
-			content: t("days-left.event", {
+			content: t(eventDaysLeft === 0 ? "days-left.event-ends-today" : "days-left.event", {
 				ns: "general",
-				count: Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1,
+				count: eventDaysLeft,
 				name: eventName,
 			}),
 			end,
@@ -413,6 +429,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			.total({ unit: "days", relativeTo: today });
 		const radianceEmojiURL = formatEmojiURL(MISCELLANEOUS_EMOJIS.Dye.id);
 		const dyeEmojiURLs = radianceEvent.dyes.map((dye) => formatEmojiURL(DyeTypeToEmoji[dye].id));
+		const radianceDaysLeft =
+			Math.ceil(radianceEvent.end.since(today).total({ unit: "days", relativeTo: today })) - 1;
+
 		const radianceText =
 			daysUntilStart >= 1
 				? t("daily-guides.event-upcoming", {
@@ -420,11 +439,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 						count: Math.floor(daysUntilStart),
 						event: t("event-names.radiance-event", { ns: "general" }),
 					})
-				: t("days-left.event", {
+				: t(radianceDaysLeft === 0 ? "days-left.event-ends-today" : "days-left.event", {
 						ns: "general",
-						count:
-							Math.ceil(radianceEvent.end.since(today).total({ unit: "days", relativeTo: today })) -
-							1,
+						count: radianceDaysLeft,
 						name: t("event-names.radiance-event", { ns: "general" }),
 					});
 
@@ -464,10 +481,12 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		daysCount.push({
 			content:
 				Temporal.ZonedDateTime.compare(today, doubleTreasureCandleEvent.start) >= 0
-					? t("days-left.double-treasure-candles", {
-							ns: "general",
-							count: daysLeft,
-						})
+					? t(
+							daysLeft === 0
+								? "days-left.double-treasure-candles-ends-today"
+								: "days-left.double-treasure-candles",
+							{ ns: "general", count: daysLeft },
+						)
 					: t("daily-guides.double-treasure-candles-upcoming", {
 							ns: "features",
 							count: Math.floor(daysUntilStart),
@@ -491,7 +510,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		daysCount.push({
 			content:
 				Temporal.ZonedDateTime.compare(today, doubleHeartEvent.start) >= 0
-					? t("days-left.double-hearts", {
+					? t(daysLeft === 0 ? "days-left.double-hearts-ends-today" : "days-left.double-hearts", {
 							ns: "general",
 							count: daysLeft,
 						})
@@ -575,15 +594,24 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	if (upcomingUpdate) {
 		const start = Temporal.PlainDate.from(upcomingUpdate.date).toZonedDateTime(TIME_ZONE);
 
+		const daysUntilUpdate = today
+			.toPlainDate()
+			.until(Temporal.PlainDate.from(upcomingUpdate.date)).days;
+
 		daysCount.push({
-			content: t("daily-guides.update-upcoming", {
-				ns: "features",
-				count: today.toPlainDate().until(Temporal.PlainDate.from(upcomingUpdate.date)).days,
-				update: t("schedule.update-version", {
+			content: t(
+				daysUntilUpdate === 0
+					? "daily-guides.update-releases-today"
+					: "daily-guides.update-upcoming",
+				{
 					ns: "features",
-					version: patchNoteVersion(upcomingUpdate.identifier),
-				}),
-			}),
+					count: daysUntilUpdate,
+					update: t("schedule.update-version", {
+						ns: "features",
+						version: patchNoteVersion(upcomingUpdate.identifier),
+					}),
+				},
+			),
 			key: `update-${upcomingUpdate.date}`,
 			start,
 		});

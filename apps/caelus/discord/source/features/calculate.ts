@@ -281,14 +281,17 @@ export async function eventTickets(
 					{
 						type: ComponentType.TextDisplay,
 						content: events
-							.map(({ name, end }) =>
-								t("days-left.event", {
+							.map(({ name, end }) => {
+								const daysLeft =
+									Math.ceil(end.since(now).total({ unit: "days", relativeTo: now })) - 1;
+
+								return t(daysLeft === 0 ? "days-left.event-ends-today" : "days-left.event", {
 									lng: locale,
 									ns: "general",
-									count: Math.ceil(end.since(now).total({ unit: "days", relativeTo: now })) - 1,
+									count: daysLeft,
 									name: t(name, { lng: locale, ns: "general" }),
-								}),
-							)
+								});
+							})
 							.join("\n"),
 					},
 				],
@@ -444,12 +447,14 @@ export async function seasonalCandles(
 		});
 	}
 
+	const seasonDaysLeft = season.end.since(today).total({ unit: "days", relativeTo: today }) - 1;
+
 	containerComponents.push({
 		type: ComponentType.TextDisplay,
-		content: t("days-left.season", {
+		content: t(seasonDaysLeft === 0 ? "days-left.season-ends-today" : "days-left.season", {
 			lng: locale,
 			ns: "general",
-			count: season.end.since(today).total({ unit: "days", relativeTo: today }) - 1,
+			count: seasonDaysLeft,
 		}),
 	});
 
