@@ -2267,7 +2267,8 @@
 			"2941": "",
 			"2942": "Lunettes de soleil sportives ensoleillées",
 			"2943": "Bouée ensoleillée du crabe",
-			"2946": "Voûte de la Nuit étoilée"
+			"2946": "Voûte de la Nuit étoilée",
+			"2951": "Masque aux cils de plumes"
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",

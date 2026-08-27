@@ -1,3 +1,4 @@
+import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { EventFamilyId, EventId } from "../../utility/event.js";
@@ -24,4 +25,30 @@ export default new Event({
 	eventTickets: {
 		amount: eventTicketAmount,
 	},
+	offer: [
+		{
+			translation: { key: CosmeticCommon.PropMultiple, number: 1 },
+			cosmetic: Cosmetic.SummerCamping2026Prop1,
+			cost: { eventTickets: 10 },
+		},
+		{
+			translation: { key: CosmeticCommon.PropMultiple, number: 2 },
+			cosmetic: Cosmetic.SummerCamping2026Prop2,
+			cost: { eventTickets: 12 },
+		},
+		{
+			translation: { key: CosmeticCommon.PropMultiple, number: 3 },
+			cosmetic: Cosmetic.SummerCamping2026Prop3,
+			cost: { eventTickets: 12 },
+		},
+		{
+			translation: { key: CosmeticCommon.PropMultiple, number: 4 },
+			cosmetic: Cosmetic.SummerCamping2026Prop4,
+			cost: { eventTickets: 12 },
+		},
+		{
+			cosmetic: Cosmetic.FeatheryLashMask,
+			cost: { money: 1.99 },
+		},
+	],
 });
