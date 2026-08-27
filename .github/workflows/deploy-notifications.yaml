@@ -46,7 +46,7 @@ jobs:
           DOCKER_BUILD_RECORD_UPLOAD: false
 
       - name: Deploy via Uncloud
-        uses: thatskyapplication/uncloud-action@6e8df783e6dedeb2416d9e15e8b6cfd21ab60e50 # v1.2.2.
+        uses: thatskyapplication/uncloud-action@898b95231b74d735a044b9aaea91eb321419b5d9 # v1.2.3.
         with:
           image-tag: *image-tag
           compose-files: compose.yaml
