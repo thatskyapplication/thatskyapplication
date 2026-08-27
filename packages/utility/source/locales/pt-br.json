@@ -2961,7 +2961,7 @@
 			"edit-offset-string-select-menu-placeholder": "Selecione um intervalo."
 		},
 		"schedule": {
-			"timestamps": "",
+			"timestamps": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-requires": "-# Requer {{emoji}}",
 			"detailed-breakdown-two-hourly-message": "Disponível a cada 2 horas a partir de {{timestamp}}, com duração de 10 minutos.\n\n{{timestamps}}\n\n{{status}}",
 			"type": {
