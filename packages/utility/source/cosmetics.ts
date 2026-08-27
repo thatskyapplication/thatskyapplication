@@ -3727,6 +3727,12 @@ export enum Cosmetic {
 	SummerCamping2026Prop3 = 2949,
 	SummerCamping2026Prop4 = 2950,
 	FeatheryLashMask = 2951,
+
+	// 28/08/2026 | Returning Spirits #14.
+	HerbGathererWingBuff = 2952,
+	HunterWingBuff = 2953,
+	FeudalLordWingBuff = 2954,
+	PrincessWingBuff = 2955,
 }
 
 export enum CosmeticCommon {
@@ -3974,4 +3980,8 @@ export const WING_BUFFS = [
 	Cosmetic.MemoryOfALostVillageWingBuff,
 	Cosmetic.EchoOfAnAbandonedRefugeWingBuff,
 	Cosmetic.RemnantOfAForgottenHavenWingBuff,
+	Cosmetic.HerbGathererWingBuff,
+	Cosmetic.HunterWingBuff,
+	Cosmetic.FeudalLordWingBuff,
+	Cosmetic.PrincessWingBuff,
 ] as const satisfies Readonly<Cosmetic[]>;

@@ -72,6 +72,60 @@ export default new SeasonalSpirit({
 				},
 			],
 		],
+		current: [
+			[
+				{ cosmetic: Cosmetic.EmoteWhistle1 },
+				{ cosmetic: Cosmetic.EmoteWhistle2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.HerbGathererBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.HerbGathererOutfit,
+					cost: { candles: 63 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.HerbGathererSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.HerbGathererWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{ cosmetic: Cosmetic.EmoteWhistle3, cost: { hearts: 3 }, level: 3 },
+				{ cosmetic: Cosmetic.EmoteWhistle4, cost: { hearts: 6 }, level: 4 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.HerbGathererBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.HerbGathererHair,
+					cost: { candles: 45 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Prop,
+					cosmetic: Cosmetic.HerbGathererProp,
+					cost: { candles: 36 },
+				},
+			],
+		],
 	},
 	visits: {
 		returning: [{ start: skyDate(2026, 8, 28), end: skyDate(2026, 9, 11) }],

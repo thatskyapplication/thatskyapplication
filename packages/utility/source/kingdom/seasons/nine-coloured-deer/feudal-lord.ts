@@ -71,6 +71,53 @@ export default new SeasonalSpirit({
 				},
 			],
 		],
+		current: [
+			[{ cosmetic: Cosmetic.FeudalLordMusicSheet, cost: { candles: 15 } }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.FeudalLordBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.HairAccessory,
+					cosmetic: Cosmetic.FeudalLordHairAccessory,
+					cost: { candles: 44 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.FeudalLordSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.FeudalLordWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.FeudalLordBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.FeudalLordMask,
+					cost: { candles: 45 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.FeudalLordCape,
+					cost: { candles: 77 },
+				},
+			],
+		],
 	},
 	visits: {
 		returning: [{ start: skyDate(2026, 8, 28), end: skyDate(2026, 9, 11) }],

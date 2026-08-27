@@ -68,6 +68,60 @@ export default new SeasonalSpirit({
 				},
 			],
 		],
+		current: [
+			[
+				{ cosmetic: Cosmetic.EmoteFlex1 },
+				{ cosmetic: Cosmetic.EmoteFlex2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.HunterBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.HunterOutfit,
+					cost: { candles: 63 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.HunterSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.HunterWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{ cosmetic: Cosmetic.EmoteFlex3, cost: { hearts: 3 }, level: 3 },
+				{ cosmetic: Cosmetic.EmoteFlex4, cost: { hearts: 6 }, level: 4 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.HunterBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.HunterHair,
+					cost: { candles: 45 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.HunterCape,
+					cost: { candles: 77 },
+				},
+			],
+		],
 	},
 	visits: {
 		returning: [{ start: skyDate(2026, 8, 28), end: skyDate(2026, 9, 11) }],
