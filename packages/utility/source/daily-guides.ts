@@ -292,7 +292,7 @@ export const DailyQuest = {
 	HelpAustinCollect5CrabsInTheBasementOfTheCacklingCrab: 276,
 	HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab: 277,
 	HopIntoYoshisCauldronBrewInTheCacklingCrab: 278,
-	MeetUpWithOddballOutcastInHiddenForest: 279,
+	MeetUpWithOddballOutcastInBoneyard: 279,
 	CatchSomethingGoodWithAFishingPoleInVillageOfDreams: 280,
 	FindBearhugHermitInVillageOfDreamsAndPlayARace: 281,
 	PlaySkyballFor60SecondsInVillageOfDreams: 282,
@@ -545,9 +545,9 @@ export const DailyQuestToMeetUp: Readonly<Partial<Record<DailyQuests, MeetUpWith
 		spirit: SpiritId.MelancholyMope,
 		location: AreaName.ForestBrook,
 	},
-	[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: {
+	[DailyQuest.MeetUpWithOddballOutcastInBoneyard]: {
 		spirit: SpiritId.OddballOutcast,
-		location: RealmName.HiddenForest,
+		location: AreaName.Boneyard,
 	},
 	[DailyQuest.MeetUpWithCrabWhispererInCrabFields]: {
 		spirit: SpiritId.CrabWhisperer,
@@ -1020,7 +1020,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.HelpAustinCollect5CrabsInTheBasementOfTheCacklingCrab]: null,
 	[DailyQuest.HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab]: null,
 	[DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab]: null,
-	[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: null,
+	[DailyQuest.MeetUpWithOddballOutcastInBoneyard]: null,
 	[DailyQuest.CatchSomethingGoodWithAFishingPoleInVillageOfDreams]: null,
 	[DailyQuest.FindBearhugHermitInVillageOfDreamsAndPlayARace]: null,
 	[DailyQuest.PlaySkyballFor60SecondsInVillageOfDreams]: null,
@@ -1339,7 +1339,7 @@ export const DailyQuestToAcknowledgement = {
 	[DailyQuest.HelpAustinCollect5CrabsInTheBasementOfTheCacklingCrab]: null,
 	[DailyQuest.HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab]: null,
 	[DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab]: null,
-	[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: null,
+	[DailyQuest.MeetUpWithOddballOutcastInBoneyard]: null,
 	[DailyQuest.CatchSomethingGoodWithAFishingPoleInVillageOfDreams]: null,
 	[DailyQuest.FindBearhugHermitInVillageOfDreamsAndPlayARace]: null,
 	[DailyQuest.PlaySkyballFor60SecondsInVillageOfDreams]: null,
