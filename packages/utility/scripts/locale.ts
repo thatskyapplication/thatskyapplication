@@ -532,58 +532,287 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_day_island_1_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al cañonero tentado o a la coleccionista de caracolas agradecida a buscar tesoros en las Islas Santuario.",
+				value:
+					"Ayuda al cañonero tentado o a la coleccionista de caracolas agradecida a buscar tesoros en las Islas Santuario",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez la Canonnière caquetante ou la Collectionneuse de coquillages reconnaissante à trouver des trésors sur les Îles du Sanctuaire.",
+				value:
+					"Aidez la Canonnière caquetante ou la Collectionneuse de coquillages reconnaissante à trouver des trésors sur les Îles du Sanctuaire",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Хохотушке с пушкой или Благодарному собирателю раковин найти сокровище на Островах укрытия.",
+				value:
+					"Помогите Хохотушке с пушкой или Благодарному собирателю раковин найти сокровище на Островах укрытия",
+			},
+		},
 		tsKey: "DailyQuest.HelpCacklingCannoneerGratefulShellCollectorFindTreasureInSanctuaryIslands",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_day_island_2_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al pescador ansioso o a la coleccionista de caracolas agradecida a buscar tesoros en las Islas Santuario.",
+				value:
+					"Ayuda al pescador ansioso o a la coleccionista de caracolas agradecida a buscar tesoros en las Islas Santuario",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Беспокойной рыбачке или Благодарному собирателю раковин найти сокровище на Островах укрытия.",
+				value:
+					"Помогите Беспокойной рыбачке или Благодарному собирателю раковин найти сокровище на Островах укрытия",
+			},
+		},
 		tsKey: "DailyQuest.HelpAnxiousAnglerGratefulShellCollectorFindTreasureInSanctuaryIslands",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_day_village_1_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda a contramaestre torpe o al fabricante de barcos dormilón a buscar tesoros en la aldea de la Planicie.",
+				value:
+					"Ayuda a contramaestre torpe o al fabricante de barcos dormilón a buscar tesoros en la aldea de la Planicie",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Нерадивому боцману или Сонному корабелу найти сокровище в Деревне Прерии.",
+				value: "Помогите Нерадивому боцману или Сонному корабелу найти сокровище в Деревне Прерии",
+			},
+		},
 		tsKey: "DailyQuest.HelpBumblingBoatswainSlumberingShipwrightFindTreasureInPrairieVillage",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_day_village_2_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al cañonero tentado o al fabricante de barcos dormilón a buscar tesoros en la aldea de la Planicie.",
+				value:
+					"Ayuda al cañonero tentado o al fabricante de barcos dormilón a buscar tesoros en la aldea de la Planicie",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Хохотушке с пушкой или Сонному корабелу найти сокровище в Деревне Прерии.",
+				value: "Помогите Хохотушке с пушкой или Сонному корабелу найти сокровище в Деревне Прерии",
+			},
+		},
 		tsKey: "DailyQuest.HelpCacklingCannoneerSlumberingShipwrightFindTreasureInPrairieVillage",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_day_wildlifepark_1_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al pescador ansioso o a la geóloga alegre a buscar tesoros en las cumbres de la Planicie.",
+				value:
+					"Ayuda al pescador ansioso o a la geóloga alegre a buscar tesoros en las cumbres de la Planicie",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Беспокойной рыбачке или Весёлому геологу найти сокровище в Степных вершинах.",
+				value:
+					"Помогите Беспокойной рыбачке или Весёлому геологу найти сокровище в Степных вершинах",
+			},
+		},
 		tsKey: "DailyQuest.HelpAnxiousAnglerJollyGeologistFindTreasureInPrairiePeaks",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_day_wildlifepark_2_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al contramaestre torpe o a la geóloga alegre a buscar tesoros en las cumbres de la Planicie.",
+				value:
+					"Ayuda al contramaestre torpe o a la geóloga alegre a buscar tesoros en las cumbres de la Planicie",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Нерадивому боцману или Весёлому геологу найти сокровище в Степных вершинах.",
+				value:
+					"Помогите Нерадивому боцману или Весёлому геологу найти сокровище в Степных вершинах",
+			},
+		},
 		tsKey: "DailyQuest.HelpBumblingBoatswainJollyGeologistFindTreasureInPrairiePeaks",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_dusk_1_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al capitán de navío cesante o a la aventurera en marcha a buscar tesoros en el Coral del tesoro.",
+				value:
+					"Ayuda al capitán de navío cesante o a la aventurera en marcha a buscar tesoros en el Coral del tesoro",
+			},
+			pt: {
+				upstreamValue:
+					"Ajude o Comodoro Abandonado ou a Aventureira Marchante a encontrar tesouros no Recife do Tesouro.",
+				value:
+					"Ajude o Comodoro Abandonado ou a Aventureira Marchante a encontrar tesouros no Recife do Tesouro",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Командору-начальнику или Марширующей авантюристке найти сокровище на Острове сокровищ.",
+				value:
+					"Помогите Командору-начальнику или Марширующей авантюристке найти сокровище на Острове сокровищ",
+			},
+		},
 		tsKey: "DailyQuest.HelpCeasingCommodoreMarchingAdventurerFindTreasureInTreasureReef",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_dusk_2_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al pescador ansioso o a la aventurera en marcha a buscar tesoros en el Coral del tesoro.",
+				value:
+					"Ayuda al pescador ansioso o a la aventurera en marcha a buscar tesoros en el Coral del tesoro",
+			},
+			pt: {
+				upstreamValue:
+					"Ajude a Pescadora Ansiosa ou a Aventureira Marchante a encontrar tesouros no Recife do Tesouro.",
+				value:
+					"Ajude a Pescadora Ansiosa ou a Aventureira Marchante a encontrar tesouros no Recife do Tesouro",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Беспокойной рыбачке или Марширующей авантюристке найти сокровище на Острове сокровищ.",
+				value:
+					"Помогите Беспокойной рыбачке или Марширующей авантюристке найти сокровище на Острове сокровищ",
+			},
+		},
 		tsKey: "DailyQuest.HelpAnxiousAnglerMarchingAdventurerFindTreasureInTreasureReef",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_night_1_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al pescador ansioso o al coleccionista de estrellas a buscar tesoros en el desierto Luz de Estrellas.",
+				value:
+					"Ayuda al pescador ansioso o al coleccionista de estrellas a buscar tesoros en el desierto Luz de Estrellas",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Беспокойной рыбачке или Собирателю звёзд найти сокровище в Звёздной пустыне.",
+				value:
+					"Помогите Беспокойной рыбачке или Собирателю звёзд найти сокровище в Звёздной пустыне",
+			},
+		},
 		tsKey: "DailyQuest.HelpAnxiousAnglerStarCollectorFindTreasureInStarlightDesert",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_night_2_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al cañonero tentado o al coleccionista de estrellas a buscar tesoros en el desierto Luz de Estrellas.",
+				value:
+					"Ayuda al cañonero tentado o al coleccionista de estrellas a buscar tesoros en el desierto Luz de Estrellas",
+			},
+			pt: {
+				upstreamValue:
+					"Ajude a Canhoneira Sorridente ou o Contador de Estrelas a encontrar tesouros no Deserto da Luz Estelar.",
+				value:
+					"Ajude a Canhoneira Sorridente ou o Contador de Estrelas a encontrar tesouros no Deserto da Luz Estelar",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Хохотушке с пушкой или Собирателю звёзд найти сокровище в Звёздной пустыне.",
+				value:
+					"Помогите Хохотушке с пушкой или Собирателю звёзд найти сокровище в Звёздной пустыне",
+			},
+		},
 		tsKey: "DailyQuest.HelpCacklingCannoneerStarCollectorFindTreasureInStarlightDesert",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_rain_1_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al cañonero tentado o a la estudiante gruñona a buscar tesoros en el Bosque Escondido.",
+				value:
+					"Ayuda al cañonero tentado o a la estudiante gruñona a buscar tesoros en el Bosque Escondido",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Хохотушке с пушкой или Ворчливой студентке найти сокровище в Тайном лесу.",
+				value: "Помогите Хохотушке с пушкой или Ворчливой студентке найти сокровище в Тайном лесу",
+			},
+		},
 		tsKey: "DailyQuest.HelpCacklingCannoneerOrScoldingStudentFindTreasureInHiddenForest",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_rain_2_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al capitán de navío cesante o a la estudiante gruñona a buscar tesoros en el Bosque Escondido.",
+				value:
+					"Ayuda al capitán de navío cesante o a la estudiante gruñona a buscar tesoros en el Bosque Escondido",
+			},
+			pt: {
+				upstreamValue:
+					"Ajude o Comodoro Abandonado ou o Estudante Esbravejante a encontrar tesouros na Floresta Oculta.",
+				value:
+					"Ajude o Comodoro Abandonado ou o Estudante Esbravejante a encontrar tesouros na Floresta Oculta",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Командору-начальнику или Ворчливой студентке найти сокровище в Тайном лесу.",
+				value:
+					"Помогите Командору-начальнику или Ворчливой студентке найти сокровище в Тайном лесу",
+			},
+		},
 		tsKey: "DailyQuest.HelpCeasingCommodoreOrScoldingStudentFindTreasureInHiddenForest",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_sunset_1_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al contramaestre torpe o alyeti abrazoso a buscar tesoros en la Aldea de los Sueños.",
+				value:
+					"Ayuda al contramaestre torpe o alyeti abrazoso a buscar tesoros en la Aldea de los Sueños",
+			},
+			pt: {
+				upstreamValue:
+					"Ajude o Contramestre Trapalhão ou o Iéti do Abraço de Urso a encontrar tesouros na Aldeia dos Sonhos.",
+				value:
+					"Ajude o Contramestre Trapalhão ou o Iéti do Abraço de Urso a encontrar tesouros na Aldeia dos Sonhos",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Нерадивому боцману или Отшельнику-обнимателю найти сокровище в Деревушке мечтаний.",
+				value:
+					"Помогите Нерадивому боцману или Отшельнику-обнимателю найти сокровище в Деревушке мечтаний",
+			},
+		},
 		tsKey: "DailyQuest.HelpBumblingBoatswainOrBearhugHermitFindTreasureInVillageOfDreams",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_sunset_2_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al capitán de navío cesante o al yeti abrazoso a buscar tesoros en la Aldea de los Sueños.",
+				value:
+					"Ayuda al capitán de navío cesante o al yeti abrazoso a buscar tesoros en la Aldea de los Sueños",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Командору-начальнику или Отшельнику-обнимателю найти сокровище в Деревушке мечтаний.",
+				value:
+					"Помогите Командору-начальнику или Отшельнику-обнимателю найти сокровище в Деревушке мечтаний",
+			},
+		},
 		tsKey: "DailyQuest.HelpCeasingCommodoreOrBearhugHermitFindTreasureInVillageOfDreams",
 	},
 	{
@@ -1276,6 +1505,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_moonlight_earring",
+		overrides: {
+			es: {
+				upstreamValue: "Aretes de luz de luna.",
+				value: "Aretes de luz de luna",
+			},
+		},
 		tsKey: "Cosmetic.MoonlightEarrings",
 	},
 	{
@@ -1548,6 +1783,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_moonlight_dress",
+		overrides: {
+			es: {
+				upstreamValue: "Vestido y peinado de luz de luna.",
+				value: "Vestido y peinado de luz de luna",
+			},
+		},
 		tsKey: "CosmeticPackName.MoonlightFrockPack",
 	},
 	{
