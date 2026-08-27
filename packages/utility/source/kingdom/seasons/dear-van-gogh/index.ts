@@ -65,4 +65,10 @@ export default new Season({
 			cost: { money: 14.99 },
 		},
 	],
+	doubleSeasonalLight: [
+		{
+			start: skyDate(2026, 9, 11),
+			end: skyDate(2026, 9, 25),
+		},
+	],
 });
