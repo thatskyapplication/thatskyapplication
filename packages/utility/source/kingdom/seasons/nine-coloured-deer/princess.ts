@@ -90,7 +90,7 @@ export default new SeasonalSpirit({
 				{
 					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.PrincessMask,
-					cost: { candles: 45 },
+					cost: { candles: 36 },
 				},
 				{
 					translation: CosmeticCommon.Heart,
@@ -124,14 +124,14 @@ export default new SeasonalSpirit({
 				{
 					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.PrincessOutfit,
-					cost: { candles: 63 },
+					cost: { candles: 71 },
 				},
 			],
 			[
 				{
 					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.PrincessCape,
-					cost: { candles: 77 },
+					cost: { candles: 75 },
 				},
 			],
 		],

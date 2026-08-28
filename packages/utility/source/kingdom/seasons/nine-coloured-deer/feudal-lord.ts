@@ -72,7 +72,10 @@ export default new SeasonalSpirit({
 			],
 		],
 		current: [
-			[{ cosmetic: Cosmetic.FeudalLordMusicSheet, cost: { candles: 15 } }],
+			[
+				{ cosmetic: Cosmetic.FriendActionCradleCarry1 },
+				{ cosmetic: Cosmetic.FeudalLordMusicSheet, cost: { candles: 10 } },
+			],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
@@ -82,7 +85,7 @@ export default new SeasonalSpirit({
 				{
 					translation: CosmeticCommon.HairAccessory,
 					cosmetic: Cosmetic.FeudalLordHairAccessory,
-					cost: { candles: 44 },
+					cost: { candles: 36 },
 				},
 				{
 					translation: CosmeticCommon.Heart,
@@ -105,16 +108,16 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.FeudalLordMask,
-					cost: { candles: 45 },
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.FeudalLordCape,
+					cost: { candles: 78 },
 				},
 			],
 			[
 				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.FeudalLordCape,
-					cost: { candles: 77 },
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.FeudalLordMask,
+					cost: { candles: 42 },
 				},
 			],
 		],

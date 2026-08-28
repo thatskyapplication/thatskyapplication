@@ -86,7 +86,7 @@ export default new SeasonalSpirit({
 				{
 					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.HerbGathererOutfit,
-					cost: { candles: 63 },
+					cost: { candles: 64 },
 				},
 				{
 					translation: CosmeticCommon.Heart,
@@ -105,6 +105,11 @@ export default new SeasonalSpirit({
 			[
 				{ cosmetic: Cosmetic.EmoteWhistle3, cost: { hearts: 3 }, level: 3 },
 				{ cosmetic: Cosmetic.EmoteWhistle4, cost: { hearts: 6 }, level: 4 },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.HerbGathererHair,
+					cost: { candles: 38 },
+				},
 			],
 			[
 				{
@@ -113,16 +118,16 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.HerbGathererHair,
-					cost: { candles: 45 },
+					translation: CosmeticCommon.Prop,
+					cosmetic: Cosmetic.HerbGathererProp,
+					cost: { candles: 17 },
 				},
 			],
 			[
 				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.HerbGathererProp,
-					cost: { candles: 36 },
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.HerbGathererBlessing3,
+					cost: { candles: 5 },
 				},
 			],
 		],

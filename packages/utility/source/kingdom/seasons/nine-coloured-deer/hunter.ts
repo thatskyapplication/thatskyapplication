@@ -82,7 +82,7 @@ export default new SeasonalSpirit({
 				{
 					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.HunterOutfit,
-					cost: { candles: 63 },
+					cost: { candles: 67 },
 				},
 				{
 					translation: CosmeticCommon.Heart,
@@ -101,13 +101,6 @@ export default new SeasonalSpirit({
 			[
 				{ cosmetic: Cosmetic.EmoteFlex3, cost: { hearts: 3 }, level: 3 },
 				{ cosmetic: Cosmetic.EmoteFlex4, cost: { hearts: 6 }, level: 4 },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.HunterBlessing2,
-					cost: { candles: 5 },
-				},
 				{
 					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.HunterHair,
@@ -116,9 +109,16 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.HunterBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
 					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.HunterCape,
-					cost: { candles: 77 },
+					cost: { candles: 80 },
 				},
 			],
 		],
