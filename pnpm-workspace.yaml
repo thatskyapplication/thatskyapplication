@@ -48,6 +48,7 @@ allowBuilds:
   protobufjs: true
   sharp: true
   workerd: true
+minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - "@discordjs/collection"
   - "@discordjs/core"
