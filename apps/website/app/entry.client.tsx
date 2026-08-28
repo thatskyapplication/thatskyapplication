@@ -51,6 +51,7 @@ if (dsn) {
 					event.data.payload.category === HYDRATION_BREADCRUMB_CATEGORY
 						? null
 						: event,
+				blockAllMedia: false,
 				maskAllText: false,
 			}),
 		],
