@@ -1,9 +1,6 @@
 x-hardening: &hardening
   cap_drop:
     - ALL
-  read_only: true
-  security_opt:
-    - no-new-privileges:true
 
 services:
   database-backup:
@@ -11,7 +8,6 @@ services:
     profiles:
       - database-backup
     <<: *hardening
-    read_only: false
     restart: &restart-policy unless-stopped
     logging: &default-logging
       driver: local
