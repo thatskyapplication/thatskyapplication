@@ -16,6 +16,8 @@ export function generateState() {
 	return randomBytes(16).toString("hex");
 }
 
+export const LOGGED_OUT_SEARCH_PARAMETER = "loggedOut" as const;
+
 export function resolveReturnTo(returnTo: string | null | undefined, origin: string) {
 	let returnToURL: URL;
 
@@ -39,7 +41,7 @@ export function requireDiscordAuthentication({ context, request, url }: Authenti
 
 	if (!discordUser) {
 		const userAgent = request.headers.get("user-agent");
-		const justLoggedOut = session.get("just_logged_out");
+		const justLoggedOut = url.searchParams.has(LOGGED_OUT_SEARCH_PARAMETER);
 
 		if (justLoggedOut || (userAgent && isBot(userAgent))) {
 			throw redirect("/");

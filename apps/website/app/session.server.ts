@@ -15,13 +15,15 @@ interface FlashData {
 	oauth_state?: string;
 	return_to?: string;
 	crowdin_state?: string;
-	just_logged_out?: boolean;
 	settings_saved_at?: string;
 }
 
 export type Session = RouterSession<SessionData, FlashData>;
 
-export const { getSession, commitSession } = createCookieSessionStorage<SessionData, FlashData>({
+export const { getSession, commitSession, destroySession } = createCookieSessionStorage<
+	SessionData,
+	FlashData
+>({
 	cookie: {
 		name: "__session",
 		httpOnly: true,
