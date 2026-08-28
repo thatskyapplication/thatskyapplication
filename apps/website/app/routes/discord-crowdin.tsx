@@ -1,5 +1,6 @@
 import { CheckCircleIcon, ExternalLinkIcon } from "lucide-react";
 import { Form, redirect } from "react-router";
+import { ActionButton } from "~/components/ActionButton";
 import { CentredSitePage } from "~/components/PageLayout";
 import {
 	CROWDIN_CLIENT_ID,
@@ -19,7 +20,9 @@ import type { Route } from "./+types/discord-crowdin.js";
 
 interface AuthState {
 	crowdinUser: CrowdinUser | undefined;
-	success?: boolean;
+	linked: boolean;
+	translator: boolean;
+	justLinked?: boolean;
 	error: string | undefined;
 }
 
@@ -68,19 +71,26 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const session = getRequestSession(context);
 	const crowdinCode = url.searchParams.get("code");
 	const state = url.searchParams.get("state");
-	const error = url.searchParams.get("error");
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
-	if (error) {
-		session.set("discord_crowdin_auth_error", error);
-	}
+	const link = await database
+		.selectFrom("users")
+		.select(["crowdin_user_id", "translator"])
+		.where("discord_user_id", "=", discordUser.id)
+		.executeTakeFirst();
+
+	const linked = link?.crowdin_user_id !== null && link?.crowdin_user_id !== undefined;
 
 	const authenticationState: AuthState = {
-		crowdinUser: session.get("crowdin_user"),
+		crowdinUser: linked ? session.get("crowdin_user") : undefined,
+		linked,
+		translator: link?.translator ?? false,
 		error: session.get("discord_crowdin_auth_error"),
 	};
 
-	if (!crowdinCode || state !== session.get("crowdin_state")) {
+	const stateMatches = state !== null && state === session.get("crowdin_state");
+
+	if (!crowdinCode || !stateMatches) {
 		return authenticationState;
 	}
 
@@ -118,6 +128,20 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 
 		const { data: userData } = (await userResponse.json()) as CrowdinRESTGetAPIUserResult;
 		authenticationState.crowdinUser = { id: userData.id, username: userData.username };
+
+		const claimed = await database
+			.selectFrom("users")
+			.select("discord_user_id")
+			.where("crowdin_user_id", "=", userData.id)
+			.executeTakeFirst();
+
+		if (claimed && claimed.discord_user_id !== discordUser.id) {
+			authenticationState.crowdinUser = undefined;
+			authenticationState.error =
+				"This Crowdin account is already linked to another Discord account.";
+			session.set("discord_crowdin_auth_error", authenticationState.error);
+			return authenticationState;
+		}
 
 		if (userData.status !== "active") {
 			await database
@@ -213,12 +237,14 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 			TRANSLATOR_ROLE_ID,
 		);
 
-		authenticationState.success = true;
+		authenticationState.linked = true;
+		authenticationState.translator = true;
+		authenticationState.justLinked = true;
 		session.set("crowdin_authorised", true);
 		session.set("crowdin_user", authenticationState.crowdinUser);
 		session.unset("discord_crowdin_auth_error");
 	} catch (error) {
-		pino.error({ request, error }, "Failed to authorise with Crowdin.");
+		pino.error(error, "Failed to authorise with Crowdin.");
 		authenticationState.error = "Failed to authorise with Crowdin.";
 		session.set("discord_crowdin_auth_error", authenticationState.error);
 	}
@@ -230,7 +256,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	const formData = await request.formData();
 	const action = formData.get("action");
 	const session = getRequestSession(context);
-	requireDiscordAuthentication({ context, request, url });
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	if (action === "authorise_crowdin") {
 		const state = generateState();
@@ -245,41 +271,82 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 		return redirect(authenticationURL.toString());
 	}
 
+	if (action === "unlink_crowdin") {
+		await database
+			.updateTable("users")
+			.set({ crowdin_user_id: null, translator: false })
+			.where("discord_user_id", "=", discordUser.id)
+			.execute();
+
+		try {
+			await discord.guilds.removeRoleFromMember(
+				SUPPORT_SERVER_GUILD_ID,
+				discordUser.id,
+				TRANSLATOR_ROLE_ID,
+			);
+		} catch (error) {
+			pino.error(error, "Failed to remove the translator role whilst unlinking.");
+		}
+
+		session.unset("crowdin_authorised");
+		session.unset("crowdin_user");
+		session.unset("discord_crowdin_auth_error");
+	}
+
 	return null;
 };
 
 export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
-	const { crowdinUser, error, success } = loaderData;
+	const { crowdinUser, error, linked, translator, justLinked } = loaderData;
 
 	return (
 		<CentredSitePage>
-			<div className="w-full max-w-md rounded-lg border border-gray-200 bg-gray-100 p-8 shadow-lg dark:border-gray-700 dark:bg-gray-900">
+			<div className="w-full max-w-md rounded-lg border border-gray-200 bg-gray-100 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
 				<h1 className="text-center">Crowdin authorisation</h1>
 				{error && (
-					<div className="mb-4 rounded-sm border border-red-300 bg-red-100 px-4 py-3 text-red-700 dark:border-red-700 dark:bg-red-900/20 dark:text-red-400">
-						<p className="text-sm">{error}</p>
+					<div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-300">
+						{error}
 					</div>
 				)}
-				{success ? (
-					<div className="text-center">
-						<CheckCircleIcon className="mx-auto mb-4 h-16 w-16 text-green-500" />
-						<h2 className="mb-4 text-xl font-semibold text-green-600 dark:text-green-400">
-							Success!
-						</h2>
-						<p className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-							You have successfully linked your Crowdin and Discord accounts. You have obtained the
-							translator role and your translating skills have improved by at least 1%. Promise.
-						</p>
-						<div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-							<h3 className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-								Crowdin account
-							</h3>
-							<p className="text-sm text-gray-600 dark:text-gray-400">{crowdinUser!.username}</p>
+				{linked ? (
+					<div className="mt-6 space-y-4">
+						{justLinked && (
+							<div className="text-center">
+								<CheckCircleIcon className="mx-auto mb-3 h-12 w-12 text-green-500" />
+								<p className="text-sm text-gray-600 dark:text-gray-400">
+									Your Crowdin and Discord accounts are linked. Your translating skills have
+									improved by at least 1%. Promise.
+								</p>
+							</div>
+						)}
+						<div className="flex items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
+							<div className="min-w-0">
+								<p className="text-xs text-gray-500 dark:text-gray-400">Crowdin account</p>
+								<p className="truncate text-sm font-medium">{crowdinUser?.username ?? "Linked"}</p>
+							</div>
+							{translator && (
+								<CheckCircleIcon
+									aria-label="Translator"
+									className="h-5 w-5 shrink-0 text-green-500"
+									role="img"
+								/>
+							)}
 						</div>
+						<Form method="post">
+							<ActionButton
+								className="w-full"
+								name="action"
+								type="submit"
+								value="unlink_crowdin"
+								variant="danger"
+							>
+								Unlink Crowdin
+							</ActionButton>
+						</Form>
 					</div>
 				) : (
-					<div className="space-y-4">
-						<p className="mb-6 text-center text-sm text-gray-600 dark:text-gray-400">
+					<div className="mt-6 space-y-4">
+						<p className="text-center text-sm text-gray-600 dark:text-gray-400">
 							Hey translators! This will allow us to easily identify our kind in the{" "}
 							<a
 								className="regular-link inline-flex items-center transition duration-200"
@@ -292,29 +359,18 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 							</a>
 							!
 						</p>
-						{crowdinUser ? (
-							<div className="rounded-lg border border-green-300 bg-green-50 p-4 dark:border-green-700 dark:bg-green-900/20">
-								<div className="mb-2 flex items-center justify-between">
-									<h3 className="text-sm font-medium">Crowdin</h3>
-									<CheckCircleIcon className="h-5 w-5 text-green-500" />
-								</div>
-								<p className="text-sm text-green-600 dark:text-green-400">
-									✓ Authorised as {crowdinUser.username}
-								</p>
-							</div>
-						) : (
-							<Form method="post">
-								<button
-									className="flex w-full items-center justify-center rounded-md bg-orange-500 px-4 py-2 font-medium text-white transition duration-200 hover:bg-orange-600"
-									name="action"
-									type="submit"
-									value="authorise_crowdin"
-								>
-									Authorise Crowdin
-									<ExternalLinkIcon className="ml-2 h-4 w-4" />
-								</button>
-							</Form>
-						)}
+						<Form method="post">
+							<ActionButton
+								className="w-full"
+								name="action"
+								type="submit"
+								value="authorise_crowdin"
+								variant="primary"
+							>
+								Authorise
+								<ExternalLinkIcon className="ml-2 h-4 w-4" />
+							</ActionButton>
+						</Form>
 					</div>
 				)}
 			</div>

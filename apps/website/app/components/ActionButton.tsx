@@ -6,6 +6,8 @@ const ACTION_BUTTON_CLASS_NAME =
 	"inline-flex min-w-0 cursor-pointer items-center justify-center rounded-sm border px-4 py-2 text-sm font-medium shadow-md transition-colors duration-300 hover:shadow-lg disabled:cursor-not-allowed disabled:shadow-md" as const;
 
 const ACTION_BUTTON_VARIANT_CLASS_NAMES = {
+	danger:
+		"border-gray-300 bg-red-600 text-white hover:bg-red-700 disabled:bg-red-600/60 disabled:text-white/80 dark:border-gray-600",
 	neutral:
 		"border-gray-200 bg-gray-100 hover:bg-gray-100/50 dark:border-gray-600 dark:bg-gray-900 dark:hover:bg-gray-900/50",
 	primary:
