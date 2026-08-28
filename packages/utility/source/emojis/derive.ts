@@ -3011,6 +3011,10 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.SummerCamping2026Prop3]: SHARED_SPACE_EMOJIS.SharedSpace07,
 		[Cosmetic.SummerCamping2026Prop4]: SHARED_SPACE_EMOJIS.SharedSpace08,
 		[Cosmetic.FeatheryLashMask]: MASK_EMOJIS.Mask116,
+		[Cosmetic.HerbGathererWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.HunterWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.FeudalLordWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.PrincessWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

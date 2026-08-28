@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	emote,
 	area: AreaName.CrescentOasis,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{ cosmetic: Cosmetic.EmoteFloatSpin1 },
@@ -73,6 +72,65 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.PrincessSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[
+				{ cosmetic: Cosmetic.EmoteFloatSpin1 },
+				{ cosmetic: Cosmetic.EmoteFloatSpin2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.PrincessBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.PrincessMask,
+					cost: { candles: 36 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.PrincessSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.PrincessWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{ cosmetic: Cosmetic.EmoteFloatSpin3, cost: { hearts: 3 }, level: 3 },
+				{ cosmetic: Cosmetic.EmoteFloatSpin4, cost: { hearts: 6 }, level: 4 },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.PrincessHair,
+					cost: { candles: 45 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.PrincessBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.PrincessOutfit,
+					cost: { candles: 71 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.PrincessCape,
+					cost: { candles: 75 },
 				},
 			],
 		],

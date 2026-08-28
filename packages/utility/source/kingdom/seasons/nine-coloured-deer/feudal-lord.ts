@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	action,
 	area: AreaName.CrescentOasis,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{ cosmetic: Cosmetic.FriendActionCradleCarry1 },
@@ -68,6 +67,56 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.FeudalLordSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[
+				{ cosmetic: Cosmetic.FriendActionCradleCarry1 },
+				{ cosmetic: Cosmetic.FeudalLordMusicSheet, cost: { candles: 10 } },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.FeudalLordBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.HairAccessory,
+					cosmetic: Cosmetic.FeudalLordHairAccessory,
+					cost: { candles: 36 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.FeudalLordSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.FeudalLordWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.FeudalLordBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.FeudalLordCape,
+					cost: { candles: 78 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.FeudalLordMask,
+					cost: { candles: 42 },
 				},
 			],
 		],

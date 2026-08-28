@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	emote,
 	area: AreaName.CrescentOasis,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{ cosmetic: Cosmetic.EmoteWhistle1 },
@@ -69,6 +68,65 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.HerbGathererSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[
+				{ cosmetic: Cosmetic.EmoteWhistle1 },
+				{ cosmetic: Cosmetic.EmoteWhistle2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.HerbGathererBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.HerbGathererOutfit,
+					cost: { candles: 64 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.HerbGathererSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.HerbGathererWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{ cosmetic: Cosmetic.EmoteWhistle3, cost: { hearts: 3 }, level: 3 },
+				{ cosmetic: Cosmetic.EmoteWhistle4, cost: { hearts: 6 }, level: 4 },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.HerbGathererHair,
+					cost: { candles: 38 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.HerbGathererBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Prop,
+					cosmetic: Cosmetic.HerbGathererProp,
+					cost: { candles: 17 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.HerbGathererBlessing3,
+					cost: { candles: 5 },
 				},
 			],
 		],
