@@ -92,7 +92,9 @@ const travellingSpiritEarliestNotificationTime = travellingSpiritStart?.subtract
 	minutes: NotificationOffsetToMaximumValues[NotificationType.TravellingSpirit],
 });
 
-let shardData = shardEruption(skyNow());
+const shardDataInitial = skyNow();
+let shardDataDate = shardDataInitial.toPlainDate();
+let shardData = shardEruption(shardDataInitial);
 
 const NOTIFICATION_SHARD_ERUPTION_TYPES = [
 	NotificationType.RegularShardEruption,
@@ -241,8 +243,10 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	const { day, dayOfWeek, hour, minute } = date;
 	const notifications: NotificationsData[] = [];
 
-	if (hour === 0 && minute === 0) {
-		// Update the shard eruption.
+	const currentDate = date.toPlainDate();
+
+	if (!currentDate.equals(shardDataDate)) {
+		shardDataDate = currentDate;
 		shardData = shardEruption(date);
 	}
 
