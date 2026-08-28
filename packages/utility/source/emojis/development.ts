@@ -75,7 +75,7 @@ const MISCELLANEOUS_EMOJIS = {
 	Provider: { id: "1466368122461094055", name: "provider" },
 	QuestionMark: { id: "1489893275979485194", name: "question_mark" },
 	TreasureCandle: { id: "1512540326982582282", name: "treasure_candle" },
-	MomentsCameraUpgrade: { id: "1522921700092809329", name: "moments_camera_upgrade" },
+	MomentsCameraUpgrade: { id: "1542851970170093578", name: "moments_camera_upgrade" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS = {
