@@ -31,9 +31,10 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 FROM ${NODE_IMAGE} AS runtime
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
-ENV PORT=80
+ENV PORT=3000
 ARG SENTRY_RELEASE
 ENV SENTRY_RELEASE=${SENTRY_RELEASE}
 WORKDIR /thatskyapplication/apps/website
-COPY --from=build /out .
+COPY --from=build --chown=node:node /out .
+USER node
 CMD ["npm", "run-script", "start"]
