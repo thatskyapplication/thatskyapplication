@@ -259,6 +259,54 @@ function isSpuriousUnknownInteraction(interaction: APIInteraction, error: unknow
 	);
 }
 
+async function originalReply(interaction: APIInteraction) {
+	try {
+		return await client.api.interactions.getOriginalReply(
+			interaction.application_id,
+			interaction.token,
+		);
+	} catch (error) {
+		if (
+			error instanceof DiscordAPIError &&
+			(error.code === RESTJSONErrorCodes.UnknownWebhook ||
+				error.code === RESTJSONErrorCodes.UnknownMessage)
+		) {
+			return null;
+		}
+
+		throw error;
+	}
+}
+
+async function respondWithInteractionError(
+	interaction: APIInteraction,
+	response: ReturnType<typeof errorResponseV2>,
+) {
+	try {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+		return;
+	} catch (error) {
+		if (
+			!(error instanceof DiscordAPIError) ||
+			error.code !== RESTJSONErrorCodes.InteractionHasAlreadyBeenAcknowledged
+		) {
+			throw error;
+		}
+	}
+
+	const original = await originalReply(interaction);
+
+	if (original && ((original.flags ?? 0) & MessageFlags.Loading) === MessageFlags.Loading) {
+		await client.api.interactions.editReply(
+			interaction.application_id,
+			interaction.token,
+			response,
+		);
+	} else {
+		await client.api.interactions.followUp(interaction.application_id, interaction.token, response);
+	}
+}
+
 async function recoverInteractionError(interaction: APIInteraction, error: unknown) {
 	let errorTypeString = "Error from ";
 
@@ -310,6 +358,12 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 
 			return;
 		}
+
+		if (interaction.type === InteractionType.Ping) {
+			return;
+		}
+
+		await respondWithInteractionError(interaction, errorResponseV2(interaction.locale));
 	} catch (error) {
 		pino.error(error, "Failed to respond from recovering an interaction error.");
 	}
