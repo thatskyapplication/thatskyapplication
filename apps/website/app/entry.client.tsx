@@ -27,8 +27,20 @@ let browserTranslationObserved = false;
 if (dsn) {
 	init({
 		dataCollection: {},
+		// Meta's in-app browser performance logger; no application code appears in its frames.
+		denyUrls: [/^iabjs:\/\//],
 		dsn,
 		enableLogs: true,
+		ignoreErrors: [
+			// Instagram's Android in-app browser.
+			// https://github.com/getsentry/sentry-javascript/issues/23733
+			"Error invoking postMessage: Java exception was raised during method invocation",
+			"Error invoking postMessage: Java object is gone",
+			// Facebook's iOS in-app browser, where the WKWebView bridge is absent.
+			"undefined is not an object (evaluating 'window.webkit.messageHandlers')",
+			// DuckDuckGo's iOS browser, where the WKWebView bridge does not answer.
+			"WKWebView API client did not respond to this postMessage",
+		],
 		integrations: [
 			reactRouterTracingIntegration(),
 			extraErrorDataIntegration(),
