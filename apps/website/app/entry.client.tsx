@@ -22,7 +22,7 @@ const BROWSER_TRANSLATION_ELEMENT_ID = "goog-gt-tt" as const;
 const HYDRATION_BREADCRUMB_CATEGORY = "replay.hydrate-error" as const;
 
 const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
-let translatedBeforeHydration = false;
+let browserTranslationObserved = false;
 
 if (dsn) {
 	init({
@@ -34,7 +34,7 @@ if (dsn) {
 			extraErrorDataIntegration(),
 			replayIntegration({
 				beforeAddRecordingEvent: (event) =>
-					translatedBeforeHydration &&
+					browserTranslationObserved &&
 					event.data.tag === "breadcrumb" &&
 					event.data.payload.category === HYDRATION_BREADCRUMB_CATEGORY
 						? null
@@ -55,6 +55,25 @@ function translatedByBrowser() {
 		BROWSER_TRANSLATION_CLASSES.some((className) => classList.contains(className)) ||
 		document.getElementById(BROWSER_TRANSLATION_ELEMENT_ID) !== null
 	);
+}
+
+function watchForBrowserTranslation() {
+	if (translatedByBrowser()) {
+		browserTranslationObserved = true;
+		return;
+	}
+
+	const observer = new MutationObserver(() => {
+		if (!translatedByBrowser()) {
+			return;
+		}
+
+		browserTranslationObserved = true;
+		observer.disconnect();
+	});
+
+	observer.observe(document.documentElement, { attributeFilter: ["class"], attributes: true });
+	observer.observe(document.body, { childList: true });
 }
 
 function isResource(value: unknown): value is Resource {
@@ -92,7 +111,7 @@ async function main() {
 		saveMissing: true,
 	});
 
-	translatedBeforeHydration = translatedByBrowser();
+	watchForBrowserTranslation();
 
 	startTransition(() => {
 		hydrateRoot(
