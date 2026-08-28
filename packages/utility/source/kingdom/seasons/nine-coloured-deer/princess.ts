@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	emote,
 	area: AreaName.CrescentOasis,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{ cosmetic: Cosmetic.EmoteFloatSpin1 },

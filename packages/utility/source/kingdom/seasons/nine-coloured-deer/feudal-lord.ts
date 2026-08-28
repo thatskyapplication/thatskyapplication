@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	action,
 	area: AreaName.CrescentOasis,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{ cosmetic: Cosmetic.FriendActionCradleCarry1 },
