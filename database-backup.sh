@@ -10,7 +10,7 @@ while true; do
 	curl --silent --fail "${SENTRY_CRONS}?status=in_progress" || echo "[$(date)] Warning: Sentry check-in failed."
 
 	if PGPASSWORD=$POSTGRES_PASSWORD pg_dump --host=$POSTGRES_HOST --username=$POSTGRES_USER --format=custom --file=$BACKUP_FILE $POSTGRES_DB; then
-		if [ -s "$BACKUP_FILE" ]; then
+		if pg_restore --file=/dev/null "$BACKUP_FILE"; then
 			echo "[$(date)] Backup file created successfully, uploading to R2..."
 
 			if aws --endpoint-url $AWS_S3_ENDPOINT \
@@ -26,7 +26,7 @@ while true; do
 				curl --silent --fail "${SENTRY_CRONS}?status=error" || echo "[$(date)] Warning: Sentry check-in failed."
 			fi
 		else
-			echo "[$(date)] ERROR: Backup file is empty."
+			echo "[$(date)] ERROR: Backup file is unreadable."
 			rm -f $BACKUP_FILE
 			curl --silent --fail "${SENTRY_CRONS}?status=error" || echo "[$(date)] Warning: Sentry check-in failed."
 		fi
