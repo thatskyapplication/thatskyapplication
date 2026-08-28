@@ -633,6 +633,7 @@ const MASK_EMOJIS = {
 	Mask113: { id: "1510009688844927078", name: "113_mask" },
 	Mask114: { id: "1528914488613404845", name: "114_mask" },
 	Mask115: { id: "1532453926107086912", name: "115_mask" },
+	Mask116: { id: "1542584853420187748", name: "116_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS = {
@@ -1574,6 +1575,10 @@ const SHARED_SPACE_EMOJIS = {
 	SharedSpace02: { id: "1494699848853618860", name: "02_shared_space" },
 	SharedSpace03: { id: "1494699850967548014", name: "03_shared_space" },
 	SharedSpace04: { id: "1532453928736915537", name: "04_shared_space" },
+	SharedSpace05: { id: "1542584843378884648", name: "05_shared_space" },
+	SharedSpace06: { id: "1542584845509722252", name: "06_shared_space" },
+	SharedSpace07: { id: "1542584848416374846", name: "07_shared_space" },
+	SharedSpace08: { id: "1542584851499327599", name: "08_shared_space" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export const DEVELOPMENT_TABLES = {

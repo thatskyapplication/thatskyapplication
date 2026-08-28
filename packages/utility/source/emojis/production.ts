@@ -1404,6 +1404,10 @@ const MASK_EMOJIS = {
 	 * Days of Sunlight 2026.
 	 */
 	Mask115: { id: "1532453829625253969", name: "115_mask" },
+	/**
+	 * Feathery Lash Mask.
+	 */
+	Mask116: { id: "1542584844456824832", name: "116_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS = {
@@ -5082,6 +5086,22 @@ const SHARED_SPACE_EMOJIS = {
 	 * Days of Sunlight 2026.
 	 */
 	SharedSpace04: { id: "1532453831521206333", name: "04_shared_space" },
+	/**
+	 * Summer Camping 2026.
+	 */
+	SharedSpace05: { id: "1542584833166016612", name: "05_shared_space" },
+	/**
+	 * Summer Camping 2026.
+	 */
+	SharedSpace06: { id: "1542584836894756864", name: "06_shared_space" },
+	/**
+	 * Summer Camping 2026.
+	 */
+	SharedSpace07: { id: "1542584839285375036", name: "07_shared_space" },
+	/**
+	 * Summer Camping 2026.
+	 */
+	SharedSpace08: { id: "1542584841541779567", name: "08_shared_space" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export const PRODUCTION_TABLES = {

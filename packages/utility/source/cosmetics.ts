@@ -3720,6 +3720,13 @@ export enum Cosmetic {
 
 	// 26/08/2026 | Version 34.5.
 	StarryNightsCanopy = 2946,
+
+	// 28/08/2026 | Summer Camping.
+	SummerCamping2026Prop1 = 2947,
+	SummerCamping2026Prop2 = 2948,
+	SummerCamping2026Prop3 = 2949,
+	SummerCamping2026Prop4 = 2950,
+	FeatheryLashMask = 2951,
 }
 
 export enum CosmeticCommon {

@@ -3006,6 +3006,11 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.SunlightCrabFloat]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp120,
 		[Cosmetic.VaseWithFifteenSunflowersProp7]: null,
 		[Cosmetic.StarryNightsCanopy]: null,
+		[Cosmetic.SummerCamping2026Prop1]: SHARED_SPACE_EMOJIS.SharedSpace05,
+		[Cosmetic.SummerCamping2026Prop2]: SHARED_SPACE_EMOJIS.SharedSpace06,
+		[Cosmetic.SummerCamping2026Prop3]: SHARED_SPACE_EMOJIS.SharedSpace07,
+		[Cosmetic.SummerCamping2026Prop4]: SHARED_SPACE_EMOJIS.SharedSpace08,
+		[Cosmetic.FeatheryLashMask]: MASK_EMOJIS.Mask116,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

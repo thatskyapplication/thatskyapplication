@@ -2578,6 +2578,7 @@ export default {
 			[Cosmetic.SunlightSportySunglasses]: "Sunlight Sporty Sunglasses",
 			[Cosmetic.SunlightCrabFloat]: "Sunlight Crab Float",
 			[Cosmetic.StarryNightsCanopy]: "Starry Night's Canopy",
+			[Cosmetic.FeatheryLashMask]: "Feathery Lash Mask",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
