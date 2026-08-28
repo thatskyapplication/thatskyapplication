@@ -3,37 +3,20 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
-	auroraSchedule,
-	aviarysFireworkFestivalSchedule,
 	DOUBLE_HEART_EVENTS,
-	dreamsSkaterSchedule,
 	formatEmojiURL,
-	grandmaSchedule,
-	internationalSpaceStationSchedule,
 	isActive,
 	MAINTENANCE_PERIODS,
-	meteorShowerSchedule,
-	nextDailyReset,
-	nextEyeOfEden,
-	nextNestingWorkshop,
-	nextPassage,
-	nineColouredDeerSchedule,
-	pollutedGeyserSchedule,
-	projectorOfMemoriesSchedule,
 	RADIANCE_EVENTS,
-	returningSpiritsSchedule,
+	SCHEDULES,
 	ScheduleType,
 	type ScheduleTypes,
 	type SpiritIds,
-	shardEruptionSchedule,
 	skyCurrentSeason,
 	skyNotEndedEvents,
 	skyUpcomingSeason,
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
-	travellingSpiritSchedule,
-	turtleSchedule,
-	vaultEldersBlessingSchedule,
 	WEBSITE_URL,
 	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
@@ -123,68 +106,15 @@ function formatRelativeTime(
 	return relativeTimeFormat.format(Math.round(daysUntil(date, now)), "day");
 }
 
-interface ScheduleOccurrence {
-	start: Temporal.ZonedDateTime;
-	end?: Temporal.ZonedDateTime | null | undefined;
-	active?: boolean | undefined;
-	spiritId?: SpiritIds | null | undefined;
-	spiritIds?: readonly SpiritIds[] | undefined;
+interface SchedulePresentation {
+	readonly timeStyle?: "medium";
+	readonly startShowsDate?: (now: Temporal.ZonedDateTime) => boolean;
 }
 
-interface ScheduleDefinition {
-	type: ScheduleTypes;
-	resolve: (now: Temporal.ZonedDateTime) => ScheduleOccurrence | null;
-	timeStyle?: "medium";
-	startShowsDate?: (now: Temporal.ZonedDateTime) => boolean;
-}
-
-const SCHEDULES: readonly ScheduleDefinition[] = [
-	{ type: ScheduleType.DailyReset, resolve: (now) => ({ start: nextDailyReset(now) }) },
-	{ type: ScheduleType.EyeOfEden, resolve: (now) => ({ start: nextEyeOfEden(now) }) },
-	{ type: ScheduleType.InternationalSpaceStation, resolve: internationalSpaceStationSchedule },
-	{
-		type: ScheduleType.TravellingSpirit,
-		resolve: (now) => {
-			const { start, visit, spirit } = travellingSpiritSchedule(now);
-			return { start, end: visit?.end, active: visit !== null, spiritId: spirit?.spiritId };
-		},
-	},
-	{ type: ScheduleType.ReturningSpirits, resolve: returningSpiritsSchedule },
-	{ type: ScheduleType.PollutedGeyser, resolve: pollutedGeyserSchedule },
-	{ type: ScheduleType.Grandma, resolve: grandmaSchedule },
-	{ type: ScheduleType.Turtle, resolve: turtleSchedule },
-	{
-		type: ScheduleType.ShardEruption,
-		resolve: shardEruptionSchedule,
-		timeStyle: "medium",
-		startShowsDate: () => false,
-	},
-	{
-		type: ScheduleType.DreamsSkater,
-		resolve: dreamsSkaterSchedule,
-		startShowsDate: (now) => now.dayOfWeek < 5,
-	},
-	{ type: ScheduleType.AURORA, resolve: auroraSchedule },
-	{
-		type: ScheduleType.Passage,
-		resolve: (now) => {
-			const start = nextPassage(now);
-			return start && { start };
-		},
-	},
-	{ type: ScheduleType.AviarysFireworkFestival, resolve: aviarysFireworkFestivalSchedule },
-	{ type: ScheduleType.NineColouredDeer, resolve: nineColouredDeerSchedule },
-	{ type: ScheduleType.MeteorShower, resolve: meteorShowerSchedule },
-	{
-		type: ScheduleType.NestingWorkshop,
-		resolve: (now) => {
-			const start = nextNestingWorkshop(now);
-			return start && { start };
-		},
-	},
-	{ type: ScheduleType.VaultEldersBlessing, resolve: vaultEldersBlessingSchedule },
-	{ type: ScheduleType.ProjectorOfMemories, resolve: projectorOfMemoriesSchedule },
-];
+const SCHEDULE_PRESENTATION: Readonly<Partial<Record<ScheduleTypes, SchedulePresentation>>> = {
+	[ScheduleType.ShardEruption]: { timeStyle: "medium", startShowsDate: () => false },
+	[ScheduleType.DreamsSkater]: { startShowsDate: (now) => now.dayOfWeek < 5 },
+};
 
 const enum DisplayCardType {
 	Season = 0,
@@ -291,8 +221,9 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 	const now = Temporal.Instant.fromEpochMilliseconds(timestamp).toZonedDateTimeISO(TIME_ZONE);
 	const cards: DisplayCard[] = [];
 
-	for (const { type, resolve, timeStyle, startShowsDate } of SCHEDULES) {
+	for (const { type, resolve } of SCHEDULES) {
 		const occurrence = resolve(now);
+		const { timeStyle, startShowsDate } = SCHEDULE_PRESENTATION[type] ?? {};
 
 		if (!occurrence) {
 			continue;

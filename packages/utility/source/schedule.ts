@@ -4,7 +4,7 @@ import { skyNotEndedEvents } from "./events/index.js";
 import { RETURNING_DATES, TRAVELLING_DATES } from "./kingdom/seasons/index.js";
 import { SHARD_ERUPTION_START_DATE, shardEruption } from "./shard-eruption.js";
 import { EventId } from "./utility/event.js";
-import { SpiritId } from "./utility/spirits.js";
+import { SpiritId, type SpiritIds } from "./utility/spirits.js";
 
 export const ScheduleType = {
 	DailyReset: 0,
@@ -486,3 +486,55 @@ export function projectorOfMemoriesSchedule(date: Temporal.ZonedDateTime) {
 	const end = start.add({ minutes: 78 });
 	return { start, end, active: isActive(start, end, date) };
 }
+
+export interface ScheduleOccurrence {
+	start: Temporal.ZonedDateTime;
+	end?: Temporal.ZonedDateTime | null | undefined;
+	active?: boolean | undefined;
+	spiritId?: SpiritIds | null | undefined;
+	spiritIds?: readonly SpiritIds[] | undefined;
+}
+
+export interface ScheduleDefinition {
+	readonly type: ScheduleTypes;
+	readonly resolve: (now: Temporal.ZonedDateTime) => ScheduleOccurrence | null;
+}
+
+export const SCHEDULES: readonly ScheduleDefinition[] = [
+	{ type: ScheduleType.DailyReset, resolve: (now) => ({ start: nextDailyReset(now) }) },
+	{ type: ScheduleType.EyeOfEden, resolve: (now) => ({ start: nextEyeOfEden(now) }) },
+	{ type: ScheduleType.InternationalSpaceStation, resolve: internationalSpaceStationSchedule },
+	{
+		type: ScheduleType.TravellingSpirit,
+		resolve: (now) => {
+			const { start, visit, spirit } = travellingSpiritSchedule(now);
+			return { start, end: visit?.end, active: visit !== null, spiritId: spirit?.spiritId };
+		},
+	},
+	{ type: ScheduleType.ReturningSpirits, resolve: returningSpiritsSchedule },
+	{ type: ScheduleType.PollutedGeyser, resolve: pollutedGeyserSchedule },
+	{ type: ScheduleType.Grandma, resolve: grandmaSchedule },
+	{ type: ScheduleType.Turtle, resolve: turtleSchedule },
+	{ type: ScheduleType.ShardEruption, resolve: shardEruptionSchedule },
+	{ type: ScheduleType.DreamsSkater, resolve: dreamsSkaterSchedule },
+	{ type: ScheduleType.AURORA, resolve: auroraSchedule },
+	{
+		type: ScheduleType.Passage,
+		resolve: (now) => {
+			const start = nextPassage(now);
+			return start && { start };
+		},
+	},
+	{ type: ScheduleType.AviarysFireworkFestival, resolve: aviarysFireworkFestivalSchedule },
+	{ type: ScheduleType.NineColouredDeer, resolve: nineColouredDeerSchedule },
+	{ type: ScheduleType.MeteorShower, resolve: meteorShowerSchedule },
+	{
+		type: ScheduleType.NestingWorkshop,
+		resolve: (now) => {
+			const start = nextNestingWorkshop(now);
+			return start && { start };
+		},
+	},
+	{ type: ScheduleType.VaultEldersBlessing, resolve: vaultEldersBlessingSchedule },
+	{ type: ScheduleType.ProjectorOfMemories, resolve: projectorOfMemoriesSchedule },
+];

@@ -14,7 +14,6 @@ import {
 	esES,
 	formatEmoji,
 	fr,
-	internationalSpaceStationSchedule,
 	isDuring,
 	it,
 	ja,
@@ -22,6 +21,9 @@ import {
 	MAINTENANCE_PERIODS,
 	NotificationOffsetToMaximumValues,
 	NotificationType,
+	SCHEDULES,
+	ScheduleType,
+	type ScheduleTypes,
 	type NotificationTypes,
 	ptBR,
 	RADIANCE_EVENTS,
@@ -236,11 +238,26 @@ function isNotificationShardEruptionData(
 	);
 }
 
+const ScheduleTypeToNotificationType: Readonly<
+	Partial<Record<ScheduleTypes, NotificationsNotShardEruptionData["type"]>>
+> = {
+	[ScheduleType.DailyReset]: NotificationType.DailyReset,
+	[ScheduleType.EyeOfEden]: NotificationType.EyeOfEden,
+	[ScheduleType.InternationalSpaceStation]: NotificationType.InternationalSpaceStation,
+	[ScheduleType.PollutedGeyser]: NotificationType.PollutedGeyser,
+	[ScheduleType.Grandma]: NotificationType.Grandma,
+	[ScheduleType.Turtle]: NotificationType.Turtle,
+	[ScheduleType.DreamsSkater]: NotificationType.DreamsSkater,
+	[ScheduleType.AURORA]: NotificationType.AURORA,
+	[ScheduleType.Passage]: NotificationType.Passage,
+	[ScheduleType.AviarysFireworkFestival]: NotificationType.AviarysFireworkFestival,
+	[ScheduleType.NestingWorkshop]: NotificationType.NestingWorkshop,
+};
+
 new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	const now = skyNow();
 	const checkInId = captureCheckIn({ monitorSlug: "notifications", status: "in_progress" });
 	const date = now.round({ smallestUnit: "minute", roundingMode: "trunc" });
-	const { day, dayOfWeek, hour, minute } = date;
 	const notifications: NotificationsData[] = [];
 
 	const currentDate = date.toPlainDate();
@@ -412,44 +429,6 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		}
 	}
 
-	if ((hour === 23 && minute >= 45 && minute <= 59) || (hour === 0 && minute === 0)) {
-		const timeUntilStart = (60 - minute) % 60;
-		const startTime = date.add({ minutes: timeUntilStart });
-
-		notifications.push({
-			type: NotificationType.DailyReset,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
-	}
-
-	if (
-		(dayOfWeek === 6 && hour === 23 && minute >= 36 && minute <= 59) ||
-		(dayOfWeek === 7 && hour === 0 && minute === 0)
-	) {
-		const timeUntilStart = (60 - minute) % 60;
-		const startTime = date.add({ minutes: timeUntilStart });
-
-		notifications.push({
-			type: NotificationType.EyeOfEden,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
-	}
-
-	if ((hour === 23 && minute >= 45 && minute <= 59) || (hour === 0 && minute === 0)) {
-		const timeUntilStart = (60 - minute) % 60;
-		const startTime = date.add({ minutes: timeUntilStart });
-
-		if (internationalSpaceStationSchedule(date)!.start.equals(startTime)) {
-			notifications.push({
-				type: NotificationType.InternationalSpaceStation,
-				timeUntilStart,
-				timestamp: `<t:${epochSeconds(startTime)}:R>`,
-			});
-		}
-	}
-
 	if (
 		travellingSpiritEarliestNotificationTime &&
 		travellingSpiritStart &&
@@ -464,110 +443,31 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		});
 	}
 
-	if (
-		minute === 0 ||
-		(minute >= 10 && minute <= 15) ||
-		(minute >= 25 && minute <= 30) ||
-		(minute >= 40 && minute <= 45) ||
-		minute >= 55
-	) {
-		const timeUntilStart = (15 - (minute % 15)) % 15;
-		const startTime = date.add({ minutes: timeUntilStart });
+	for (const { type, resolve } of SCHEDULES) {
+		const notificationType = ScheduleTypeToNotificationType[type];
 
-		notifications.push({
-			type: NotificationType.Passage,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
-	}
+		if (notificationType === undefined) {
+			continue;
+		}
 
-	if ((hour % 2 === 1 && minute >= 55) || (hour % 2 === 0 && minute <= 10)) {
-		const timeUntilStart = hour % 2 === 0 ? 10 - minute : 70 - minute;
-		const startTime = date.add({ minutes: timeUntilStart });
+		const occurrence = resolve(date);
 
-		notifications.push({
-			type: NotificationType.AURORA,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
-	}
+		if (!occurrence) {
+			continue;
+		}
 
-	if (
-		(minute >= 0 && minute <= 5 && hour % 2 === 0) ||
-		(minute >= 55 && minute <= 59 && hour % 2 === 1)
-	) {
-		const timeUntilStart = hour % 2 === 0 ? 5 - minute : 65 - minute;
-		const startTime = date.add({ minutes: timeUntilStart });
+		const timeUntilStart = Math.floor(occurrence.start.since(date).total("minutes"));
 
-		notifications.push({
-			type: NotificationType.PollutedGeyser,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
-	}
-
-	if (hour % 2 === 0 && minute >= 25 && minute <= 35) {
-		const timeUntilStart = 35 - minute;
-		const startTime = date.add({ minutes: timeUntilStart });
-
-		notifications.push({
-			type: NotificationType.Grandma,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
-	}
-
-	if (hour % 2 === 0 && minute >= 40 && minute <= 50) {
-		const timeUntilStart = 50 - minute;
-		const startTime = date.add({ minutes: timeUntilStart });
-
-		notifications.push({
-			type: NotificationType.Turtle,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
-	}
-
-	if (
-		(dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 7) &&
-		(hour % 2 === 0 ? minute >= 50 : minute === 0)
-	) {
-		const timeUntilStart = (60 - minute) % 60;
-		const startTime = date.add({ minutes: timeUntilStart });
-
-		notifications.push({
-			type: NotificationType.DreamsSkater,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
-	}
-
-	if (
-		(dayOfWeek === 4 && hour === 23 && minute >= 45 && minute <= 59) ||
-		(dayOfWeek === 5 && hour === 0 && minute === 0)
-	) {
-		const timeUntilStart = (60 - minute) % 60;
-		const startTime = date.add({ minutes: timeUntilStart });
-
-		notifications.push({
-			type: NotificationType.NestingWorkshop,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
-	}
-
-	if (
-		(day === 1 && ((hour % 4 === 0 && minute === 0) || (hour % 4 === 3 && minute >= 45))) ||
-		(date.daysInMonth === day && hour === 23 && minute >= 45)
-	) {
-		const timeUntilStart = (60 - minute) % 60;
-		const startTime = date.add({ minutes: timeUntilStart });
-
-		notifications.push({
-			type: NotificationType.AviarysFireworkFestival,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
+		if (
+			timeUntilStart >= 0 &&
+			timeUntilStart <= NotificationOffsetToMaximumValues[notificationType]
+		) {
+			notifications.push({
+				type: notificationType,
+				timeUntilStart,
+				timestamp: `<t:${epochSeconds(occurrence.start)}:R>`,
+			});
+		}
 	}
 
 	const updateErrors = [];

@@ -26,7 +26,6 @@ import {
 	formatEmoji,
 	grandmaSchedule,
 	internationalSpaceStationDates,
-	internationalSpaceStationSchedule,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	meteorShowerSchedule,
@@ -39,6 +38,7 @@ import {
 	projectorOfMemoriesSchedule,
 	RADIANCE_EVENTS,
 	returningSpiritsSchedule,
+	SCHEDULES,
 	ScheduleType,
 	type ScheduleTypes,
 	shardEruption,
@@ -175,12 +175,33 @@ function eyeOfEdenDetailedBreakdown(
 	];
 }
 
-function internationalSpaceStationOverview(date: Temporal.ZonedDateTime) {
-	const schedule = internationalSpaceStationSchedule(date)!;
+const SCHEDULE_DEFINITIONS = new Map(SCHEDULES.map((schedule) => [schedule.type, schedule]));
+
+function scheduleOverviewRow(
+	type: ScheduleTypes,
+	date: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer {
+	const occurrence = SCHEDULE_DEFINITIONS.get(type)?.resolve(date) ?? null;
 
 	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
+		type: ComponentType.TextDisplay,
+		content: t("schedule.overview", {
+			lng: locale,
+			ns: "features",
+			type: t(ScheduleTypeToLocaleKey[type], { lng: locale }),
+			details: occurrence?.active
+				? t("schedule.overview-available", {
+						lng: locale,
+						ns: "features",
+						emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+					})
+				: t("schedule.overview-next-available-timestamp", {
+						lng: locale,
+						ns: "features",
+						timestamp: occurrence ? `<t:${epochSeconds(occurrence.start)}:R>` : "",
+					}),
+		}),
 	};
 }
 
@@ -1215,7 +1236,6 @@ export async function scheduleOverview(
 	const { locale } = interaction;
 	const now = skyNow();
 	const startOfDay = now.startOfDay();
-	const internationalSpaceStation = internationalSpaceStationOverview(startOfDay);
 	const radianceEvents = radianceEventOverview(now);
 	const doubleHeartEvents = doubleHeartEventOverview(now);
 	const doubleSeasonalLightEvents = doubleSeasonalLightOverview(now);
@@ -1224,17 +1244,8 @@ export async function scheduleOverview(
 	const seasons = seasonOverview(now, locale);
 	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
 	const returningSpirits = returningSpiritsSchedule(now);
-	const pollutedGeyser = pollutedGeyserOverview(now);
-	const grandma = grandmaOverview(now);
-	const turtle = turtleOverview(now);
 	const shardEruption = shardEruptionOverview(now);
-	const aurora = auroraOverview(now);
-	const dreamsSkater = dreamsSkaterOverview(now);
-	const aviarysFireworkFestival = aviarysFireworkFestivalOverview(now);
 	const meteorShower = meteorShowerOverview(now);
-	const nineColouredDeer = nineColouredDeerOverview(now);
-	const vaultEldersBlessing = vaultEldersBlessingOverview(now);
-	const projectorOfMemories = projectorOfMemoriesOverview(now);
 	let flags = MessageFlags.IsComponentsV2;
 
 	if (ephemeral) {
@@ -1382,44 +1393,8 @@ export async function scheduleOverview(
 				details: nestingWorkshopNext(now, locale),
 			}),
 		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.AviarysFireworkFestival], { lng: locale }),
-				details: aviarysFireworkFestival.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: aviarysFireworkFestival.next,
-						}),
-			}),
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.InternationalSpaceStation], { lng: locale }),
-				details: internationalSpaceStation.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: internationalSpaceStation.next,
-						}),
-			}),
-		},
+		scheduleOverviewRow(ScheduleType.AviarysFireworkFestival, now, locale),
+		scheduleOverviewRow(ScheduleType.InternationalSpaceStation, startOfDay, locale),
 	);
 
 	if (radianceEvents.length > 0) {
@@ -1589,101 +1564,11 @@ export async function scheduleOverview(
 	}
 
 	const secondContainerComponents: APIComponentInContainer[] = [
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.PollutedGeyser], { lng: locale }),
-				details: pollutedGeyser.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: pollutedGeyser.next,
-						}),
-			}),
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.Grandma], { lng: locale }),
-				details: grandma.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: grandma.next,
-						}),
-			}),
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.Turtle], { lng: locale }),
-				details: turtle.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: turtle.next,
-						}),
-			}),
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.AURORA], { lng: locale }),
-				details: aurora.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: aurora.next,
-						}),
-			}),
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.DreamsSkater], { lng: locale }),
-				details: dreamsSkater.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: dreamsSkater.next,
-						}),
-			}),
-		},
+		scheduleOverviewRow(ScheduleType.PollutedGeyser, now, locale),
+		scheduleOverviewRow(ScheduleType.Grandma, now, locale),
+		scheduleOverviewRow(ScheduleType.Turtle, now, locale),
+		scheduleOverviewRow(ScheduleType.AURORA, now, locale),
+		scheduleOverviewRow(ScheduleType.DreamsSkater, now, locale),
 	];
 
 	if (meteorShower) {
@@ -1709,25 +1594,7 @@ export async function scheduleOverview(
 	}
 
 	secondContainerComponents.push(
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.VaultEldersBlessing], { lng: locale }),
-				details: vaultEldersBlessing.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: vaultEldersBlessing.next,
-						}),
-			}),
-		},
+		scheduleOverviewRow(ScheduleType.VaultEldersBlessing, now, locale),
 		{
 			type: ComponentType.TextDisplay,
 			content: t("schedule.overview", {
@@ -1741,44 +1608,8 @@ export async function scheduleOverview(
 				}),
 			}),
 		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.NineColouredDeer], { lng: locale }),
-				details: nineColouredDeer.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: nineColouredDeer.next,
-						}),
-			}),
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
-				lng: locale,
-				ns: "features",
-				type: t(ScheduleTypeToLocaleKey[ScheduleType.ProjectorOfMemories], { lng: locale }),
-				details: projectorOfMemories.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: projectorOfMemories.next,
-						}),
-			}),
-		},
+		scheduleOverviewRow(ScheduleType.NineColouredDeer, now, locale),
+		scheduleOverviewRow(ScheduleType.ProjectorOfMemories, now, locale),
 	);
 
 	const options: APISelectMenuOption[] = [
