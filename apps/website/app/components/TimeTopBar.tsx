@@ -2,8 +2,7 @@ import { clsx } from "clsx";
 import { Clock } from "lucide-react";
 import type React from "react";
 import { useTranslation } from "react-i18next";
-import { useCDNURL } from "~/hooks/use-cdn-url.js";
-import { cdnAssetURL } from "~/utility/cdn.js";
+import { SKY_LOGO_PATH } from "~/utility/constants.js";
 
 interface TimeTopBarProps {
 	className?: string | undefined;
@@ -12,7 +11,6 @@ interface TimeTopBarProps {
 }
 
 export function TimeTopBar({ className, localTime, skyTime }: TimeTopBarProps) {
-	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 
 	return (
@@ -38,7 +36,7 @@ export function TimeTopBar({ className, localTime, skyTime }: TimeTopBarProps) {
 				<div
 					className="h-4 w-4 shrink-0 rounded-[22.37%] bg-cover bg-center"
 					style={{
-						backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/sky_logo.webp")})`,
+						backgroundImage: `url(${SKY_LOGO_PATH})`,
 					}}
 				/>
 				<div className="font-mono text-xs text-gray-500 dark:text-gray-400">{skyTime}</div>

@@ -39,7 +39,11 @@ import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
-import { APPLICATION_ICON_URL, APPLICATION_NAME } from "~/utility/constants.js";
+import {
+	APPLICATION_ICON_URL,
+	APPLICATION_NAME,
+	PIECE_OF_LIGHT_PATH,
+} from "~/utility/constants.js";
 import {
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
@@ -826,7 +830,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 													className="h-4 w-4 bg-cover bg-center"
 													role="img"
 													style={{
-														backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/piece_of_light.webp")})`,
+														backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
 													}}
 												/>
 											)}
@@ -881,7 +885,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 												className="h-4 w-4 bg-cover bg-center"
 												role="img"
 												style={{
-													backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/piece_of_light.webp")})`,
+													backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
 												}}
 											/>
 										)}

@@ -17,11 +17,10 @@ import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
-import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
-import { cdnAssetURL } from "~/utility/cdn.js";
 import {
 	APPLICATION_NAME,
+	PIECE_OF_LIGHT_PATH,
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_MAXIMUM_PAGE,
 } from "~/utility/constants";
@@ -216,7 +215,6 @@ function ShardEruptionCard({
 	onPreview,
 	ref,
 }: ShardEruptionCardProps) {
-	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 	const realmArea = shard
 		? t("shard-eruption.realm-area", {
@@ -281,7 +279,7 @@ function ShardEruptionCard({
 								className="ml-1 h-4 w-4 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/piece_of_light.webp")})`,
+									backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
 								}}
 							/>
 						)}

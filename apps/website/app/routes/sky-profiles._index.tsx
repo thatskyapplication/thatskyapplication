@@ -20,14 +20,14 @@ import { SeasonEmojiBadges } from "~/components/SeasonEmojiBadges.js";
 import Select from "~/components/Select";
 import database from "~/database.server";
 import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
-import { useCDN, useCDNURL } from "~/hooks/use-cdn-url.js";
+import { useCDN } from "~/hooks/use-cdn-url.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import type { loader as rootLoader } from "~/root";
-import { cdnAssetURL } from "~/utility/cdn.js";
 import {
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
+	SKY_KID_PATH,
 	SKY_PROFILES_DESCRIPTION,
 } from "~/utility/constants";
 import { formatCountryLabel } from "~/utility/country.js";
@@ -326,7 +326,6 @@ function SkyProfilesFilters({
 	name,
 	searching,
 }: SkyProfilesFiltersProps) {
-	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 	const submit = useSubmit();
 	const formRef = useRef<HTMLFormElement>(null);
@@ -422,7 +421,7 @@ function SkyProfilesFilters({
 						className="mr-2 h-6 w-6 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/sky_kid.webp")})`,
+							backgroundImage: `url(${SKY_KID_PATH})`,
 						}}
 					/>
 					<span>{t("sky-profile.me", { ns: "features" })}</span>

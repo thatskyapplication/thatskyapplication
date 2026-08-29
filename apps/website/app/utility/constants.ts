@@ -3,8 +3,12 @@ import { WEBSITE_URL } from "@thatskyapplication/utility";
 
 export const EXCLUDE_TOP_BAR_AND_FOOTER = ["/"] as const;
 export const APPLICATION_NAME = "Caelus" as const;
-export const APPLICATION_ICON_PATH = "/caelus.webp" as const;
+const APPLICATION_ICON_PATH = "/caelus.webp" as const;
+export const SKY_LOGO_PATH = "/sky_logo.webp" as const;
+export const PIECE_OF_LIGHT_PATH = "/piece_of_light.webp" as const;
+export const SKY_KID_PATH = "/sky_kid.webp" as const;
 export const APPLICATION_ICON_URL = new URL(APPLICATION_ICON_PATH, WEBSITE_URL).href;
+export const APPLICATION_BADGE_PATH = "/caelus_badge.webp" as const;
 export const GUIDE_URL = "https://guide.thatskyapplication.com" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com" as const;
 export const WIKI_DISCORD_URL = "https://discord.gg/N2SNBmZr8c" as const;
