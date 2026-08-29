@@ -105,7 +105,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 				<div className="relative mx-auto w-full max-w-xl">
 					<div className="pointer-events-none absolute inset-0 bg-radial from-sky-200/70 to-transparent to-65% dark:from-sky-400/10" />
 					<div
-						className="relative aspect-[640/420] w-full bg-contain bg-center bg-no-repeat"
+						className="relative aspect-640/420 w-full bg-contain bg-center bg-no-repeat"
 						style={{ backgroundImage: "url(/dark-crab-flipped.svg)" }}
 					/>
 				</div>
