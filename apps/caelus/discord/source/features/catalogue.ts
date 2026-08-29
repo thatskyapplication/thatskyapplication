@@ -2718,8 +2718,6 @@ export async function viewNestingWorkshop(
 }
 
 export async function setRealm(interaction: APIMessageComponentButtonInteraction) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
 	const realm = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 
 	if (!isRealm(realm)) {
@@ -2729,27 +2727,21 @@ export async function setRealm(interaction: APIMessageComponentButtonInteraction
 	const allCosmetics = collectSpiritCosmetics(KINGDOM.realms.get(realm)!.spirits.values());
 
 	await update(interaction, {
-		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,
+		data: (existing) => existing.union(allCosmetics),
 	});
 	await viewRealm(interaction, realm);
 }
 
 export async function setElders(interaction: APIMessageComponentButtonInteraction) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
-
 	const allCosmetics = collectSpiritCosmetics(KINGDOM.elderSpirits.values());
 
 	await update(interaction, {
-		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,
+		data: (existing) => existing.union(allCosmetics),
 	});
 	await viewElders(interaction);
 }
 
 export async function setSeason(interaction: APIMessageComponentButtonInteraction) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
-
 	const parsedCustomId = Number(
 		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
 	);
@@ -2767,15 +2759,12 @@ export async function setSeason(interaction: APIMessageComponentButtonInteractio
 	}
 
 	await update(interaction, {
-		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,
+		data: (existing) => existing.union(allCosmetics),
 	});
 	await viewSeason(interaction, season.id);
 }
 
 export async function setSeasonItems(interaction: APIMessageComponentSelectMenuInteraction) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
-
 	const parsedCustomId = Number(
 		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
 	);
@@ -2787,7 +2776,7 @@ export async function setSeasonItems(interaction: APIMessageComponentSelectMenuI
 	}
 
 	await update(interaction, {
-		data: calculateSetItems(interaction, season.allCosmetics, catalogue?.data),
+		data: (existing) => calculateSetItems(interaction, season.allCosmetics, existing),
 	});
 	await viewSeason(interaction, season.id);
 }
@@ -2888,11 +2877,8 @@ async function setSpiritItems(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	spirit: Spirit,
 ) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
-
 	const { data, show_everything_button } = await update(interaction, {
-		data: calculateSetItems(interaction, spirit.allCosmetics, catalogue?.data),
+		data: (existing) => calculateSetItems(interaction, spirit.allCosmetics, existing),
 	});
 
 	await viewSpirit(interaction, spirit, {
@@ -2905,11 +2891,8 @@ async function setEventItems(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	event: Event,
 ) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
-
 	const { data, show_everything_button } = await update(interaction, {
-		data: calculateSetItems(interaction, event.allCosmetics, catalogue?.data),
+		data: (existing) => calculateSetItems(interaction, event.allCosmetics, existing),
 	});
 
 	await viewEvent(interaction, event, { data, showEverythingButton: show_everything_button });
@@ -2918,11 +2901,8 @@ async function setEventItems(
 async function setStarterPacksItems(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
-
 	await update(interaction, {
-		data: calculateSetItems(interaction, STARTER_PACKS.allCosmetics, catalogue?.data),
+		data: (existing) => calculateSetItems(interaction, STARTER_PACKS.allCosmetics, existing),
 	});
 
 	await viewStarterPacks(interaction);
@@ -2931,11 +2911,8 @@ async function setStarterPacksItems(
 async function setSecretAreaItems(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
-
 	await update(interaction, {
-		data: calculateSetItems(interaction, SECRET_AREA.allCosmetics, catalogue?.data),
+		data: (existing) => calculateSetItems(interaction, SECRET_AREA.allCosmetics, existing),
 	});
 
 	await viewSecretArea(interaction);
@@ -2944,11 +2921,8 @@ async function setSecretAreaItems(
 async function setClothingShopItems(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
-
 	await update(interaction, {
-		data: calculateSetItems(interaction, CLOTHING_SHOP.allCosmetics, catalogue?.data),
+		data: (existing) => calculateSetItems(interaction, CLOTHING_SHOP.allCosmetics, existing),
 	});
 
 	await viewClothingShop(interaction);
@@ -2957,11 +2931,8 @@ async function setClothingShopItems(
 async function setNestingWorkshopItems(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetchCatalogue(invoker.id);
-
 	await update(interaction, {
-		data: calculateSetItems(interaction, NESTING_WORKSHOP.allCosmetics, catalogue?.data),
+		data: (existing) => calculateSetItems(interaction, NESTING_WORKSHOP.allCosmetics, existing),
 	});
 
 	await viewNestingWorkshop(interaction);
@@ -2977,7 +2948,7 @@ export async function updateEverythingButtonSetting(
 }
 
 interface CatalogueUpdateOptions {
-	data?: ReadonlySet<number>;
+	data?: (existing: ReadonlySet<number>) => ReadonlySet<number>;
 	showEverythingButton?: boolean;
 }
 
@@ -2988,34 +2959,39 @@ async function update(
 	{ data, showEverythingButton }: CatalogueUpdateOptions,
 ) {
 	const userId = interactionInvoker(interaction).id;
-	const payload: CatalogueUpdatePayload = {};
+	const lastUpdatedAt = snowflakeDate(interaction.id);
 
-	if (data) {
-		payload.data = [...data];
-	}
+	const cataloguePacket = await database.transaction().execute(async (transaction) => {
+		await transaction
+			.insertInto("catalogue")
+			.values({ user_id: userId, last_updated_at: lastUpdatedAt })
+			.onConflict((oc) => oc.column("user_id").doNothing())
+			.execute();
 
-	if (showEverythingButton !== undefined) {
-		payload.show_everything_button = showEverythingButton;
-	}
+		const existing = await transaction
+			.selectFrom("catalogue")
+			.selectAll()
+			.where("user_id", "=", userId)
+			.forUpdate()
+			.executeTakeFirstOrThrow();
 
-	const cataloguePacket = await database
-		.insertInto("catalogue")
-		.values({
-			...payload,
-			user_id: userId,
-			last_updated_at: snowflakeDate(interaction.id),
-		})
-		.onConflict((oc) =>
-			oc.column("user_id").doUpdateSet((eb) => ({
-				last_updated_at: eb.ref("excluded.last_updated_at"),
-				...("data" in payload && { data: eb.ref("excluded.data") }),
-				...("show_everything_button" in payload && {
-					show_everything_button: eb.ref("excluded.show_everything_button"),
-				}),
-			})),
-		)
-		.returningAll()
-		.executeTakeFirstOrThrow();
+		const payload: CatalogueUpdatePayload = {};
+
+		if (data) {
+			payload.data = [...data(new Set(existing.data))];
+		}
+
+		if (showEverythingButton !== undefined) {
+			payload.show_everything_button = showEverythingButton;
+		}
+
+		return await transaction
+			.updateTable("catalogue")
+			.set({ ...payload, last_updated_at: lastUpdatedAt })
+			.where("user_id", "=", userId)
+			.returningAll()
+			.executeTakeFirstOrThrow();
+	});
 
 	return { ...cataloguePacket, data: new Set(cataloguePacket.data) };
 }
