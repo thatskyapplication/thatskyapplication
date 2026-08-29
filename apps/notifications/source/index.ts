@@ -1,3 +1,4 @@
+import process from "node:process";
 import { API, Locale, MessageFlags, RESTJSONErrorCodes } from "@discordjs/core";
 import { DiscordAPIError, REST } from "@discordjs/rest";
 import { captureCheckIn } from "@sentry/node";
@@ -254,7 +255,7 @@ const ScheduleTypeToNotificationType: Readonly<
 	[ScheduleType.NestingWorkshop]: NotificationType.NestingWorkshop,
 };
 
-new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
+const cron = new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	const now = skyNow();
 	const checkInId = captureCheckIn({ monitorSlug: "notifications", status: "in_progress" });
 	const date = now.round({ smallestUnit: "minute", roundingMode: "trunc" });
@@ -674,4 +675,35 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		checkInId,
 		duration: skyNow().since(now).total("seconds"),
 	});
+});
+
+let shuttingDown = false;
+
+async function shutdown(signal: NodeJS.Signals) {
+	if (shuttingDown) {
+		return;
+	}
+
+	shuttingDown = true;
+	pino.info(`Received ${signal}. Shutting down.`);
+
+	let exitCode = 0;
+
+	try {
+		cron.stop();
+		await database.destroy();
+	} catch (error) {
+		exitCode = 1;
+		pino.error(error, "Error whilst shutting down.");
+	} finally {
+		process.exit(exitCode);
+	}
+}
+
+process.once("SIGINT", () => {
+	void shutdown("SIGINT");
+});
+
+process.once("SIGTERM", () => {
+	void shutdown("SIGTERM");
 });

@@ -1,7 +1,9 @@
 import "./i18next.js"; // Must be first.
 import "./api.js";
+import process from "node:process";
 import type { Snowflake } from "@discordjs/core";
 import { COMMAND_CACHE } from "./caches/commands.js";
+import database from "./database.js";
 import { client, gateway } from "./discord.js";
 import channelCreate from "./events/channel-create.js";
 import channelDelete from "./events/channel-delete.js";
@@ -102,3 +104,34 @@ if (skyProfileCommandId) {
 }
 
 await gateway.connect();
+
+let shuttingDown = false;
+
+async function shutdown(signal: NodeJS.Signals) {
+	if (shuttingDown) {
+		return;
+	}
+
+	shuttingDown = true;
+	pino.info(`Received ${signal}. Shutting down.`);
+
+	let exitCode = 0;
+
+	try {
+		await gateway.destroy();
+		await database.destroy();
+	} catch (error) {
+		exitCode = 1;
+		pino.error(error, "Error whilst shutting down.");
+	} finally {
+		process.exit(exitCode);
+	}
+}
+
+process.once("SIGINT", () => {
+	void shutdown("SIGINT");
+});
+
+process.once("SIGTERM", () => {
+	void shutdown("SIGTERM");
+});

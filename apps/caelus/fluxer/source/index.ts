@@ -1,3 +1,4 @@
+import process from "node:process";
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { COMMANDS } from "./commands/index.js";
 import { client, gateway } from "./fluxer.js";
@@ -23,3 +24,33 @@ client.on(GatewayDispatchEvents.Ready, ({ data }) => {
 client.on("error", (error) => console.error(error));
 
 await gateway.connect();
+
+let shuttingDown = false;
+
+async function shutdown(signal: NodeJS.Signals) {
+	if (shuttingDown) {
+		return;
+	}
+
+	shuttingDown = true;
+	console.log(`Received ${signal}. Shutting down.`);
+
+	let exitCode = 0;
+
+	try {
+		await gateway.destroy();
+	} catch (error) {
+		exitCode = 1;
+		console.error("Error whilst shutting down.", error);
+	} finally {
+		process.exit(exitCode);
+	}
+}
+
+process.once("SIGINT", () => {
+	void shutdown("SIGINT");
+});
+
+process.once("SIGTERM", () => {
+	void shutdown("SIGTERM");
+});

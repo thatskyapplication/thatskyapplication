@@ -1,8 +1,10 @@
+import process from "node:process";
 import { bodyLimit } from "hono/body-limit";
 import { secureHeaders } from "hono/secure-headers";
 import { createHonoServer } from "react-router-hono-server/node";
 import { MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { PRODUCTION } from "./config.server";
+import database from "./database.server";
 import pino from "./pino";
 
 const MAXIMUM_REQUEST_BODY_SIZE = MAXIMUM_ASSET_SIZE * 2 + 2_000_000;
@@ -42,6 +44,45 @@ export default await createHonoServer({
 				onError: (c) => c.text("Payload too large.", 413),
 			}),
 		);
+	},
+	onServe(httpServer) {
+		let shuttingDown = false;
+
+		async function shutdown(signal: NodeJS.Signals) {
+			if (shuttingDown) {
+				return;
+			}
+
+			shuttingDown = true;
+			pino.info(`Received ${signal}. Draining in-flight requests.`);
+
+			let exitCode = 0;
+
+			try {
+				await new Promise<void>((resolve) => {
+					httpServer.close(() => resolve());
+
+					if ("closeIdleConnections" in httpServer) {
+						httpServer.closeIdleConnections();
+					}
+				});
+
+				await database.destroy();
+			} catch (error) {
+				exitCode = 1;
+				pino.error(error, "Error whilst shutting down.");
+			} finally {
+				process.exit(exitCode);
+			}
+		}
+
+		process.once("SIGINT", () => {
+			void shutdown("SIGINT");
+		});
+
+		process.once("SIGTERM", () => {
+			void shutdown("SIGTERM");
+		});
 	},
 	defaultLogger: false,
 });
