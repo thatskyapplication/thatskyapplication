@@ -30,6 +30,7 @@ import { formatCountryLabel } from "~/utility/country.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
+import { SEARCH_SHORTCUT_HINT_CLASS } from "~/utility/styles.js";
 import type { DiscordUser } from "~/utility/types";
 import type { Route } from "./+types/sky-profiles._index.js";
 
@@ -327,7 +328,7 @@ function SkyProfilesFilters({
 	const submit = useSubmit();
 	const formRef = useRef<HTMLFormElement>(null);
 	const searchRef = useRef<HTMLInputElement>(null);
-	useSearchShortcut(searchRef);
+	const searchShortcutHint = useSearchShortcut(searchRef);
 
 	const submitFilters = (formData: FormData) => {
 		const parameters = new URLSearchParams();
@@ -355,16 +356,23 @@ function SkyProfilesFilters({
 			<label className="sr-only" htmlFor="sky-profile-name-search">
 				{t("sky-profile.search-by-name", { ns: "features" })}
 			</label>
-			<input
-				className="w-64 rounded-lg border border-gray-200 bg-gray-100 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400"
-				defaultValue={name ?? ""}
-				id="sky-profile-name-search"
-				name="name"
-				placeholder={t("sky-profile.search-by-name", { ns: "features" })}
-				ref={searchRef}
-				type="search"
-				{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
-			/>
+			<div className="relative w-64">
+				<input
+					className="peer w-full rounded-lg border border-gray-200 bg-gray-100 py-2.5 pr-14 pl-3 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400 pointer-coarse:pr-3 [&:not(:placeholder-shown)]:pr-3"
+					defaultValue={name ?? ""}
+					id="sky-profile-name-search"
+					name="name"
+					placeholder={t("sky-profile.search-by-name", { ns: "features" })}
+					ref={searchRef}
+					type="search"
+					{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
+				/>
+				{searchShortcutHint && (
+					<span aria-hidden="true" className={SEARCH_SHORTCUT_HINT_CLASS}>
+						{searchShortcutHint}
+					</span>
+				)}
+			</div>
 			<input name="country" readOnly type="hidden" value={country ?? ""} />
 			<Select
 				ariaLabel={t("sky-profile.select-a-country", { ns: "features" })}

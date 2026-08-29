@@ -19,7 +19,11 @@ import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME } from "~/utility/constants";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
-import { SEARCH_ICON_CLASS, SEARCH_INPUT_CLASS } from "~/utility/styles.js";
+import {
+	SEARCH_ICON_CLASS,
+	SEARCH_INPUT_CLASS,
+	SEARCH_SHORTCUT_HINT_CLASS,
+} from "~/utility/styles.js";
 import type { Route } from "./+types/thatskylink.js";
 
 const THATSKYLINK_TITLE = "thatskylink" as const;
@@ -200,7 +204,7 @@ export default function Thatskylink() {
 	const { t } = useTranslation();
 	const [query, setQuery] = useState("");
 	const searchRef = useRef<HTMLInputElement>(null);
-	useSearchShortcut(searchRef);
+	const searchShortcutHint = useSearchShortcut(searchRef);
 	const normalisedQuery = query.trim().toLowerCase();
 
 	const links = LINKS.filter(({ search }) => matchesQuery(search, normalisedQuery));
@@ -274,6 +278,11 @@ export default function Thatskylink() {
 							value={query}
 							{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 						/>
+						{searchShortcutHint && (
+							<span aria-hidden="true" className={SEARCH_SHORTCUT_HINT_CLASS}>
+								{searchShortcutHint}
+							</span>
+						)}
 					</div>
 				</div>
 

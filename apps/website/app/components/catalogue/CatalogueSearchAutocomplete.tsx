@@ -16,6 +16,7 @@ import {
 	SEARCH_ICON_CLASS,
 	SEARCH_INPUT_CLASS,
 	SEARCH_INPUT_SURFACE_CLASS,
+	SEARCH_SHORTCUT_HINT_CLASS,
 } from "~/utility/styles.js";
 
 const CATALOGUE_SEARCH_RESULT_LIMIT = 100 as const;
@@ -41,7 +42,7 @@ export function CatalogueSearchAutocomplete<Entry extends CatalogueSearchEntry>(
 	const [query, setQuery] = useState("");
 	const [open, setOpen] = useState(false);
 	const searchRef = useRef<HTMLInputElement>(null);
-	useSearchShortcut(searchRef);
+	const searchShortcutHint = useSearchShortcut(searchRef);
 	const hasQuery = query.trim().length > 0;
 	const entries = useMemo(() => (hasQuery ? getEntries() : []), [getEntries, hasQuery]);
 	const results = useMemo(
@@ -70,6 +71,11 @@ export function CatalogueSearchAutocomplete<Entry extends CatalogueSearchEntry>(
 					ref={searchRef}
 					{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 				/>
+				{searchShortcutHint && (
+					<span aria-hidden="true" className={SEARCH_SHORTCUT_HINT_CLASS}>
+						{searchShortcutHint}
+					</span>
+				)}
 			</div>
 			<Autocomplete.Portal>
 				<Autocomplete.Positioner
