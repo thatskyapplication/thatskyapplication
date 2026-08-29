@@ -5,8 +5,8 @@ import { AcknowledgementPills } from "~/components/AcknowledgementPills";
 import { AcknowledgementProfileCards } from "~/components/AcknowledgementProfileCards";
 import { SitePage } from "~/components/PageLayout";
 import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import {
+	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
 	SKY_COTL_INFOGRAPHICS_DATABASE_INSTAGRAM_URL,
 	SKY_COTL_INFOGRAPHICS_DATABASE_URL,
@@ -22,8 +22,7 @@ const ACKNOWLEDGEMENTS_DESCRIPTION = "The Sky kids that make everything you see 
 
 type AcknowledgementProfile = Packet<"sky_profiles"> & { name: string };
 
-export const meta: Route.MetaFunction = ({ location, matches }) => {
-	const cdnURL = getCDNURLFromMatches(matches);
+export const meta: Route.MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
@@ -41,7 +40,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		{ property: "og:description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: ACKNOWLEDGEMENTS_TITLE },

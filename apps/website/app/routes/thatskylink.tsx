@@ -16,8 +16,7 @@ import { SitePage } from "~/components/PageLayout";
 import { Tooltip } from "~/components/Tooltip";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
-import { APPLICATION_NAME } from "~/utility/constants";
+import { APPLICATION_ICON_URL, APPLICATION_NAME } from "~/utility/constants";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import {
 	SEARCH_ICON_CLASS,
@@ -125,8 +124,7 @@ export const loader = ({ context }: Route.LoaderArgs) => {
 	return { description: t("thatskylink.meta-description", { ns: "features" }) };
 };
 
-export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
-	const cdnURL = getCDNURLFromMatches(matches);
+export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 	const description = loaderData?.description ?? THATSKYLINK_DESCRIPTION;
 
@@ -145,7 +143,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: THATSKYLINK_TITLE },

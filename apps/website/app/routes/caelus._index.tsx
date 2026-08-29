@@ -3,9 +3,8 @@ import { BookOpen, Heart } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
-import { useCDNURL } from "~/hooks/use-cdn-url.js";
-import { cdnAssetURL } from "~/utility/cdn.js";
 import {
+	APPLICATION_ICON_PATH,
 	APPLICATION_NAME,
 	GUIDE_URL,
 	INVITE_APPLICATION_URL,
@@ -14,7 +13,6 @@ import {
 
 export default function CaelusIndex() {
 	const { t } = useTranslation();
-	const cdnURL = useCDNURL();
 	const links = [
 		{
 			to: GUIDE_URL,
@@ -54,7 +52,7 @@ export default function CaelusIndex() {
 						aria-label={`${APPLICATION_NAME} icon.`}
 						className="mb-6 h-24 w-24 rounded-full bg-cover bg-center shadow-lg"
 						role="img"
-						style={{ backgroundImage: `url(${cdnAssetURL(cdnURL, "avatar_icons/caelus.webp")})` }}
+						style={{ backgroundImage: `url(${APPLICATION_ICON_PATH})` }}
 					/>
 					<h1 className="mb-3 text-4xl font-bold sm:text-5xl">{APPLICATION_NAME}</h1>
 					<p className="max-w-md text-lg text-gray-500 dark:text-gray-400">

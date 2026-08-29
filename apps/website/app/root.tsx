@@ -27,12 +27,12 @@ import { CDN_URL } from "~/config.server";
 import database from "~/database.server";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
 import { getRequestSession, sessionMiddleware } from "~/middleware/session";
-import { cdnAssetURL } from "~/utility/cdn";
 import {
 	APPLICATION_DESCRIPTION,
+	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
-	INVITE_SUPPORT_SERVER_URL,
 	EXCLUDE_TOP_BAR_AND_FOOTER,
+	INVITE_SUPPORT_SERVER_URL,
 	LOCALE_RESOURCES_ELEMENT_ID,
 } from "~/utility/constants";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
@@ -67,7 +67,7 @@ async function persistBrowserTimeZone(browserTimeZone: string) {
 	}
 }
 
-export const meta: Route.MetaFunction = ({ loaderData, location }) => [
+export const meta: Route.MetaFunction = ({ location }) => [
 	{ charSet: "utf-8" },
 	{ name: "viewport", content: "width=device-width, initial-scale=1" },
 	{ name: "robots", content: "index, follow" },
@@ -85,12 +85,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => [
 	{ property: "og:description", content: APPLICATION_DESCRIPTION },
 	{ property: "og:type", content: "website" },
 	{ property: "og:site_name", content: "thatskyapplication" },
-	{
-		property: "og:image",
-		content: loaderData?.cdnURL
-			? cdnAssetURL(loaderData.cdnURL, "avatar_icons/caelus.webp")
-			: undefined,
-	},
+	{ property: "og:image", content: APPLICATION_ICON_URL },
 	{ property: "og:url", content: WEBSITE_URL },
 	{ name: "twitter:card", content: "summary" },
 	{ name: "twitter:title", content: APPLICATION_NAME },

@@ -25,8 +25,12 @@ import { CentredSitePage } from "~/components/PageLayout";
 import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
-import { APPLICATION_NAME, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
+import {
+	APPLICATION_ICON_URL,
+	APPLICATION_NAME,
+	SCHEDULE_DESCRIPTION,
+	SCHEDULE_TITLE,
+} from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
 import { formatClockTimes, type TimePreferences } from "~/utility/time.js";
@@ -35,8 +39,7 @@ import type { Route } from "./+types/schedule.js";
 
 const SHARD_ERUPTION_PAGE_HREF = "/shard-eruption" as const;
 
-export const meta: Route.MetaFunction = ({ location, matches }) => {
-	const cdnURL = getCDNURLFromMatches(matches);
+export const meta: Route.MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
@@ -54,7 +57,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		{ property: "og:description", content: SCHEDULE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: SCHEDULE_TITLE },

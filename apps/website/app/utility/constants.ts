@@ -1,7 +1,10 @@
 import { Locale } from "@discordjs/core/http-only";
+import { WEBSITE_URL } from "@thatskyapplication/utility";
 
 export const EXCLUDE_TOP_BAR_AND_FOOTER = ["/"] as const;
 export const APPLICATION_NAME = "Caelus" as const;
+export const APPLICATION_ICON_PATH = "/caelus.webp" as const;
+export const APPLICATION_ICON_URL = new URL(APPLICATION_ICON_PATH, WEBSITE_URL).href;
 export const GUIDE_URL = "https://guide.thatskyapplication.com" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com" as const;
 export const WIKI_DISCORD_URL = "https://discord.gg/N2SNBmZr8c" as const;

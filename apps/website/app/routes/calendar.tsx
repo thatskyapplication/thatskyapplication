@@ -19,15 +19,18 @@ import {
 	parseHiddenCalendarKinds,
 	serialiseHiddenCalendarKinds,
 } from "~/utility/calendar.js";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
-import { APPLICATION_NAME, CALENDAR_DESCRIPTION, CALENDAR_TITLE } from "~/utility/constants.js";
+import {
+	APPLICATION_ICON_URL,
+	APPLICATION_NAME,
+	CALENDAR_DESCRIPTION,
+	CALENDAR_TITLE,
+} from "~/utility/constants.js";
 import { getDocumentHour12 } from "~/utility/hour-cycle.js";
 import { getBrowserTimeZone } from "~/utility/time-zone.js";
 import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/calendar.js";
 
-export const meta: Route.MetaFunction = ({ location, matches }) => {
-	const cdnURL = getCDNURLFromMatches(matches);
+export const meta: Route.MetaFunction = ({ location }) => {
 	const url = String(new URL(`${location.pathname}${location.search}`, WEBSITE_URL));
 
 	return [
@@ -48,7 +51,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		{ property: "og:description", content: CALENDAR_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: CALENDAR_TITLE },

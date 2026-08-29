@@ -3,8 +3,7 @@ import { clsx } from "clsx";
 import { ExternalLinkIcon, Heart } from "lucide-react";
 import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
-import { APPLICATION_NAME, DISCORD_DONATION_URL } from "~/utility/constants";
+import { APPLICATION_ICON_URL, APPLICATION_NAME, DISCORD_DONATION_URL } from "~/utility/constants";
 import type { Route } from "./+types/donate.js";
 
 interface DonationMethod {
@@ -41,8 +40,7 @@ const DONATE_TITLE = "Donate" as const;
 const DONATE_DESCRIPTION =
 	"Keep thatskyapplication afloat! Donate to keep things running smoothly. 🩵" as const;
 
-export const meta: Route.MetaFunction = ({ location, matches }) => {
-	const cdnURL = getCDNURLFromMatches(matches);
+export const meta: Route.MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
@@ -60,7 +58,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		{ property: "og:description", content: DONATE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: DONATE_TITLE },

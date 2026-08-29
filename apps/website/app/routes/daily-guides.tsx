@@ -38,8 +38,8 @@ import { SkeletonText } from "~/components/SkeletonText.js";
 import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
-import { APPLICATION_NAME } from "~/utility/constants.js";
+import { cdnAssetURL } from "~/utility/cdn.js";
+import { APPLICATION_ICON_URL, APPLICATION_NAME } from "~/utility/constants.js";
 import {
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
@@ -68,8 +68,7 @@ function dailyGuidesCacheMaxAge(timestamp: number) {
 	return Math.max(0, Math.min(300, secondsUntilDailyReset));
 }
 
-export const meta: Route.MetaFunction = ({ location, matches }) => {
-	const cdnURL = getCDNURLFromMatches(matches);
+export const meta: Route.MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
@@ -87,7 +86,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		{ property: "og:description", content: DAILY_GUIDES_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: DAILY_GUIDES_TITLE },

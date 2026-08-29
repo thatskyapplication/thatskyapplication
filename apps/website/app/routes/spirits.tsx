@@ -16,17 +16,20 @@ import { SpiritSearch } from "~/components/spirits/SpiritSearch.js";
 import { SpiritView } from "~/components/spirits/SpiritView.js";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
 import { getInstance } from "~/middleware/i18next.js";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
-import { APPLICATION_NAME, SPIRITS_DESCRIPTION, SPIRITS_TITLE } from "~/utility/constants.js";
+import {
+	APPLICATION_ICON_URL,
+	APPLICATION_NAME,
+	SPIRITS_DESCRIPTION,
+	SPIRITS_TITLE,
+} from "~/utility/constants.js";
 import { spiritHistoryURL } from "~/utility/spirits.js";
 import { dateTimeLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/spirits.js";
 
-export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
+export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const selection = loaderData?.selection;
 	const selected = selection?.status === "selected" ? selection : null;
-	const cdnURL = getCDNURLFromMatches(matches);
 	const pageURL = new URL(location.pathname, WEBSITE_URL);
 
 	if (selected) {
@@ -63,7 +66,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: title },

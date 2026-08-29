@@ -24,8 +24,12 @@ import { useCDN, useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import type { loader as rootLoader } from "~/root";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
-import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
+import { cdnAssetURL } from "~/utility/cdn.js";
+import {
+	APPLICATION_ICON_URL,
+	APPLICATION_NAME,
+	SKY_PROFILES_DESCRIPTION,
+} from "~/utility/constants";
 import { formatCountryLabel } from "~/utility/country.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
@@ -42,8 +46,7 @@ const VIEW_ALL = "all" as const;
 const FILTER_BUTTON_CLASS =
 	"flex items-center rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50" as const;
 
-export const meta: Route.MetaFunction = ({ location, matches }) => {
-	const cdnURL = getCDNURLFromMatches(matches);
+export const meta: Route.MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
@@ -61,7 +64,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		{ property: "og:description", content: SKY_PROFILES_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: "Sky Profiles" },
