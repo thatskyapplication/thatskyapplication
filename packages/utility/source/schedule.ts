@@ -192,6 +192,26 @@ function addWallClockMinutes(date: Temporal.ZonedDateTime, minutes: number) {
 	});
 }
 
+function wallClockMinutesWithin(date: Temporal.ZonedDateTime, minutes: number) {
+	const target = date.startOfDay().toPlainDateTime().add({ minutes });
+
+	return Temporal.ZonedDateTime.from(`${target.toString()}${date.offset}[${date.timeZoneId}]`, {
+		offset: "prefer",
+	});
+}
+
+function addWallClockMinutesSkippingGap(
+	date: Temporal.ZonedDateTime,
+	minutes: number,
+	cadence: number,
+) {
+	const start = addWallClockMinutes(date, minutes);
+
+	return start.toPlainDateTime().equals(date.toPlainDateTime().add({ minutes }))
+		? start
+		: addWallClockMinutes(date, minutes + cadence);
+}
+
 export function nextDailyReset(date: Temporal.ZonedDateTime) {
 	return date.add({ days: 1 }).startOfDay();
 }
@@ -242,9 +262,10 @@ export function pollutedGeyserSchedule(date: Temporal.ZonedDateTime) {
 	}
 
 	const { hour, minute } = date;
-	const start = addWallClockMinutes(
+	const start = addWallClockMinutesSkippingGap(
 		startOfHour(date),
 		hour % 2 === 0 ? (minute < 15 ? 5 : 125) : 65,
+		120,
 	);
 	const end = start.add({ minutes: 10 });
 	return { start, end, active: isActive(start, end, date) };
@@ -256,9 +277,10 @@ export function grandmaSchedule(date: Temporal.ZonedDateTime) {
 	}
 
 	const { hour, minute } = date;
-	const start = addWallClockMinutes(
+	const start = addWallClockMinutesSkippingGap(
 		startOfHour(date),
 		hour % 2 === 0 ? (minute < 45 ? 35 : 155) : 95,
+		120,
 	);
 	const end = start.add({ minutes: 10 });
 	return { start, end, active: isActive(start, end, date) };
@@ -269,7 +291,11 @@ export function turtleSchedule(date: Temporal.ZonedDateTime) {
 		return null;
 	}
 
-	const start = addWallClockMinutes(startOfHour(date), date.hour % 2 === 0 ? 50 : 110);
+	const start = addWallClockMinutesSkippingGap(
+		startOfHour(date),
+		date.hour % 2 === 0 ? 50 : 110,
+		120,
+	);
 	const end = start.add({ minutes: 10 });
 	return { start, end, active: isActive(start, end, date) };
 }
@@ -312,9 +338,10 @@ export function dreamsSkaterSchedule(date: Temporal.ZonedDateTime) {
 	const isWeekend = dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 7;
 
 	if (isWeekend) {
-		let start = addWallClockMinutes(
+		let start = addWallClockMinutesSkippingGap(
 			startOfHour(date),
 			hour % 2 === 1 ? (minute < 15 ? 0 : 120) : 60,
+			120,
 		);
 
 		// Sunday's last event would make the next event on Monday.
@@ -348,13 +375,14 @@ export function auroraSchedule(date: Temporal.ZonedDateTime) {
 	const intervalHours =
 		Temporal.ZonedDateTime.compare(date, AURORA_TWO_HOUR_ROTATION_START_DATE) < 0 ? 4 : 2;
 	const hourRemainder = date.hour % intervalHours;
-	const start = addWallClockMinutes(
+	const start = addWallClockMinutesSkippingGap(
 		startOfHour(date),
 		hourRemainder === 0
 			? date.minute < 58
 				? 10
 				: intervalHours * 60 + 10
 			: (intervalHours - hourRemainder) * 60 + 10,
+		intervalHours * 60,
 	);
 
 	const end = start.add({ minutes: 48 });
@@ -478,12 +506,20 @@ export function projectorOfMemoriesSchedule(date: Temporal.ZonedDateTime) {
 	const minutesSince = hour * 60 + minute;
 	const remainder = minutesSince % 80;
 
-	const start = addWallClockMinutes(
-		date.startOfDay(),
-		remainder < 78 ? minutesSince - remainder : minutesSince - remainder + 80,
-	);
-
+	const minutes = remainder < 78 ? minutesSince - remainder : minutesSince - remainder + 80;
+	const start = wallClockMinutesWithin(date, minutes);
 	const end = start.add({ minutes: 78 });
+
+	if (Temporal.ZonedDateTime.compare(end, date) <= 0) {
+		const nextStart = wallClockMinutesWithin(date, minutes + 80);
+
+		return {
+			start: nextStart,
+			end: nextStart.add({ minutes: 78 }),
+			active: false,
+		};
+	}
+
 	return { start, end, active: isActive(start, end, date) };
 }
 
@@ -493,6 +529,56 @@ export interface ScheduleOccurrence {
 	active?: boolean | undefined;
 	spiritId?: SpiritIds | null | undefined;
 	spiritIds?: readonly SpiritIds[] | undefined;
+}
+
+export function occurrencesForDay(
+	resolve: (date: Temporal.ZonedDateTime) => ScheduleOccurrence | null,
+	date: Temporal.ZonedDateTime,
+) {
+	const startOfDay = date.startOfDay();
+	const tomorrow = startOfDay.add({ days: 1 });
+	const occurrences: ScheduleOccurrence[] = [];
+	const seen = new Set<string>();
+
+	for (
+		let hour = startOfDay;
+		Temporal.ZonedDateTime.compare(hour, tomorrow) < 0;
+		hour = hour.add({ hours: 1 })
+	) {
+		const nextHour = hour.add({ hours: 1 });
+		let cursor = hour;
+
+		while (Temporal.ZonedDateTime.compare(cursor, nextHour) < 0) {
+			const occurrence = resolve(cursor);
+
+			if (!occurrence) {
+				break;
+			}
+
+			const { start, end } = occurrence;
+
+			if (Temporal.ZonedDateTime.compare(start, tomorrow) >= 0) {
+				break;
+			}
+
+			const key = start.epochNanoseconds.toString();
+
+			if (Temporal.ZonedDateTime.compare(start, startOfDay) >= 0 && !seen.has(key)) {
+				seen.add(key);
+				occurrences.push(occurrence);
+			}
+
+			const candidate =
+				end && Temporal.ZonedDateTime.compare(end, cursor) > 0 ? end : start.add({ minutes: 1 });
+
+			cursor =
+				Temporal.ZonedDateTime.compare(candidate, cursor) > 0
+					? candidate
+					: cursor.add({ minutes: 1 });
+		}
+	}
+
+	return occurrences.sort((a, b) => Temporal.ZonedDateTime.compare(a.start, b.start));
 }
 
 export interface ScheduleDefinition {

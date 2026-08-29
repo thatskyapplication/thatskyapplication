@@ -34,12 +34,14 @@ import {
 	nextNestingWorkshop,
 	nextPassage,
 	nineColouredDeerSchedule,
+	occurrencesForDay,
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
 	RADIANCE_EVENTS,
 	returningSpiritsSchedule,
 	SCHEDULES,
 	ScheduleType,
+	type ScheduleOccurrence,
 	type ScheduleTypes,
 	shardEruption,
 	shardEruptionSchedule,
@@ -176,6 +178,61 @@ function eyeOfEdenDetailedBreakdown(
 }
 
 const SCHEDULE_DEFINITIONS = new Map(SCHEDULES.map((schedule) => [schedule.type, schedule]));
+
+function twoHourlyDetailedBreakdown(
+	resolve: (date: Temporal.ZonedDateTime) => ScheduleOccurrence | null,
+	minutes: number,
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
+	const timestamps = occurrenceTimestamps(resolve, now);
+	const startOfEvent = now.startOfDay().add({ minutes });
+	const overview = occurrenceOverview(resolve, now);
+
+	return [
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-two-hourly-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
+				timestamps: timestamps.join(" "),
+				status: overview.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: overview.next,
+						}),
+			}),
+		},
+	];
+}
+
+function occurrenceTimestamps(
+	resolve: (date: Temporal.ZonedDateTime) => ScheduleOccurrence | null,
+	now: Temporal.ZonedDateTime,
+	day = now,
+	style: "t" | "f" = "t",
+) {
+	return occurrencesForDay(resolve, day).map(({ start, end }) => {
+		const timestamp = `<t:${epochSeconds(start)}:${style}>`;
+
+		return end && Temporal.ZonedDateTime.compare(now, end) >= 0 ? `~~${timestamp}~~` : timestamp;
+	});
+}
+
+function occurrenceOverview(
+	resolve: (date: Temporal.ZonedDateTime) => ScheduleOccurrence | null,
+	date: Temporal.ZonedDateTime,
+) {
+	const schedule = resolve(date)!;
+
+	return {
+		now: schedule.active,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
+	};
+}
 
 function scheduleOverviewRow(
 	type: ScheduleTypes,
@@ -503,171 +560,6 @@ function returningSpiritsDetailedBreakdown(
 	return [{ type: ComponentType.TextDisplay, content }];
 }
 
-function pollutedGeyserOverview(date: Temporal.ZonedDateTime) {
-	const schedule = pollutedGeyserSchedule(date)!;
-
-	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
-	};
-}
-
-function pollutedGeyserDetailedBreakdown(
-	now: Temporal.ZonedDateTime,
-	locale: Locale,
-): APIComponentInContainer[] {
-	const timestamps = [];
-	const startOfDay = now.startOfDay();
-	const startOfEvent = startOfDay.add({ minutes: 5 });
-
-	for (let hour = 0; hour < 24; hour += 2) {
-		const start = startOfDay.with({ hour, minute: 5 });
-
-		if (start.hour !== hour) {
-			continue;
-		}
-
-		let string = `<t:${epochSeconds(start)}:t>`;
-
-		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 10 })) >= 0) {
-			string = `~~${string}~~`;
-		}
-
-		timestamps.push(string);
-	}
-
-	const pollutedGeyser = pollutedGeyserOverview(now);
-
-	return [
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-two-hourly-message", {
-				lng: locale,
-				ns: "features",
-				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
-				timestamps: timestamps.join(" "),
-				status: pollutedGeyser.now
-					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-					: t("schedule.event-will-occur", {
-							lng: locale,
-							ns: "features",
-							timestamp: pollutedGeyser.next,
-						}),
-			}),
-		},
-	];
-}
-
-function grandmaOverview(date: Temporal.ZonedDateTime) {
-	const schedule = grandmaSchedule(date)!;
-
-	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
-	};
-}
-
-function grandmaDetailedBreakdown(
-	now: Temporal.ZonedDateTime,
-	locale: Locale,
-): APIComponentInContainer[] {
-	const timestamps = [];
-	const startOfDay = now.startOfDay();
-	const startOfEvent = startOfDay.add({ minutes: 35 });
-
-	for (let hour = 0; hour < 24; hour += 2) {
-		const start = startOfDay.with({ hour, minute: 35 });
-
-		if (start.hour !== hour) {
-			continue;
-		}
-
-		let string = `<t:${epochSeconds(start)}:t>`;
-
-		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 10 })) >= 0) {
-			string = `~~${string}~~`;
-		}
-
-		timestamps.push(string);
-	}
-
-	const grandma = grandmaOverview(now);
-
-	return [
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-two-hourly-message", {
-				lng: locale,
-				ns: "features",
-				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
-				timestamps: timestamps.join(" "),
-				status: grandma.now
-					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-					: t("schedule.event-will-occur", {
-							lng: locale,
-							ns: "features",
-							timestamp: grandma.next,
-						}),
-			}),
-		},
-	];
-}
-
-function turtleOverview(date: Temporal.ZonedDateTime) {
-	const schedule = turtleSchedule(date)!;
-
-	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
-	};
-}
-
-function turtleDetailedBreakdown(
-	now: Temporal.ZonedDateTime,
-	locale: Locale,
-): APIComponentInContainer[] {
-	const timestamps = [];
-	const startOfDay = now.startOfDay();
-	const startOfEvent = startOfDay.add({ minutes: 50 });
-
-	for (let hour = 0; hour < 24; hour += 2) {
-		const start = startOfDay.with({ hour, minute: 50 });
-
-		if (start.hour !== hour) {
-			continue;
-		}
-
-		let string = `<t:${epochSeconds(start)}:t>`;
-
-		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 10 })) >= 0) {
-			string = `~~${string}~~`;
-		}
-
-		timestamps.push(string);
-	}
-
-	const turtle = turtleOverview(now);
-
-	return [
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-two-hourly-message", {
-				lng: locale,
-				ns: "features",
-				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
-				timestamps: timestamps.join(" "),
-				status: turtle.now
-					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-					: t("schedule.event-will-occur", {
-							lng: locale,
-							ns: "features",
-							timestamp: turtle.next,
-						}),
-			}),
-		},
-	];
-}
-
 function shardEruptionOverview(now: Temporal.ZonedDateTime) {
 	const schedule = shardEruptionSchedule(now);
 
@@ -741,21 +633,12 @@ function shardEruptionDetailedBreakdown(
 	];
 }
 
-function dreamsSkaterOverview(date: Temporal.ZonedDateTime) {
-	const schedule = dreamsSkaterSchedule(date)!;
-
-	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
-	};
-}
-
 function dreamsSkaterDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const { dayOfWeek } = now;
-	const timestamps = [];
+	const timestamps = occurrenceTimestamps(dreamsSkaterSchedule, now);
 
 	const startOfDay = now.startOfDay().add({
 		days: dayOfWeek !== 5 && dayOfWeek !== 6 && dayOfWeek !== 7 ? 5 - dayOfWeek : 0,
@@ -763,23 +646,7 @@ function dreamsSkaterDetailedBreakdown(
 
 	const startOfEvent = startOfDay.add({ hours: 1 });
 
-	for (let hour = 1; hour < 24; hour += 2) {
-		const start = startOfDay.with({ hour, minute: 0 });
-
-		if (start.hour !== hour) {
-			continue;
-		}
-
-		let string = `<t:${epochSeconds(start)}:t>`;
-
-		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 15 })) >= 0) {
-			string = `~~${string}~~`;
-		}
-
-		timestamps.push(string);
-	}
-
-	const dreamsSkater = dreamsSkaterOverview(now);
+	const dreamsSkater = occurrenceOverview(dreamsSkaterSchedule, now);
 
 	return [
 		{
@@ -801,40 +668,15 @@ function dreamsSkaterDetailedBreakdown(
 	];
 }
 
-function auroraOverview(date: Temporal.ZonedDateTime) {
-	const schedule = auroraSchedule(date)!;
-
-	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
-	};
-}
-
 function auroraDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
-	const timestamps = [];
+	const timestamps = occurrenceTimestamps(auroraSchedule, now);
 	const startOfDay = now.startOfDay();
 	const startOfEvent = startOfDay.add({ minutes: 10 });
 
-	for (let hour = 0; hour < 24; hour += 2) {
-		const start = startOfDay.with({ hour, minute: 10 });
-
-		if (start.hour !== hour) {
-			continue;
-		}
-
-		let string = `<t:${epochSeconds(start)}:t>`;
-
-		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 48 })) >= 0) {
-			string = `~~${string}~~`;
-		}
-
-		timestamps.push(string);
-	}
-
-	const aurora = auroraOverview(now);
+	const aurora = occurrenceOverview(auroraSchedule, now);
 
 	return [
 		{
@@ -908,39 +750,21 @@ function passageDetailedBreakdown(
 	];
 }
 
-function aviarysFireworkFestivalOverview(date: Temporal.ZonedDateTime) {
-	const schedule = aviarysFireworkFestivalSchedule(date)!;
-
-	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
-	};
-}
-
 function aviarysFireworkFestivalDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
-	const timestamps = [];
 	const startOfDay =
 		now.day === 1 ? now.startOfDay() : now.add({ months: 1 }).with({ day: 1 }).startOfDay();
-	const tomorrow = startOfDay.add({ days: 1 });
 
-	for (
-		let start = startOfDay;
-		Temporal.ZonedDateTime.compare(start, tomorrow) < 0;
-		start = start.add({ hours: 4 })
-	) {
-		let string = `<t:${epochSeconds(start)}:f>`;
+	const timestamps = occurrenceTimestamps(
+		aviarysFireworkFestivalSchedule,
+		now,
+		startOfDay,
+		"f",
+	).map((timestamp) => `- ${timestamp}`);
 
-		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 10 })) >= 0) {
-			string = `~~${string}~~`;
-		}
-
-		timestamps.push(`- ${string}`);
-	}
-
-	const aviarysFireworkFestival = aviarysFireworkFestivalOverview(now);
+	const aviarysFireworkFestival = occurrenceOverview(aviarysFireworkFestivalSchedule, now);
 
 	return [
 		{
@@ -1033,22 +857,13 @@ function meteorShowerDetailedBreakdown(
 	];
 }
 
-function nineColouredDeerOverview(date: Temporal.ZonedDateTime) {
-	const schedule = nineColouredDeerSchedule(date)!;
-
-	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
-	};
-}
-
 function nineColouredDeerDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const startOfDay = now.startOfDay();
 	const startOfEvent = nineColouredDeerSchedule(now)!.start;
-	const nineColouredDeer = nineColouredDeerOverview(now);
+	const nineColouredDeer = occurrenceOverview(nineColouredDeerSchedule, now);
 
 	return [
 		{
@@ -1111,15 +926,6 @@ function nestingWorkshopDetailedBreakdown(
 	];
 }
 
-function vaultEldersBlessingOverview(date: Temporal.ZonedDateTime) {
-	const schedule = vaultEldersBlessingSchedule(date)!;
-
-	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
-	};
-}
-
 function vaultEldersBlessingDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
@@ -1142,7 +948,7 @@ function vaultEldersBlessingDetailedBreakdown(
 		timestamps.push(string);
 	}
 
-	const vaultEldersBlessing = vaultEldersBlessingOverview(now);
+	const vaultEldersBlessing = occurrenceOverview(vaultEldersBlessingSchedule, now);
 
 	return [
 		{
@@ -1164,38 +970,14 @@ function vaultEldersBlessingDetailedBreakdown(
 	];
 }
 
-function projectorOfMemoriesOverview(date: Temporal.ZonedDateTime) {
-	const schedule = projectorOfMemoriesSchedule(date)!;
-
-	return {
-		now: schedule.active,
-		next: `<t:${epochSeconds(schedule.start)}:R>`,
-	};
-}
-
 function projectorOfMemoriesDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
-	const timestamps = [];
+	const timestamps = occurrenceTimestamps(projectorOfMemoriesSchedule, now);
 	const startOfDay = now.startOfDay();
-	const tomorrow = startOfDay.add({ days: 1 });
 
-	for (
-		let start = startOfDay;
-		Temporal.ZonedDateTime.compare(start, tomorrow) < 0;
-		start = start.add({ minutes: 80 })
-	) {
-		let string = `<t:${epochSeconds(start)}:t>`;
-
-		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 78 })) >= 0) {
-			string = `~~${string}~~`;
-		}
-
-		timestamps.push(string);
-	}
-
-	const projectorOfMemories = projectorOfMemoriesOverview(now);
+	const projectorOfMemories = occurrenceOverview(projectorOfMemoriesSchedule, now);
 
 	return [
 		{
@@ -1817,7 +1599,7 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.PollutedGeyser: {
-			detailedBreakdown = pollutedGeyserDetailedBreakdown(now, locale);
+			detailedBreakdown = twoHourlyDetailedBreakdown(pollutedGeyserSchedule, 5, now, locale);
 			wikiURL = t("schedule.detailed-breakdown-polluted-geyser-wiki-button-url", {
 				lng: locale,
 				ns: "features",
@@ -1825,7 +1607,7 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.Grandma: {
-			detailedBreakdown = grandmaDetailedBreakdown(now, locale);
+			detailedBreakdown = twoHourlyDetailedBreakdown(grandmaSchedule, 35, now, locale);
 			wikiURL = t("schedule.detailed-breakdown-grandma-wiki-button-url", {
 				lng: locale,
 				ns: "features",
@@ -1833,7 +1615,7 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.Turtle: {
-			detailedBreakdown = turtleDetailedBreakdown(now, locale);
+			detailedBreakdown = twoHourlyDetailedBreakdown(turtleSchedule, 50, now, locale);
 			wikiURL = t("schedule.detailed-breakdown-turtle-wiki-button-url", {
 				lng: locale,
 				ns: "features",

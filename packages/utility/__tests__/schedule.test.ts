@@ -16,6 +16,7 @@ import {
 	nextNestingWorkshop,
 	nextPassage,
 	nineColouredDeerSchedule,
+	occurrencesForDay,
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
 	returningSpiritsSchedule,
@@ -148,8 +149,8 @@ const SCHEDULES = [
 			{
 				label: "skips the spring forward gap",
 				input: skyDate(2025, 3, 9, 1, 30),
-				start: "2025-03-09T03:05:00-07:00[America/Los_Angeles]",
-				end: "2025-03-09T03:15:00-07:00[America/Los_Angeles]",
+				start: "2025-03-09T04:05:00-07:00[America/Los_Angeles]",
+				end: "2025-03-09T04:15:00-07:00[America/Los_Angeles]",
 				active: false,
 			},
 			{
@@ -189,8 +190,8 @@ const SCHEDULES = [
 			{
 				label: "skips the spring forward gap",
 				input: skyDate(2025, 3, 9, 1, 50),
-				start: "2025-03-09T03:35:00-07:00[America/Los_Angeles]",
-				end: "2025-03-09T03:45:00-07:00[America/Los_Angeles]",
+				start: "2025-03-09T04:35:00-07:00[America/Los_Angeles]",
+				end: "2025-03-09T04:45:00-07:00[America/Los_Angeles]",
 				active: false,
 			},
 			{
@@ -230,8 +231,8 @@ const SCHEDULES = [
 			{
 				label: "skips the spring forward gap",
 				input: skyDate(2025, 3, 9, 1, 10),
-				start: "2025-03-09T03:50:00-07:00[America/Los_Angeles]",
-				end: "2025-03-09T04:00:00-07:00[America/Los_Angeles]",
+				start: "2025-03-09T04:50:00-07:00[America/Los_Angeles]",
+				end: "2025-03-09T05:00:00-07:00[America/Los_Angeles]",
 				active: false,
 			},
 			{
@@ -299,8 +300,8 @@ const SCHEDULES = [
 			{
 				label: "skips the spring forward gap",
 				input: skyDate(2025, 3, 9, 1, 30),
-				start: "2025-03-09T03:10:00-07:00[America/Los_Angeles]",
-				end: "2025-03-09T03:58:00-07:00[America/Los_Angeles]",
+				start: "2025-03-09T04:10:00-07:00[America/Los_Angeles]",
+				end: "2025-03-09T04:58:00-07:00[America/Los_Angeles]",
 				active: false,
 			},
 			{
@@ -841,4 +842,175 @@ test("Meteor shower upcoming during a Days of Love window.", () => {
 	const result = meteorShowerSchedule(skyDate(2026, 2, 14, 12, 30));
 	equal(result?.start.toString(), "2026-02-14T12:35:00-08:00[America/Los_Angeles]");
 	equal(result?.active, false);
+});
+
+const SPRING_FORWARD = skyDate(2026, 3, 8);
+const FALL_BACK = skyDate(2026, 11, 1);
+const REGULAR_DAY = skyDate(2026, 6, 10);
+
+const DAY_LABELS = [
+	["spring forward", SPRING_FORWARD],
+	["fall back", FALL_BACK],
+	["a regular day", REGULAR_DAY],
+] as const;
+
+const CADENCE_SCHEDULES = [
+	["Polluted geyser", pollutedGeyserSchedule],
+	["Grandma", grandmaSchedule],
+	["Turtle", turtleSchedule],
+	["AURORA", auroraSchedule],
+	["Nine-coloured deer", nineColouredDeerSchedule],
+	["Vault elder's blessing", vaultEldersBlessingSchedule],
+	["Projector of memories", projectorOfMemoriesSchedule],
+] as const;
+
+function walkEveryMinute(
+	resolve: (date: Temporal.ZonedDateTime) => { start: Temporal.ZonedDateTime } | null,
+	date: Temporal.ZonedDateTime,
+) {
+	const startOfDay = date.startOfDay();
+	const tomorrow = startOfDay.add({ days: 1 });
+	const starts = new Map<string, Temporal.ZonedDateTime>();
+
+	for (
+		let cursor = startOfDay;
+		Temporal.ZonedDateTime.compare(cursor, tomorrow) < 0;
+		cursor = cursor.add({ minutes: 1 })
+	) {
+		const occurrence = resolve(cursor);
+
+		if (
+			occurrence &&
+			Temporal.ZonedDateTime.compare(occurrence.start, startOfDay) >= 0 &&
+			Temporal.ZonedDateTime.compare(occurrence.start, tomorrow) < 0
+		) {
+			starts.set(occurrence.start.epochNanoseconds.toString(), occurrence.start);
+		}
+	}
+
+	return [...starts.values()].sort((a, b) => Temporal.ZonedDateTime.compare(a, b));
+}
+
+for (const [dayLabel, day] of DAY_LABELS) {
+	for (const [scheduleLabel, resolve] of CADENCE_SCHEDULES) {
+		test(`${scheduleLabel} occurrences for ${dayLabel} match the schedule itself.`, () => {
+			const occurrences = occurrencesForDay(resolve, day);
+			const expected = walkEveryMinute(resolve, day);
+
+			deepStrictEqual(
+				occurrences.map(({ start }) => start.toString()),
+				expected.map((start) => start.toString()),
+				`${scheduleLabel} must list exactly the occurrences its own schedule produces.`,
+			);
+		});
+	}
+}
+
+test("Occurrences for a day are ascending and stay within that day.", () => {
+	for (const [dayLabel, day] of DAY_LABELS) {
+		for (const [scheduleLabel, resolve] of CADENCE_SCHEDULES) {
+			const startOfDay = day.startOfDay();
+			const tomorrow = startOfDay.add({ days: 1 });
+			const occurrences = occurrencesForDay(resolve, day);
+			ok(occurrences.length > 0, `${scheduleLabel} must occur on ${dayLabel}.`);
+			let previous: Temporal.ZonedDateTime | undefined;
+
+			for (const { start } of occurrences) {
+				ok(
+					Temporal.ZonedDateTime.compare(start, startOfDay) >= 0 &&
+						Temporal.ZonedDateTime.compare(start, tomorrow) < 0,
+					`${scheduleLabel} occurrence on ${dayLabel} must fall within the day.`,
+				);
+
+				if (previous) {
+					ok(
+						Temporal.ZonedDateTime.compare(start, previous) > 0,
+						`${scheduleLabel} occurrences on ${dayLabel} must ascend.`,
+					);
+				}
+
+				previous = start;
+			}
+		}
+	}
+});
+
+test("Two-hourly events keep their wall clock minute across both transitions.", () => {
+	for (const [dayLabel, day] of DAY_LABELS) {
+		for (const [scheduleLabel, resolve, minute] of [
+			["Polluted geyser", pollutedGeyserSchedule, 5],
+			["Grandma", grandmaSchedule, 35],
+			["Turtle", turtleSchedule, 50],
+			["AURORA", auroraSchedule, 10],
+		] as const) {
+			const occurrences = occurrencesForDay(resolve, day);
+
+			equal(
+				occurrences.length,
+				day === SPRING_FORWARD ? 11 : 12,
+				`${scheduleLabel} must not occur in the hour that does not exist on ${dayLabel}.`,
+			);
+
+			for (const { start } of occurrences) {
+				equal(
+					start.minute,
+					minute,
+					`${scheduleLabel} on ${dayLabel} must always start at minute ${minute}.`,
+				);
+			}
+		}
+	}
+});
+
+test("Aviary's Firework Festival shows are four wall clock hours apart across a transition.", () => {
+	const shows = occurrencesForDay(aviarysFireworkFestivalSchedule, FALL_BACK);
+
+	deepStrictEqual(
+		shows.map(({ start }) => start.hour),
+		[0, 4, 8, 12, 16, 20],
+		"The festival must run every four wall clock hours up to the finale.",
+	);
+});
+
+test("A fall back day holds more occurrences than a spring forward day.", () => {
+	for (const [scheduleLabel, resolve] of CADENCE_SCHEDULES) {
+		const fallBack = occurrencesForDay(resolve, FALL_BACK).length;
+		const springForward = occurrencesForDay(resolve, SPRING_FORWARD).length;
+
+		ok(fallBack >= springForward, `${scheduleLabel} must not lose occurrences on the longer day.`);
+	}
+});
+
+test("Every listed occurrence is actually happening when it starts.", () => {
+	for (const [dayLabel, day] of DAY_LABELS) {
+		for (const [scheduleLabel, resolve] of CADENCE_SCHEDULES) {
+			for (const { start } of occurrencesForDay(resolve, day)) {
+				ok(
+					resolve(start)?.active,
+					`${scheduleLabel} must be occurring at ${start.toString()} on ${dayLabel} rather than merely announced.`,
+				);
+			}
+		}
+	}
+});
+
+test("Projector of memories repeats the ambiguous hour and realigns the next day.", () => {
+	const fallBack = occurrencesForDay(projectorOfMemoriesSchedule, FALL_BACK);
+
+	equal(fallBack.length, 19, "The repeated hour must hold a show in each of its two passes.");
+
+	deepStrictEqual(
+		fallBack
+			.slice(0, 4)
+			.map(({ start }) => `${start.hour}:${String(start.minute).padStart(2, "0")} ${start.offset}`),
+		["0:00 -07:00", "1:20 -07:00", "1:20 -08:00", "2:40 -08:00"],
+		"Both passes of the ambiguous hour must be listed once each.",
+	);
+
+	for (const day of [FALL_BACK.add({ days: 1 }), SPRING_FORWARD.add({ days: 1 }), REGULAR_DAY]) {
+		const occurrences = occurrencesForDay(projectorOfMemoriesSchedule, day);
+		equal(occurrences.length, 18, "An ordinary day must hold eighteen shows.");
+		equal(occurrences[0]!.start.hour, 0, "An ordinary day must begin at midnight.");
+		equal(occurrences[0]!.start.minute, 0, "An ordinary day must begin at midnight.");
+	}
 });
