@@ -35,6 +35,10 @@ export default {
 			"Please upload a valid attachment! It must be less than or equal to {{size}} megabytes and be a GIF, JPEG, PNG, or WebP file.",
 		"support-server": "Support server",
 		"website-description": "A constellation of tools for Sky: Children of the Light. 🩵",
+		home: "Home",
+		"pity-room": "Pity room",
+		"error-description":
+			"Oh no! Something unforeseen happened. You can return home or come to the support server and report your trouble!\n\nThis dark crab will remain stuck here, though.",
 		show: "Show",
 		hide: "Hide",
 		save: "Save",

@@ -1,14 +1,15 @@
 import { Tooltip } from "@base-ui/react/tooltip";
-import "./tailwind.css";
 import { Locale } from "@discordjs/core/http-only";
+import "./tailwind.css";
+import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { captureException } from "@sentry/react-router";
 import type { i18n as I18n, Resource, ResourceKey, ResourceLanguage } from "i18next";
+import { House } from "lucide-react";
 import type React from "react";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
 	isRouteErrorResponse,
-	Link,
 	Links,
 	Meta,
 	Outlet,
@@ -19,7 +20,9 @@ import {
 	useRouteLoaderData,
 } from "react-router";
 import { CDN, WEBSITE_URL } from "@thatskyapplication/utility";
+import { ActionAnchor, ActionLink } from "~/components/ActionButton";
 import ConditionalLayout from "~/components/ConditionalLayout";
+import { CentredSitePage } from "~/components/PageLayout";
 import { CDN_URL } from "~/config.server";
 import database from "~/database.server";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
@@ -28,6 +31,7 @@ import { cdnAssetURL } from "~/utility/cdn";
 import {
 	APPLICATION_DESCRIPTION,
 	APPLICATION_NAME,
+	INVITE_SUPPORT_SERVER_URL,
 	EXCLUDE_TOP_BAR_AND_FOOTER,
 	LOCALE_RESOURCES_ELEMENT_ID,
 } from "~/utility/constants";
@@ -95,37 +99,46 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => [
 ];
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-	let status: number | undefined;
-
-	if (isRouteErrorResponse(error)) {
-		({ status } = error);
-	}
+	const { t } = useTranslation();
+	const status = isRouteErrorResponse(error) ? error.status : undefined;
+	const title = t("pity-room", { ns: "general" });
 
 	return (
-		<div className="flex min-h-screen flex-col items-center justify-center">
-			<header className="mb-4 text-center">
-				{status === 404 ? (
-					<>
-						<h1>The Void</h1>
-						<p className="text-xl text-gray-600 dark:text-gray-400">
-							Well well well. What do we have here? It seems you're lost in the void. That's okay,
-							the button below will take you to safety. Promise. 100%. Just don't ask the last guy.
-						</p>
-					</>
-				) : (
-					<>
-						<h1>Error</h1>
-						<p>Something bad happened. We're not sure what, but it's bad.</p>
-					</>
+		<CentredSitePage className="min-h-screen">
+			<title>{title}</title>
+			<div className="w-full max-w-2xl text-center">
+				<div className="relative mx-auto w-full max-w-xl">
+					<div className="pointer-events-none absolute inset-0 bg-radial from-sky-200/70 to-transparent to-65% dark:from-sky-400/10" />
+					<div
+						className="relative aspect-[640/420] w-full bg-contain bg-center bg-no-repeat"
+						style={{ backgroundImage: "url(/dark-crab-flipped.svg)" }}
+					/>
+				</div>
+				<h1 className="mb-2 text-3xl text-balance sm:text-4xl lg:text-5xl">{title}</h1>
+				{status !== undefined && (
+					<div className="text-sm text-gray-500 dark:text-gray-400">{status}</div>
 				)}
-			</header>
-			<Link
-				className="rounded-md bg-discord-button px-6 py-3 font-medium text-white shadow-md transition duration-200 hover:bg-blue-700"
-				to="/"
-			>
-				Return
-			</Link>
-		</div>
+				<p className="text-lg text-pretty whitespace-pre-line text-gray-600 dark:text-gray-400">
+					{t("error-description", { ns: "general" })}
+				</p>
+				<div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+					<ActionLink size="large" to="/" variant="primary">
+						<House className="h-5 w-5" />
+						{t("home", { ns: "general" })}
+					</ActionLink>
+					<ActionAnchor
+						href={INVITE_SUPPORT_SERVER_URL}
+						rel="noopener noreferrer"
+						size="large"
+						target="_blank"
+						variant="neutral"
+					>
+						<SiDiscord className="h-5 w-5" />
+						{t("support-server", { ns: "general" })}
+					</ActionAnchor>
+				</div>
+			</div>
+		</CentredSitePage>
 	);
 }
 

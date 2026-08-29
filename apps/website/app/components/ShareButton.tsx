@@ -108,7 +108,7 @@ function ShareButtonImplementation({
 	const compact = appearance === "compact";
 	const content = (
 		<>
-			<Icon aria-hidden="true" className={compact ? "h-4 w-4" : "mr-2 h-6 w-6 shrink-0"} />
+			<Icon aria-hidden="true" className={compact ? "h-4 w-4" : "h-6 w-6 shrink-0"} />
 			<span className={compact ? "max-w-40 truncate" : "truncate"}>{label}</span>
 		</>
 	);

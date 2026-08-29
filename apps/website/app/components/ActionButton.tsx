@@ -3,7 +3,12 @@ import type { ButtonHTMLAttributes, ComponentProps } from "react";
 import { Link } from "react-router";
 
 const ACTION_BUTTON_CLASS_NAME =
-	"inline-flex min-w-0 cursor-pointer items-center justify-center rounded-sm border px-4 py-2 text-sm font-medium shadow-md transition-colors duration-300 hover:shadow-lg disabled:cursor-not-allowed disabled:shadow-md" as const;
+	"inline-flex min-w-0 cursor-pointer items-center justify-center gap-2 rounded-sm border font-medium shadow-md transition-colors duration-300 hover:shadow-lg disabled:cursor-not-allowed disabled:shadow-md" as const;
+
+const ACTION_BUTTON_SIZE_CLASS_NAMES = {
+	large: "px-5 py-2.5 text-base",
+	medium: "px-4 py-2 text-sm",
+} as const;
 
 const ACTION_BUTTON_VARIANT_CLASS_NAMES = {
 	danger:
@@ -19,8 +24,11 @@ const ACTION_BUTTON_VARIANT_CLASS_NAMES = {
 
 type ActionButtonVariant = keyof typeof ACTION_BUTTON_VARIANT_CLASS_NAMES;
 
+type ActionButtonSize = keyof typeof ACTION_BUTTON_SIZE_CLASS_NAMES;
+
 interface ActionButtonSharedProps {
 	className?: string;
+	size?: ActionButtonSize;
 	variant: ActionButtonVariant;
 }
 
@@ -28,14 +36,41 @@ type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ActionButtonS
 
 type ActionLinkProps = ComponentProps<typeof Link> & ActionButtonSharedProps;
 
-function actionButtonClassName(variant: ActionButtonVariant, className?: string) {
-	return clsx(ACTION_BUTTON_CLASS_NAME, ACTION_BUTTON_VARIANT_CLASS_NAMES[variant], className);
+type ActionAnchorProps = ComponentProps<"a"> & ActionButtonSharedProps;
+
+function actionButtonClassName(
+	variant: ActionButtonVariant,
+	size: ActionButtonSize,
+	className?: string,
+) {
+	return clsx(
+		ACTION_BUTTON_CLASS_NAME,
+		ACTION_BUTTON_SIZE_CLASS_NAMES[size],
+		ACTION_BUTTON_VARIANT_CLASS_NAMES[variant],
+		className,
+	);
 }
 
-export function ActionButton({ className, variant, ...props }: ActionButtonProps) {
-	return <button className={actionButtonClassName(variant, className)} type="button" {...props} />;
+export function ActionButton({ className, size = "medium", variant, ...props }: ActionButtonProps) {
+	return (
+		<button className={actionButtonClassName(variant, size, className)} type="button" {...props} />
+	);
 }
 
-export function ActionLink({ className, variant, ...props }: ActionLinkProps) {
-	return <Link className={actionButtonClassName(variant, className)} {...props} />;
+export function ActionAnchor({
+	children,
+	className,
+	size = "medium",
+	variant,
+	...props
+}: ActionAnchorProps) {
+	return (
+		<a className={actionButtonClassName(variant, size, className)} {...props}>
+			{children}
+		</a>
+	);
+}
+
+export function ActionLink({ className, size = "medium", variant, ...props }: ActionLinkProps) {
+	return <Link className={actionButtonClassName(variant, size, className)} {...props} />;
 }

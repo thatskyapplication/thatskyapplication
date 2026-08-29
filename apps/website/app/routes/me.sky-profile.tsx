@@ -906,7 +906,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</ActionButton>
 						</div>
 						{initialProfile.name ? (
-							<ActionLink className="gap-2" to={`/sky-profiles/${discordUserId}`} variant="neutral">
+							<ActionLink to={`/sky-profiles/${discordUserId}`} variant="neutral">
 								<ExternalLinkIcon className="h-4 w-4" />
 								<span>View Sky profile</span>
 							</ActionLink>

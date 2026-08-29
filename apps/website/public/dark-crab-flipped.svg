@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" role="img"
+  aria-labelledby="title desc">
+  <title id="title">Dark crab flipped</title>
+  <desc id="desc">A Sky kid has flipped this dark crab. It is in such peril. Oh no. So depressing.</desc>
+
+  <ellipse cx="320" cy="354" rx="176" ry="20" fill="#1e2932" opacity=".14" />
+
+  <g fill="none" stroke="#9aa6a7" stroke-width="6" stroke-linecap="round"
+    opacity=".9">
+    <path d="M106 287c-4 15-3 30 1 43" />
+    <path d="M130 296c-5 18-4 36 1 51" />
+    <path d="M154 306c-4 13-3 26 1 38" />
+  </g>
+
+  <g fill="#c5cdca" stroke="#849294" stroke-width="3" opacity=".9">
+    <circle cx="355" cy="350" r="7" />
+    <circle cx="370" cy="345" r="11" />
+    <circle cx="386" cy="350" r="8" />
+    <circle cx="402" cy="340" r="4" />
+  </g>
+
+  <g transform="translate(0 5) translate(320 220) scale(.82 .86) translate(-320 -220)">
+    <g transform="rotate(-8 320 250)" stroke="#17212a" stroke-width="9"
+      stroke-linecap="round" stroke-linejoin="round">
+      <g fill="#44525d">
+        <path d="M175 270 150 229 124 196 108 133 139 126 153 184 177 211 228 235Z" />
+        <path d="M230 205 192 145 171 90 176 55 207 58 218 122 282 164Z" />
+        <path d="M350 190 406 137 419 82 418 50 449 55 451 91 439 153 414 210Z" />
+        <path d="M418 258 469 218 492 177 505 112 535 118 528 190 497 235 472 282Z" />
+      </g>
+
+      <path fill="#35434e"
+        d="m151 225 37-41 61-19 95-1 79 27 42 42 24 86-43 19-48-7-41 29-48-20-40 22-43-26-47 8-40-23Z" />
+
+      <path fill="#9ba4a9"
+        d="m169 230 42-34 48-15 83-1 63 22 38 35 19 70-47 12-54-7-51 26-40-22-51 13-51-22Z" />
+
+      <g stroke="none">
+        <path fill="#78858e" d="m169 230 42-34 48-15-3 135-37 13-51-22Z" />
+        <path fill="#b0b7ba" d="m259 181 83-1 19 132-51 26-54-22Z" />
+        <path fill="#849099" d="m342 180 63 22 38 35 19 70-47 12-54-7Z" />
+      </g>
+
+      <g fill="none" stroke="#4e5c65" stroke-width="5" opacity=".65">
+        <path d="m259 181-3 135" />
+        <path d="m342 180 19 132" />
+      </g>
+
+      <g fill="none">
+        <g stroke="#17212a" stroke-width="13">
+          <path d="m208 244 21 21m0-21-21 21" />
+          <path d="m344 249 19 19m0-19-19 19" />
+        </g>
+        <g stroke="#ffd83d" stroke-width="7">
+          <path d="m208 244 21 21m0-21-21 21" />
+          <path d="m344 249 19 19m0-19-19 19" />
+        </g>
+      </g>
+
+      <ellipse cx="317" cy="210" rx="8" ry="15" fill="#d8dddf" stroke="none"
+        transform="rotate(-18 317 210)" />
+    </g>
+  </g>
+
+  <g fill="#ffd83d" stroke="#17212a" stroke-width="4" stroke-linejoin="round">
+    <path d="m305 70 4 9 10 4-10 4-4 10-4-10-10-4 10-4Z" />
+    <path d="m346 91 3 7 8 3-8 3-3 8-3-8-8-3 8-3Z" />
+  </g>
+
+  <g fill="none" stroke="#9aa6a7" stroke-width="6" stroke-linecap="round">
+    <path d="M512 136c11 6 17 15 18 26" />
+    <path d="M530 120c15 8 22 20 24 34" />
+  </g>
+
+  <path d="m473 312 6 13 15 6-15 6-6 15-6-15-15-6 15-6Z" fill="#ffd83d"
+    stroke="#17212a" stroke-width="6" stroke-linejoin="round" />
+</svg>
