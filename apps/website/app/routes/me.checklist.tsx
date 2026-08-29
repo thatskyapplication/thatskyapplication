@@ -91,50 +91,59 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	const dyeWorkshop = formData.get("dye_workshop");
 	const doNotDisturbBlessing = formData.get("do_not_disturb");
 	const eventTickets = formData.get("event_tickets");
+	const now = new Date();
 
-	const checklistPacket = await database
-		.selectFrom("checklist")
-		.selectAll()
-		.where("user_id", "=", discordUser.id)
-		.executeTakeFirst();
+	await database.transaction().execute(async (transaction) => {
+		await transaction
+			.insertInto("checklist")
+			.values({ user_id: discordUser.id, last_updated_at: now })
+			.onConflict((oc) => oc.column("user_id").doNothing())
+			.execute();
 
-	const payload: ChecklistSetData = checklistPacket
-		? checklistResetPayload(checklistPacket.last_updated_at, new Date())
-		: { last_updated_at: new Date() };
+		const checklistPacket = await transaction
+			.selectFrom("checklist")
+			.selectAll()
+			.where("user_id", "=", discordUser.id)
+			.forUpdate()
+			.executeTakeFirstOrThrow();
 
-	if (dailyQuests !== null) {
-		payload.daily_quests = dailyQuests === "0";
-	}
+		const payload: ChecklistSetData = checklistResetPayload(checklistPacket.last_updated_at, now);
 
-	if (seasonalCandles !== null) {
-		payload.seasonal_candles = seasonalCandles === "0";
-	}
+		if (dailyQuests !== null) {
+			payload.daily_quests = dailyQuests === "0";
+		}
 
-	if (eyeOfEden !== null) {
-		payload.eye_of_eden = eyeOfEden === "0";
-	}
+		if (seasonalCandles !== null) {
+			payload.seasonal_candles = seasonalCandles === "0";
+		}
 
-	if (shardEruptions !== null) {
-		payload.shard_eruptions = shardEruptions === "0";
-	}
+		if (eyeOfEden !== null) {
+			payload.eye_of_eden = eyeOfEden === "0";
+		}
 
-	if (dyeWorkshop !== null) {
-		payload.dye_workshop = dyeWorkshop === "0";
-	}
+		if (shardEruptions !== null) {
+			payload.shard_eruptions = shardEruptions === "0";
+		}
 
-	if (doNotDisturbBlessing !== null) {
-		payload.do_not_disturb = doNotDisturbBlessing === "0";
-	}
+		if (dyeWorkshop !== null) {
+			payload.dye_workshop = dyeWorkshop === "0";
+		}
 
-	if (eventTickets !== null) {
-		payload.event_tickets = eventTickets === "0";
-	}
+		if (doNotDisturbBlessing !== null) {
+			payload.do_not_disturb = doNotDisturbBlessing === "0";
+		}
 
-	await database
-		.insertInto("checklist")
-		.values({ user_id: discordUser.id, ...payload })
-		.onConflict((oc) => oc.column("user_id").doUpdateSet(payload))
-		.execute();
+		if (eventTickets !== null) {
+			payload.event_tickets = eventTickets === "0";
+		}
+
+		await transaction
+			.updateTable("checklist")
+			.set(payload)
+			.where("user_id", "=", discordUser.id)
+			.execute();
+	});
+
 	return;
 };
 

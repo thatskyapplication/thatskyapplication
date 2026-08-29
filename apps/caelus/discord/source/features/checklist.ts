@@ -418,23 +418,25 @@ export async function checklistToggle(
 	const customId = interaction.data.custom_id;
 	const now = snowflakeDate(interaction.id);
 
-	const checklistPacket = await database
-		.selectFrom("checklist")
-		.selectAll()
-		.where("user_id", "=", userId)
-		.executeTakeFirst();
+	await database.transaction().execute(async (transaction) => {
+		await transaction
+			.insertInto("checklist")
+			.values({ user_id: userId, last_updated_at: now })
+			.onConflict((oc) => oc.column("user_id").doNothing())
+			.execute();
 
-	const payload: ChecklistSetData = checklistPacket
-		? checklistResetPayload(checklistPacket.last_updated_at, now)
-		: { last_updated_at: now };
+		const checklistPacket = await transaction
+			.selectFrom("checklist")
+			.selectAll()
+			.where("user_id", "=", userId)
+			.forUpdate()
+			.executeTakeFirstOrThrow();
 
-	payload[key] = customId.slice(customId.indexOf("§") + 1) === "0";
+		const payload: ChecklistSetData = checklistResetPayload(checklistPacket.last_updated_at, now);
+		payload[key] = customId.slice(customId.indexOf("§") + 1) === "0";
 
-	await database
-		.insertInto("checklist")
-		.values({ user_id: userId, ...payload })
-		.onConflict((oc) => oc.column("user_id").doUpdateSet(payload))
-		.execute();
+		await transaction.updateTable("checklist").set(payload).where("user_id", "=", userId).execute();
+	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: await checklist({ userId, locale: interaction.locale }),
