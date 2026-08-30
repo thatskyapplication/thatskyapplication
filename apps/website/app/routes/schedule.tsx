@@ -107,7 +107,7 @@ interface SchedulePresentation {
 }
 
 const SCHEDULE_PRESENTATION: Readonly<Partial<Record<ScheduleTypes, SchedulePresentation>>> = {
-	[ScheduleType.ShardEruption]: { timeStyle: "medium", startShowsDate: () => false },
+	[ScheduleType.ShardEruption]: { timeStyle: "medium" },
 	[ScheduleType.DreamsSkater]: { startShowsDate: (now) => now.dayOfWeek < 5 },
 };
 
