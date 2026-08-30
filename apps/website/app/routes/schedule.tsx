@@ -25,12 +25,7 @@ import { CentredSitePage } from "~/components/PageLayout";
 import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
-import {
-	APPLICATION_ICON_URL,
-	APPLICATION_NAME,
-	SCHEDULE_DESCRIPTION,
-	SCHEDULE_TITLE,
-} from "~/utility/constants.js";
+import { APPLICATION_ICON_URL, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
 import { formatClockTimes, type TimePreferences } from "~/utility/time.js";
@@ -46,10 +41,6 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{
-			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky schedule, Sky timers, Sky events`,
-		},
 		{ title: SCHEDULE_TITLE },
 		{ name: "description", content: SCHEDULE_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },

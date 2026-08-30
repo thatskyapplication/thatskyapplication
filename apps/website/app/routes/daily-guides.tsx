@@ -39,11 +39,7 @@ import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
-import {
-	APPLICATION_ICON_URL,
-	APPLICATION_NAME,
-	PIECE_OF_LIGHT_PATH,
-} from "~/utility/constants.js";
+import { APPLICATION_ICON_URL, PIECE_OF_LIGHT_PATH } from "~/utility/constants.js";
 import {
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
@@ -79,10 +75,6 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{
-			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord bot, Discord application, Daily guides, Daily quests, Treasure candles, Seasonal candles, Returning spirits, Shard eruption, Travelling rock, Maintenance, Season countdown, Event countdowns`,
-		},
 		{ title: DAILY_GUIDES_TITLE },
 		{ name: "description", content: DAILY_GUIDES_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },

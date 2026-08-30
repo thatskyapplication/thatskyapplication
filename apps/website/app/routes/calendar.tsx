@@ -19,12 +19,7 @@ import {
 	parseHiddenCalendarKinds,
 	serialiseHiddenCalendarKinds,
 } from "~/utility/calendar.js";
-import {
-	APPLICATION_ICON_URL,
-	APPLICATION_NAME,
-	CALENDAR_DESCRIPTION,
-	CALENDAR_TITLE,
-} from "~/utility/constants.js";
+import { APPLICATION_ICON_URL, CALENDAR_DESCRIPTION, CALENDAR_TITLE } from "~/utility/constants.js";
 import { getDocumentHour12 } from "~/utility/hour-cycle.js";
 import { getBrowserTimeZone } from "~/utility/time-zone.js";
 import { getTimePreferences } from "~/utility/time.server.js";
@@ -39,10 +34,6 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{
 			name: "robots",
 			content: location.search.length > 0 ? "noindex, follow" : "index, follow",
-		},
-		{
-			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky calendar, Sky seasons, Sky events, travelling spirits, returning spirits`,
 		},
 		{ title: CALENDAR_TITLE },
 		{ name: "description", content: CALENDAR_DESCRIPTION },

@@ -29,10 +29,6 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{
-			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord bot, Discord application, Acknowledgements, Contributors, Credits`,
-		},
 		{ title: ACKNOWLEDGEMENTS_TITLE },
 		{ name: "description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },

@@ -16,7 +16,7 @@ import { SitePage } from "~/components/PageLayout";
 import { Tooltip } from "~/components/Tooltip";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
-import { APPLICATION_ICON_URL, APPLICATION_NAME } from "~/utility/constants";
+import { APPLICATION_ICON_URL } from "~/utility/constants";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import {
 	SEARCH_ICON_CLASS,
@@ -132,10 +132,6 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{
-			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, thatskylink, thatsky.link, Link redirector, Short links, Redirects, Patch notes, This Month in Sky`,
-		},
 		{ title: THATSKYLINK_TITLE },
 		{ name: "description", content: description },
 		{ name: "theme-color", content: "#49add8" },

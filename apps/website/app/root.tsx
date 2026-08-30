@@ -71,10 +71,6 @@ export const meta: Route.MetaFunction = ({ location }) => [
 	{ charSet: "utf-8" },
 	{ name: "viewport", content: "width=device-width, initial-scale=1" },
 	{ name: "robots", content: "index, follow" },
-	{
-		name: "keywords",
-		content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application`,
-	},
 	{ title: APPLICATION_NAME },
 	{ name: "description", content: APPLICATION_DESCRIPTION },
 	{

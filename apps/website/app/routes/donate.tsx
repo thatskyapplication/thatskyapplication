@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import { ExternalLinkIcon, Heart } from "lucide-react";
 import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
-import { APPLICATION_ICON_URL, APPLICATION_NAME, DISCORD_DONATION_URL } from "~/utility/constants";
+import { APPLICATION_ICON_URL, DISCORD_DONATION_URL } from "~/utility/constants";
 import type { Route } from "./+types/donate.js";
 
 interface DonationMethod {
@@ -47,10 +47,6 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{
-			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky schedule, Sky timers, Sky events, Donate`,
-		},
 		{ title: DONATE_TITLE },
 		{ name: "description", content: DONATE_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },

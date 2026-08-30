@@ -24,12 +24,7 @@ import { useCDN } from "~/hooks/use-cdn-url.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import type { loader as rootLoader } from "~/root";
-import {
-	APPLICATION_ICON_URL,
-	APPLICATION_NAME,
-	SKY_KID_PATH,
-	SKY_PROFILES_DESCRIPTION,
-} from "~/utility/constants";
+import { APPLICATION_ICON_URL, SKY_KID_PATH, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
 import { formatCountryLabel } from "~/utility/country.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
@@ -53,10 +48,6 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{
-			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky Profiles, Sky Profile`,
-		},
 		{ title: "Sky Profiles" },
 		{ name: "description", content: SKY_PROFILES_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },

@@ -16,12 +16,7 @@ import { SpiritSearch } from "~/components/spirits/SpiritSearch.js";
 import { SpiritView } from "~/components/spirits/SpiritView.js";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
 import { getInstance } from "~/middleware/i18next.js";
-import {
-	APPLICATION_ICON_URL,
-	APPLICATION_NAME,
-	SPIRITS_DESCRIPTION,
-	SPIRITS_TITLE,
-} from "~/utility/constants.js";
+import { APPLICATION_ICON_URL, SPIRITS_DESCRIPTION, SPIRITS_TITLE } from "~/utility/constants.js";
 import { spiritHistoryURL } from "~/utility/spirits.js";
 import { dateTimeLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
@@ -38,27 +33,12 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 
 	const title = selected?.spiritName ?? loaderData?.pageTitle ?? SPIRITS_TITLE;
 	const description = selected?.description ?? loaderData?.pageDescription ?? SPIRITS_DESCRIPTION;
-	const keywords = [
-		"Sky",
-		"Children of the Light",
-		APPLICATION_NAME,
-		"Spirits",
-		"Travelling Spirits",
-		"Spirit History",
-		"Friendship Trees",
-	];
-
-	if (selected) {
-		keywords.push(selected.spiritName, selected.origin);
-	}
-
 	const url = String(pageURL);
 
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{ name: "keywords", content: keywords.join(", ") },
 		{ title },
 		{ name: "description", content: description },
 		{ name: "theme-color", content: "#49add8" },

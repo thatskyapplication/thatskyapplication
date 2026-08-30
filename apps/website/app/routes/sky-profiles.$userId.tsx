@@ -48,7 +48,6 @@ import { useCDN } from "~/hooks/use-cdn-url.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { getRequestSession } from "~/middleware/session";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
-import { APPLICATION_NAME } from "~/utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import type { Route } from "./+types/sky-profiles.$userId.js";
 
@@ -117,10 +116,6 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{
-			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky Profiles, Sky Profile`,
-		},
 		{ title: skyProfileData?.name ?? "Sky Profile" },
 		{
 			name: "description",
