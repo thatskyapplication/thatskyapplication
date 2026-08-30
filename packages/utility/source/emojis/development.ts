@@ -3,8 +3,8 @@ import type { Emoji } from "./emoji.js";
 const MISCELLANEOUS_EMOJIS = {
 	AscendedCandle: { id: "1313864872198541445", name: "ascended_candle" },
 	WingedLight: { id: "1313864860114620427", name: "winged_light" },
-	Yes: { id: "1313864879542767737", animated: true, name: "yes" },
-	No: { id: "1313864865676398703", animated: true, name: "no" },
+	Yes: { id: "1543766111231934524", name: "yes" },
+	No: { id: "1543766235068633138", name: "no" },
 	PlatformIOS: { id: "1313864864279695392", name: "platform_ios" },
 	PlatformAndroid: { id: "1313864863444893698", name: "platform_android" },
 	PlatformMac: { id: "1313864861972828170", name: "platform_mac" },
