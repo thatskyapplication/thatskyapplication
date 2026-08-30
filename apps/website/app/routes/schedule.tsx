@@ -101,16 +101,6 @@ function formatRelativeTime(
 	return relativeTimeFormat.format(Math.round(daysUntil(date, now)), "day");
 }
 
-interface SchedulePresentation {
-	readonly timeStyle?: "medium";
-	readonly startShowsDate?: (now: Temporal.ZonedDateTime) => boolean;
-}
-
-const SCHEDULE_PRESENTATION: Readonly<Partial<Record<ScheduleTypes, SchedulePresentation>>> = {
-	[ScheduleType.ShardEruption]: { timeStyle: "medium" },
-	[ScheduleType.DreamsSkater]: { startShowsDate: (now) => now.dayOfWeek < 5 },
-};
-
 const enum DisplayCardType {
 	Season = 0,
 	Event = 1,
@@ -218,7 +208,6 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 
 	for (const { type, resolve } of SCHEDULES) {
 		const occurrence = resolve(now);
-		const { timeStyle, startShowsDate } = SCHEDULE_PRESENTATION[type] ?? {};
 
 		if (!occurrence) {
 			continue;
@@ -238,8 +227,8 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 			next: formatTimestamp(
 				start,
 				preferences,
-				startShowsDate?.(now) ?? isDistant(start, now),
-				timeStyle,
+				isDistant(start, now),
+				type === ScheduleType.ShardEruption ? "medium" : undefined,
 			),
 			nextUnix: start.epochMilliseconds,
 			relative: formatRelativeTime(start, now, preferences),
