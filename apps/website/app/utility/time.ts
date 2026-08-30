@@ -27,16 +27,23 @@ export function formatClockTimes(timestamp: number, { locale, timeZone, hour12 }
 	};
 }
 
-export function dateTimeLabels(
-	timestamps: Iterable<number>,
-	{ locale, timeZone, hour12 }: TimePreferences,
-): DateTimeLabels {
-	const format = new Intl.DateTimeFormat(locale, {
-		dateStyle: "medium",
-		timeStyle: "short",
+export function dateTimeFormatter({ locale, timeZone, hour12 }: TimePreferences) {
+	return new Intl.DateTimeFormat(locale, {
+		day: "2-digit",
+		month: "2-digit",
+		year: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
 		timeZone,
 		hour12,
 	});
+}
+
+export function dateTimeLabels(
+	timestamps: Iterable<number>,
+	preferences: TimePreferences,
+): DateTimeLabels {
+	const format = dateTimeFormatter(preferences);
 
 	const labels: Record<number, string> = {};
 

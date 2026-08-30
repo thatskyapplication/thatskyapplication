@@ -21,6 +21,7 @@ import pino from "~/pino.js";
 import S3Client from "~/s3-client.server.js";
 import { requireAdminAccess } from "~/utility/functions.server.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
+import { textFieldClass } from "~/utility/styles.js";
 import type { Route } from "./+types/admin.friendship-actions.js";
 
 const MAXIMUM_FRIENDSHIP_ACTIONS_ASSET_BYTES_SIZE = 5_000_000 as const;
@@ -64,17 +65,6 @@ interface SuccessfulUpload {
 	users: readonly Snowflake[];
 	reference: string;
 	assetURL: string;
-}
-
-function fieldClass(hasError: boolean) {
-	return clsx(
-		"w-full rounded-lg border bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm transition-colors outline-none",
-		"disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500",
-		"dark:bg-gray-800 dark:text-gray-100 dark:disabled:border-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-500",
-		hasError
-			? "border-red-500 focus:border-red-500 dark:border-red-500"
-			: "border-gray-300 focus:border-blue-500 dark:border-gray-600",
-	);
 }
 
 function parseUserIds(value: string) {
@@ -493,7 +483,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 								<textarea
 									aria-describedby={errors.users ? "users-error" : undefined}
 									aria-invalid={errors.users ? true : undefined}
-									className={fieldClass(Boolean(errors.users))}
+									className={textFieldClass(Boolean(errors.users), "medium")}
 									disabled={isSaving}
 									id="users"
 									name="users"
@@ -522,7 +512,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 								<input
 									aria-describedby={errors.reference ? "reference-error" : undefined}
 									aria-invalid={errors.reference ? true : undefined}
-									className={fieldClass(Boolean(errors.reference))}
+									className={textFieldClass(Boolean(errors.reference), "medium")}
 									disabled={isSaving}
 									id="reference"
 									name="reference"

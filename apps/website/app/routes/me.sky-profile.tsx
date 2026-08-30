@@ -39,34 +39,8 @@ import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
-import { SELECTABLE_OPTION_CARD_CLASS } from "~/utility/styles.js";
+import { SELECTABLE_OPTION_CARD_CLASS, textFieldClass } from "~/utility/styles.js";
 import type { Route } from "./+types/me.sky-profile.js";
-
-const TEXT_FIELD_CLASS = clsx(
-	"w-full",
-	"rounded-lg",
-	"border",
-	"border-gray-300",
-	"bg-white",
-	"px-3",
-	"py-2.5",
-	"text-base",
-	"text-gray-900",
-	"shadow-sm",
-	"outline-none",
-	"transition-colors",
-	"focus:border-blue-500",
-	"disabled:cursor-not-allowed",
-	"disabled:border-gray-200",
-	"disabled:bg-gray-100",
-	"disabled:text-gray-500",
-	"dark:border-gray-600",
-	"dark:bg-gray-800",
-	"dark:text-gray-100",
-	"dark:disabled:border-gray-700",
-	"dark:disabled:bg-gray-900",
-	"dark:disabled:text-gray-500",
-);
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
@@ -324,7 +298,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								<input
 									aria-describedby={nameError ? "name-error" : undefined}
 									aria-invalid={nameError ? true : undefined}
-									className={TEXT_FIELD_CLASS}
+									className={textFieldClass(false, "medium")}
 									disabled={isSaving}
 									id="name"
 									maxLength={SKY_PROFILE_MAXIMUM_NAME_LENGTH}
@@ -355,7 +329,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								<textarea
 									aria-describedby={descriptionError ? "description-error" : undefined}
 									aria-invalid={descriptionError ? true : undefined}
-									className={TEXT_FIELD_CLASS}
+									className={textFieldClass(false, "medium")}
 									disabled={isSaving}
 									id="description"
 									maxLength={SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH}
@@ -679,7 +653,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								<input
 									aria-describedby={hangoutError ? "hangout-error" : undefined}
 									aria-invalid={hangoutError ? true : undefined}
-									className={TEXT_FIELD_CLASS}
+									className={textFieldClass(false, "medium")}
 									disabled={isSaving}
 									id="hangout"
 									maxLength={SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH}

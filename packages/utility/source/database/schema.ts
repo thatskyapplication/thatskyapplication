@@ -157,6 +157,15 @@ export interface SkyProfiles {
   winged_light: number | null;
 }
 
+export interface SupportServerInvites {
+  code: string;
+  created_at: Timestamp;
+  expired_at: Timestamp | null;
+  id: Generated<number>;
+  name: string;
+  uses: Generated<number>;
+}
+
 export interface Users {
   artist: boolean | null;
   crowdin_user_id: number | null;
@@ -194,6 +203,7 @@ export interface DB {
   notifications: Notifications;
   sky_profile_likes: SkyProfileLikes;
   sky_profiles: SkyProfiles;
+  support_server_invites: SupportServerInvites;
   users: Users;
   welcome: Welcome;
 }
