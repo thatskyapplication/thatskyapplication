@@ -25,7 +25,8 @@ import { CentredSitePage } from "~/components/PageLayout";
 import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
-import { APPLICATION_ICON_URL, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
+import { APPLICATION_ICON_URL, SCHEDULE_DESCRIPTION } from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
 import { formatClockTimes, type TimePreferences } from "~/utility/time.js";
@@ -34,24 +35,24 @@ import type { Route } from "./+types/schedule.js";
 
 const SHARD_ERUPTION_PAGE_HREF = "/shard-eruption" as const;
 
-export const meta: Route.MetaFunction = ({ location }) => {
+export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{ title: SCHEDULE_TITLE },
+		{ title: loaderData.title },
 		{ name: "description", content: SCHEDULE_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },
-		{ property: "og:title", content: SCHEDULE_TITLE },
+		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: SCHEDULE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: SCHEDULE_TITLE },
+		{ name: "twitter:title", content: loaderData.title },
 		{ name: "twitter:description", content: SCHEDULE_DESCRIPTION },
 		{ rel: "canonical", href: url },
 	];
@@ -398,11 +399,13 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 export const loader = ({ request, context }: Route.LoaderArgs) => {
 	const initialTimestamp = Date.now();
 	const preferences = getTimePreferences(request, context);
+	const t = getInstance(context).getFixedT(getLocale(context));
 
 	return {
 		initialTimestamp,
 		...preferences,
 		initialView: buildScheduleView(initialTimestamp, preferences),
+		title: t("schedule.name", { ns: "features" }),
 	};
 };
 

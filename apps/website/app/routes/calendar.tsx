@@ -19,13 +19,13 @@ import {
 	parseHiddenCalendarKinds,
 	serialiseHiddenCalendarKinds,
 } from "~/utility/calendar.js";
-import { APPLICATION_ICON_URL, CALENDAR_DESCRIPTION, CALENDAR_TITLE } from "~/utility/constants.js";
+import { APPLICATION_ICON_URL, CALENDAR_DESCRIPTION } from "~/utility/constants.js";
 import { getDocumentHour12 } from "~/utility/hour-cycle.js";
 import { getBrowserTimeZone } from "~/utility/time-zone.js";
 import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/calendar.js";
 
-export const meta: Route.MetaFunction = ({ location }) => {
+export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const url = String(new URL(`${location.pathname}${location.search}`, WEBSITE_URL));
 
 	return [
@@ -35,17 +35,17 @@ export const meta: Route.MetaFunction = ({ location }) => {
 			name: "robots",
 			content: location.search.length > 0 ? "noindex, follow" : "index, follow",
 		},
-		{ title: CALENDAR_TITLE },
+		{ title: loaderData.title },
 		{ name: "description", content: CALENDAR_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },
-		{ property: "og:title", content: CALENDAR_TITLE },
+		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: CALENDAR_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: CALENDAR_TITLE },
+		{ name: "twitter:title", content: loaderData.title },
 		{ name: "twitter:description", content: CALENDAR_DESCRIPTION },
 		{ rel: "canonical", href: url },
 	];
@@ -53,16 +53,20 @@ export const meta: Route.MetaFunction = ({ location }) => {
 
 export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
+	const t = getInstance(context).getFixedT(locale);
 
-	return calendarData({
-		hour12,
-		locale,
-		nowMilliseconds: Date.now(),
-		preferredTimeZone: timeZone,
-		searchParams: url.searchParams,
-		t: getInstance(context).getFixedT(locale),
-		timeZoneEstimated,
-	});
+	return {
+		...calendarData({
+			hour12,
+			locale,
+			nowMilliseconds: Date.now(),
+			preferredTimeZone: timeZone,
+			searchParams: url.searchParams,
+			t,
+			timeZoneEstimated,
+		}),
+		title: t("calendar.name", { ns: "features" }),
+	};
 };
 
 export const clientLoader = ({ request }: Route.ClientLoaderArgs) => {

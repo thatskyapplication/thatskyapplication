@@ -5,6 +5,7 @@ import { AcknowledgementPills } from "~/components/AcknowledgementPills";
 import { AcknowledgementProfileCards } from "~/components/AcknowledgementProfileCards";
 import { SitePage } from "~/components/PageLayout";
 import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import {
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
@@ -17,35 +18,35 @@ import {
 } from "~/utility/constants";
 import type { Route } from "./+types/acknowledgements.js";
 
-const ACKNOWLEDGEMENTS_TITLE = "Acknowledgements" as const;
 const ACKNOWLEDGEMENTS_DESCRIPTION = "The Sky kids that make everything you see possible." as const;
 
 type AcknowledgementProfile = Packet<"sky_profiles"> & { name: string };
 
-export const meta: Route.MetaFunction = ({ location }) => {
+export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{ title: ACKNOWLEDGEMENTS_TITLE },
+		{ title: loaderData.title },
 		{ name: "description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },
-		{ property: "og:title", content: ACKNOWLEDGEMENTS_TITLE },
+		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: ACKNOWLEDGEMENTS_TITLE },
+		{ name: "twitter:title", content: loaderData.title },
 		{ name: "twitter:description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
 		{ rel: "canonical", href: url },
 	];
 };
 
-export const loader = async () => {
+export const loader = async ({ context }: Route.LoaderArgs) => {
+	const t = getInstance(context).getFixedT(getLocale(context));
 	const [friendshipActionContributors, translators] = await Promise.all([
 		publicProfilesQuery()
 			.innerJoin(
@@ -73,9 +74,13 @@ export const loader = async () => {
 	]);
 
 	return data(
-		{ friendshipActionContributors, translators },
 		{
-			headers: { "Cache-Control": "public, max-age=3600, s-maxage=86400" },
+			friendshipActionContributors,
+			title: t("acknowledgements.name", { ns: "features" }),
+			translators,
+		},
+		{
+			headers: { "Cache-Control": "private, max-age=3600", Vary: "Accept-Language, Cookie" },
 		},
 	);
 };

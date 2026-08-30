@@ -18,8 +18,8 @@ import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import {
-	APPLICATION_NAME,
 	PIECE_OF_LIGHT_PATH,
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_MAXIMUM_PAGE,
@@ -49,24 +49,25 @@ type ShardEruptionCardProps = {
 const DATE_NAVIGATION_CLASS =
 	"inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:focus-visible:ring-blue-300" as const;
 
-export const meta = ({ location }: Route.MetaArgs) => {
+export const meta = ({ loaderData, location }: Route.MetaArgs) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
+	const { title } = loaderData;
 
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{ title: "Shard Eruption" },
+		{ title },
 		{ name: "description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },
-		{ property: "og:title", content: "Shard Eruption" },
+		{ property: "og:title", content: title },
 		{ property: "og:description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{ property: "og:image", content: formatEmojiURL(MISCELLANEOUS_EMOJIS.ShardStrong.id) },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: "Shard Eruption" },
+		{ name: "twitter:title", content: title },
 		{ name: "twitter:description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ rel: "canonical", href: url },
 	];
@@ -183,6 +184,8 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 		});
 	}
 
+	const t = getInstance(context).getFixedT(getLocale(context));
+
 	return {
 		anchorDate: selectedDate ?? today.add({ days: startIndex }).toPlainDate().toString(),
 		currentUnix: epochSeconds(now),
@@ -197,6 +200,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 		selectedDate,
 		shards,
 		timeZoneEstimated,
+		title: t("shard-eruption", { ns: "general" }),
 		todayDate: today.toPlainDate().toString(),
 		weekStartsOn: firstDayOfWeek(locale),
 	};

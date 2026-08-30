@@ -557,7 +557,7 @@ export function SiteFooter() {
 							to="/donate"
 						>
 							<HandHeart className="h-4 w-4 text-pink-100" />
-							Donate
+							{t("donate", { ns: "general" })}
 						</Link>
 						<div className="flex gap-4">
 							<a

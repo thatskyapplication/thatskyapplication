@@ -38,6 +38,7 @@ import { SkeletonText } from "~/components/SkeletonText.js";
 import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
 import { APPLICATION_ICON_URL, PIECE_OF_LIGHT_PATH } from "~/utility/constants.js";
 import {
@@ -56,7 +57,6 @@ interface DaysCountItem extends DailyGuidesDaysCountItem {
 	iconURL?: string | undefined;
 }
 
-const DAILY_GUIDES_TITLE = "Daily guides" as const;
 const DAILY_GUIDES_DESCRIPTION =
 	"Today's quests, treasure candles, seasonal candles, returning spirits, shard eruption, travelling rock, maintenance, and countdowns for Sky: Children of the Light." as const;
 const RETURNING_SPIRITS_LIST_PLACEHOLDER = "__RETURNING_SPIRITS_LIST__" as const;
@@ -68,24 +68,24 @@ function dailyGuidesCacheMaxAge(timestamp: number) {
 	return Math.max(0, Math.min(300, secondsUntilDailyReset));
 }
 
-export const meta: Route.MetaFunction = ({ location }) => {
+export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{ title: DAILY_GUIDES_TITLE },
+		{ title: loaderData.title },
 		{ name: "description", content: DAILY_GUIDES_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },
-		{ property: "og:title", content: DAILY_GUIDES_TITLE },
+		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: DAILY_GUIDES_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: DAILY_GUIDES_TITLE },
+		{ name: "twitter:title", content: loaderData.title },
 		{ name: "twitter:description", content: DAILY_GUIDES_DESCRIPTION },
 		{ rel: "canonical", href: url },
 	];
@@ -93,6 +93,7 @@ export const meta: Route.MetaFunction = ({ location }) => {
 
 export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
+	const t = getInstance(context).getFixedT(getLocale(context));
 	const dailyGuides = await database.selectFrom("daily_guides").selectAll().execute();
 	const now = skyNow();
 	const initialTimestamp = now.epochMilliseconds;
@@ -102,6 +103,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 
 	return data(
 		{
+			title: t("daily-guides.name", { ns: "features" }),
 			initialTimestamp,
 			locale,
 			timeZone,

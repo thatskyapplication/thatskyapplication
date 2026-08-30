@@ -441,7 +441,7 @@ export default function Index() {
 						to="/donate"
 					>
 						<HandHeart className="h-4 w-4 text-pink-100" />
-						Donate
+						{t("donate", { ns: "general" })}
 					</Link>
 				</div>
 				<div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[0.7rem] text-sky-200/60 sm:text-xs">

@@ -2609,6 +2609,7 @@ export default {
 		close: "Close",
 		today: "Today",
 		"shard-eruption": "Shard eruption",
+		donate: "Donate",
 		wiki: "Wiki",
 	},
 	commands: {
@@ -2861,6 +2862,7 @@ export default {
 			"final-message": `Join the [support server]({{url}}) if you're interested in anything here! We're always here to lend a helping hand! 🩵`,
 		},
 		acknowledgements: {
+			name: "Acknowledgements",
 			"friendship-actions": "Friendship actions",
 			"friendship-actions-contributors": "Friendship actions contributors",
 			"friendship-actions-contributors-description":

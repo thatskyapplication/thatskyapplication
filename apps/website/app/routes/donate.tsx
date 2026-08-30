@@ -3,6 +3,7 @@ import { clsx } from "clsx";
 import { ExternalLinkIcon, Heart } from "lucide-react";
 import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { APPLICATION_ICON_URL, DISCORD_DONATION_URL } from "~/utility/constants";
 import type { Route } from "./+types/donate.js";
 
@@ -36,28 +37,31 @@ const DONATION_METHODS: readonly DonationMethod[] = [
 	},
 ];
 
-const DONATE_TITLE = "Donate" as const;
 const DONATE_DESCRIPTION =
 	"Keep thatskyapplication afloat! Donate to keep things running smoothly. 🩵" as const;
 
-export const meta: Route.MetaFunction = ({ location }) => {
+export const loader = ({ context }: Route.LoaderArgs) => ({
+	title: getInstance(context).getFixedT(getLocale(context))("donate", { ns: "general" }),
+});
+
+export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{ title: DONATE_TITLE },
+		{ title: loaderData.title },
 		{ name: "description", content: DONATE_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },
-		{ property: "og:title", content: DONATE_TITLE },
+		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: DONATE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: DONATE_TITLE },
+		{ name: "twitter:title", content: loaderData.title },
 		{ name: "twitter:description", content: DONATE_DESCRIPTION },
 		{ rel: "canonical", href: url },
 	];

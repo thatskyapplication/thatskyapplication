@@ -23,6 +23,7 @@ import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-reposito
 import { useCDN } from "~/hooks/use-cdn-url.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import type { loader as rootLoader } from "~/root";
 import { APPLICATION_ICON_URL, SKY_KID_PATH, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
 import { formatCountryLabel } from "~/utility/country.js";
@@ -41,30 +42,31 @@ const VIEW_ALL = "all" as const;
 const FILTER_BUTTON_CLASS =
 	"flex items-center rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50" as const;
 
-export const meta: Route.MetaFunction = ({ location }) => {
+export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{ title: "Sky Profiles" },
+		{ title: loaderData.title },
 		{ name: "description", content: SKY_PROFILES_DESCRIPTION },
 		{ name: "theme-color", content: "#49add8" },
-		{ property: "og:title", content: "Sky Profiles" },
+		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: SKY_PROFILES_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{ property: "og:image", content: APPLICATION_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: "Sky Profiles" },
+		{ name: "twitter:title", content: loaderData.title },
 		{ name: "twitter:description", content: SKY_PROFILES_DESCRIPTION },
 		{ rel: "canonical", href: url },
 	];
 };
 
-export const loader = async ({ url }: Route.LoaderArgs) => {
+export const loader = async ({ context, url }: Route.LoaderArgs) => {
+	const t = getInstance(context).getFixedT(getLocale(context));
 	const name = url.searchParams.get("name")?.trim() || null;
 	const country = url.searchParams.get("country") || null;
 	const browsingAll = url.searchParams.get("view") === VIEW_ALL;
@@ -96,6 +98,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 			countries,
 			browsingAll,
 			recent: true,
+			title: t("sky-profile.name-plural", { ns: "features" }),
 			currentPage: 1,
 			maximumPage: 1,
 		};
@@ -155,6 +158,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 		countries,
 		browsingAll,
 		recent: false,
+		title: t("sky-profile.name-plural", { ns: "features" }),
 		currentPage,
 		maximumPage,
 	};
