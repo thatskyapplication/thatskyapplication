@@ -1,7 +1,7 @@
 import { Field } from "@base-ui/react/field";
 import { Switch } from "@base-ui/react/switch";
 import { clsx } from "clsx";
-import { RectangleHorizontal, Square } from "lucide-react";
+import { Square } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useFetcher } from "react-router";
 import type { FriendshipActionTypes } from "@thatskyapplication/utility";
@@ -92,11 +92,7 @@ export function FriendshipActionCard({ friendshipAction }: { friendshipAction: F
 							)}
 							role="img"
 						>
-							{square ? (
-								<Square aria-hidden="true" className="h-3.5 w-3.5 fill-current" />
-							) : (
-								<RectangleHorizontal aria-hidden="true" className="h-3.5 w-3.5 fill-current" />
-							)}
+							<Square aria-hidden="true" className="h-3.5 w-3.5 fill-current" />
 						</span>
 					</Tooltip>
 				</div>
