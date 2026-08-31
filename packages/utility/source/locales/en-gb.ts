@@ -38,7 +38,7 @@ export default {
 		home: "Home",
 		"pity-room": "Pity room",
 		"error-description":
-			"Oh no! Something unforeseen happened. You can return home or come to the support server and report your trouble!\n\nThis dark crab will remain stuck here, though.",
+			"Oh no! Something unforeseen happened. You can return home or join the support server to report your trouble!\n\nThis dark crab will remain stuck here, though.",
 		show: "Show",
 		hide: "Hide",
 		save: "Save",
