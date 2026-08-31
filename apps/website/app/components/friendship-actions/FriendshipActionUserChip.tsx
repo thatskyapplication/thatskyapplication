@@ -1,6 +1,6 @@
 import type { Snowflake } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
-import { Check, Copy, SquareArrowOutUpRight, TriangleAlert } from "lucide-react";
+import { Check, Copy, TriangleAlert } from "lucide-react";
 import { Link } from "react-router";
 import { useCopyToClipboard } from "~/hooks/use-copy-to-clipboard.js";
 
@@ -46,7 +46,6 @@ export function FriendshipActionUserChip({ user }: { user: FriendshipActionUser 
 				to={`/sky-profiles/${user.id}`}
 			>
 				<UserChipLabel user={user} />
-				<SquareArrowOutUpRight aria-hidden="true" className={CHIP_ICON_CLASS} />
 			</Link>
 		);
 	}
