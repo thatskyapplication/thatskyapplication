@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
+import { ExternalLink } from "~/components/ExternalLink";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
@@ -105,14 +106,9 @@ export function SeasonView({
 			<div>
 				<h1 className="my-0 inline-flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
 					{seasonEmoji ? <EmojiIcon className="h-6 w-6" emoji={seasonEmoji} /> : null}
-					<a
-						className="regular-link"
-						href={t(`season-wiki.${season.id}`, { ns: "general" })}
-						rel="noopener noreferrer"
-						target="_blank"
-					>
+					<ExternalLink href={t(`season-wiki.${season.id}`, { ns: "general" })} icon>
 						{t(`seasons.${season.id}`, { ns: "general" })}
-					</a>
+					</ExternalLink>
 				</h1>
 				<p className={NOTE_CLASS}>
 					{timeZoneEstimated ? <SkeletonText>{timeRange}</SkeletonText> : timeRange}

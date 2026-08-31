@@ -1,10 +1,11 @@
 import { clsx } from "clsx";
-import { BookOpenCheck, ExternalLink } from "lucide-react";
+import { BookOpenCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import { spiritOriginTranslationKey, type Spirit } from "@thatskyapplication/utility";
 import { BackButton } from "~/components/catalogue/BackButton.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
+import { ExternalLink } from "~/components/ExternalLink";
 import { ShareButton } from "~/components/ShareButton.js";
 import { NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
@@ -51,15 +52,14 @@ export function SpiritView({
 						className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100"
 						id="selected-spirit-title"
 					>
-						<a
+						<ExternalLink
 							className="regular-link inline-flex items-center gap-2"
 							href={t(`spirit-wiki.${spirit.id}`, { ns: "general" })}
-							rel="noopener noreferrer"
-							target="_blank"
+							icon
+							iconClassName="h-4 w-4 shrink-0"
 						>
 							{spiritName}
-							<ExternalLink aria-hidden="true" className="h-4 w-4 shrink-0" />
-						</a>
+						</ExternalLink>
 					</h2>
 					<Link
 						className={clsx(VIEW_LINK_CLASS, "inline-flex items-center gap-1.5")}

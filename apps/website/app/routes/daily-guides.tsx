@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { AlertTriangle, ArrowRight, ExternalLinkIcon } from "lucide-react";
+import { AlertTriangle, ArrowRight } from "lucide-react";
 import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { HeadersArgs } from "react-router";
@@ -30,6 +30,7 @@ import {
 	WEBSITE_URL,
 	dailyQuestLabel,
 } from "@thatskyapplication/utility";
+import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
@@ -395,15 +396,14 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				content = (
 					<span>
 						{parts[0]}
-						<a
+						<ExternalLink
 							className="regular-link inline-flex items-center gap-1"
 							href={marketingURL}
-							rel="noopener noreferrer"
-							target="_blank"
+							icon
+							iconClassName="h-3 w-3"
 						>
 							{name}
-							<ExternalLinkIcon className="h-3 w-3" />
-						</a>
+						</ExternalLink>
 						{parts[1]}
 					</span>
 				);

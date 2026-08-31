@@ -1,5 +1,4 @@
 import { clsx } from "clsx";
-import { ExternalLinkIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
@@ -9,6 +8,7 @@ import {
 	CalendarTimeChips,
 } from "~/components/calendar/CalendarEntryDetails";
 import { EmojiImage } from "~/components/EmojiIcon";
+import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { SkeletonText } from "~/components/SkeletonText.js";
@@ -118,15 +118,14 @@ function DayOccurrence({
 						</span>
 					)}
 					{occurrence.wikiURL && (
-						<a
+						<ExternalLink
 							className="regular-link inline-flex items-center gap-1 text-xs"
 							href={occurrence.wikiURL}
-							rel="noopener noreferrer"
-							target="_blank"
+							icon
+							iconClassName="h-3 w-3"
 						>
 							{t("wiki", { ns: "general" })}
-							<ExternalLinkIcon className="h-3 w-3" />
-						</a>
+						</ExternalLink>
 					)}
 				</div>
 			</div>

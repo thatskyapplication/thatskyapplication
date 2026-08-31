@@ -1,4 +1,4 @@
-import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
@@ -20,6 +20,7 @@ import {
 	WEBSITE_URL,
 	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
+import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { CentredSitePage } from "~/components/PageLayout";
 import { SkeletonText } from "~/components/SkeletonText";
@@ -472,15 +473,14 @@ function DisplayCardRow({
 				</span>
 				<span className="w-15 shrink-0 text-sm font-medium">
 					{wikiHref && (
-						<a
+						<ExternalLink
 							className="regular-link inline-flex items-center gap-1"
 							href={wikiHref}
-							rel="noopener noreferrer"
-							target="_blank"
+							icon
+							iconClassName="h-3.5 w-3.5"
 						>
 							{t("wiki", { ns: "general" })}
-							<ExternalLinkIcon className="h-3.5 w-3.5" />
-						</a>
+						</ExternalLink>
 					)}
 				</span>
 			</div>

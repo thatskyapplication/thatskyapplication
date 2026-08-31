@@ -3,7 +3,7 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import type { Snowflake } from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
 import { clsx } from "clsx";
-import { ArrowLeft, Check, ExternalLinkIcon, Upload } from "lucide-react";
+import { ArrowLeft, Check, Upload } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { data, Form, Link, useNavigation } from "react-router";
 import {
@@ -12,6 +12,7 @@ import {
 	type FriendshipActionTypes,
 	isFriendshipActionType,
 } from "@thatskyapplication/utility";
+import { ExternalLink } from "~/components/ExternalLink";
 import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
 import { CDN_BUCKET, CDN_URL, SUPPORT_SERVER_GUILD_ID } from "~/config.server.js";
@@ -552,15 +553,13 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 									</p>
 									<p className="my-0">Users: {actionData.upload.users.join(", ")}</p>
 									<p className="my-0">
-										<a
+										<ExternalLink
 											className="regular-link inline-flex items-center gap-1"
 											href={actionData.upload.assetURL}
-											rel="noreferrer"
-											target="_blank"
+											icon
 										>
 											Open uploaded asset
-											<ExternalLinkIcon className="h-4 w-4" />
-										</a>
+										</ExternalLink>
 									</p>
 								</div>
 							</div>

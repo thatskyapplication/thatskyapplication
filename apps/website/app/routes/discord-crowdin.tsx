@@ -1,6 +1,7 @@
 import { CheckCircleIcon, ExternalLinkIcon } from "lucide-react";
 import { Form, redirect } from "react-router";
 import { ActionButton } from "~/components/ActionButton";
+import { ExternalLink } from "~/components/ExternalLink";
 import { CentredSitePage } from "~/components/PageLayout";
 import {
 	CROWDIN_CLIENT_ID,
@@ -348,15 +349,14 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 					<div className="mt-6 space-y-4">
 						<p className="text-center text-sm text-gray-600 dark:text-gray-400">
 							Hey translators! This will allow us to easily identify our kind in the{" "}
-							<a
+							<ExternalLink
 								className="regular-link inline-flex items-center transition duration-200"
 								href={INVITE_SUPPORT_SERVER_URL}
-								rel="noopener noreferrer"
-								target="_blank"
+								icon
+								iconClassName="ml-1 h-4 w-4"
 							>
 								support server
-								<ExternalLinkIcon className="ml-1 h-4 w-4" />
-							</a>
+							</ExternalLink>
 							!
 						</p>
 						<Form method="post">

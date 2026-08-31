@@ -1,8 +1,9 @@
 import { Dialog } from "@base-ui/react/dialog";
 import { useMediaQuery } from "@base-ui/react/unstable-use-media-query";
-import { ExternalLinkIcon, X } from "lucide-react";
+import { X } from "lucide-react";
 import { type RefObject, useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { ExternalLink } from "~/components/ExternalLink";
 import { SKY_COTL_INFOGRAPHICS_DATABASE_URL } from "~/utility/constants.js";
 
 export interface SelectedInfographic {
@@ -57,15 +58,14 @@ function InfographicPreviewContent({
 			{acknowledgement && (
 				<p className="m-0 mt-3 shrink-0 text-center text-xs font-medium text-gray-500 dark:text-gray-400">
 					{t("infographic-by", { ns: "general", acknowledgement })}{" "}
-					<a
+					<ExternalLink
 						className="regular-link inline-flex items-center gap-1"
 						href={SKY_COTL_INFOGRAPHICS_DATABASE_URL}
-						rel="noopener noreferrer"
-						target="_blank"
+						icon
+						iconClassName="h-3 w-3"
 					>
 						Sky:CoTL Infographics Database
-						<ExternalLinkIcon className="h-3 w-3" />
-					</a>
+					</ExternalLink>
 				</p>
 			)}
 		</>

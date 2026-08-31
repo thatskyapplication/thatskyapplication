@@ -1,3 +1,5 @@
+import { ExternalLink } from "~/components/ExternalLink";
+
 export interface ExternalLinkListItem {
 	readonly id: number | string;
 	readonly label: string;
@@ -23,15 +25,15 @@ export function ExternalLinkList({
 			const item = items[Number(part.value)]!;
 
 			return (
-				<a
-					className={className ?? "regular-link"}
+				<ExternalLink
+					className={className}
 					href={item.href}
+					icon
+					iconClassName="ml-0.5 inline h-3 w-3"
 					key={item.id}
-					rel="noopener noreferrer"
-					target="_blank"
 				>
 					{item.label}
-				</a>
+				</ExternalLink>
 			);
 		});
 }

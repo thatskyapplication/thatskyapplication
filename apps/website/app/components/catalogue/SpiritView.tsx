@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { friendshipTreeToItems, KINGDOM, type Spirit } from "@thatskyapplication/utility";
+import { ExternalLink } from "~/components/ExternalLink";
 import { NOTE_CLASS, realmAnchor, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
@@ -56,14 +57,9 @@ export function SpiritView({
 			<Breadcrumb current={spiritName} trail={trail} />
 
 			<h1 className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100">
-				<a
-					className="regular-link"
-					href={t(`spirit-wiki.${spirit.id}`, { ns: "general" })}
-					rel="noopener noreferrer"
-					target="_blank"
-				>
+				<ExternalLink href={t(`spirit-wiki.${spirit.id}`, { ns: "general" })} icon>
 					{spiritName}
-				</a>
+				</ExternalLink>
 			</h1>
 
 			{isGuideSpirit && spirit.inProgress && (

@@ -12,6 +12,7 @@ import {
 	THATSKYLINK_URL,
 } from "@thatskyapplication/sky-links";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
+import { ExternalLink } from "~/components/ExternalLink";
 import { SitePage } from "~/components/PageLayout";
 import { Tooltip } from "~/components/Tooltip";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
@@ -172,14 +173,14 @@ function Identifier({ identifier }: { identifier: string }) {
 function RedirectLink({ destination, path }: { destination: string; path: string }) {
 	return (
 		<Tooltip content={<span className="font-mono break-all">{displayURL(destination)}</span>}>
-			<a
+			<ExternalLink
 				className="regular-link mt-2 block font-mono text-sm break-all"
 				href={`${THATSKYLINK_URL}/${path}`}
-				rel="noopener noreferrer"
-				target="_blank"
+				icon
+				iconClassName="ml-1 inline h-3.5 w-3.5"
 			>
 				/{path}
-			</a>
+			</ExternalLink>
 		</Tooltip>
 	);
 }
@@ -291,14 +292,14 @@ export default function Thatskylink() {
 							{links.map((link) => (
 								<li className={CARD_CLASS} key={link.identifiers.join(" ")}>
 									<Identifiers identifiers={link.identifiers} />
-									<a
+									<ExternalLink
 										className="regular-link mt-2 block text-sm break-all"
 										href={link.url}
-										rel="noopener noreferrer"
-										target="_blank"
+										icon
+										iconClassName="ml-1 inline h-3.5 w-3.5"
 									>
 										{link.destination}
-									</a>
+									</ExternalLink>
 								</li>
 							))}
 						</ul>
