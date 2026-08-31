@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       upload_translations:
-        description: Upload the translation files to Crowdin.
+        description: Upload translation files.
         type: boolean
         default: false
 permissions: {}
