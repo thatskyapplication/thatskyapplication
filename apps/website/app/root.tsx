@@ -86,7 +86,7 @@ export const meta: Route.MetaFunction = ({ location }) => [
 	{ name: "twitter:card", content: "summary" },
 	{ name: "twitter:title", content: APPLICATION_NAME },
 	{ name: "twitter:description", content: APPLICATION_DESCRIPTION },
-	{ rel: "canonical", href: WEBSITE_URL },
+	{ tagName: "link", rel: "canonical", href: String(new URL(location.pathname, WEBSITE_URL)) },
 ];
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

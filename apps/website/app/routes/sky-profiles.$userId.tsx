@@ -144,7 +144,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 			name: "twitter:description",
 			content: skyProfileData?.description ?? "A Sky profile.",
 		},
-		{ rel: "canonical", href: url },
+		{ tagName: "link", rel: "canonical", href: url },
 	];
 };
 

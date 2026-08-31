@@ -69,7 +69,7 @@ export const meta = ({ loaderData, location }: Route.MetaArgs) => {
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: title },
 		{ name: "twitter:description", content: SHARD_ERUPTION_DESCRIPTION },
-		{ rel: "canonical", href: url },
+		{ tagName: "link", rel: "canonical", href: url },
 	];
 };
 

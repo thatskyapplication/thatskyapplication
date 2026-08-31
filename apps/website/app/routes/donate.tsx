@@ -63,7 +63,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: loaderData.title },
 		{ name: "twitter:description", content: DONATE_DESCRIPTION },
-		{ rel: "canonical", href: url },
+		{ tagName: "link", rel: "canonical", href: url },
 	];
 };
 
