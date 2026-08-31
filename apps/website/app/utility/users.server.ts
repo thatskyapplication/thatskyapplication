@@ -1,10 +1,18 @@
 import type { APIUser, Snowflake } from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
+import { CDN } from "@thatskyapplication/utility";
 import { userCache } from "~/cache.server.js";
+import type { UserChipUser } from "~/components/UserChip.js";
+import { CDN_URL } from "~/config.server.js";
 import discord from "~/discord.js";
+import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
 import pino from "~/pino.js";
+import { avatarURL, defaultAvatarURL } from "~/utility/functions.js";
 
 const USER_CACHE_TIME_TO_LIVE_MINUTES = 60 as const;
+const USER_CHIP_ICON_SIZE = 64 as const;
+
+const cdn = new CDN(CDN_URL);
 
 export async function resolveUsers(userIds: readonly Snowflake[]) {
 	const users = new Map<Snowflake, APIUser>();
@@ -48,4 +56,50 @@ export async function resolveUsers(userIds: readonly Snowflake[]) {
 	}
 
 	return { failedUserIds, unknownUserIds, users };
+}
+
+export async function resolveUserChips(userIds: readonly Snowflake[]) {
+	const skyProfilePackets =
+		userIds.length === 0
+			? []
+			: await publicProfilesQuery()
+					.select(["user_id", "name", "icon"])
+					.where("user_id", "in", userIds)
+					.$narrowType<{ name: string }>()
+					.execute();
+
+	const skyProfiles = new Map(skyProfilePackets.map((packet) => [packet.user_id, packet]));
+	const { users } = await resolveUsers(userIds.filter((userId) => !skyProfiles.has(userId)));
+
+	return new Map<Snowflake, UserChipUser>(
+		userIds.map((userId) => {
+			const skyProfile = skyProfiles.get(userId);
+
+			if (skyProfile) {
+				return [
+					userId,
+					{
+						iconURL: skyProfile.icon
+							? cdn.skyProfileIconURL(userId, skyProfile.icon)
+							: defaultAvatarURL(userId),
+						id: userId,
+						name: skyProfile.name,
+						skyProfile: true,
+					},
+				];
+			}
+
+			const user = users.get(userId);
+
+			return [
+				userId,
+				{
+					iconURL: user ? avatarURL(user, { size: USER_CHIP_ICON_SIZE }) : defaultAvatarURL(userId),
+					id: userId,
+					name: user ? (user.global_name ?? user.username) : null,
+					skyProfile: false,
+				},
+			];
+		}),
+	);
 }

@@ -11,7 +11,7 @@ import {
 	MAXIMUM_ASSET_INPUT_PIXELS,
 	MAXIMUM_ASSET_PROCESSING_SECONDS,
 } from "@thatskyapplication/utility";
-import { CDN_BUCKET, CDN_URL } from "~/config.server.js";
+import { R2_BUCKET_CDN, CDN_URL } from "~/config.server.js";
 import S3Client from "~/s3-client.server.js";
 
 const cdn = new CDN(CDN_URL);
@@ -46,9 +46,10 @@ async function uploadSkyProfileAsset({
 
 	await S3Client.send(
 		new PutObjectCommand({
-			Bucket: CDN_BUCKET,
+			Bucket: R2_BUCKET_CDN,
 			Key: route(hashedBuffer),
 			Body: buffer,
+			ContentType: gif ? "image/gif" : "image/webp",
 		}),
 	);
 
@@ -74,7 +75,7 @@ export async function uploadSkyProfileBanner({ file, userId }: { file: File; use
 export async function deleteSkyProfileIcon({ icon, userId }: { icon: string; userId: string }) {
 	await S3Client.send(
 		new DeleteObjectCommand({
-			Bucket: CDN_BUCKET,
+			Bucket: R2_BUCKET_CDN,
 			Key: cdn.skyProfileIconRoute(userId, icon),
 		}),
 	);
@@ -89,7 +90,7 @@ export async function deleteSkyProfileBanner({
 }) {
 	await S3Client.send(
 		new DeleteObjectCommand({
-			Bucket: CDN_BUCKET,
+			Bucket: R2_BUCKET_CDN,
 			Key: cdn.skyProfileBannerRoute(userId, banner),
 		}),
 	);

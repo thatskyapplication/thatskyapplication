@@ -7,12 +7,9 @@ import { useFetcher } from "react-router";
 import type { FriendshipActionTypes } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink.js";
 import { FriendshipActionDeleteButton } from "~/components/friendship-actions/FriendshipActionDeleteButton.js";
-import {
-	type FriendshipActionUser,
-	FriendshipActionUserChip,
-} from "~/components/friendship-actions/FriendshipActionUserChip.js";
 import { InfographicPreview } from "~/components/InfographicPreview.js";
 import { Tooltip } from "~/components/Tooltip.js";
+import { UserChip, type UserChipUser } from "~/components/UserChip.js";
 import type { action } from "~/routes/admin.friendship-actions.js";
 import { FIELD_ERROR_CLASS, SKELETON_CLASS } from "~/utility/styles.js";
 
@@ -24,7 +21,7 @@ export interface FriendshipAction {
 	square: boolean;
 	type: FriendshipActionTypes;
 	typeLabel: string;
-	users: readonly FriendshipActionUser[];
+	users: readonly UserChipUser[];
 }
 
 const SWITCH_CLASS =
@@ -101,7 +98,7 @@ export function FriendshipActionCard({ friendshipAction }: { friendshipAction: F
 
 				<div className="flex flex-wrap gap-1.5">
 					{users.map((user) => (
-						<FriendshipActionUserChip key={user.id} user={user} />
+						<UserChip key={user.id} user={user} />
 					))}
 				</div>
 

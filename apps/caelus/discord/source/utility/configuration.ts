@@ -25,7 +25,6 @@ const envSchema = z.object({
 	SUPPORT_SERVER_GUILD_ID: z.string().min(1),
 	SUPPORT_SERVER_INVITE_URL: z.url().min(1),
 	UPDATING_DAILY_GUIDES_CHANNEL_ID: z.string().min(1),
-	SKY_PROFILE_REPORTS_CHANNEL_ID: z.string().min(1),
 	SHOP_SUGGESTIONS_CHANNEL_ID: z.string().min(1),
 	DAILY_GUIDES_LOG_CHANNEL_ID: z.string().min(1),
 	MEMBER_LOG_CHANNEL_ID: z.string().min(1),
@@ -38,6 +37,8 @@ const envSchema = z.object({
 	TRANSLATOR_ROLE_ID: z.string().min(1),
 	DATABASE_URL: z.url(),
 	CDN_URL: z.url(),
+	R2_BUCKET_CDN: z.string().min(1),
+	R2_BUCKET_REPORTS: z.string().min(1),
 	S3_ACCESS_KEY_ID: z.string().min(1),
 	S3_ACCOUNT_ID: z.string().min(1),
 	S3_SECRET_ACCESS_KEY: z.string().min(1),
@@ -59,7 +60,6 @@ export const {
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORT_SERVER_INVITE_URL,
 	UPDATING_DAILY_GUIDES_CHANNEL_ID,
-	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SHOP_SUGGESTIONS_CHANNEL_ID,
 	DAILY_GUIDES_LOG_CHANNEL_ID,
 	MEMBER_LOG_CHANNEL_ID,
@@ -72,17 +72,14 @@ export const {
 	TRANSLATOR_ROLE_ID,
 	DATABASE_URL,
 	CDN_URL,
+	R2_BUCKET_CDN,
+	R2_BUCKET_REPORTS,
 	S3_ACCESS_KEY_ID,
 	S3_ACCOUNT_ID,
 	S3_SECRET_ACCESS_KEY,
 	SENTRY_DATA_SOURCE_NAME,
 	SENTRY_RELEASE,
 } = (PRODUCTION ? productionEnvSchema : envSchema).parse(process.env);
-
-// Content delivery network buckets.
-const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;
-const CDN_BUCKET_PRODUCTION = "thatskyapplication" as const;
-export const CDN_BUCKET = PRODUCTION ? CDN_BUCKET_PRODUCTION : CDN_BUCKET_DEVELOPMENT;
 
 // Application invite URL.
 export const APPLICATION_INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${APPLICATION_ID}`;

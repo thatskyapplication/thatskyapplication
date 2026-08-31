@@ -78,10 +78,6 @@ export function resolveStringSelectMenu(
 	return null;
 }
 
-export function userLogFormat(user: APIUser) {
-	return `<@${user.id}> (${userTag(user)})`;
-}
-
 export function isChatInputCommand(
 	interaction: APIInteraction,
 ): interaction is APIChatInputApplicationCommandInteraction {

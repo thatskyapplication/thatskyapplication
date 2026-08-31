@@ -45,7 +45,7 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
 import { processUploadedImage } from "../utility/assets.js";
-import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
+import { R2_BUCKET_CDN, CDN_URL } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { isValidImageAttachment, notInCachedGuildResponse } from "../utility/functions.js";
@@ -756,7 +756,7 @@ export async function welcomeHandleAssetSettingDeleteButton(
 	if (welcomePacket?.asset) {
 		await S3Client.send(
 			new DeleteObjectCommand({
-				Bucket: CDN_BUCKET,
+				Bucket: R2_BUCKET_CDN,
 				Key: welcomeAssetRoute(interaction.guild_id, welcomePacket.asset),
 			}),
 		);
@@ -787,7 +787,7 @@ async function welcomeSetAsset(
 	if (welcomePacket?.asset) {
 		await S3Client.send(
 			new DeleteObjectCommand({
-				Bucket: CDN_BUCKET,
+				Bucket: R2_BUCKET_CDN,
 				Key: welcomeAssetRoute(interaction.guild_id, welcomePacket.asset),
 			}),
 		);
@@ -809,7 +809,7 @@ async function welcomeSetAsset(
 
 	await S3Client.send(
 		new PutObjectCommand({
-			Bucket: CDN_BUCKET,
+			Bucket: R2_BUCKET_CDN,
 			Key: welcomeAssetRoute(interaction.guild_id, hashedBuffer),
 			Body: buffer,
 		}),

@@ -4,7 +4,7 @@ import { Check, Copy, TriangleAlert } from "lucide-react";
 import { Link } from "react-router";
 import { useCopyToClipboard } from "~/hooks/use-copy-to-clipboard.js";
 
-export interface FriendshipActionUser {
+export interface UserChipUser {
 	iconURL: string;
 	id: Snowflake;
 	name: string | null;
@@ -16,7 +16,7 @@ const USER_CHIP_CLASS =
 
 const CHIP_ICON_CLASS = "h-3 w-3 shrink-0 text-gray-500 dark:text-gray-400" as const;
 
-function UserChipLabel({ user }: { user: FriendshipActionUser }) {
+function UserChipLabel({ user }: { user: UserChipUser }) {
 	return (
 		<>
 			<img
@@ -34,17 +34,13 @@ function UserChipLabel({ user }: { user: FriendshipActionUser }) {
 	);
 }
 
-export function FriendshipActionUserChip({ user }: { user: FriendshipActionUser }) {
+export function UserChip({ user }: { user: UserChipUser }) {
 	const { copy, status } = useCopyToClipboard();
 	const label = user.name ?? user.id;
 
 	if (user.skyProfile) {
 		return (
-			<Link
-				aria-label={`View the Sky Profile of ${label}.`}
-				className={USER_CHIP_CLASS}
-				to={`/sky-profiles/${user.id}`}
-			>
+			<Link className={USER_CHIP_CLASS} to={`/sky-profiles/${user.id}`}>
 				<UserChipLabel user={user} />
 			</Link>
 		);
@@ -52,12 +48,7 @@ export function FriendshipActionUserChip({ user }: { user: FriendshipActionUser 
 
 	return (
 		<>
-			<button
-				aria-label={`Copy the user id for ${label}.`}
-				className={USER_CHIP_CLASS}
-				onClick={() => copy(user.id)}
-				type="button"
-			>
+			<button className={USER_CHIP_CLASS} onClick={() => copy(user.id)} type="button">
 				<UserChipLabel user={user} />
 				{status === "copied" ? (
 					<Check

@@ -17,6 +17,13 @@ export default function TermsPrivacy() {
 					ids, and Sky profile content. None of it is shared with third parties.
 				</p>
 
+				<h2>Reports</h2>
+				<p>
+					Reporting a Sky profile records the reason you give, your user id, and the user id of the
+					person reported. A copy of their profile icon and banner is kept for 90 days so it can be
+					reviewed.
+				</p>
+
 				<h2>Deleting your data</h2>
 				<p>
 					Use the <code>/data delete</code> command.

@@ -139,6 +139,18 @@ export interface SkyProfileLikes {
   user_id: string;
 }
 
+export interface SkyProfileReports {
+  actioned_at: Timestamp | null;
+  actioned_by_user_id: string | null;
+  banner: string | null;
+  created_at: Generated<Timestamp>;
+  icon: string | null;
+  id: Generated<number>;
+  reason: string;
+  reported_user_id: string;
+  reporter_user_id: string;
+}
+
 export interface SkyProfiles {
   banner: Generated<string | null>;
   catalogue_progression: boolean | null;
@@ -202,6 +214,7 @@ export interface DB {
   messages: Messages;
   notifications: Notifications;
   sky_profile_likes: SkyProfileLikes;
+  sky_profile_reports: SkyProfileReports;
   sky_profiles: SkyProfiles;
   support_server_invites: SupportServerInvites;
   users: Users;

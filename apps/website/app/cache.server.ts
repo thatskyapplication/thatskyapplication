@@ -52,3 +52,4 @@ class BaseCache<Data> {
 
 export const guildCache = new BaseCache<RESTGetAPICurrentUserGuildsResult>();
 export const userCache = new BaseCache<{ user: APIUser | null }>();
+export const developerCache = new BaseCache<boolean>();

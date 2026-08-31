@@ -280,6 +280,9 @@ export {
 	type SkyProfilePersonalityTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
+	isSkyProfileReportAsset,
+	skyProfileReportRoute,
+	type SkyProfileReportAsset,
 } from "./sky-profile.js";
 export {
 	type BaseVisit,

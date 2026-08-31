@@ -77,7 +77,7 @@ import S3Client from "../s3-client.js";
 import { processUploadedImage } from "../utility/assets.js";
 import {
 	APPLICATION_ID,
-	CDN_BUCKET,
+	R2_BUCKET_CDN,
 	CDN_URL,
 	DAILY_GUIDES_LOG_CHANNEL_ID,
 	MAXIMUM_CONCURRENCY_LIMIT,
@@ -1920,7 +1920,7 @@ export async function set(
 
 		await S3Client.send(
 			new PutObjectCommand({
-				Bucket: CDN_BUCKET,
+				Bucket: R2_BUCKET_CDN,
 				Key: `daily_guides/travelling_rocks/${hashedBuffer}.webp`,
 				Body: buffer,
 				ContentDisposition: "inline",

@@ -1,4 +1,5 @@
 import type { Kysely } from "kysely";
+import { isAnimatedHash } from "./assets.js";
 import type { Packet } from "./database/index.js";
 import type { DB } from "./database/schema.js";
 import type { Nullable } from "./types/index.js";
@@ -14,6 +15,22 @@ export function fetchSkyProfileWithFlags(database: Kysely<DB>, userId: string) {
 		.select(["u.translator", "u.supporter", "u.artist"])
 		.where("p.user_id", "=", userId)
 		.executeTakeFirst();
+}
+
+const SKY_PROFILE_REPORT_ASSETS = ["icon", "banner"] as const;
+
+export type SkyProfileReportAsset = (typeof SKY_PROFILE_REPORT_ASSETS)[number];
+
+export function isSkyProfileReportAsset(asset: string): asset is SkyProfileReportAsset {
+	return SKY_PROFILE_REPORT_ASSETS.includes(asset as SkyProfileReportAsset);
+}
+
+export function skyProfileReportRoute(
+	reportId: number,
+	asset: SkyProfileReportAsset,
+	hash: string,
+) {
+	return `reports/${reportId}/${asset}.${isAnimatedHash(hash) ? "gif" : "webp"}` as const;
 }
 
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;

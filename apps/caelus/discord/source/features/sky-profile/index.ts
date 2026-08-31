@@ -1,5 +1,10 @@
 import { createHash } from "node:crypto";
-import { DeleteObjectCommand, DeleteObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+	CopyObjectCommand,
+	DeleteObjectCommand,
+	DeleteObjectsCommand,
+	PutObjectCommand,
+} from "@aws-sdk/client-s3";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIApplicationCommandInteractionDataStringOption,
@@ -17,13 +22,11 @@ import {
 	type APIUserApplicationCommandInteraction,
 	ApplicationCommandOptionType,
 	ButtonStyle,
-	ChannelType,
 	ComponentType,
 	type InteractionsAPI,
 	InteractionType,
 	type Locale,
 	MessageFlags,
-	PermissionFlagsBits,
 	SeparatorSpacingSize,
 	type Snowflake,
 	TextInputStyle,
@@ -66,6 +69,8 @@ import {
 	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	type SkyProfileData,
+	type SkyProfileReportAsset,
+	skyProfileReportRoute,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
 	type SkyProfileMissingNameSources,
@@ -76,7 +81,6 @@ import {
 	SkyProfileEditTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { COMMAND_CACHE } from "../../caches/commands.js";
-import { GUILD_CACHE } from "../../caches/guilds.js";
 import database from "../../database.js";
 import { client } from "../../discord.js";
 import pino from "../../pino.js";
@@ -85,8 +89,8 @@ import { cdn } from "../../thatskyapplication.js";
 import { processUploadedImage } from "../../utility/assets.js";
 import {
 	ARTIST_ROLE_ID,
-	CDN_BUCKET,
-	SKY_PROFILE_REPORTS_CHANNEL_ID,
+	R2_BUCKET_CDN,
+	R2_BUCKET_REPORTS,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORTER_ROLE_ID,
 	TRANSLATOR_ROLE_ID,
@@ -121,11 +125,9 @@ import {
 	resolveStringSelectMenu,
 	skyProfileWebsiteURL,
 	snowflakeDate,
-	userLogFormat,
 } from "../../utility/functions.js";
 import { ModalResolver } from "../../utility/modal-resolver.js";
 import type { OptionResolver } from "../../utility/option-resolver.js";
-import { can } from "../../utility/permissions.js";
 import { fetchCatalogue } from "../catalogue.js";
 import { findUser } from "../guess.js";
 import { totalReceived } from "../heart.js";
@@ -266,7 +268,10 @@ export async function skyProfileSet(
 
 		if (skyProfileDeleteData.length > 0) {
 			await S3Client.send(
-				new DeleteObjectsCommand({ Bucket: CDN_BUCKET, Delete: { Objects: skyProfileDeleteData } }),
+				new DeleteObjectsCommand({
+					Bucket: R2_BUCKET_CDN,
+					Delete: { Objects: skyProfileDeleteData },
+				}),
 			);
 		}
 	}
@@ -308,7 +313,7 @@ export async function skyProfileSetAsset(
 		if (skyProfilePacket.icon && type === AssetType.Icon) {
 			await S3Client.send(
 				new DeleteObjectCommand({
-					Bucket: CDN_BUCKET,
+					Bucket: R2_BUCKET_CDN,
 					Key: cdn.skyProfileIconRoute(invoker.id, skyProfilePacket.icon),
 				}),
 			);
@@ -317,7 +322,7 @@ export async function skyProfileSetAsset(
 		if (skyProfilePacket.banner && type === AssetType.Banner) {
 			await S3Client.send(
 				new DeleteObjectCommand({
-					Bucket: CDN_BUCKET,
+					Bucket: R2_BUCKET_CDN,
 					Key: cdn.skyProfileBannerRoute(invoker.id, skyProfilePacket.banner),
 				}),
 			);
@@ -341,12 +346,13 @@ export async function skyProfileSetAsset(
 
 	await S3Client.send(
 		new PutObjectCommand({
-			Bucket: CDN_BUCKET,
+			Bucket: R2_BUCKET_CDN,
 			Key:
 				type === AssetType.Icon
 					? cdn.skyProfileIconRoute(invoker.id, hashedBuffer)
 					: cdn.skyProfileBannerRoute(invoker.id, hashedBuffer),
 			Body: buffer,
+			ContentType: gif ? "image/gif" : "image/webp",
 		}),
 	);
 
@@ -623,7 +629,7 @@ export async function skyProfileDelete(userId: Snowflake, executor: Kysely<DB> =
 	if (profileDeleteData.length > 0) {
 		promises.push(
 			S3Client.send(
-				new DeleteObjectsCommand({ Bucket: CDN_BUCKET, Delete: { Objects: profileDeleteData } }),
+				new DeleteObjectsCommand({ Bucket: R2_BUCKET_CDN, Delete: { Objects: profileDeleteData } }),
 			),
 		);
 	}
@@ -1439,64 +1445,6 @@ export async function skyProfileReportModalPrompt(
 
 export async function skyProfileSendReport(interaction: APIModalSubmitInteraction) {
 	const { locale } = interaction;
-	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
-
-	if (!guild) {
-		pino.error(interaction, "Could not find the guild of the Sky profile reports channel.");
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("sky-profile.report-submission", { lng: locale, ns: "features" }),
-				},
-			],
-		});
-
-		return;
-	}
-
-	const channel = guild.channels.get(SKY_PROFILE_REPORTS_CHANNEL_ID);
-
-	if (channel?.type !== ChannelType.GuildText) {
-		pino.error(interaction, "Could not find the Sky profile reports channel.");
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("sky-profile.report-submission", { lng: locale, ns: "features" }),
-				},
-			],
-		});
-
-		return;
-	}
-
-	const me = await guild.fetchMe();
-
-	if (
-		!can({
-			permission: PermissionFlagsBits.SendMessages | PermissionFlagsBits.ViewChannel,
-			guild,
-			member: me,
-			channel,
-		})
-	) {
-		pino.error(interaction, "Missing permissions to post in the Sky profile reports channel.");
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("sky-profile.report-submission", { lng: locale, ns: "features" }),
-				},
-			],
-		});
-
-		return;
-	}
-
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 	const data = await skyProfileFetch(userId);
 
@@ -1513,17 +1461,19 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 	const text = components.getTextInputValue(CustomId.SkyProfileReportModalReason);
 	const invoker = interactionInvoker(interaction);
 
-	await client.api.channels.createMessage(channel.id, {
-		allowed_mentions: { parse: [] },
-		components: [
-			{
-				type: ComponentType.TextDisplay,
-				content: `Report by ${userLogFormat(invoker)} against <@${data.user_id}>:\n>>> ${text}`,
-			},
-			...(await skyProfileComponents(interaction, data)),
-		],
-		flags: MessageFlags.IsComponentsV2,
-	});
+	const report = await database
+		.insertInto("sky_profile_reports")
+		.values({
+			banner: data.banner,
+			icon: data.icon,
+			reason: text,
+			reported_user_id: data.user_id,
+			reporter_user_id: invoker.id,
+		})
+		.returning("id")
+		.executeTakeFirstOrThrow();
+
+	void snapshotSkyProfileReportAssets(report.id, data);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -1533,6 +1483,51 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 			},
 		],
 	});
+}
+
+async function snapshotSkyProfileReportAsset(
+	reportId: number,
+	asset: SkyProfileReportAsset,
+	userId: string,
+	hash: string | null,
+) {
+	if (!hash) {
+		return;
+	}
+
+	const sourceRoute =
+		asset === "icon"
+			? cdn.skyProfileIconRoute(userId, hash)
+			: cdn.skyProfileBannerRoute(userId, hash);
+
+	try {
+		await S3Client.send(
+			new CopyObjectCommand({
+				Bucket: R2_BUCKET_REPORTS,
+				CopySource: `${R2_BUCKET_CDN}/${sourceRoute}`,
+				Key: skyProfileReportRoute(reportId, asset, hash),
+			}),
+		);
+	} catch (error) {
+		pino.error(error, `Failed to snapshot the ${asset} of Sky profile report ${reportId}.`);
+
+		await database
+			.updateTable("sky_profile_reports")
+			.set(asset === "icon" ? { icon: null } : { banner: null })
+			.where("id", "=", reportId)
+			.execute();
+	}
+}
+
+async function snapshotSkyProfileReportAssets(reportId: number, data: SkyProfileData) {
+	try {
+		await Promise.all([
+			snapshotSkyProfileReportAsset(reportId, "icon", data.user_id, data.icon),
+			snapshotSkyProfileReportAsset(reportId, "banner", data.user_id, data.banner),
+		]);
+	} catch (error) {
+		pino.error(error, `Failed to snapshot the assets of Sky profile report ${reportId}.`);
+	}
 }
 
 async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMenuInteraction) {

@@ -19,9 +19,13 @@ if (
 		process.env.REDIRECT_URI_LOGIN &&
 		process.env.REDIRECT_URI_DISCORD_CROWDIN &&
 		process.env.CDN_URL &&
-		process.env.S3_ACCESS_KEY_ID &&
+		process.env.R2_BUCKET_CDN &&
+		process.env.R2_BUCKET_REPORTS &&
+		process.env.S3_ACCESS_KEY_ID_CDN &&
 		process.env.S3_ACCOUNT_ID &&
-		process.env.S3_SECRET_ACCESS_KEY
+		process.env.S3_SECRET_ACCESS_KEY_CDN &&
+		process.env.S3_ACCESS_KEY_ID_REPORTS &&
+		process.env.S3_SECRET_ACCESS_KEY_REPORTS
 	) ||
 	(PRODUCTION && !process.env.SENTRY_DATA_SOURCE_NAME)
 ) {
@@ -42,11 +46,10 @@ export const CROWDIN_CLIENT_SECRET = process.env.CROWDIN_CLIENT_SECRET;
 export const REDIRECT_URI_LOGIN = process.env.REDIRECT_URI_LOGIN;
 export const REDIRECT_URI_DISCORD_CROWDIN = process.env.REDIRECT_URI_DISCORD_CROWDIN;
 export const CDN_URL = process.env.CDN_URL;
-export const S3_ACCESS_KEY_ID = process.env.S3_ACCESS_KEY_ID;
+export const R2_BUCKET_CDN = process.env.R2_BUCKET_CDN;
+export const R2_BUCKET_REPORTS = process.env.R2_BUCKET_REPORTS;
+export const S3_ACCESS_KEY_ID_CDN = process.env.S3_ACCESS_KEY_ID_CDN;
 export const S3_ACCOUNT_ID = process.env.S3_ACCOUNT_ID;
-export const S3_SECRET_ACCESS_KEY = process.env.S3_SECRET_ACCESS_KEY;
-
-// Content delivery network buckets.
-const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;
-const CDN_BUCKET_PRODUCTION = "thatskyapplication" as const;
-export const CDN_BUCKET = PRODUCTION ? CDN_BUCKET_PRODUCTION : CDN_BUCKET_DEVELOPMENT;
+export const S3_SECRET_ACCESS_KEY_CDN = process.env.S3_SECRET_ACCESS_KEY_CDN;
+export const S3_ACCESS_KEY_ID_REPORTS = process.env.S3_ACCESS_KEY_ID_REPORTS;
+export const S3_SECRET_ACCESS_KEY_REPORTS = process.env.S3_SECRET_ACCESS_KEY_REPORTS;

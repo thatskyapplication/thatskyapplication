@@ -23,20 +23,17 @@ import {
 	MAXIMUM_FRIENDSHIP_ACTIONS_USERS,
 	type SuccessfulUpload,
 } from "~/components/friendship-actions/FriendshipActionUploadForm.js";
-import type { FriendshipActionUser } from "~/components/friendship-actions/FriendshipActionUserChip.js";
 import { SitePage } from "~/components/PageLayout";
-import { CDN_BUCKET, CDN_URL, SUPPORT_SERVER_GUILD_ID } from "~/config.server.js";
+import { R2_BUCKET_CDN, CDN_URL, SUPPORT_SERVER_GUILD_ID } from "~/config.server.js";
 import database from "~/database.server.js";
 import pino from "~/pino.js";
 import S3Client from "~/s3-client.server.js";
 import { FriendshipActionTypeToLabel } from "~/utility/friendship-actions.js";
-import { avatarURL, defaultAvatarURL } from "~/utility/functions.js";
 import { requireAdminAccess } from "~/utility/functions.server.js";
 import { SECTION_HEADING_CLASS, WARNING_BANNER_CLASS } from "~/utility/styles.js";
-import { resolveUsers } from "~/utility/users.server.js";
+import { resolveUserChips, resolveUsers } from "~/utility/users.server.js";
 import type { Route } from "./+types/admin.friendship-actions.js";
 
-const USER_CHIP_ICON_SIZE = 64 as const;
 const MAXIMUM_FRIENDSHIP_ACTION_ID = 32_767 as const;
 const DISCORD_USER_ID_REGEX = /^\d{17,19}$/;
 
@@ -146,21 +143,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		.execute();
 
 	const userIds = [...new Set(packets.flatMap((packet) => packet.users))];
-
-	const skyProfilePackets =
-		userIds.length === 0
-			? []
-			: await database
-					.selectFrom("sky_profiles")
-					.select(["user_id", "name", "icon"])
-					.where("user_id", "in", userIds)
-					.where("name", "is not", null)
-					.$narrowType<{ name: string }>()
-					.execute();
-
-	const skyProfiles = new Map(skyProfilePackets.map((packet) => [packet.user_id, packet]));
-
-	const { users } = await resolveUsers(userIds.filter((userId) => !skyProfiles.has(userId)));
+	const userChips = await resolveUserChips(userIds);
 
 	const friendshipActions: FriendshipAction[] = packets.map((packet) => ({
 		assetURL: cdn.FriendshipActionTypeToURL[packet.type](packet.id),
@@ -170,29 +153,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		square: packet.square,
 		type: packet.type,
 		typeLabel: FriendshipActionTypeToLabel[packet.type],
-		users: packet.users.map((userId): FriendshipActionUser => {
-			const skyProfile = skyProfiles.get(userId);
-
-			if (skyProfile) {
-				return {
-					iconURL: skyProfile.icon
-						? cdn.skyProfileIconURL(userId, skyProfile.icon)
-						: defaultAvatarURL(userId),
-					id: userId,
-					name: skyProfile.name,
-					skyProfile: true,
-				};
-			}
-
-			const user = users.get(userId);
-
-			return {
-				iconURL: user ? avatarURL(user, { size: USER_CHIP_ICON_SIZE }) : defaultAvatarURL(userId),
-				id: userId,
-				name: user ? (user.global_name ?? user.username) : null,
-				skyProfile: false,
-			};
-		}),
+		users: packet.users.map((userId) => userChips.get(userId)!),
 	}));
 
 	const groups = FRIENDSHIP_ACTION_TYPE_VALUES.map((type) => {
@@ -266,7 +227,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 		try {
 			await S3Client.send(
 				new DeleteObjectCommand({
-					Bucket: CDN_BUCKET,
+					Bucket: R2_BUCKET_CDN,
 					Key: cdn.friendshipActionRoute(reference.type, reference.id),
 				}),
 			);
@@ -367,7 +328,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 		try {
 			await S3Client.send(
 				new PutObjectCommand({
-					Bucket: CDN_BUCKET,
+					Bucket: R2_BUCKET_CDN,
 					Key: cdn.friendshipActionRoute(friendshipActionType, nextId),
 					Body: validatedUpload.buffer,
 					ContentDisposition: "inline",
