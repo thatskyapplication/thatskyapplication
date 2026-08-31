@@ -3461,8 +3461,8 @@ export default {
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))",
 		},
 		"sky-profile": {
-			name: "Sky Profile",
-			"name-plural": "Sky Profiles",
+			name: "Sky profile",
+			"name-plural": "Sky profiles",
 			"description-short": "Explore everyone's Sky profiles.",
 			"description-website": "Discover Sky profiles from the community.",
 			"description-recent": "See the most recent Sky profiles!",
@@ -3476,8 +3476,8 @@ export default {
 			"country-unspecified": "Unspecified",
 			"search-none": "No Sky profiles.",
 			"unknown-country": "Please select a country!",
-			"unknown-profile-edit-type": "Unknown profile edit type. Please try again!",
-			"unknown-profile-reset-type": "Unknown profile reset type. Please try again!",
+			"unknown-profile-edit-type": "Unknown Sky profile edit type. Please try again!",
+			"unknown-profile-reset-type": "Unknown Sky profile reset type. Please try again!",
 			"no-sky-profile-sky-kid":
 				"This Sky kid does not have a Sky profile. Why not ask them to make one?",
 			"no-sky-profile-edit":
@@ -3487,8 +3487,8 @@ export default {
 			"no-sky-profile-invoker": "You do not have a Sky profile! Why not create one?",
 			"no-sky-profile-other":
 				"{{user}} does not have a Sky profile! Why not ask them to create one?",
-			"no-sky-profile-explore": "There are no profiles to explore. Why not be the first?",
-			"explore-title": "Sky Profile Explorer",
+			"no-sky-profile-explore": "There are no Sky profiles to explore. Why not be the first?",
+			"explore-title": "Sky profile explorer",
 			"explore-description":
 				"You can explore Sky profiles others have created!\n\nYou can {{emoji}} a Sky profile to keep track of it, and report any Sky profiles that are not in the spirit of Sky.\n\nHave fun exploring!",
 			"explore-likes-button": "Explore likes",
@@ -3503,7 +3503,7 @@ export default {
 			"like-own-profile": "You can't like your own Sky profile!",
 			"report-description":
 				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
-			"report-modal-title": "Report Sky Profile",
+			"report-modal-title": "Report Sky profile",
 			"report-modal-label-reason-label": "Reason",
 			"report-modal-label-reason-description": "What's wrong with this Sky profile?",
 			"report-submission":

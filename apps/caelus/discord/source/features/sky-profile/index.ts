@@ -2417,7 +2417,7 @@ async function skyProfileComponents(
 				`**${t("sky-profile.country", { lng: locale, ns: "features" })}** ${CountryToEmoji[country]} ${new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!}`,
 			);
 		} else {
-			pino.error(interaction, `Invalid country code in Sky Profile: ${country}`);
+			pino.error(interaction, `Invalid country code in Sky profile: ${country}`);
 		}
 	}
 

@@ -20,8 +20,8 @@ export default function TermsPrivacy() {
 				<h2>Reports</h2>
 				<p>
 					Reporting a Sky profile records the reason you give, your user id, and the user id of the
-					person reported. A copy of their profile icon and banner is kept for 90 days so it can be
-					reviewed.
+					person reported. A copy of their Sky profile icon and banner is kept for 90 days so it can
+					be reviewed.
 				</p>
 
 				<h2>Deleting your data</h2>

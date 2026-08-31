@@ -62,6 +62,8 @@ interface RecognitionBadgeData {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+	const { t } = useTranslation();
+
 	if (isRouteErrorResponse(error) && error.status === 404) {
 		return (
 			<CentredSitePage>
@@ -84,7 +86,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 								to="/sky-profiles"
 							>
 								<ChevronLeftIcon className="h-5 w-5" />
-								Sky Profiles
+								{t("sky-profile.name-plural", { ns: "features" })}
 							</Link>
 							<Link
 								className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-200 px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600"
@@ -93,9 +95,9 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 								<EmojiIcon
 									className="h-5 w-5"
 									emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
-									label="Question mark icon"
+									label="Question mark icon."
 								/>
-								Random Sky Profile
+								{t("sky-profile.random", { ns: "features" })}
 							</Link>
 						</div>
 					</div>
@@ -116,13 +118,13 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
-		{ title: skyProfileData?.name ?? "Sky Profile" },
+		{ title: skyProfileData?.name ?? "Sky profile" },
 		{
 			name: "description",
 			content: skyProfileData?.description ?? "A Sky profile.",
 		},
 		{ name: "theme-color", content: "#49add8" },
-		{ property: "og:title", content: skyProfileData?.name ?? "Sky Profile" },
+		{ property: "og:title", content: skyProfileData?.name ?? "Sky profile" },
 		{
 			property: "og:description",
 			content: skyProfileData?.description ?? "A Sky profile.",
@@ -139,7 +141,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 		},
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: skyProfileData?.name ?? "Sky Profile" },
+		{ name: "twitter:title", content: skyProfileData?.name ?? "Sky profile" },
 		{
 			name: "twitter:description",
 			content: skyProfileData?.description ?? "A Sky profile.",

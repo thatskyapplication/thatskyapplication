@@ -100,7 +100,7 @@ export default function AdminSkyProfileReports({ loaderData }: Route.ComponentPr
 				</Link>
 
 				<div>
-					<h1 className="mb-1 text-4xl font-bold">Sky Profile reports</h1>
+					<h1 className="mb-1 text-4xl font-bold">Sky profile reports</h1>
 					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
 						{pendingReports.length === 1
 							? "1 pending report."
