@@ -27,7 +27,7 @@ export default function Admin() {
 						</div>
 						<div>
 							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
-								Upload friendship actions
+								Friendship actions
 							</h2>
 						</div>
 					</Link>
