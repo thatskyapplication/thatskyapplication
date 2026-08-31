@@ -3,6 +3,9 @@
 		"asset-image-invalid": "Пожалуйста, загрузите корректное вложение! Оно должно быть меньше или равно {{size}} мегабайт и быть в формате GIF, JPEG, PNG или WebP.",
 		"support-server": "",
 		"website-description": "",
+		"home": "",
+		"pity-room": "",
+		"error-description": "",
 		"show": "",
 		"hide": "",
 		"save": "",
@@ -2302,6 +2305,7 @@
 		"close": "",
 		"today": "",
 		"shard-eruption": "",
+		"donate": "",
 		"wiki": ""
 	},
 	"commands": {
@@ -2541,6 +2545,7 @@
 			"final-message": ""
 		},
 		"acknowledgements": {
+			"name": "",
 			"friendship-actions": "",
 			"friendship-actions-contributors": "",
 			"friendship-actions-contributors-description": "",

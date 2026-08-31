@@ -3,6 +3,9 @@
 		"asset-image-invalid": "请上传有效的附件！文件必须小于或等于 {{size}} 兆字节，并且为 GIF、JPEG、PNG 或 WebP 格式。",
 		"support-server": "",
 		"website-description": "",
+		"home": "",
+		"pity-room": "",
+		"error-description": "",
 		"show": "显示",
 		"hide": "隐藏",
 		"save": "",
@@ -2287,6 +2290,7 @@
 		"close": "",
 		"today": "",
 		"shard-eruption": "",
+		"donate": "",
 		"wiki": ""
 	},
 	"commands": {
@@ -2526,6 +2530,7 @@
 			"final-message": ""
 		},
 		"acknowledgements": {
+			"name": "",
 			"friendship-actions": "",
 			"friendship-actions-contributors": "",
 			"friendship-actions-contributors-description": "",

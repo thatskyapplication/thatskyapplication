@@ -3,6 +3,9 @@
 		"asset-image-invalid": "Téléchargez une pièce jointe ! Elle doit être inférieure ou égale à {{size}} Mo et être un GIF, JPEG, PNG ou WebP.",
 		"support-server": "Serveur d'assistance",
 		"website-description": "Une constellation d'outils pour Sky: Enfants de la Lumière. 🩵",
+		"home": "",
+		"pity-room": "",
+		"error-description": "",
 		"show": "Montrer",
 		"hide": "Cacher",
 		"save": "",
@@ -2292,6 +2295,7 @@
 		"close": "",
 		"today": "Aujourd'hui",
 		"shard-eruption": "Éruption d'éclats",
+		"donate": "",
 		"wiki": "Wiki"
 	},
 	"commands": {
@@ -2531,6 +2535,7 @@
 			"final-message": "Rejoignez le [serveur d'assistance]({{url}}) si vous êtes intéressé à propos de quoi que ce soit ici ! Nous sommes toujours là pour prêter main-forte ! 🩵"
 		},
 		"acknowledgements": {
+			"name": "",
 			"friendship-actions": "",
 			"friendship-actions-contributors": "",
 			"friendship-actions-contributors-description": "",

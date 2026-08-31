@@ -3,6 +3,9 @@
 		"asset-image-invalid": "Por favor faça o upload de um anexo válido! Precisa ser menor ou igual a {{size}} megabytes e ser um arquivo GIF, JPEG, PNG ou WebP.",
 		"support-server": "Servidor de suporte",
 		"website-description": "Uma constelação de ferramentas para Sky: Children of the Light. 🩵",
+		"home": "",
+		"pity-room": "",
+		"error-description": "",
 		"show": "Mostrar",
 		"hide": "Ocultar",
 		"save": "Salvar",
@@ -2292,6 +2295,7 @@
 		"close": "Fechado",
 		"today": "Hoje",
 		"shard-eruption": "Erupções de fragmentos",
+		"donate": "",
 		"wiki": "Wiki"
 	},
 	"commands": {
@@ -2531,6 +2535,7 @@
 			"final-message": "Entre no servidor de suporte]({{url}}) se você estiver interessado em qualquer coisa aqui! Estamos sempre aqui para dar uma mãozinha! 🩵"
 		},
 		"acknowledgements": {
+			"name": "",
 			"friendship-actions": "Ações de amizade",
 			"friendship-actions-contributors": "Colaboradores das ações de amizade",
 			"friendship-actions-contributors-description": "Estas pessoas contribuíram com ações de amizade para que todos possam aproveitá-las.",
