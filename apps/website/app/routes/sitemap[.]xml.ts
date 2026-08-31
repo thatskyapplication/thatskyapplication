@@ -9,6 +9,7 @@ const PUBLIC_PATHS = [
 	"/donate",
 	"/schedule",
 	"/shard-eruption",
+	"/sky-elder/terms-privacy",
 	"/sky-profiles",
 	"/spirits",
 	"/thatskylink",
