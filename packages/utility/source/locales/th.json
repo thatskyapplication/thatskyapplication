@@ -3,6 +3,9 @@
 		"asset-image-invalid": "",
 		"support-server": "",
 		"website-description": "",
+		"home": "",
+		"pity-room": "",
+		"error-description": "",
 		"show": "",
 		"hide": "",
 		"save": "",
@@ -29,12 +32,12 @@
 		"seasonal-hearts": "",
 		"days-left": {
 			"season-ends-today": "",
-			"event-ends-today": "",
+			"event-ends-today": "{{name}}สิ้นสุดวันนี้",
 			"double-hearts-ends-today": "",
 			"double-seasonal-light-ends-today": "",
 			"double-treasure-candles-ends-today": "",
 			"season_other": "ฤดูกาลนี้เหลืออยู่อีก {{count}} วัน.",
-			"event_other": "",
+			"event_other": "{{name}} เหลืออีก {{count}} วัน",
 			"double-hearts_other": "",
 			"double-seasonal-light_other": "",
 			"double-treasure-candles_other": ""
@@ -2287,6 +2290,7 @@
 		"close": "",
 		"today": "",
 		"shard-eruption": "",
+		"donate": "",
 		"wiki": ""
 	},
 	"commands": {
@@ -2526,6 +2530,7 @@
 			"final-message": ""
 		},
 		"acknowledgements": {
+			"name": "",
 			"friendship-actions": "",
 			"friendship-actions-contributors": "",
 			"friendship-actions-contributors-description": "",

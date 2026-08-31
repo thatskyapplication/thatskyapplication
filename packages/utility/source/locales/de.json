@@ -3,6 +3,9 @@
 		"asset-image-invalid": "",
 		"support-server": "",
 		"website-description": "",
+		"home": "",
+		"pity-room": "",
+		"error-description": "",
 		"show": "",
 		"hide": "",
 		"save": "",
@@ -2292,6 +2295,7 @@
 		"close": "",
 		"today": "",
 		"shard-eruption": "",
+		"donate": "",
 		"wiki": ""
 	},
 	"commands": {
@@ -2531,6 +2535,7 @@
 			"final-message": ""
 		},
 		"acknowledgements": {
+			"name": "",
 			"friendship-actions": "",
 			"friendship-actions-contributors": "",
 			"friendship-actions-contributors-description": "",

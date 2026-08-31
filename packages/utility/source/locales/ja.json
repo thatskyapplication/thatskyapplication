@@ -3,6 +3,9 @@
 		"asset-image-invalid": "対応している添付ファイルをアップロードしてください。\nファイル形式：GIF、JPEG、PNG、WebP\nサイズ：{{size}}MB以下。",
 		"support-server": "サポートサーバー",
 		"website-description": "『Sky星を紡ぐ子どもたち』のためのツール集🩵",
+		"home": "",
+		"pity-room": "",
+		"error-description": "",
 		"show": "表示",
 		"hide": "非表示",
 		"save": "",
@@ -2287,6 +2290,7 @@
 		"close": "",
 		"today": "",
 		"shard-eruption": "闇の破片",
+		"donate": "",
 		"wiki": ""
 	},
 	"commands": {
@@ -2526,6 +2530,7 @@
 			"final-message": ""
 		},
 		"acknowledgements": {
+			"name": "",
 			"friendship-actions": "",
 			"friendship-actions-contributors": "",
 			"friendship-actions-contributors-description": "",
