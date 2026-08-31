@@ -51,7 +51,8 @@ function InfographicPreviewContent({
 			<div className="flex min-h-0 flex-1 flex-col items-center justify-center">
 				<img
 					alt={t("infographic", { ns: "general" })}
-					className="block min-h-0 max-w-full rounded-lg object-contain shadow-lg"
+					className="block min-h-0 max-w-full rounded-lg object-contain shadow-lg select-none [-webkit-user-drag:none]"
+					draggable={false}
 					src={imageURL}
 				/>
 			</div>

@@ -2,7 +2,7 @@ import { Field } from "@base-ui/react/field";
 import { Switch } from "@base-ui/react/switch";
 import { clsx } from "clsx";
 import { Square } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import type { FriendshipActionTypes } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink.js";
@@ -36,7 +36,6 @@ const SWITCH_THUMB_CLASS =
 export function FriendshipActionCard({ friendshipAction }: { friendshipAction: FriendshipAction }) {
 	const { assetURL, id, reference, skip, square, type, typeLabel, users } = friendshipAction;
 	const fetcher = useFetcher<typeof action>();
-	const assetRef = useRef<HTMLImageElement>(null);
 	const [assetLoaded, setAssetLoaded] = useState(false);
 	const [previewing, setPreviewing] = useState(false);
 	const isSaving = fetcher.state !== "idle";
@@ -48,10 +47,14 @@ export function FriendshipActionCard({ friendshipAction }: { friendshipAction: F
 	const squareLabel = square ? "Square." : "Not square.";
 
 	useEffect(() => {
-		if (assetRef.current?.complete) {
-			setAssetLoaded(true);
-		}
-	}, []);
+		const controller = new AbortController();
+		const image = new Image();
+		const settle = () => setAssetLoaded(true);
+		image.addEventListener("load", settle, { signal: controller.signal });
+		image.addEventListener("error", settle, { signal: controller.signal });
+		image.src = assetURL;
+		return () => controller.abort();
+	}, [assetURL]);
 
 	return (
 		<div className="flex overflow-hidden rounded-lg border border-gray-200 bg-gray-100 shadow-md dark:border-gray-700 dark:bg-gray-900">
@@ -64,18 +67,13 @@ export function FriendshipActionCard({ friendshipAction }: { friendshipAction: F
 				onClick={() => setPreviewing(true)}
 				type="button"
 			>
-				<img
-					alt=""
+				<div
 					className={clsx(
-						"m-auto aspect-square w-full object-contain transition-opacity",
+						"m-auto aspect-square w-full bg-contain bg-center bg-no-repeat transition-opacity",
 						optimisticSkip && "grayscale",
 						assetLoaded ? (optimisticSkip ? "opacity-40" : "opacity-100") : "opacity-0",
 					)}
-					loading="lazy"
-					onError={() => setAssetLoaded(true)}
-					onLoad={() => setAssetLoaded(true)}
-					ref={assetRef}
-					src={assetURL}
+					style={{ backgroundImage: `url(${assetURL})` }}
 				/>
 			</button>
 
