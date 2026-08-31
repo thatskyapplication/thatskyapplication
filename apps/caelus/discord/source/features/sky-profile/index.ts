@@ -352,6 +352,7 @@ export async function skyProfileSetAsset(
 					? cdn.skyProfileIconRoute(invoker.id, hashedBuffer)
 					: cdn.skyProfileBannerRoute(invoker.id, hashedBuffer),
 			Body: buffer,
+			ContentDisposition: "inline",
 			ContentType: gif ? "image/gif" : "image/webp",
 		}),
 	);

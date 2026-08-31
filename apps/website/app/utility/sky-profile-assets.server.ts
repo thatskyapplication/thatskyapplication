@@ -49,6 +49,7 @@ async function uploadSkyProfileAsset({
 			Bucket: R2_BUCKET_CDN,
 			Key: route(hashedBuffer),
 			Body: buffer,
+			ContentDisposition: "inline",
 			ContentType: gif ? "image/gif" : "image/webp",
 		}),
 	);

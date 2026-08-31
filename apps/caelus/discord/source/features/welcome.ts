@@ -812,6 +812,8 @@ async function welcomeSetAsset(
 			Bucket: R2_BUCKET_CDN,
 			Key: welcomeAssetRoute(interaction.guild_id, hashedBuffer),
 			Body: buffer,
+			ContentDisposition: "inline",
+			ContentType: gif ? "image/gif" : "image/webp",
 		}),
 	);
 
