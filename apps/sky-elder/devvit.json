@@ -36,7 +36,7 @@
 			"domains": ["discord.com", "canary.discord.com", "ptb.discord.com"]
 		},
 		"reddit": {
-			"scope": "moderator"
+			"scope": "user"
 		},
 		"redis": true
 	},
