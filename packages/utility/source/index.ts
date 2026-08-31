@@ -103,6 +103,7 @@ export {
 	RADIANCE_EVENTS,
 } from "./events/miscellaneous.js";
 export {
+	FRIENDSHIP_ACTION_TYPE_VALUES,
 	FriendshipActionType,
 	type FriendshipActionTypes,
 	isFriendshipActionType,

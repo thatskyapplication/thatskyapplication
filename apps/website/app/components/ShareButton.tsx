@@ -4,6 +4,7 @@ import { Check, Share2, TriangleAlert } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActionButton } from "~/components/ActionButton.js";
+import { writeToClipboard } from "~/utility/functions.js";
 
 type ShareStatus = "copied" | "error" | "idle" | "pending";
 
@@ -78,11 +79,7 @@ function ShareButtonImplementation({
 		}
 
 		try {
-			if (!navigator.clipboard) {
-				throw new Error("Clipboard API is unavailable.");
-			}
-
-			await navigator.clipboard.writeText(absoluteURL);
+			await writeToClipboard(absoluteURL);
 			setStatus("copied");
 		} catch (error) {
 			captureException(error);

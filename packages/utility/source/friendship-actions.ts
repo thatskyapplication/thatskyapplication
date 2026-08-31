@@ -6,7 +6,7 @@ export const FriendshipActionType = {
 	Krill: 4,
 } as const satisfies Readonly<Record<string, number>>;
 
-const FRIENDSHIP_ACTION_TYPE_VALUES = Object.values(FriendshipActionType);
+export const FRIENDSHIP_ACTION_TYPE_VALUES = Object.values(FriendshipActionType);
 
 export type FriendshipActionTypes =
 	(typeof FriendshipActionType)[keyof typeof FriendshipActionType];

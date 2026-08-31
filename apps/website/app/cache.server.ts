@@ -1,5 +1,5 @@
 import { setInterval } from "node:timers";
-import type { RESTGetAPICurrentUserGuildsResult } from "@discordjs/core/http-only";
+import type { APIUser, RESTGetAPICurrentUserGuildsResult } from "@discordjs/core/http-only";
 
 interface CacheEntry<T> {
 	data: T;
@@ -51,3 +51,4 @@ class BaseCache<Data> {
 }
 
 export const guildCache = new BaseCache<RESTGetAPICurrentUserGuildsResult>();
+export const userCache = new BaseCache<{ user: APIUser | null }>();

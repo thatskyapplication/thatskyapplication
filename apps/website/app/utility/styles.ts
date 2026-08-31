@@ -30,6 +30,25 @@ export const DIALOGUE_POPUP_CLASS =
 export const DIALOGUE_TITLE_CLASS =
 	"my-0 text-lg font-semibold text-gray-900 dark:text-gray-100" as const;
 
+export const SKELETON_CLASS = "bg-current/25 motion-safe:animate-pulse" as const;
+
+export const SECTION_CARD_CLASS =
+	"flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900" as const;
+
+export const FIELD_ERROR_CLASS = "my-0 text-sm text-red-600 dark:text-red-400" as const;
+
+export const SECTION_HEADING_CLASS =
+	"my-0 text-lg font-medium text-gray-900 dark:text-gray-100" as const;
+
+export const SUBSECTION_HEADING_CLASS =
+	"my-0 text-base font-medium text-gray-900 dark:text-gray-100" as const;
+
+export const FORM_ERROR_BANNER_CLASS =
+	"rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-300" as const;
+
+export const SUCCESS_BANNER_CLASS =
+	"flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800 dark:border-green-700 dark:bg-green-900/20 dark:text-green-200" as const;
+
 export const WARNING_BANNER_CLASS =
 	"rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800 dark:bg-amber-950/40" as const;
 

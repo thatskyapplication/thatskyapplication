@@ -2,27 +2,23 @@ import type { Snowflake } from "discord-api-types/globals";
 import { isAnimatedHash } from "./assets.js";
 import { FriendshipActionType, type FriendshipActionTypes } from "./friendship-actions.js";
 
+const FriendshipActionTypeToDirectory = {
+	[FriendshipActionType.HighFive]: "high_fives",
+	[FriendshipActionType.Hug]: "hugs",
+	[FriendshipActionType.HairTousle]: "hair_tousles",
+	[FriendshipActionType.PlayFight]: "play_fights",
+	[FriendshipActionType.Krill]: "krills",
+} as const satisfies Readonly<Record<FriendshipActionTypes, string>>;
+
 export class CDN {
 	public constructor(private readonly cdnURL: string) {}
 
-	public friendshipActionHighFiveURL(id: number) {
-		return `${this.cdnURL}/high_fives/${id}.gif` as const;
+	public friendshipActionRoute(type: FriendshipActionTypes, id: number) {
+		return `${FriendshipActionTypeToDirectory[type]}/${id}.gif` as const;
 	}
 
-	public friendshipActionHugURL(id: number) {
-		return `${this.cdnURL}/hugs/${id}.gif` as const;
-	}
-
-	public friendshipActionHairTousleURL(id: number) {
-		return `${this.cdnURL}/hair_tousles/${id}.gif` as const;
-	}
-
-	public friendshipActionPlayFightURL(id: number) {
-		return `${this.cdnURL}/play_fights/${id}.gif` as const;
-	}
-
-	public friendshipActionKrillURL(id: number) {
-		return `${this.cdnURL}/krills/${id}.gif` as const;
+	public friendshipActionURL(type: FriendshipActionTypes, id: number) {
+		return `${this.cdnURL}/${this.friendshipActionRoute(type, id)}` as const;
 	}
 
 	public skyProfileBannerRoute(userId: Snowflake, hash: string) {
@@ -42,10 +38,15 @@ export class CDN {
 	}
 
 	public readonly FriendshipActionTypeToURL = {
-		[FriendshipActionType.HighFive]: (id: number) => this.friendshipActionHighFiveURL(id),
-		[FriendshipActionType.Hug]: (id: number) => this.friendshipActionHugURL(id),
-		[FriendshipActionType.HairTousle]: (id: number) => this.friendshipActionHairTousleURL(id),
-		[FriendshipActionType.PlayFight]: (id: number) => this.friendshipActionPlayFightURL(id),
-		[FriendshipActionType.Krill]: (id: number) => this.friendshipActionKrillURL(id),
+		[FriendshipActionType.HighFive]: (id: number) =>
+			this.friendshipActionURL(FriendshipActionType.HighFive, id),
+		[FriendshipActionType.Hug]: (id: number) =>
+			this.friendshipActionURL(FriendshipActionType.Hug, id),
+		[FriendshipActionType.HairTousle]: (id: number) =>
+			this.friendshipActionURL(FriendshipActionType.HairTousle, id),
+		[FriendshipActionType.PlayFight]: (id: number) =>
+			this.friendshipActionURL(FriendshipActionType.PlayFight, id),
+		[FriendshipActionType.Krill]: (id: number) =>
+			this.friendshipActionURL(FriendshipActionType.Krill, id),
 	} as const satisfies Readonly<Record<FriendshipActionTypes, (id: number) => string>>;
 }
