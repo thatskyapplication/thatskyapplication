@@ -1,5 +1,5 @@
 import { Buffer } from "node:buffer";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import type { Snowflake } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { ArrowLeft, TriangleAlert } from "lucide-react";
@@ -45,6 +45,24 @@ const REFERENCE_REGEX = new RegExp(
 );
 
 const cdn = new CDN(CDN_URL);
+
+function parseFriendshipActionReference(formData: FormData) {
+	const rawId = formData.get("id");
+	const rawType = formData.get("type");
+	const id = typeof rawId === "string" ? Number.parseInt(rawId, 10) : Number.NaN;
+	const type = typeof rawType === "string" ? Number.parseInt(rawType, 10) : Number.NaN;
+
+	if (
+		!Number.isSafeInteger(id) ||
+		id <= 0 ||
+		id > MAXIMUM_FRIENDSHIP_ACTION_ID ||
+		!isFriendshipActionType(type)
+	) {
+		return null;
+	}
+
+	return { id, type };
+}
 
 function parseUserIds(value: string) {
 	const lines = value
@@ -199,27 +217,18 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	const intent = formData.get("intent");
 
 	if (intent === "skip") {
-		const rawId = formData.get("id");
-		const rawType = formData.get("type");
+		const reference = parseFriendshipActionReference(formData);
 		const rawSkip = formData.get("skip");
-		const id = typeof rawId === "string" ? Number.parseInt(rawId, 10) : Number.NaN;
-		const type = typeof rawType === "string" ? Number.parseInt(rawType, 10) : Number.NaN;
 
-		if (
-			!Number.isSafeInteger(id) ||
-			id <= 0 ||
-			id > MAXIMUM_FRIENDSHIP_ACTION_ID ||
-			!isFriendshipActionType(type) ||
-			(rawSkip !== "true" && rawSkip !== "false")
-		) {
+		if (!reference || (rawSkip !== "true" && rawSkip !== "false")) {
 			return data({ error: "Invalid request.", intent: "skip", ok: false } as const);
 		}
 
 		const result = await database
 			.updateTable("friendship_actions")
 			.set({ skip: rawSkip === "true" })
-			.where("id", "=", id)
-			.where("type", "=", type)
+			.where("id", "=", reference.id)
+			.where("type", "=", reference.type)
 			.executeTakeFirst();
 
 		if (result.numUpdatedRows === 0n) {
@@ -231,6 +240,41 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 		}
 
 		return data({ intent: "skip", ok: true } as const);
+	}
+
+	if (intent === "delete") {
+		const reference = parseFriendshipActionReference(formData);
+
+		if (!reference) {
+			return data({ error: "Invalid request.", intent: "delete", ok: false } as const);
+		}
+
+		const result = await database
+			.deleteFrom("friendship_actions")
+			.where("id", "=", reference.id)
+			.where("type", "=", reference.type)
+			.executeTakeFirst();
+
+		if (result.numDeletedRows === 0n) {
+			return data({
+				error: "That friendship action no longer exists.",
+				intent: "delete",
+				ok: false,
+			} as const);
+		}
+
+		try {
+			await S3Client.send(
+				new DeleteObjectCommand({
+					Bucket: CDN_BUCKET,
+					Key: cdn.friendshipActionRoute(reference.type, reference.id),
+				}),
+			);
+		} catch (error) {
+			pino.error(error, "Failed to delete a friendship action asset.");
+		}
+
+		return data({ intent: "delete", ok: true } as const);
 	}
 
 	if (intent !== "upload") {

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useFetcher } from "react-router";
 import type { FriendshipActionTypes } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink.js";
+import { FriendshipActionDeleteButton } from "~/components/friendship-actions/FriendshipActionDeleteButton.js";
 import {
 	type FriendshipActionUser,
 	FriendshipActionUserChip,
@@ -83,18 +84,21 @@ export function FriendshipActionCard({ friendshipAction }: { friendshipAction: F
 					<span className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
 						{name}
 					</span>
-					<Tooltip content={squareLabel}>
-						<span
-							aria-label={squareLabel}
-							className={clsx(
-								"inline-flex shrink-0",
-								square ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400",
-							)}
-							role="img"
-						>
-							<Square aria-hidden="true" className="h-3.5 w-3.5 fill-current" />
-						</span>
-					</Tooltip>
+					<div className="flex shrink-0 items-center gap-2">
+						<Tooltip content={squareLabel}>
+							<span
+								aria-label={squareLabel}
+								className={clsx(
+									"inline-flex",
+									square ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400",
+								)}
+								role="img"
+							>
+								<Square aria-hidden="true" className="h-3.5 w-3.5 fill-current" />
+							</span>
+						</Tooltip>
+						<FriendshipActionDeleteButton id={id} name={name} type={type} />
+					</div>
 				</div>
 
 				<div className="flex flex-wrap gap-1.5">
