@@ -136,7 +136,7 @@ export function InfographicPreview({
 					<Dialog.Backdrop className="fixed inset-0 z-50 bg-gray-950/70 backdrop-blur-sm" />
 					<Dialog.Popup
 						aria-label={title}
-						className="fixed top-1/2 left-1/2 z-50 flex h-[calc(100vh_-_2rem)] w-[calc(100vw_-_2rem)] max-w-5xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl sm:h-[calc(100vh_-_3rem)] dark:border-gray-700 dark:bg-gray-900"
+						className="fixed top-1/2 left-1/2 z-50 flex h-[calc(100vh-2rem)] w-[calc(100vw-2rem)] max-w-5xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl sm:h-[calc(100vh-3rem)] dark:border-gray-700 dark:bg-gray-900"
 						initialFocus={modalCloseButtonRef}
 					>
 						<InfographicPreviewContent
@@ -155,7 +155,7 @@ export function InfographicPreview({
 	return (
 		<aside
 			aria-label={title}
-			className="sticky top-[calc(var(--site-top-bar-height,0px)_+_1rem)] hidden max-h-[calc(100vh_-_var(--site-top-bar-height,0px)_-_2rem)] w-[min(42vw,40rem)] shrink-0 flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl lg:flex dark:border-gray-700 dark:bg-gray-900"
+			className="sticky top-[calc(var(--site-top-bar-height,0px)+1rem)] hidden max-h-[calc(100vh-var(--site-top-bar-height,0px)-2rem)] w-[min(42vw,40rem)] shrink-0 flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl lg:flex dark:border-gray-700 dark:bg-gray-900"
 		>
 			<InfographicPreviewContent
 				acknowledgement={acknowledgement}
