@@ -836,6 +836,13 @@ const EXPECTED_ROTATIONS = [
 		date: skyDate(2026, 8, 31),
 		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
 	},
+	{
+		date: skyDate(2026, 9, 1),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+		],
+	},
 ] as const;
 
 test("Treasure candles rotations.", async (t) => {
