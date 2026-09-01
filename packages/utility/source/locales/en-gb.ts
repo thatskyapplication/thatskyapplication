@@ -3473,6 +3473,7 @@ export default {
 			random: "Random",
 			me: "Me",
 			report: "Report",
+			"create-sky-profile": "Create Sky profile",
 			"country-unspecified": "Unspecified",
 			"search-none": "No Sky profiles.",
 			"unknown-country": "Please select a country!",
@@ -3484,6 +3485,7 @@ export default {
 				"You do not have a Sky profile yet. Build one!\nSky profiles show up on {{url}} too!",
 			"edit-placeholder": "What do you want to edit?",
 			"no-sky-profile-application": "Do applications have Sky profiles? Hm. Who knows?",
+			"no-sky-profile-title": "No Sky profile yet",
 			"no-sky-profile-invoker": "You do not have a Sky profile! Why not create one?",
 			"no-sky-profile-other":
 				"{{user}} does not have a Sky profile! Why not ask them to create one?",

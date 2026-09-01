@@ -6,6 +6,7 @@ import {
 	Globe,
 	MapPinIcon,
 	Trophy,
+	UserPlus,
 	Users,
 } from "lucide-react";
 import type { ReactNode } from "react";
@@ -16,6 +17,7 @@ import {
 	Link,
 	type ShouldRevalidateFunctionArgs,
 	useLocation,
+	useRouteLoaderData,
 } from "react-router";
 import {
 	CDN,
@@ -58,6 +60,7 @@ import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session";
 import pino from "~/pino.js";
+import type { loader as rootLoader } from "~/root";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
 import { MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { snapshotSkyProfileReportAssets } from "~/utility/sky-profile-reports.server.js";
@@ -66,6 +69,12 @@ import type { Route } from "./+types/sky-profiles.$userId.js";
 const BADGES_CLASS_NAME =
 	"inline-flex items-center gap-2 px-3 py-1 bg-linear-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-700 rounded-full text-sm font-medium text-purple-800 dark:text-purple-200 shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 dark:focus-visible:outline-purple-300" as const;
 
+const NOT_FOUND_PRIMARY_ACTION_CLASS_NAME =
+	"inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700" as const;
+
+const NOT_FOUND_SECONDARY_ACTION_CLASS_NAME =
+	"inline-flex items-center justify-center gap-2 rounded-lg bg-gray-200 px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600" as const;
+
 interface RecognitionBadgeData {
 	description: string;
 	href?: string;
@@ -73,10 +82,41 @@ interface RecognitionBadgeData {
 	label: string;
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+export function ErrorBoundary({ error, params }: Route.ErrorBoundaryProps) {
 	const { t } = useTranslation();
+	const discordUser = useRouteLoaderData<typeof rootLoader>("root")?.user ?? null;
 
 	if (isRouteErrorResponse(error) && error.status === 404) {
+		if (discordUser?.id === params.userId) {
+			return (
+				<CentredSitePage>
+					<div className="max-w-lg text-center">
+						<div className="mb-8">
+							<div className="mb-6 inline-flex h-24 w-24 items-center justify-center rounded-full border-4 border-blue-200 bg-linear-to-br from-blue-100 to-purple-100 dark:border-blue-800 dark:from-blue-900/40 dark:to-purple-900/40">
+								<UserPlus className="h-12 w-12 text-blue-500 dark:text-blue-300" />
+							</div>
+							<h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-100">
+								{t("sky-profile.no-sky-profile-title", { ns: "features" })}
+							</h1>
+							<p className="mb-2 text-lg text-gray-600 dark:text-gray-300">
+								{t("sky-profile.no-sky-profile-invoker", { ns: "features" })}
+							</p>
+						</div>
+						<div className="flex flex-col justify-center gap-3 sm:flex-row">
+							<Link className={NOT_FOUND_PRIMARY_ACTION_CLASS_NAME} to="/me/sky-profile">
+								<Edit className="h-5 w-5" />
+								{t("sky-profile.create-sky-profile", { ns: "features" })}
+							</Link>
+							<Link className={NOT_FOUND_SECONDARY_ACTION_CLASS_NAME} to="/sky-profiles">
+								<ChevronLeftIcon className="h-5 w-5" />
+								{t("sky-profile.name-plural", { ns: "features" })}
+							</Link>
+						</div>
+					</div>
+				</CentredSitePage>
+			);
+		}
+
 		return (
 			<CentredSitePage>
 				<div className="max-w-lg text-center">
@@ -93,17 +133,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 					</div>
 					<div className="space-y-4">
 						<div className="flex flex-col justify-center gap-3 sm:flex-row">
-							<Link
-								className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700"
-								to="/sky-profiles"
-							>
+							<Link className={NOT_FOUND_PRIMARY_ACTION_CLASS_NAME} to="/sky-profiles">
 								<ChevronLeftIcon className="h-5 w-5" />
 								{t("sky-profile.name-plural", { ns: "features" })}
 							</Link>
-							<Link
-								className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-200 px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600"
-								to="/sky-profiles/random"
-							>
+							<Link className={NOT_FOUND_SECONDARY_ACTION_CLASS_NAME} to="/sky-profiles/random">
 								<EmojiIcon
 									className="h-5 w-5"
 									emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
