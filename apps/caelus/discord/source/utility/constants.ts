@@ -111,6 +111,4 @@ export const NOTIFICATION_CHANNEL_TYPES = [
 
 // Sky profiles.
 export const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;
-export const SKY_PROFILE_REPORT_MAXIMUM_LENGTH = 1000 as const;
-export const SKY_PROFILE_REPORT_MINIMUM_LENGTH = 10 as const;
 export const SKY_PROFILE_UNKNOWN_NAME = "Anonymous" as const;

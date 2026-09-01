@@ -33,6 +33,8 @@ export function skyProfileReportRoute(
 	return `reports/${reportId}/${asset}.${isAnimatedHash(hash) ? "gif" : "webp"}` as const;
 }
 
+export const SKY_PROFILE_REPORT_MAXIMUM_LENGTH = 1000 as const;
+export const SKY_PROFILE_REPORT_MINIMUM_LENGTH = 10 as const;
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 export const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 export const SKY_PROFILE_MINIMUM_HANGOUT_LENGTH = 2 as const;

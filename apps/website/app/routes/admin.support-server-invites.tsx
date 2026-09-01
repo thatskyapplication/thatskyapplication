@@ -27,7 +27,13 @@ import { useIsSaving } from "~/hooks/use-is-saving.js";
 import pino from "~/pino.js";
 import { requireAdminAccess } from "~/utility/functions.server.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
-import { textFieldClass, WARNING_BANNER_CLASS } from "~/utility/styles.js";
+import {
+	characterCountClass,
+	FIELD_ERROR_CLASS,
+	FIELD_FOOTER_CLASS,
+	textFieldClass,
+	WARNING_BANNER_CLASS,
+} from "~/utility/styles.js";
 import { dateTimeFormatter } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/admin.support-server-invites.js";
@@ -446,6 +452,8 @@ export default function AdminSupportServerInvites({
 	const expiredHeadingRef = useRef<HTMLHeadingElement>(null);
 	const previousExpiredCount = useRef(expiredInvites.length);
 	const [nameValue, setNameValue] = useState("");
+	const nameLength = nameValue.trim().length;
+	const nameOutOfRange = nameLength === 0 || nameLength > MAXIMUM_INVITE_NAME_LENGTH;
 	const [channelValue, setChannelValue] = useState(defaultChannelId);
 	const [maximumAgeValue, setMaximumAgeValue] = useState<string>(MAXIMUM_AGE_OPTIONS[0].value);
 	const [maximumUsesValue, setMaximumUsesValue] = useState<string>(MAXIMUM_USES_OPTIONS[0].value);
@@ -570,11 +578,18 @@ export default function AdminSupportServerInvites({
 											value={nameValue}
 											{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 										/>
-										{errors.name ? (
-											<p className="my-0 text-sm text-red-600 dark:text-red-400" id="name-error">
-												{errors.name}
-											</p>
-										) : null}
+										<div className={FIELD_FOOTER_CLASS}>
+											{errors.name ? (
+												<p className={FIELD_ERROR_CLASS} id="name-error">
+													{errors.name}
+												</p>
+											) : (
+												<span />
+											)}
+											<span className={characterCountClass(nameValue.length > 0 && nameOutOfRange)}>
+												{nameLength}/{MAXIMUM_INVITE_NAME_LENGTH}
+											</span>
+										</div>
 									</div>
 
 									<div className="flex flex-col gap-2">
@@ -647,7 +662,7 @@ export default function AdminSupportServerInvites({
 								<div className="flex flex-col gap-2.5">
 									<ActionButton
 										className="sm:w-fit"
-										disabled={isCreating || nameValue.trim().length === 0 || !channelValue}
+										disabled={isCreating || nameOutOfRange || !channelValue}
 										type="submit"
 										variant="primary"
 									>

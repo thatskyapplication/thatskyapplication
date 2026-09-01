@@ -2,7 +2,7 @@ import { GetObjectCommand, NoSuchKey } from "@aws-sdk/client-s3";
 import { isSkyProfileReportAsset, skyProfileReportRoute } from "@thatskyapplication/utility";
 import { R2_BUCKET_REPORTS } from "~/config.server.js";
 import database from "~/database.server.js";
-import S3ReportsClient from "~/s3-reports-client.server.js";
+import S3Client from "~/s3-client.server.js";
 import { requireAdminAccess } from "~/utility/functions.server.js";
 import type { Route } from "./+types/admin.sky-profile-reports_.$reportId.$asset.js";
 
@@ -29,7 +29,7 @@ export const loader = async ({ context, params, request, url }: Route.LoaderArgs
 		throw new Response(null, { status: 404 });
 	}
 
-	const object = await S3ReportsClient.send(
+	const object = await S3Client.send(
 		new GetObjectCommand({
 			Bucket: R2_BUCKET_REPORTS,
 			Key: skyProfileReportRoute(id, asset, hash),

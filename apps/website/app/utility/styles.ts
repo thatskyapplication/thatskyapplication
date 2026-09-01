@@ -37,6 +37,8 @@ export const SECTION_CARD_CLASS =
 
 export const FIELD_ERROR_CLASS = "my-0 text-sm text-red-600 dark:text-red-400" as const;
 
+export const FIELD_FOOTER_CLASS = "flex items-start justify-between gap-3" as const;
+
 export const SECTION_HEADING_CLASS =
 	"my-0 text-lg font-medium text-gray-900 dark:text-gray-100" as const;
 
@@ -62,5 +64,12 @@ export function textFieldClass(hasError: boolean, size: keyof typeof TEXT_FIELD_
 		TEXT_FIELD_CLASS,
 		TEXT_FIELD_SIZE_CLASSES[size],
 		hasError ? TEXT_FIELD_ERROR_CLASS : TEXT_FIELD_DEFAULT_CLASS,
+	);
+}
+
+export function characterCountClass(outOfRange: boolean) {
+	return clsx(
+		"shrink-0 text-xs tabular-nums",
+		outOfRange ? "text-red-600 dark:text-red-400" : "text-gray-600 dark:text-gray-400",
 	);
 }

@@ -1,4 +1,4 @@
-import { t } from "i18next";
+import type { TFunction } from "i18next";
 import {
 	isSpiritId,
 	isValidImageAsset,
@@ -100,7 +100,7 @@ function booleanOrNull(value: unknown) {
 
 export function parseSkyProfileMultipart(
 	formData: FormData,
-	locale: string,
+	t: TFunction,
 ): ParseSkyProfileMultipartResult {
 	const errors: SkyProfileActionErrors = {};
 	const rawIcon = formData.get("icon");
@@ -111,7 +111,6 @@ export function parseSkyProfileMultipart(
 
 	if (hasNewIcon && !isValidImageAsset(rawIcon)) {
 		errors.icon = t("asset-image-invalid", {
-			lng: locale,
 			ns: "general",
 			size: MAXIMUM_ASSET_SIZE / 1_000_000,
 		});
@@ -119,7 +118,6 @@ export function parseSkyProfileMultipart(
 
 	if (hasNewBanner && !isValidImageAsset(rawBanner)) {
 		errors.banner = t("asset-image-invalid", {
-			lng: locale,
 			ns: "general",
 			size: MAXIMUM_ASSET_SIZE / 1_000_000,
 		});
@@ -163,7 +161,6 @@ export function parseSkyProfileMultipart(
 
 	if (spirit === null) {
 		errors.spirit = t("spirits.not-encountered-spirit", {
-			lng: locale,
 			ns: "features",
 		});
 	}
@@ -174,14 +171,12 @@ export function parseSkyProfileMultipart(
 
 	if (validPersonality === undefined) {
 		errors.personality = t("sky-profile.edit-personality-invalid", {
-			lng: locale,
 			ns: "features",
 		});
 	}
 
 	if (validCountry === null) {
 		errors.country = t("sky-profile.unknown-country", {
-			lng: locale,
 			ns: "features",
 		});
 	}
@@ -192,21 +187,18 @@ export function parseSkyProfileMultipart(
 
 	if (validWingedLight === undefined) {
 		errors.wingedLight = t("sky-profile.edit-winged-light-invalid", {
-			lng: locale,
 			ns: "features",
 		});
 	}
 
 	if (catalogueProgression === undefined) {
 		errors.catalogueProgression = t("sky-profile.edit-catalogue-progression-invalid", {
-			lng: locale,
 			ns: "features",
 		});
 	}
 
 	if (guessRank === undefined) {
 		errors.guessRank = t("sky-profile.edit-guess-rank-invalid", {
-			lng: locale,
 			ns: "features",
 		});
 	}
@@ -258,7 +250,6 @@ export function parseSkyProfileMultipart(
 
 		if (!(/^\d+$/.test(profile.spirit) && Number.isInteger(spiritId) && isSpiritId(spiritId))) {
 			errors.spirit = t("spirits.not-encountered-spirit", {
-				lng: locale,
 				ns: "features",
 			});
 		}

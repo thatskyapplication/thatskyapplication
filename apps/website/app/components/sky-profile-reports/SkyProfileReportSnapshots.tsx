@@ -18,6 +18,7 @@ export function SkyProfileReportSnapshots({
 	snapshotExpired: boolean;
 }) {
 	const [previewing, setPreviewing] = useState<Snapshot | null>(null);
+	const [unavailableSnapshots, setUnavailableSnapshots] = useState<Snapshot[]>([]);
 	const snapshots: Snapshot[] = [];
 
 	if (hasIcon) {
@@ -46,23 +47,43 @@ export function SkyProfileReportSnapshots({
 
 	return (
 		<div className="flex flex-wrap gap-2">
-			{snapshots.map((snapshot) => (
-				<button
-					aria-label={`Open the ${SNAPSHOT_LABELS[snapshot].toLowerCase()} snapshot.`}
-					className="flex cursor-pointer flex-col items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 transition-shadow hover:ring-2 hover:ring-blue-500 hover:ring-inset focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset dark:border-gray-600 dark:bg-gray-800 dark:hover:ring-blue-400 dark:focus-visible:ring-blue-400"
-					key={snapshot}
-					onClick={() => setPreviewing(snapshot)}
-					type="button"
-				>
+			{snapshots.map((snapshot) =>
+				unavailableSnapshots.includes(snapshot) ? (
 					<div
-						className="h-16 w-16 bg-contain bg-center bg-no-repeat"
-						style={{ backgroundImage: `url(/admin/sky-profile-reports/${id}/${snapshot})` }}
-					/>
-					<span className="text-[11px] text-gray-600 dark:text-gray-400">
-						{SNAPSHOT_LABELS[snapshot]}
-					</span>
-				</button>
-			))}
+						className="flex flex-col items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 dark:border-gray-600 dark:bg-gray-800"
+						key={snapshot}
+					>
+						<span className="flex h-16 w-16 items-center justify-center text-center text-[10px] leading-tight break-words text-gray-600 dark:text-gray-400">
+							Unavailable
+						</span>
+						<span className="text-[11px] text-gray-600 dark:text-gray-400">
+							{SNAPSHOT_LABELS[snapshot]}
+						</span>
+					</div>
+				) : (
+					<button
+						aria-label={`Open the ${SNAPSHOT_LABELS[snapshot].toLowerCase()} snapshot.`}
+						className="flex cursor-pointer flex-col items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 transition-shadow hover:ring-2 hover:ring-blue-500 hover:ring-inset focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset dark:border-gray-600 dark:bg-gray-800 dark:hover:ring-blue-400 dark:focus-visible:ring-blue-400"
+						key={snapshot}
+						onClick={() => setPreviewing(snapshot)}
+						type="button"
+					>
+						<img
+							alt=""
+							className="h-16 w-16 object-contain"
+							onError={() =>
+								setUnavailableSnapshots((current) =>
+									current.includes(snapshot) ? current : [...current, snapshot],
+								)
+							}
+							src={`/admin/sky-profile-reports/${id}/${snapshot}`}
+						/>
+						<span className="text-[11px] text-gray-600 dark:text-gray-400">
+							{SNAPSHOT_LABELS[snapshot]}
+						</span>
+					</button>
+				),
+			)}
 
 			{previewing && (
 				<InfographicPreview

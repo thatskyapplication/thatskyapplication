@@ -70,6 +70,8 @@ import {
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	type SkyProfileData,
 	type SkyProfileReportAsset,
+	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
+	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	skyProfileReportRoute,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
@@ -100,8 +102,6 @@ import {
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
-	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
-	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
 	SKY_PROFILES_URL,
 } from "../../utility/constants.js";
@@ -1372,7 +1372,7 @@ export async function skyProfileReport(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: t("sky-profile.report-description", { lng: locale, ns: "features" }),
+						content: `${t("sky-profile.report-description", { lng: locale, ns: "features" })}\n\n${t("sky-profile.report-confirmation", { lng: locale, ns: "features" })}`,
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -1471,8 +1471,27 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 			reported_user_id: data.user_id,
 			reporter_user_id: invoker.id,
 		})
+		.onConflict((onConflict) =>
+			onConflict
+				.columns(["reporter_user_id", "reported_user_id"])
+				.where("actioned_at", "is", null)
+				.doNothing(),
+		)
 		.returning("id")
-		.executeTakeFirstOrThrow();
+		.executeTakeFirst();
+
+	if (!report) {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: t("sky-profile.report-duplicate", { lng: locale, ns: "features" }),
+				},
+			],
+		});
+
+		return;
+	}
 
 	void snapshotSkyProfileReportAssets(report.id, data);
 
@@ -1511,12 +1530,6 @@ async function snapshotSkyProfileReportAsset(
 		);
 	} catch (error) {
 		pino.error(error, `Failed to snapshot the ${asset} of Sky profile report ${reportId}.`);
-
-		await database
-			.updateTable("sky_profile_reports")
-			.set(asset === "icon" ? { icon: null } : { banner: null })
-			.where("id", "=", reportId)
-			.execute();
 	}
 }
 

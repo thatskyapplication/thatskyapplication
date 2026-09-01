@@ -11,6 +11,7 @@ import {
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
+	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	SkyProfileEditType,
@@ -33,13 +34,19 @@ import { saveSkyProfileFromWebsite } from "~/features/sky-profile/sky-profile-sa
 import { useCDN } from "~/hooks/use-cdn-url.js";
 import { selectableOptionLabelClass, useIsSaving } from "~/hooks/use-is-saving.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
-import { getLocale } from "~/middleware/i18next.js";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { formatCountryLabel } from "~/utility/country.js";
 import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
-import { SELECTABLE_OPTION_CARD_CLASS, textFieldClass } from "~/utility/styles.js";
+import {
+	characterCountClass,
+	FIELD_ERROR_CLASS,
+	FIELD_FOOTER_CLASS,
+	SELECTABLE_OPTION_CARD_CLASS,
+	textFieldClass,
+} from "~/utility/styles.js";
 import type { Route } from "./+types/me.sky-profile.js";
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
@@ -55,8 +62,8 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 
 export const action = async ({ request, context, url }: Route.ActionArgs) => {
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
-	const locale = getLocale(context);
-	const parsed = parseSkyProfileMultipart(await request.formData(), locale);
+	const t = getInstance(context).getFixedT(getLocale(context));
+	const parsed = parseSkyProfileMultipart(await request.formData(), t);
 
 	if (!parsed.ok) {
 		return data({ ok: false, errors: parsed.errors } as const, { status: 422 });
@@ -181,6 +188,19 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 	const descriptionError = actionData?.ok === false ? actionData.errors.description : undefined;
 	const spiritError = actionData?.ok === false ? actionData.errors.spirit : undefined;
 	const hangoutError = actionData?.ok === false ? actionData.errors.hangout : undefined;
+
+	const nameLength = nameValue.trim().length;
+	const descriptionLength = descriptionValue.trim().length;
+	const hangoutLength = hangoutValue.trim().length;
+
+	const nameOutOfRange = nameLength === 0 || nameLength > SKY_PROFILE_MAXIMUM_NAME_LENGTH;
+
+	const descriptionOutOfRange = descriptionLength > SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH;
+
+	const hangoutOutOfRange =
+		(hangoutLength > 0 && hangoutLength < SKY_PROFILE_MINIMUM_HANGOUT_LENGTH) ||
+		hangoutLength > SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH;
+
 	const personalityError = actionData?.ok === false ? actionData.errors.personality : undefined;
 	const countryError = actionData?.ok === false ? actionData.errors.country : undefined;
 	const wingedLightError = actionData?.ok === false ? actionData.errors.wingedLight : undefined;
@@ -298,21 +318,31 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								<input
 									aria-describedby={nameError ? "name-error" : undefined}
 									aria-invalid={nameError ? true : undefined}
-									className={textFieldClass(false, "medium")}
+									className={textFieldClass(Boolean(nameError), "medium")}
 									disabled={isSaving}
 									id="name"
-									maxLength={SKY_PROFILE_MAXIMUM_NAME_LENGTH}
 									onChange={(event) => setNameValue(event.currentTarget.value)}
 									required
 									type="text"
 									value={nameValue}
 									{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 								/>
-								{nameError ? (
-									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="name-error">
-										{nameError}
-									</p>
-								) : null}
+								<div className={FIELD_FOOTER_CLASS}>
+									{nameError ? (
+										<p className={FIELD_ERROR_CLASS} id="name-error">
+											{nameError}
+										</p>
+									) : (
+										<span />
+									)}
+									<span
+										className={characterCountClass(
+											nameValue !== initialProfile.name && nameOutOfRange,
+										)}
+									>
+										{nameLength}/{SKY_PROFILE_MAXIMUM_NAME_LENGTH}
+									</span>
+								</div>
 							</div>
 						</div>
 
@@ -329,20 +359,26 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								<textarea
 									aria-describedby={descriptionError ? "description-error" : undefined}
 									aria-invalid={descriptionError ? true : undefined}
-									className={textFieldClass(false, "medium")}
+									className={textFieldClass(Boolean(descriptionError), "medium")}
 									disabled={isSaving}
 									id="description"
-									maxLength={SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH}
 									onChange={(event) => setDescriptionValue(event.currentTarget.value)}
 									rows={4}
 									value={descriptionValue}
 									{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 								/>
-								{descriptionError ? (
-									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="description-error">
-										{descriptionError}
-									</p>
-								) : null}
+								<div className={FIELD_FOOTER_CLASS}>
+									{descriptionError ? (
+										<p className={FIELD_ERROR_CLASS} id="description-error">
+											{descriptionError}
+										</p>
+									) : (
+										<span />
+									)}
+									<span className={characterCountClass(descriptionOutOfRange)}>
+										{descriptionLength}/{SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH}
+									</span>
+								</div>
 							</div>
 						</div>
 
@@ -653,20 +689,27 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								<input
 									aria-describedby={hangoutError ? "hangout-error" : undefined}
 									aria-invalid={hangoutError ? true : undefined}
-									className={textFieldClass(false, "medium")}
+									className={textFieldClass(Boolean(hangoutError), "medium")}
 									disabled={isSaving}
 									id="hangout"
-									maxLength={SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH}
+									minLength={SKY_PROFILE_MINIMUM_HANGOUT_LENGTH}
 									onChange={(event) => setHangoutValue(event.currentTarget.value)}
 									type="text"
 									value={hangoutValue}
 									{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 								/>
-								{hangoutError ? (
-									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="hangout-error">
-										{hangoutError}
-									</p>
-								) : null}
+								<div className={FIELD_FOOTER_CLASS}>
+									{hangoutError ? (
+										<p className={FIELD_ERROR_CLASS} id="hangout-error">
+											{hangoutError}
+										</p>
+									) : (
+										<span />
+									)}
+									<span className={characterCountClass(hangoutOutOfRange)}>
+										{hangoutLength}/{SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH}
+									</span>
+								</div>
 							</div>
 						</div>
 

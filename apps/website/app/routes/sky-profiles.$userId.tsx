@@ -10,7 +10,13 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { isRouteErrorResponse, Link, useLocation } from "react-router";
+import {
+	data,
+	isRouteErrorResponse,
+	Link,
+	type ShouldRevalidateFunctionArgs,
+	useLocation,
+} from "react-router";
 import {
 	CDN,
 	CountryToEmoji,
@@ -30,6 +36,8 @@ import {
 	SkyProfileWingedLightType,
 	WEBSITE_URL,
 	SkyProfileEditTypeToLocaleKey,
+	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
+	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 } from "@thatskyapplication/utility";
 import { ActionLink } from "~/components/ActionButton";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
@@ -37,6 +45,7 @@ import { CentredSitePage, SitePage } from "~/components/PageLayout";
 import { PlatformBadges } from "~/components/PlatformBadges.js";
 import { SeasonEmojiBadges } from "~/components/SeasonEmojiBadges.js";
 import { ShareButton } from "~/components/ShareButton.js";
+import { SkyProfileReportDialogue } from "~/components/sky-profile/SkyProfileReportDialogue.js";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
@@ -46,9 +55,12 @@ import {
 } from "~/features/sky-profile/sky-profile-public.server.js";
 import { useCDN } from "~/hooks/use-cdn-url.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session";
+import pino from "~/pino.js";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
 import { MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
+import { snapshotSkyProfileReportAssets } from "~/utility/sky-profile-reports.server.js";
 import type { Route } from "./+types/sky-profiles.$userId.js";
 
 const BADGES_CLASS_NAME =
@@ -211,9 +223,114 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
 		catalogueProgression,
 		data,
 		guessRank,
+		canReport: discordUser !== null && discordUser.id !== data.user_id,
 		isOwner: discordUser?.id === data.user_id,
 		maximumWingedLight,
 	};
+};
+
+export function shouldRevalidate({
+	defaultShouldRevalidate,
+	formMethod,
+}: ShouldRevalidateFunctionArgs) {
+	return formMethod === undefined ? defaultShouldRevalidate : false;
+}
+
+export const action = async ({ context, params, request }: Route.ActionArgs) => {
+	const session = getRequestSession(context);
+	const discordUser = session.get("discord_user");
+
+	if (!discordUser) {
+		return data({ error: "You must be logged in to report a Sky profile.", ok: false } as const, {
+			status: 401,
+		});
+	}
+
+	const { userId } = params;
+
+	if (!userId) {
+		return data({ error: "Invalid request.", ok: false } as const, { status: 422 });
+	}
+
+	if (userId === discordUser.id) {
+		return data({ error: "You may not report your own Sky profile.", ok: false } as const, {
+			status: 422,
+		});
+	}
+
+	const formData = await request.formData();
+	const rawReason = formData.get("reason");
+	const reason = typeof rawReason === "string" ? rawReason.trim() : "";
+
+	if (reason.length < SKY_PROFILE_REPORT_MINIMUM_LENGTH) {
+		return data(
+			{
+				error: `The reason must be at least ${SKY_PROFILE_REPORT_MINIMUM_LENGTH} characters.`,
+				ok: false,
+			} as const,
+			{ status: 422 },
+		);
+	}
+
+	if (reason.length > SKY_PROFILE_REPORT_MAXIMUM_LENGTH) {
+		return data(
+			{
+				error: `The reason must not exceed ${SKY_PROFILE_REPORT_MAXIMUM_LENGTH} characters.`,
+				ok: false,
+			} as const,
+			{ status: 422 },
+		);
+	}
+
+	try {
+		const skyProfilePacket = await database
+			.selectFrom("sky_profiles")
+			.select(["banner", "icon", "user_id"])
+			.where("user_id", "=", userId)
+			.executeTakeFirst();
+
+		if (!skyProfilePacket) {
+			return data({ error: "This Sky profile no longer exists.", ok: false } as const, {
+				status: 404,
+			});
+		}
+
+		const report = await database
+			.insertInto("sky_profile_reports")
+			.values({
+				banner: skyProfilePacket.banner,
+				icon: skyProfilePacket.icon,
+				reason,
+				reported_user_id: skyProfilePacket.user_id,
+				reporter_user_id: discordUser.id,
+			})
+			.onConflict((onConflict) =>
+				onConflict
+					.columns(["reporter_user_id", "reported_user_id"])
+					.where("actioned_at", "is", null)
+					.doNothing(),
+			)
+			.returning("id")
+			.executeTakeFirst();
+
+		if (!report) {
+			const t = getInstance(context).getFixedT(getLocale(context));
+
+			return data(
+				{ error: t("sky-profile.report-duplicate", { ns: "features" }), ok: false } as const,
+				{ status: 409 },
+			);
+		}
+
+		void snapshotSkyProfileReportAssets(report.id, skyProfilePacket);
+		return data({ ok: true } as const);
+	} catch (error) {
+		pino.error(error, `Failed to report the Sky profile of ${userId}.`);
+
+		return data({ error: "Something went wrong. Please try again.", ok: false } as const, {
+			status: 500,
+		});
+	}
 };
 
 function RecognitionBadge({ badge }: { badge: RecognitionBadgeData }) {
@@ -287,7 +404,8 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 }
 
 export default function SkyProfile({ loaderData }: Route.ComponentProps) {
-	const { catalogueProgression, data, guessRank, isOwner, maximumWingedLight } = loaderData;
+	const { canReport, catalogueProgression, data, guessRank, isOwner, maximumWingedLight } =
+		loaderData;
 	const cdn = useCDN();
 	const location = useLocation();
 	const { i18n, t } = useTranslation();
@@ -477,6 +595,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						href={location.pathname}
 						shareTitle={data.name ?? t("sky-profile.name", { ns: "features" })}
 					/>
+					{canReport && <SkyProfileReportDialogue />}
 				</div>
 			</div>
 		</SitePage>

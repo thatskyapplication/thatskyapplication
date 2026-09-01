@@ -21,11 +21,9 @@ if (
 		process.env.CDN_URL &&
 		process.env.R2_BUCKET_CDN &&
 		process.env.R2_BUCKET_REPORTS &&
-		process.env.S3_ACCESS_KEY_ID_CDN &&
+		process.env.S3_ACCESS_KEY_ID &&
 		process.env.S3_ACCOUNT_ID &&
-		process.env.S3_SECRET_ACCESS_KEY_CDN &&
-		process.env.S3_ACCESS_KEY_ID_REPORTS &&
-		process.env.S3_SECRET_ACCESS_KEY_REPORTS
+		process.env.S3_SECRET_ACCESS_KEY
 	) ||
 	(PRODUCTION && !process.env.SENTRY_DATA_SOURCE_NAME)
 ) {
@@ -48,8 +46,6 @@ export const REDIRECT_URI_DISCORD_CROWDIN = process.env.REDIRECT_URI_DISCORD_CRO
 export const CDN_URL = process.env.CDN_URL;
 export const R2_BUCKET_CDN = process.env.R2_BUCKET_CDN;
 export const R2_BUCKET_REPORTS = process.env.R2_BUCKET_REPORTS;
-export const S3_ACCESS_KEY_ID_CDN = process.env.S3_ACCESS_KEY_ID_CDN;
+export const S3_ACCESS_KEY_ID = process.env.S3_ACCESS_KEY_ID;
 export const S3_ACCOUNT_ID = process.env.S3_ACCOUNT_ID;
-export const S3_SECRET_ACCESS_KEY_CDN = process.env.S3_SECRET_ACCESS_KEY_CDN;
-export const S3_ACCESS_KEY_ID_REPORTS = process.env.S3_ACCESS_KEY_ID_REPORTS;
-export const S3_SECRET_ACCESS_KEY_REPORTS = process.env.S3_SECRET_ACCESS_KEY_REPORTS;
+export const S3_SECRET_ACCESS_KEY = process.env.S3_SECRET_ACCESS_KEY;

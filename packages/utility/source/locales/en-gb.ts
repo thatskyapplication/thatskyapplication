@@ -3502,12 +3502,15 @@ export default {
 			"no-sky-profile-explore-likes": "Could not go to that Sky kid's Sky profile. Try browsing?",
 			"like-own-profile": "You can't like your own Sky profile!",
 			"report-description":
-				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
+				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.",
+			"report-confirmation": "Do you wish to report this Sky profile?",
 			"report-modal-title": "Report Sky profile",
 			"report-modal-label-reason-label": "Reason",
 			"report-modal-label-reason-description": "What's wrong with this Sky profile?",
 			"report-submission":
 				"This Sky profile has been reported. Thank you for keeping the community safe!",
+			"report-submitting": "Reporting…",
+			"report-duplicate": "You have already reported this Sky profile. It is awaiting review.",
 			"edit-type-label": {
 				[SkyProfileEditType.Name]: "Name",
 				[SkyProfileEditType.Description]: "Description",

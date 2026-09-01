@@ -282,6 +282,8 @@ export {
 	type SkyProfileWingedLightTypes,
 	isSkyProfileReportAsset,
 	skyProfileReportRoute,
+	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
+	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	type SkyProfileReportAsset,
 } from "./sky-profile.js";
 export {
