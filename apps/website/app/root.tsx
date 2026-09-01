@@ -28,12 +28,12 @@ import database from "~/database.server";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
 import { getRequestSession, sessionMiddleware } from "~/middleware/session";
 import {
-	APPLICATION_DESCRIPTION,
-	APPLICATION_ICON_URL,
-	APPLICATION_NAME,
 	EXCLUDE_TOP_BAR_AND_FOOTER,
 	INVITE_SUPPORT_SERVER_URL,
 	LOCALE_RESOURCES_ELEMENT_ID,
+	WEBSITE_DESCRIPTION,
+	WEBSITE_ICON_URL,
+	WEBSITE_NAME,
 } from "~/utility/constants";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
 import {
@@ -71,21 +71,18 @@ export const meta: Route.MetaFunction = ({ location }) => [
 	{ charSet: "utf-8" },
 	{ name: "viewport", content: "width=device-width, initial-scale=1" },
 	{ name: "robots", content: "index, follow" },
-	{ title: APPLICATION_NAME },
-	{ name: "description", content: APPLICATION_DESCRIPTION },
-	{
-		name: "theme-color",
-		content: location.pathname.startsWith("/caelus") ? "#a5b5f1" : "#49add8",
-	},
-	{ property: "og:title", content: APPLICATION_NAME },
-	{ property: "og:description", content: APPLICATION_DESCRIPTION },
+	{ title: WEBSITE_NAME },
+	{ name: "description", content: WEBSITE_DESCRIPTION },
+	{ name: "theme-color", content: "#49add8" },
+	{ property: "og:title", content: WEBSITE_NAME },
+	{ property: "og:description", content: WEBSITE_DESCRIPTION },
 	{ property: "og:type", content: "website" },
-	{ property: "og:site_name", content: "thatskyapplication" },
-	{ property: "og:image", content: APPLICATION_ICON_URL },
+	{ property: "og:site_name", content: WEBSITE_NAME },
+	{ property: "og:image", content: WEBSITE_ICON_URL },
 	{ property: "og:url", content: WEBSITE_URL },
 	{ name: "twitter:card", content: "summary" },
-	{ name: "twitter:title", content: APPLICATION_NAME },
-	{ name: "twitter:description", content: APPLICATION_DESCRIPTION },
+	{ name: "twitter:title", content: WEBSITE_NAME },
+	{ name: "twitter:description", content: WEBSITE_DESCRIPTION },
 	{ tagName: "link", rel: "canonical", href: String(new URL(location.pathname, WEBSITE_URL)) },
 ];
 
