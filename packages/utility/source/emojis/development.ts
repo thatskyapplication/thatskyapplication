@@ -367,6 +367,7 @@ const EVENT_EMOJIS = {
 	TournamentOfTriumph: { id: "1313869102766358528", name: "tournament_of_triumph" },
 	Moonlight: { id: "1313869106763530260", name: "moonlight" },
 	Treasure: { id: "1345892778781053009", name: "treasure" },
+	SummerCamping: { id: "1544302535643504671", name: "summer_camping" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS = {
