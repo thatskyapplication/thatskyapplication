@@ -55,7 +55,7 @@ export default function CaelusIndex() {
 						style={{ backgroundImage: `url(${APPLICATION_BADGE_PATH})` }}
 					/>
 					<h1 className="mb-3 text-4xl font-bold sm:text-5xl">{APPLICATION_NAME}</h1>
-					<p className="max-w-md text-lg text-gray-500 dark:text-gray-400">
+					<p className="my-4 max-w-md text-lg text-gray-500 dark:text-gray-400">
 						The Discord application for Sky: Children of the Light.
 					</p>
 					<div className="mt-8 flex gap-3">
@@ -83,8 +83,8 @@ export default function CaelusIndex() {
 							>
 								<div className="mt-0.5 text-gray-400 dark:text-gray-500">{link.icon}</div>
 								<div>
-									<p className="m-0 font-semibold text-gray-900 dark:text-white">{link.label}</p>
-									<p className="m-0 mt-1 text-sm text-gray-500 dark:text-gray-400">
+									<p className="font-semibold text-gray-900 dark:text-white">{link.label}</p>
+									<p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
 										{link.description}
 									</p>
 								</div>
@@ -97,8 +97,8 @@ export default function CaelusIndex() {
 							>
 								<div className="mt-0.5 text-gray-400 dark:text-gray-500">{link.icon}</div>
 								<div>
-									<p className="m-0 font-semibold text-gray-900 dark:text-white">{link.label}</p>
-									<p className="m-0 mt-1 text-sm text-gray-500 dark:text-gray-400">
+									<p className="font-semibold text-gray-900 dark:text-white">{link.label}</p>
+									<p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
 										{link.description}
 									</p>
 								</div>

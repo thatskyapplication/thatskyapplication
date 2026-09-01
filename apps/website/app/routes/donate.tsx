@@ -5,6 +5,7 @@ import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { APPLICATION_ICON_URL, DISCORD_DONATION_URL } from "~/utility/constants";
+import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/donate.js";
 
 interface DonationMethod {
@@ -70,8 +71,8 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 export default function Donate() {
 	return (
 		<SitePage>
-			<div className="container mx-auto max-w-3xl">
-				<h1>Donate</h1>
+			<div className="container mx-auto max-w-3xl space-y-4">
+				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>Donate</h1>
 				<p className="text-sm text-gray-800 dark:text-gray-200">
 					Thank you for your interest! If we've helped you in one way or another, please help us
 					maintain everything you see in front of you.{" "}
@@ -99,8 +100,8 @@ export default function Donate() {
 										{method.icon}
 									</span>
 									<div className="min-w-0">
-										<h2 className="m-0 text-lg font-semibold text-white">{method.name}</h2>
-										<p className="m-0 text-sm text-white/85">{method.description}</p>
+										<h2 className="text-lg font-semibold text-white">{method.name}</h2>
+										<p className="text-sm text-white/85">{method.description}</p>
 									</div>
 								</div>
 								<span className="shrink-0 rounded-full bg-white/20 p-2 transition duration-200 group-hover:bg-white/30">

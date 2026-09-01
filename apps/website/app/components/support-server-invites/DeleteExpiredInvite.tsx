@@ -36,7 +36,7 @@ export function DeleteExpiredInvite({
 					className={clsx(DIALOGUE_POPUP_CLASS, "w-[min(28rem,calc(100vw-2rem))] gap-3 p-5")}
 				>
 					<AlertDialog.Title className={DIALOGUE_TITLE_CLASS}>Delete "{name}"?</AlertDialog.Title>
-					<AlertDialog.Description className="my-0 text-sm text-gray-600 dark:text-gray-400">
+					<AlertDialog.Description className="text-sm text-gray-600 dark:text-gray-400">
 						This may disrupt historical preservation.
 					</AlertDialog.Description>
 					<div className="mt-1 flex justify-end gap-2">

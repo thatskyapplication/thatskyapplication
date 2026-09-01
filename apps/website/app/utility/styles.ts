@@ -28,22 +28,27 @@ export const DIALOGUE_POPUP_CLASS =
 	"fixed top-1/2 left-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900" as const;
 
 export const DIALOGUE_TITLE_CLASS =
-	"my-0 text-lg font-semibold text-gray-900 dark:text-gray-100" as const;
+	"text-lg font-semibold text-gray-900 dark:text-gray-100" as const;
 
 export const SKELETON_CLASS = "bg-current/25 motion-safe:animate-pulse" as const;
 
 export const SECTION_CARD_CLASS =
 	"flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900" as const;
 
-export const FIELD_ERROR_CLASS = "my-0 text-sm text-red-600 dark:text-red-400" as const;
+export const FIELD_ERROR_CLASS = "text-sm text-red-600 dark:text-red-400" as const;
 
 export const FIELD_FOOTER_CLASS = "flex items-start justify-between gap-3" as const;
 
+export const PAGE_TITLE_CLASS =
+	"text-2xl font-bold wrap-break-word hyphens-auto sm:text-3xl lg:text-4xl" as const;
+
+export const MAJOR_HEADING_CLASS = "text-xl font-semibold wrap-break-word sm:text-2xl" as const;
+
 export const SECTION_HEADING_CLASS =
-	"my-0 text-lg font-medium text-gray-900 dark:text-gray-100" as const;
+	"text-lg font-medium text-gray-900 dark:text-gray-100" as const;
 
 export const SUBSECTION_HEADING_CLASS =
-	"my-0 text-base font-medium text-gray-900 dark:text-gray-100" as const;
+	"text-base font-medium text-gray-900 dark:text-gray-100" as const;
 
 export const FORM_ERROR_BANNER_CLASS =
 	"rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-300" as const;

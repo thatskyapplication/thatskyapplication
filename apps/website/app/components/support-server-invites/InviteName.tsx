@@ -98,7 +98,7 @@ export function InviteName({ code, name }: { code: string; name: string }) {
 				</button>
 			</div>
 			{error && (
-				<p className="my-0 text-xs text-red-600 dark:text-red-400" id={errorId}>
+				<p className="text-xs text-red-600 dark:text-red-400" id={errorId}>
 					{error}
 				</p>
 			)}

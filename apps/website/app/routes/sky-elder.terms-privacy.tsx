@@ -1,7 +1,9 @@
+import { clsx } from "clsx";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
 import { SitePage } from "~/components/PageLayout";
 import { SubredditLink } from "~/components/SubredditLink";
+import { MAJOR_HEADING_CLASS, PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/sky-elder.terms-privacy.js";
 
 const SKY_ELDER_NAME = "Sky Elder" as const;
@@ -42,15 +44,15 @@ export const meta: Route.MetaFunction = ({ location }) => {
 export default function SkyElderTermsPrivacy() {
 	return (
 		<SitePage>
-			<div className="container mx-auto max-w-2xl">
-				<h1>Terms &amp; privacy</h1>
+			<div className="container mx-auto max-w-2xl space-y-4">
+				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>Terms &amp; privacy</h1>
 				<p className="text-gray-500 dark:text-gray-400">
 					{SKY_ELDER_NAME} is a Reddit application. It helps moderate <SubredditLink /> and mirrors
 					what happens there to Discord.
 				</p>
 				<hr />
 
-				<h2>What it does</h2>
+				<h2 className={MAJOR_HEADING_CLASS}>What it does</h2>
 				<p>{SKY_ELDER_NAME} is unlisted, but we are now enforced to make this.</p>
 				<p>
 					In <SubredditLink />, {SKY_ELDER_NAME}:
@@ -69,12 +71,12 @@ export default function SkyElderTermsPrivacy() {
 					<li>Determines how often each post flair is used</li>
 				</ul>
 
-				<h2>What it reads</h2>
+				<h2 className={MAJOR_HEADING_CLASS}>What it reads</h2>
 				<p>
 					Only what Reddit already shows publicly in <SubredditLink />.
 				</p>
 
-				<h2>What it stores</h2>
+				<h2 className={MAJOR_HEADING_CLASS}>What it stores</h2>
 				<p>Storage is provided by Reddit and lives on Reddit. {SKY_ELDER_NAME} keeps only:</p>
 				<ul className={LIST_CLASS}>
 					<li>
@@ -89,7 +91,7 @@ export default function SkyElderTermsPrivacy() {
 					<li>the id of the Discord message holding the post flair statistics</li>
 				</ul>
 
-				<h2>Where it goes</h2>
+				<h2 className={MAJOR_HEADING_CLASS}>Where it goes</h2>
 				<p>
 					{SKY_ELDER_NAME} posts to Discord webhook addresses set in its settings, and sends to
 					those:
@@ -115,13 +117,13 @@ export default function SkyElderTermsPrivacy() {
 					reached is the one those settings point at.
 				</p>
 
-				<h2>Deleting your data</h2>
+				<h2 className={MAJOR_HEADING_CLASS}>Deleting your data</h2>
 				<p>
 					Delete your comment on Reddit and the stored copy goes with it. Leave it be and the copy
 					expires after seven days regardless.
 				</p>
 
-				<h2>Use</h2>
+				<h2 className={MAJOR_HEADING_CLASS}>Use</h2>
 				<p>
 					{SKY_ELDER_NAME} acts only in <SubredditLink /> and is operated by its moderators.
 				</p>
@@ -133,7 +135,7 @@ export default function SkyElderTermsPrivacy() {
 					, so everything described here can be read in full.
 				</p>
 
-				<h2>Contact</h2>
+				<h2 className={MAJOR_HEADING_CLASS}>Contact</h2>
 				<p>
 					To report a problem with {SKY_ELDER_NAME}, to ask what it holds about you, or to have
 					something removed, send a mod mail in to <SubredditLink />.

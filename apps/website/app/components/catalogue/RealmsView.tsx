@@ -77,7 +77,7 @@ export function RealmsView({
 						)}
 						id={realmAnchor(realm.name)}
 					>
-						<h2 className="group my-0 text-lg font-semibold text-gray-900 dark:text-gray-100">
+						<h2 className="group text-lg font-semibold text-gray-900 dark:text-gray-100">
 							<Link
 								className="inline-flex items-center gap-2 text-inherit no-underline hover:underline"
 								to={`?view=realms#${realmAnchor(realm.name)}`}

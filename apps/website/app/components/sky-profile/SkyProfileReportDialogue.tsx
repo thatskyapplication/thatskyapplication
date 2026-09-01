@@ -59,7 +59,7 @@ export function SkyProfileReportDialogue() {
 					<Dialog.Title className={DIALOGUE_TITLE_CLASS}>
 						{t("sky-profile.report-modal-title", { ns: "features" })}
 					</Dialog.Title>
-					<Dialog.Description className="my-0 text-sm text-gray-600 dark:text-gray-400">
+					<Dialog.Description className="text-sm text-gray-600 dark:text-gray-400">
 						{t("sky-profile.report-description", { ns: "features" })}
 					</Dialog.Description>
 
@@ -76,10 +76,7 @@ export function SkyProfileReportDialogue() {
 								>
 									{t("sky-profile.report-modal-label-reason-label", { ns: "features" })}
 								</label>
-								<p
-									className="my-0 text-sm text-gray-600 dark:text-gray-400"
-									id="reason-description"
-								>
+								<p className="text-sm text-gray-600 dark:text-gray-400" id="reason-description">
 									{t("sky-profile.report-modal-label-reason-description", { ns: "features" })}
 								</p>
 								<textarea

@@ -196,7 +196,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 					<h1 className="mb-1 text-4xl font-bold text-gray-900 dark:text-gray-100">
 						{t("checklist.title", { ns: "features" })}
 					</h1>
-					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
+					<p className="mt-4 text-base text-gray-600 dark:text-gray-400">
 						{t("checklist.description", { ns: "features", user: discordUser.username })}
 					</p>
 				</div>

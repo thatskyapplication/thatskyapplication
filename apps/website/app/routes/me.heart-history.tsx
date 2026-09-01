@@ -171,31 +171,31 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 					<h1 className="mb-1 text-4xl font-bold text-gray-900 dark:text-gray-100">
 						{t("heart.history-title", { ns: "features" })}
 					</h1>
-					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
+					<p className="mt-4 text-base text-gray-600 dark:text-gray-400">
 						Review the hearts you have gifted and received.
 					</p>
 				</div>
 
 				<div className="flex flex-wrap justify-center gap-3">
 					<div className="flex min-w-40 flex-col items-center px-4 py-2">
-						<p className="my-0 text-sm text-gray-600 dark:text-gray-400">Gifted</p>
-						<p className="my-0 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-gray-100">
+						<p className="text-sm text-gray-600 dark:text-gray-400">Gifted</p>
+						<p className="flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-gray-100">
 							<HandHeart className="h-5 w-5 shrink-0 text-gray-700 dark:text-gray-200" />
 							{gifted.toLocaleString(i18n.language)}
 						</p>
 					</div>
 
 					<div className="flex min-w-40 flex-col items-center px-4 py-2">
-						<p className="my-0 text-sm text-gray-600 dark:text-gray-400">Received</p>
-						<p className="my-0 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-gray-100">
+						<p className="text-sm text-gray-600 dark:text-gray-400">Received</p>
+						<p className="flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-gray-100">
 							<HeartPlus className="h-5 w-5 shrink-0 text-gray-700 dark:text-gray-200" />
 							{received.toLocaleString(i18n.language)}
 						</p>
 					</div>
 
 					<div className="flex min-w-40 flex-col items-center px-4 py-2">
-						<p className="my-0 text-sm text-gray-600 dark:text-gray-400">Remaining today</p>
-						<p className="my-0 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-gray-100">
+						<p className="text-sm text-gray-600 dark:text-gray-400">Remaining today</p>
+						<p className="flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-gray-100">
 							<span
 								aria-hidden="true"
 								className="discord-emoji h-5 w-5 shrink-0"
@@ -211,7 +211,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 					<div className="flex flex-col items-center gap-1">
 						{doubleHearts.map((doubleHeart) => (
 							<p
-								className="my-0 flex items-center justify-center gap-2 text-center text-sm text-gray-600 dark:text-gray-400"
+								className="flex items-center justify-center gap-2 text-center text-sm text-gray-600 dark:text-gray-400"
 								key={doubleHeart.start}
 							>
 								<span
@@ -244,7 +244,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 							role="img"
 							style={{ backgroundImage: `url(${heartEmojiURL})` }}
 						/>
-						<p className="my-0 font-medium text-gray-900 dark:text-gray-100">
+						<p className="font-medium text-gray-900 dark:text-gray-100">
 							No hearts have been gifted or received yet.
 						</p>
 					</div>
@@ -270,7 +270,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 
 									<div className="flex min-w-0 flex-1 flex-col justify-between gap-2 self-stretch">
 										<div className="min-w-0">
-											<p className="my-0 text-sm text-gray-700 dark:text-gray-300">
+											<p className="text-sm text-gray-700 dark:text-gray-300">
 												{gifted ? "Gifted" : "Received"}{" "}
 												{heartPacket.count.toLocaleString(i18n.language)}
 												<span
@@ -280,7 +280,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 													style={{ backgroundImage: `url(${heartEmojiURL})` }}
 												/>
 											</p>
-											<p className="my-0 min-w-0 text-sm">
+											<p className="min-w-0 text-sm">
 												<ProfileName profileName={relatedProfileName} userId={relatedUserId} />
 											</p>
 										</div>

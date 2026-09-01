@@ -20,6 +20,8 @@ import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { APPLICATION_ICON_URL } from "~/utility/constants";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import {
+	MAJOR_HEADING_CLASS,
+	PAGE_TITLE_CLASS,
 	SEARCH_ICON_CLASS,
 	SEARCH_INPUT_CLASS,
 	SEARCH_SHORTCUT_HINT_CLASS,
@@ -55,7 +57,7 @@ const CARD_CLASS =
 
 const GRID_CLASS = "m-0 list-none columns-1 gap-3 p-0 sm:columns-2 lg:columns-3" as const;
 
-const DETAIL_CLASS = "m-0 mt-2 text-sm text-gray-600 dark:text-gray-400" as const;
+const DETAIL_CLASS = "mt-2 text-sm text-gray-600 dark:text-gray-400" as const;
 
 const FLOATING_SURFACE_CLASS =
 	"bg-white/90 shadow-lg backdrop-blur-md dark:bg-gray-900/90" as const;
@@ -211,8 +213,8 @@ export default function Thatskylink() {
 
 	return (
 		<SitePage>
-			<div className="container mx-auto max-w-4xl">
-				<h1>{THATSKYLINK_TITLE}</h1>
+			<div className="container mx-auto max-w-4xl space-y-4">
+				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>{THATSKYLINK_TITLE}</h1>
 				<p className="text-gray-500 dark:text-gray-400">
 					{t("thatskylink.description", { ns: "features" })}
 				</p>
@@ -286,8 +288,8 @@ export default function Thatskylink() {
 				)}
 
 				{links.length > 0 && (
-					<section>
-						<h2>{t("thatskylink.links", { ns: "features" })}</h2>
+					<section className="space-y-4">
+						<h2 className={MAJOR_HEADING_CLASS}>{t("thatskylink.links", { ns: "features" })}</h2>
 						<ul className={GRID_CLASS}>
 							{links.map((link) => (
 								<li className={CARD_CLASS} key={link.identifiers.join(" ")}>
@@ -307,8 +309,8 @@ export default function Thatskylink() {
 				)}
 
 				{patterns.length > 0 && (
-					<section>
-						<h2>{t("thatskylink.patterns", { ns: "features" })}</h2>
+					<section className="space-y-4">
+						<h2 className={MAJOR_HEADING_CLASS}>{t("thatskylink.patterns", { ns: "features" })}</h2>
 						<ul className={GRID_CLASS}>
 							{patterns.map((pattern) => (
 								<li className={CARD_CLASS} key={pattern.path}>
@@ -327,8 +329,10 @@ export default function Thatskylink() {
 				)}
 
 				{patchNoteLinks.length > 0 && (
-					<section>
-						<h2>{t("thatskylink.patch-notes", { ns: "features" })}</h2>
+					<section className="space-y-4">
+						<h2 className={MAJOR_HEADING_CLASS}>
+							{t("thatskylink.patch-notes", { ns: "features" })}
+						</h2>
 						<ul className={GRID_CLASS}>
 							{patchNoteLinks.map((patchNoteLink) => (
 								<li className={CARD_CLASS} key={patchNoteLink.identifier}>

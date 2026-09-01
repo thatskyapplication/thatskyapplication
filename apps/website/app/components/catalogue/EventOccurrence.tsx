@@ -45,7 +45,7 @@ export function EventOccurrence({
 		>
 			<div className="flex items-start justify-between gap-2">
 				<div className="min-w-0">
-					<h2 className="group my-0 text-lg font-semibold text-gray-900 dark:text-gray-100">
+					<h2 className="group text-lg font-semibold text-gray-900 dark:text-gray-100">
 						<Link
 							className="inline-flex flex-wrap items-center gap-2 text-inherit no-underline hover:underline"
 							to={`?view=event-family&family=${event.family}#${eventAnchor(event.id)}`}
@@ -83,7 +83,7 @@ export function EventOccurrence({
 			{event.offer.length > 0 ? (
 				<ItemChecklist data={data} items={event.offer} locale={locale} />
 			) : (
-				<p className="m-0 text-base text-gray-600 dark:text-gray-400">
+				<p className="text-base text-gray-600 dark:text-gray-400">
 					{t("catalogue.event-no-cosmetics", { ns: "features" })}
 				</p>
 			)}

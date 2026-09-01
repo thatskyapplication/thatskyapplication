@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { CheckCircleIcon, ExternalLinkIcon } from "lucide-react";
 import { Form, redirect } from "react-router";
 import { ActionButton } from "~/components/ActionButton";
@@ -16,6 +17,7 @@ import { getRequestSession } from "~/middleware/session";
 import pino from "~/pino.js";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
 import { generateState, requireDiscordAuthentication } from "~/utility/functions.server";
+import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { CrowdinUser } from "~/utility/types.js";
 import type { Route } from "./+types/discord-crowdin.js";
 
@@ -303,7 +305,7 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 	return (
 		<CentredSitePage>
 			<div className="w-full max-w-md rounded-lg border border-gray-200 bg-gray-100 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
-				<h1 className="text-center">Crowdin authorisation</h1>
+				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6 text-center")}>Crowdin authorisation</h1>
 				{error && (
 					<div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-300">
 						{error}
@@ -314,7 +316,7 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 						{justLinked && (
 							<div className="text-center">
 								<CheckCircleIcon className="mx-auto mb-3 h-12 w-12 text-green-500" />
-								<p className="text-sm text-gray-600 dark:text-gray-400">
+								<p className="my-4 text-sm text-gray-600 dark:text-gray-400">
 									Your Crowdin and Discord accounts are linked. Your translating skills have
 									improved by at least 1%. Promise.
 								</p>
@@ -322,8 +324,10 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 						)}
 						<div className="flex items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<div className="min-w-0">
-								<p className="text-xs text-gray-500 dark:text-gray-400">Crowdin account</p>
-								<p className="truncate text-sm font-medium">{crowdinUser?.username ?? "Linked"}</p>
+								<p className="my-4 text-xs text-gray-500 dark:text-gray-400">Crowdin account</p>
+								<p className="my-4 truncate text-sm font-medium">
+									{crowdinUser?.username ?? "Linked"}
+								</p>
 							</div>
 							{translator && (
 								<CheckCircleIcon

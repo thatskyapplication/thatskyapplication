@@ -1,7 +1,9 @@
+import { clsx } from "clsx";
 import { Flag, Ticket, Upload } from "lucide-react";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { requireAdminAccess } from "~/utility/functions.server.js";
+import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/admin._index.js";
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
@@ -14,7 +16,7 @@ export default function Admin() {
 		<SitePage>
 			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
 				<div>
-					<h1>Admin</h1>
+					<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>Admin</h1>
 				</div>
 
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -26,7 +28,7 @@ export default function Admin() {
 							<Upload className="h-5 w-5" />
 						</div>
 						<div>
-							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 								Friendship actions
 							</h2>
 						</div>
@@ -40,7 +42,7 @@ export default function Admin() {
 							<Flag className="h-5 w-5" />
 						</div>
 						<div>
-							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 								Sky profile reports
 							</h2>
 						</div>
@@ -54,7 +56,7 @@ export default function Admin() {
 							<Ticket className="h-5 w-5" />
 						</div>
 						<div>
-							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 								Support server invites
 							</h2>
 						</div>

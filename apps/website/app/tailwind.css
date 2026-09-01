@@ -59,14 +59,6 @@
 }
 
 @layer base {
-	h1 {
-		@apply mb-6 text-2xl font-bold wrap-break-word hyphens-auto text-black sm:text-3xl lg:text-4xl dark:text-white;
-	}
-
-	h2 {
-		@apply mt-4 mb-4 text-xl font-semibold wrap-break-word text-black sm:text-2xl dark:text-white;
-	}
-
 	code {
 		@apply rounded-sm bg-gray-200 px-1 py-0.5 font-mono text-sm text-black dark:bg-gray-700 dark:text-white;
 	}
@@ -81,10 +73,6 @@
 
 	.regular-link:focus-visible {
 		@apply outline-2 outline-yellow-400 outline-solid;
-	}
-
-	p {
-		@apply my-4;
 	}
 
 	hr {

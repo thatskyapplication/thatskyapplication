@@ -51,7 +51,7 @@ export function SkyProfileReportCard({
 	return (
 		<div className={SECTION_CARD_CLASS}>
 			<div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-				<h3 className="my-0 text-sm font-medium text-gray-900 dark:text-gray-100">Report #{id}</h3>
+				<h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">Report #{id}</h3>
 				<span
 					className={clsx(
 						"shrink-0 font-mono text-xs tracking-widest uppercase",
@@ -68,7 +68,7 @@ export function SkyProfileReportCard({
 				<UserChip user={reporter} />
 			</div>
 
-			<p className="my-0 text-sm whitespace-pre-wrap text-gray-900 dark:text-gray-100">{reason}</p>
+			<p className="text-sm whitespace-pre-wrap text-gray-900 dark:text-gray-100">{reason}</p>
 
 			<SkyProfileReportSnapshots
 				hasBanner={hasBanner}

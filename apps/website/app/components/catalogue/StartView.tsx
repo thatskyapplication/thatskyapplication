@@ -151,7 +151,7 @@ export function StartView({
 				<h1 className="mb-1 text-4xl font-bold text-gray-900 dark:text-gray-100">
 					{t("catalogue.main-title", { ns: "features" })}
 				</h1>
-				<p className="mb-0 text-base whitespace-pre-line text-gray-600 dark:text-gray-400">
+				<p className="mt-4 text-base whitespace-pre-line text-gray-600 dark:text-gray-400">
 					{t("catalogue.main-description", {
 						ns: "features",
 						progress: overallProgress ?? 0,
@@ -192,7 +192,7 @@ export function StartView({
 			</Link>
 
 			<div className={clsx(CARD_CLASS, "flex flex-wrap items-center justify-between gap-3")}>
-				<p className="m-0 text-sm text-gray-600 dark:text-gray-400">
+				<p className="text-sm text-gray-600 dark:text-gray-400">
 					{t("catalogue.settings-everything", { ns: "features" })}
 				</p>
 				<fetcher.Form method="post">

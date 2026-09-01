@@ -49,7 +49,7 @@ export function SpiritView({
 				</div>
 				<div className="flex flex-wrap items-center gap-3">
 					<h2
-						className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100"
+						className="text-2xl font-bold text-gray-900 dark:text-gray-100"
 						id="selected-spirit-title"
 					>
 						<ExternalLink

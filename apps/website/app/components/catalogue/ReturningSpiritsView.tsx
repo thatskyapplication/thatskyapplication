@@ -55,7 +55,7 @@ export function ReturningSpiritsView({
 
 			{returningSpirits && visit?.active && (
 				<div>
-					<h1 className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100">
+					<h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
 						{t("returning-spirits", { ns: "general" })}
 					</h1>
 					<p className={NOTE_CLASS}>

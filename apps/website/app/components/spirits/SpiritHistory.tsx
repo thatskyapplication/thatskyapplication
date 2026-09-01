@@ -81,7 +81,7 @@ function SpiritHistoryEntry({
 			<div className="min-w-0">
 				<div className="flex min-w-0 items-baseline gap-2">
 					{visitNumber === null ? null : <VisitNumber visit={visitNumber} />}
-					<h3 className="my-0 truncate text-base font-semibold text-gray-900 dark:text-gray-100">
+					<h3 className="truncate text-base font-semibold text-gray-900 dark:text-gray-100">
 						{t(`spirits.${spirit.id}`, { ns: "general" })}
 					</h3>
 				</div>
@@ -186,10 +186,7 @@ export function SpiritHistory({
 				</Link>
 			</nav>
 
-			<h2
-				className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100"
-				id="spirit-history-title"
-			>
+			<h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100" id="spirit-history-title">
 				{t(SPIRITS_HISTORY_TITLE_KEYS[order], { ns: "features" })}
 			</h2>
 

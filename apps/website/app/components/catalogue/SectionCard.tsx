@@ -26,7 +26,7 @@ export function SectionCard({
 				<div className="flex items-center justify-between gap-2">
 					<span className="inline-flex items-center gap-2">
 						{emoji ? <EmojiIcon className="h-5 w-5" emoji={emoji} /> : null}
-						<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">{title}</h2>
+						<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">{title}</h2>
 					</span>
 					{percentage !== null && (
 						<span className="text-sm text-gray-600 dark:text-gray-400">{percentage}%</span>
@@ -36,7 +36,7 @@ export function SectionCard({
 			</div>
 			{percentage === null ? (
 				emptyLabel === undefined ? null : (
-					<p className="m-0 text-sm text-gray-600 dark:text-gray-400">{emptyLabel}</p>
+					<p className="text-sm text-gray-600 dark:text-gray-400">{emptyLabel}</p>
 				)
 			) : (
 				<ProgressBar label={title} percentage={percentage} />

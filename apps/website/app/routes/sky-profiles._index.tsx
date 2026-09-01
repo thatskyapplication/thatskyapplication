@@ -30,7 +30,11 @@ import { formatCountryLabel } from "~/utility/country.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
-import { SEARCH_SHORTCUT_HINT_CLASS } from "~/utility/styles.js";
+import {
+	MAJOR_HEADING_CLASS,
+	PAGE_TITLE_CLASS,
+	SEARCH_SHORTCUT_HINT_CLASS,
+} from "~/utility/styles.js";
 import type { DiscordUser } from "~/utility/types";
 import type { Route } from "./+types/sky-profiles._index.js";
 
@@ -206,7 +210,7 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 				)}
 			</div>
 			<div className="flex-1 overflow-hidden px-4 pt-10 pb-4">
-				<h2 className="my-0">{profile.name!}</h2>
+				<h2 className={MAJOR_HEADING_CLASS}>{profile.name!}</h2>
 				{profile.seasons && profile.seasons.length > 0 && (
 					<SeasonEmojiBadges
 						className="flex flex-wrap gap-1"
@@ -250,9 +254,11 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 	return (
 		<SitePage>
 			<div className="container mx-auto">
-				<h1 className="text-center">{t("sky-profile.name-plural", { ns: "features" })}</h1>
+				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6 text-center")}>
+					{t("sky-profile.name-plural", { ns: "features" })}
+				</h1>
 				{recent && (
-					<p className="text-center text-gray-600 dark:text-gray-400">
+					<p className="my-4 text-center text-gray-600 dark:text-gray-400">
 						{t("sky-profile.description-website", { ns: "features" })}
 					</p>
 				)}
@@ -266,7 +272,7 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 						searching={searching}
 					/>
 					{recent && (
-						<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
+						<p className="text-sm text-gray-600 dark:text-gray-400">
 							{t("sky-profile.description-recent", { ns: "features" })}
 						</p>
 					)}
@@ -287,7 +293,7 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 					</div>
 				) : (
 					<div className="py-12 text-center">
-						<p className="text-gray-600 dark:text-gray-400">
+						<p className="my-4 text-gray-600 dark:text-gray-400">
 							{t("sky-profile.search-none", { ns: "features" })}
 						</p>
 					</div>

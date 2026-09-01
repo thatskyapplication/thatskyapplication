@@ -31,15 +31,13 @@ export function SkyProfileReportSnapshots({
 
 	if (snapshots.length === 0) {
 		return (
-			<p className="my-0 text-xs text-gray-600 dark:text-gray-400">
-				No icon or banner when reported.
-			</p>
+			<p className="text-xs text-gray-600 dark:text-gray-400">No icon or banner when reported.</p>
 		);
 	}
 
 	if (snapshotExpired) {
 		return (
-			<p className="my-0 text-xs text-gray-600 dark:text-gray-400">
+			<p className="text-xs text-gray-600 dark:text-gray-400">
 				Snapshots expired after {SKY_PROFILE_REPORT_RETENTION_DAYS} days.
 			</p>
 		);

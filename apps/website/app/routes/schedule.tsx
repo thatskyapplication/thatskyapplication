@@ -522,11 +522,11 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 					<div className="flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 shadow-xl dark:border-amber-800 dark:bg-amber-950/40">
 						<AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
 						<div>
-							<p className="m-0 text-sm font-medium text-amber-800 dark:text-amber-200">
+							<p className="text-sm font-medium text-amber-800 dark:text-amber-200">
 								{t("maintenance", { ns: "general" })}
 							</p>
 							{maintenances.length === 1 ? (
-								<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
+								<p className="text-xs text-amber-700 dark:text-amber-300">
 									{timeZoneEstimated ? (
 										<SkeletonText>{maintenanceDescription}</SkeletonText>
 									) : (
@@ -535,7 +535,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 								</p>
 							) : (
 								<>
-									<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
+									<p className="text-xs text-amber-700 dark:text-amber-300">
 										{t("maintenance-description-many", { ns: "general" })}
 									</p>
 									<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">

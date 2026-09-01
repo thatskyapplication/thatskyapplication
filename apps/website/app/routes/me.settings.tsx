@@ -17,7 +17,7 @@ import {
 	HOUR_CYCLE_TWENTY_FOUR,
 	isHourCycleValue,
 } from "~/utility/hour-cycle";
-import { SELECTABLE_OPTION_CARD_CLASS } from "~/utility/styles.js";
+import { PAGE_TITLE_CLASS, SELECTABLE_OPTION_CARD_CLASS } from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/me.settings.js";
 
@@ -86,7 +86,7 @@ export default function Settings({ loaderData }: Route.ComponentProps) {
 		<SitePage>
 			<SaveStatus isSaving={isSaving} showSuccess={showSuccess} />
 			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
-				<h1 className="mb-0">{t("settings.name", { ns: "features" })}</h1>
+				<h1 className={PAGE_TITLE_CLASS}>{t("settings.name", { ns: "features" })}</h1>
 
 				<div className={SECTION_CLASS}>
 					<Form method="post">

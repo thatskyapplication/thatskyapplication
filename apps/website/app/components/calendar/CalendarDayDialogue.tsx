@@ -56,7 +56,7 @@ export function CalendarDayDialogue({
 				<Dialog.Backdrop className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm" />
 				<Dialog.Popup className="fixed top-1/2 left-1/2 z-50 flex max-h-[min(44rem,calc(100dvh-2rem))] w-[min(36rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
 					<div className="flex items-start justify-between gap-3 border-b border-gray-200 px-4 py-3 dark:border-gray-700">
-						<Dialog.Title className="my-0 text-lg font-semibold text-gray-900 dark:text-gray-100">
+						<Dialog.Title className="text-lg font-semibold text-gray-900 dark:text-gray-100">
 							{detail.heading}
 						</Dialog.Title>
 						<div className="flex shrink-0 items-center gap-1">

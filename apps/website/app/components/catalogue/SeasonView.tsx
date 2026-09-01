@@ -104,7 +104,7 @@ export function SeasonView({
 			</div>
 
 			<div>
-				<h1 className="my-0 inline-flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
+				<h1 className="inline-flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
 					{seasonEmoji ? <EmojiIcon className="h-6 w-6" emoji={seasonEmoji} /> : null}
 					<ExternalLink href={t(`season-wiki.${season.id}`, { ns: "general" })} icon>
 						{t(`seasons.${season.id}`, { ns: "general" })}
@@ -121,7 +121,7 @@ export function SeasonView({
 
 			{season.items.length > 0 && (
 				<div className="flex flex-col gap-2">
-					<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+					<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 						{t("catalogue.items", { ns: "features" })}
 					</h2>
 					<ItemChecklist data={data} items={season.items} locale={locale} />

@@ -31,7 +31,7 @@ function SettingsGroup({
 	return (
 		<div>
 			<p
-				className="m-0 mb-1 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400"
+				className="mb-1 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400"
 				id={labelId}
 			>
 				{label}

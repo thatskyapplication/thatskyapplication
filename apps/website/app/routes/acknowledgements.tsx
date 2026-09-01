@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import { data, type HeadersArgs } from "react-router";
 import { CROWDIN_URL, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
@@ -16,6 +17,7 @@ import {
 	WIKI_DISCORD_URL,
 	WIKI_URL,
 } from "~/utility/constants";
+import { MAJOR_HEADING_CLASS, PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/acknowledgements.js";
 
 const ACKNOWLEDGEMENTS_DESCRIPTION = "The Sky kids that make everything you see possible." as const;
@@ -95,16 +97,18 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<SitePage>
-			<div className="container mx-auto max-w-4xl">
-				<h1>Acknowledgements</h1>
+			<div className="container mx-auto max-w-4xl space-y-4">
+				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>Acknowledgements</h1>
 				<p className="text-gray-500 dark:text-gray-400">
 					The people and resources that make {APPLICATION_NAME} possible.
 				</p>
 				<hr />
 
 				{translators.length > 0 && (
-					<section>
-						<h2>{t("acknowledgements.translators", { ns: "features" })}</h2>
+					<section className="space-y-4">
+						<h2 className={MAJOR_HEADING_CLASS}>
+							{t("acknowledgements.translators", { ns: "features" })}
+						</h2>
 						<AcknowledgementPills
 							pills={[{ href: CROWDIN_URL, label: "Crowdin", platform: "crowdin" }]}
 						/>
@@ -116,8 +120,10 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 				)}
 
 				{friendshipActionContributors.length > 0 && (
-					<section>
-						<h2>{t("acknowledgements.friendship-actions-contributors", { ns: "features" })}</h2>
+					<section className="space-y-4">
+						<h2 className={MAJOR_HEADING_CLASS}>
+							{t("acknowledgements.friendship-actions-contributors", { ns: "features" })}
+						</h2>
 						<AcknowledgementPills
 							pills={[
 								{
@@ -136,8 +142,8 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 					</section>
 				)}
 
-				<section>
-					<h2>Sky:CoTL Infographics Database</h2>
+				<section className="space-y-4">
+					<h2 className={MAJOR_HEADING_CLASS}>Sky:CoTL Infographics Database</h2>
 					<AcknowledgementPills
 						pills={[
 							{
@@ -162,8 +168,8 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 						sourced from Sky:CoTL Infographics Database. We're thankful for them!
 					</p>
 				</section>
-				<section>
-					<h2>Wiki</h2>
+				<section className="space-y-4">
+					<h2 className={MAJOR_HEADING_CLASS}>Wiki</h2>
 					<AcknowledgementPills
 						pills={[
 							{

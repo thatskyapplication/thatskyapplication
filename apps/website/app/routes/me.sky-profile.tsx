@@ -44,6 +44,7 @@ import {
 	characterCountClass,
 	FIELD_ERROR_CLASS,
 	FIELD_FOOTER_CLASS,
+	PAGE_TITLE_CLASS,
 	SELECTABLE_OPTION_CARD_CLASS,
 	textFieldClass,
 } from "~/utility/styles.js";
@@ -227,7 +228,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 				<div>
 					<h1 className="mb-1 text-4xl font-bold">{t("sky-profile.name", { ns: "features" })}</h1>
-					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
+					<p className="mt-4 text-base text-gray-600 dark:text-gray-400">
 						Update your Sky profile here!
 					</p>
 				</div>
@@ -243,7 +244,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 				>
 					<input name="profile" type="hidden" value={JSON.stringify(profileFormValue)} />
 					<div className="mb-4 flex flex-col gap-3">
-						<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+						<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 							Public preview
 						</h2>
 						<SkyProfileHeaderCard
@@ -256,24 +257,22 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 						>
 							<div className="min-w-0 flex-1">
 								{previewName ? (
-									<h2 className="mb-2 text-2xl font-bold text-black sm:text-3xl lg:text-4xl dark:text-white">
-										{previewName}
-									</h2>
+									<h2 className={clsx(PAGE_TITLE_CLASS, "mb-2")}>{previewName}</h2>
 								) : (
-									<h2 className="mb-2 text-2xl font-bold text-black italic sm:text-3xl lg:text-4xl dark:text-white">
-										No name
-									</h2>
+									<h2 className={clsx(PAGE_TITLE_CLASS, "mb-2 italic")}>No name</h2>
 								)}
-								{previewDescription && <p className="whitespace-pre-wrap">{previewDescription}</p>}
+								{previewDescription && (
+									<p className="my-4 whitespace-pre-wrap">{previewDescription}</p>
+								)}
 							</div>
 						</SkyProfileHeaderCard>
 						{bannerError ? (
-							<p className="my-0 text-sm text-red-600 dark:text-red-400" id="banner-error">
+							<p className="text-sm text-red-600 dark:text-red-400" id="banner-error">
 								{bannerError}
 							</p>
 						) : null}
 						{iconError ? (
-							<p className="my-0 text-sm text-red-600 dark:text-red-400" id="icon-error">
+							<p className="text-sm text-red-600 dark:text-red-400" id="icon-error">
 								{iconError}
 							</p>
 						) : null}
@@ -306,7 +305,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 					<div className="flex flex-col gap-4">
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Name])}
 							</h2>
 							<div className="flex flex-col gap-2">
@@ -347,7 +346,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 						</div>
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Description])}
 							</h2>
 							<div className="flex flex-col gap-2">
@@ -384,16 +383,13 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<h2
-								className="my-0 text-base font-medium text-gray-900 dark:text-gray-100"
+								className="text-base font-medium text-gray-900 dark:text-gray-100"
 								id="country-heading"
 							>
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Country])}
 							</h2>
 							<div className="flex flex-col gap-2">
-								<p
-									className="my-0 text-sm text-gray-600 dark:text-gray-400"
-									id="country-description"
-								>
+								<p className="text-sm text-gray-600 dark:text-gray-400" id="country-description">
 									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Country}`, {
 										ns: "features",
 									})}
@@ -414,14 +410,11 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 						</div>
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Platforms])}
 							</h2>
 							<div className="flex flex-col gap-3">
-								<p
-									className="my-0 text-sm text-gray-600 dark:text-gray-400"
-									id="platforms-description"
-								>
+								<p className="text-sm text-gray-600 dark:text-gray-400" id="platforms-description">
 									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Platforms}`, {
 										ns: "features",
 									})}
@@ -478,7 +471,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Personality])}
 								</h2>
 								<button
@@ -491,7 +484,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								</button>
 							</div>
 							<div className="flex flex-col gap-3">
-								<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
+								<p className="text-sm text-gray-600 dark:text-gray-400">
 									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Personality}`, {
 										ns: "features",
 									})}
@@ -545,7 +538,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									</div>
 								</fieldset>
 								{personalityError ? (
-									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="personality-error">
+									<p className="text-sm text-red-600 dark:text-red-400" id="personality-error">
 										{personalityError}
 									</p>
 								) : null}
@@ -554,7 +547,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Seasons])}
 								</h2>
 								<button
@@ -568,10 +561,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 							<div className="flex flex-col gap-3">
 								<div className="flex items-center justify-between gap-3">
-									<p
-										className="my-0 text-sm text-gray-600 dark:text-gray-400"
-										id="seasons-description"
-									>
+									<p className="text-sm text-gray-600 dark:text-gray-400" id="seasons-description">
 										{t(`sky-profile.edit-type-description.${SkyProfileEditType.Seasons}`, {
 											ns: "features",
 										})}
@@ -647,16 +637,13 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<h2
-								className="my-0 text-base font-medium text-gray-900 dark:text-gray-100"
+								className="text-base font-medium text-gray-900 dark:text-gray-100"
 								id="spirit-heading"
 							>
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Spirit])}
 							</h2>
 							<div className="flex flex-col gap-2">
-								<p
-									className="my-0 text-sm text-gray-600 dark:text-gray-400"
-									id="spirit-description"
-								>
+								<p className="text-sm text-gray-600 dark:text-gray-400" id="spirit-description">
 									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Spirit}`, {
 										ns: "features",
 									})}
@@ -677,7 +664,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 						</div>
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Hangout])}
 							</h2>
 							<div className="flex flex-col gap-2">
@@ -715,7 +702,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.WingedLight])}
 								</h2>
 								<button
@@ -729,12 +716,12 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 							<div className="flex flex-col gap-3">
 								<p
-									className="my-0 text-sm whitespace-pre-wrap text-gray-600 dark:text-gray-400"
+									className="text-sm whitespace-pre-wrap text-gray-600 dark:text-gray-400"
 									id="winged-light-description"
 								>
 									{t("sky-profile.edit-winged-light-description", { ns: "features" })}
 								</p>
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-500">
+								<p className="text-xs text-gray-500 dark:text-gray-500">
 									Note: Discord must be used to modify your catalogue.
 								</p>
 								<fieldset
@@ -772,10 +759,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									</div>
 								</fieldset>
 								{wingedLightError ? (
-									<p
-										className="my-0 text-sm text-red-600 dark:text-red-400"
-										id="winged-light-error"
-									>
+									<p className="text-sm text-red-600 dark:text-red-400" id="winged-light-error">
 										{wingedLightError}
 									</p>
 								) : null}
@@ -784,7 +768,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.CatalogueProgression])}
 								</h2>
 								<button
@@ -798,7 +782,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 							<div className="flex flex-col gap-3">
 								<p
-									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									className="text-sm text-gray-600 dark:text-gray-400"
 									id="catalogue-progression-description"
 								>
 									{t(
@@ -840,7 +824,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								</fieldset>
 								{catalogueProgressionError ? (
 									<p
-										className="my-0 text-sm text-red-600 dark:text-red-400"
+										className="text-sm text-red-600 dark:text-red-400"
 										id="catalogue-progression-error"
 									>
 										{catalogueProgressionError}
@@ -851,7 +835,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.GuessRank])}
 								</h2>
 								<button
@@ -864,10 +848,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								</button>
 							</div>
 							<div className="flex flex-col gap-3">
-								<p
-									className="my-0 text-sm text-gray-600 dark:text-gray-400"
-									id="guess-rank-description"
-								>
+								<p className="text-sm text-gray-600 dark:text-gray-400" id="guess-rank-description">
 									{t(`sky-profile.edit-type-description.${SkyProfileEditType.GuessRank}`, {
 										ns: "features",
 									})}
@@ -905,7 +886,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									</div>
 								</fieldset>
 								{guessRankError ? (
-									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="guess-rank-error">
+									<p className="text-sm text-red-600 dark:text-red-400" id="guess-rank-error">
 										{guessRankError}
 									</p>
 								) : null}

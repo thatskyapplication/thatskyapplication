@@ -37,7 +37,7 @@ function InfographicPreviewContent({
 	return (
 		<>
 			<div className="mb-4 flex shrink-0 items-center justify-between gap-3">
-				<h2 className="m-0 text-sm font-semibold text-gray-900 dark:text-white">{title}</h2>
+				<h2 className="text-sm font-semibold text-gray-900 dark:text-white">{title}</h2>
 				<button
 					aria-label="Close infographic"
 					className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300"
@@ -57,7 +57,7 @@ function InfographicPreviewContent({
 				/>
 			</div>
 			{acknowledgement && (
-				<p className="m-0 mt-3 shrink-0 text-center text-xs font-medium text-gray-500 dark:text-gray-400">
+				<p className="mt-3 shrink-0 text-center text-xs font-medium text-gray-500 dark:text-gray-400">
 					{t("infographic-by", { ns: "general", acknowledgement })}{" "}
 					<ExternalLink
 						className="regular-link inline-flex items-center gap-1"

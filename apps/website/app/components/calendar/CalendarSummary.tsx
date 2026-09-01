@@ -34,7 +34,7 @@ function SummarySection({
 
 	return (
 		<section className={clsx("min-w-0", className)}>
-			<h2 className="mt-0 mb-1 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
+			<h2 className="mb-1 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
 				{heading}
 			</h2>
 			{entries.length > 0 ? (
@@ -77,7 +77,7 @@ function SummarySection({
 					})}
 				</ul>
 			) : (
-				<p className="m-0 text-sm text-gray-500 dark:text-gray-400">
+				<p className="text-sm text-gray-500 dark:text-gray-400">
 					{t("calendar.nothing-scheduled", { ns: "features" })}
 				</p>
 			)}

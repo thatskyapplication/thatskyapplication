@@ -502,17 +502,17 @@ export default function AdminSupportServerInvites({
 						)}
 					>
 						<TriangleAlert className="h-5 w-5 shrink-0" />
-						<p className="my-0">Lacking manage server.</p>
+						<p>Lacking manage server.</p>
 					</div>
 				) : (
 					<>
 						<div className="flex flex-col gap-3">
-							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 								Tracked ({trackedInvites.length})
 							</h2>
 
 							{trackedInvites.length === 0 ? (
-								<p className="my-0 text-sm text-gray-600 dark:text-gray-400">No invites.</p>
+								<p className="text-sm text-gray-600 dark:text-gray-400">No invites.</p>
 							) : (
 								<InviteTable invites={trackedInvites} timeZoneEstimated={timeZoneEstimated} />
 							)}
@@ -520,7 +520,7 @@ export default function AdminSupportServerInvites({
 
 						{untrackedInvites.length > 0 && (
 							<div className="flex flex-col gap-3">
-								<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+								<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 									Untracked ({untrackedInvites.length})
 								</h2>
 
@@ -531,7 +531,7 @@ export default function AdminSupportServerInvites({
 						{expiredInvites.length > 0 && (
 							<div className="flex flex-col gap-3">
 								<h2
-									className="my-0 text-lg font-medium text-gray-900 outline-none dark:text-gray-100"
+									className="text-lg font-medium text-gray-900 outline-none dark:text-gray-100"
 									ref={expiredHeadingRef}
 									tabIndex={-1}
 								>
@@ -547,7 +547,7 @@ export default function AdminSupportServerInvites({
 							</div>
 						)}
 						<div className="flex flex-col gap-3">
-							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 								Create an invite
 							</h2>
 
@@ -674,13 +674,11 @@ export default function AdminSupportServerInvites({
 										<div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800 dark:border-green-700 dark:bg-green-900/20 dark:text-green-200">
 											<Check className="h-5 w-5 shrink-0 self-start" />
 											<div className="flex flex-col leading-tight">
-												<p className="my-0">
+												<p>
 													{createResult.invite.reused ? "Reused" : "Created"}{" "}
 													{createResult.invite.code} as "{createResult.invite.name}".
 												</p>
-												{createResult.invite.reused ? (
-													<p className="my-0">Existing invite detected.</p>
-												) : null}
+												{createResult.invite.reused ? <p>Existing invite detected.</p> : null}
 											</div>
 										</div>
 									) : null}

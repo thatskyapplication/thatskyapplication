@@ -13,7 +13,7 @@ export function EventFamilyHeader({ family, locale }: { family: EventFamily; loc
 
 	return (
 		<div>
-			<h1 className="my-0 inline-flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
+			<h1 className="inline-flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
 				{eventTicketEmoji ? <EmojiIcon className="h-6 w-6" emoji={eventTicketEmoji} /> : null}
 				<ExternalLink href={t(`event-wiki.${latest.id}`, { ns: "general" })} icon>
 					{t(latest.name, { ns: "general" })}

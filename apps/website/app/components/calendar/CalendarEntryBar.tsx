@@ -67,13 +67,13 @@ export function CalendarEntryBar({
 									{kindLabel}
 								</span>
 							</div>
-							<Popover.Title className="mt-1 mb-0 flex items-center gap-1.5 text-base font-semibold text-gray-900 dark:text-gray-100">
+							<Popover.Title className="mt-1 flex items-center gap-1.5 text-base font-semibold text-gray-900 dark:text-gray-100">
 								<CalendarEntryIcons emojiIds={entry.iconEmojiIds} />
 								{entry.label}
 							</Popover.Title>
 							{entry.detail &&
 								(entry.infographicURL ? (
-									<p className="m-0 mt-0.5 text-sm">
+									<p className="mt-0.5 text-sm">
 										<button
 											className="regular-link"
 											onClick={() => setPreviewOpen(true)}
@@ -83,15 +83,13 @@ export function CalendarEntryBar({
 										</button>
 									</p>
 								) : (
-									<p className="m-0 mt-0.5 text-sm text-gray-600 dark:text-gray-400">
-										{entry.detail}
-									</p>
+									<p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">{entry.detail}</p>
 								))}
-							<Popover.Description className="m-0 mt-1 text-sm text-gray-600 dark:text-gray-400">
+							<Popover.Description className="mt-1 text-sm text-gray-600 dark:text-gray-400">
 								{entry.range}
 							</Popover.Description>
 							{entry.duration > 0 && (
-								<p className="m-0 mt-0.5 text-xs text-gray-500 dark:text-gray-500">
+								<p className="mt-0.5 text-xs text-gray-500 dark:text-gray-500">
 									{t("calendar.duration", { ns: "features", count: entry.duration })}
 								</p>
 							)}
@@ -101,7 +99,7 @@ export function CalendarEntryBar({
 								</div>
 							)}
 							{entry.spiritLinks && (
-								<p className="m-0 mt-2 text-sm text-gray-600 dark:text-gray-400">
+								<p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
 									<ExternalLinkList items={entry.spiritLinks} locale={locale} />
 								</p>
 							)}

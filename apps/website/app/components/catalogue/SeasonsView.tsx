@@ -20,7 +20,7 @@ export function SeasonsView({ data }: { data: ReadonlySet<number> }) {
 				trail={[{ label: t("catalogue.main-title", { ns: "features" }), to: "/me/catalogue" }]}
 			/>
 
-			<p className="m-0 text-base text-gray-600 dark:text-gray-400">
+			<p className="text-base text-gray-600 dark:text-gray-400">
 				{t("catalogue.seasons-description", { ns: "features" })}
 			</p>
 

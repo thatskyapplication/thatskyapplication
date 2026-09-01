@@ -101,7 +101,7 @@ export default function AdminSkyProfileReports({ loaderData }: Route.ComponentPr
 
 				<div>
 					<h1 className="mb-1 text-4xl font-bold">Sky profile reports</h1>
-					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
+					<p className="mt-4 text-base text-gray-600 dark:text-gray-400">
 						{pendingReports.length === 1
 							? "1 pending report."
 							: `${pendingReports.length} pending reports.`}
@@ -112,7 +112,7 @@ export default function AdminSkyProfileReports({ loaderData }: Route.ComponentPr
 					<h2 className={SECTION_HEADING_CLASS}>Pending ({pendingReports.length})</h2>
 
 					{pendingReports.length === 0 ? (
-						<p className="my-0 text-sm text-gray-600 dark:text-gray-400">Nothing to review.</p>
+						<p className="text-sm text-gray-600 dark:text-gray-400">Nothing to review.</p>
 					) : (
 						<ul className="m-0 flex list-none flex-col gap-3 p-0">
 							{pendingReports.map((report) => (

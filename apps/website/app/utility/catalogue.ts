@@ -33,7 +33,7 @@ export const LINK_CARD_CLASS = clsx(
 );
 export const VIEW_LINK_CLASS =
 	"shrink-0 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" as const;
-export const NOTE_CLASS = "m-0 text-xs text-gray-500 dark:text-gray-400" as const;
+export const NOTE_CLASS = "text-xs text-gray-500 dark:text-gray-400" as const;
 export const TREE_COLUMN_CLASS = "flex w-60 shrink-0 flex-col justify-end gap-2 sm:w-64" as const;
 export const TREE_COLUMN_LABEL_CLASS =
 	"line-clamp-2 min-h-10 text-sm font-medium text-gray-900 transition-colors hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300" as const;

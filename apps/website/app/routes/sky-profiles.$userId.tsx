@@ -61,6 +61,7 @@ import pino from "~/pino.js";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
 import { MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { snapshotSkyProfileReportAssets } from "~/utility/sky-profile-reports.server.js";
+import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/sky-profiles.$userId.js";
 
 const BADGES_CLASS_NAME =
@@ -431,9 +432,9 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 					>
 						<div className="min-w-0 flex-1">
 							{data.name ? (
-								<h1 className="mb-2">{data.name}</h1>
+								<h1 className={clsx(PAGE_TITLE_CLASS, "mb-2")}>{data.name}</h1>
 							) : (
-								<h1 className="mb-2 italic">No name</h1>
+								<h1 className={clsx(PAGE_TITLE_CLASS, "mb-2 italic")}>No name</h1>
 							)}
 							<RecognitionBadges data={data} />
 						</div>
@@ -447,7 +448,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						{data.platform && data.platform.length > 0 && (
 							<PlatformBadges className="mt-4 flex flex-wrap gap-2" platforms={data.platform} />
 						)}
-						{data.description && <p className="mt-4 whitespace-pre-wrap">{data.description}</p>}
+						{data.description && <p className="my-4 whitespace-pre-wrap">{data.description}</p>}
 					</SkyProfileHeaderCard>
 				</div>
 				<div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -457,10 +458,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								{CountryToEmoji[data.country]}
 							</span>
 							<div className="flex-1">
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+								<p className="text-xs text-gray-500 dark:text-gray-400">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Country])}
 								</p>
-								<p className="my-0">{displayNames.of(data.country)}</p>
+								<p>{displayNames.of(data.country)}</p>
 							</div>
 						</div>
 					) : null}
@@ -472,10 +473,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								label="Winged light icon."
 							/>
 							<div className="flex-1">
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+								<p className="text-xs text-gray-500 dark:text-gray-400">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.WingedLight])}
 								</p>
-								<p className="my-0">
+								<p>
 									{maximumWingedLight.capeless
 										? t(`sky-profile-winged-light-types.${SkyProfileWingedLightType.Capeless}`, {
 												ns: "general",
@@ -495,10 +496,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								label="Favourite spirit icon."
 							/>
 							<div className="flex-1">
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+								<p className="text-xs text-gray-500 dark:text-gray-400">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Spirit])}
 								</p>
-								<p className="my-0">{t(`spirits.${data.spirit}`, { ns: "general" })}</p>
+								<p>{t(`spirits.${data.spirit}`, { ns: "general" })}</p>
 							</div>
 						</div>
 					) : null}
@@ -510,10 +511,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								label="Personality icon."
 							/>
 							<div className="flex-1">
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+								<p className="text-xs text-gray-500 dark:text-gray-400">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Personality])}
 								</p>
-								<p className="my-0">
+								<p>
 									{t("sky-profile.personality-with-mbti", {
 										ns: "features",
 										personality: data.personality,
@@ -527,10 +528,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<MapPinIcon className="mr-2 h-6 w-6" />
 							<div className="flex-1">
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+								<p className="text-xs text-gray-500 dark:text-gray-400">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Hangout])}
 								</p>
-								<p className="my-0">{data.hangout}</p>
+								<p>{data.hangout}</p>
 							</div>
 						</div>
 					)}
@@ -538,10 +539,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<BookOpenCheck className="mr-2 h-6 w-6" />
 							<div className="flex-1">
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+								<p className="text-xs text-gray-500 dark:text-gray-400">
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.CatalogueProgression])}
 								</p>
-								<p className="my-0">{catalogueProgression}%</p>
+								<p>{catalogueProgression}%</p>
 							</div>
 						</div>
 					)}
@@ -550,19 +551,19 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 					<div className="group mt-4 flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md dark:border-gray-600 dark:bg-gray-700">
 						<Trophy className="mr-2 h-6 w-6" />
 						<div className="flex-1">
-							<p className="my-0">
+							<p>
 								{t("sky-profile.guess-rank-spirits", { ns: "features" })}{" "}
 								{guessRank.spirits === null
 									? t("sky-profile.guess-rank-unranked", { ns: "features" })
 									: `#${guessRank.spirits}`}
 							</p>
-							<p className="my-0">
+							<p>
 								{t("sky-profile.guess-rank-spirits-hard", { ns: "features" })}{" "}
 								{guessRank.spiritsHard === null
 									? t("sky-profile.guess-rank-unranked", { ns: "features" })
 									: `#${guessRank.spiritsHard}`}
 							</p>
-							<p className="my-0">
+							<p>
 								{t("sky-profile.guess-rank-events", { ns: "features" })}{" "}
 								{guessRank.events === null
 									? t("sky-profile.guess-rank-unranked", { ns: "features" })

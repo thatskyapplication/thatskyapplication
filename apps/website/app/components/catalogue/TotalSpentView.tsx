@@ -19,7 +19,7 @@ import { costEntryEmoji } from "./CostList";
 function Section({ children, title }: { children: ReactNode; title: string }) {
 	return (
 		<div className="flex flex-col">
-			<h2 className="mt-0 mb-1 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+			<h2 className="mb-1 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
 				{title}
 			</h2>
 			{children}
@@ -113,7 +113,7 @@ export function TotalSpentView({ data, locale }: { data: ReadonlySet<number>; lo
 			/>
 
 			{total === 0 ? (
-				<p className="m-0 text-base text-gray-600 dark:text-gray-400">
+				<p className="text-base text-gray-600 dark:text-gray-400">
 					{t("catalogue.main-total-spent-nothing", { ns: "features" })}
 				</p>
 			) : (

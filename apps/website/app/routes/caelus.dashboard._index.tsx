@@ -33,10 +33,10 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 							<hr className="my-8" />
 							{guilds.length === 0 ? (
 								<div className="py-12 text-center">
-									<h2 className="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-300">
+									<h2 className="mt-4 mb-2 text-xl font-semibold text-gray-700 dark:text-gray-300">
 										No servers found.
 									</h2>
-									<p className="text-gray-600 dark:text-gray-400">
+									<p className="my-4 text-gray-600 dark:text-gray-400">
 										Keep in mind you need the <code>Administrator</code> permission to use this
 										dashboard.
 									</p>

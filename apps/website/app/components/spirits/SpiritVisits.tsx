@@ -49,7 +49,7 @@ function VisitHistory({
 			className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-5"
 		>
 			<h3
-				className="m-0 shrink-0 text-sm font-semibold text-gray-600 sm:w-28 sm:pt-2.5 dark:text-gray-400"
+				className="shrink-0 text-sm font-semibold text-gray-600 sm:w-28 sm:pt-2.5 dark:text-gray-400"
 				id={headingId}
 			>
 				{title}
@@ -157,7 +157,7 @@ export function SpiritVisits({
 						aria-hidden="true"
 						className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400"
 					/>
-					<p className="m-0 text-sm text-amber-800 dark:text-amber-200">
+					<p className="text-sm text-amber-800 dark:text-amber-200">
 						{t(notYetReturnedKey, { ns: "features" })}
 					</p>
 				</div>

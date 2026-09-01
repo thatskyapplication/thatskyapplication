@@ -1,4 +1,5 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
+import { clsx } from "clsx";
 import { ArrowLeft } from "lucide-react";
 import { Link, redirect } from "react-router";
 import { SitePage } from "~/components/PageLayout";
@@ -7,6 +8,7 @@ import { APPLICATION_NAME, INVITE_APPLICATION_URL } from "~/utility/constants.js
 import { guildIconURL } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { requireUserAdminGuilds } from "~/utility/guilds.server.js";
+import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/caelus.dashboard.$guildId._index.js";
 
 export const loader = async ({ context, params, request, url }: Route.LoaderArgs) => {
@@ -55,13 +57,13 @@ export default function ServerDashboard({ loaderData }: Route.ComponentProps) {
 									</div>
 								)}
 								<div>
-									<h1 className="mb-2">{guild.name}</h1>
+									<h1 className={clsx(PAGE_TITLE_CLASS, "mb-2")}>{guild.name}</h1>
 								</div>
 							</div>
 
 							{meInGuild ? null : (
 								<div className="mt-12 flex flex-col items-center justify-center">
-									<p className="mb-6 text-lg text-gray-600 dark:text-gray-400">
+									<p className="mt-4 mb-6 text-lg text-gray-600 dark:text-gray-400">
 										{APPLICATION_NAME} is not in this server. Why not spread the love?
 									</p>
 									<a

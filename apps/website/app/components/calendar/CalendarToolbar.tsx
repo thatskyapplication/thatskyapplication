@@ -81,7 +81,7 @@ export function CalendarToolbar({
 
 	return (
 		<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-			<h1 className="my-0 text-xl sm:text-2xl lg:text-2xl">
+			<h1 className="text-xl font-bold sm:text-2xl lg:text-2xl">
 				{anchorEstimated ? <SkeletonText>{title}</SkeletonText> : title}
 			</h1>
 			<div className="flex flex-wrap items-center justify-between gap-2 sm:justify-end">

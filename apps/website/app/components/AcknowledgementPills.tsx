@@ -85,7 +85,7 @@ interface AcknowledgementPill {
 
 export function AcknowledgementPills({ pills }: { pills: readonly AcknowledgementPill[] }) {
 	return (
-		<div className="mt-2 flex flex-wrap gap-2">
+		<div className="flex flex-wrap gap-2">
 			{pills.map(({ href, label, platform }) => {
 				const brand = AcknowledgementPillPlatformToBrand[platform];
 				const { colour, Icon, label: platformLabel } = brand;

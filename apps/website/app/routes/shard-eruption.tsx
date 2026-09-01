@@ -228,7 +228,7 @@ function ShardEruptionCard({
 		<div
 			aria-current={selected ? "date" : undefined}
 			className={clsx(
-				"flex w-full max-w-sm flex-col items-center rounded-lg border p-6 text-center shadow-sm",
+				"flex min-h-48 w-full max-w-sm flex-col items-center rounded-lg border p-6 text-center shadow-sm",
 				shard?.strong
 					? "border-red-400 bg-red-300 hover:bg-red-300/70 dark:border-red-900 dark:bg-red-950/50 dark:hover:bg-red-950/40"
 					: "border-gray-200 bg-gray-100 hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50",
@@ -249,7 +249,7 @@ function ShardEruptionCard({
 						}}
 					/>
 				)}
-				<h2 className="my-0 text-lg">
+				<h2 className="text-lg font-semibold">
 					{timeZoneEstimated ? <SkeletonText>{todayFormat}</SkeletonText> : todayFormat}
 				</h2>
 			</div>
@@ -296,7 +296,7 @@ function ShardEruptionCard({
 					))}
 				</>
 			) : (
-				<p className="pt-6">{t("none", { ns: "general" })}</p>
+				<p className="my-4 pt-6">{t("none", { ns: "general" })}</p>
 			)}
 		</div>
 	);

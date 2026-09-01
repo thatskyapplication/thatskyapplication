@@ -99,7 +99,7 @@ export function FriendshipActionUploadForm({
 							Type
 						</h3>
 						<div className="flex flex-col gap-2">
-							<p className="my-0 text-sm text-gray-600 dark:text-gray-400" id="type-description">
+							<p className="text-sm text-gray-600 dark:text-gray-400" id="type-description">
 								Choose which friendship action this GIF belongs to.
 							</p>
 							<Select
@@ -185,7 +185,7 @@ export function FriendshipActionUploadForm({
 								</button>
 							</div>
 							{assetFileName ? (
-								<p className="my-0 text-center text-sm text-gray-600 dark:text-gray-400">
+								<p className="text-center text-sm text-gray-600 dark:text-gray-400">
 									{assetFileName}
 								</p>
 							) : null}
@@ -264,11 +264,11 @@ export function FriendshipActionUploadForm({
 						<div className={SUCCESS_BANNER_CLASS}>
 							<Check className="h-5 w-5 shrink-0 self-start" />
 							<div className="flex flex-col leading-tight">
-								<p className="my-0">
+								<p>
 									Added {FriendshipActionTypeToLabel[upload.type]} #{upload.id}.
 								</p>
-								<p className="my-0">Users: {upload.users.join(", ")}</p>
-								<p className="my-0">
+								<p>Users: {upload.users.join(", ")}</p>
+								<p>
 									<ExternalLink
 										className="regular-link inline-flex items-center gap-1"
 										href={upload.assetURL}

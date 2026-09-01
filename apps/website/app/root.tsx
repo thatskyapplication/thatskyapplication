@@ -102,11 +102,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 						style={{ backgroundImage: "url(/dark-crab-flipped.svg)" }}
 					/>
 				</div>
-				<h1 className="mb-2 text-3xl text-balance sm:text-4xl lg:text-5xl">{title}</h1>
+				<h1 className="mb-2 text-3xl font-bold text-balance sm:text-4xl lg:text-5xl">{title}</h1>
 				{status !== undefined && (
 					<div className="text-sm text-gray-500 dark:text-gray-400">{status}</div>
 				)}
-				<p className="text-lg text-pretty whitespace-pre-line text-gray-600 dark:text-gray-400">
+				<p className="my-4 text-lg text-pretty whitespace-pre-line text-gray-600 dark:text-gray-400">
 					{t("error-description", { ns: "general" })}
 				</p>
 				<div className="mt-8 flex flex-wrap items-center justify-center gap-3">

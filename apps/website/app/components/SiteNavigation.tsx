@@ -29,6 +29,7 @@ import {
 } from "~/hooks/navigation-groups";
 import { APPLICATION_NAME, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL } from "~/utility/functions";
+import { MAJOR_HEADING_CLASS } from "~/utility/styles.js";
 import type { DiscordUser } from "~/utility/types";
 import { DesktopUserContextMenuItem } from "./DesktopUserContextMenuItem";
 import { MobileUserContextMenuItem } from "./MobileUserContextMenuItem";
@@ -269,7 +270,7 @@ function MobileMenu({ onClose, user, userDisplayName, userIconURL }: MobileMenuP
 				<Dialog.Backdrop className="fixed inset-0 z-40 bg-black/20 backdrop-blur-xs" />
 				<Dialog.Popup className="fixed top-4 right-4 bottom-4 left-4 z-50 flex flex-col rounded-xl border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900">
 					<div className="flex shrink-0 items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
-						<Dialog.Title className="my-0 font-semibold text-gray-900 dark:text-gray-100">
+						<Dialog.Title className={clsx(MAJOR_HEADING_CLASS, "text-gray-900 dark:text-gray-100")}>
 							Navigation
 						</Dialog.Title>
 						<Dialog.Close

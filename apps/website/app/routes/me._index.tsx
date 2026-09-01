@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import {
 	BookOpenCheck,
 	CheckSquare,
@@ -11,6 +12,7 @@ import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import database from "~/database.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/me._index.js";
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
@@ -34,8 +36,8 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 		<SitePage>
 			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
 				<div>
-					<h1>Welcome, {displayName}!</h1>
-					<p className="mb-0 text-gray-600 dark:text-gray-300">
+					<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>Welcome, {displayName}!</h1>
+					<p className="text-gray-600 dark:text-gray-300">
 						You can update things about yourself here!
 					</p>
 				</div>
@@ -48,7 +50,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<Users className="h-5 w-5" />
 						</div>
-						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 							{t("sky-profile.name", { ns: "features" })}
 						</h2>
 					</Link>
@@ -60,7 +62,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<CheckSquare className="h-5 w-5" />
 						</div>
-						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 							{t("checklist.title", { ns: "features" })}
 						</h2>
 					</Link>
@@ -72,7 +74,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<Heart className="h-5 w-5" />
 						</div>
-						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 							{t("heart.history-title", { ns: "features" })}
 						</h2>
 					</Link>
@@ -84,7 +86,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<BookOpenCheck className="h-5 w-5" />
 						</div>
-						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 							{t("catalogue.main-title", { ns: "features" })}
 						</h2>
 					</Link>
@@ -96,7 +98,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<SettingsIcon className="h-5 w-5" />
 						</div>
-						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 							{t("settings.name", { ns: "features" })}
 						</h2>
 					</Link>
@@ -105,7 +107,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-700 dark:bg-gray-800">
 							<Ellipsis className="h-5 w-5" />
 						</div>
-						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
 							More coming soon
 						</h2>
 					</div>

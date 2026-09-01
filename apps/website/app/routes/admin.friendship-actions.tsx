@@ -415,7 +415,7 @@ export default function AdminFriendshipActions({ actionData, loaderData }: Route
 
 				<div>
 					<h1 className="mb-1 text-4xl font-bold">Friendship actions</h1>
-					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
+					<p className="mt-4 text-base text-gray-600 dark:text-gray-400">
 						{total === 1 ? "1 friendship action." : `${total} friendship actions.`}
 					</p>
 				</div>
@@ -428,7 +428,7 @@ export default function AdminFriendshipActions({ actionData, loaderData }: Route
 						)}
 					>
 						<TriangleAlert className="h-5 w-5 shrink-0" />
-						<p className="my-0">
+						<p>
 							Nothing left to send for:{" "}
 							{unavailableGroups.map((group) => group.typeLabel.toLowerCase()).join(", ")}.
 						</p>
@@ -462,7 +462,7 @@ export default function AdminFriendshipActions({ actionData, loaderData }: Route
 				</div>
 
 				{shownGroups.length === 0 ? (
-					<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
+					<p className="text-sm text-gray-600 dark:text-gray-400">
 						Every type is hidden. Select a type above to show it.
 					</p>
 				) : (
@@ -474,9 +474,7 @@ export default function AdminFriendshipActions({ actionData, loaderData }: Route
 							</h2>
 
 							{group.friendshipActions.length === 0 ? (
-								<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
-									No friendship actions.
-								</p>
+								<p className="text-sm text-gray-600 dark:text-gray-400">No friendship actions.</p>
 							) : (
 								<ul className="m-0 grid list-none grid-cols-1 gap-3 p-0 lg:grid-cols-2">
 									{group.friendshipActions.map((friendshipAction) => (

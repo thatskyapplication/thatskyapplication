@@ -18,7 +18,7 @@ export function RemainingCurrency({
 
 	return (
 		<div className={CARD_CLASS}>
-			<h2 className="mt-0 mb-2 text-base font-medium text-gray-900 dark:text-gray-100">
+			<h2 className="mb-2 text-base font-medium text-gray-900 dark:text-gray-100">
 				{t("catalogue.remaining-currency", { ns: "features" })}
 			</h2>
 			<span className="text-sm text-gray-600 dark:text-gray-400">

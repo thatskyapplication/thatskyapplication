@@ -56,7 +56,7 @@ export function SpiritView({
 		<>
 			<Breadcrumb current={spiritName} trail={trail} />
 
-			<h1 className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100">
+			<h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
 				<ExternalLink href={t(`spirit-wiki.${spirit.id}`, { ns: "general" })} icon>
 					{spiritName}
 				</ExternalLink>
@@ -76,7 +76,7 @@ export function SpiritView({
 					tree={friendshipTree}
 				/>
 			) : (
-				<p className="m-0 text-base text-gray-600 dark:text-gray-400">
+				<p className="text-base text-gray-600 dark:text-gray-400">
 					{t(`catalogue.spirit-kind-no-friendship-tree.${spirit.kind}`, { ns: "features" })}
 				</p>
 			)}

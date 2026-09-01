@@ -39,10 +39,10 @@ export function FriendshipActionDeleteButton({
 					className={clsx(DIALOGUE_POPUP_CLASS, "w-[min(28rem,calc(100vw-2rem))] gap-3 p-5")}
 				>
 					<AlertDialog.Title className={DIALOGUE_TITLE_CLASS}>Delete {name}?</AlertDialog.Title>
-					<AlertDialog.Description className="my-0 text-sm text-gray-600 dark:text-gray-400">
+					<AlertDialog.Description className="text-sm text-gray-600 dark:text-gray-400">
 						Are you sure?
 					</AlertDialog.Description>
-					{error && <p className="my-0 text-sm text-red-600 dark:text-red-400">{error}</p>}
+					{error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
 					<div className="mt-1 flex justify-end gap-2">
 						<AlertDialog.Close render={<ActionButton variant="secondary" />}>
 							Cancel

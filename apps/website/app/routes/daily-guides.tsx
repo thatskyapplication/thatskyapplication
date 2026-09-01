@@ -631,17 +631,17 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			>
 				<div className="w-full max-w-lg shrink-0 rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
 					<div className="mb-6 border-b-2 border-gray-200 pb-4 dark:border-gray-700">
-						<h1 className="m-0 text-lg font-bold text-gray-900 dark:text-white">{todayString}</h1>
+						<h1 className="text-lg font-bold text-gray-900 dark:text-white">{todayString}</h1>
 					</div>
 					{todayMaintenance.length > 0 && (
 						<div className="mb-5 flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800 dark:bg-amber-950/40">
 							<AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
 							<div>
-								<p className="m-0 text-sm font-medium text-amber-800 dark:text-amber-200">
+								<p className="text-sm font-medium text-amber-800 dark:text-amber-200">
 									{t("maintenance", { ns: "general" })}
 								</p>
 								{todayMaintenance.length === 1 ? (
-									<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
+									<p className="text-xs text-amber-700 dark:text-amber-300">
 										{timeZoneEstimated ? (
 											<SkeletonText>{maintenanceDescription}</SkeletonText>
 										) : (
@@ -650,7 +650,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 									</p>
 								) : (
 									<>
-										<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
+										<p className="text-xs text-amber-700 dark:text-amber-300">
 											{t("maintenance-description-many", { ns: "general" })}
 										</p>
 										<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">
@@ -774,7 +774,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					)}
 					<div className="mb-5">
 						<div className="mb-3 flex items-center justify-between gap-3">
-							<h2 className="m-0 text-sm font-semibold text-gray-900 dark:text-white">
+							<h2 className="text-sm font-semibold text-gray-900 dark:text-white">
 								{t("shard-eruption", { ns: "general" })}
 							</h2>
 							<Link
@@ -899,7 +899,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								</div>
 							</div>
 						) : (
-							<p className="text-sm text-gray-500 dark:text-gray-400">
+							<p className="my-4 text-sm text-gray-500 dark:text-gray-400">
 								{t("none", { ns: "general" })}
 							</p>
 						)}
@@ -922,7 +922,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 									{t("view", { ns: "general" })}
 								</button>
 							) : (
-								<p className="text-sm text-gray-500 dark:text-gray-400">
+								<p className="my-4 text-sm text-gray-500 dark:text-gray-400">
 									{t("none", { ns: "general", context: "travelling-rock" })}
 								</p>
 							)}
@@ -939,7 +939,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 											style={{ backgroundImage: `url(${iconURL})` }}
 										/>
 									) : null}
-									<p className="m-0 text-xs text-gray-500 dark:text-gray-400">{content}</p>
+									<p className="text-xs text-gray-500 dark:text-gray-400">{content}</p>
 								</div>
 							))}
 						</div>

@@ -44,11 +44,11 @@ function AllDayEntry({
 					<span className="text-xs font-normal opacity-75">{kindLabel}</span>
 				)}
 			</div>
-			<p className="m-0 mt-0.5 text-xs opacity-90">
+			<p className="mt-0.5 text-xs opacity-90">
 				{zoneEstimated ? <SkeletonText>{entry.range}</SkeletonText> : entry.range}
 			</p>
 			{entry.spiritLinks && (
-				<p className="m-0 mt-1 text-xs">
+				<p className="mt-1 text-xs">
 					<ExternalLinkList
 						className={ENTRY_LINK_CLASS}
 						items={entry.spiritLinks}
@@ -130,7 +130,7 @@ function DayOccurrence({
 				</div>
 			</div>
 			{occurrence.cadence && (
-				<p className="m-0 mt-1 text-xs text-gray-500 dark:text-gray-400">{occurrence.cadence}</p>
+				<p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{occurrence.cadence}</p>
 			)}
 			<div className="mt-1 flex flex-wrap gap-1">
 				<CalendarTimeChips estimated={zoneEstimated} times={occurrence.times} />
@@ -159,7 +159,7 @@ export function CalendarDayDetails({
 		<>
 			{allDay.length > 0 && (
 				<section>
-					<h3 className="m-0 mb-2 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
+					<h3 className="mb-2 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
 						{t("calendar.all-day", { ns: "features" })}
 					</h3>
 					<ul className="m-0 flex list-none flex-col gap-2 p-0">
@@ -176,7 +176,7 @@ export function CalendarDayDetails({
 			)}
 			{occurrences.length > 0 && (
 				<section className={clsx(allDay.length > 0 && "mt-4")}>
-					<h3 className="m-0 mb-1 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
+					<h3 className="mb-1 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
 						{t("calendar.during-the-day", { ns: "features" })}
 					</h3>
 					<ul className="m-0 list-none p-0">
@@ -192,7 +192,7 @@ export function CalendarDayDetails({
 				</section>
 			)}
 			{allDay.length === 0 && occurrences.length === 0 && (
-				<p className="m-0 text-sm text-gray-500 dark:text-gray-400">
+				<p className="text-sm text-gray-500 dark:text-gray-400">
 					{t("calendar.nothing-scheduled", { ns: "features" })}
 				</p>
 			)}

@@ -139,7 +139,7 @@ export default function Select({
 						>
 							<Combobox.Popup className="max-h-[min(20rem,var(--available-height))] w-(--anchor-width) overflow-y-auto rounded-lg border border-gray-200 bg-gray-100 shadow-lg dark:border-gray-700 dark:bg-gray-900">
 								<Combobox.Empty>
-									<p className="m-0 px-3 py-2.5 text-sm text-gray-600 dark:text-gray-400">
+									<p className="px-3 py-2.5 text-sm text-gray-600 dark:text-gray-400">
 										{t("no-results", { ns: "general" })}
 									</p>
 								</Combobox.Empty>

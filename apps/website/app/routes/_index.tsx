@@ -408,12 +408,12 @@ export default function Index() {
 						✦
 					</span>
 					<h1
-						className="relative mb-0 text-[clamp(1.55rem,5.6vw,3.4rem)] font-light tracking-[0.09em] [hyphens:none] text-white"
+						className="relative text-[clamp(1.55rem,5.6vw,3.4rem)] leading-[1.1] font-light tracking-[0.09em] [hyphens:none] text-white"
 						style={{ textShadow: "0 0 34px rgba(165,181,241,0.5), 0 2px 22px rgba(0,0,0,0.7)" }}
 					>
 						thatskyapplication
 					</h1>
-					<p className="relative mt-3 mb-0 max-w-md text-xs text-sky-100/70 sm:text-base">
+					<p className="relative mt-3 max-w-md text-xs text-sky-100/70 sm:text-base">
 						{t("website-description", { ns: "general" })}
 					</p>
 				</div>
