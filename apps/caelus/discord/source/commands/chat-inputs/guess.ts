@@ -1,52 +1,10 @@
 import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
 import { t } from "i18next";
-import {
-	GuessType,
-	type GuessTypes,
-	SkyProfileMissingNameSource,
-} from "@thatskyapplication/utility";
-import { guessEvent, guessSpirit, leaderboard } from "../../features/guess.js";
-import { noSkyProfileName } from "../../features/sky-profile/missing-name.js";
-import { OptionResolver } from "../../utility/option-resolver.js";
+import { client } from "../../discord.js";
 
 export default {
 	name: t("guess.command-name", { ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
-		const options = new OptionResolver(interaction);
-
-		switch (options.requireSubcommand()) {
-			case "game": {
-				await this.game(interaction, options);
-				return;
-			}
-			case "leaderboard": {
-				await this.leaderboard(interaction, options);
-			}
-		}
-	},
-	async game(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
-		const type = options.requireInteger("type") as GuessTypes;
-
-		if (await noSkyProfileName(interaction, SkyProfileMissingNameSource.Guess)) {
-			return;
-		}
-
-		switch (type) {
-			case GuessType.Spirits:
-			case GuessType.SpiritsHard: {
-				await guessSpirit({ interaction, type, streak: 0 });
-				return;
-			}
-			case GuessType.Events: {
-				await guessEvent({ interaction, type, streak: 0 });
-				return;
-			}
-		}
-	},
-	async leaderboard(
-		interaction: APIChatInputApplicationCommandInteraction,
-		options: OptionResolver,
-	) {
-		await leaderboard(interaction, options.requireInteger("type") as GuessTypes);
+		await client.api.interactions.launchActivity(interaction.id, interaction.token);
 	},
 } as const;

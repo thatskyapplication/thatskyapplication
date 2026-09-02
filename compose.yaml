@@ -69,6 +69,25 @@ services:
     logging: *default-logging
     environment:
       FLUXER_TOKEN: ${FLUXER_TOKEN}
+  thatskyapplication-games:
+    image: thatskyapplication-games:latest
+    profiles:
+      - thatskyapplication-games
+    <<: *hardening
+    x-ports:
+      - games.thatskyapplication.com:3000/https
+    restart: *restart-policy
+    logging: *default-logging
+    environment:
+      SESSION_SECRET: ${SESSION_SECRET_GAMES}
+      DATABASE_URL: *database-url
+      APPLICATION_ID: ${APPLICATION_ID}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
+      DISCORD_TOKEN: ${DISCORD_TOKEN_CAELUS}
+      REDIRECT_URI_LOGIN: ${REDIRECT_URI_LOGIN_GAMES}
+      CDN_URL: ${CDN_URL}
+      SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME_GAMES}
+
   thatskyapplication-notifications:
     image: thatskyapplication-notifications:latest
     profiles:

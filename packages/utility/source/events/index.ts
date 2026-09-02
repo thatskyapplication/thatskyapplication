@@ -24,8 +24,37 @@ const EVENTS: ReadonlyCollection<EventIds, Event> = [
 	...Year8,
 ].reduce((events, event) => events.set(event.id, event), new Collection<EventIds, Event>());
 
+let startedEvents: {
+	events: ReadonlyCollection<EventIds, Event>;
+	from: Temporal.ZonedDateTime;
+	until: Temporal.ZonedDateTime | null;
+} | null = null;
+
 export function skyEvents(): ReadonlyCollection<EventIds, Event> {
-	return EVENTS.filter((event) => Temporal.ZonedDateTime.compare(skyNow(), event.start) >= 0);
+	const now = skyNow();
+
+	if (
+		startedEvents !== null &&
+		Temporal.ZonedDateTime.compare(now, startedEvents.from) >= 0 &&
+		(startedEvents.until === null || Temporal.ZonedDateTime.compare(now, startedEvents.until) < 0)
+	) {
+		return startedEvents.events;
+	}
+
+	const events = EVENTS.filter((event) => Temporal.ZonedDateTime.compare(now, event.start) >= 0);
+	let until: Temporal.ZonedDateTime | null = null;
+
+	for (const event of EVENTS.values()) {
+		if (
+			Temporal.ZonedDateTime.compare(now, event.start) < 0 &&
+			(until === null || Temporal.ZonedDateTime.compare(event.start, until) < 0)
+		) {
+			until = event.start;
+		}
+	}
+
+	startedEvents = { events, from: now, until };
+	return events;
 }
 
 export function skyEventFamilies(): ReadonlyCollection<EventFamilyIds, EventFamily> {

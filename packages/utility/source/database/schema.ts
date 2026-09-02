@@ -89,6 +89,20 @@ export interface FriendshipActions {
   users: string[];
 }
 
+export interface GameSessions {
+  answer: number;
+  created_at: Generated<Timestamp>;
+  emoji_id: string;
+  expires_at: Timestamp;
+  id: Generated<string>;
+  instance_id: string | null;
+  options: number[];
+  streak: Generated<number>;
+  type: number;
+  updated_at: Generated<Timestamp>;
+  user_id: string;
+}
+
 export interface Giveaway {
   eligible: boolean;
   entry_count: number;
@@ -207,6 +221,7 @@ export interface DB {
   feedback: Feedback;
   feedback_upsell: FeedbackUpsell;
   friendship_actions: FriendshipActions;
+  game_sessions: GameSessions;
   giveaway: Giveaway;
   giveaway_upsell: GiveawayUpsell;
   guess: Guess;

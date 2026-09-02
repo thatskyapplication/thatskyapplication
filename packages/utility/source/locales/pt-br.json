@@ -2392,17 +2392,7 @@
 		},
 		"guess": {
 			"command-name": "quiz",
-			"command-description": "Vamos jogar um quiz de Sky! Quantos seguidos você consegue acertar?",
-			"game": {
-				"command-name": "jogo",
-				"command-description": "Iniciar o jogo do quiz!",
-				"command-option-type-description": "Que tipo de jogo você gostaria de jogar?"
-			},
-			"leaderboard": {
-				"command-name": "líderes",
-				"command-description": "Ver classificação!",
-				"command-option-type-description": "Que tipo de jogo você gostaria de ver?"
-			}
+			"command-description": "Vamos jogar um quiz de Sky! Quantos seguidos você consegue acertar?"
 		},
 		"hair-tousle": {
 			"command-name": "cafuné",
@@ -2793,23 +2783,23 @@
 			"krill-message": "{{user}} foi atacado por um krill por {{invoker}}!",
 			"hug-back-button-label": "Retribuir o abraço"
 		},
-		"guess": {
-			"type": {
-				"1": "$t(general:spirit-plural) (difícil)"
-			},
-			"title": "De onde isso veio?",
-			"guess-in": "Palpite {{time}}!",
-			"footer": "Tipo: {{type}} | Sequência: {{streak}} | Maior: {{highestStreak}}",
-			"end-game": "Encerrar jogo",
-			"try-again": "Tentar novamente?",
-			"game-over": "Fim de jogo",
-			"answer": "Resposta:",
-			"your-guess": "Seu palpite:",
-			"too-late": "Você demorou muito para responder!",
-			"game-interaction-not-self": "Você não iniciou esse jogo!",
-			"leaderboard-nothing": "Não há nada no leaderboard. Que tal ser o primeiro?",
-			"leaderboard-title": "Leaderboard - {{type}}",
-			"leaderboard-you": "Você: #{{rank}} ({{streak}})"
+		"games": {
+			"guess": {
+				"type": {
+					"1": "$t(general:spirit-plural) (difícil)"
+				},
+				"title": "De onde isso veio?",
+				"end-game": "Encerrar jogo",
+				"try-again": "Tentar novamente?",
+				"game-over": "Fim de jogo",
+				"answer": "Resposta:",
+				"your-guess": "Seu palpite:",
+				"too-late": "Você demorou muito para responder!",
+				"leaderboard-nothing": "Não há nada no leaderboard. Que tal ser o primeiro?",
+				"leaderboard-title": "Leaderboard - {{type}}",
+				"leaderboard-you": "Você: #{{rank}} ({{streak}})",
+				"leaderboard-unnamed": "Anônimo"
+			}
 		},
 		"heart": {
 			"gift-self": "Você não pode presentear um {{emoji}} para si mesmo!",
@@ -3202,11 +3192,8 @@
 			"missing-guess-rank": "Exibir seu ranking no jogo de quiz!",
 			"missing-name-modal-text-display-heart-source-content-mention": "Você precisa de um nome para presentear corações! Ele será usado no seu perfil Sky, que é utilizado para várias coisas.\n\nCurioso para saber mais sobre o seu perfil Sky? Visite [o site]({{url}}) ou use {{mention}} para descobrir mais!",
 			"missing-name-modal-text-display-heart-source-content-text": "Você precisa de um nome para presentear corações! Ele será usado no seu perfil Sky, que é utilizado para várias coisas.\n\nCurioso para saber mais sobre o seu perfil Sky? Visite [o site]({{url}}) para descobrir mais!",
-			"missing-name-modal-text-display-guess-source-content-mention": "Você precisa de um nome para jogar o quiz! Ele será usado no seu perfil Sky, que é utilizado para várias coisas.\n\nCurioso para saber mais sobre o seu perfil Sky? Visite [o site]({{url}}) ou use {{mention}} para descobrir mais!",
-			"missing-name-modal-text-display-guess-source-content-text": "Você precisa de um nome para jogar o quiz! Ele será usado no seu perfil Sky, que é utilizado para várias coisas.\n\nCurioso para saber mais sobre o seu perfil Sky? Visite [o site]({{url}}) para descobrir mais!",
 			"missing-name-source-success": {
-				"0": "Você está pronto(a) para presentear corações, {{name}}!",
-				"1": "Você está pronto para o quiz, {{name}}. Pode começar a adivinhar!"
+				"0": "Você está pronto(a) para presentear corações, {{name}}!"
 			}
 		},
 		"spirits": {

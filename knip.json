@@ -31,6 +31,10 @@
 		"apps/sky-elder": {
 			"entry": ["source/server/index.ts", "source/server/vite.config.ts"]
 		},
+		"apps/games": {
+			"entry": "source/server/sentry.ts",
+			"ignoreDependencies": ["tailwindcss!"]
+		},
 		"apps/website": {
 			"entry": "app/server.ts",
 			"ignoreDependencies": ["tailwindcss!"]

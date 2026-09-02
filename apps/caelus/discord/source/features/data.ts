@@ -36,6 +36,16 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 				.where("giftee_id", "=", userId)
 				.execute();
 			await transaction.deleteFrom("guess").where("user_id", "=", userId).execute();
+			await transaction.deleteFrom("game_sessions").where("user_id", "=", userId).execute();
+			await transaction.deleteFrom("giveaway").where("user_id", "=", userId).execute();
+			await transaction.deleteFrom("giveaway_upsell").where("user_id", "=", userId).execute();
+			await transaction.deleteFrom("feedback").where("user_id", "=", userId).execute();
+			await transaction.deleteFrom("feedback_upsell").where("user_id", "=", userId).execute();
+			await transaction.deleteFrom("discord_oauth").where("user_id", "=", userId).execute();
+			await transaction
+				.deleteFrom("sky_profile_likes")
+				.where((eb) => eb.or([eb("user_id", "=", userId), eb("target_id", "=", userId)]))
+				.execute();
 			await transaction.deleteFrom("users").where("discord_user_id", "=", userId).execute();
 			await skyProfileDelete(userId, transaction);
 		});

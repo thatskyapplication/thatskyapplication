@@ -2392,17 +2392,7 @@
 		},
 		"guess": {
 			"command-name": "devinettes",
-			"command-description": "Commencez un jeu de devinettes Sky ! Combien réussirez-vous à deviner d'affilée ?",
-			"game": {
-				"command-name": "jeu",
-				"command-description": "Commencez le jeu de devinettes !",
-				"command-option-type-description": "À quel type de jeu souhaitez-vous jouer ?"
-			},
-			"leaderboard": {
-				"command-name": "classement",
-				"command-description": "Voir le classement !",
-				"command-option-type-description": "Quel type de jeu souhaitez-vous voir ?"
-			}
+			"command-description": "Commencez un jeu de devinettes Sky ! Combien réussirez-vous à deviner d'affilée ?"
 		},
 		"hair-tousle": {
 			"command-name": "ébouriffage-de-cheveux",
@@ -2793,23 +2783,23 @@
 			"krill-message": "{{user}} s'est fait attaquer par un krill par {{invoker}} !",
 			"hug-back-button-label": "Faire un câlin en retour"
 		},
-		"guess": {
-			"type": {
-				"1": ""
-			},
-			"title": "D'où cela vient ?",
-			"guess-in": "Devinez {{time}} !",
-			"footer": "Type : {{type}} | Combo : {{streak}} | Meilleur : {{highestStreak}}",
-			"end-game": "Finir le jeu",
-			"try-again": "Essayer de nouveau ?",
-			"game-over": "Jeu terminé",
-			"answer": "Réponse :",
-			"your-guess": "Votre supposition :",
-			"too-late": "Vous avez mis trop de temps à répondre !",
-			"game-interaction-not-self": "Vous n'avez pas démarré ce jeu !",
-			"leaderboard-nothing": "Il n'y a rien dans le classement. Pourquoi ne pas être le premier ?",
-			"leaderboard-title": "{{type}} classement",
-			"leaderboard-you": "Vous : #{{rank}} ({{streak}})"
+		"games": {
+			"guess": {
+				"type": {
+					"1": ""
+				},
+				"title": "D'où cela vient ?",
+				"end-game": "Finir le jeu",
+				"try-again": "Essayer de nouveau ?",
+				"game-over": "Jeu terminé",
+				"answer": "Réponse :",
+				"your-guess": "Votre supposition :",
+				"too-late": "Vous avez mis trop de temps à répondre !",
+				"leaderboard-nothing": "Il n'y a rien dans le classement. Pourquoi ne pas être le premier ?",
+				"leaderboard-title": "{{type}} classement",
+				"leaderboard-you": "Vous : #{{rank}} ({{streak}})",
+				"leaderboard-unnamed": "Anonyme"
+			}
 		},
 		"heart": {
 			"gift-self": "Vous ne pouvez pas offrir de {{emoji}} à vous-même !",
@@ -3202,11 +3192,8 @@
 			"missing-guess-rank": "Montrez votre rang de jeu des devinettes !",
 			"missing-name-modal-text-display-heart-source-content-mention": "",
 			"missing-name-modal-text-display-heart-source-content-text": "",
-			"missing-name-modal-text-display-guess-source-content-mention": "",
-			"missing-name-modal-text-display-guess-source-content-text": "",
 			"missing-name-source-success": {
-				"0": "",
-				"1": ""
+				"0": ""
 			}
 		},
 		"spirits": {

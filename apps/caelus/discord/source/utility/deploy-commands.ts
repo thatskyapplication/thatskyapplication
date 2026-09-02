@@ -5,6 +5,7 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	ApplicationIntegrationType,
+	EntryPointCommandHandlerType,
 	InteractionContextType,
 	PermissionFlagsBits,
 	type RESTPutAPIApplicationCommandsJSONBody,
@@ -15,7 +16,6 @@ import { init, t } from "i18next";
 import { z } from "zod/v4";
 import {
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
-	GUESS_TYPE_VALUES,
 	SCHEDULE_TYPE_VALUES,
 	ScheduleType,
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
@@ -25,7 +25,6 @@ import {
 	SkyProfileEditType,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
-	GuessTypeToLocaleKey,
 	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { I18_NEXT_OPTIONS, LOCALES, QUEST_NUMBER } from "./constants.js";
@@ -462,69 +461,28 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
 	},
 	{
+		name: t("games.command-name", { ns: "commands" }),
+		name_localizations: localisations("games.command-name"),
+		description: t("games.command-description", { ns: "commands" }),
+		description_localizations: localisations("games.command-description"),
+		type: ApplicationCommandType.PrimaryEntryPoint,
+		handler: EntryPointCommandHandlerType.DiscordLaunchActivity,
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [
+			InteractionContextType.Guild,
+			InteractionContextType.BotDM,
+			InteractionContextType.PrivateChannel,
+		],
+	},
+	{
 		name: t("guess.command-name", { ns: "commands" }),
 		name_localizations: localisations("guess.command-name"),
 		description: t("guess.command-description", { ns: "commands" }),
 		description_localizations: localisations("guess.command-description"),
 		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: t("guess.game.command-name", { ns: "commands" }),
-				name_localizations: localisations("guess.game.command-name"),
-				description: t("guess.game.command-description", { ns: "commands" }),
-				description_localizations: localisations("guess.game.command-description"),
-				options: [
-					{
-						type: ApplicationCommandOptionType.Integer,
-						name: t("common.type", {
-							ns: "commands",
-						}),
-						name_localizations: localisations("common.type"),
-						description: t("guess.game.command-option-type-description", {
-							ns: "commands",
-						}),
-						description_localizations: localisations("guess.game.command-option-type-description"),
-						choices: GUESS_TYPE_VALUES.map((guessType) => ({
-							name: t(GuessTypeToLocaleKey[guessType]),
-							name_localizations: localisations(GuessTypeToLocaleKey[guessType]),
-							value: guessType,
-						})),
-						required: true,
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: t("guess.leaderboard.command-name", { ns: "commands" }),
-				name_localizations: localisations("guess.leaderboard.command-name"),
-				description: t("guess.leaderboard.command-description", {
-					ns: "commands",
-				}),
-				description_localizations: localisations("guess.leaderboard.command-description"),
-				options: [
-					{
-						type: ApplicationCommandOptionType.Integer,
-						name: t("common.type", {
-							ns: "commands",
-						}),
-						name_localizations: localisations("common.type"),
-						description: t("guess.leaderboard.command-option-type-description", {
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"guess.leaderboard.command-option-type-description",
-						),
-						choices: GUESS_TYPE_VALUES.map((guessType) => ({
-							name: t(GuessTypeToLocaleKey[guessType]),
-							name_localizations: localisations(GuessTypeToLocaleKey[guessType]),
-							value: guessType,
-						})),
-						required: true,
-					},
-				],
-			},
-		],
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
 			ApplicationIntegrationType.UserInstall,

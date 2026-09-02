@@ -23,7 +23,7 @@ const envSchema = z.object({
 	APPLICATION_ID: z.string().min(1),
 	SUPPORTER_SKU_ID: z.string().min(1),
 	SUPPORT_SERVER_GUILD_ID: z.string().min(1),
-	SUPPORT_SERVER_INVITE_URL: z.url().min(1),
+	SUPPORT_SERVER_INVITE_URL: z.url(),
 	UPDATING_DAILY_GUIDES_CHANNEL_ID: z.string().min(1),
 	SHOP_SUGGESTIONS_CHANNEL_ID: z.string().min(1),
 	DAILY_GUIDES_LOG_CHANNEL_ID: z.string().min(1),

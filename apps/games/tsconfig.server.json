@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"verbatimModuleSyntax": true,
+		"newLine": "lf",
+		"outDir": "build",
+		"rootDir": "source",
+		"lib": ["ES2025", "ESNext.Temporal"],
+		"target": "ESNext",
+		"skipLibCheck": true,
+		"types": ["node", "pg"],
+		"isolatedModules": true
+	},
+	"include": ["source/server/**/*.ts", "source/guess.ts"]
+}

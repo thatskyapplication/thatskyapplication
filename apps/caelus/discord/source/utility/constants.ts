@@ -96,10 +96,6 @@ export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
 	value: locale,
 }));
 
-// Guess.
-export const GUESS_TIMEOUT = 30_000 as const;
-export const GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER = 10 as const;
-
 // Heart.
 export const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 25 as const;
 

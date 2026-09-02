@@ -1,0 +1,31 @@
+{
+	"compilerOptions": {
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"verbatimModuleSyntax": true,
+		"newLine": "lf",
+		"jsx": "react-jsx",
+		"lib": ["DOM", "DOM.Iterable", "ES2025", "ESNext.Temporal"],
+		"target": "ESNext",
+		"skipLibCheck": true,
+		"types": ["react", "react-dom", "vite/client"],
+		"isolatedModules": true,
+		"noEmit": true
+	},
+	"include": [
+		"source/client/**/*.ts",
+		"source/client/**/*.tsx",
+		"source/guess.ts",
+		"vite.config.ts"
+	]
+}

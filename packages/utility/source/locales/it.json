@@ -2392,17 +2392,7 @@
 		},
 		"guess": {
 			"command-name": "",
-			"command-description": "",
-			"game": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-type-description": ""
-			},
-			"leaderboard": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-type-description": ""
-			}
+			"command-description": ""
 		},
 		"hair-tousle": {
 			"command-name": "",
@@ -2793,23 +2783,23 @@
 			"krill-message": "",
 			"hug-back-button-label": ""
 		},
-		"guess": {
-			"type": {
-				"1": ""
-			},
-			"title": "",
-			"guess-in": "",
-			"footer": "",
-			"end-game": "",
-			"try-again": "",
-			"game-over": "",
-			"answer": "",
-			"your-guess": "",
-			"too-late": "",
-			"game-interaction-not-self": "",
-			"leaderboard-nothing": "",
-			"leaderboard-title": "",
-			"leaderboard-you": ""
+		"games": {
+			"guess": {
+				"type": {
+					"1": ""
+				},
+				"title": "",
+				"end-game": "",
+				"try-again": "",
+				"game-over": "",
+				"answer": "",
+				"your-guess": "",
+				"too-late": "",
+				"leaderboard-nothing": "",
+				"leaderboard-title": "",
+				"leaderboard-you": "",
+				"leaderboard-unnamed": "Anonimo"
+			}
 		},
 		"heart": {
 			"gift-self": "",
@@ -3192,11 +3182,8 @@
 			"missing-guess-rank": "",
 			"missing-name-modal-text-display-heart-source-content-mention": "",
 			"missing-name-modal-text-display-heart-source-content-text": "",
-			"missing-name-modal-text-display-guess-source-content-mention": "",
-			"missing-name-modal-text-display-guess-source-content-text": "",
 			"missing-name-source-success": {
-				"0": "",
-				"1": ""
+				"0": ""
 			}
 		},
 		"spirits": {

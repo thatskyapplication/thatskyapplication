@@ -1,0 +1,12 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" width="256" height="256">
+	<rect width="256" height="256" fill="#49add8" />
+	<g transform="translate(128 100) scale(1.25) translate(-128 -100)">
+		<path d="M20 73c25-19 49-17 69-1 20-27 55-25 74-3 18-14 41-14 73 3V20H20Z" fill="#effbff"
+			opacity=".14" />
+	</g>
+	<g fill="none" stroke="#f7fbff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+		<path d="M42 69H96 M69 69V187" />
+		<path d="M151 82C141 66 105 65 101 88C97 113 153 106 153 139C153 171 112 181 94 158" />
+		<path d="M162 184L195 71L226 184 M175 141H214" />
+	</g>
+</svg>

@@ -70,14 +70,6 @@ import {
 	friendshipActionsCreateThread,
 	friendshipActionsHugBack,
 } from "../features/friendship-actions.js";
-import {
-	guessEventAnswer,
-	guessHandleEndGame,
-	guessSpiritAnswer,
-	isGuessType,
-	leaderboard,
-	tryAgain,
-} from "../features/guess.js";
 import { history } from "../features/heart.js";
 import { localeUpsell } from "../features/locale-upsell.js";
 import {
@@ -137,6 +129,7 @@ import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
 	CustomId,
+	RETIRED_GUESS_CUSTOM_IDS,
 	SHARD_ERUPTION_DATES,
 	SKY_PROFILE_EXPLORER_LIKES,
 	SKY_PROFILE_EXPLORERS,
@@ -184,6 +177,41 @@ function errorResponseV2(locale: Locale) {
 		],
 		flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	};
+}
+
+async function retireStaleMessage(interaction: APIMessageComponentButtonInteraction) {
+	if (
+		(BigInt(interaction.app_permissions) & PermissionFlagsBits.ViewChannel) !==
+		PermissionFlagsBits.ViewChannel
+	) {
+		return;
+	}
+
+	try {
+		await client.api.channels.deleteMessage(interaction.channel.id, interaction.message.id);
+		return;
+	} catch (error) {
+		pino.warn(error, "Could not delete a retired message. Editing it instead.");
+	}
+
+	const content = t("interaction-response-retired", {
+		lng: interaction.locale,
+		ns: "general",
+		url: SUPPORT_SERVER_INVITE_URL,
+	});
+
+	try {
+		await client.api.channels.editMessage(
+			interaction.channel.id,
+			interaction.message.id,
+			interaction.message.flags &&
+				(interaction.message.flags & MessageFlags.IsComponentsV2) === MessageFlags.IsComponentsV2
+				? { components: [{ type: ComponentType.TextDisplay, content }] }
+				: { content, components: [], embeds: [] },
+		);
+	} catch (error) {
+		pino.warn(error, "Could not retire a stale message.");
+	}
 }
 
 async function isNotComponentsV2(
@@ -780,53 +808,14 @@ export default {
 					return;
 				}
 
-				if (
-					id === CustomId.GuessSpiritOption1 ||
-					id === CustomId.GuessSpiritOption2 ||
-					id === CustomId.GuessSpiritOption3
-				) {
-					await guessSpiritAnswer(data);
-					return;
-				}
+				if (RETIRED_GUESS_CUSTOM_IDS.has(id)) {
+					await api.interactions.launchActivity(data.id, data.token);
 
-				if (
-					id === CustomId.GuessEventOption1 ||
-					id === CustomId.GuessEventOption2 ||
-					id === CustomId.GuessEventOption3
-				) {
-					await guessEventAnswer(data);
-					return;
-				}
-
-				if (id === CustomId.GuessEnd) {
-					if (await isNotComponentsV2(data)) {
-						return;
+					if (data.message.interaction_metadata?.user.id === (data.member?.user ?? data.user)?.id) {
+						void retireStaleMessage(data);
 					}
 
-					await guessHandleEndGame(data);
 					return;
-				}
-
-				if (id === CustomId.GuessTryAgain) {
-					if (await isNotComponentsV2(data)) {
-						return;
-					}
-
-					await tryAgain(data);
-					return;
-				}
-
-				if (id === CustomId.GuessLeaderboardBack || id === CustomId.GuessLeaderboardNext) {
-					if (await isNotComponentsV2(data)) {
-						return;
-					}
-
-					const guessType = Number(parts[0]);
-
-					if (isGuessType(guessType)) {
-						await leaderboard(data, guessType);
-						return;
-					}
 				}
 
 				if (id === CustomId.ShopSuggest) {

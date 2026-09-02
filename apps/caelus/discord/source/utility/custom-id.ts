@@ -191,3 +191,16 @@ export const SKY_PROFILE_EXPLORER_LIKES = [
 	CustomId.SkyProfileExplorerLikes3,
 	CustomId.SkyProfileExplorerLikes4,
 ] as const satisfies readonly CustomId[];
+
+export const RETIRED_GUESS_CUSTOM_IDS: ReadonlySet<string> = new Set<CustomId>([
+	CustomId.GuessSpiritOption1,
+	CustomId.GuessSpiritOption2,
+	CustomId.GuessSpiritOption3,
+	CustomId.GuessEventOption1,
+	CustomId.GuessEventOption2,
+	CustomId.GuessEventOption3,
+	CustomId.GuessEnd,
+	CustomId.GuessTryAgain,
+	CustomId.GuessLeaderboardBack,
+	CustomId.GuessLeaderboardNext,
+]);

@@ -14,6 +14,8 @@ on:
       - packages/utility/source/kingdom/seasons/**/*
       # Ensure a change in notifications triggers this workflow.
       - packages/utility/source/notifications.ts
+      # Ensure a translation change triggers this workflow.
+      - packages/utility/source/locales/**/*
   workflow_dispatch:
 concurrency:
   group: deploy-notifications

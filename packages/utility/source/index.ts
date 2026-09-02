@@ -129,8 +129,13 @@ export {
 	TEXT_COLOUR,
 } from "./friendship-tree.js";
 export {
+	generateGuessRound,
+	GUESS_OPTION_COUNT,
 	GUESS_RANK_SQL,
+	GUESS_TIMEOUT,
 	GUESS_TYPE_VALUES,
+	type GuessEmojis,
+	type GuessRound,
 	GuessType,
 	GuessTypeToLocaleKey,
 	type GuessTypes,

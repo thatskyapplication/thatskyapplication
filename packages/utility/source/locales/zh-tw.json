@@ -2387,17 +2387,7 @@
 		},
 		"guess": {
 			"command-name": "猜測",
-			"command-description": "開始光遇知識猜謎！在這局中您能連續答對多少次？",
-			"game": {
-				"command-name": "遊戲",
-				"command-description": "開始猜謎遊戲！",
-				"command-option-type-description": ""
-			},
-			"leaderboard": {
-				"command-name": "排行榜",
-				"command-description": "查看排行榜！",
-				"command-option-type-description": ""
-			}
+			"command-description": "開始光遇知識猜謎！在這局中您能連續答對多少次？"
 		},
 		"hair-tousle": {
 			"command-name": "弄亂頭髮",
@@ -2774,23 +2764,23 @@
 			"krill-message": "",
 			"hug-back-button-label": ""
 		},
-		"guess": {
-			"type": {
-				"1": ""
-			},
-			"title": "這是從哪裡來的？",
-			"guess-in": "猜猜{{time}}！",
-			"footer": "",
-			"end-game": "結束遊戲",
-			"try-again": "再試一次？",
-			"game-over": "",
-			"answer": "",
-			"your-guess": "",
-			"too-late": "",
-			"game-interaction-not-self": "",
-			"leaderboard-nothing": "",
-			"leaderboard-title": "",
-			"leaderboard-you": ""
+		"games": {
+			"guess": {
+				"type": {
+					"1": ""
+				},
+				"title": "這是從哪裡來的？",
+				"end-game": "結束遊戲",
+				"try-again": "再試一次？",
+				"game-over": "",
+				"answer": "",
+				"your-guess": "",
+				"too-late": "",
+				"leaderboard-nothing": "",
+				"leaderboard-title": "",
+				"leaderboard-you": "",
+				"leaderboard-unnamed": "陌生人"
+			}
 		},
 		"heart": {
 			"gift-self": "",
@@ -3173,11 +3163,8 @@
 			"missing-guess-rank": "",
 			"missing-name-modal-text-display-heart-source-content-mention": "",
 			"missing-name-modal-text-display-heart-source-content-text": "",
-			"missing-name-modal-text-display-guess-source-content-mention": "",
-			"missing-name-modal-text-display-guess-source-content-text": "",
 			"missing-name-source-success": {
-				"0": "",
-				"1": ""
+				"0": ""
 			}
 		},
 		"spirits": {

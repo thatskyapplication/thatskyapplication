@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@custom-variant short (@media (max-height: 680px));
+@custom-variant tiny (@media (max-height: 520px));
+@custom-variant tile (&:where([data-layout="pip"] *, [data-layout="grid"] *));
+@custom-variant landscape {
+	@media (width >= 40rem) {
+		&:where([data-orientation="landscape"]:not([data-layout="pip"]):not([data-layout="grid"]) *) {
+			@slot;
+		}
+	}
+}
+
+@theme {
+	--color-night: #04060f;
+	--color-candle: #f4d9a0;
+}
+
+@layer base {
+	:root {
+		--safe-area-inset-top: var(--discord-safe-area-inset-top, env(safe-area-inset-top, 0px));
+		--safe-area-inset-right: var(--discord-safe-area-inset-right, env(safe-area-inset-right, 0px));
+		--safe-area-inset-bottom: var(
+			--discord-safe-area-inset-bottom,
+			env(safe-area-inset-bottom, 0px)
+		);
+		--safe-area-inset-left: var(--discord-safe-area-inset-left, env(safe-area-inset-left, 0px));
+	}
+
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
+
+	html {
+		background-color: var(--color-night);
+		color: white;
+		color-scheme: dark;
+	}
+
+	body {
+		user-select: none;
+		-webkit-user-select: none;
+	}
+
+	input,
+	textarea {
+		user-select: text;
+		-webkit-user-select: text;
+	}
+
+	img {
+		-webkit-user-drag: none;
+	}
+}
+
+@keyframes drift {
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		transform: translate3d(0, -12px, 0);
+	}
+}
+
+@keyframes kindle {
+	from {
+		opacity: 0;
+		transform: scale(0.94);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@utility drifting {
+	animation: drift 6s ease-in-out infinite alternate;
+}
+
+@utility kindling {
+	animation: kindle 320ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.drifting,
+	.kindling {
+		animation: none;
+	}
+}

@@ -4,6 +4,9 @@ a:caelus:
 a:friendship-tree-generator:
   - changed-files:
       - any-glob-to-any-file: packages/friendship-tree-generator/**/*
+a:games:
+  - changed-files:
+      - any-glob-to-any-file: apps/games/**/*
 a:notifications:
   - changed-files:
       - any-glob-to-any-file: apps/notifications/**/*
@@ -77,7 +80,8 @@ f:guess:
       - any-glob-to-any-file:
           - apps/caelus/discord/source/commands/chat-inputs/guess.ts
           - apps/caelus/discord/source/features/guess.ts
-          - apps/caelus/discord/source/utility/guess.ts
+          - apps/games/source/**/*
+          - packages/utility/__tests__/guess.test.ts
           - packages/utility/source/guess.ts
 f:heart:
   - changed-files:

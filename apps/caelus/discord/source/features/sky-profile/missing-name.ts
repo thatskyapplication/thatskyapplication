@@ -23,8 +23,6 @@ import { chatInputApplicationCommandMention, interactionInvoker } from "../../ut
 const SkyProfileMissingNameSourceToDescriptionKey = {
 	[SkyProfileMissingNameSource.Heart]:
 		"sky-profile.missing-name-modal-text-display-heart-source-content",
-	[SkyProfileMissingNameSource.Guess]:
-		"sky-profile.missing-name-modal-text-display-guess-source-content",
 } as const satisfies Readonly<
 	Record<
 		SkyProfileMissingNameSources,

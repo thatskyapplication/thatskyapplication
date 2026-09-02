@@ -2387,17 +2387,7 @@
 		},
 		"guess": {
 			"command-name": "クイズ",
-			"command-description": "Sky知識のクイズゲーム！何連続正解できるかな？",
-			"game": {
-				"command-name": "ゲーム",
-				"command-description": "クイズゲームを始めましょう！",
-				"command-option-type-description": "どのジャンルのクイズで遊びますか？"
-			},
-			"leaderboard": {
-				"command-name": "ランキング",
-				"command-description": "ランキングを見ましょう！",
-				"command-option-type-description": "どのクイズについて知りたいですか？"
-			}
+			"command-description": "Sky知識のクイズゲーム！何連続正解できるかな？"
 		},
 		"hair-tousle": {
 			"command-name": "なでなで",
@@ -2774,23 +2764,23 @@
 			"krill-message": "",
 			"hug-back-button-label": ""
 		},
-		"guess": {
-			"type": {
-				"1": ""
-			},
-			"title": "この絵に当てはまるのは？",
-			"guess-in": "残り{{time}}!",
-			"footer": "ジャンル: {{type}} | スコア: {{streak}} | ハイスコア: {{highestStreak}}",
-			"end-game": "ゲーム終了",
-			"try-again": "もう一回？",
-			"game-over": "Game Over",
-			"answer": "正解：",
-			"your-guess": "あなたの回答：",
-			"too-late": "時間切れです！",
-			"game-interaction-not-self": "別ユーザーのゲームはプレイできません！",
-			"leaderboard-nothing": "ランキングには何もありません。1位になってみませんか？",
-			"leaderboard-title": "{{type}} ランキング",
-			"leaderboard-you": "あなた: {{rank}}位 ({{streak}})"
+		"games": {
+			"guess": {
+				"type": {
+					"1": ""
+				},
+				"title": "この絵に当てはまるのは？",
+				"end-game": "ゲーム終了",
+				"try-again": "もう一回？",
+				"game-over": "Game Over",
+				"answer": "正解：",
+				"your-guess": "あなたの回答：",
+				"too-late": "時間切れです！",
+				"leaderboard-nothing": "ランキングには何もありません。1位になってみませんか？",
+				"leaderboard-title": "{{type}} ランキング",
+				"leaderboard-you": "あなた: {{rank}}位 ({{streak}})",
+				"leaderboard-unnamed": "匿名"
+			}
 		},
 		"heart": {
 			"gift-self": "",
@@ -3173,11 +3163,8 @@
 			"missing-guess-rank": "",
 			"missing-name-modal-text-display-heart-source-content-mention": "",
 			"missing-name-modal-text-display-heart-source-content-text": "",
-			"missing-name-modal-text-display-guess-source-content-mention": "",
-			"missing-name-modal-text-display-guess-source-content-text": "",
 			"missing-name-source-success": {
-				"0": "",
-				"1": ""
+				"0": ""
 			}
 		},
 		"spirits": {
