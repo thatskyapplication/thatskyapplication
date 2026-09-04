@@ -1,4 +1,5 @@
 import { dedupeIntegration, extraErrorDataIntegration, init } from "@sentry/browser";
+import { SENTRY_TUNNEL_PATH } from "../guess.js";
 
 const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
 const release = import.meta.env.VITE_SENTRY_RELEASE;
@@ -11,5 +12,6 @@ if (dsn && release) {
 		integrations: [extraErrorDataIntegration(), dedupeIntegration()],
 		maxBreadcrumbs: 10,
 		release,
+		tunnel: SENTRY_TUNNEL_PATH,
 	});
 }

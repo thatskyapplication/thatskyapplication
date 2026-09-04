@@ -9,6 +9,7 @@ import { type Context, Hono } from "hono";
 import { bodyLimit } from "hono/body-limit";
 import { secureHeaders } from "hono/secure-headers";
 import { GuessTypeToLocaleKey, SKY_PROFILE_MAXIMUM_NAME_LENGTH } from "@thatskyapplication/utility";
+import { SENTRY_TUNNEL_PATH } from "../guess.js";
 import type { GameOverResponse, LeaderboardResponse, SessionResponse } from "../guess.js";
 import { CDN_PROXY_PREFIX, cdnTarget } from "./cdn.js";
 import { APPLICATION_ID, DISCORD_CLIENT_SECRET, PRODUCTION, REDIRECT_URI_LOGIN } from "./config.js";
@@ -41,6 +42,7 @@ import {
 	startSchema,
 	tokenSchema,
 } from "./schemas.js";
+import { sentryEnvelopeURL } from "./sentry-tunnel.js";
 import { clearOAuthState, getOAuthState, setOAuthState, setSessionUserId } from "./session.js";
 import {
 	attachSockets,
@@ -56,6 +58,8 @@ const MAXIMUM_BODY_BYTES = 4_096 as const;
 const MAXIMUM_PAGE = 1_000 as const;
 const CDN_TIMEOUT = 10_000 as const;
 const CDN_MAXIMUM_BYTES = 8_388_608 as const;
+const SENTRY_TUNNEL_TIMEOUT = 10_000 as const;
+const SENTRY_TUNNEL_MAXIMUM_BYTES = 1_048_576 as const;
 const CLIENT_DIRECTORY = "./build/client" as const;
 const CLOUDFLARE_ADDRESS_HEADER = "cf-connecting-ip" as const;
 const UNKNOWN_ADDRESS = "unknown" as const;
@@ -690,6 +694,34 @@ server.get(`${CDN_PROXY_PREFIX}/*`, async (c) => {
 			"Content-Type": response.headers.get("content-type") ?? "application/octet-stream",
 		},
 	});
+});
+
+server.post(SENTRY_TUNNEL_PATH, bodyLimit({ maxSize: SENTRY_TUNNEL_MAXIMUM_BYTES }));
+
+server.post(SENTRY_TUNNEL_PATH, async (c) => {
+	if (crossSite(c)) {
+		return c.body(null, 403);
+	}
+
+	const body = await c.req.text();
+	const target = sentryEnvelopeURL(body);
+
+	if (target === null) {
+		return c.body(null, 403);
+	}
+
+	try {
+		const response = await fetch(target, {
+			method: "POST",
+			headers: { "Content-Type": "application/x-sentry-envelope" },
+			body,
+			signal: AbortSignal.timeout(SENTRY_TUNNEL_TIMEOUT),
+		});
+
+		return c.body(null, response.ok ? 202 : 502);
+	} catch {
+		return c.body(null, 502);
+	}
 });
 
 server.use("/assets/*", async (c, next) => {

@@ -1,4 +1,5 @@
 export const SOCKET_PATH = "/ws" as const;
+export const SENTRY_TUNNEL_PATH = "/sentry" as const;
 
 export const SocketClose = {
 	GoingAway: 1_001,
