@@ -7,6 +7,7 @@ on:
       - apps/website/**/*
       - packages/sky-links/**/*
       - packages/utility/**/*
+      - "!**/__tests__/**"
   workflow_dispatch:
 concurrency:
   group: deploy-website

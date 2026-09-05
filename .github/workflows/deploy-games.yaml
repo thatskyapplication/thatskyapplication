@@ -6,6 +6,7 @@ on:
     paths:
       - apps/games/**/*
       - packages/utility/**/*
+      - "!**/__tests__/**"
   workflow_dispatch:
 concurrency:
   group: deploy-games
