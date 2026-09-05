@@ -14,6 +14,7 @@ import {
 	epochSeconds,
 	formatEmojiURL,
 	isDailyQuest,
+	KINGDOM,
 	MAINTENANCE_PERIODS,
 	nextDailyReset,
 	RADIANCE_EVENTS,
@@ -316,6 +317,13 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 
 	if (returningSpirits) {
 		const { active, start, end, spiritIds } = returningSpirits;
+
+		const seasonIds = new Set(spiritIds.map((spiritId) => KINGDOM.seasonOf(spiritId)?.id));
+		const [seasonId] = seasonIds;
+
+		const returningSpiritsSeasonEmoji =
+			seasonIds.size === 1 && seasonId !== undefined ? SeasonIdToSeasonalEmoji[seasonId] : null;
+
 		const returningSpiritsDaysLeft =
 			Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1;
 
@@ -353,6 +361,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				</>
 			),
 			end,
+			iconURL: returningSpiritsSeasonEmoji
+				? formatEmojiURL(returningSpiritsSeasonEmoji.id)
+				: undefined,
 			key: `returning-spirits-${start.epochMilliseconds}`,
 			start,
 		});

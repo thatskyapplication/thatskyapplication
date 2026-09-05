@@ -49,6 +49,7 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
+	KINGDOM,
 	MAINTENANCE_PERIODS,
 	MAXIMUM_ASSET_BANNER_DIMENSION,
 	type Packet,
@@ -1155,7 +1156,14 @@ async function distributionData({
 
 	if (returningSpirits) {
 		const { active, start, end, spiritIds } = returningSpirits;
-		const spirits = new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(
+
+		const seasonIds = new Set(spiritIds.map((spiritId) => KINGDOM.seasonOf(spiritId)?.id));
+		const [seasonId] = seasonIds;
+
+		const returningSpiritsSeasonEmoji =
+			seasonIds.size === 1 && seasonId !== undefined ? SeasonIdToSeasonalEmoji[seasonId] : null;
+
+		const spiritLinks = new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(
 			spiritIds.map(
 				(spiritId) =>
 					`[${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spiritId}`, { lng: locale, ns: "general" })})`,
@@ -1165,29 +1173,31 @@ async function distributionData({
 		const returningSpiritsDaysLeft =
 			Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1;
 
+		const countdown = active
+			? t(
+					returningSpiritsDaysLeft === 0
+						? "daily-guides.returning-spirits-leave-today"
+						: "daily-guides.returning-spirits-active-list",
+					{
+						lng: locale,
+						ns: "features",
+						count: returningSpiritsDaysLeft,
+						returningSpirits: returningSpiritsName,
+						spirits: spiritLinks,
+					},
+				)
+			: t("daily-guides.returning-spirits-upcoming-list", {
+					lng: locale,
+					ns: "features",
+					count: start.since(today).total({ unit: "days", relativeTo: today }),
+					returningSpirits: returningSpiritsName,
+					spirits: spiritLinks,
+				});
+
 		footerItems.push({
 			end,
 			start,
-			text: active
-				? t(
-						returningSpiritsDaysLeft === 0
-							? "daily-guides.returning-spirits-leave-today"
-							: "daily-guides.returning-spirits-active-list",
-						{
-							lng: locale,
-							ns: "features",
-							count: returningSpiritsDaysLeft,
-							returningSpirits: returningSpiritsName,
-							spirits,
-						},
-					)
-				: t("daily-guides.returning-spirits-upcoming-list", {
-						lng: locale,
-						ns: "features",
-						count: start.since(today).total({ unit: "days", relativeTo: today }),
-						returningSpirits: returningSpiritsName,
-						spirits,
-					}),
+			text: `${returningSpiritsSeasonEmoji ? `${formatEmoji(returningSpiritsSeasonEmoji)} ` : ""}${countdown}`,
 		});
 	}
 
