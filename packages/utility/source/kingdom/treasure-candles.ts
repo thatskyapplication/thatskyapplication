@@ -22,19 +22,6 @@ interface TreasureCandlesConfiguration {
 	rotation: TreasureCandlesRotation;
 }
 
-interface TreasureCandlesDoubleRotationOverride {
-	start: Temporal.ZonedDateTime;
-	end: Temporal.ZonedDateTime;
-	rotation: TreasureCandlesRotation;
-}
-
-interface TreasureCandlesDoubleConfiguration {
-	start: Temporal.ZonedDateTime;
-	end: Temporal.ZonedDateTime;
-	rotation: TreasureCandlesRotation;
-	rotationOverrides?: readonly TreasureCandlesDoubleRotationOverride[];
-}
-
 const TREASURE_CANDLES_ROTATION = {
 	[RealmName.DaylightPrairie]: [1, 3, 2],
 	[RealmName.HiddenForest]: [2, 1, 3],
@@ -202,15 +189,8 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 		rotation: {
 			...TREASURE_CANDLES_DOUBLE_ROTATION,
 			[RealmName.DaylightPrairie]: [3, 1, 2],
-			[RealmName.HiddenForest]: [3, 2, 1],
+			[RealmName.HiddenForest]: [1, 2, 1],
 		},
-		rotationOverrides: [
-			{
-				start: skyDate(2026, 3, 4),
-				end: skyDate(2026, 3, 5),
-				rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
-			},
-		],
 	},
 	{
 		start: skyDate(2026, 6, 19),
@@ -227,7 +207,7 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 		end: skyDate(2026, 9, 25),
 		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 	},
-] as const satisfies readonly TreasureCandlesDoubleConfiguration[];
+] as const satisfies readonly TreasureCandlesConfiguration[];
 
 function treasureCandleURL(realmName: ValidRealmName, index: number) {
 	return String(
@@ -248,17 +228,6 @@ function treasureCandleFromRotation(
 	// Each realm starts its sequence again on the first of each month.
 	const rotationIndex = Math.floor((today.day - 1) / VALID_REALM_NAME.length);
 	return treasureCandleURL(realmName, realmRotation.at(rotationIndex % realmRotation.length)!);
-}
-
-function treasureCandleFromDoubleConfiguration(
-	today: Temporal.ZonedDateTime,
-	{ rotation, rotationOverrides }: TreasureCandlesDoubleConfiguration,
-) {
-	const doubleRotation =
-		rotationOverrides?.findLast(({ start, end }) => isActive(start, end, today))?.rotation ??
-		rotation;
-
-	return treasureCandleFromRotation(today, doubleRotation);
 }
 
 export function treasureCandles(today: Temporal.ZonedDateTime): readonly [string, ...string[]] {
@@ -284,7 +253,7 @@ export function treasureCandles(today: Temporal.ZonedDateTime): readonly [string
 	);
 
 	if (doubleConfiguration !== undefined) {
-		result.push(treasureCandleFromDoubleConfiguration(date, doubleConfiguration));
+		result.push(treasureCandleFromRotation(date, doubleConfiguration.rotation));
 	}
 
 	return result;
