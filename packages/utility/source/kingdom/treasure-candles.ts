@@ -1,14 +1,24 @@
-import { isActive, skyDate } from "../dates.js";
+import { isActive, skyDate, TIME_ZONE } from "../dates.js";
 import { CDN_URL } from "../routes.js";
+import { snakeCaseName } from "../utility/functions.js";
 import { RealmName, VALID_REALM_NAME, type ValidRealmName } from "./geography.js";
 
-type TreasureCandlesRotation = Readonly<Record<ValidRealmName, readonly [string, string, string?]>>;
+type TreasureCandlesRotation = Readonly<{
+	[RealmName.DaylightPrairie]: readonly [1 | 2 | 3, 1 | 2 | 3, 1 | 2 | 3];
+	[RealmName.HiddenForest]: readonly [1 | 2 | 3, 1 | 2 | 3, 1 | 2 | 3];
+	[RealmName.ValleyOfTriumph]: readonly [1 | 2, 1 | 2];
+	[RealmName.GoldenWasteland]: readonly [1 | 2 | 3, 1 | 2 | 3, 1 | 2 | 3];
+	[RealmName.VaultOfKnowledge]: readonly [1 | 2, 1 | 2];
+}>;
 
-// 01/01/2025 failed and is thus the first day of the cycle.
-const TREASURE_CANDLES_INITIAL_SEEK = skyDate(2025, 1, 1);
+/**
+ * First observed date.
+ */
+const TREASURE_CANDLES_INITIAL_SEEK = skyDate(2025, 1, 1).toPlainDate();
 
 interface TreasureCandlesConfiguration {
 	start: Temporal.ZonedDateTime;
+	end: Temporal.ZonedDateTime;
 	rotation: TreasureCandlesRotation;
 }
 
@@ -25,173 +35,40 @@ interface TreasureCandlesDoubleConfiguration {
 	rotationOverrides?: readonly TreasureCandlesDoubleRotationOverride[];
 }
 
+const TREASURE_CANDLES_ROTATION = {
+	[RealmName.DaylightPrairie]: [1, 3, 2],
+	[RealmName.HiddenForest]: [2, 1, 3],
+	[RealmName.ValleyOfTriumph]: [2, 1],
+	[RealmName.GoldenWasteland]: [2, 1, 3],
+	[RealmName.VaultOfKnowledge]: [1, 2],
+} as const satisfies TreasureCandlesRotation;
+
 const TREASURE_CANDLES_CONFIGURATIONS = [
 	{
 		start: skyDate(2025, 1, 1),
-		rotation: {
-			[RealmName.DaylightPrairie]: [
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-			],
-			[RealmName.HiddenForest]: [
-				String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-			],
-			[RealmName.ValleyOfTriumph]: [
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-			],
-			[RealmName.GoldenWasteland]: [
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-			],
-			[RealmName.VaultOfKnowledge]: [
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-			],
-		},
+		end: skyDate(2025, 2, 1),
+		// Historical Golden Wasteland exception.
+		rotation: { ...TREASURE_CANDLES_ROTATION, [RealmName.GoldenWasteland]: [2, 3, 1] },
 	},
 	{
-		start: skyDate(2026, 4, 5),
-		rotation: {
-			[RealmName.DaylightPrairie]: [
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-			],
-			[RealmName.HiddenForest]: [
-				String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-			],
-			[RealmName.ValleyOfTriumph]: [
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-			],
-			[RealmName.GoldenWasteland]: [
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-			],
-			[RealmName.VaultOfKnowledge]: [
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-			],
-		},
-	},
-	{
-		start: skyDate(2026, 6, 5),
-		rotation: {
-			[RealmName.DaylightPrairie]: [
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-			],
-			[RealmName.HiddenForest]: [
-				String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-			],
-			[RealmName.ValleyOfTriumph]: [
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-			],
-			[RealmName.GoldenWasteland]: [
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-			],
-			[RealmName.VaultOfKnowledge]: [
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-			],
-		},
-	},
-	{
-		start: skyDate(2026, 8, 5),
-		rotation: {
-			[RealmName.DaylightPrairie]: [
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-			],
-			[RealmName.HiddenForest]: [
-				String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-			],
-			[RealmName.ValleyOfTriumph]: [
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-			],
-			[RealmName.GoldenWasteland]: [
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-			],
-			[RealmName.VaultOfKnowledge]: [
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-			],
-		},
-	},
-	{
-		start: skyDate(2026, 9, 5),
-		rotation: {
-			[RealmName.DaylightPrairie]: [
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-			],
-			[RealmName.HiddenForest]: [
-				String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-			],
-			[RealmName.ValleyOfTriumph]: [
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-			],
-			[RealmName.GoldenWasteland]: [
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-			],
-			[RealmName.VaultOfKnowledge]: [
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-			],
-		},
+		start: skyDate(2025, 4, 1),
+		end: skyDate(2025, 6, 1),
+		// Historical Golden Wasteland exception.
+		rotation: { ...TREASURE_CANDLES_ROTATION, [RealmName.GoldenWasteland]: [1, 3, 2] },
 	},
 ] as const satisfies readonly TreasureCandlesConfiguration[];
 
+/**
+ * Default configuration for double treasure candles. Individual events can use different orders.
+ *
+ * @remarks Events before the observed 2025 are unverified.
+ */
 const TREASURE_CANDLES_DOUBLE_ROTATION = {
-	[RealmName.DaylightPrairie]: [
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-	],
-	[RealmName.HiddenForest]: [
-		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-	],
-	[RealmName.ValleyOfTriumph]: [
-		String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-	],
-	[RealmName.GoldenWasteland]: [
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-	],
-	[RealmName.VaultOfKnowledge]: [
-		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-	],
+	[RealmName.DaylightPrairie]: [3, 2, 1],
+	[RealmName.HiddenForest]: [1, 3, 2],
+	[RealmName.ValleyOfTriumph]: [1, 2],
+	[RealmName.GoldenWasteland]: [1, 3, 2],
+	[RealmName.VaultOfKnowledge]: [2, 1],
 } as const satisfies TreasureCandlesRotation;
 
 export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
@@ -270,32 +147,49 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 	{
 		start: skyDate(2025, 3, 17),
 		end: skyDate(2025, 3, 24),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: { ...TREASURE_CANDLES_DOUBLE_ROTATION, [RealmName.DaylightPrairie]: [3, 1, 2] },
 	},
 	{
 		start: skyDate(2025, 4, 7),
 		end: skyDate(2025, 4, 21),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [2, 1, 3],
+			[RealmName.HiddenForest]: [3, 2, 1],
+			[RealmName.GoldenWasteland]: [3, 2, 1],
+		},
 	},
 	{
 		start: skyDate(2025, 6, 9),
 		end: skyDate(2025, 6, 23),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [2, 1, 3],
+			[RealmName.GoldenWasteland]: [3, 2, 1],
+		},
 	},
 	{
 		start: skyDate(2025, 8, 19),
 		end: skyDate(2025, 9, 2),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.HiddenForest]: [3, 2, 1],
+			[RealmName.GoldenWasteland]: [3, 2, 1],
+		},
 	},
 	{
 		start: skyDate(2025, 9, 22),
 		end: skyDate(2025, 9, 29),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [2, 1, 3],
+			[RealmName.GoldenWasteland]: [3, 2, 1],
+		},
 	},
 	{
 		start: skyDate(2025, 11, 17),
 		end: skyDate(2025, 12, 1),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: { ...TREASURE_CANDLES_DOUBLE_ROTATION, [RealmName.GoldenWasteland]: [3, 2, 1] },
 	},
 	{
 		start: skyDate(2025, 12, 31),
@@ -305,145 +199,55 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 	{
 		start: skyDate(2026, 2, 27),
 		end: skyDate(2026, 3, 13),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [3, 1, 2],
+			[RealmName.HiddenForest]: [3, 2, 1],
+		},
 		rotationOverrides: [
 			{
-				start: skyDate(2026, 3, 3),
+				start: skyDate(2026, 3, 4),
 				end: skyDate(2026, 3, 5),
-				rotation: {
-					[RealmName.DaylightPrairie]: [
-						String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-						String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-						String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-					],
-					[RealmName.HiddenForest]: [
-						String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-						String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-						String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-					],
-					[RealmName.ValleyOfTriumph]: [
-						String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-						String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-					],
-					[RealmName.GoldenWasteland]: [
-						String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-						String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-						String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-					],
-					[RealmName.VaultOfKnowledge]: [
-						String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-						String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-					],
-				},
+				rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 			},
 		],
 	},
 	{
 		start: skyDate(2026, 6, 19),
 		end: skyDate(2026, 7, 3),
-		rotation: {
-			[RealmName.DaylightPrairie]: [
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-			],
-			[RealmName.HiddenForest]: [
-				String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-			],
-			[RealmName.ValleyOfTriumph]: [
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-			],
-			[RealmName.GoldenWasteland]: [
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-			],
-			[RealmName.VaultOfKnowledge]: [
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-			],
-		} as const,
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 	},
 	{
 		start: skyDate(2026, 9, 1),
 		end: skyDate(2026, 9, 2),
-		rotation: {
-			[RealmName.DaylightPrairie]: [
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-			],
-			[RealmName.HiddenForest]: [
-				String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-			],
-			[RealmName.ValleyOfTriumph]: [
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-			],
-			[RealmName.GoldenWasteland]: [
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-			],
-			[RealmName.VaultOfKnowledge]: [
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-			],
-		} as const,
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 	},
 	{
 		start: skyDate(2026, 9, 11),
 		end: skyDate(2026, 9, 25),
-		rotation: {
-			[RealmName.DaylightPrairie]: [
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-			],
-			[RealmName.HiddenForest]: [
-				String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-			],
-			[RealmName.ValleyOfTriumph]: [
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-			],
-			[RealmName.GoldenWasteland]: [
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-			],
-			[RealmName.VaultOfKnowledge]: [
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-				String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-			],
-		} as const,
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 	},
 ] as const satisfies readonly TreasureCandlesDoubleConfiguration[];
+
+function treasureCandleURL(realmName: ValidRealmName, index: number) {
+	return String(
+		new URL(`daily_guides/treasure_candles/${snakeCaseName(realmName)}/${index}.webp`, CDN_URL),
+	);
+}
 
 function treasureCandleFromRotation(
 	today: Temporal.ZonedDateTime,
 	rotation: TreasureCandlesRotation,
 ) {
-	const daysDiff = today
-		.since(TREASURE_CANDLES_INITIAL_SEEK)
-		.total({ unit: "days", relativeTo: TREASURE_CANDLES_INITIAL_SEEK });
-	const realmIndex = VALID_REALM_NAME.at((daysDiff + 4) % 5)!;
-	const realmRotation = rotation[realmIndex];
-	return realmRotation.at(daysDiff % realmRotation.length)!;
-}
+	const daysDiff = today.toPlainDate().since(TREASURE_CANDLES_INITIAL_SEEK).days;
+	const realmIndex =
+		(daysDiff + VALID_REALM_NAME.indexOf(RealmName.VaultOfKnowledge)) % VALID_REALM_NAME.length;
+	const realmName = VALID_REALM_NAME.at(realmIndex)!;
+	const realmRotation = rotation[realmName];
 
-function treasureCandleFromConfiguration(
-	today: Temporal.ZonedDateTime,
-	{ rotation }: TreasureCandlesConfiguration | TreasureCandlesDoubleConfiguration,
-) {
-	return treasureCandleFromRotation(today, rotation);
+	// Each realm starts its sequence again on the first of each month.
+	const rotationIndex = Math.floor((today.day - 1) / VALID_REALM_NAME.length);
+	return treasureCandleURL(realmName, realmRotation.at(rotationIndex % realmRotation.length)!);
 }
 
 function treasureCandleFromDoubleConfiguration(
@@ -458,28 +262,29 @@ function treasureCandleFromDoubleConfiguration(
 }
 
 export function treasureCandles(today: Temporal.ZonedDateTime): readonly [string, ...string[]] {
-	if (today.year === 2025 && today.month === 3 && today.day === 21) {
+	const date = today.withTimeZone(TIME_ZONE);
+
+	if (date.year === 2025 && date.month === 3 && date.day === 21) {
 		// 3 were available on this date.
 		return [
-			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+			treasureCandleURL(RealmName.GoldenWasteland, 1),
+			treasureCandleURL(RealmName.GoldenWasteland, 2),
+			treasureCandleURL(RealmName.GoldenWasteland, 3),
 		];
 	}
 
-	const configuration =
-		TREASURE_CANDLES_CONFIGURATIONS.findLast(
-			({ start }) => Temporal.ZonedDateTime.compare(today, start) >= 0,
-		) ?? TREASURE_CANDLES_CONFIGURATIONS[0];
+	const rotation =
+		TREASURE_CANDLES_CONFIGURATIONS.findLast(({ start, end }) => isActive(start, end, date))
+			?.rotation ?? TREASURE_CANDLES_ROTATION;
 
-	const result: [string] = [treasureCandleFromConfiguration(today, configuration)];
+	const result: [string] = [treasureCandleFromRotation(date, rotation)];
 
 	const doubleConfiguration = TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.findLast(({ start, end }) =>
-		isActive(start, end, today),
+		isActive(start, end, date),
 	);
 
 	if (doubleConfiguration !== undefined) {
-		result.push(treasureCandleFromDoubleConfiguration(today, doubleConfiguration));
+		result.push(treasureCandleFromDoubleConfiguration(date, doubleConfiguration));
 	}
 
 	return result;
