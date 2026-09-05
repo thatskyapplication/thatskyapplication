@@ -11,10 +11,17 @@ type TreasureCandlesRotation = Readonly<{
 	[RealmName.VaultOfKnowledge]: readonly [1 | 2, 1 | 2];
 }>;
 
-/**
- * First observed date.
- */
-const TREASURE_CANDLES_INITIAL_SEEK = skyDate(2025, 1, 1).toPlainDate();
+const TREASURE_CANDLES_REALM_ANCHORS = [
+	{
+		start: skyDate(2024, 1, 1).toPlainDate(),
+		realm: RealmName.VaultOfKnowledge,
+	},
+	{
+		// Daylight Prairie appeared on both 30 June 2024 and 1 July 2024.
+		start: skyDate(2024, 7, 1).toPlainDate(),
+		realm: RealmName.DaylightPrairie,
+	},
+] as const;
 
 interface TreasureCandlesConfiguration {
 	start: Temporal.ZonedDateTime;
@@ -114,7 +121,7 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 		end: skyDate(2023, 11, 27),
 		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 	},
-	// This event placed eight treasure candles in each realm (40 total). Not yet handled.
+	// Eight treasure candles in each realm (40 total). Handled by an override.
 	// Source: https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1308-patch-notes---april-10-2024---0-25-0-257483-android-huawei-256148-ios-playstation-257607-pc-255731-switch
 	{
 		start: skyDate(2024, 4, 10),
@@ -124,12 +131,20 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 	{
 		start: skyDate(2024, 9, 9),
 		end: skyDate(2024, 9, 30),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [2, 1, 3],
+			[RealmName.HiddenForest]: [3, 2, 1],
+		},
 	},
 	{
 		start: skyDate(2024, 12, 9),
 		end: skyDate(2024, 12, 23),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [2, 1, 3],
+			[RealmName.HiddenForest]: [3, 2, 1],
+		},
 	},
 	{
 		start: skyDate(2025, 3, 17),
@@ -215,13 +230,33 @@ function treasureCandleURL(realmName: ValidRealmName, index: number) {
 	);
 }
 
+/**
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1308-patch-notes---april-10-2024---0-25-0-257483-android-huawei-256148-ios-playstation-257607-pc-255731-switch}
+ */
+const TREASURE_CANDLES_BONANZA = [
+	treasureCandleURL(RealmName.DaylightPrairie, 1),
+	treasureCandleURL(RealmName.DaylightPrairie, 2),
+	treasureCandleURL(RealmName.HiddenForest, 1),
+	treasureCandleURL(RealmName.HiddenForest, 3),
+	treasureCandleURL(RealmName.ValleyOfTriumph, 1),
+	treasureCandleURL(RealmName.ValleyOfTriumph, 2),
+	treasureCandleURL(RealmName.GoldenWasteland, 1),
+	treasureCandleURL(RealmName.GoldenWasteland, 3),
+	treasureCandleURL(RealmName.VaultOfKnowledge, 1),
+	treasureCandleURL(RealmName.VaultOfKnowledge, 2),
+] as const satisfies readonly string[];
+
 function treasureCandleFromRotation(
 	today: Temporal.ZonedDateTime,
 	rotation: TreasureCandlesRotation,
 ) {
-	const daysDiff = today.toPlainDate().since(TREASURE_CANDLES_INITIAL_SEEK).days;
-	const realmIndex =
-		(daysDiff + VALID_REALM_NAME.indexOf(RealmName.VaultOfKnowledge)) % VALID_REALM_NAME.length;
+	const date = today.toPlainDate();
+	const anchor =
+		TREASURE_CANDLES_REALM_ANCHORS.findLast(
+			({ start }) => Temporal.PlainDate.compare(date, start) >= 0,
+		) ?? TREASURE_CANDLES_REALM_ANCHORS[0];
+	const daysDiff = date.since(anchor.start).days;
+	const realmIndex = (daysDiff + VALID_REALM_NAME.indexOf(anchor.realm)) % VALID_REALM_NAME.length;
 	const realmName = VALID_REALM_NAME.at(realmIndex)!;
 	const realmRotation = rotation[realmName];
 
@@ -233,20 +268,30 @@ function treasureCandleFromRotation(
 export function treasureCandles(today: Temporal.ZonedDateTime): readonly [string, ...string[]] {
 	const date = today.withTimeZone(TIME_ZONE);
 
-	if (date.year === 2025 && date.month === 3 && date.day === 21) {
-		// 3 were available on this date.
-		return [
-			treasureCandleURL(RealmName.GoldenWasteland, 1),
-			treasureCandleURL(RealmName.GoldenWasteland, 2),
-			treasureCandleURL(RealmName.GoldenWasteland, 3),
-		];
-	}
-
 	const rotation =
 		TREASURE_CANDLES_CONFIGURATIONS.findLast(({ start, end }) => isActive(start, end, date))
 			?.rotation ?? TREASURE_CANDLES_ROTATION;
 
 	const result: [string] = [treasureCandleFromRotation(date, rotation)];
+
+	if (date.year === 2024 && date.month === 4 && date.day >= 10 && date.day < 17) {
+		// From 10 to 16 April 2024, 2 layouts per realm were available.
+		return [result[0], ...TREASURE_CANDLES_BONANZA.filter((url) => url !== result[0])];
+	}
+
+	if (date.year === 2024 && date.month === 10 && date.day === 2) {
+		// Valley of Triumph layout 2 was also available on 2 October 2024.
+		return [result[0], treasureCandleURL(RealmName.ValleyOfTriumph, 2)];
+	}
+
+	if (date.year === 2025 && date.month === 3 && date.day === 21) {
+		// All 3 layouts were available on 21 March 2025.
+		return [
+			result[0],
+			treasureCandleURL(RealmName.GoldenWasteland, 2),
+			treasureCandleURL(RealmName.GoldenWasteland, 3),
+		];
+	}
 
 	const doubleConfiguration = TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.findLast(({ start, end }) =>
 		isActive(start, end, date),
