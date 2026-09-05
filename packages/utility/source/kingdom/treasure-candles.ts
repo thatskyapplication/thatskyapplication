@@ -269,17 +269,17 @@ function treasureCandleURL(realmName: ValidRealmName, index: number) {
  * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1308-patch-notes---april-10-2024---0-25-0-257483-android-huawei-256148-ios-playstation-257607-pc-255731-switch}
  */
 const TREASURE_CANDLES_BONANZA = [
-	treasureCandleURL(RealmName.DaylightPrairie, 1),
-	treasureCandleURL(RealmName.DaylightPrairie, 2),
-	treasureCandleURL(RealmName.HiddenForest, 1),
-	treasureCandleURL(RealmName.HiddenForest, 3),
-	treasureCandleURL(RealmName.ValleyOfTriumph, 1),
-	treasureCandleURL(RealmName.ValleyOfTriumph, 2),
-	treasureCandleURL(RealmName.GoldenWasteland, 1),
-	treasureCandleURL(RealmName.GoldenWasteland, 3),
-	treasureCandleURL(RealmName.VaultOfKnowledge, 1),
-	treasureCandleURL(RealmName.VaultOfKnowledge, 2),
-] as const satisfies readonly string[];
+	{ url: treasureCandleURL(RealmName.DaylightPrairie, 1) },
+	{ url: treasureCandleURL(RealmName.DaylightPrairie, 2) },
+	{ url: treasureCandleURL(RealmName.HiddenForest, 1) },
+	{ url: treasureCandleURL(RealmName.HiddenForest, 3) },
+	{ url: treasureCandleURL(RealmName.ValleyOfTriumph, 1) },
+	{ url: treasureCandleURL(RealmName.ValleyOfTriumph, 2) },
+	{ url: treasureCandleURL(RealmName.GoldenWasteland, 1) },
+	{ url: treasureCandleURL(RealmName.GoldenWasteland, 3) },
+	{ url: treasureCandleURL(RealmName.VaultOfKnowledge, 1) },
+	{ url: treasureCandleURL(RealmName.VaultOfKnowledge, 2) },
+] as const satisfies readonly TreasureCandle[];
 
 function treasureCandleFromRotation(
 	today: Temporal.ZonedDateTime,
@@ -300,31 +300,45 @@ function treasureCandleFromRotation(
 	return treasureCandleURL(realmName, realmRotation.at(rotationIndex % realmRotation.length)!);
 }
 
-export function treasureCandles(today: Temporal.ZonedDateTime): readonly [string, ...string[]] {
-	const date = today.withTimeZone(TIME_ZONE);
+export interface TreasureCandle {
+	url: string;
+	/**
+	 * Defaults to the start of the day.
+	 */
+	availableFrom?: Temporal.ZonedDateTime;
+	/**
+	 * Defaults to the end of the day.
+	 *
+	 * @remarks The end date is exclusive.
+	 */
+	unavailableAt?: Temporal.ZonedDateTime;
+}
 
+function treasureCandleURLs(date: Temporal.ZonedDateTime): [TreasureCandle, ...TreasureCandle[]] {
 	const rotation =
 		TREASURE_CANDLES_CONFIGURATIONS.findLast(({ start, end }) => isActive(start, end, date))
 			?.rotation ?? TREASURE_CANDLES_ROTATION;
 
-	const result: [string] = [treasureCandleFromRotation(date, rotation)];
+	const result: [TreasureCandle, ...TreasureCandle[]] = [
+		{ url: treasureCandleFromRotation(date, rotation) },
+	];
 
 	if (date.year === 2024 && date.month === 4 && date.day >= 10 && date.day < 17) {
 		// From 10 to 16 April 2024, 2 layouts per realm were available.
-		return [result[0], ...TREASURE_CANDLES_BONANZA.filter((url) => url !== result[0])];
+		return [result[0], ...TREASURE_CANDLES_BONANZA.filter(({ url }) => url !== result[0].url)];
 	}
 
 	if (date.year === 2024 && date.month === 10 && date.day === 2) {
 		// Valley of Triumph layout 2 was also available on 2 October 2024.
-		return [result[0], treasureCandleURL(RealmName.ValleyOfTriumph, 2)];
+		return [result[0], { url: treasureCandleURL(RealmName.ValleyOfTriumph, 2) }];
 	}
 
 	if (date.year === 2025 && date.month === 3 && date.day === 21) {
 		// All 3 layouts were available on 21 March 2025.
 		return [
 			result[0],
-			treasureCandleURL(RealmName.GoldenWasteland, 2),
-			treasureCandleURL(RealmName.GoldenWasteland, 3),
+			{ url: treasureCandleURL(RealmName.GoldenWasteland, 2) },
+			{ url: treasureCandleURL(RealmName.GoldenWasteland, 3) },
 		];
 	}
 
@@ -333,17 +347,45 @@ export function treasureCandles(today: Temporal.ZonedDateTime): readonly [string
 	);
 
 	if (doubleConfiguration !== undefined) {
-		result.push(treasureCandleFromRotation(date, doubleConfiguration.rotation));
-	}
-
-	if (date.year < 2025 && date.hour === 0) {
-		const previousDay = date.subtract({ days: 1 });
-
-		if (previousDay.hoursInDay === 23) {
-			// Before 2025, the previous day's layouts lingered until 01:00 after spring DST began.
-			result.push(...treasureCandles(previousDay));
-		}
+		result.push({ url: treasureCandleFromRotation(date, doubleConfiguration.rotation) });
 	}
 
 	return result;
+}
+
+/**
+ * Previous-day candles precede today's scheduled candles.
+ *
+ * Independent of the supplied time of day.
+ */
+export function treasureCandles(
+	today: Temporal.ZonedDateTime,
+): readonly [TreasureCandle, ...TreasureCandle[]] {
+	const date = today.withTimeZone(TIME_ZONE).startOfDay();
+	const previousDay = date.subtract({ days: 1 });
+	let result: [] | [TreasureCandle, ...TreasureCandle[]] = [];
+
+	if (date.year < 2025 && previousDay.hoursInDay === 23) {
+		// Before 2025, the previous day's layouts lingered until 01:00 after daylight saving time began in spring.
+		const unavailableAt = date.add({ hours: 1 });
+		result = treasureCandleURLs(previousDay);
+
+		for (const candle of result) {
+			candle.availableFrom = previousDay;
+			candle.unavailableAt = unavailableAt;
+		}
+	}
+
+	const candles = treasureCandleURLs(date);
+
+	if (date.year < 2025 && previousDay.hoursInDay === 25) {
+		// Before 2025, layouts appeared at 01:00 after daylight saving time ended in autumn.
+		const availableFrom = date.add({ hours: 1 });
+
+		for (const candle of candles) {
+			candle.availableFrom = availableFrom;
+		}
+	}
+
+	return [...result, ...candles];
 }

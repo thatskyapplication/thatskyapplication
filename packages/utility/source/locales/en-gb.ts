@@ -3054,6 +3054,9 @@ export default {
 			"setup-type-string-select-menu-placeholder": "Select an optional format.",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",
+			"treasure-candles-available-from": "Accessible after the first hour.",
+			"treasure-candles-previous-day":
+				"The previous day's treasure candles are available only during the first hour.",
 			"seasonal-candles-remain-with-season-pass":
 				"{{remaining}} remain ({{remainingSeasonPass}} with a Season Pass)",
 			"shard-eruption-data": "Data",

@@ -99,6 +99,34 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const now = skyNow();
 	const initialTimestamp = now.epochMilliseconds;
 	const shard = shardEruption(now);
+	const treasureCandleNotes: string[] = [];
+	const treasureCandleLinks = treasureCandles(now).map(
+		({ url, availableFrom, unavailableAt }, index, candles) => {
+			let footnote = null;
+
+			if (availableFrom || unavailableAt) {
+				const previous = candles[index - 1];
+
+				if (
+					availableFrom?.epochNanoseconds !== previous?.availableFrom?.epochNanoseconds ||
+					unavailableAt?.epochNanoseconds !== previous?.unavailableAt?.epochNanoseconds
+				) {
+					treasureCandleNotes.push(
+						t(
+							unavailableAt
+								? "daily-guides.treasure-candles-previous-day"
+								: "daily-guides.treasure-candles-available-from",
+							{ ns: "features" },
+						),
+					);
+				}
+
+				footnote = treasureCandleNotes.length;
+			}
+
+			return { url, footnote };
+		},
+	);
 
 	const cacheMaxAge = dailyGuidesCacheMaxAge(initialTimestamp);
 
@@ -111,6 +139,8 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 			timeZoneEstimated,
 			hour12,
 			dailyGuides: dailyGuides[0]!,
+			treasureCandleLinks,
+			treasureCandleNotes,
 			todayString: new Intl.DateTimeFormat(locale, {
 				timeZone: TIME_ZONE,
 				dateStyle: "full",
@@ -164,6 +194,8 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		timeZoneEstimated,
 		hour12,
 		dailyGuides,
+		treasureCandleLinks,
+		treasureCandleNotes,
 		todayString,
 		shard,
 	} = loaderData;
@@ -198,7 +230,6 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		}
 	}
 
-	const treasureCandleURLs = treasureCandles(today);
 	let seasonalCandles = null;
 	const daysCount: DaysCountItem[] = [];
 	const seasonalCandleEmoji = season ? SeasonIdToSeasonalCandleEmoji[season.id] : null;
@@ -702,39 +733,55 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 							</div>
 						</div>
 					)}
-					{treasureCandleURLs.length > 0 && (
-						<div className="mb-5">
-							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
-								{t("daily-guides.treasure-candles", { ns: "features" })}
-							</h2>
-							{treasureCandleURLs.length === 1 ? (
-								<button
-									className="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-									onClick={() => handleImageClick(treasureCandleURLs[0])}
-									type="button"
-								>
-									{t("view", { ns: "general" })}
-								</button>
-							) : (
-								<div className="flex flex-wrap gap-1 text-sm">
-									{treasureCandleURLs.map((treasureCandleURL, index) => (
-										<span key={treasureCandleURL}>
-											<button
-												className="regular-link font-medium transition-colors"
-												onClick={() => handleImageClick(treasureCandleURL)}
-												type="button"
-											>
-												{`${index * 4 + 1}–${index * 4 + 4}`}
-											</button>
-											{index < treasureCandleURLs.length - 1 && (
-												<span className="mx-1 text-gray-600 dark:text-gray-300">|</span>
+					<div className="mb-5">
+						<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+							{t("daily-guides.treasure-candles", { ns: "features" })}
+						</h2>
+						<div className="flex flex-wrap items-baseline gap-1 text-sm">
+							{treasureCandleLinks.map(({ url, footnote }, index) => (
+								<span className="relative" key={url}>
+									<button
+										aria-describedby={footnote ? `treasure-candles-note-${footnote}` : undefined}
+										className={
+											treasureCandleLinks.length === 1
+												? "rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+												: "regular-link font-medium transition-colors"
+										}
+										onClick={() => handleImageClick(url)}
+										type="button"
+									>
+										{treasureCandleLinks.length === 1
+											? t("view", { ns: "general" })
+											: `${index * 4 + 1}–${index * 4 + 4}`}
+									</button>
+									{footnote !== null && footnote !== treasureCandleLinks[index + 1]?.footnote && (
+										<sup
+											className={clsx(
+												"text-[10px]",
+												treasureCandleLinks.length === 1 && "absolute top-0 left-full leading-none",
 											)}
-										</span>
-									))}
-								</div>
-							)}
+										>
+											<a className="regular-link" href={`#treasure-candles-note-${footnote}`}>
+												[{footnote}]
+											</a>
+										</sup>
+									)}
+									{index < treasureCandleLinks.length - 1 && (
+										<span className="mx-1 text-gray-600 dark:text-gray-300">|</span>
+									)}
+								</span>
+							))}
 						</div>
-					)}
+						{treasureCandleNotes.length > 0 && (
+							<ol className="mt-2 list-decimal space-y-1 ps-4 text-xs text-gray-500 dark:text-gray-400">
+								{treasureCandleNotes.map((description, index) => (
+									<li id={`treasure-candles-note-${index + 1}`} key={description}>
+										{description}
+									</li>
+								))}
+							</ol>
+						)}
+					</div>
 					{seasonalCandles && (
 						<div className="mb-5">
 							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">

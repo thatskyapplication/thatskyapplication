@@ -155,6 +155,7 @@ export { spirits } from "./kingdom/spirits.js";
 export {
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
+	type TreasureCandle,
 } from "./kingdom/treasure-candles.js";
 export {
 	computeMaximumWingedLight,

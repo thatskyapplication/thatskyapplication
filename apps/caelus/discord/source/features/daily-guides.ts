@@ -8,6 +8,7 @@ import {
 	type APIComponentInContainer,
 	type APIGuildInteractionWrapper,
 	type APIInteractionResponseCallbackData,
+	type APIMediaGalleryItem,
 	type APIMessageChannelSelectInteractionData,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
@@ -958,36 +959,81 @@ async function distributionData({
 		missingDailyQuests = true;
 	}
 
-	const treasureCandleURLs = treasureCandles(today);
-	let treasureCandlesContent = `### ${t("daily-guides.treasure-candles", { lng: locale, ns: "features" })}`;
-
-	if (type === DailyGuidesDistributionType.Compact) {
-		treasureCandlesContent += `\n\n${
-			treasureCandleURLs.length === 1
-				? `[${t("view", { lng: locale, ns: "general" })}](${treasureCandleURLs[0]})`
-				: treasureCandleURLs
-						.map(
-							(treasureCandleURL, index) =>
-								`[${index * 4 + 1}–${index * 4 + 4}](${treasureCandleURL})`,
-						)
-						.join(" | ")
-		}`;
-	}
+	const treasureCandleSchedule = treasureCandles(today);
+	const treasureCandleLinks: string[] = [];
+	const treasureCandleNotes: string[] = [];
+	let treasureCandleGalleryItems: APIMediaGalleryItem[] = [];
 
 	containerComponents.push({
 		type: ComponentType.TextDisplay,
-		content: treasureCandlesContent,
+		content: `### ${t("daily-guides.treasure-candles", { lng: locale, ns: "features" })}`,
 	});
 
-	if (type === DailyGuidesDistributionType.Media) {
-		for (let index = 0; index < treasureCandleURLs.length; index += 10) {
-			const chunk = treasureCandleURLs.slice(index, index + 10);
+	for (const [index, { url, availableFrom, unavailableAt }] of treasureCandleSchedule.entries()) {
+		const next = treasureCandleSchedule[index + 1];
+		const endsAvailabilityWindow =
+			!next ||
+			availableFrom?.epochNanoseconds !== next.availableFrom?.epochNanoseconds ||
+			unavailableAt?.epochNanoseconds !== next.unavailableAt?.epochNanoseconds;
 
-			containerComponents.push({
-				type: ComponentType.MediaGallery,
-				items: chunk.map((url) => ({ media: { url } })),
+		if (type === DailyGuidesDistributionType.Compact) {
+			const label =
+				treasureCandleSchedule.length === 1
+					? t("view", { lng: locale, ns: "general" })
+					: `${index * 4 + 1}–${index * 4 + 4}`;
+
+			treasureCandleLinks.push(`[${label}](${url})`);
+		} else if (type === DailyGuidesDistributionType.Media) {
+			treasureCandleGalleryItems.push({ media: { url } });
+
+			if (treasureCandleGalleryItems.length === 10 || endsAvailabilityWindow) {
+				containerComponents.push({
+					type: ComponentType.MediaGallery,
+					items: treasureCandleGalleryItems,
+				});
+
+				treasureCandleGalleryItems = [];
+			}
+		}
+
+		if (!endsAvailabilityWindow) {
+			continue;
+		}
+
+		let description = null;
+
+		if (unavailableAt) {
+			description = t("daily-guides.treasure-candles-previous-day", {
+				lng: locale,
+				ns: "features",
+			});
+		} else if (availableFrom) {
+			description = t("daily-guides.treasure-candles-available-from", {
+				lng: locale,
+				ns: "features",
 			});
 		}
+
+		if (type === DailyGuidesDistributionType.Compact) {
+			if (description) {
+				treasureCandleNotes.push(description);
+			}
+		} else if (type === DailyGuidesDistributionType.Media && description) {
+			containerComponents.push({
+				type: ComponentType.TextDisplay,
+				content: `-# ${description}`,
+			});
+		}
+	}
+
+	if (type === DailyGuidesDistributionType.Compact) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: [
+				treasureCandleLinks.join(" | "),
+				...treasureCandleNotes.map((note) => `-# ${note}`),
+			].join("\n"),
+		});
 	}
 
 	const season = skyCurrentSeason(today);

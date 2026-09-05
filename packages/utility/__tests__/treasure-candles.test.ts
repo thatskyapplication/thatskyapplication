@@ -316,10 +316,10 @@ const EXPECTED_ROTATIONS = [
 	{
 		date: skyDate(2023, 3, 13),
 		expected: [
-			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
 			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
 			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
 		],
 	},
 	{
@@ -1861,8 +1861,8 @@ const EXPECTED_ROTATIONS = [
 	{
 		date: skyDate(2024, 3, 11),
 		expected: [
-			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
 			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
 		],
 	},
 	{
@@ -6033,13 +6033,71 @@ const EXPECTED_ROTATIONS = [
 	},
 ] as const;
 
+function scheduleTestDates(reset: Temporal.ZonedDateTime) {
+	const oneOClock = reset.with({ hour: 1 });
+
+	return [
+		reset,
+		oneOClock.subtract({ nanoseconds: 1 }),
+		oneOClock,
+		reset.add({ hours: 2 }),
+		reset.with({ hour: 12 }),
+		reset.add({ days: 1 }).subtract({ nanoseconds: 1 }),
+	].flatMap((date) => [date, date.withTimeZone("UTC")]);
+}
+
+function assertTreasureCandleSchedule(
+	date: Temporal.ZonedDateTime,
+	expected: readonly {
+		layout: string;
+		availableFrom?: Temporal.ZonedDateTime;
+		unavailableAt?: Temporal.ZonedDateTime;
+	}[],
+) {
+	const actual = treasureCandles(date);
+	const message = date.toString();
+	const expectedURLs = expected.map(({ layout }) =>
+		String(new URL(`daily_guides/treasure_candles/${layout}.webp`, CDN_URL)),
+	);
+
+	deepEqual(
+		actual.map(({ url }) => url),
+		expectedURLs,
+		message,
+	);
+
+	for (const [index, expectedCandle] of expected.entries()) {
+		const candle = actual[index]!;
+
+		if (!expectedCandle.availableFrom && !expectedCandle.unavailableAt) {
+			deepEqual(candle, { url: expectedURLs[index] }, message);
+			continue;
+		}
+
+		for (const key of ["availableFrom", "unavailableAt"] as const) {
+			const timestamp = expectedCandle[key];
+
+			if (timestamp) {
+				ok(candle[key]?.equals(timestamp), `${message}: candle ${index} ${key}`);
+			} else {
+				ok(!Object.hasOwn(candle, key), `${message}: candle ${index} omits ${key}`);
+			}
+		}
+	}
+}
+
 test("Treasure candles rotations.", async (t) => {
 	for (const { date, expected } of EXPECTED_ROTATIONS) {
-		await t.test(date.toPlainDate().toString(), () => deepEqual(treasureCandles(date), expected));
+		await t.test(date.toPlainDate().toString(), () => {
+			deepEqual(
+				treasureCandles(date).map(({ url }) => url),
+				expected,
+			);
+		});
 	}
 });
 
-test("Historical spring daylight-saving carryover lasts only the first hour after the Sky reset.", () => {
+test("Spring carryover precedes today's candles with its first-hour availability.", () => {
 	const scenarios = [
 		{
 			reset: skyDate(2023, 3, 13),
@@ -6054,23 +6112,76 @@ test("Historical spring daylight-saving carryover lasts only the first hour afte
 	];
 
 	for (const { reset, today, previous } of scenarios) {
-		const end = reset.add({ hours: 1 });
-		const cases = [
-			{ date: reset.subtract({ nanoseconds: 1 }), layouts: previous },
-			{ date: reset, layouts: [...today, ...previous] },
-			{ date: end.subtract({ nanoseconds: 1 }), layouts: [...today, ...previous] },
-			{ date: end, layouts: today },
-			{ date: reset.add({ hours: 12 }), layouts: today },
-			{ date: reset.add({ days: 1 }).subtract({ nanoseconds: 1 }), layouts: today },
+		const expected = [
+			...previous.map((layout) => ({
+				layout,
+				availableFrom: reset.subtract({ days: 1 }),
+				unavailableAt: reset.add({ hours: 1 }),
+			})),
+			...today.map((layout) => ({ layout })),
 		];
 
-		for (const { date, layouts } of cases) {
-			const expected = layouts.map((layout) =>
-				String(new URL(`daily_guides/treasure_candles/${layout}.webp`, CDN_URL)),
-			);
+		for (const date of scheduleTestDates(reset)) {
+			assertTreasureCandleSchedule(date, expected);
+		}
+	}
+});
 
-			deepEqual(treasureCandles(date), expected, date.toString());
-			deepEqual(treasureCandles(date.withTimeZone("UTC")), expected, date.toString());
+test("Autumn schedules retain the scheduled layouts and their 01:00 availability.", () => {
+	const scenarios = [
+		{ reset: skyDate(2023, 11, 6), layouts: ["golden_wasteland/1"] },
+		{ reset: skyDate(2024, 11, 4), layouts: ["hidden_forest/2"] },
+	];
+
+	for (const { reset, layouts } of scenarios) {
+		const expected = layouts.map((layout) => ({
+			layout,
+			availableFrom: reset.add({ hours: 1 }),
+		}));
+
+		for (const date of scheduleTestDates(reset)) {
+			assertTreasureCandleSchedule(date, expected);
+		}
+	}
+});
+
+test("Days adjacent to historical daylight-saving anomalies keep ordinary schedules.", () => {
+	const scenarios = [
+		{ reset: skyDate(2023, 3, 12), layouts: ["golden_wasteland/3", "golden_wasteland/1"] },
+		{ reset: skyDate(2023, 3, 14), layouts: ["daylight_prairie/2", "daylight_prairie/3"] },
+		{ reset: skyDate(2024, 3, 10), layouts: ["golden_wasteland/1"] },
+		{ reset: skyDate(2024, 3, 12), layouts: ["daylight_prairie/2"] },
+		{ reset: skyDate(2023, 11, 5), layouts: ["valley_of_triumph/2"] },
+		{ reset: skyDate(2023, 11, 7), layouts: ["vault_of_knowledge/2"] },
+		{ reset: skyDate(2024, 11, 3), layouts: ["daylight_prairie/1"] },
+		{ reset: skyDate(2024, 11, 5), layouts: ["valley_of_triumph/2"] },
+	];
+
+	for (const { reset, layouts } of scenarios) {
+		for (const date of scheduleTestDates(reset)) {
+			assertTreasureCandleSchedule(
+				date,
+				layouts.map((layout) => ({ layout })),
+			);
+		}
+	}
+});
+
+test("Daylight-saving availability anomalies no longer apply from 2025.", () => {
+	const scenarios = [
+		{ reset: skyDate(2025, 3, 10), layouts: ["valley_of_triumph/1"] },
+		{ reset: skyDate(2025, 11, 3), layouts: ["daylight_prairie/1"] },
+		{ reset: skyDate(2026, 3, 9), layouts: ["hidden_forest/1", "hidden_forest/2"] },
+		// 2 November 2026 checks the inferred cutoff rule, not an observed historical layout.
+		{ reset: skyDate(2026, 11, 2), layouts: ["vault_of_knowledge/1"] },
+	];
+
+	for (const { reset, layouts } of scenarios) {
+		for (const date of scheduleTestDates(reset)) {
+			assertTreasureCandleSchedule(
+				date,
+				layouts.map((layout) => ({ layout })),
+			);
 		}
 	}
 });
@@ -6104,7 +6215,7 @@ test("Treasure candle realm anchors change at the Sky reset.", () => {
 
 		for (const date of [beforeReset, beforeReset.withTimeZone("UTC")]) {
 			deepEqual(
-				treasureCandles(date),
+				treasureCandles(date).map(({ url }) => url),
 				[String(new URL(`daily_guides/treasure_candles/${before}.webp`, CDN_URL))],
 				date.toString(),
 			);
@@ -6112,7 +6223,7 @@ test("Treasure candle realm anchors change at the Sky reset.", () => {
 
 		for (const date of [reset, reset.withTimeZone("UTC")]) {
 			deepEqual(
-				treasureCandles(date),
+				treasureCandles(date).map(({ url }) => url),
 				[String(new URL(`daily_guides/treasure_candles/${after}.webp`, CDN_URL))],
 				date.toString(),
 			);
@@ -6124,9 +6235,10 @@ test("The first treasure candle realm anchor applies at the Sky reset.", () => {
 	const start = skyDate(2023, 1, 1);
 
 	for (const date of [start, start.withTimeZone("UTC")]) {
-		deepEqual(treasureCandles(date), [
-			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-		]);
+		deepEqual(
+			treasureCandles(date).map(({ url }) => url),
+			[String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+		);
 	}
 });
 
@@ -6143,8 +6255,16 @@ test("Dates before the first treasure candle anchor project its cycle backwards.
 
 	for (const { date, layout } of projections) {
 		const expected = [String(new URL(`daily_guides/treasure_candles/${layout}.webp`, CDN_URL))];
-		deepEqual(treasureCandles(date), expected, date.toString());
-		deepEqual(treasureCandles(date.withTimeZone("UTC")), expected, date.toString());
+		deepEqual(
+			treasureCandles(date).map(({ url }) => url),
+			expected,
+			date.toString(),
+		);
+		deepEqual(
+			treasureCandles(date.withTimeZone("UTC")).map(({ url }) => url),
+			expected,
+			date.toString(),
+		);
 	}
 });
 
