@@ -106,6 +106,161 @@ const DEAR_VAN_GOGH_SEASONAL_CANDLES_ROTATIONS = [
 		expected:
 			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/vault_of_knowledge/2.webp",
 	},
+	{
+		date: skyDate(2026, 8, 6),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/daylight_prairie/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 7),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/hidden_forest/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 8),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/valley_of_triumph/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 9),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/golden_wasteland/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 10),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/vault_of_knowledge/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 11),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/daylight_prairie/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 12),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/hidden_forest/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 13),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/valley_of_triumph/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 14),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/golden_wasteland/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 15),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/vault_of_knowledge/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 16),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/daylight_prairie/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 17),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/hidden_forest/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 18),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/valley_of_triumph/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 19),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/golden_wasteland/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 20),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/vault_of_knowledge/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 21),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/daylight_prairie/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 22),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/hidden_forest/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 23),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/valley_of_triumph/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 24),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/golden_wasteland/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 25),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/vault_of_knowledge/2.webp",
+	},
+	{
+		date: skyDate(2026, 8, 26),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/daylight_prairie/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 27),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/hidden_forest/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 28),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/valley_of_triumph/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 29),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/golden_wasteland/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 30),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/vault_of_knowledge/1.webp",
+	},
+	{
+		date: skyDate(2026, 8, 31),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/daylight_prairie/2.webp",
+	},
+	{
+		date: skyDate(2026, 9, 1),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/hidden_forest/2.webp",
+	},
+	{
+		date: skyDate(2026, 9, 2),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/valley_of_triumph/2.webp",
+	},
+	{
+		date: skyDate(2026, 9, 3),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/golden_wasteland/2.webp",
+	},
+	{
+		date: skyDate(2026, 9, 4),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/vault_of_knowledge/2.webp",
+	},
+	{
+		date: skyDate(2026, 9, 5),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/daylight_prairie/2.webp",
+	},
 ] as const;
 
 test("Dear Van Gogh seasonal candles rotations.", async (t) => {
