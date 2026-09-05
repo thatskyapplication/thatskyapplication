@@ -13,8 +13,23 @@ type TreasureCandlesRotation = Readonly<{
 
 const TREASURE_CANDLES_REALM_ANCHORS = [
 	{
-		start: skyDate(2024, 1, 1).toPlainDate(),
-		realm: RealmName.VaultOfKnowledge,
+		start: skyDate(2023, 1, 1).toPlainDate(),
+		realm: RealmName.GoldenWasteland,
+	},
+	{
+		// Vault of Knowledge was skipped between 30 June 2023 and 1 July 2023.
+		start: skyDate(2023, 7, 1).toPlainDate(),
+		realm: RealmName.DaylightPrairie,
+	},
+	{
+		// Daylight Prairie appeared on both 11 July 2023 and 12 July 2023.
+		start: skyDate(2023, 7, 12).toPlainDate(),
+		realm: RealmName.DaylightPrairie,
+	},
+	{
+		// Hidden Forest was skipped between 30 September 2023 and 1 October 2023.
+		start: skyDate(2023, 10, 1).toPlainDate(),
+		realm: RealmName.ValleyOfTriumph,
 	},
 	{
 		// Daylight Prairie appeared on both 30 June 2024 and 1 July 2024.
@@ -55,7 +70,7 @@ const TREASURE_CANDLES_CONFIGURATIONS = [
 /**
  * Default configuration for double treasure candles. Individual events can use different orders.
  *
- * @remarks Events before the observed 2025 are unverified.
+ * @remarks Events before the observed 2023 are unverified.
  */
 const TREASURE_CANDLES_DOUBLE_ROTATION = {
 	[RealmName.DaylightPrairie]: [3, 2, 1],
@@ -104,22 +119,42 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 	{
 		start: skyDate(2023, 3, 6),
 		end: skyDate(2023, 3, 20),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [2, 1, 3],
+			[RealmName.HiddenForest]: [3, 2, 1],
+			[RealmName.GoldenWasteland]: [3, 2, 1],
+		},
 	},
 	{
 		start: skyDate(2023, 4, 10),
 		end: skyDate(2023, 4, 17),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [2, 1, 3],
+			[RealmName.HiddenForest]: [3, 2, 1],
+			[RealmName.GoldenWasteland]: [3, 2, 1],
+		},
 	},
 	{
 		start: skyDate(2023, 5, 15),
 		end: skyDate(2023, 5, 22),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [2, 1, 3],
+			[RealmName.HiddenForest]: [3, 2, 1],
+			[RealmName.GoldenWasteland]: [3, 2, 1],
+		},
 	},
 	{
 		start: skyDate(2023, 11, 20),
 		end: skyDate(2023, 11, 27),
-		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+		rotation: {
+			...TREASURE_CANDLES_DOUBLE_ROTATION,
+			[RealmName.DaylightPrairie]: [2, 1, 3],
+			[RealmName.HiddenForest]: [3, 2, 1],
+			[RealmName.GoldenWasteland]: [3, 2, 1],
+		},
 	},
 	// Eight treasure candles in each realm (40 total). Handled by an override.
 	// Source: https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1308-patch-notes---april-10-2024---0-25-0-257483-android-huawei-256148-ios-playstation-257607-pc-255731-switch
@@ -299,6 +334,15 @@ export function treasureCandles(today: Temporal.ZonedDateTime): readonly [string
 
 	if (doubleConfiguration !== undefined) {
 		result.push(treasureCandleFromRotation(date, doubleConfiguration.rotation));
+	}
+
+	if (date.year < 2025 && date.hour === 0) {
+		const previousDay = date.subtract({ days: 1 });
+
+		if (previousDay.hoursInDay === 23) {
+			// Before 2025, the previous day's layouts lingered until 01:00 after spring DST began.
+			result.push(...treasureCandles(previousDay));
+		}
 	}
 
 	return result;

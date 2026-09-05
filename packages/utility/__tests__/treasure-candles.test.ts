@@ -9,6 +9,1576 @@ import { CDN_URL } from "../source/routes.js";
 
 const EXPECTED_ROTATIONS = [
 	{
+		date: skyDate(2023, 1, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 1, 31),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 2, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 6),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 7),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 8),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 9),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 10),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 11),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 12),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 13),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 14),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 15),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 16),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 17),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 18),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 19),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 3, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 3, 31),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 10),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 4, 11),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 4, 12),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 4, 13),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 4, 14),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 4, 15),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 4, 16),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 4, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 4, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 15),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 5, 16),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 5, 17),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 5, 18),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 5, 19),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 5, 20),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 5, 21),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 5, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 5, 31),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 6, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	// Daylight Prairie observed.
+	{
+		date: skyDate(2023, 7, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	// Daylight Prairie observed again.
+	{
+		date: skyDate(2023, 7, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 7, 31),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 8, 31),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 9, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	// Valley of Triumph observed.
+	{
+		date: skyDate(2023, 10, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 10, 31),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 20),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 11, 21),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 11, 22),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 11, 23),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 11, 24),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 11, 25),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 11, 26),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2023, 11, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 11, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 1),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 2),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 14),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 17),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 18),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 19),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 20),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 21),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 22),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 23),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 24),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 25),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 26),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 27),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 28),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 29),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 30),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2023, 12, 31),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
 		date: skyDate(2024, 1, 1),
 		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
 	},
@@ -290,7 +1860,10 @@ const EXPECTED_ROTATIONS = [
 	},
 	{
 		date: skyDate(2024, 3, 11),
-		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+		expected: [
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+		],
 	},
 	{
 		date: skyDate(2024, 3, 12),
@@ -4466,42 +6039,106 @@ test("Treasure candles rotations.", async (t) => {
 	}
 });
 
-test("Treasure candle realm anchors change at the Sky reset.", () => {
-	const reset = skyDate(2024, 7, 1);
-	const beforeReset = reset.subtract({ nanoseconds: 1 });
+test("Historical spring daylight-saving carryover lasts only the first hour after the Sky reset.", () => {
+	const scenarios = [
+		{
+			reset: skyDate(2023, 3, 13),
+			today: ["vault_of_knowledge/1", "vault_of_knowledge/2"],
+			previous: ["golden_wasteland/3", "golden_wasteland/1"],
+		},
+		{
+			reset: skyDate(2024, 3, 11),
+			today: ["vault_of_knowledge/1"],
+			previous: ["golden_wasteland/1"],
+		},
+	];
 
-	for (const date of [beforeReset, beforeReset.withTimeZone("UTC")]) {
-		deepEqual(treasureCandles(date), [
-			String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-		]);
+	for (const { reset, today, previous } of scenarios) {
+		const end = reset.add({ hours: 1 });
+		const cases = [
+			{ date: reset.subtract({ nanoseconds: 1 }), layouts: previous },
+			{ date: reset, layouts: [...today, ...previous] },
+			{ date: end.subtract({ nanoseconds: 1 }), layouts: [...today, ...previous] },
+			{ date: end, layouts: today },
+			{ date: reset.add({ hours: 12 }), layouts: today },
+			{ date: reset.add({ days: 1 }).subtract({ nanoseconds: 1 }), layouts: today },
+		];
+
+		for (const { date, layouts } of cases) {
+			const expected = layouts.map((layout) =>
+				String(new URL(`daily_guides/treasure_candles/${layout}.webp`, CDN_URL)),
+			);
+
+			deepEqual(treasureCandles(date), expected, date.toString());
+			deepEqual(treasureCandles(date.withTimeZone("UTC")), expected, date.toString());
+		}
 	}
+});
 
-	for (const date of [reset, reset.withTimeZone("UTC")]) {
-		deepEqual(treasureCandles(date), [
-			String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-		]);
+test("Treasure candle realm anchors change at the Sky reset.", () => {
+	const boundaries = [
+		{
+			reset: skyDate(2023, 7, 1),
+			before: "golden_wasteland/3",
+			after: "daylight_prairie/1",
+		},
+		{
+			reset: skyDate(2023, 7, 12),
+			before: "daylight_prairie/2",
+			after: "daylight_prairie/2",
+		},
+		{
+			reset: skyDate(2023, 10, 1),
+			before: "daylight_prairie/2",
+			after: "valley_of_triumph/2",
+		},
+		{
+			reset: skyDate(2024, 7, 1),
+			before: "daylight_prairie/2",
+			after: "daylight_prairie/1",
+		},
+	];
+
+	for (const { reset, before, after } of boundaries) {
+		const beforeReset = reset.subtract({ nanoseconds: 1 });
+
+		for (const date of [beforeReset, beforeReset.withTimeZone("UTC")]) {
+			deepEqual(
+				treasureCandles(date),
+				[String(new URL(`daily_guides/treasure_candles/${before}.webp`, CDN_URL))],
+				date.toString(),
+			);
+		}
+
+		for (const date of [reset, reset.withTimeZone("UTC")]) {
+			deepEqual(
+				treasureCandles(date),
+				[String(new URL(`daily_guides/treasure_candles/${after}.webp`, CDN_URL))],
+				date.toString(),
+			);
+		}
 	}
 });
 
 test("The first treasure candle realm anchor applies at the Sky reset.", () => {
-	const start = skyDate(2024, 1, 1);
+	const start = skyDate(2023, 1, 1);
 
 	for (const date of [start, start.withTimeZone("UTC")]) {
 		deepEqual(treasureCandles(date), [
-			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
 		]);
 	}
 });
 
 test("Dates before the first treasure candle anchor project its cycle backwards.", () => {
 	const projections = [
-		{ date: skyDate(2020, 1, 1), layout: "golden_wasteland/2" },
-		{ date: skyDate(2023, 12, 22), layout: "vault_of_knowledge/1" },
-		{ date: skyDate(2023, 12, 23), layout: "daylight_prairie/3" },
-		{ date: skyDate(2023, 12, 24), layout: "hidden_forest/1" },
-		{ date: skyDate(2023, 12, 25), layout: "valley_of_triumph/2" },
-		{ date: skyDate(2023, 12, 26), layout: "golden_wasteland/3" },
-		{ date: skyDate(2023, 12, 31, 23, 59, 59), layout: "golden_wasteland/2" },
+		{ date: skyDate(2020, 1, 1), layout: "valley_of_triumph/2" },
+		{ date: skyDate(2022, 12, 22), layout: "golden_wasteland/1" },
+		{ date: skyDate(2022, 12, 23), layout: "vault_of_knowledge/1" },
+		{ date: skyDate(2022, 12, 24), layout: "daylight_prairie/3" },
+		{ date: skyDate(2022, 12, 25), layout: "hidden_forest/1" },
+		{ date: skyDate(2022, 12, 26), layout: "valley_of_triumph/1" },
+		{ date: skyDate(2022, 12, 31, 23, 59, 59), layout: "valley_of_triumph/2" },
 	];
 
 	for (const { date, layout } of projections) {
