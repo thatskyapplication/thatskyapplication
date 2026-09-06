@@ -261,6 +261,11 @@ const DEAR_VAN_GOGH_SEASONAL_CANDLES_ROTATIONS = [
 		expected:
 			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/daylight_prairie/2.webp",
 	},
+	{
+		date: skyDate(2026, 9, 6),
+		expected:
+			"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/29/hidden_forest/1.webp",
+	},
 ] as const;
 
 test("Dear Van Gogh seasonal candles rotations.", async (t) => {
