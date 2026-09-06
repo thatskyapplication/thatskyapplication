@@ -273,7 +273,7 @@ function isDailyGuidesDistributable({
 			pino.warn(channel, `Could not resolve a daily guides thread's parent channel.`);
 
 			// Early exit.
-			return errors.length > 1 ? errors.map((error) => `- ${error}`) : errors;
+			return errors;
 		}
 
 		resolvedChannelForPermission = parentChannel;
