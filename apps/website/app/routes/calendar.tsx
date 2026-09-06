@@ -71,16 +71,20 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 
 export const clientLoader = ({ request }: Route.ClientLoaderArgs) => {
 	const locale = i18next.language;
+	const t = i18next.getFixedT(locale);
 
-	return calendarData({
-		hour12: getDocumentHour12(),
-		locale,
-		nowMilliseconds: Date.now(),
-		preferredTimeZone: getBrowserTimeZone() ?? TIME_ZONE,
-		searchParams: new URL(request.url).searchParams,
-		t: i18next.getFixedT(locale),
-		timeZoneEstimated: false,
-	});
+	return {
+		...calendarData({
+			hour12: getDocumentHour12(),
+			locale,
+			nowMilliseconds: Date.now(),
+			preferredTimeZone: getBrowserTimeZone() ?? TIME_ZONE,
+			searchParams: new URL(request.url).searchParams,
+			t,
+			timeZoneEstimated: false,
+		}),
+		title: t("calendar.name", { ns: "features" }),
+	};
 };
 
 function loaderSearchParameters(url: URL) {
@@ -116,7 +120,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 		timeZone,
 		zoneEstimated,
 		anchorEstimated,
-		title,
+		heading,
 		todayDate,
 		view,
 		weekdayLabels,
@@ -170,12 +174,12 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 					anchorDate={anchorDate}
 					anchorEstimated={anchorEstimated}
 					dayDate={dayDate}
+					heading={heading}
 					hiddenKinds={hiddenKinds}
 					locale={locale}
 					nextDate={nextDate}
 					previousDate={previousDate}
 					skyTime={skyTime}
-					title={title}
 					todayDate={todayDate}
 					view={view}
 					weekStartsOn={weekStartsOn}

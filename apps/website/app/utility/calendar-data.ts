@@ -185,7 +185,7 @@ export function calendarData({
 				),
 			);
 
-	const title = isDay
+	const heading = isDay
 		? fullDayFormat.format(anchor.toZonedDateTime(timeZone).epochMilliseconds)
 		: isMonth
 			? new Intl.DateTimeFormat(locale, { timeZone, month: "long", year: "numeric" }).format(
@@ -265,7 +265,7 @@ export function calendarData({
 		timeZone,
 		zoneEstimated,
 		anchorEstimated: zoneEstimated && anchorDependsOnToday && monthIsZoneSensitive(nowMilliseconds),
-		title,
+		heading,
 		todayDate: today.toString(),
 		view,
 		weekdayLabels,

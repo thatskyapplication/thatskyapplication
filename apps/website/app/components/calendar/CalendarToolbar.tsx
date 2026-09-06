@@ -34,12 +34,12 @@ export function CalendarToolbar({
 	anchorDate,
 	anchorEstimated,
 	dayDate,
+	heading,
 	hiddenKinds,
 	locale,
 	nextDate,
 	previousDate,
 	skyTime,
-	title,
 	todayDate,
 	view,
 	weekStartsOn,
@@ -47,12 +47,12 @@ export function CalendarToolbar({
 	anchorDate: string;
 	anchorEstimated: boolean;
 	dayDate: string;
+	heading: string;
 	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	locale: string;
 	nextDate: string | null;
 	previousDate: string | null;
 	skyTime: boolean;
-	title: string;
 	todayDate: string;
 	view: CalendarViews;
 	weekStartsOn: number;
@@ -82,7 +82,7 @@ export function CalendarToolbar({
 	return (
 		<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 			<h1 className="text-xl font-bold sm:text-2xl lg:text-2xl">
-				{anchorEstimated ? <SkeletonText>{title}</SkeletonText> : title}
+				{anchorEstimated ? <SkeletonText>{heading}</SkeletonText> : heading}
 			</h1>
 			<div className="flex flex-wrap items-center justify-between gap-2 sm:justify-end">
 				<div className="flex items-center gap-2">
