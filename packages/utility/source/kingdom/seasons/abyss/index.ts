@@ -14,5 +14,8 @@ export default new Season({
 	guide: AbyssGuide,
 	spirits: [AnxiousAngler, CeasingCommodore, BumblingBoatswain, CacklingCannoneer],
 	seasonalCandlesRotation: null,
-	doubleSeasonalLight: [{ start: skyDate(2022, 2, 25), end: skyDate(2022, 3, 11) }],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [{ start: skyDate(2022, 2, 25), end: skyDate(2022, 3, 11) }],
+	},
 });

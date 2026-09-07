@@ -53,10 +53,13 @@ export default new Season({
 			cost: { candles: 8 },
 		},
 	],
-	doubleSeasonalLight: [
-		{
-			start: skyDate(2026, 6, 19),
-			end: skyDate(2026, 7, 3),
-		},
-	],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [
+			{
+				start: skyDate(2026, 6, 19),
+				end: skyDate(2026, 7, 3),
+			},
+		],
+	},
 });

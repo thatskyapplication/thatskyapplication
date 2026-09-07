@@ -31,5 +31,8 @@ export default new Season({
 		{ rotation: "2", realm: RealmName.GoldenWasteland },
 		{ rotation: "2", realm: RealmName.VaultOfKnowledge },
 	],
-	doubleSeasonalLight: [{ start: skyDate(2023, 11, 20), end: skyDate(2023, 11, 27) }],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [{ start: skyDate(2023, 11, 20), end: skyDate(2023, 11, 27) }],
+	},
 });

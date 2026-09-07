@@ -343,7 +343,7 @@ function doubleSeasonalLightOverview(date: Temporal.ZonedDateTime) {
 			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
 		);
 
-		for (const doubleSeasonalLight of season.doubleSeasonalLight ?? []) {
+		for (const doubleSeasonalLight of season.doubleSeasonalLight?.dates ?? []) {
 			if (Temporal.ZonedDateTime.compare(doubleSeasonalLight.end, date) <= 0) {
 				continue;
 			}

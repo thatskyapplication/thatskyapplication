@@ -14,5 +14,8 @@ export default new Season({
 	guide: RemembranceGuide,
 	spirits: [BereftVeteran, PleadingChild, TiptoeingTeaBrewer, WoundedWarrior],
 	seasonalCandlesRotation: null,
-	doubleSeasonalLight: [{ start: skyDate(2023, 3, 6), end: skyDate(2023, 3, 13) }],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [{ start: skyDate(2023, 3, 6), end: skyDate(2023, 3, 13) }],
+	},
 });

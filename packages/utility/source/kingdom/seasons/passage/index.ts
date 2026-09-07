@@ -14,5 +14,8 @@ export default new Season({
 	guide: PassageGuide,
 	spirits: [OddballOutcast, TumblingTroublemaker, MelancholyMope, OveractiveOverachiever],
 	seasonalCandlesRotation: null,
-	doubleSeasonalLight: [{ start: skyDate(2023, 5, 15), end: skyDate(2023, 5, 22) }],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [{ start: skyDate(2023, 5, 15), end: skyDate(2023, 5, 22) }],
+	},
 });
