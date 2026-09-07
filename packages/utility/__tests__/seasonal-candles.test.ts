@@ -8,6 +8,7 @@ import Duets from "../source/kingdom/seasons/duets/index.js";
 import { SEASONS } from "../source/kingdom/seasons/index.js";
 import Lightmending from "../source/kingdom/seasons/lightmending/index.js";
 import Migration from "../source/kingdom/seasons/migration/index.js";
+import Moments from "../source/kingdom/seasons/moments/index.js";
 import Moomin from "../source/kingdom/seasons/moomin/index.js";
 import Nesting from "../source/kingdom/seasons/nesting/index.js";
 import NineColouredDeer from "../source/kingdom/seasons/nine-coloured-deer/index.js";
@@ -17,6 +18,396 @@ import Revival from "../source/kingdom/seasons/revival/index.js";
 import TwoEmbersPart1 from "../source/kingdom/seasons/two-embers-part-1/index.js";
 
 const SEASONAL_CANDLES_ROTATIONS = [
+	{
+		season: Moments,
+		rotations: [
+			{
+				date: skyDate(2023, 7, 17),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/1.webp",
+			},
+			{
+				date: skyDate(2023, 7, 18),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/1.webp",
+			},
+			{
+				date: skyDate(2023, 7, 19),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
+			},
+			{
+				date: skyDate(2023, 7, 20),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1.webp",
+			},
+			{
+				date: skyDate(2023, 7, 21),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/1.webp",
+			},
+			{
+				date: skyDate(2023, 7, 22),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/2.webp",
+			},
+			{
+				date: skyDate(2023, 7, 23),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/2.webp",
+			},
+			{
+				date: skyDate(2023, 7, 24),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/2.webp",
+			},
+			{
+				date: skyDate(2023, 7, 25),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/2.webp",
+			},
+			{
+				date: skyDate(2023, 7, 26),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/2.webp",
+			},
+			{
+				date: skyDate(2023, 7, 27),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/1.webp",
+			},
+			{
+				date: skyDate(2023, 7, 28),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/1.webp",
+			},
+			{
+				date: skyDate(2023, 7, 29),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
+			},
+			{
+				date: skyDate(2023, 7, 30),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1.webp",
+			},
+			{
+				date: skyDate(2023, 7, 31),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 1),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 2),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 3),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 4),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 5),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 6),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 7),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 8),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 9),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 10),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 11),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 12),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 13),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 14),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 15),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 16),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 17),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 18),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 19),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 20),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 21),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 22),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 23),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 24),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 25),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 26),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 27),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 28),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 29),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1.webp",
+			},
+			{
+				date: skyDate(2023, 8, 30),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/2.webp",
+			},
+			{
+				date: skyDate(2023, 8, 31),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 1),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 2),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 3),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 4),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 5),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 6),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 7),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 8),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 9),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 10),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 11),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 12),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 13),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 14),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 15),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 16),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 17),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 18),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 19),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 20),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 21),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 22),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 23),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 24),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/1.webp",
+			},
+			{
+				date: skyDate(2023, 9, 25),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/1+2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 26),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/1+2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 27),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1+2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 28),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1+2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 29),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/1+2.webp",
+			},
+			{
+				date: skyDate(2023, 9, 30),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/1+2.webp",
+			},
+			{
+				date: skyDate(2023, 10, 1),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/1+2.webp",
+			},
+		],
+	},
 	{
 		season: Revival,
 		rotations: [
