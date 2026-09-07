@@ -1,7 +1,7 @@
 import { Cosmetic, CosmeticPackName } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { RotationIdentifier, SeasonId } from "../../../season.js";
+import { SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
 import caringCompanion from "./caring-companion.js";
 import resourcefulRecluse from "./resourceful-recluse.js";
@@ -19,54 +19,54 @@ export default new Season({
 	seasonalCandlesRotation: (now) =>
 		Temporal.ZonedDateTime.compare(now, skyDate(2_025, 10, 3)) >= 0
 			? [
-					{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
-					{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
-					{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
-					{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
-					{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
+					{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "2", realm: RealmName.DaylightPrairie },
+					{ rotation: "2", realm: RealmName.HiddenForest },
+					{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "2", realm: RealmName.GoldenWasteland },
+					{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "1", realm: RealmName.DaylightPrairie },
+					{ rotation: "1", realm: RealmName.HiddenForest },
+					{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "1", realm: RealmName.GoldenWasteland },
 				]
 			: Temporal.ZonedDateTime.compare(now, skyDate(2_025, 9, 5)) >= 0
 				? [
-						{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
-						{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
-						{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
-						{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
-						{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
+						{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "1", realm: RealmName.DaylightPrairie },
+						{ rotation: "2", realm: RealmName.HiddenForest },
+						{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "1", realm: RealmName.GoldenWasteland },
+						{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "2", realm: RealmName.DaylightPrairie },
+						{ rotation: "1", realm: RealmName.HiddenForest },
+						{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "2", realm: RealmName.GoldenWasteland },
 					]
 				: Temporal.ZonedDateTime.compare(now, skyDate(2_025, 8, 1)) >= 0
 					? [
-							{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
-							{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
-							{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
-							{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
-							{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
+							{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+							{ rotation: "2", realm: RealmName.DaylightPrairie },
+							{ rotation: "2", realm: RealmName.HiddenForest },
+							{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+							{ rotation: "1", realm: RealmName.GoldenWasteland },
+							{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+							{ rotation: "1", realm: RealmName.DaylightPrairie },
+							{ rotation: "1", realm: RealmName.HiddenForest },
+							{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+							{ rotation: "2", realm: RealmName.GoldenWasteland },
 						]
 					: [
-							{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
-							{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
-							{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
-							{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
-							{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
-							{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
+							{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+							{ rotation: "1", realm: RealmName.DaylightPrairie },
+							{ rotation: "1", realm: RealmName.HiddenForest },
+							{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+							{ rotation: "1", realm: RealmName.GoldenWasteland },
+							{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+							{ rotation: "2", realm: RealmName.DaylightPrairie },
+							{ rotation: "2", realm: RealmName.HiddenForest },
+							{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+							{ rotation: "2", realm: RealmName.GoldenWasteland },
 						],
 	items: [
 		{

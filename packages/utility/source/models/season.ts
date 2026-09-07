@@ -4,7 +4,9 @@ import { isActive } from "../dates.js";
 import type { RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import {
-	RotationIdentifier,
+	type RotationIdentifier,
+	type RotationIdentifierDouble,
+	type RotationIdentifierSingle,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	type SeasonIds,
@@ -17,12 +19,13 @@ import {
 import type { ItemRawWithoutChildren, ItemWithoutChildren, SpiritIds } from "../utility/spirits.js";
 import type { GuideSpirit, SeasonalSpirit } from "./spirits.js";
 
-type SeasonalCandlesRotation = Readonly<
-	{ rotation: Exclude<RotationIdentifier, RotationIdentifier.Double>; realm: RealmName }[]
->;
+type SeasonalCandlesRotation = readonly {
+	rotation: RotationIdentifierSingle;
+	realm: RealmName;
+}[];
 
 /**
- * Data that describes a double seasonal light event.
+ * Date data for a double seasonal light.
  */
 export interface DoubleSeasonalLightDate {
 	/**
@@ -35,6 +38,20 @@ export interface DoubleSeasonalLightDate {
 	 * @remarks The end date is exclusive.
 	 */
 	end: Temporal.ZonedDateTime;
+}
+
+/**
+ * Data that describes a double seasonal light event.
+ */
+interface DoubleSeasonalLight {
+	/**
+	 * Identifies which seasonal light double rotation to use.
+	 */
+	identifier: RotationIdentifierDouble;
+	/**
+	 * Double seasonal light event dates.
+	 */
+	dates: readonly DoubleSeasonalLightDate[];
 }
 
 /**
@@ -77,9 +94,9 @@ interface SeasonData {
 		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation)
 		| null;
 	/**
-	 * Double seasonal light dates.
+	 * Double seasonal light data.
 	 */
-	doubleSeasonalLight?: readonly DoubleSeasonalLightDate[];
+	doubleSeasonalLight?: DoubleSeasonalLight;
 }
 
 export class Season {
@@ -103,7 +120,7 @@ export class Season {
 		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation)
 		| null;
 
-	public readonly doubleSeasonalLight: readonly DoubleSeasonalLightDate[] | null;
+	public readonly doubleSeasonalLight: DoubleSeasonalLight | null;
 
 	public constructor(data: SeasonData) {
 		this.id = data.id;
@@ -174,7 +191,13 @@ export class Season {
 			]!;
 
 		if (this.isDuringDoubleSeasonalLightEvent(date)) {
-			return this.seasonalCandlesRotationURL(realm, RotationIdentifier.Double);
+			if (!this.doubleSeasonalLightRotationIdentifier) {
+				throw new Error(
+					`Season ${this.id} has double seasonal light but no double seasonal light rotation identifier.`,
+				);
+			}
+
+			return this.seasonalCandlesRotationURL(realm, this.doubleSeasonalLightRotationIdentifier);
 		}
 
 		return this.seasonalCandlesRotationURL(realm, rotation);
@@ -182,10 +205,7 @@ export class Season {
 
 	private seasonalCandlesRotationURL(realm: RealmName, identifier: RotationIdentifier) {
 		return String(
-			new URL(
-				`daily_guides/seasonal_candles/${this.id}/${snakeCaseName(realm)}/${identifier}.webp`,
-				CDN_URL,
-			),
+			new URL(`daily_guides/seasonal_candles/${snakeCaseName(realm)}/${identifier}.webp`, CDN_URL),
 		);
 	}
 }
