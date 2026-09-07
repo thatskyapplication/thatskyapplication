@@ -277,7 +277,7 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 		...[season, nextSeason]
 			.filter((displayedSeason) => displayedSeason !== null)
 			.map((displayedSeason) => ({
-				source: displayedSeason.doubleSeasonalLight ?? [],
+				source: displayedSeason.doubleSeasonalLight?.dates ?? [],
 				key: `double-seasonal-light-${displayedSeason.id}`,
 				labelKey: "general:event-names.double-seasonal-light",
 			})),

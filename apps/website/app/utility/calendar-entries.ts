@@ -207,7 +207,7 @@ export function calendarEntriesBetween({
 			}),
 		);
 
-		for (const doubleSeasonalLight of season.doubleSeasonalLight ?? []) {
+		for (const doubleSeasonalLight of season.doubleSeasonalLight?.dates ?? []) {
 			if (!overlapsRange(doubleSeasonalLight.start, doubleSeasonalLight.end)) {
 				continue;
 			}

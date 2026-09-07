@@ -14,5 +14,8 @@ export default new Season({
 	guide: FlightGuide,
 	spirits: [LivelyNavigator, LightWhisperer, TinkeringChimesmith, TalentedBuilder],
 	seasonalCandlesRotation: null,
-	doubleSeasonalLight: [{ start: skyDate(2021, 11, 23), end: skyDate(2021, 11, 30) }],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [{ start: skyDate(2021, 11, 23), end: skyDate(2021, 11, 30) }],
+	},
 });

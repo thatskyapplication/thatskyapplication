@@ -12,8 +12,11 @@ export default new Season({
 	guide: TheVoidOfShattering,
 	spirits: [...AncientLight, ...AncientDarkness],
 	seasonalCandlesRotation: null,
-	doubleSeasonalLight: [
-		{ start: skyDate(2022, 8, 9), end: skyDate(2022, 8, 22) },
-		{ start: skyDate(2022, 9, 12), end: skyDate(2022, 9, 27) },
-	],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [
+			{ start: skyDate(2022, 8, 9), end: skyDate(2022, 8, 22) },
+			{ start: skyDate(2022, 9, 12), end: skyDate(2022, 9, 27) },
+		],
+	},
 });

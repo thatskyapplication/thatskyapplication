@@ -154,7 +154,7 @@ export class Season {
 		const remainingDays = Math.ceil(this.end.since(date).total({ unit: "days", relativeTo: date }));
 
 		const remainingDoubleSeasonalLightDays =
-			this.doubleSeasonalLight?.reduce((total, { start, end }) => {
+			this.doubleSeasonalLight?.dates.reduce((total, { start, end }) => {
 				if (Temporal.ZonedDateTime.compare(date, end) >= 0) {
 					return total;
 				}
@@ -177,7 +177,9 @@ export class Season {
 	}
 
 	public isDuringDoubleSeasonalLightEvent(date: Temporal.ZonedDateTime) {
-		return this.doubleSeasonalLight?.some(({ start, end }) => isActive(start, end, date)) ?? false;
+		return (
+			this.doubleSeasonalLight?.dates.some(({ start, end }) => isActive(start, end, date)) ?? false
+		);
 	}
 
 	public seasonalCandles(date: Temporal.ZonedDateTime) {
@@ -190,14 +192,8 @@ export class Season {
 				date.since(this.start).total({ unit: "days", relativeTo: this.start }) % 10
 			]!;
 
-		if (this.isDuringDoubleSeasonalLightEvent(date)) {
-			if (!this.doubleSeasonalLightRotationIdentifier) {
-				throw new Error(
-					`Season ${this.id} has double seasonal light but no double seasonal light rotation identifier.`,
-				);
-			}
-
-			return this.seasonalCandlesRotationURL(realm, this.doubleSeasonalLightRotationIdentifier);
+		if (this.doubleSeasonalLight && this.isDuringDoubleSeasonalLightEvent(date)) {
+			return this.seasonalCandlesRotationURL(realm, this.doubleSeasonalLight.identifier);
 		}
 
 		return this.seasonalCandlesRotationURL(realm, rotation);

@@ -1066,7 +1066,7 @@ async function distributionData({
 		const candleEmoji =
 			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 
-		for (const doubleSeasonalLight of season.doubleSeasonalLight?.filter(
+		for (const doubleSeasonalLight of season.doubleSeasonalLight?.dates.filter(
 			({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
 		) ?? []) {
 			const candlePrefix = formatEmoji(candleEmoji);
