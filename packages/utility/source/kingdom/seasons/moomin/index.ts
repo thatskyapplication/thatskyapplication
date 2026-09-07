@@ -41,20 +41,34 @@ export default new Season({
 			cost: { money: 24.99 },
 		},
 	],
-	seasonalCandlesRotation: [
-		{ rotation: "1", realm: RealmName.VaultOfKnowledge },
-		{ rotation: "1", realm: RealmName.DaylightPrairie },
-		{ rotation: "1", realm: RealmName.HiddenForest },
-		{ rotation: "2", realm: RealmName.ValleyOfTriumph },
-		{ rotation: "2", realm: RealmName.GoldenWasteland },
-		{ rotation: "2", realm: RealmName.VaultOfKnowledge },
-		{ rotation: "2", realm: RealmName.DaylightPrairie },
-		{ rotation: "2", realm: RealmName.HiddenForest },
-		{ rotation: "1", realm: RealmName.ValleyOfTriumph },
-		{ rotation: "1", realm: RealmName.GoldenWasteland },
-	],
+	seasonalCandlesRotation: (now) =>
+		Temporal.ZonedDateTime.compare(now, skyDate(2_024, 11, 1)) >= 0
+			? [
+					{ rotation: "4", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "4", realm: RealmName.DaylightPrairie },
+					{ rotation: "4", realm: RealmName.HiddenForest },
+					{ rotation: "3", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "3", realm: RealmName.GoldenWasteland },
+					{ rotation: "3", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "3", realm: RealmName.DaylightPrairie },
+					{ rotation: "3", realm: RealmName.HiddenForest },
+					{ rotation: "4", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "4", realm: RealmName.GoldenWasteland },
+				]
+			: [
+					{ rotation: "4", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "4", realm: RealmName.DaylightPrairie },
+					{ rotation: "4", realm: RealmName.HiddenForest },
+					{ rotation: "4", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "4", realm: RealmName.GoldenWasteland },
+					{ rotation: "3", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "3", realm: RealmName.DaylightPrairie },
+					{ rotation: "3", realm: RealmName.HiddenForest },
+					{ rotation: "3", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "3", realm: RealmName.GoldenWasteland },
+				],
 	doubleSeasonalLight: {
-		identifier: "1+2",
+		identifier: "3+4",
 		dates: [{ start: skyDate(2024, 12, 9), end: skyDate(2024, 12, 23) }],
 	},
 });
