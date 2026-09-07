@@ -1,10 +1,6 @@
-export enum RotationIdentifier {
-	One = "1",
-	Two = "2",
-	Three = "3",
-	Four = "4",
-	Double = "double",
-}
+export type RotationIdentifierSingle = "1" | "2" | "3" | "4";
+export type RotationIdentifierDouble = "1+2" | "3+4";
+export type RotationIdentifier = RotationIdentifierSingle | RotationIdentifierDouble;
 
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
