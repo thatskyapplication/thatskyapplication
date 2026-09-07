@@ -11,8 +11,8 @@ import SpiritOfMural from "./spirit-of-mural.js";
 
 export default new Season({
 	id: SeasonId.NineColouredDeer,
-	start: skyDate(2_024, 1, 15),
-	end: skyDate(2_024, 4, 1),
+	start: skyDate(2024, 1, 15),
+	end: skyDate(2024, 4, 1),
 	guide: SpiritOfMural,
 	spirits: [HerbGatherer, Hunter, FeudalLord, Princess],
 	items: [
@@ -25,18 +25,45 @@ export default new Season({
 			cost: { money: 19.99 },
 		},
 	],
-	seasonalCandlesRotation: [
-		{ rotation: "1", realm: RealmName.HiddenForest },
-		{ rotation: "1", realm: RealmName.ValleyOfTriumph },
-		{ rotation: "1", realm: RealmName.GoldenWasteland },
-		{ rotation: "1", realm: RealmName.VaultOfKnowledge },
-		{ rotation: "1", realm: RealmName.DaylightPrairie },
-		{ rotation: "2", realm: RealmName.HiddenForest },
-		{ rotation: "2", realm: RealmName.ValleyOfTriumph },
-		{ rotation: "2", realm: RealmName.GoldenWasteland },
-		{ rotation: "2", realm: RealmName.VaultOfKnowledge },
-		{ rotation: "2", realm: RealmName.DaylightPrairie },
-	],
+	seasonalCandlesRotation: (now) =>
+		Temporal.ZonedDateTime.compare(now, skyDate(2024, 3, 1)) >= 0
+			? [
+					{ rotation: "2", realm: RealmName.HiddenForest },
+					{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "2", realm: RealmName.GoldenWasteland },
+					{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "1", realm: RealmName.DaylightPrairie },
+					{ rotation: "1", realm: RealmName.HiddenForest },
+					{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "1", realm: RealmName.GoldenWasteland },
+					{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "2", realm: RealmName.DaylightPrairie },
+				]
+			: Temporal.ZonedDateTime.compare(now, skyDate(2024, 2, 5)) >= 0
+				? [
+						{ rotation: "2", realm: RealmName.HiddenForest },
+						{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "2", realm: RealmName.GoldenWasteland },
+						{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "1", realm: RealmName.DaylightPrairie },
+						{ rotation: "1", realm: RealmName.HiddenForest },
+						{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "1", realm: RealmName.GoldenWasteland },
+						{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "2", realm: RealmName.DaylightPrairie },
+					]
+				: [
+						{ rotation: "2", realm: RealmName.HiddenForest },
+						{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "2", realm: RealmName.GoldenWasteland },
+						{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "1", realm: RealmName.DaylightPrairie },
+						{ rotation: "1", realm: RealmName.HiddenForest },
+						{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "1", realm: RealmName.GoldenWasteland },
+						{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "2", realm: RealmName.DaylightPrairie },
+					],
 	doubleSeasonalLight: {
 		identifier: "1+2",
 		dates: [{ start: skyDate(2024, 3, 11), end: skyDate(2024, 3, 18) }],
