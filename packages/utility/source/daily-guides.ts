@@ -198,7 +198,7 @@ export const DailyQuest = {
 	MeetUpWithCacklingCannoneerInTreasureReef: 182,
 	MeetUpWithAnxiousAnglerInTreasureReef: 183,
 	MeetUpWithMellowMusicianInVillageOfDreams: 184,
-	MeetUpWithAnxiousAnglerInGoldenWasteland: 185,
+	MeetUpWithAnxiousAnglerInTheOuterBailey: 185,
 	MeetUpWithAnxiousAnglerInCrabFields: 186,
 	MeetUpWithCeasingCommodoreInTreasureReef: 187,
 	MeetUpWithBlushingProspectorInForestBrook: 188,
@@ -361,9 +361,9 @@ export const DailyQuestToMeetUp: Readonly<Partial<Record<DailyQuests, MeetUpWith
 		spirit: SpiritId.MellowMusician,
 		location: AreaName.VillageOfDreams,
 	},
-	[DailyQuest.MeetUpWithAnxiousAnglerInGoldenWasteland]: {
+	[DailyQuest.MeetUpWithAnxiousAnglerInTheOuterBailey]: {
 		spirit: SpiritId.AnxiousAngler,
-		location: RealmName.GoldenWasteland,
+		location: AreaName.TheOuterBailey,
 	},
 	[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]: {
 		spirit: SpiritId.AnxiousAngler,
@@ -926,7 +926,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetUpWithCacklingCannoneerInTreasureReef]: null,
 	[DailyQuest.MeetUpWithAnxiousAnglerInTreasureReef]: null,
 	[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]: null,
-	[DailyQuest.MeetUpWithAnxiousAnglerInGoldenWasteland]: null,
+	[DailyQuest.MeetUpWithAnxiousAnglerInTheOuterBailey]: null,
 	[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]: null,
 	[DailyQuest.MeetUpWithCeasingCommodoreInTreasureReef]: null,
 	[DailyQuest.MeetUpWithBlushingProspectorInForestBrook]: null,
@@ -1245,7 +1245,7 @@ export const DailyQuestToAcknowledgement = {
 	[DailyQuest.MeetUpWithCacklingCannoneerInTreasureReef]: null,
 	[DailyQuest.MeetUpWithAnxiousAnglerInTreasureReef]: null,
 	[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]: null,
-	[DailyQuest.MeetUpWithAnxiousAnglerInGoldenWasteland]: null,
+	[DailyQuest.MeetUpWithAnxiousAnglerInTheOuterBailey]: null,
 	[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]: null,
 	[DailyQuest.MeetUpWithCeasingCommodoreInTreasureReef]: null,
 	[DailyQuest.MeetUpWithBlushingProspectorInForestBrook]: null,
