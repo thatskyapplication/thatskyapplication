@@ -2,6 +2,7 @@ import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { SeasonId } from "../../../season.js";
+import { RealmName } from "../../geography.js";
 import AURORA from "./aurora.js";
 import MindfulMiner from "./mindful-miner.js";
 import RunningWayfarer from "./running-wayfarer.js";
@@ -10,8 +11,8 @@ import WarriorOfLove from "./warrior-of-love.js";
 
 export default new Season({
 	id: SeasonId.AURORA,
-	start: skyDate(2_022, 10, 17),
-	end: skyDate(2_023, 1, 2, 2),
+	start: skyDate(2022, 10, 17),
+	end: skyDate(2023, 1, 2, 2),
 	guide: AURORA,
 	spirits: [RunningWayfarer, MindfulMiner, WarriorOfLove, SeedOfHope],
 	items: [
@@ -44,9 +45,34 @@ export default new Season({
 			cost: { money: 24.99 },
 		},
 	],
-	seasonalCandlesRotation: null,
+	seasonalCandlesRotation: (now) =>
+		Temporal.ZonedDateTime.compare(now, skyDate(2022, 11, 5)) >= 0
+			? [
+					{ rotation: "3", realm: RealmName.HiddenForest },
+					{ rotation: "3", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "3", realm: RealmName.GoldenWasteland },
+					{ rotation: "3", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "3", realm: RealmName.DaylightPrairie },
+					{ rotation: "4", realm: RealmName.HiddenForest },
+					{ rotation: "4", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "4", realm: RealmName.GoldenWasteland },
+					{ rotation: "4", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "4", realm: RealmName.DaylightPrairie },
+				]
+			: [
+					{ rotation: "3", realm: RealmName.HiddenForest },
+					{ rotation: "3", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "3", realm: RealmName.GoldenWasteland },
+					{ rotation: "3", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "4", realm: RealmName.DaylightPrairie },
+					{ rotation: "4", realm: RealmName.HiddenForest },
+					{ rotation: "4", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "4", realm: RealmName.GoldenWasteland },
+					{ rotation: "4", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "3", realm: RealmName.DaylightPrairie },
+				],
 	doubleSeasonalLight: {
-		identifier: "1+2",
+		identifier: "3+4",
 		dates: [{ start: skyDate(2022, 11, 14), end: skyDate(2022, 11, 21) }],
 	},
 });
