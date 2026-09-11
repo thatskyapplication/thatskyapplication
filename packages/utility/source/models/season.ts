@@ -91,7 +91,7 @@ interface SeasonData {
 	 */
 	seasonalCandlesRotation?:
 		| SeasonalCandlesRotation
-		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation)
+		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation | null)
 		| null;
 	/**
 	 * Double seasonal light data.
@@ -117,7 +117,7 @@ export class Season {
 	public readonly allCosmetics: readonly Cosmetic[];
 
 	private readonly seasonalCandlesRotation:
-		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation)
+		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation | null)
 		| null;
 
 	public readonly doubleSeasonalLight: DoubleSeasonalLight | null;
@@ -183,14 +183,14 @@ export class Season {
 	}
 
 	public seasonalCandles(date: Temporal.ZonedDateTime) {
-		if (this.seasonalCandlesRotation === null) {
+		const rotations = this.seasonalCandlesRotation?.(date);
+
+		if (!rotations) {
 			return null;
 		}
 
 		const { rotation, realm } =
-			this.seasonalCandlesRotation(date)[
-				date.since(this.start).total({ unit: "days", relativeTo: this.start }) % 10
-			]!;
+			rotations[date.since(this.start).total({ unit: "days", relativeTo: this.start }) % 10]!;
 
 		if (this.doubleSeasonalLight && this.isDuringDoubleSeasonalLightEvent(date)) {
 			return this.seasonalCandlesRotationURL(realm, this.doubleSeasonalLight.identifier);
