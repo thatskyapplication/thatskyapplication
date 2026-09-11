@@ -46,31 +46,33 @@ export default new Season({
 		},
 	],
 	seasonalCandlesRotation: (now) =>
-		Temporal.ZonedDateTime.compare(now, skyDate(2022, 11, 5)) >= 0
-			? [
-					{ rotation: "3", realm: RealmName.HiddenForest },
-					{ rotation: "3", realm: RealmName.ValleyOfTriumph },
-					{ rotation: "3", realm: RealmName.GoldenWasteland },
-					{ rotation: "3", realm: RealmName.VaultOfKnowledge },
-					{ rotation: "3", realm: RealmName.DaylightPrairie },
-					{ rotation: "4", realm: RealmName.HiddenForest },
-					{ rotation: "4", realm: RealmName.ValleyOfTriumph },
-					{ rotation: "4", realm: RealmName.GoldenWasteland },
-					{ rotation: "4", realm: RealmName.VaultOfKnowledge },
-					{ rotation: "4", realm: RealmName.DaylightPrairie },
-				]
-			: [
-					{ rotation: "3", realm: RealmName.HiddenForest },
-					{ rotation: "3", realm: RealmName.ValleyOfTriumph },
-					{ rotation: "3", realm: RealmName.GoldenWasteland },
-					{ rotation: "3", realm: RealmName.VaultOfKnowledge },
-					{ rotation: "4", realm: RealmName.DaylightPrairie },
-					{ rotation: "4", realm: RealmName.HiddenForest },
-					{ rotation: "4", realm: RealmName.ValleyOfTriumph },
-					{ rotation: "4", realm: RealmName.GoldenWasteland },
-					{ rotation: "4", realm: RealmName.VaultOfKnowledge },
-					{ rotation: "3", realm: RealmName.DaylightPrairie },
-				],
+		Temporal.ZonedDateTime.compare(now, skyDate(2023, 1, 2)) >= 0
+			? null
+			: Temporal.ZonedDateTime.compare(now, skyDate(2022, 11, 5)) >= 0
+				? [
+						{ rotation: "3", realm: RealmName.HiddenForest },
+						{ rotation: "3", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "3", realm: RealmName.GoldenWasteland },
+						{ rotation: "3", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "3", realm: RealmName.DaylightPrairie },
+						{ rotation: "4", realm: RealmName.HiddenForest },
+						{ rotation: "4", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "4", realm: RealmName.GoldenWasteland },
+						{ rotation: "4", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "4", realm: RealmName.DaylightPrairie },
+					]
+				: [
+						{ rotation: "3", realm: RealmName.HiddenForest },
+						{ rotation: "3", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "3", realm: RealmName.GoldenWasteland },
+						{ rotation: "3", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "4", realm: RealmName.DaylightPrairie },
+						{ rotation: "4", realm: RealmName.HiddenForest },
+						{ rotation: "4", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "4", realm: RealmName.GoldenWasteland },
+						{ rotation: "4", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "3", realm: RealmName.DaylightPrairie },
+					],
 	doubleSeasonalLight: {
 		identifier: "3+4",
 		dates: [{ start: skyDate(2022, 11, 14), end: skyDate(2022, 11, 21) }],
