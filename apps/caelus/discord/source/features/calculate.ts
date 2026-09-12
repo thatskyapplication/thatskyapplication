@@ -342,7 +342,7 @@ export async function seasonalCandles(
 		result += SEASONAL_CANDLES_PER_DAY;
 		resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
-		const doubleSeasonalLight = season.doubleSeasonalLight?.find(({ start, end }) =>
+		const doubleSeasonalLight = season.doubleSeasonalLight?.dates.find(({ start, end }) =>
 			isActive(start, end, day),
 		);
 

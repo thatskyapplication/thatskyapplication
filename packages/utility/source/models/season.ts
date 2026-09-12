@@ -4,7 +4,9 @@ import { isActive } from "../dates.js";
 import type { RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import {
-	RotationIdentifier,
+	type RotationIdentifier,
+	type RotationIdentifierDouble,
+	type RotationIdentifierSingle,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	type SeasonIds,
@@ -17,12 +19,13 @@ import {
 import type { ItemRawWithoutChildren, ItemWithoutChildren, SpiritIds } from "../utility/spirits.js";
 import type { GuideSpirit, SeasonalSpirit } from "./spirits.js";
 
-type SeasonalCandlesRotation = Readonly<
-	{ rotation: Exclude<RotationIdentifier, RotationIdentifier.Double>; realm: RealmName }[]
->;
+type SeasonalCandlesRotation = readonly {
+	rotation: RotationIdentifierSingle;
+	realm: RealmName;
+}[];
 
 /**
- * Data that describes a double seasonal light event.
+ * Date data for a double seasonal light.
  */
 export interface DoubleSeasonalLightDate {
 	/**
@@ -35,6 +38,20 @@ export interface DoubleSeasonalLightDate {
 	 * @remarks The end date is exclusive.
 	 */
 	end: Temporal.ZonedDateTime;
+}
+
+/**
+ * Data that describes a double seasonal light event.
+ */
+interface DoubleSeasonalLight {
+	/**
+	 * Identifies which seasonal light double rotation to use.
+	 */
+	identifier: RotationIdentifierDouble;
+	/**
+	 * Double seasonal light event dates.
+	 */
+	dates: readonly DoubleSeasonalLightDate[];
 }
 
 /**
@@ -74,12 +91,12 @@ interface SeasonData {
 	 */
 	seasonalCandlesRotation?:
 		| SeasonalCandlesRotation
-		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation)
+		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation | null)
 		| null;
 	/**
-	 * Double seasonal light dates.
+	 * Double seasonal light data.
 	 */
-	doubleSeasonalLight?: readonly DoubleSeasonalLightDate[];
+	doubleSeasonalLight?: DoubleSeasonalLight;
 }
 
 export class Season {
@@ -100,10 +117,10 @@ export class Season {
 	public readonly allCosmetics: readonly Cosmetic[];
 
 	private readonly seasonalCandlesRotation:
-		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation)
+		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation | null)
 		| null;
 
-	public readonly doubleSeasonalLight: readonly DoubleSeasonalLightDate[] | null;
+	public readonly doubleSeasonalLight: DoubleSeasonalLight | null;
 
 	public constructor(data: SeasonData) {
 		this.id = data.id;
@@ -137,7 +154,7 @@ export class Season {
 		const remainingDays = Math.ceil(this.end.since(date).total({ unit: "days", relativeTo: date }));
 
 		const remainingDoubleSeasonalLightDays =
-			this.doubleSeasonalLight?.reduce((total, { start, end }) => {
+			this.doubleSeasonalLight?.dates.reduce((total, { start, end }) => {
 				if (Temporal.ZonedDateTime.compare(date, end) >= 0) {
 					return total;
 				}
@@ -160,21 +177,23 @@ export class Season {
 	}
 
 	public isDuringDoubleSeasonalLightEvent(date: Temporal.ZonedDateTime) {
-		return this.doubleSeasonalLight?.some(({ start, end }) => isActive(start, end, date)) ?? false;
+		return (
+			this.doubleSeasonalLight?.dates.some(({ start, end }) => isActive(start, end, date)) ?? false
+		);
 	}
 
 	public seasonalCandles(date: Temporal.ZonedDateTime) {
-		if (this.seasonalCandlesRotation === null) {
+		const rotations = this.seasonalCandlesRotation?.(date);
+
+		if (!rotations) {
 			return null;
 		}
 
 		const { rotation, realm } =
-			this.seasonalCandlesRotation(date)[
-				date.since(this.start).total({ unit: "days", relativeTo: this.start }) % 10
-			]!;
+			rotations[date.since(this.start).total({ unit: "days", relativeTo: this.start }) % 10]!;
 
-		if (this.isDuringDoubleSeasonalLightEvent(date)) {
-			return this.seasonalCandlesRotationURL(realm, RotationIdentifier.Double);
+		if (this.doubleSeasonalLight && this.isDuringDoubleSeasonalLightEvent(date)) {
+			return this.seasonalCandlesRotationURL(realm, this.doubleSeasonalLight.identifier);
 		}
 
 		return this.seasonalCandlesRotationURL(realm, rotation);
@@ -182,10 +201,7 @@ export class Season {
 
 	private seasonalCandlesRotationURL(realm: RealmName, identifier: RotationIdentifier) {
 		return String(
-			new URL(
-				`daily_guides/seasonal_candles/${this.id}/${snakeCaseName(realm)}/${identifier}.webp`,
-				CDN_URL,
-			),
+			new URL(`daily_guides/seasonal_candles/${snakeCaseName(realm)}/${identifier}.webp`, CDN_URL),
 		);
 	}
 }
