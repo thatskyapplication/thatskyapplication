@@ -3005,7 +3005,7 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.SunlightSportySunglasses]: HAIR_ACCESSORY_EMOJIS.HairAccessory86,
 		[Cosmetic.SunlightCrabFloat]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp120,
 		[Cosmetic.VaseWithFifteenSunflowersProp7]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp121,
-		[Cosmetic.StarryNightsCanopy]: null,
+		[Cosmetic.StarryNightsCanopy]: HELD_PROPS_EMOJIS.HeldProp64,
 		[Cosmetic.SummerCamping2026Prop1]: SHARED_SPACE_EMOJIS.SharedSpace05,
 		[Cosmetic.SummerCamping2026Prop2]: SHARED_SPACE_EMOJIS.SharedSpace06,
 		[Cosmetic.SummerCamping2026Prop3]: SHARED_SPACE_EMOJIS.SharedSpace07,

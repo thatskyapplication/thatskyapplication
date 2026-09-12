@@ -1301,6 +1301,7 @@ const HELD_PROPS_EMOJIS = {
 	HeldProp61: { id: "1471653278457663528", name: "61_held_prop" },
 	HeldProp62: { id: "1482685524601999412", name: "62_held_prop" },
 	HeldProp63: { id: "1522919394957594684", name: "63_held_prop" },
+	HeldProp64: { id: "1548415599711883325", name: "64_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS = {

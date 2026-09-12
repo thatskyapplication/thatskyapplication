@@ -4010,6 +4010,10 @@ const HELD_PROPS_EMOJIS = {
 	 * Sky Anniversary 2026.
 	 */
 	HeldProp63: { id: "1522919378792747070", name: "63_held_prop" },
+	/**
+	 * Starry Night's Canopy.
+	 */
+	HeldProp64: { id: "1548415586441371658", name: "64_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS = {
