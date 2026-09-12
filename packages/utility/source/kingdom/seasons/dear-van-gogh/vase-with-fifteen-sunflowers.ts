@@ -10,7 +10,6 @@ export default new GuideSpirit({
 	seasonId: SeasonId.DearVanGogh,
 	area: AreaName.StarryGallery,
 	offer: {
-		inProgress: true,
 		current: [
 			[
 				{
