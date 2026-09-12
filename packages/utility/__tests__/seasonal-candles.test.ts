@@ -2329,6 +2329,10 @@ const SEASONAL_CANDLES_ROTATIONS = [
 				expected:
 					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/4.webp",
 			},
+			{
+				date: skyDate(2023, 1, 2),
+				expected: null,
+			},
 		],
 	},
 	{
