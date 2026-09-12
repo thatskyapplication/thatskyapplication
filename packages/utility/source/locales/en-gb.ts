@@ -3524,6 +3524,7 @@ export default {
 			"country-unspecified": "Unspecified",
 			"search-none": "No Sky profiles.",
 			"unknown-country": "Please select a country!",
+			"line-breaks-disallowed": "Please use a single line for your input!",
 			"unknown-profile-edit-type": "Unknown Sky profile edit type. Please try again!",
 			"unknown-profile-reset-type": "Unknown Sky profile reset type. Please try again!",
 			"no-sky-profile-sky-kid":

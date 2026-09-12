@@ -25,6 +25,7 @@ import {
 	skyProfileShowEdit,
 } from "../../features/sky-profile/index.js";
 import { searchAutocomplete } from "../../features/spirits.js";
+import { LINE_BREAK_REGULAR_EXPRESSION } from "../../utility/constants.js";
 import { interactionInvoker, validateImageAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -103,7 +104,33 @@ export default {
 			});
 
 			if (name) {
+				if (LINE_BREAK_REGULAR_EXPRESSION.test(name)) {
+					await client.api.interactions.editReply(interaction.application_id, interaction.token, {
+						content: t("sky-profile.line-breaks-disallowed", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
+					});
+
+					return;
+				}
+
 				data.name = name;
+			}
+
+			if (hangout) {
+				if (LINE_BREAK_REGULAR_EXPRESSION.test(hangout)) {
+					await client.api.interactions.editReply(interaction.application_id, interaction.token, {
+						content: t("sky-profile.line-breaks-disallowed", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
+					});
+
+					return;
+				}
+
+				data.hangout = hangout;
 			}
 
 			if (banner) {
@@ -159,10 +186,6 @@ export default {
 				}
 
 				data.country = country;
-			}
-
-			if (hangout) {
-				data.hangout = hangout;
 			}
 
 			if (catalogueProgression !== null) {

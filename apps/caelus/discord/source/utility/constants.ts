@@ -64,6 +64,7 @@ export const MAXIMUM_AUTOCOMPLETE_NAME_LIMIT = 100 as const;
 export const MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT = 25 as const;
 export const MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT = 25 as const;
 export const MARKDOWN_ESCAPE_REGEX = /[\\[\]*_`|~]/g;
+export const LINE_BREAK_REGULAR_EXPRESSION = /[\r\n]/;
 
 export const LOCALES = [
 	Locale.German,
