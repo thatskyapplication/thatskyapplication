@@ -607,7 +607,8 @@
 			"90": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_des_Couleurs/2026",
 			"91": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Anniversaire_de_Sky/2026",
 			"92": "",
-			"93": ""
+			"93": "",
+			"94": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -2716,6 +2717,8 @@
 			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "Quêtes",
 			"treasure-candles": "Bougies au trésor",
+			"treasure-candles-available-from": "",
+			"treasure-candles-previous-day": "",
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} restantes ({{remainingSeasonPass}} avec un Passe Saisonnier)",
 			"shard-eruption-data": "Données",
 			"shard-eruption-timestamps": "Heures",
