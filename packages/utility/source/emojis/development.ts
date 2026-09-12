@@ -1426,6 +1426,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	LargePlaceableProp119: { id: "1529588112919887934", name: "119_large_placeable_prop" },
 	LargePlaceableProp120: { id: "1532453931345772657", name: "120_large_placeable_prop" },
 	LargePlaceableProp121: { id: "1548408994979254414", name: "121_large_placeable_prop" },
+	LargePlaceableProp122: { id: "1542584843378884648", name: "122_large_placeable_prop" },
+	LargePlaceableProp123: { id: "1542584845509722252", name: "123_large_placeable_prop" },
+	LargePlaceableProp124: { id: "1542584848416374846", name: "124_large_placeable_prop" },
+	LargePlaceableProp125: { id: "1542584851499327599", name: "125_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {
@@ -1578,10 +1582,6 @@ const SHARED_SPACE_EMOJIS = {
 	SharedSpace02: { id: "1494699848853618860", name: "02_shared_space" },
 	SharedSpace03: { id: "1494699850967548014", name: "03_shared_space" },
 	SharedSpace04: { id: "1532453928736915537", name: "04_shared_space" },
-	SharedSpace05: { id: "1542584843378884648", name: "05_shared_space" },
-	SharedSpace06: { id: "1542584845509722252", name: "06_shared_space" },
-	SharedSpace07: { id: "1542584848416374846", name: "07_shared_space" },
-	SharedSpace08: { id: "1542584851499327599", name: "08_shared_space" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export const DEVELOPMENT_TABLES = {
