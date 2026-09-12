@@ -607,7 +607,8 @@
 			"90": "",
 			"91": "",
 			"92": "",
-			"93": ""
+			"93": "",
+			"94": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2716,6 +2717,8 @@
 			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "",
 			"treasure-candles": "",
+			"treasure-candles-available-from": "",
+			"treasure-candles-previous-day": "",
 			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
