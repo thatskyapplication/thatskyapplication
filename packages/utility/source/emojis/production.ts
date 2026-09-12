@@ -4493,6 +4493,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Sunlight Crab Float.
 	 */
 	LargePlaceableProp120: { id: "1532453834582921296", name: "120_large_placeable_prop" },
+	/**
+	 * Vase with Fifteen Sunflowers (non-ultimate).
+	 */
+	LargePlaceableProp121: { id: "1548408985445474344", name: "121_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {
