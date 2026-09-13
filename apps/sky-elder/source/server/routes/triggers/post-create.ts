@@ -43,7 +43,12 @@ export async function postTriggersPostCreate(req: Request) {
 
 	const title = `## ${post.title.replaceAll(/^#+/g, (match) => match.replaceAll("#", String.raw`\#`))}`;
 	let authorText = `[u/${author.name}](${author.url}) in [r/${subreddit.name}](${REDDIT_BASE_URL}${subreddit.permalink})`;
-	const footer = `-# <t:${Math.floor(post.createdAt / 1000)}:R>`;
+	let footer = `-# <t:${Math.floor(post.createdAt / 1000)}:R>`;
+
+	if (post.linkFlair?.text) {
+		footer += ` | ${post.linkFlair.text}`;
+	}
+
 	const postV2 = await reddit.getPostById(T3(post.id));
 	const resolvedPost = postV2.crosspostParentId
 		? await reddit.getPostById(postV2.crosspostParentId)
