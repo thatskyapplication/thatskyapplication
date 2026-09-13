@@ -360,7 +360,7 @@ const cron = new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
 		);
 
-		for (const doubleSeasonalLight of season.doubleSeasonalLight ?? []) {
+		for (const doubleSeasonalLight of season.doubleSeasonalLight?.dates ?? []) {
 			const timeUntilStart = Math.floor(doubleSeasonalLight.start.since(date).total("minutes"));
 
 			if (
