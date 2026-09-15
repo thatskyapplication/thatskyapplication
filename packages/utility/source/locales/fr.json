@@ -3115,6 +3115,7 @@
 			"country-unspecified": "Non précisé",
 			"search-none": "Pas de profils Sky.",
 			"unknown-country": "Sélectionnez un pays !",
+			"line-breaks-disallowed": "",
 			"unknown-profile-edit-type": "Erreur d'édition du profil. Veuillez réessayer s'il vous plait !",
 			"unknown-profile-reset-type": "Erreur de réinitialisation du profil. Veuillez réessayer s'il vous plaît !",
 			"no-sky-profile-sky-kid": "Cet enfant de Sky n'a pas de profil Sky ! Pourquoi ne pas lui demander d'en créer un ?",
