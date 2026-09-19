@@ -2273,7 +2273,10 @@
 			"2942": "Sonnenlicht-Sport-Sonnenbrille",
 			"2943": "Sonnenlicht-Krabben-Schwimmtier",
 			"2946": "Sternennacht-Schirm",
-			"2951": "Federwimpernmaske"
+			"2951": "Federwimpernmaske",
+			"2959": "Mondlicht-Laute",
+			"2960": "Mondlicht-Nimbus",
+			"2961": "Mondlicht-Schleier"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

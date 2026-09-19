@@ -2273,7 +2273,10 @@
 			"2942": "Occhiali da sole sportivi solari",
 			"2943": "Galleggiante granchio solare",
 			"2946": "Ombrello della Notte stellata",
-			"2951": "Maschera leggera"
+			"2951": "Maschera leggera",
+			"2959": "Liuto del chiaro di luna",
+			"2960": "Nembo del chiaro di luna",
+			"2961": "Velo del chiaro di luna"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

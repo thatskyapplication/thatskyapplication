@@ -1746,6 +1746,18 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.SunlightCrabFloat",
 	},
 	{
+		upstreamKey: "commerce_item_name_moonlight_lute",
+		tsKey: "Cosmetic.MoonlightLute",
+	},
+	{
+		upstreamKey: "commerce_item_name_moonlight_halohat",
+		tsKey: "Cosmetic.MoonlightNimbus",
+	},
+	{
+		upstreamKey: "commerce_item_name_moonlight_veilmask",
+		tsKey: "Cosmetic.MoonlightVeil",
+	},
+	{
 		upstreamKey: "commerce_item_name_fortune_pack",
 		tsKey: "CosmeticPackName.DaysOfFortunePack",
 	},

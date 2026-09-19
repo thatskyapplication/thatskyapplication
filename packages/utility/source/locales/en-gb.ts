@@ -2586,6 +2586,9 @@ export default {
 			[Cosmetic.SunlightCrabFloat]: "Sunlight Crab Float",
 			[Cosmetic.StarryNightsCanopy]: "Starry Night's Canopy",
 			[Cosmetic.FeatheryLashMask]: "Feathery Lash Mask",
+			[Cosmetic.MoonlightLute]: "Moonlight Lute",
+			[Cosmetic.MoonlightNimbus]: "Moonlight Nimbus",
+			[Cosmetic.MoonlightVeil]: "Moonlight Veil",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

@@ -3733,6 +3733,14 @@ export enum Cosmetic {
 	HunterWingBuff = 2953,
 	FeudalLordWingBuff = 2954,
 	PrincessWingBuff = 2955,
+
+	// 19/09/2026 | Days of Moonlight.
+	DaysOfMoonlight2026HeadAccessory = 2956,
+	DaysOfMoonlight2026Prop = 2957,
+	DaysOfMoonlight2026Outfit = 2958,
+	MoonlightLute = 2959,
+	MoonlightNimbus = 2960,
+	MoonlightVeil = 2961,
 }
 
 export enum CosmeticCommon {

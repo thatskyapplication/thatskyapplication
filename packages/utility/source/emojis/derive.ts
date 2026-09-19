@@ -3015,6 +3015,12 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.HunterWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.FeudalLordWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.PrincessWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.DaysOfMoonlight2026HeadAccessory]: null,
+		[Cosmetic.DaysOfMoonlight2026Prop]: null,
+		[Cosmetic.DaysOfMoonlight2026Outfit]: null,
+		[Cosmetic.MoonlightLute]: null,
+		[Cosmetic.MoonlightNimbus]: null,
+		[Cosmetic.MoonlightVeil]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
