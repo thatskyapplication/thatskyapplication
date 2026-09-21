@@ -1,0 +1,31 @@
+name: Deploy database
+on:
+  workflow_dispatch:
+concurrency:
+  group: deploy-database
+permissions:
+  contents: read
+jobs:
+  deploy:
+    name: Deploy database
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1.
+
+      - name: Pull image
+        run: docker pull "$IMAGE_TAG"
+        env:
+          IMAGE_TAG: &image-tag postgres:16-alpine
+
+      - name: Deploy via Uncloud
+        uses: thatskyapplication/uncloud-action@898b95231b74d735a044b9aaea91eb321419b5d9 # v1.2.3.
+        with:
+          image-tag: *image-tag
+          compose-files: compose.yaml
+          uncloud-profile: database
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
+          server-user: ${{ secrets.SERVER_USER }}
+          server-host: ${{ secrets.SERVER_IP }}
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
