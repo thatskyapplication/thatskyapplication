@@ -37,7 +37,7 @@ while true; do
 	fi
 
 	ELAPSED=$(( $(date +%s) - CYCLE_START ))
-	SLEEP_TIME=$(( 28800 - ELAPSED )) # 8 hours.
+	SLEEP_TIME=$(( 3600 - ELAPSED )) # 1 hour.
 
 	if [ $SLEEP_TIME -gt 0 ]; then
 		sleep $SLEEP_TIME
