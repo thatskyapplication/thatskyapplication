@@ -819,6 +819,10 @@ const OUTFIT_EMOJIS = {
 	 * Sunlight Diver Duo.
 	 */
 	Outfit112: { id: "1532453826991231086", name: "112_outfit" },
+	/**
+	 * Days of Moonlight 2026.
+	 */
+	Outfit113: { id: "1552077092903190568", name: "113_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -1409,6 +1413,10 @@ const MASK_EMOJIS = {
 	 * Feathery Lash Mask.
 	 */
 	Mask116: { id: "1542584844456824832", name: "116_mask" },
+	/**
+	 * Moonlight Veil.
+	 */
+	Mask117: { id: "1552077095541412010", name: "117_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS = {
@@ -2877,6 +2885,10 @@ const HAIR_ACCESSORY_EMOJIS = {
 	 * Sunlight Sporty Sunglasses.
 	 */
 	HairAccessory86: { id: "1532453822340006179", name: "86_hair_accessory" },
+	/**
+	 * Moonlight Nimbus.
+	 */
+	HairAccessory87: { id: "1552077091233599529", name: "87_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS = {
@@ -2988,6 +3000,10 @@ const HEAD_ACCESSORY_EMOJIS = {
 	 * Starry Night's Kiss.
 	 */
 	HeadAccessory27: { id: "1529491252448329768", name: "27_head_accessory" },
+	/**
+	 * Days of Moonlight 2026.
+	 */
+	HeadAccessory28: { id: "1552077085865017535", name: "28_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS = {
@@ -4014,6 +4030,10 @@ const HELD_PROPS_EMOJIS = {
 	 * Starry Night's Canopy.
 	 */
 	HeldProp64: { id: "1548415586441371658", name: "64_held_prop" },
+	/**
+	 * Moonlight Lute.
+	 */
+	HeldProp65: { id: "1552077088733929542", name: "65_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS = {
@@ -5089,6 +5109,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Days of Sunlight 2026.
 	 */
 	SmallPlaceableProp143: { id: "1532453823933710356", name: "143_small_placeable_prop" },
+	/**
+	 * Days of Moonlight 2026.
+	 */
+	SmallPlaceableProp144: { id: "1552077097508413762", name: "144_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 /**

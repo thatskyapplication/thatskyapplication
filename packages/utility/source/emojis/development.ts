@@ -483,6 +483,7 @@ const OUTFIT_EMOJIS = {
 	Outfit110: { id: "1510010638544404693", name: "110_outfit" },
 	Outfit111: { id: "1529590609420222474", name: "111_outfit" },
 	Outfit112: { id: "1532453924437758003", name: "112_outfit" },
+	Outfit113: { id: "1552077102361092107", name: "113_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -635,6 +636,7 @@ const MASK_EMOJIS = {
 	Mask114: { id: "1528914488613404845", name: "114_mask" },
 	Mask115: { id: "1532453926107086912", name: "115_mask" },
 	Mask116: { id: "1542584853420187748", name: "116_mask" },
+	Mask117: { id: "1552077104802308166", name: "117_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS = {
@@ -1011,6 +1013,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	HairAccessory84: { id: "1529594764863733840", name: "84_hair_accessory" },
 	HairAccessory85: { id: "1529596982761619569", name: "85_hair_accessory" },
 	HairAccessory86: { id: "1532453920172150986", name: "86_hair_accessory" },
+	HairAccessory87: { id: "1552077100360405053", name: "87_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS = {
@@ -1041,6 +1044,7 @@ const HEAD_ACCESSORY_EMOJIS = {
 	HeadAccessory25: { id: "1482685944338579567", name: "25_head_accessory" },
 	HeadAccessory26: { id: "1492226486923563049", name: "26_head_accessory" },
 	HeadAccessory27: { id: "1529491258488393748", name: "27_head_accessory" },
+	HeadAccessory28: { id: "1552077096300318861", name: "28_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS = {
@@ -1302,6 +1306,7 @@ const HELD_PROPS_EMOJIS = {
 	HeldProp62: { id: "1482685524601999412", name: "62_held_prop" },
 	HeldProp63: { id: "1522919394957594684", name: "63_held_prop" },
 	HeldProp64: { id: "1548415599711883325", name: "64_held_prop" },
+	HeldProp65: { id: "1552077098158661682", name: "65_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS = {
@@ -1575,6 +1580,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	SmallPlaceableProp141: { id: "1529594768538075347", name: "141_small_placeable_prop" },
 	SmallPlaceableProp142: { id: "1529596984917364768", name: "142_small_placeable_prop" },
 	SmallPlaceableProp143: { id: "1532453922202194101", name: "143_small_placeable_prop" },
+	SmallPlaceableProp144: { id: "1552077106664710155", name: "144_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS = {
