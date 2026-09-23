@@ -1,3 +1,4 @@
+import type { TFunction } from "i18next";
 import { AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
@@ -11,7 +12,6 @@ import {
 	SCHEDULES,
 	ScheduleType,
 	type ScheduleTypes,
-	type SpiritIds,
 	skyCurrentSeason,
 	skyNotEndedEvents,
 	skyUpcomingSeason,
@@ -21,7 +21,7 @@ import {
 	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
-import { ExternalLinkList } from "~/components/ExternalLinkList";
+import { ExternalLinkList, type ExternalLinkListItem } from "~/components/ExternalLinkList";
 import { CentredSitePage } from "~/components/PageLayout";
 import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
@@ -156,10 +156,9 @@ interface DisplayCard {
 	type: DisplayCardType;
 	badge?: DisplayCardBadge | undefined;
 	key: string;
-	labelKey: string;
-	version?: string | undefined;
-	wikiKey?: string | undefined;
-	spiritIds?: readonly SpiritIds[] | undefined;
+	label: string;
+	wikiURL?: string | undefined;
+	spiritLinks?: readonly ExternalLinkListItem[] | undefined;
 	dyeIcons?: readonly { label: string; url: string }[] | undefined;
 	pageHref?: string | undefined;
 	active: boolean;
@@ -203,7 +202,7 @@ function periodTiming(
 	};
 }
 
-function buildScheduleView(timestamp: number, preferences: TimePreferences) {
+function buildScheduleView(timestamp: number, preferences: TimePreferences, t: TFunction) {
 	const now = Temporal.Instant.fromEpochMilliseconds(timestamp).toZonedDateTimeISO(TIME_ZONE);
 	const cards: DisplayCard[] = [];
 
@@ -216,13 +215,19 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 
 		const { start, end, active, spiritId, spiritIds } = occurrence;
 
+		const wikiKey = spiritId ? `general:spirit-wiki.${spiritId}` : SCHEDULE_TYPE_TO_WIKI_KEY[type];
+
 		cards.push({
 			type: DisplayCardType.Schedule,
 			badge: SCHEDULE_BADGES[type],
 			key: `${type}`,
-			labelKey: spiritId ? `general:spirits.${spiritId}` : ScheduleTypeToLocaleKey[type],
-			wikiKey: spiritId ? `general:spirit-wiki.${spiritId}` : SCHEDULE_TYPE_TO_WIKI_KEY[type],
-			spiritIds,
+			label: t(spiritId ? `general:spirits.${spiritId}` : ScheduleTypeToLocaleKey[type]),
+			wikiURL: wikiKey ? t(wikiKey) : undefined,
+			spiritLinks: spiritIds?.map((occurrenceSpiritId) => ({
+				id: occurrenceSpiritId,
+				label: t(`general:spirits.${occurrenceSpiritId}`),
+				href: t(`general:spirit-wiki.${occurrenceSpiritId}`),
+			})),
 			pageHref: type === ScheduleType.ShardEruption ? SHARD_ERUPTION_PAGE_HREF : undefined,
 			active: active ?? false,
 			next: formatTimestamp(
@@ -251,8 +256,8 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 			type: DisplayCardType.Season,
 			badge: DisplayCardBadge.Season,
 			key: `season-${displayedSeason.id}`,
-			labelKey: `general:seasons.${displayedSeason.id}`,
-			wikiKey: `general:season-wiki.${displayedSeason.id}`,
+			label: t(`general:seasons.${displayedSeason.id}`),
+			wikiURL: t(`general:season-wiki.${displayedSeason.id}`),
 			...periodTiming(displayedSeason.start, displayedSeason.end, now, preferences),
 		});
 	}
@@ -262,8 +267,8 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 			type: DisplayCardType.Event,
 			badge: DisplayCardBadge.Event,
 			key: `event-${id}`,
-			labelKey: `general:${name}`,
-			wikiKey: `general:event-wiki.${id}`,
+			label: t(`general:${name}`),
+			wikiURL: t(`general:event-wiki.${id}`),
 			...periodTiming(start, end, now, preferences),
 		});
 	}
@@ -303,7 +308,7 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 				type: DisplayCardType.Event,
 				badge: DisplayCardBadge.Event,
 				key: `${key}-${start.epochMilliseconds}`,
-				labelKey,
+				label: t(labelKey),
 				dyeIcons: dyes?.map((dye) => {
 					const emoji = DyeTypeToEmoji[dye];
 					return { label: emoji.name.replace("_", " "), url: formatEmojiURL(emoji.id) };
@@ -321,7 +326,7 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 		cards.push({
 			type: DisplayCardType.Maintenance,
 			key: "maintenance",
-			labelKey: "general:maintenance",
+			label: t("general:maintenance"),
 			active: false,
 			next: formatTimestamp(
 				upcomingMaintenance.start,
@@ -343,8 +348,9 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 		cards.push({
 			type: DisplayCardType.Update,
 			key: `update-${upcomingUpdate.date}`,
-			labelKey: "features:schedule.update-version",
-			version: patchNoteVersion(upcomingUpdate.identifier),
+			label: t("features:schedule.update-version", {
+				version: patchNoteVersion(upcomingUpdate.identifier),
+			}),
 			active: false,
 			next: new Intl.DateTimeFormat(preferences.locale, {
 				dateStyle: "medium",
@@ -394,7 +400,7 @@ export const loader = ({ request, context }: Route.LoaderArgs) => {
 	return {
 		initialTimestamp,
 		...preferences,
-		initialView: buildScheduleView(initialTimestamp, preferences),
+		initialView: buildScheduleView(initialTimestamp, preferences, t),
 		title: t("schedule.name", { ns: "features" }),
 	};
 };
@@ -418,14 +424,7 @@ function DisplayCardRow({
 		: item.next;
 
 	const relative = item.active ? item.endRelative : item.relative;
-	const wikiHref = item.wikiKey && t(item.wikiKey);
 	const badge = item.badge === undefined ? undefined : BADGE_STYLES[item.badge];
-
-	const spiritLinks = item.spiritIds?.map((spiritId) => ({
-		id: spiritId,
-		label: t(`spirits.${spiritId}`, { ns: "general" }),
-		href: t(`spirit-wiki.${spiritId}`, { ns: "general" }),
-	}));
 
 	return (
 		<div className="col-span-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 py-2 md:grid-cols-subgrid">
@@ -436,10 +435,10 @@ function DisplayCardRow({
 					)}
 					{item.pageHref ? (
 						<Link className="regular-link" to={item.pageHref}>
-							{t(item.labelKey, { version: item.version })}
+							{item.label}
 						</Link>
 					) : (
-						t(item.labelKey, { version: item.version })
+						item.label
 					)}
 					{item.dyeIcons && (
 						<span className="inline-flex items-center gap-1">
@@ -455,9 +454,9 @@ function DisplayCardRow({
 						</span>
 					)}
 				</span>
-				{spiritLinks && (
+				{item.spiritLinks && (
 					<span className="mt-0.5 block text-xs text-gray-500 dark:text-gray-400">
-						<ExternalLinkList items={spiritLinks} locale={locale} />
+						<ExternalLinkList items={item.spiritLinks} locale={locale} />
 					</span>
 				)}
 			</span>
@@ -472,10 +471,10 @@ function DisplayCardRow({
 					)}
 				</span>
 				<span className="w-15 shrink-0 text-sm font-medium">
-					{wikiHref && (
+					{item.wikiURL && (
 						<ExternalLink
 							className="regular-link inline-flex items-center gap-1"
-							href={wikiHref}
+							href={item.wikiURL}
 							icon
 							iconClassName="h-3.5 w-3.5"
 						>
@@ -500,7 +499,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	const { active, upcoming, maintenances, localTime, skyTime } =
 		currentTimestamp === initialTimestamp
 			? initialView
-			: buildScheduleView(currentTimestamp, { locale, timeZone, hour12 });
+			: buildScheduleView(currentTimestamp, { locale, timeZone, hour12 }, t);
 
 	const maintenanceDescription =
 		maintenances.length === 1
