@@ -147,6 +147,7 @@ const nestingWorkshopItems = resolveOfferFromItems([
 	{ cosmetic: Cosmetic.LargeCircleRug, cost: { candles: 90 } },
 	{ cosmetic: Cosmetic.HangingMask, cost: { ascendedCandles: 33 } },
 	{ cosmetic: Cosmetic.CandleStand, cost: { ascendedCandles: 6 } },
+	{ cosmetic: Cosmetic.StoneShortCube, cost: { candles: 9 } },
 ]);
 
 export const NESTING_WORKSHOP = {
