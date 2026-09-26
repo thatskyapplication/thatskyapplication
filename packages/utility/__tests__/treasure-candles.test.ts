@@ -2822,7 +2822,6 @@ const EXPECTED_ROTATIONS = [
 		date: skyDate(2024, 10, 1),
 		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
 	},
-	// Both confirmed: https://youtu.be/S2aF2IO9gjM
 	{
 		date: skyDate(2024, 10, 2),
 		expected: [
