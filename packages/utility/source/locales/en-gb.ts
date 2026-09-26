@@ -2589,7 +2589,7 @@ export default {
 			[Cosmetic.MoonlightLute]: "Moonlight Lute",
 			[Cosmetic.MoonlightNimbus]: "Moonlight Nimbus",
 			[Cosmetic.MoonlightVeil]: "Moonlight Veil",
-			[Cosmetic.StoneShortCube]: "Stone short cube",
+			[Cosmetic.StoneSmallCube]: "Stone small cube",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

@@ -4537,6 +4537,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Summer Camping 2026.
 	 */
 	LargePlaceableProp125: { id: "1542584841541779567", name: "125_large_placeable_prop" },
+	/**
+	 * Stone small cube.
+	 */
+	LargePlaceableProp126: { id: "1553338329611771924", name: "126_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {

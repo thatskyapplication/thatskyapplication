@@ -3743,7 +3743,7 @@ export enum Cosmetic {
 	MoonlightVeil = 2961,
 
 	// 25/09/2026 | Version 34.5.
-	StoneShortCube = 2962,
+	StoneSmallCube = 2962,
 }
 
 export enum CosmeticCommon {
