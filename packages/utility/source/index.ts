@@ -73,6 +73,8 @@ export {
 	DailyQuestToInfographicURL,
 	dailyQuestLabel,
 	DailyQuestToMeetUp,
+	dailyGuidesDate,
+	fetchDailyGuides,
 	isDailyQuest,
 	sortDaysCountItems,
 } from "./daily-guides.js";

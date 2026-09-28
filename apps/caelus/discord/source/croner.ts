@@ -4,11 +4,7 @@ import { sql } from "kysely";
 import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "./caches/guilds.js";
 import database from "./database.js";
-import {
-	distribute,
-	resetDailyGuides,
-	resetDailyGuidesDistribution,
-} from "./features/daily-guides.js";
+import { distribute, resetDailyGuidesDistribution } from "./features/daily-guides.js";
 import { messageLogDeleteOldMessages } from "./features/message-log.js";
 import pino from "./pino.js";
 import { APPLICATION_ID, PRODUCTION, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
@@ -29,11 +25,7 @@ new Cron(
 
 		const me = await guild.fetchMe();
 
-		await Promise.all([
-			...independentPromises,
-			resetDailyGuides({ user: me.user, lastUpdatedAt: new Date(today.epochMilliseconds) }),
-			resetDailyGuidesDistribution(),
-		]);
+		await Promise.all([...independentPromises, resetDailyGuidesDistribution()]);
 
 		await distribute({
 			user: me.user,

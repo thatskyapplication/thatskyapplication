@@ -38,6 +38,7 @@ import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
+	dailyGuidesDate,
 	type DailyGuidesDaysCountItem,
 	DailyGuidesDistributionType,
 	type DailyGuidesDistributionTypes,
@@ -46,6 +47,7 @@ import {
 	DailyQuestToInfographicURL,
 	DOUBLE_HEART_EVENTS,
 	epochSeconds,
+	fetchDailyGuides,
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
@@ -78,7 +80,6 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { processUploadedImage } from "../utility/assets.js";
 import {
-	APPLICATION_ID,
 	R2_BUCKET_CDN,
 	CDN_URL,
 	DAILY_GUIDES_LOG_CHANNEL_ID,
@@ -118,7 +119,7 @@ import {
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
 
-type DailyGuidesSetData = Partial<Packet<"daily_guides">> &
+type DailyGuidesSetData = Partial<Omit<Packet<"daily_guides">, "date">> &
 	Pick<Packet<"daily_guides">, "last_updated_user_id" | "last_updated_at">;
 
 type DailyGuidesDistributionAllowedChannel =
@@ -185,45 +186,12 @@ export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTo
 	];
 }
 
-async function fetchDailyGuides() {
-	const dailyQuests = await database.selectFrom("daily_guides").selectAll().executeTakeFirst();
-
-	if (dailyQuests) {
-		return dailyQuests;
-	}
-
-	// Use column defaults.
-	const insertedDailyQuests = await database
+async function updateDailyGuides(date: Temporal.PlainDate, data: DailyGuidesSetData) {
+	await database
 		.insertInto("daily_guides")
-		.defaultValues()
-		.returningAll()
-		.executeTakeFirstOrThrow();
-
-	return insertedDailyQuests;
-}
-
-interface DailyGuidesResetOptions {
-	user: APIUser;
-	lastUpdatedAt: Date;
-}
-
-export async function resetDailyGuides({ user, lastUpdatedAt }: DailyGuidesResetOptions) {
-	await logModification({ content: "reset the daily guides.", user });
-
-	await updateDailyGuides({
-		quest1: null,
-		quest2: null,
-		quest3: null,
-		quest4: null,
-		travelling_rock: null,
-		travelling_rock_not_spawned: false,
-		last_updated_user_id: APPLICATION_ID,
-		last_updated_at: lastUpdatedAt,
-	});
-}
-
-async function updateDailyGuides(data: DailyGuidesSetData) {
-	await database.updateTable("daily_guides").set(data).execute();
+		.values({ date: dailyGuidesDate(date), ...data })
+		.onConflict((oc) => oc.column("date").doUpdateSet(data))
+		.execute();
 }
 
 function isDailyGuidesDistributionChannel(
@@ -881,7 +849,7 @@ async function distributionData({
 		quest4,
 		travelling_rock: travellingRock,
 		travelling_rock_not_spawned: travellingRockNotSpawned,
-	} = await fetchDailyGuides();
+	} = await fetchDailyGuides(database, now.toPlainDate());
 
 	const quests = [];
 	let missingDailyQuests = false;
@@ -1499,7 +1467,7 @@ async function distributeLogic({
 }: DailyGuidesDistributionOptions) {
 	await logModification({ user, content: "distributed daily guides." });
 
-	await updateDailyGuides({
+	await updateDailyGuides(skyNow().toPlainDate(), {
 		last_updated_user_id: lastUpdatedUserId,
 		last_updated_at: lastUpdatedAt,
 	});
@@ -1649,7 +1617,7 @@ export async function interactive(
 		quest4,
 		last_updated_at: lastUpdatedAt,
 		last_updated_user_id: lastUpdatedUserId,
-	} = await fetchDailyGuides();
+	} = await fetchDailyGuides(database, skyNow().toPlainDate());
 	const quests = [quest1, quest2, quest3, quest4];
 	const questOptions = [];
 
@@ -1727,9 +1695,10 @@ export async function interactive(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: lastUpdatedUserId
-				? `-# Last updated by <@${lastUpdatedUserId}> <t:${Math.floor(lastUpdatedAt.getTime() / 1000)}:R>.`
-				: `-# Last updated <t:${Math.floor(lastUpdatedAt.getTime() / 1000)}:R>.`,
+			content:
+				lastUpdatedAt && lastUpdatedUserId
+					? `-# Last updated by <@${lastUpdatedUserId}> <t:${Math.floor(lastUpdatedAt.getTime() / 1000)}:R>.`
+					: "-# Not updated yet.",
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -1879,6 +1848,7 @@ export async function set(
 	}
 
 	const interactiveOptions: InteractiveOptions = { locale };
+	const date = skyNow().toPlainDate();
 	const {
 		quest1,
 		quest2,
@@ -1886,7 +1856,7 @@ export async function set(
 		quest4,
 		travelling_rock: travellingRock,
 		travelling_rock_not_spawned: travellingRockNotSpawned,
-	} = await fetchDailyGuides();
+	} = await fetchDailyGuides(database, date);
 	const oldQuest1 = quest1;
 	const oldQuest2 = quest2;
 	const oldQuest3 = quest3;
@@ -2019,7 +1989,7 @@ export async function set(
 		travellingRock: finalTravellingRock,
 	});
 
-	await updateDailyGuides(data);
+	await updateDailyGuides(date, data);
 	await interactive(interaction, interactiveOptions);
 }
 
@@ -2031,7 +2001,8 @@ export async function questsReorder(
 		data: { values },
 	} = interaction;
 
-	const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
+	const date = skyNow().toPlainDate();
+	const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides(database, date);
 	const newQuest1 = Number(values[0]);
 	const newQuest2 = Number(values[1]);
 	const newQuest3 = values[2] === undefined ? null : Number(values[2]);
@@ -2066,6 +2037,6 @@ export async function questsReorder(
 		diff: `\`\`\`diff\n${diffJSON(oldQuests, newQuests)}\n\`\`\``,
 	});
 
-	await updateDailyGuides(data);
+	await updateDailyGuides(date, data);
 	await interactive(interaction, { type: InteractiveType.Reorder, locale });
 }

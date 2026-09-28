@@ -1,5 +1,7 @@
 import { ChannelType } from "discord-api-types/v10";
-import { isActive } from "./dates.js";
+import type { Kysely } from "kysely";
+import type { DB } from "./database/schema.js";
+import { isActive, TIME_ZONE } from "./dates.js";
 import { AreaName, isRealm, RealmName } from "./kingdom/geography.js";
 import { dailyGuidesQuestRoute } from "./routes.js";
 import { SpiritId, type SpiritIds } from "./utility/spirits.js";
@@ -1380,6 +1382,32 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 	ChannelType.GuildAnnouncement,
 	ChannelType.PublicThread,
 ] as const;
+
+export function dailyGuidesDate(date: Temporal.PlainDate) {
+	return new Date(date.toZonedDateTime(TIME_ZONE).epochMilliseconds);
+}
+
+export async function fetchDailyGuides(database: Kysely<DB>, date: Temporal.PlainDate) {
+	const dailyGuidesPacket = await database
+		.selectFrom("daily_guides")
+		.selectAll()
+		.where("date", "=", dailyGuidesDate(date))
+		.executeTakeFirst();
+
+	return (
+		dailyGuidesPacket ?? {
+			date: dailyGuidesDate(date),
+			quest1: null,
+			quest2: null,
+			quest3: null,
+			quest4: null,
+			travelling_rock: null,
+			travelling_rock_not_spawned: false,
+			last_updated_at: null,
+			last_updated_user_id: null,
+		}
+	);
+}
 
 export interface DailyGuidesDaysCountItem {
 	start: Temporal.ZonedDateTime;

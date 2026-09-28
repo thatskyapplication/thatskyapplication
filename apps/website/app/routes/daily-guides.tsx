@@ -12,6 +12,7 @@ import {
 	DailyQuestToInfographicURL,
 	DOUBLE_HEART_EVENTS,
 	epochSeconds,
+	fetchDailyGuides,
 	formatEmojiURL,
 	isDailyQuest,
 	KINGDOM,
@@ -96,8 +97,8 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const t = getInstance(context).getFixedT(getLocale(context));
-	const dailyGuides = await database.selectFrom("daily_guides").selectAll().execute();
 	const now = skyNow();
+	const dailyGuides = await fetchDailyGuides(database, now.toPlainDate());
 	const initialTimestamp = now.epochMilliseconds;
 	const shard = shardEruption(now);
 	const treasureCandleNotes: string[] = [];
@@ -139,7 +140,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 			timeZone,
 			timeZoneEstimated,
 			hour12,
-			dailyGuides: dailyGuides[0]!,
+			dailyGuides,
 			treasureCandleLinks,
 			treasureCandleNotes,
 			todayString: new Intl.DateTimeFormat(locale, {

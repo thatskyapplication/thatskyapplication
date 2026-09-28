@@ -42,6 +42,7 @@ export interface Checklist {
 }
 
 export interface DailyGuides {
+  date: Timestamp;
   last_updated_at: Generated<Timestamp>;
   last_updated_user_id: string;
   quest1: number | null;
@@ -49,7 +50,7 @@ export interface DailyGuides {
   quest3: number | null;
   quest4: number | null;
   travelling_rock: string | null;
-  travelling_rock_not_spawned: boolean;
+  travelling_rock_not_spawned: Generated<boolean>;
 }
 
 export interface DailyGuidesDistribution {
