@@ -330,6 +330,7 @@ function treasureCandleURLs(date: Temporal.ZonedDateTime): [TreasureCandle, ...T
 
 	if (date.year === 2024 && date.month === 10 && date.day === 2) {
 		// Valley of Triumph layout 2 was also available on 2 October 2024.
+		// https://youtu.be/S2aF2IO9gjM
 		return [result[0], { url: treasureCandleURL(RealmName.ValleyOfTriumph, 2) }];
 	}
 

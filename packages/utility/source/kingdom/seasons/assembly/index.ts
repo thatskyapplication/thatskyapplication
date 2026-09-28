@@ -23,5 +23,8 @@ export default new Season({
 		DaydreamForester,
 	],
 	seasonalCandlesRotation: null,
-	doubleSeasonalLight: [{ start: skyDate(2021, 5, 3), end: skyDate(2021, 5, 10) }],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [{ start: skyDate(2021, 5, 3), end: skyDate(2021, 5, 10) }],
+	},
 });

@@ -23,5 +23,8 @@ export default new Season({
 		WiseGrandparent,
 	],
 	seasonalCandlesRotation: null,
-	doubleSeasonalLight: [{ start: skyDate(2019, 12, 22), end: skyDate(2020, 1, 3) }],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [{ start: skyDate(2019, 12, 22), end: skyDate(2020, 1, 3) }],
+	},
 });

@@ -1,6 +1,6 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { RotationIdentifier, SeasonId } from "../../../season.js";
+import { SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
 import CompassionateCellist from "./compassionate-cellist.js";
 import DuetsGuide from "./duets-guide.js";
@@ -12,8 +12,8 @@ import ThePianistsFlourishing from "./the-pianists-flourishing.js";
 
 export default new Season({
 	id: SeasonId.Duets,
-	start: skyDate(2_024, 7, 15),
-	end: skyDate(2_024, 9, 30),
+	start: skyDate(2024, 7, 15),
+	end: skyDate(2024, 9, 30),
 	guide: DuetsGuide,
 	spirits: [
 		ThePianistsBeginnings,
@@ -23,17 +23,47 @@ export default new Season({
 		ThePianistsFlourishing,
 		CompassionateCellist,
 	],
-	seasonalCandlesRotation: [
-		{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
-		{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
-		{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
-		{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
-		{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
-		{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
-		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
-		{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
-		{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
-		{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
-	],
-	doubleSeasonalLight: [{ start: skyDate(2024, 9, 9), end: skyDate(2024, 9, 30) }],
+	seasonalCandlesRotation: (now) =>
+		Temporal.ZonedDateTime.compare(now, skyDate(2024, 9, 5)) >= 0
+			? [
+					{ rotation: "1", realm: RealmName.GoldenWasteland },
+					{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "2", realm: RealmName.DaylightPrairie },
+					{ rotation: "1", realm: RealmName.HiddenForest },
+					{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+					{ rotation: "2", realm: RealmName.GoldenWasteland },
+					{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+					{ rotation: "1", realm: RealmName.DaylightPrairie },
+					{ rotation: "2", realm: RealmName.HiddenForest },
+					{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+				]
+			: Temporal.ZonedDateTime.compare(now, skyDate(2024, 8, 1)) >= 0
+				? [
+						{ rotation: "1", realm: RealmName.GoldenWasteland },
+						{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "1", realm: RealmName.DaylightPrairie },
+						{ rotation: "1", realm: RealmName.HiddenForest },
+						{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "2", realm: RealmName.GoldenWasteland },
+						{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "2", realm: RealmName.DaylightPrairie },
+						{ rotation: "2", realm: RealmName.HiddenForest },
+						{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+					]
+				: [
+						{ rotation: "1", realm: RealmName.GoldenWasteland },
+						{ rotation: "2", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "2", realm: RealmName.DaylightPrairie },
+						{ rotation: "2", realm: RealmName.HiddenForest },
+						{ rotation: "2", realm: RealmName.ValleyOfTriumph },
+						{ rotation: "2", realm: RealmName.GoldenWasteland },
+						{ rotation: "1", realm: RealmName.VaultOfKnowledge },
+						{ rotation: "1", realm: RealmName.DaylightPrairie },
+						{ rotation: "1", realm: RealmName.HiddenForest },
+						{ rotation: "1", realm: RealmName.ValleyOfTriumph },
+					],
+	doubleSeasonalLight: {
+		identifier: "1+2",
+		dates: [{ start: skyDate(2024, 9, 9), end: skyDate(2024, 9, 30) }],
+	},
 });
