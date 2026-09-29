@@ -175,7 +175,6 @@ export const SHARD_ERUPTION_DATES = [
 	CustomId.ShardEruptionBrowseDates2,
 	CustomId.ShardEruptionBrowseDates3,
 	CustomId.ShardEruptionBrowseDates4,
-	CustomId.ShardEruptionBrowseDates5,
 ] as const satisfies readonly CustomId[];
 
 export const SKY_PROFILE_EXPLORERS = [

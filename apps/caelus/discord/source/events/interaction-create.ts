@@ -990,7 +990,10 @@ export default {
 					return;
 				}
 
-				if (SHARD_ERUPTION_DATES.includes(id as (typeof SHARD_ERUPTION_DATES)[number])) {
+				if (
+					SHARD_ERUPTION_DATES.includes(id as (typeof SHARD_ERUPTION_DATES)[number]) ||
+					id === CustomId.ShardEruptionBrowseDates5
+				) {
 					if (await isNotComponentsV2(data)) {
 						return;
 					}
