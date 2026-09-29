@@ -12,6 +12,8 @@ import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.j
 interface PaginationProps {
 	currentPage: number;
 	excludeSearchParameters?: readonly string[];
+	formatPage?: (page: number) => string;
+	getPageURL?: (page: number) => string;
 	maximumPage: number;
 	minimumPage?: number;
 	preventScrollReset?: boolean;
@@ -69,6 +71,8 @@ function PaginationControl({
 export default function Pagination({
 	currentPage,
 	excludeSearchParameters = EMPTY_SEARCH_PARAMETERS,
+	formatPage = String,
+	getPageURL,
 	maximumPage,
 	minimumPage = 1,
 	preventScrollReset = false,
@@ -77,16 +81,18 @@ export default function Pagination({
 	const excludedSearchParameters = new Set(excludeSearchParameters);
 
 	// Avoids resetting query parameters.
-	const createPageURL = (page: number) => {
-		const params = new URLSearchParams(searchParams);
+	const createPageURL =
+		getPageURL ??
+		((page: number) => {
+			const params = new URLSearchParams(searchParams);
 
-		for (const parameter of excludedSearchParameters) {
-			params.delete(parameter);
-		}
+			for (const parameter of excludedSearchParameters) {
+				params.delete(parameter);
+			}
 
-		params.set("page", page.toString());
-		return `?${params.toString()}`;
-	};
+			params.set("page", page.toString());
+			return `?${params.toString()}`;
+		});
 
 	const back2 = currentPage - 2;
 	const back1 = currentPage - 1;
@@ -94,7 +100,17 @@ export default function Pagination({
 	const next2 = currentPage + 2;
 	const absoluteMaximumPage = Math.max(Math.abs(maximumPage), Math.abs(minimumPage));
 	const maximumDigitLength = absoluteMaximumPage.toString().length;
-	const maximumInputLength = minimumPage < 0 ? maximumDigitLength + 1 : maximumDigitLength;
+	const maximumInputLength = getPageURL
+		? Math.max(
+				...[back2, back1, currentPage, next1, next2]
+					.filter((page) => page >= minimumPage && page <= maximumPage)
+					.map((page) => formatPage(page).length),
+			)
+		: minimumPage < 0
+			? maximumDigitLength + 1
+			: maximumDigitLength;
+	const showsOuterNeighbours = getPageURL === undefined;
+	const neighbourClassName = getPageURL ? "hidden lg:block" : "hidden sm:block";
 	const previousDisabled = currentPage <= minimumPage;
 	const nextDisabled = currentPage >= maximumPage;
 	const paginationStyle = {
@@ -145,87 +161,103 @@ export default function Pagination({
 						<ChevronLeftIcon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
 					</PaginationControl>
 				</li>
-				{back2 >= minimumPage && (
-					<li className="hidden sm:block">
+				{showsOuterNeighbours && back2 >= minimumPage && (
+					<li className={neighbourClassName}>
 						<Link
-							aria-label={`Go to page ${back2}`}
+							aria-label={`Go to page ${formatPage(back2)}`}
 							className={PAGE_LINK_CLASS_NAME}
 							preventScrollReset={preventScrollReset}
 							to={createPageURL(back2)}
 						>
-							{back2}
+							{formatPage(back2)}
 						</Link>
 					</li>
 				)}
 				{back1 >= minimumPage && (
-					<li className="hidden sm:block">
+					<li className={neighbourClassName}>
 						<Link
-							aria-label={`Go to page ${back1}`}
+							aria-label={`Go to page ${formatPage(back1)}`}
 							className={PAGE_LINK_CLASS_NAME}
 							preventScrollReset={preventScrollReset}
 							to={createPageURL(back1)}
 						>
-							{back1}
+							{formatPage(back1)}
 						</Link>
 					</li>
 				)}
 				<li>
-					<Form
-						method="get"
-						preventScrollReset={preventScrollReset}
-						onSubmit={(event) => {
-							const pageInput = event.currentTarget.elements.namedItem("page") as HTMLInputElement;
-							const pageValue = Number(pageInput.value.trim());
-
-							if (!Number.isInteger(pageValue)) {
-								pageInput.value = currentPage.toString();
-								return;
-							}
-
-							pageInput.value = Math.max(minimumPage, Math.min(maximumPage, pageValue)).toString();
-						}}
-					>
-						{hiddenSearchParameters.map(({ key, name, value }) => (
-							<input key={key} name={name} type="hidden" value={value} />
-						))}
-						<input
+					{getPageURL ? (
+						<span
 							aria-current="page"
-							aria-label={`Current page, enter a page from ${minimumPage} to ${maximumPage}`}
-							className="h-11 w-(--pagination-current-width) rounded-full border border-gray-400 bg-gray-100 px-2 text-center text-base leading-normal font-medium tabular-nums shadow-sm focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none sm:h-14 sm:w-(--pagination-current-width-sm) sm:px-4 sm:text-lg dark:border-gray-600 dark:bg-gray-900 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950"
-							defaultValue={currentPage}
-							inputMode="numeric"
-							key={currentPage}
-							maxLength={maximumInputLength}
-							name="page"
-							pattern={
-								minimumPage < 0 ? `-?\\d{1,${maximumDigitLength}}` : `\\d{1,${maximumDigitLength}}`
-							}
-							type="text"
-							{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
-						/>
-					</Form>
+							className="inline-flex h-11 min-w-(--pagination-current-width) items-center justify-center rounded-full border border-gray-400 bg-gray-100 px-3 text-base leading-normal font-medium tabular-nums shadow-sm sm:h-14 sm:min-w-(--pagination-current-width-sm) sm:px-4 sm:text-lg dark:border-gray-600 dark:bg-gray-900"
+						>
+							{formatPage(currentPage)}
+						</span>
+					) : (
+						<Form
+							method="get"
+							preventScrollReset={preventScrollReset}
+							onSubmit={(event) => {
+								const pageInput = event.currentTarget.elements.namedItem(
+									"page",
+								) as HTMLInputElement;
+								const pageValue = Number(pageInput.value.trim());
+
+								if (!Number.isInteger(pageValue)) {
+									pageInput.value = currentPage.toString();
+									return;
+								}
+
+								pageInput.value = Math.max(
+									minimumPage,
+									Math.min(maximumPage, pageValue),
+								).toString();
+							}}
+						>
+							{hiddenSearchParameters.map(({ key, name, value }) => (
+								<input key={key} name={name} type="hidden" value={value} />
+							))}
+							<input
+								aria-current="page"
+								aria-label={`Current page, enter a page from ${minimumPage} to ${maximumPage}`}
+								className="h-11 w-(--pagination-current-width) rounded-full border border-gray-400 bg-gray-100 px-2 text-center text-base leading-normal font-medium tabular-nums shadow-sm focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none sm:h-14 sm:w-(--pagination-current-width-sm) sm:px-4 sm:text-lg dark:border-gray-600 dark:bg-gray-900 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950"
+								defaultValue={currentPage}
+								inputMode="numeric"
+								key={currentPage}
+								maxLength={maximumInputLength}
+								name="page"
+								pattern={
+									minimumPage < 0
+										? `-?\\d{1,${maximumDigitLength}}`
+										: `\\d{1,${maximumDigitLength}}`
+								}
+								type="text"
+								{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
+							/>
+						</Form>
+					)}
 				</li>
 				{next1 <= maximumPage && (
-					<li className="hidden sm:block">
+					<li className={neighbourClassName}>
 						<Link
-							aria-label={`Go to page ${next1}`}
+							aria-label={`Go to page ${formatPage(next1)}`}
 							className={PAGE_LINK_CLASS_NAME}
 							preventScrollReset={preventScrollReset}
 							to={createPageURL(next1)}
 						>
-							{next1}
+							{formatPage(next1)}
 						</Link>
 					</li>
 				)}
-				{next2 <= maximumPage && (
-					<li className="hidden sm:block">
+				{showsOuterNeighbours && next2 <= maximumPage && (
+					<li className={neighbourClassName}>
 						<Link
-							aria-label={`Go to page ${next2}`}
+							aria-label={`Go to page ${formatPage(next2)}`}
 							className={PAGE_LINK_CLASS_NAME}
 							preventScrollReset={preventScrollReset}
 							to={createPageURL(next2)}
 						>
-							{next2}
+							{formatPage(next2)}
 						</Link>
 					</li>
 				)}

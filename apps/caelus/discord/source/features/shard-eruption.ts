@@ -211,6 +211,18 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
+export function browseOffset(date: string | undefined) {
+	if (date === undefined) {
+		return 0;
+	}
+
+	try {
+		return Temporal.PlainDate.from(date).since(skyToday().toPlainDate()).days;
+	} catch {
+		return 0;
+	}
+}
+
 export async function browse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	{ offset = 0, ephemeral, newMessage }: ShardEruptionOptions = {},

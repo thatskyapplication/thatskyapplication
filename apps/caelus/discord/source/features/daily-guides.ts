@@ -48,9 +48,11 @@ import {
 	DOUBLE_HEART_EVENTS,
 	epochSeconds,
 	fetchDailyGuides,
+	fetchFirstDailyGuidesDate,
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
+	isWithinDaysCountRange,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	MAXIMUM_ASSET_BANNER_DIMENSION,
@@ -59,6 +61,7 @@ import {
 	returningSpiritsSchedule,
 	resolveCurrencyEmoji,
 	shardEruption,
+	SHARD_ERUPTION_START_DATE,
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNotEndedEvents,
@@ -727,7 +730,10 @@ function dailyGuidesEventData(date: Temporal.ZonedDateTime, locale: Locale) {
 }
 
 interface DailyGuidesDistributionDataResponse {
-	components: APIMessageTopLevelComponent[];
+	components: [
+		{ type: ComponentType.Container; components: APIComponentInContainer[] },
+		...APIMessageTopLevelComponent[],
+	];
 	missingDailyQuests: boolean;
 	missingTravellingRock: boolean;
 }
@@ -736,20 +742,24 @@ interface DailyGuidesDistributionDataOptions {
 	locale: Locale;
 	type?: DailyGuidesDistributionTypes;
 	showShardTimestampStatus?: boolean;
+	date?: Temporal.PlainDate;
 }
 
 async function distributionData({
 	locale,
 	type = DailyGuidesDistributionType.Compact,
 	showShardTimestampStatus = false,
+	date,
 }: DailyGuidesDistributionDataOptions): Promise<DailyGuidesDistributionDataResponse> {
-	const now = skyNow();
+	const currentTime = skyNow();
+	const now =
+		date && !date.equals(currentTime.toPlainDate()) ? date.toZonedDateTime(TIME_ZONE) : currentTime;
 	const today = now.startOfDay();
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.epochMilliseconds)}](${DAILY_GUIDES_URL})`,
+			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(today.epochMilliseconds)}](${DAILY_GUIDES_URL})`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -849,7 +859,7 @@ async function distributionData({
 		quest4,
 		travelling_rock: travellingRock,
 		travelling_rock_not_spawned: travellingRockNotSpawned,
-	} = await fetchDailyGuides(database, now.toPlainDate());
+	} = await fetchDailyGuides(database, today.toPlainDate());
 
 	const quests = [];
 	let missingDailyQuests = false;
@@ -1176,38 +1186,44 @@ async function distributionData({
 		});
 	}
 
-	const shard = shardEruption(today);
-	let shardEruptionContent = `### ${t("shard-eruption", { lng: locale, ns: "general" })}\n\n`;
+	const shard =
+		Temporal.ZonedDateTime.compare(today, SHARD_ERUPTION_START_DATE) >= 0
+			? shardEruption(today)
+			: undefined;
 
-	if (shard) {
-		if (type === DailyGuidesDistributionType.Compact) {
-			shardEruptionContent += `${shardEruptionInformationString(shard, locale)}\n`;
+	if (shard !== undefined) {
+		let shardEruptionContent = `### ${t("shard-eruption", { lng: locale, ns: "general" })}\n\n`;
+
+		if (shard) {
+			if (type === DailyGuidesDistributionType.Compact) {
+				shardEruptionContent += `${shardEruptionInformationString(shard, locale)}\n`;
+			}
+
+			shardEruptionContent += shardEruptionTimestampsString({
+				now: showShardTimestampStatus ? now : undefined,
+				timestamps: shard.timestamps,
+				locale,
+			});
+		} else {
+			shardEruptionContent += t("none", { lng: locale, ns: "general" });
 		}
 
-		shardEruptionContent += shardEruptionTimestampsString({
-			now: showShardTimestampStatus ? now : undefined,
-			timestamps: shard.timestamps,
-			locale,
-		});
-	} else {
-		shardEruptionContent += t("none", { lng: locale, ns: "general" });
-	}
-
-	containerComponents.push({
-		type: ComponentType.Section,
-		accessory: {
-			type: ComponentType.Button,
-			style: ButtonStyle.Secondary,
-			custom_id: CustomId.DailyGuidesShardEruptionsMore,
-			label: t("more", { lng: locale, ns: "general" }),
-		},
-		components: [
-			{
-				type: ComponentType.TextDisplay,
-				content: shardEruptionContent,
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Secondary,
+				custom_id: `${CustomId.DailyGuidesShardEruptionsMore}§${today.toPlainDate().toString()}`,
+				label: t("more", { lng: locale, ns: "general" }),
 			},
-		],
-	});
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: shardEruptionContent,
+				},
+			],
+		});
+	}
 
 	if (type === DailyGuidesDistributionType.Media && shard) {
 		containerComponents.push(
@@ -1430,8 +1446,10 @@ async function distributionData({
 		});
 	}
 
-	if (footerItems.length > 0) {
-		sortDaysCountItems(footerItems, today);
+	const visibleFooterItems = footerItems.filter((item) => isWithinDaysCountRange(item, today));
+
+	if (visibleFooterItems.length > 0) {
+		sortDaysCountItems(visibleFooterItems, today);
 
 		containerComponents.push(
 			{
@@ -1441,7 +1459,7 @@ async function distributionData({
 			},
 			{
 				type: ComponentType.TextDisplay,
-				content: footerItems.map(({ text }) => `-# ${text}`).join("\n"),
+				content: visibleFooterItems.map(({ text }) => `-# ${text}`).join("\n"),
 			},
 		);
 	}
@@ -1541,23 +1559,72 @@ export async function distribute(options: DailyGuidesDistributionOptions) {
 	await promise;
 }
 
+interface DailyGuidesResponseOptions {
+	type?: DailyGuidesDistributionTypes;
+	date?: Temporal.PlainDate | undefined;
+	newMessage?: boolean;
+}
+
 export async function dailyGuidesResponse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Compact,
+	{
+		type = DailyGuidesDistributionType.Compact,
+		date,
+		newMessage = true,
+	}: DailyGuidesResponseOptions = {},
 ) {
 	const { locale } = interaction;
+	const todayDate = skyNow().toPlainDate();
+	const firstDate = (await fetchFirstDailyGuidesDate(database)) ?? todayDate;
+	let day = date ?? todayDate;
+
+	if (Temporal.PlainDate.compare(day, firstDate) < 0) {
+		day = firstDate;
+	} else if (Temporal.PlainDate.compare(day, todayDate) > 0) {
+		day = todayDate;
+	}
+
+	const isToday = day.equals(todayDate);
 	const { components, missingDailyQuests, missingTravellingRock } = await distributionData({
 		locale,
 		type,
 		showShardTimestampStatus: true,
+		date: day,
 	});
+
+	components[0].components.push({
+		type: ComponentType.ActionRow,
+		components: [
+			{
+				type: ComponentType.Button,
+				custom_id: `${CustomId.DailyGuidesBack}§${day.subtract({ days: 1 }).toString()}§${type}`,
+				disabled: Temporal.PlainDate.compare(day, firstDate) <= 0,
+				label: t("navigation-back", { lng: locale, ns: "general" }),
+				style: ButtonStyle.Secondary,
+			},
+			{
+				type: ComponentType.Button,
+				custom_id: `${CustomId.DailyGuidesToday}§${type}`,
+				label: t("today", { lng: locale, ns: "general" }),
+				style: ButtonStyle.Primary,
+			},
+			{
+				type: ComponentType.Button,
+				custom_id: `${CustomId.DailyGuidesNext}§${day.add({ days: 1 }).toString()}§${type}`,
+				disabled: isToday,
+				label: t("navigation-next", { lng: locale, ns: "general" }),
+				style: ButtonStyle.Secondary,
+			},
+		],
+	});
+
 	const missing = [];
 
-	if (missingDailyQuests) {
+	if (isToday && missingDailyQuests) {
 		missing.push(`- ${t("daily-quests", { lng: locale, ns: "general" })}`);
 	}
 
-	if (missingTravellingRock) {
+	if (isToday && missingTravellingRock) {
 		missing.push(`- ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}`);
 	}
 
@@ -1584,9 +1651,38 @@ export async function dailyGuidesResponse(
 		});
 	}
 
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		components,
-		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	if (newMessage) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components,
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+		});
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, { components });
+	}
+}
+
+export async function dailyGuidesNavigation(
+	interaction: APIMessageComponentButtonInteraction,
+	date: string | undefined,
+	type: string | undefined,
+) {
+	const parsedType = Number(type);
+	let parsedDate: Temporal.PlainDate | undefined;
+
+	if (date !== undefined) {
+		try {
+			parsedDate = Temporal.PlainDate.from(date);
+		} catch {
+			parsedDate = undefined;
+		}
+	}
+
+	await dailyGuidesResponse(interaction, {
+		type: isDailyGuidesDistributionType(parsedType)
+			? parsedType
+			: DailyGuidesDistributionType.Compact,
+		date: parsedDate,
+		newMessage: false,
 	});
 }
 

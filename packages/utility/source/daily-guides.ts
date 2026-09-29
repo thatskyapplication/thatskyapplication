@@ -6,6 +6,8 @@ import { AreaName, isRealm, RealmName } from "./kingdom/geography.js";
 import { dailyGuidesQuestRoute } from "./routes.js";
 import { SpiritId, type SpiritIds } from "./utility/spirits.js";
 
+const DAILY_GUIDES_DAYS_COUNT_MAXIMUM_DAYS = 90 as const;
+
 export const DailyGuidesDistributionType = {
 	Compact: 0,
 	Media: 1,
@@ -1427,9 +1429,32 @@ export async function fetchDailyGuides(database: Kysely<DB>, date: Temporal.Plai
 	);
 }
 
+export async function fetchFirstDailyGuidesDate(database: Kysely<DB>) {
+	const { first } = await database
+		.selectFrom("daily_guides")
+		.select((expressionBuilder) => expressionBuilder.fn.min<Date | null>("date").as("first"))
+		.executeTakeFirstOrThrow();
+
+	return first === null
+		? null
+		: Temporal.Instant.fromEpochMilliseconds(first.getTime())
+				.toZonedDateTimeISO(TIME_ZONE)
+				.toPlainDate();
+}
+
 export interface DailyGuidesDaysCountItem {
 	start: Temporal.ZonedDateTime;
 	end?: Temporal.ZonedDateTime | undefined;
+}
+
+export function isWithinDaysCountRange(
+	{ start }: DailyGuidesDaysCountItem,
+	today: Temporal.ZonedDateTime,
+) {
+	return (
+		today.withTimeZone(TIME_ZONE).toPlainDate().until(start.withTimeZone(TIME_ZONE).toPlainDate())
+			.days <= DAILY_GUIDES_DAYS_COUNT_MAXIMUM_DAYS
+	);
 }
 
 export function sortDaysCountItems(

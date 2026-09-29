@@ -75,7 +75,9 @@ export {
 	DailyQuestToMeetUp,
 	dailyGuidesDate,
 	fetchDailyGuides,
+	fetchFirstDailyGuidesDate,
 	isDailyQuest,
+	isWithinDaysCountRange,
 	sortDaysCountItems,
 } from "./daily-guides.js";
 export type { Packet } from "./database/index.js";

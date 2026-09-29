@@ -53,6 +53,7 @@ export function DatePicker({
 	locale,
 	maximumDate,
 	minimumDate,
+	monthOpensDays = false,
 	todayDate,
 	weekStartsOn,
 }: {
@@ -64,6 +65,7 @@ export function DatePicker({
 	locale: string;
 	maximumDate: string;
 	minimumDate: string;
+	monthOpensDays?: boolean;
 	todayDate: string;
 	weekStartsOn: number;
 }) {
@@ -278,6 +280,32 @@ export function DatePicker({
 										);
 									}
 
+									const monthClassName = clsx(
+										CELL_CLASS,
+										"h-9",
+										entry.year === today.year && entry.month === today.month
+											? SELECTED_CLASS
+											: entry.year === anchor.year && entry.month === anchor.month
+												? ANCHORED_CLASS
+												: ENABLED_CLASS,
+									);
+
+									if (monthOpensDays) {
+										return (
+											<button
+												className={clsx(monthClassName, "cursor-pointer")}
+												key={monthLabel}
+												onClick={() => {
+													setMonth(entry);
+													setMode(DatePickerMode.Days);
+												}}
+												type="button"
+											>
+												{monthLabel}
+											</button>
+										);
+									}
+
 									const date =
 										Temporal.PlainDate.compare(entry, minimum) < 0
 											? minimum.toString()
@@ -288,19 +316,7 @@ export function DatePicker({
 											key={monthLabel}
 											nativeButton={false}
 											render={
-												<Link
-													className={clsx(
-														CELL_CLASS,
-														"h-9",
-														entry.year === today.year && entry.month === today.month
-															? SELECTED_CLASS
-															: entry.year === anchor.year && entry.month === anchor.month
-																? ANCHORED_CLASS
-																: ENABLED_CLASS,
-													)}
-													preventScrollReset
-													to={getDateURL(date)}
-												/>
+												<Link className={monthClassName} preventScrollReset to={getDateURL(date)} />
 											}
 										>
 											{monthLabel}

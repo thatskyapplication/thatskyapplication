@@ -3,7 +3,7 @@ import { AlertTriangle, ArrowRight } from "lucide-react";
 import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { HeadersArgs } from "react-router";
-import { data, Link } from "react-router";
+import { data, Link, redirect } from "react-router";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
 	communityUpcomingEvents,
@@ -13,8 +13,10 @@ import {
 	DOUBLE_HEART_EVENTS,
 	epochSeconds,
 	fetchDailyGuides,
+	fetchFirstDailyGuidesDate,
 	formatEmojiURL,
 	isDailyQuest,
+	isWithinDaysCountRange,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	nextDailyReset,
@@ -25,6 +27,7 @@ import {
 	skyNow,
 	skyNotEndedEvents,
 	skyUpcomingSeason,
+	SHARD_ERUPTION_START_DATE,
 	sortDaysCountItems,
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
@@ -32,10 +35,12 @@ import {
 	WEBSITE_URL,
 	dailyQuestLabel,
 } from "@thatskyapplication/utility";
+import { DatePicker } from "~/components/DatePicker";
 import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
+import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import database from "~/database.server";
@@ -51,6 +56,8 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
+import { firstDayOfWeek } from "~/utility/locale.js";
+import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/daily-guides.js";
 
@@ -94,15 +101,63 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	];
 };
 
-export const loader = async ({ request, context }: Route.LoaderArgs) => {
+export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
+	const dateParameter = url.searchParams.get("date");
+	const todayParameter = url.searchParams.get("today");
 	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const t = getInstance(context).getFixedT(getLocale(context));
 	const now = skyNow();
-	const dailyGuides = await fetchDailyGuides(database, now.toPlainDate());
+	const todayDate = now.toPlainDate();
+	const firstDate = (await fetchFirstDailyGuidesDate(database)) ?? todayDate;
+	const minimumPage = Math.min(0, firstDate.since(todayDate).days);
+	let targetDate: Temporal.PlainDate | null = null;
+
+	if (dateParameter !== null) {
+		if (/^\d{4}-\d{2}-\d{2}$/.test(dateParameter)) {
+			try {
+				targetDate = Temporal.PlainDate.from(dateParameter);
+			} catch {
+				targetDate = null;
+			}
+		}
+
+		if (!targetDate) {
+			url.searchParams.delete("date");
+			throw redirect(`${url.pathname}${url.search}`);
+		}
+
+		if (
+			Temporal.PlainDate.compare(targetDate, firstDate) < 0 ||
+			Temporal.PlainDate.compare(targetDate, todayDate) > 0
+		) {
+			throw new Response("Date is outside the recorded daily guides range.", { status: 400 });
+		}
+	}
+
+	const date = todayParameter === "1" || targetDate === null ? todayDate : targetDate;
+	const page = date.since(todayDate).days;
+	const isToday = page === 0;
+	const paginationDateFormat = new Intl.DateTimeFormat(locale, {
+		timeZone: "UTC",
+		day: "2-digit",
+		month: "2-digit",
+		year: "numeric",
+	});
+	const paginationLabels: Record<number, string> = {};
+
+	for (let offset = Math.max(minimumPage, page - 2); offset <= Math.min(0, page + 2); offset++) {
+		paginationLabels[offset] = paginationDateFormat.format(
+			todayDate.add({ days: offset }).toZonedDateTime("UTC").epochMilliseconds,
+		);
+	}
+	const dayStart = date.toZonedDateTime(TIME_ZONE);
+	const dailyGuides = await fetchDailyGuides(database, date);
 	const initialTimestamp = now.epochMilliseconds;
-	const shard = shardEruption(now);
+	const shardEruptionExists =
+		Temporal.ZonedDateTime.compare(dayStart, SHARD_ERUPTION_START_DATE) >= 0;
+	const shard = shardEruptionExists ? shardEruption(dayStart) : null;
 	const treasureCandleNotes: string[] = [];
-	const treasureCandleLinks = treasureCandles(now).map(
+	const treasureCandleLinks = treasureCandles(dayStart).map(
 		({ url, availableFrom, unavailableAt }, index, candles) => {
 			let footnote = null;
 
@@ -130,7 +185,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 		},
 	);
 
-	const cacheMaxAge = dailyGuidesCacheMaxAge(initialTimestamp);
+	const cacheMaxAge = isToday ? dailyGuidesCacheMaxAge(initialTimestamp) : 3600;
 
 	return data(
 		{
@@ -140,13 +195,22 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 			timeZone,
 			timeZoneEstimated,
 			hour12,
+			date: date.toString(),
+			isToday,
+			page,
+			minimumPage,
+			paginationLabels,
+			minimumDate: firstDate.toString(),
+			todayDate: todayDate.toString(),
+			weekStartsOn: firstDayOfWeek(locale),
 			dailyGuides,
 			treasureCandleLinks,
 			treasureCandleNotes,
-			todayString: new Intl.DateTimeFormat(locale, {
+			dateString: new Intl.DateTimeFormat(locale, {
 				timeZone: TIME_ZONE,
 				dateStyle: "full",
-			}).format(initialTimestamp),
+			}).format(dayStart.epochMilliseconds),
+			shardEruptionExists,
 			shard: shard
 				? {
 						...shard,
@@ -195,10 +259,19 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		timeZone,
 		timeZoneEstimated,
 		hour12,
+		date,
+		isToday,
+		page,
+		minimumPage,
+		paginationLabels,
+		minimumDate,
+		todayDate,
+		weekStartsOn,
 		dailyGuides,
 		treasureCandleLinks,
 		treasureCandleNotes,
-		todayString,
+		dateString,
+		shardEruptionExists,
 		shard,
 	} = loaderData;
 
@@ -208,8 +281,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 	useSkyDailyResetRevalidator(currentTimestamp);
 
-	const now =
-		Temporal.Instant.fromEpochMilliseconds(currentTimestamp).toZonedDateTimeISO(TIME_ZONE);
+	const now = isToday
+		? Temporal.Instant.fromEpochMilliseconds(currentTimestamp).toZonedDateTimeISO(TIME_ZONE)
+		: Temporal.PlainDate.from(date).toZonedDateTime(TIME_ZONE);
 	const currentUnix = epochSeconds(now);
 	const today = now.startOfDay();
 	const quest1 = dailyGuides.quest1;
@@ -656,7 +730,8 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		});
 	}
 
-	sortDaysCountItems(daysCount, now);
+	const visibleDaysCount = daysCount.filter((item) => isWithinDaysCountRange(item, today));
+	sortDaysCountItems(visibleDaysCount, now);
 
 	const handleImageClick = (url: string | null, acknowledgement: string | null = null) => {
 		if (url) {
@@ -666,353 +741,391 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<CentredSitePage>
-			<div
-				className={clsx(
-					"flex w-full max-w-6xl gap-6 transition-all duration-300",
-					selectedInfographic ? "items-start justify-between" : "justify-center",
-				)}
-			>
-				<div className="w-full max-w-lg shrink-0 rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
-					<div className="mb-6 border-b-2 border-gray-200 pb-4 dark:border-gray-700">
-						<h1 className="text-lg font-bold text-gray-900 dark:text-white">{todayString}</h1>
-					</div>
-					{todayMaintenance.length > 0 && (
-						<div className="mb-5 flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800 dark:bg-amber-950/40">
-							<AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
-							<div>
-								<p className="text-sm font-medium text-amber-800 dark:text-amber-200">
-									{t("maintenance", { ns: "general" })}
-								</p>
-								{todayMaintenance.length === 1 ? (
-									<p className="text-xs text-amber-700 dark:text-amber-300">
-										{timeZoneEstimated ? (
-											<SkeletonText>{maintenanceDescription}</SkeletonText>
-										) : (
-											maintenanceDescription
-										)}
-									</p>
-								) : (
-									<>
-										<p className="text-xs text-amber-700 dark:text-amber-300">
-											{t("maintenance-description-many", { ns: "general" })}
-										</p>
-										<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">
-											{todayMaintenance.map((maintenance) => {
-												const range = t("time-range", {
-													ns: "general",
-													start: maintenanceTimeFormat.format(maintenance.start.epochMilliseconds),
-													end: maintenanceTimeFormat.format(maintenance.end.epochMilliseconds),
-												});
-
-												return (
-													<li key={maintenance.start.epochMilliseconds}>
-														{timeZoneEstimated ? <SkeletonText>{range}</SkeletonText> : range}
-													</li>
-												);
-											})}
-										</ul>
-									</>
-								)}
-							</div>
-						</div>
+			<div className="flex w-full max-w-6xl flex-col items-center py-4 sm:py-8">
+				<div className="mb-4 flex w-full justify-center gap-2">
+					<Link className={DATE_NAVIGATION_CLASS} to="?today=1">
+						{t("today", { ns: "general" })}
+					</Link>
+					<DatePicker
+						anchorDate={date}
+						className={DATE_NAVIGATION_CLASS}
+						getDateURL={(value) => `?date=${value}`}
+						label={t("jump-to-date", { ns: "general" })}
+						locale={locale}
+						maximumDate={todayDate}
+						minimumDate={minimumDate}
+						monthOpensDays
+						todayDate={todayDate}
+						weekStartsOn={weekStartsOn}
+					/>
+				</div>
+				<div
+					className={clsx(
+						"flex w-full gap-6 transition-all duration-300",
+						selectedInfographic ? "items-start justify-between" : "justify-center",
 					)}
-					{quests.length > 0 && (
+				>
+					<div className="w-full max-w-lg shrink-0 rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+						<div className="mb-6 border-b-2 border-gray-200 pb-4 dark:border-gray-700">
+							<h1 className="text-lg font-bold text-gray-900 dark:text-white">{dateString}</h1>
+						</div>
+						{todayMaintenance.length > 0 && (
+							<div className="mb-5 flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800 dark:bg-amber-950/40">
+								<AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
+								<div>
+									<p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+										{t("maintenance", { ns: "general" })}
+									</p>
+									{todayMaintenance.length === 1 ? (
+										<p className="text-xs text-amber-700 dark:text-amber-300">
+											{timeZoneEstimated ? (
+												<SkeletonText>{maintenanceDescription}</SkeletonText>
+											) : (
+												maintenanceDescription
+											)}
+										</p>
+									) : (
+										<>
+											<p className="text-xs text-amber-700 dark:text-amber-300">
+												{t("maintenance-description-many", { ns: "general" })}
+											</p>
+											<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">
+												{todayMaintenance.map((maintenance) => {
+													const range = t("time-range", {
+														ns: "general",
+														start: maintenanceTimeFormat.format(
+															maintenance.start.epochMilliseconds,
+														),
+														end: maintenanceTimeFormat.format(maintenance.end.epochMilliseconds),
+													});
+
+													return (
+														<li key={maintenance.start.epochMilliseconds}>
+															{timeZoneEstimated ? <SkeletonText>{range}</SkeletonText> : range}
+														</li>
+													);
+												})}
+											</ul>
+										</>
+									)}
+								</div>
+							</div>
+						)}
+						{quests.length > 0 && (
+							<div className="mb-5">
+								<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+									{t("daily-guides.quests-heading", { ns: "features" })}
+								</h2>
+								<div className="space-y-2">
+									{quests.map(({ acknowledgement, quest, url }, index) => (
+										<div className="flex items-start gap-3" key={quest}>
+											<span className="w-4 shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400">
+												{index + 1}.
+											</span>
+											{url ? (
+												<button
+													className="regular-link text-left text-sm font-medium transition-colors"
+													onClick={() => handleImageClick(url, acknowledgement)}
+													type="button"
+												>
+													{dailyQuestLabel(quest, t)}
+												</button>
+											) : (
+												<span className="flex-1 text-sm text-gray-700 dark:text-gray-300">
+													{dailyQuestLabel(quest, t)}
+												</span>
+											)}
+										</div>
+									))}
+								</div>
+							</div>
+						)}
 						<div className="mb-5">
 							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
-								{t("daily-guides.quests-heading", { ns: "features" })}
+								{t("daily-guides.treasure-candles", { ns: "features" })}
 							</h2>
-							<div className="space-y-2">
-								{quests.map(({ acknowledgement, quest, url }, index) => (
-									<div className="flex items-start gap-3" key={quest}>
-										<span className="w-4 shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400">
-											{index + 1}.
+							<div className="flex flex-wrap items-baseline gap-1 text-sm">
+								{treasureCandleLinks.map(({ url, footnote }, index) => (
+									<span className="relative" key={url}>
+										<button
+											aria-describedby={footnote ? `treasure-candles-note-${footnote}` : undefined}
+											className={
+												treasureCandleLinks.length === 1
+													? "rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+													: "regular-link font-medium transition-colors"
+											}
+											onClick={() => handleImageClick(url)}
+											type="button"
+										>
+											{treasureCandleLinks.length === 1
+												? t("view", { ns: "general" })
+												: `${index * 4 + 1}–${index * 4 + 4}`}
+										</button>
+										{footnote !== null && footnote !== treasureCandleLinks[index + 1]?.footnote && (
+											<sup
+												className={clsx(
+													"text-[10px]",
+													treasureCandleLinks.length === 1 &&
+														"absolute top-0 left-full leading-none",
+												)}
+											>
+												<a className="regular-link" href={`#treasure-candles-note-${footnote}`}>
+													[{footnote}]
+												</a>
+											</sup>
+										)}
+										{index < treasureCandleLinks.length - 1 && (
+											<span className="mx-1 text-gray-600 dark:text-gray-300">|</span>
+										)}
+									</span>
+								))}
+							</div>
+							{treasureCandleNotes.length > 0 && (
+								<ol className="mt-2 list-decimal space-y-1 ps-4 text-xs text-gray-500 dark:text-gray-400">
+									{treasureCandleNotes.map((description, index) => (
+										<li id={`treasure-candles-note-${index + 1}`} key={description}>
+											{description}
+										</li>
+									))}
+								</ol>
+							)}
+						</div>
+						{seasonalCandles && (
+							<div className="mb-5">
+								<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+									{t("seasonal-candles", { ns: "general" })}
+								</h2>
+								<div className="space-y-2">
+									{seasonalCandles.url && (
+										<button
+											className="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+											onClick={() => handleImageClick(seasonalCandles.url)}
+											type="button"
+										>
+											{t("view", { ns: "general" })}
+										</button>
+									)}
+									<div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+										<div
+											aria-label={t("seasonal-candles", { ns: "general" })}
+											className="discord-emoji h-4 w-4"
+											role="img"
+											style={{
+												backgroundImage: seasonalCandleEmoji
+													? `url(${formatEmojiURL(seasonalCandleEmoji.id)})`
+													: undefined,
+											}}
+										/>
+										<span>
+											{t("daily-guides.seasonal-candles-remain-with-season-pass", {
+												ns: "features",
+												remaining: seasonalCandles.remaining,
+												remainingSeasonPass: seasonalCandles.remainingWithPass,
+											})}
 										</span>
-										{url ? (
+									</div>
+								</div>
+							</div>
+						)}
+						{shardEruptionExists && (
+							<div className="mb-5">
+								<div className="mb-3 flex items-center justify-between gap-3">
+									<h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+										{t("shard-eruption", { ns: "general" })}
+									</h2>
+									<Link
+										className="regular-link inline-flex items-center gap-1 text-xs font-medium"
+										to={isToday ? "/shard-eruption" : `/shard-eruption?date=${date}`}
+									>
+										{t("more", { ns: "general" })}
+										<ArrowRight className="h-3 w-3" />
+									</Link>
+								</div>
+								{shard ? (
+									<div className="space-y-3">
+										<div className="hidden items-start justify-between sm:flex">
+											<div>
+												<h3 className="mb-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+													{t("daily-guides.shard-eruption-data", { ns: "features" })}
+												</h3>
+												<button
+													className="regular-link mb-1 block text-sm font-medium transition-colors"
+													onClick={() =>
+														handleImageClick(
+															shard.infographic.url,
+															shard.infographic.acknowledgement,
+														)
+													}
+													type="button"
+												>
+													{t("shard-eruption.realm-area", {
+														ns: "features",
+														realm: shard.realm,
+														area: shard.area,
+													})}
+												</button>
+												<div className="flex items-center gap-2">
+													<span className="text-sm text-gray-700 dark:text-gray-300">
+														{shard.reward}
+													</span>
+													{shard.strong ? (
+														<div
+															aria-label={t("ascended-candles", { ns: "general" })}
+															className="discord-emoji h-4 w-4"
+															role="img"
+															style={{
+																backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
+															}}
+														/>
+													) : (
+														<div
+															aria-label="Piece of light"
+															className="h-4 w-4 bg-cover bg-center"
+															role="img"
+															style={{
+																backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
+															}}
+														/>
+													)}
+												</div>
+											</div>
+											<div className="text-right">
+												<h3 className="mb-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+													{t("daily-guides.shard-eruption-timestamps", { ns: "features" })}
+												</h3>
+												<div className="space-y-1">
+													{shard.timestamps.map(({ start, end }) => (
+														<ShardEruptionTimestamp
+															currentUnix={currentUnix}
+															end={end}
+															key={start.unix}
+															start={start}
+															timeZoneEstimated={timeZoneEstimated}
+															variant="daily-guides"
+														/>
+													))}
+												</div>
+											</div>
+										</div>
+										<div className="space-y-2 sm:hidden">
 											<button
-												className="regular-link text-left text-sm font-medium transition-colors"
-												onClick={() => handleImageClick(url, acknowledgement)}
+												className="regular-link block text-sm font-medium transition-colors"
+												onClick={() =>
+													handleImageClick(shard.infographic.url, shard.infographic.acknowledgement)
+												}
 												type="button"
 											>
-												{dailyQuestLabel(quest, t)}
+												{t("shard-eruption.realm-area", {
+													ns: "features",
+													realm: shard.realm,
+													area: shard.area,
+												})}
 											</button>
-										) : (
-											<span className="flex-1 text-sm text-gray-700 dark:text-gray-300">
-												{dailyQuestLabel(quest, t)}
-											</span>
-										)}
+											<div className="flex items-center gap-2">
+												<span className="text-sm text-gray-700 dark:text-gray-300">
+													{shard.reward}
+												</span>
+												{shard.strong ? (
+													<div
+														aria-label={t("ascended-candles", { ns: "general" })}
+														className="discord-emoji h-4 w-4"
+														role="img"
+														style={{
+															backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
+														}}
+													/>
+												) : (
+													<div
+														aria-label="Piece of light"
+														className="h-4 w-4 bg-cover bg-center"
+														role="img"
+														style={{
+															backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
+														}}
+													/>
+												)}
+											</div>
+											<div className="space-y-1">
+												{shard.timestamps.map(({ start, end }) => (
+													<ShardEruptionTimestamp
+														currentUnix={currentUnix}
+														end={end}
+														key={start.unix}
+														start={start}
+														timeZoneEstimated={timeZoneEstimated}
+														variant="daily-guides"
+													/>
+												))}
+											</div>
+										</div>
 									</div>
-								))}
+								) : (
+									<p className="my-4 text-sm text-gray-500 dark:text-gray-400">
+										{t("none", { ns: "general" })}
+									</p>
+								)}
 							</div>
-						</div>
-					)}
-					<div className="mb-5">
-						<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
-							{t("daily-guides.treasure-candles", { ns: "features" })}
-						</h2>
-						<div className="flex flex-wrap items-baseline gap-1 text-sm">
-							{treasureCandleLinks.map(({ url, footnote }, index) => (
-								<span className="relative" key={url}>
-									<button
-										aria-describedby={footnote ? `treasure-candles-note-${footnote}` : undefined}
-										className={
-											treasureCandleLinks.length === 1
-												? "rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-												: "regular-link font-medium transition-colors"
-										}
-										onClick={() => handleImageClick(url)}
-										type="button"
-									>
-										{treasureCandleLinks.length === 1
-											? t("view", { ns: "general" })
-											: `${index * 4 + 1}–${index * 4 + 4}`}
-									</button>
-									{footnote !== null && footnote !== treasureCandleLinks[index + 1]?.footnote && (
-										<sup
-											className={clsx(
-												"text-[10px]",
-												treasureCandleLinks.length === 1 && "absolute top-0 left-full leading-none",
-											)}
-										>
-											<a className="regular-link" href={`#treasure-candles-note-${footnote}`}>
-												[{footnote}]
-											</a>
-										</sup>
-									)}
-									{index < treasureCandleLinks.length - 1 && (
-										<span className="mx-1 text-gray-600 dark:text-gray-300">|</span>
-									)}
-								</span>
-							))}
-						</div>
-						{treasureCandleNotes.length > 0 && (
-							<ol className="mt-2 list-decimal space-y-1 ps-4 text-xs text-gray-500 dark:text-gray-400">
-								{treasureCandleNotes.map((description, index) => (
-									<li id={`treasure-candles-note-${index + 1}`} key={description}>
-										{description}
-									</li>
-								))}
-							</ol>
 						)}
-					</div>
-					{seasonalCandles && (
-						<div className="mb-5">
-							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
-								{t("seasonal-candles", { ns: "general" })}
-							</h2>
-							<div className="space-y-2">
-								{seasonalCandles.url && (
+						{(travellingRock || travellingRockNotSpawned) && (
+							<div className="mb-5">
+								<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+									{t("daily-guides.travelling-rock", { ns: "features" })}
+								</h2>
+								{travellingRock ? (
 									<button
 										className="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-										onClick={() => handleImageClick(seasonalCandles.url)}
+										onClick={() =>
+											handleImageClick(
+												cdnAssetURL(cdnURL, `daily_guides/travelling_rocks/${travellingRock}.webp`),
+											)
+										}
 										type="button"
 									>
 										{t("view", { ns: "general" })}
 									</button>
+								) : (
+									<p className="my-4 text-sm text-gray-500 dark:text-gray-400">
+										{t("none", { ns: "general", context: "travelling-rock" })}
+									</p>
 								)}
-								<div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-									<div
-										aria-label={t("seasonal-candles", { ns: "general" })}
-										className="discord-emoji h-4 w-4"
-										role="img"
-										style={{
-											backgroundImage: seasonalCandleEmoji
-												? `url(${formatEmojiURL(seasonalCandleEmoji.id)})`
-												: undefined,
-										}}
-									/>
-									<span>
-										{t("daily-guides.seasonal-candles-remain-with-season-pass", {
-											ns: "features",
-											remaining: seasonalCandles.remaining,
-											remainingSeasonPass: seasonalCandles.remainingWithPass,
-										})}
-									</span>
-								</div>
 							</div>
-						</div>
-					)}
-					<div className="mb-5">
-						<div className="mb-3 flex items-center justify-between gap-3">
-							<h2 className="text-sm font-semibold text-gray-900 dark:text-white">
-								{t("shard-eruption", { ns: "general" })}
-							</h2>
-							<Link
-								className="regular-link inline-flex items-center gap-1 text-xs font-medium"
-								to="/shard-eruption"
-							>
-								{t("more", { ns: "general" })}
-								<ArrowRight className="h-3 w-3" />
-							</Link>
-						</div>
-						{shard ? (
-							<div className="space-y-3">
-								<div className="hidden items-start justify-between sm:flex">
-									<div>
-										<h3 className="mb-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-											{t("daily-guides.shard-eruption-data", { ns: "features" })}
-										</h3>
-										<button
-											className="regular-link mb-1 block text-sm font-medium transition-colors"
-											onClick={() =>
-												handleImageClick(shard.infographic.url, shard.infographic.acknowledgement)
-											}
-											type="button"
-										>
-											{t("shard-eruption.realm-area", {
-												ns: "features",
-												realm: shard.realm,
-												area: shard.area,
-											})}
-										</button>
-										<div className="flex items-center gap-2">
-											<span className="text-sm text-gray-700 dark:text-gray-300">
-												{shard.reward}
-											</span>
-											{shard.strong ? (
-												<div
-													aria-label={t("ascended-candles", { ns: "general" })}
-													className="discord-emoji h-4 w-4"
-													role="img"
-													style={{
-														backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
-													}}
-												/>
-											) : (
-												<div
-													aria-label="Piece of light"
-													className="h-4 w-4 bg-cover bg-center"
-													role="img"
-													style={{
-														backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
-													}}
-												/>
-											)}
-										</div>
-									</div>
-									<div className="text-right">
-										<h3 className="mb-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-											{t("daily-guides.shard-eruption-timestamps", { ns: "features" })}
-										</h3>
-										<div className="space-y-1">
-											{shard.timestamps.map(({ start, end }) => (
-												<ShardEruptionTimestamp
-													currentUnix={currentUnix}
-													end={end}
-													key={start.unix}
-													start={start}
-													timeZoneEstimated={timeZoneEstimated}
-													variant="daily-guides"
-												/>
-											))}
-										</div>
-									</div>
-								</div>
-								<div className="space-y-2 sm:hidden">
-									<button
-										className="regular-link block text-sm font-medium transition-colors"
-										onClick={() =>
-											handleImageClick(shard.infographic.url, shard.infographic.acknowledgement)
-										}
-										type="button"
-									>
-										{t("shard-eruption.realm-area", {
-											ns: "features",
-											realm: shard.realm,
-											area: shard.area,
-										})}
-									</button>
-									<div className="flex items-center gap-2">
-										<span className="text-sm text-gray-700 dark:text-gray-300">{shard.reward}</span>
-										{shard.strong ? (
+						)}
+						{visibleDaysCount.length > 0 && (
+							<div className="border-t-2 border-gray-200 pt-4 dark:border-gray-700">
+								{visibleDaysCount.map(({ content, iconURL, key }) => (
+									<div className="mb-1 flex items-center gap-2 last:mb-0" key={key}>
+										{iconURL ? (
 											<div
-												aria-label={t("ascended-candles", { ns: "general" })}
+												aria-hidden="true"
 												className="discord-emoji h-4 w-4"
-												role="img"
-												style={{
-													backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
-												}}
+												style={{ backgroundImage: `url(${iconURL})` }}
 											/>
-										) : (
-											<div
-												aria-label="Piece of light"
-												className="h-4 w-4 bg-cover bg-center"
-												role="img"
-												style={{
-													backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
-												}}
-											/>
-										)}
+										) : null}
+										<p className="text-xs text-gray-500 dark:text-gray-400">{content}</p>
 									</div>
-									<div className="space-y-1">
-										{shard.timestamps.map(({ start, end }) => (
-											<ShardEruptionTimestamp
-												currentUnix={currentUnix}
-												end={end}
-												key={start.unix}
-												start={start}
-												timeZoneEstimated={timeZoneEstimated}
-												variant="daily-guides"
-											/>
-										))}
-									</div>
-								</div>
+								))}
 							</div>
-						) : (
-							<p className="my-4 text-sm text-gray-500 dark:text-gray-400">
-								{t("none", { ns: "general" })}
-							</p>
 						)}
 					</div>
-					{(travellingRock || travellingRockNotSpawned) && (
-						<div className="mb-5">
-							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
-								{t("daily-guides.travelling-rock", { ns: "features" })}
-							</h2>
-							{travellingRock ? (
-								<button
-									className="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-									onClick={() =>
-										handleImageClick(
-											cdnAssetURL(cdnURL, `daily_guides/travelling_rocks/${travellingRock}.webp`),
-										)
-									}
-									type="button"
-								>
-									{t("view", { ns: "general" })}
-								</button>
-							) : (
-								<p className="my-4 text-sm text-gray-500 dark:text-gray-400">
-									{t("none", { ns: "general", context: "travelling-rock" })}
-								</p>
-							)}
-						</div>
-					)}
-					{daysCount.length > 0 && (
-						<div className="border-t-2 border-gray-200 pt-4 dark:border-gray-700">
-							{daysCount.map(({ content, iconURL, key }) => (
-								<div className="mb-1 flex items-center gap-2 last:mb-0" key={key}>
-									{iconURL ? (
-										<div
-											aria-hidden="true"
-											className="discord-emoji h-4 w-4"
-											style={{ backgroundImage: `url(${iconURL})` }}
-										/>
-									) : null}
-									<p className="text-xs text-gray-500 dark:text-gray-400">{content}</p>
-								</div>
-							))}
-						</div>
+					{selectedInfographic && (
+						<InfographicPreview
+							acknowledgement={selectedInfographic.acknowledgement}
+							desktop="inline"
+							imageURL={selectedInfographic.imageURL}
+							onClose={() => setSelectedInfographic(null)}
+							title={t("infographic", { ns: "general" })}
+						/>
 					)}
 				</div>
-				{selectedInfographic && (
-					<InfographicPreview
-						acknowledgement={selectedInfographic.acknowledgement}
-						desktop="inline"
-						imageURL={selectedInfographic.imageURL}
-						onClose={() => setSelectedInfographic(null)}
-						title={t("infographic", { ns: "general" })}
-					/>
-				)}
+				<Pagination
+					currentPage={page}
+					formatPage={(offset) => paginationLabels[offset] ?? String(offset)}
+					getPageURL={(offset) =>
+						`?date=${Temporal.PlainDate.from(todayDate).add({ days: offset }).toString()}`
+					}
+					maximumPage={0}
+					minimumPage={minimumPage}
+				/>
 			</div>
 		</CentredSitePage>
 	);

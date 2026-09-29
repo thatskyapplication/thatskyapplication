@@ -46,10 +46,10 @@ export default {
 			return;
 		}
 
-		await dailyGuidesResponse(
-			interaction,
-			(options.getInteger("type") as DailyGuidesDistributionTypes | null) ??
+		await dailyGuidesResponse(interaction, {
+			type:
+				(options.getInteger("type") as DailyGuidesDistributionTypes | null) ??
 				DailyGuidesDistributionType.Compact,
-		);
+		});
 	},
 } as const;

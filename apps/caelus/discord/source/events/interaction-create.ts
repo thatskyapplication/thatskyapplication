@@ -56,6 +56,7 @@ import {
 } from "../features/catalogue.js";
 import { checklistToggle } from "../features/checklist.js";
 import {
+	dailyGuidesNavigation,
 	dailyGuidesResponse,
 	dailyGuidesSetupChannel,
 	dailyGuidesSetupType,
@@ -86,7 +87,7 @@ import {
 	setupResponse,
 } from "../features/notifications.js";
 import { scheduleDetailedBreakdown, scheduleOverview } from "../features/schedule.js";
-import { browse, today } from "../features/shard-eruption.js";
+import { browse, browseOffset, today } from "../features/shard-eruption.js";
 import { shopSuggestionModal, shopSuggestionSubmission } from "../features/shop.js";
 import {
 	isSkyProfileMissingNameSource,
@@ -582,6 +583,7 @@ export default {
 
 				if (id === CustomId.DailyGuidesShardEruptionsMore) {
 					await browse(data, {
+						offset: browseOffset(parts[0]),
 						newMessage: true,
 						ephemeral: true,
 					});
@@ -675,6 +677,16 @@ export default {
 						newMessage: true,
 					});
 
+					return;
+				}
+
+				if (id === CustomId.DailyGuidesToday) {
+					await dailyGuidesNavigation(data, undefined, parts[0]);
+					return;
+				}
+
+				if (id === CustomId.DailyGuidesBack || id === CustomId.DailyGuidesNext) {
+					await dailyGuidesNavigation(data, parts[0], parts[1]);
 					return;
 				}
 

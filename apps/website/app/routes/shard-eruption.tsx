@@ -26,6 +26,7 @@ import {
 } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
+import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/shard-eruption.js";
 
@@ -45,9 +46,6 @@ type ShardEruptionCardProps = {
 	onPreview: (imageURL: string, acknowledgement: string | null) => void;
 	ref: Ref<HTMLDivElement>;
 };
-
-const DATE_NAVIGATION_CLASS =
-	"inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:focus-visible:ring-blue-300" as const;
 
 export const meta = ({ loaderData, location }: Route.MetaArgs) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
