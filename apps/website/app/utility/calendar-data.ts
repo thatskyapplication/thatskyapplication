@@ -1,5 +1,5 @@
 import type { TFunction } from "i18next";
-import { TIME_ZONE } from "@thatskyapplication/utility";
+import { clampPlainDate, parsePlainDate, TIME_ZONE } from "@thatskyapplication/utility";
 import { calendarDayOccurrences } from "~/utility/calendar-day.js";
 import { calendarEntriesBetween } from "~/utility/calendar-entries.js";
 import {
@@ -35,30 +35,6 @@ function monthIsZoneSensitive(nowMilliseconds: number) {
 	const earliest = instant.toZonedDateTimeISO(EARLIEST_UTC_OFFSET).toPlainDate();
 	const latest = instant.toZonedDateTimeISO(LATEST_UTC_OFFSET).toPlainDate();
 	return earliest.year !== latest.year || earliest.month !== latest.month;
-}
-
-function parsePlainDate(value: string | null) {
-	if (value === null) {
-		return null;
-	}
-
-	try {
-		return Temporal.PlainDate.from(value);
-	} catch {
-		return null;
-	}
-}
-
-function clampPlainDate(
-	date: Temporal.PlainDate,
-	minimum: Temporal.PlainDate,
-	maximum: Temporal.PlainDate,
-) {
-	if (Temporal.PlainDate.compare(date, minimum) < 0) {
-		return minimum;
-	}
-
-	return Temporal.PlainDate.compare(date, maximum) > 0 ? maximum : date;
 }
 
 export function calendarData({

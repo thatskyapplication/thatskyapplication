@@ -52,3 +52,27 @@ export function isActive(
 export function epochSeconds(date: Temporal.ZonedDateTime) {
 	return Math.floor(date.epochMilliseconds / 1_000);
 }
+
+export function parsePlainDate(value: string | null | undefined) {
+	if (value == null || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+		return null;
+	}
+
+	try {
+		return Temporal.PlainDate.from(value);
+	} catch {
+		return null;
+	}
+}
+
+export function clampPlainDate(
+	date: Temporal.PlainDate,
+	minimum: Temporal.PlainDate,
+	maximum: Temporal.PlainDate,
+) {
+	if (Temporal.PlainDate.compare(date, minimum) < 0) {
+		return minimum;
+	}
+
+	return Temporal.PlainDate.compare(date, maximum) > 0 ? maximum : date;
+}

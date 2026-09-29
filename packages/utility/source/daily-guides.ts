@@ -1447,33 +1447,31 @@ export interface DailyGuidesDaysCountItem {
 	end?: Temporal.ZonedDateTime | undefined;
 }
 
-export function isWithinDaysCountRange(
-	{ start }: DailyGuidesDaysCountItem,
+export function visibleDaysCountItems<DaysCountItem extends DailyGuidesDaysCountItem>(
+	daysCount: readonly DaysCountItem[],
 	today: Temporal.ZonedDateTime,
 ) {
-	return (
-		today.withTimeZone(TIME_ZONE).toPlainDate().until(start.withTimeZone(TIME_ZONE).toPlainDate())
-			.days <= DAILY_GUIDES_DAYS_COUNT_MAXIMUM_DAYS
-	);
-}
+	const todayDate = today.withTimeZone(TIME_ZONE).toPlainDate();
 
-export function sortDaysCountItems(
-	daysCount: DailyGuidesDaysCountItem[],
-	time: Temporal.ZonedDateTime,
-) {
-	daysCount.sort((left, right) => {
-		const leftActive = left.end !== undefined && isActive(left.start, left.end, time);
-		const rightActive = right.end !== undefined && isActive(right.start, right.end, time);
+	return daysCount
+		.filter(
+			({ start }) =>
+				todayDate.until(start.withTimeZone(TIME_ZONE).toPlainDate()).days <=
+				DAILY_GUIDES_DAYS_COUNT_MAXIMUM_DAYS,
+		)
+		.sort((left, right) => {
+			const leftActive = left.end !== undefined && isActive(left.start, left.end, today);
+			const rightActive = right.end !== undefined && isActive(right.start, right.end, today);
 
-		if (leftActive !== rightActive) {
-			return leftActive ? -1 : 1;
-		}
+			if (leftActive !== rightActive) {
+				return leftActive ? -1 : 1;
+			}
 
-		const leftTime = leftActive && left.end !== undefined ? left.end : left.start;
-		const rightTime = rightActive && right.end !== undefined ? right.end : right.start;
+			const leftTime = leftActive && left.end !== undefined ? left.end : left.start;
+			const rightTime = rightActive && right.end !== undefined ? right.end : right.start;
 
-		return leftActive
-			? Temporal.ZonedDateTime.compare(rightTime, leftTime)
-			: Temporal.ZonedDateTime.compare(leftTime, rightTime);
-	});
+			return leftActive
+				? Temporal.ZonedDateTime.compare(rightTime, leftTime)
+				: Temporal.ZonedDateTime.compare(leftTime, rightTime);
+		});
 }

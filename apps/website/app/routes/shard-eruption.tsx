@@ -3,8 +3,10 @@ import { type Ref, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, redirect, useLocation } from "react-router";
 import {
+	clampPlainDate,
 	epochSeconds,
 	formatEmojiURL,
+	parsePlainDate,
 	type ShardEruptionData,
 	shardEruption,
 	SHARD_ERUPTION_START_DATE,
@@ -78,6 +80,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	const now = skyNow();
 	const today = now.startOfDay();
 	const startDate = SHARD_ERUPTION_START_DATE.toPlainDate();
+	const maximumDate = today.toPlainDate().add({ days: SHARD_ERUPTION_MAXIMUM_PAGE * 30 + 30 });
 	const startDaysOffset = startDate.since(today.toPlainDate()).days;
 	const minimumPage =
 		startDaysOffset > 0 ? Math.floor((startDaysOffset - 1) / 30) : Math.floor(startDaysOffset / 30);
@@ -86,34 +89,27 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	let selectedDate: string | null = null;
 	let selectedPage: number | null = null;
 
-	if (dateParameter !== null) {
-		let targetDate: Temporal.PlainDate | null = null;
+	if (todayParameter !== "1" && dateParameter !== null) {
+		const targetDate = parsePlainDate(dateParameter);
 
-		if (/^\d{4}-\d{2}-\d{2}$/.test(dateParameter)) {
-			try {
-				targetDate = Temporal.PlainDate.from(dateParameter);
-			} catch {
-				targetDate = null;
-			}
-		}
-
-		if (!targetDate) {
+		if (targetDate === null) {
 			url.searchParams.delete("date");
 			throw redirect(`${url.pathname}${url.search}`);
 		}
 
-		const daysOffset = targetDate.since(today.toPlainDate()).days;
-		const targetPage =
-			daysOffset > 0 ? Math.floor((daysOffset - 1) / 30) : Math.floor(daysOffset / 30);
+		const clampedDate = clampPlainDate(targetDate, startDate, maximumDate);
 
-		if (
-			Temporal.PlainDate.compare(targetDate, startDate) < 0 ||
-			targetPage > SHARD_ERUPTION_MAXIMUM_PAGE
-		) {
-			throw new Response("Date is outside the supported shard-eruption range.", { status: 400 });
+		if (!clampedDate.equals(targetDate)) {
+			url.searchParams.set("date", clampedDate.toString());
+			throw redirect(`${url.pathname}${url.search}`);
 		}
 
-		dateSelection = { date: targetDate.toString(), page: targetPage };
+		const daysOffset = targetDate.since(today.toPlainDate()).days;
+
+		dateSelection = {
+			date: targetDate.toString(),
+			page: daysOffset > 0 ? Math.floor((daysOffset - 1) / 30) : Math.floor(daysOffset / 30),
+		};
 	}
 
 	if (!jumpingToPage) {
@@ -188,10 +184,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 		anchorDate: selectedDate ?? today.add({ days: startIndex }).toPlainDate().toString(),
 		currentUnix: epochSeconds(now),
 		locale,
-		maximumDate: today
-			.add({ days: SHARD_ERUPTION_MAXIMUM_PAGE * 30 + 30 })
-			.toPlainDate()
-			.toString(),
+		maximumDate: maximumDate.toString(),
 		minimumDate: startDate.toString(),
 		minimumPage,
 		page,
@@ -381,7 +374,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 					<DatePicker
 						anchorDate={anchorDate}
 						className={DATE_NAVIGATION_CLASS}
-						getDateURL={(date) => `?date=${date}`}
+						getDateURL={(date) => (date === todayDate ? "?today=1" : `?date=${date}`)}
 						label={t("jump-to-date", { ns: "general" })}
 						locale={locale}
 						maximumDate={maximumDate}

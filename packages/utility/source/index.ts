@@ -77,12 +77,21 @@ export {
 	fetchDailyGuides,
 	fetchFirstDailyGuidesDate,
 	isDailyQuest,
-	isWithinDaysCountRange,
-	sortDaysCountItems,
+	visibleDaysCountItems,
 } from "./daily-guides.js";
 export type { Packet } from "./database/index.js";
 export type { DB } from "./database/schema.js";
-export { epochSeconds, isActive, isDuring, skyDate, skyNow, skyToday, TIME_ZONE } from "./dates.js";
+export {
+	clampPlainDate,
+	epochSeconds,
+	isActive,
+	isDuring,
+	parsePlainDate,
+	skyDate,
+	skyNow,
+	skyToday,
+	TIME_ZONE,
+} from "./dates.js";
 export {
 	type Emoji,
 	emojiConstants,

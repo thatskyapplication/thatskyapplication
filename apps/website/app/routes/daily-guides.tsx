@@ -16,10 +16,10 @@ import {
 	fetchFirstDailyGuidesDate,
 	formatEmojiURL,
 	isDailyQuest,
-	isWithinDaysCountRange,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	nextDailyReset,
+	parsePlainDate,
 	RADIANCE_EVENTS,
 	returningSpiritsSchedule,
 	shardEruption,
@@ -28,10 +28,10 @@ import {
 	skyNotEndedEvents,
 	skyUpcomingSeason,
 	SHARD_ERUPTION_START_DATE,
-	sortDaysCountItems,
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
+	visibleDaysCountItems,
 	WEBSITE_URL,
 	dailyQuestLabel,
 } from "@thatskyapplication/utility";
@@ -71,11 +71,10 @@ const DAILY_GUIDES_DESCRIPTION =
 	"Today's quests, treasure candles, seasonal candles, returning spirits, shard eruption, travelling rock, maintenance, and countdowns for Sky: Children of the Light." as const;
 const RETURNING_SPIRITS_LIST_PLACEHOLDER = "__RETURNING_SPIRITS_LIST__" as const;
 
-function dailyGuidesCacheMaxAge(timestamp: number) {
-	const now = Temporal.Instant.fromEpochMilliseconds(timestamp).toZonedDateTimeISO(TIME_ZONE);
+function dailyGuidesCacheMaxAge(now: Temporal.ZonedDateTime, maximum: number) {
 	const secondsUntilDailyReset = Math.floor(nextDailyReset(now).since(now).total("seconds"));
 
-	return Math.max(0, Math.min(300, secondsUntilDailyReset));
+	return Math.max(0, Math.min(maximum, secondsUntilDailyReset));
 }
 
 export const meta: Route.MetaFunction = ({ loaderData, location }) => {
@@ -110,31 +109,24 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const todayDate = now.toPlainDate();
 	const firstDate = (await fetchFirstDailyGuidesDate(database)) ?? todayDate;
 	const minimumPage = Math.min(0, firstDate.since(todayDate).days);
-	let targetDate: Temporal.PlainDate | null = null;
+	let date = todayDate;
 
-	if (dateParameter !== null) {
-		if (/^\d{4}-\d{2}-\d{2}$/.test(dateParameter)) {
-			try {
-				targetDate = Temporal.PlainDate.from(dateParameter);
-			} catch {
-				targetDate = null;
-			}
-		}
+	if (todayParameter !== "1" && dateParameter !== null) {
+		const targetDate = parsePlainDate(dateParameter);
 
-		if (!targetDate) {
+		if (targetDate === null || Temporal.PlainDate.compare(targetDate, todayDate) > 0) {
 			url.searchParams.delete("date");
 			throw redirect(`${url.pathname}${url.search}`);
 		}
 
-		if (
-			Temporal.PlainDate.compare(targetDate, firstDate) < 0 ||
-			Temporal.PlainDate.compare(targetDate, todayDate) > 0
-		) {
-			throw new Response("Date is outside the recorded daily guides range.", { status: 400 });
+		if (Temporal.PlainDate.compare(targetDate, firstDate) < 0) {
+			url.searchParams.set("date", firstDate.toString());
+			throw redirect(`${url.pathname}${url.search}`);
 		}
+
+		date = targetDate;
 	}
 
-	const date = todayParameter === "1" || targetDate === null ? todayDate : targetDate;
 	const page = date.since(todayDate).days;
 	const isToday = page === 0;
 	const paginationDateFormat = new Intl.DateTimeFormat(locale, {
@@ -145,11 +137,12 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	});
 	const paginationLabels: Record<number, string> = {};
 
-	for (let offset = Math.max(minimumPage, page - 2); offset <= Math.min(0, page + 2); offset++) {
+	for (let offset = Math.max(minimumPage, page - 1); offset <= Math.min(0, page + 1); offset++) {
 		paginationLabels[offset] = paginationDateFormat.format(
 			todayDate.add({ days: offset }).toZonedDateTime("UTC").epochMilliseconds,
 		);
 	}
+
 	const dayStart = date.toZonedDateTime(TIME_ZONE);
 	const dailyGuides = await fetchDailyGuides(database, date);
 	const initialTimestamp = now.epochMilliseconds;
@@ -185,7 +178,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		},
 	);
 
-	const cacheMaxAge = isToday ? dailyGuidesCacheMaxAge(initialTimestamp) : 3600;
+	const cacheMaxAge = dailyGuidesCacheMaxAge(now, isToday ? 300 : 3600);
 
 	return data(
 		{
@@ -276,10 +269,16 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	} = loaderData;
 
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
+	const [selectedInfographicDate, setSelectedInfographicDate] = useState(date);
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 	useSkyDailyResetRevalidator(currentTimestamp);
+
+	if (selectedInfographicDate !== date) {
+		setSelectedInfographicDate(date);
+		setSelectedInfographic(null);
+	}
 
 	const now = isToday
 		? Temporal.Instant.fromEpochMilliseconds(currentTimestamp).toZonedDateTimeISO(TIME_ZONE)
@@ -293,6 +292,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const travellingRock = dailyGuides.travelling_rock;
 	const travellingRockNotSpawned = dailyGuides.travelling_rock_not_spawned;
 	const season = skyCurrentSeason(now);
+	const timeFormat = new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 });
 
 	const quests = [];
 
@@ -450,12 +450,23 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		const eventEmoji = EventIdToEventTicketEmoji[id];
 
 		if (daysUntilStart > 0) {
+			const showsStartTime = daysUntilStart < 1;
+
+			const upcoming = showsStartTime
+				? t("daily-guides.event-upcoming-time", {
+						ns: "features",
+						event: eventName,
+						time: timeFormat.format(start.epochMilliseconds),
+					})
+				: t("daily-guides.event-upcoming", {
+						ns: "features",
+						event: eventName,
+						count: Math.floor(daysUntilStart),
+					});
+
 			daysCount.push({
-				content: t("daily-guides.event-upcoming", {
-					ns: "features",
-					event: eventName,
-					count: Math.floor(daysUntilStart),
-				}),
+				content:
+					showsStartTime && timeZoneEstimated ? <SkeletonText>{upcoming}</SkeletonText> : upcoming,
 				end,
 				iconURL: eventEmoji ? formatEmojiURL(eventEmoji.id) : undefined,
 				key: `event-upcoming-${name}`,
@@ -493,11 +504,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				? t("daily-guides.event-upcoming-time", {
 						ns: "features",
 						event: name,
-						time: new Intl.DateTimeFormat(locale, {
-							timeZone,
-							timeStyle: "short",
-							hour12,
-						}).format(start.epochMilliseconds),
+						time: timeFormat.format(start.epochMilliseconds),
 					})
 				: t("daily-guides.event-upcoming", {
 						ns: "features",
@@ -643,12 +650,6 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const seenMaintenanceDays = new Set<number>();
 	const tomorrow = today.add({ days: 1 });
 
-	const maintenanceTimeFormat = new Intl.DateTimeFormat(locale, {
-		timeStyle: "short",
-		timeZone,
-		hour12,
-	});
-
 	for (const maintenance of MAINTENANCE_PERIODS) {
 		if (Temporal.ZonedDateTime.compare(maintenance.end, now) <= 0) {
 			continue;
@@ -681,7 +682,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		} else {
 			const upcoming = t("daily-guides.maintenance-tomorrow", {
 				ns: "features",
-				time: maintenanceTimeFormat.format(maintenance.start.epochMilliseconds),
+				time: timeFormat.format(maintenance.start.epochMilliseconds),
 			});
 
 			daysCount.push({
@@ -697,8 +698,8 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		todayMaintenance.length === 1
 			? t("maintenance-description-singular", {
 					ns: "general",
-					start: maintenanceTimeFormat.format(todayMaintenance[0]!.start.epochMilliseconds),
-					end: maintenanceTimeFormat.format(todayMaintenance[0]!.end.epochMilliseconds),
+					start: timeFormat.format(todayMaintenance[0]!.start.epochMilliseconds),
+					end: timeFormat.format(todayMaintenance[0]!.end.epochMilliseconds),
 				})
 			: null;
 
@@ -730,8 +731,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		});
 	}
 
-	const visibleDaysCount = daysCount.filter((item) => isWithinDaysCountRange(item, today));
-	sortDaysCountItems(visibleDaysCount, now);
+	const visibleDaysCount = visibleDaysCountItems(daysCount, today);
 
 	const handleImageClick = (url: string | null, acknowledgement: string | null = null) => {
 		if (url) {
@@ -749,7 +749,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					<DatePicker
 						anchorDate={date}
 						className={DATE_NAVIGATION_CLASS}
-						getDateURL={(value) => `?date=${value}`}
+						getDateURL={(value) => (value === todayDate ? "?today=1" : `?date=${value}`)}
 						label={t("jump-to-date", { ns: "general" })}
 						locale={locale}
 						maximumDate={todayDate}
@@ -793,10 +793,8 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 												{todayMaintenance.map((maintenance) => {
 													const range = t("time-range", {
 														ns: "general",
-														start: maintenanceTimeFormat.format(
-															maintenance.start.epochMilliseconds,
-														),
-														end: maintenanceTimeFormat.format(maintenance.end.epochMilliseconds),
+														start: timeFormat.format(maintenance.start.epochMilliseconds),
+														end: timeFormat.format(maintenance.end.epochMilliseconds),
 													});
 
 													return (
@@ -1119,10 +1117,13 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				</div>
 				<Pagination
 					currentPage={page}
-					formatPage={(offset) => paginationLabels[offset] ?? String(offset)}
-					getPageURL={(offset) =>
-						`?date=${Temporal.PlainDate.from(todayDate).add({ days: offset }).toString()}`
-					}
+					dates={{
+						label: (offset) => paginationLabels[offset] ?? String(offset),
+						url: (offset) =>
+							offset === 0
+								? "?today=1"
+								: `?date=${Temporal.PlainDate.from(todayDate).add({ days: offset }).toString()}`,
+					}}
 					maximumPage={0}
 					minimumPage={minimumPage}
 				/>

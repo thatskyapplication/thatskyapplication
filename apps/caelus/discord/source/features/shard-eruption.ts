@@ -16,6 +16,7 @@ import {
 } from "@discordjs/core";
 import { t } from "i18next";
 import {
+	parsePlainDate,
 	shardEruption,
 	SHARD_ERUPTION_START_DATE,
 	skyNow,
@@ -212,15 +213,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 }
 
 export function browseOffset(date: string | undefined) {
-	if (date === undefined) {
-		return 0;
-	}
-
-	try {
-		return Temporal.PlainDate.from(date).since(skyToday().toPlainDate()).days;
-	} catch {
-		return 0;
-	}
+	return parsePlainDate(date)?.since(skyToday().toPlainDate()).days ?? 0;
 }
 
 export async function browse(

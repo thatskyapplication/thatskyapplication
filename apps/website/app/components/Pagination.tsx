@@ -9,11 +9,15 @@ import type { CSSProperties, ReactNode } from "react";
 import { Form, Link, useSearchParams } from "react-router";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 
+interface PaginationDates {
+	label: (page: number) => string;
+	url: (page: number) => string;
+}
+
 interface PaginationProps {
 	currentPage: number;
+	dates?: PaginationDates;
 	excludeSearchParameters?: readonly string[];
-	formatPage?: (page: number) => string;
-	getPageURL?: (page: number) => string;
 	maximumPage: number;
 	minimumPage?: number;
 	preventScrollReset?: boolean;
@@ -70,9 +74,8 @@ function PaginationControl({
 
 export default function Pagination({
 	currentPage,
+	dates,
 	excludeSearchParameters = EMPTY_SEARCH_PARAMETERS,
-	formatPage = String,
-	getPageURL,
 	maximumPage,
 	minimumPage = 1,
 	preventScrollReset = false,
@@ -80,9 +83,8 @@ export default function Pagination({
 	const [searchParams] = useSearchParams();
 	const excludedSearchParameters = new Set(excludeSearchParameters);
 
-	// Avoids resetting query parameters.
 	const createPageURL =
-		getPageURL ??
+		dates?.url ??
 		((page: number) => {
 			const params = new URLSearchParams(searchParams);
 
@@ -100,25 +102,18 @@ export default function Pagination({
 	const next2 = currentPage + 2;
 	const absoluteMaximumPage = Math.max(Math.abs(maximumPage), Math.abs(minimumPage));
 	const maximumDigitLength = absoluteMaximumPage.toString().length;
-	const maximumInputLength = getPageURL
-		? Math.max(
-				...[back2, back1, currentPage, next1, next2]
-					.filter((page) => page >= minimumPage && page <= maximumPage)
-					.map((page) => formatPage(page).length),
-			)
-		: minimumPage < 0
-			? maximumDigitLength + 1
-			: maximumDigitLength;
-	const showsOuterNeighbours = getPageURL === undefined;
-	const neighbourClassName = getPageURL ? "hidden lg:block" : "hidden sm:block";
+	const maximumInputLength = minimumPage < 0 ? maximumDigitLength + 1 : maximumDigitLength;
+	const neighbourClassName = dates ? "hidden lg:block" : "hidden sm:block";
 	const previousDisabled = currentPage <= minimumPage;
 	const nextDisabled = currentPage >= maximumPage;
-	const paginationStyle = {
-		"--pagination-current-width": `max(3.5rem, calc(${maximumInputLength}ch + 1.5rem))`,
-		"--pagination-current-width-sm": `max(5rem, calc(${maximumInputLength}ch + 3rem))`,
-		"--pagination-page-width": `max(2.75rem, calc(${maximumInputLength}ch + 1rem))`,
-		"--pagination-page-width-sm": `max(3.5rem, calc(${maximumInputLength}ch + 2rem))`,
-	} as CSSProperties;
+	const paginationStyle = dates
+		? undefined
+		: ({
+				"--pagination-current-width": `max(3.5rem, calc(${maximumInputLength}ch + 1.5rem))`,
+				"--pagination-current-width-sm": `max(5rem, calc(${maximumInputLength}ch + 3rem))`,
+				"--pagination-page-width": `max(2.75rem, calc(${maximumInputLength}ch + 1rem))`,
+				"--pagination-page-width-sm": `max(3.5rem, calc(${maximumInputLength}ch + 2rem))`,
+			} as CSSProperties);
 	const hiddenSearchParameterOccurrences = new Map<string, number>();
 	const hiddenSearchParameters: { key: string; name: string; value: string }[] = [];
 
@@ -161,37 +156,37 @@ export default function Pagination({
 						<ChevronLeftIcon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
 					</PaginationControl>
 				</li>
-				{showsOuterNeighbours && back2 >= minimumPage && (
+				{!dates && back2 >= minimumPage && (
 					<li className={neighbourClassName}>
 						<Link
-							aria-label={`Go to page ${formatPage(back2)}`}
+							aria-label={`Go to page ${back2}`}
 							className={PAGE_LINK_CLASS_NAME}
 							preventScrollReset={preventScrollReset}
 							to={createPageURL(back2)}
 						>
-							{formatPage(back2)}
+							{back2}
 						</Link>
 					</li>
 				)}
 				{back1 >= minimumPage && (
 					<li className={neighbourClassName}>
 						<Link
-							aria-label={`Go to page ${formatPage(back1)}`}
+							aria-label={dates ? undefined : `Go to page ${back1}`}
 							className={PAGE_LINK_CLASS_NAME}
 							preventScrollReset={preventScrollReset}
 							to={createPageURL(back1)}
 						>
-							{formatPage(back1)}
+							{dates ? dates.label(back1) : back1}
 						</Link>
 					</li>
 				)}
 				<li>
-					{getPageURL ? (
+					{dates ? (
 						<span
 							aria-current="page"
-							className="inline-flex h-11 min-w-(--pagination-current-width) items-center justify-center rounded-full border border-gray-400 bg-gray-100 px-3 text-base leading-normal font-medium tabular-nums shadow-sm sm:h-14 sm:min-w-(--pagination-current-width-sm) sm:px-4 sm:text-lg dark:border-gray-600 dark:bg-gray-900"
+							className="inline-flex h-11 items-center justify-center rounded-full border border-gray-400 bg-gray-100 px-3 text-base leading-normal font-medium tabular-nums shadow-sm sm:h-14 sm:px-4 sm:text-lg dark:border-gray-600 dark:bg-gray-900"
 						>
-							{formatPage(currentPage)}
+							{dates.label(currentPage)}
 						</span>
 					) : (
 						<Form
@@ -240,24 +235,24 @@ export default function Pagination({
 				{next1 <= maximumPage && (
 					<li className={neighbourClassName}>
 						<Link
-							aria-label={`Go to page ${formatPage(next1)}`}
+							aria-label={dates ? undefined : `Go to page ${next1}`}
 							className={PAGE_LINK_CLASS_NAME}
 							preventScrollReset={preventScrollReset}
 							to={createPageURL(next1)}
 						>
-							{formatPage(next1)}
+							{dates ? dates.label(next1) : next1}
 						</Link>
 					</li>
 				)}
-				{showsOuterNeighbours && next2 <= maximumPage && (
+				{!dates && next2 <= maximumPage && (
 					<li className={neighbourClassName}>
 						<Link
-							aria-label={`Go to page ${formatPage(next2)}`}
+							aria-label={`Go to page ${next2}`}
 							className={PAGE_LINK_CLASS_NAME}
 							preventScrollReset={preventScrollReset}
 							to={createPageURL(next2)}
 						>
-							{formatPage(next2)}
+							{next2}
 						</Link>
 					</li>
 				)}
