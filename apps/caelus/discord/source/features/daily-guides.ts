@@ -752,14 +752,14 @@ async function distributionData({
 	date,
 }: DailyGuidesDistributionDataOptions): Promise<DailyGuidesDistributionDataResponse> {
 	const currentTime = skyNow();
-	const now =
-		date && !date.equals(currentTime.toPlainDate()) ? date.toZonedDateTime(TIME_ZONE) : currentTime;
+	const isToday = date === undefined || date.equals(currentTime.toPlainDate());
+	const now = isToday ? currentTime : date.toZonedDateTime(TIME_ZONE);
 	const today = now.startOfDay();
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(today.epochMilliseconds)}](${DAILY_GUIDES_URL})`,
+			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(today.epochMilliseconds)}](${isToday ? DAILY_GUIDES_URL : `${DAILY_GUIDES_URL}?date=${today.toPlainDate().toString()}`})`,
 		},
 		{
 			type: ComponentType.Separator,
