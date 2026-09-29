@@ -824,6 +824,30 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.ProposeAKiteDesignInPrairieHeights",
 	},
 	{
+		upstreamKey: "daily_quest_recharge_another_avatar_desc",
+		tsKey: "DailyQuest.RechargeAnotherPlayersLight",
+	},
+	{
+		upstreamKey: "daily_quest_recharge_by_avatar_desc",
+		tsKey: "DailyQuest.RechargeYourLightFromAnotherPlayer",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_night_night_desc",
+		tsKey: "DailyQuest.MeditateWithTheSpiritMantas",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_village_faerie_desc",
+		tsKey: "DailyQuest.MeditateInPrairieVillage",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_tgc_office_xmas_desc",
+		tsKey: "DailyQuest.ShareYourHolidayWishInTheOffice",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_tgc_office_nye_desc",
+		tsKey: "DailyQuest.ShareYourNewYearsResolutionInTheOffice",
+	},
+	{
 		upstreamKey: "name_questap30",
 		tsKey: "SpiritId.CarnivalGuide",
 	},

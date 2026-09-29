@@ -429,13 +429,11 @@ export default {
 			[DailyQuest.PickUpACrab]: "Pick up a crab",
 			[DailyQuest.AdmireSharedSpacesAtTheBrokenBellTowerInAviaryVillageForAShortWhile]:
 				"Admire Shared Spaces at the Broken Bell Tower in Aviary Village for a short while",
-			[DailyQuest.AdmireSharedSpacesWithApplaudingBellmaker]:
-				"Admire Shared Spaces with Applauding Bellmaker",
-			[DailyQuest.AdmireSharedSpacesWithDaydreamForester]:
-				"Admire Shared Spaces with Daydream Forester",
-			[DailyQuest.AdmireSharedSpacesWithBearhugHermit]: "Admire Shared Spaces with Bearhug Hermit",
-			[DailyQuest.AdmireSharedSpacesWithBumblingBoatswain]:
-				"Admire Shared Spaces with Bumbling Boatswain",
+			[DailyQuest.RechargeAnotherPlayersLight]: "Recharge another player's light",
+			[DailyQuest.RechargeYourLightFromAnotherPlayer]: "Recharge your light from another player",
+			[DailyQuest.ShareYourHolidayWishInTheOffice]: "Share your holiday wish in the office",
+			[DailyQuest.ShareYourNewYearsResolutionInTheOffice]:
+				"Share your New Year's Resolution in the office",
 			[DailyQuest.HelpThePrayingAcolyteArchiveSummerInTheArchives]:
 				"Help Praying Acolyte archive summer in the Vault Archive",
 			[DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace]:
@@ -461,8 +459,7 @@ export default {
 				"Catch the wandering lights in the Treehouse",
 			[DailyQuest.CatchTheWanderingLightsInTheCitadel]: "Catch the wandering lights in The Citadel",
 			[DailyQuest.RideAGiantMantaInSanctuaryIslands]: "Ride a giant manta in Sanctuary Islands",
-			[DailyQuest.AdmireSharedSpacesWithTalentedBuilder]:
-				"Admire Shared Spaces with Talented Builder",
+			[DailyQuest.MeditateWithTheSpiritMantas]: "Meditate with the Spirit Mantas",
 			[DailyQuest.FlyWithManyButterfliesInButterflyFields]:
 				"Fly with many butterflies in Butterfly Fields",
 			[DailyQuest.FinishNatsBroomstickRaceInCacklingCrab]:
@@ -525,6 +522,12 @@ export default {
 				"Help Ceasing Commodore or Bearhug Hermit find treasure in Village of Dreams",
 			[DailyQuest.WaveToAPlayer]: "Wave to a player",
 			[DailyQuest.ProposeAKiteDesignInPrairieHeights]: "Propose a kite design in Prairie Heights",
+			[DailyQuest.MeditateInPrairieVillage]: "Meditate in Prairie Village",
+			[DailyQuest.MeetASpiritInDaylightPrairie]: "Meet a spirit in the Daylight Prairie",
+			[DailyQuest.MeetASpiritInHiddenForest]: "Meet a spirit in the Hidden Forest",
+			[DailyQuest.MeetASpiritInValleyOfTriumph]: "Meet a spirit in the Valley of Triumph",
+			[DailyQuest.MeetASpiritInGoldenWasteland]: "Meet a spirit in the Golden Wasteland",
+			[DailyQuest.MeetASpiritInVaultOfKnowledge]: "Meet a spirit in the Vault of Knowledge",
 		} satisfies Partial<Record<DailyQuests, string>>,
 		light: "Light",
 		season: "Season",
