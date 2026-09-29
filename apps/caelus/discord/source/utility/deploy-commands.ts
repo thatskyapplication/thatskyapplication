@@ -451,6 +451,139 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
+		name: t("friendship-action.command-name", { ns: "commands" }),
+		name_localizations: localisations("friendship-action.command-name"),
+		description: t("friendship-action.command-description", { ns: "commands" }),
+		description_localizations: localisations("friendship-action.command-description"),
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: t("friendship-action.hair-tousle.command-name", { ns: "commands" }),
+				name_localizations: localisations("friendship-action.hair-tousle.command-name"),
+				description: t("friendship-action.hair-tousle.command-description", {
+					ns: "commands",
+				}),
+				description_localizations: localisations(
+					"friendship-action.hair-tousle.command-description",
+				),
+				options: [
+					{
+						type: ApplicationCommandOptionType.User,
+						name: t("common.user", { ns: "commands" }),
+						name_localizations: localisations("common.user"),
+						description: t("friendship-action.hair-tousle.command-option-user-description", {
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"friendship-action.hair-tousle.command-option-user-description",
+						),
+						required: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: t("friendship-action.high-five.command-name", { ns: "commands" }),
+				name_localizations: localisations("friendship-action.high-five.command-name"),
+				description: t("friendship-action.high-five.command-description", {
+					ns: "commands",
+				}),
+				description_localizations: localisations("friendship-action.high-five.command-description"),
+				options: [
+					{
+						type: ApplicationCommandOptionType.User,
+						name: t("common.user", { ns: "commands" }),
+						name_localizations: localisations("common.user"),
+						description: t("friendship-action.high-five.command-option-user-description", {
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"friendship-action.high-five.command-option-user-description",
+						),
+						required: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: t("friendship-action.hug.command-name", { ns: "commands" }),
+				name_localizations: localisations("friendship-action.hug.command-name"),
+				description: t("friendship-action.hug.command-description", {
+					ns: "commands",
+				}),
+				description_localizations: localisations("friendship-action.hug.command-description"),
+				options: [
+					{
+						type: ApplicationCommandOptionType.User,
+						name: t("common.user", { ns: "commands" }),
+						name_localizations: localisations("common.user"),
+						description: t("friendship-action.hug.command-option-user-description", {
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"friendship-action.hug.command-option-user-description",
+						),
+						required: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: t("friendship-action.krill.command-name", { ns: "commands" }),
+				name_localizations: localisations("friendship-action.krill.command-name"),
+				description: t("friendship-action.krill.command-description", {
+					ns: "commands",
+				}),
+				description_localizations: localisations("friendship-action.krill.command-description"),
+				options: [
+					{
+						type: ApplicationCommandOptionType.User,
+						name: t("common.user", { ns: "commands" }),
+						name_localizations: localisations("common.user"),
+						description: t("friendship-action.krill.command-option-user-description", {
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"friendship-action.krill.command-option-user-description",
+						),
+						required: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: t("friendship-action.play-fight.command-name", { ns: "commands" }),
+				name_localizations: localisations("friendship-action.play-fight.command-name"),
+				description: t("friendship-action.play-fight.command-description", {
+					ns: "commands",
+				}),
+				description_localizations: localisations(
+					"friendship-action.play-fight.command-description",
+				),
+				options: [
+					{
+						type: ApplicationCommandOptionType.User,
+						name: t("common.user", { ns: "commands" }),
+						name_localizations: localisations("common.user"),
+						description: t("friendship-action.play-fight.command-option-user-description", {
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"friendship-action.play-fight.command-option-user-description",
+						),
+						required: true,
+					},
+				],
+			},
+		],
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
+	},
+	{
 		name: t("Gift-Heart.command-name", { ns: "commands" }),
 		name_localizations: localisations("Gift-Heart.command-name"),
 		type: ApplicationCommandType.User,
@@ -494,30 +627,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
-		name: t("hair-tousle.command-name", { ns: "commands" }),
-		name_localizations: localisations("hair-tousle.command-name"),
-		description: t("hair-tousle.command-description", { ns: "commands" }),
-		description_localizations: localisations("hair-tousle.command-description"),
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.User,
-				name: t("common.user", { ns: "commands" }),
-				name_localizations: localisations("common.user"),
-				description: t("hair-tousle.command-option-user-description", {
-					ns: "commands",
-				}),
-				description_localizations: localisations("hair-tousle.command-option-user-description"),
-				required: true,
-			},
-		],
-		integration_types: [
-			ApplicationIntegrationType.GuildInstall,
-			ApplicationIntegrationType.UserInstall,
-		],
-		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
-	},
-	{
 		name: t("heart.command-name", { ns: "commands" }),
 		name_localizations: localisations("heart.command-name"),
 		description: t("heart.command-description", { ns: "commands" }),
@@ -553,102 +662,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					ns: "commands",
 				}),
 				description_localizations: localisations("heart.history.command-description"),
-			},
-		],
-		integration_types: [
-			ApplicationIntegrationType.GuildInstall,
-			ApplicationIntegrationType.UserInstall,
-		],
-		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
-	},
-	{
-		name: t("high-five.command-name", { ns: "commands" }),
-		name_localizations: localisations("high-five.command-name"),
-		description: t("high-five.command-description", { ns: "commands" }),
-		description_localizations: localisations("high-five.command-description"),
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.User,
-				name: t("common.user", { ns: "commands" }),
-				name_localizations: localisations("common.user"),
-				description: t("high-five.command-option-user-description", {
-					ns: "commands",
-				}),
-				description_localizations: localisations("high-five.command-option-user-description"),
-				required: true,
-			},
-		],
-		integration_types: [
-			ApplicationIntegrationType.GuildInstall,
-			ApplicationIntegrationType.UserInstall,
-		],
-		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
-	},
-	{
-		name: t("hug.command-name", { ns: "commands" }),
-		name_localizations: localisations("hug.command-name"),
-		description: t("hug.command-description", { ns: "commands" }),
-		description_localizations: localisations("hug.command-description"),
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.User,
-				name: t("common.user", { ns: "commands" }),
-				name_localizations: localisations("common.user"),
-				description: t("hug.command-option-user-description", {
-					ns: "commands",
-				}),
-				description_localizations: localisations("hug.command-option-user-description"),
-				required: true,
-			},
-		],
-		integration_types: [
-			ApplicationIntegrationType.GuildInstall,
-			ApplicationIntegrationType.UserInstall,
-		],
-		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
-	},
-	{
-		name: t("krill.command-name", { ns: "commands" }),
-		name_localizations: localisations("krill.command-name"),
-		description: t("krill.command-description", { ns: "commands" }),
-		description_localizations: localisations("krill.command-description"),
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.User,
-				name: t("common.user", { ns: "commands" }),
-				name_localizations: localisations("common.user"),
-				description: t("krill.command-option-user-description", {
-					ns: "commands",
-				}),
-				description_localizations: localisations("krill.command-option-user-description"),
-				required: true,
-			},
-		],
-		integration_types: [
-			ApplicationIntegrationType.GuildInstall,
-			ApplicationIntegrationType.UserInstall,
-		],
-		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
-	},
-	{
-		name: t("play-fight.command-name", { ns: "commands" }),
-		name_localizations: localisations("play-fight.command-name"),
-		description: t("play-fight.command-description", { ns: "commands" }),
-		description_localizations: localisations("play-fight.command-description"),
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.User,
-				name: t("common.user", { ns: "commands" }),
-				name_localizations: localisations("common.user"),
-				description: t("play-fight.command-option-user-description", {
-					ns: "commands",
-				}),
-				description_localizations: localisations("play-fight.command-option-user-description"),
-				required: true,
 			},
 		],
 		integration_types: [

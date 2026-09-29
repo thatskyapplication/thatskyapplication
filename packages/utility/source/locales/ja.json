@@ -2390,6 +2390,35 @@
 				"command-description": ""
 			}
 		},
+		"friendship-action": {
+			"command-name": "",
+			"command-description": "",
+			"hair-tousle": {
+				"command-name": "なでなで",
+				"command-description": "誰かをなでなでしましょう！",
+				"command-option-user-description": "髪がくしゃくしゃになるまで撫でたい相手。"
+			},
+			"high-five": {
+				"command-name": "ハイタッチ",
+				"command-description": "誰かとハイタッチしましょう！",
+				"command-option-user-description": "ハイタッチしたい相手。"
+			},
+			"hug": {
+				"command-name": "ハグ",
+				"command-description": "誰かとハグしましょう！",
+				"command-option-user-description": "ぎゅーっと抱きしめたい相手。"
+			},
+			"krill": {
+				"command-name": "エビ",
+				"command-description": "相手に暗黒竜をぶつけましょう！",
+				"command-option-user-description": "エビの犠牲者を選ぶ。"
+			},
+			"play-fight": {
+				"command-name": "けんかごっこ",
+				"command-description": "誰かとけんかごっこをしましょう！",
+				"command-option-user-description": "けんかごっこをふっかける相手。"
+			}
+		},
 		"games": {
 			"command-name": "",
 			"command-description": ""
@@ -2400,11 +2429,6 @@
 		"guess": {
 			"command-name": "クイズ",
 			"command-description": "Sky知識のクイズゲーム！何連続正解できるかな？"
-		},
-		"hair-tousle": {
-			"command-name": "なでなで",
-			"command-description": "誰かをなでなでしましょう！",
-			"command-option-user-description": "髪がくしゃくしゃになるまで撫でたい相手。"
 		},
 		"heart": {
 			"command-name": "ハート",
@@ -2417,26 +2441,6 @@
 			"history": {
 				"command-description": "仲間とのハートの思い出を見ましょう！"
 			}
-		},
-		"high-five": {
-			"command-name": "ハイタッチ",
-			"command-description": "誰かとハイタッチしましょう！",
-			"command-option-user-description": "ハイタッチしたい相手。"
-		},
-		"hug": {
-			"command-name": "ハグ",
-			"command-description": "誰かとハグしましょう！",
-			"command-option-user-description": "ぎゅーっと抱きしめたい相手。"
-		},
-		"krill": {
-			"command-name": "エビ",
-			"command-description": "相手に暗黒竜をぶつけましょう！",
-			"command-option-user-description": "エビの犠牲者を選ぶ。"
-		},
-		"play-fight": {
-			"command-name": "けんかごっこ",
-			"command-description": "誰かとけんかごっこをしましょう！",
-			"command-option-user-description": "けんかごっこをふっかける相手。"
 		},
 		"quest": {
 			"command-name": "クエスト",

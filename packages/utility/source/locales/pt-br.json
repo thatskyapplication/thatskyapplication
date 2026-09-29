@@ -2395,6 +2395,35 @@
 				"command-description": "Excluir seus dados."
 			}
 		},
+		"friendship-action": {
+			"command-name": "",
+			"command-description": "",
+			"hair-tousle": {
+				"command-name": "cafuné",
+				"command-description": "Faça um cafuné em alguém!",
+				"command-option-user-description": "O indivíduo cujo cabelo será bagunçado."
+			},
+			"high-five": {
+				"command-name": "toca-aí",
+				"command-description": "Toca aí com alguém!",
+				"command-option-user-description": "O indivíduo com quem vai fazer o toca aí."
+			},
+			"hug": {
+				"command-name": "abraço",
+				"command-description": "Abrace alguém!",
+				"command-option-user-description": "O indivíduo a ser abraçado."
+			},
+			"krill": {
+				"command-name": "krill",
+				"command-description": "Fazer alguém ser atacado por um krill!",
+				"command-option-user-description": "O indivíduo a ser atacado por um krill."
+			},
+			"play-fight": {
+				"command-name": "jogo-de-luta",
+				"command-description": "Lute com alguém!",
+				"command-option-user-description": "O indivíduo com quem vai fazer o jogo de luta."
+			}
+		},
 		"games": {
 			"command-name": "jogos",
 			"command-description": "Vamos jogar os jogos de Sky!"
@@ -2405,11 +2434,6 @@
 		"guess": {
 			"command-name": "quiz",
 			"command-description": "Vamos jogar um quiz de Sky! Quantos seguidos você consegue acertar?"
-		},
-		"hair-tousle": {
-			"command-name": "cafuné",
-			"command-description": "Faça um cafuné em alguém!",
-			"command-option-user-description": "O indivíduo cujo cabelo será bagunçado."
 		},
 		"heart": {
 			"command-name": "coração",
@@ -2422,26 +2446,6 @@
 			"history": {
 				"command-description": "Mostra o histórico dos seus corações!"
 			}
-		},
-		"high-five": {
-			"command-name": "toca-aí",
-			"command-description": "Toca aí com alguém!",
-			"command-option-user-description": "O indivíduo com quem vai fazer o toca aí."
-		},
-		"hug": {
-			"command-name": "abraço",
-			"command-description": "Abrace alguém!",
-			"command-option-user-description": "O indivíduo a ser abraçado."
-		},
-		"krill": {
-			"command-name": "krill",
-			"command-description": "Fazer alguém ser atacado por um krill!",
-			"command-option-user-description": "O indivíduo a ser atacado por um krill."
-		},
-		"play-fight": {
-			"command-name": "jogo-de-luta",
-			"command-description": "Lute com alguém!",
-			"command-option-user-description": "O indivíduo com quem vai fazer o jogo de luta."
 		},
 		"quest": {
 			"command-name": "missão",

@@ -2395,6 +2395,35 @@
 				"command-description": "Supprimer vos données."
 			}
 		},
+		"friendship-action": {
+			"command-name": "",
+			"command-description": "",
+			"hair-tousle": {
+				"command-name": "ébouriffage-de-cheveux",
+				"command-description": "Ébouriffez les cheveux de quelqu'un !",
+				"command-option-user-description": "La personne qui se fera ébouriffer les cheveux."
+			},
+			"high-five": {
+				"command-name": "tope-là",
+				"command-description": "Topez-là avec quelqu'un !",
+				"command-option-user-description": "La personne à qui là-toper."
+			},
+			"hug": {
+				"command-name": "câlin",
+				"command-description": "Fais un câlin à quelqu'un !",
+				"command-option-user-description": "La personne à qui tu veux faire un câlin."
+			},
+			"krill": {
+				"command-name": "krill",
+				"command-description": "Fait quelqu'un se faire attaquer par un krill !",
+				"command-option-user-description": "La personne qui se fera attaquer par un krill."
+			},
+			"play-fight": {
+				"command-name": "bagarre-amicale",
+				"command-description": "Jouez à la bagarre avec quelqu'un !",
+				"command-option-user-description": "La personne avec qui jouer à la bagarre."
+			}
+		},
 		"games": {
 			"command-name": "",
 			"command-description": ""
@@ -2405,11 +2434,6 @@
 		"guess": {
 			"command-name": "devinettes",
 			"command-description": "Commencez un jeu de devinettes Sky ! Combien réussirez-vous à deviner d'affilée ?"
-		},
-		"hair-tousle": {
-			"command-name": "ébouriffage-de-cheveux",
-			"command-description": "Ébouriffez les cheveux de quelqu'un !",
-			"command-option-user-description": "La personne qui se fera ébouriffer les cheveux."
 		},
 		"heart": {
 			"command-name": "cœur",
@@ -2422,26 +2446,6 @@
 			"history": {
 				"command-description": "Afficher un historique de vos cœurs !"
 			}
-		},
-		"high-five": {
-			"command-name": "tope-là",
-			"command-description": "Topez-là avec quelqu'un !",
-			"command-option-user-description": "La personne à qui là-toper."
-		},
-		"hug": {
-			"command-name": "câlin",
-			"command-description": "Fais un câlin à quelqu'un !",
-			"command-option-user-description": "La personne à qui tu veux faire un câlin."
-		},
-		"krill": {
-			"command-name": "krill",
-			"command-description": "Fait quelqu'un se faire attaquer par un krill !",
-			"command-option-user-description": "La personne qui se fera attaquer par un krill."
-		},
-		"play-fight": {
-			"command-name": "bagarre-amicale",
-			"command-description": "Jouez à la bagarre avec quelqu'un !",
-			"command-option-user-description": "La personne avec qui jouer à la bagarre."
 		},
 		"quest": {
 			"command-name": "quête",

@@ -2405,6 +2405,35 @@
 				"command-description": ""
 			}
 		},
+		"friendship-action": {
+			"command-name": "",
+			"command-description": "",
+			"hair-tousle": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-user-description": ""
+			},
+			"high-five": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-user-description": ""
+			},
+			"hug": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-user-description": ""
+			},
+			"krill": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-user-description": ""
+			},
+			"play-fight": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-user-description": ""
+			}
+		},
 		"games": {
 			"command-name": "",
 			"command-description": ""
@@ -2415,11 +2444,6 @@
 		"guess": {
 			"command-name": "",
 			"command-description": ""
-		},
-		"hair-tousle": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-description": ""
 		},
 		"heart": {
 			"command-name": "",
@@ -2432,26 +2456,6 @@
 			"history": {
 				"command-description": ""
 			}
-		},
-		"high-five": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-description": ""
-		},
-		"hug": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-description": ""
-		},
-		"krill": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-description": ""
-		},
-		"play-fight": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-description": ""
 		},
 		"quest": {
 			"command-name": "",

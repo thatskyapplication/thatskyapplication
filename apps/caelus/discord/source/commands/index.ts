@@ -6,13 +6,9 @@ import checklist from "./chat-inputs/checklist.js";
 import configure from "./chat-inputs/configure.js";
 import dailyGuides from "./chat-inputs/daily-guides.js";
 import data from "./chat-inputs/data.js";
+import friendship_action from "./chat-inputs/friendship-action.js";
 import guess from "./chat-inputs/guess.js";
-import hair_tousle from "./chat-inputs/hair-tousle.js";
 import heart from "./chat-inputs/heart.js";
-import high_five from "./chat-inputs/high-five.js";
-import hug from "./chat-inputs/hug.js";
-import krill from "./chat-inputs/krill.js";
-import play_fight from "./chat-inputs/play-fight.js";
 import quest from "./chat-inputs/quest.js";
 import schedule from "./chat-inputs/schedule.js";
 import shard_eruption from "./chat-inputs/shard-eruption.js";
@@ -31,13 +27,9 @@ export const CHAT_INPUT_COMMANDS = [
 	configure,
 	dailyGuides,
 	data,
-	hair_tousle,
+	friendship_action,
 	guess,
 	heart,
-	high_five,
-	hug,
-	krill,
-	play_fight,
 	quest,
 	schedule,
 	shard_eruption,

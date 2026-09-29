@@ -2720,6 +2720,35 @@ export default {
 				"command-description": "Delete your data.",
 			},
 		},
+		"friendship-action": {
+			"command-name": "friendship-action",
+			"command-description": "Share a friendship action with someone!",
+			"hair-tousle": {
+				"command-name": "hair-tousle",
+				"command-description": "Give someone a hair tousle!",
+				"command-option-user-description": "The individual whose hair will be tousled.",
+			},
+			"high-five": {
+				"command-name": "high-five",
+				"command-description": "High-five someone!",
+				"command-option-user-description": "The individual to high-five.",
+			},
+			hug: {
+				"command-name": "hug",
+				"command-description": "Hug someone!",
+				"command-option-user-description": "The individual to be hugged.",
+			},
+			krill: {
+				"command-name": "krill",
+				"command-description": "Krill someone!",
+				"command-option-user-description": "The individual to be krilled.",
+			},
+			"play-fight": {
+				"command-name": "play-fight",
+				"command-description": "Fight someone!",
+				"command-option-user-description": "The individual to play fight.",
+			},
+		},
 		games: {
 			"command-name": "games",
 			"command-description": "Let's play Sky games!",
@@ -2730,11 +2759,6 @@ export default {
 		guess: {
 			"command-name": "guess",
 			"command-description": "Begin a Sky guessing game! How many can you get right in a row?",
-		},
-		"hair-tousle": {
-			"command-name": "hair-tousle",
-			"command-description": "Give someone a hair tousle!",
-			"command-option-user-description": "The individual whose hair will be tousled.",
 		},
 		heart: {
 			"command-name": "heart",
@@ -2747,26 +2771,6 @@ export default {
 			history: {
 				"command-description": "Display a history of your hearts!",
 			},
-		},
-		"high-five": {
-			"command-name": "high-five",
-			"command-description": "High-five someone!",
-			"command-option-user-description": "The individual to high-five.",
-		},
-		hug: {
-			"command-name": "hug",
-			"command-description": "Hug someone!",
-			"command-option-user-description": "The individual to be hugged.",
-		},
-		krill: {
-			"command-name": "krill",
-			"command-description": "Krill someone!",
-			"command-option-user-description": "The individual to be krilled.",
-		},
-		"play-fight": {
-			"command-name": "play-fight",
-			"command-description": "Fight someone!",
-			"command-option-user-description": "The individual to play fight.",
 		},
 		quest: {
 			"command-name": "quest",

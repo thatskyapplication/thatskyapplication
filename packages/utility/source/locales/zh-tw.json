@@ -2390,6 +2390,35 @@
 				"command-description": "刪除您的資料。"
 			}
 		},
+		"friendship-action": {
+			"command-name": "",
+			"command-description": "",
+			"hair-tousle": {
+				"command-name": "弄亂頭髮",
+				"command-description": "弄亂某人的頭髮！",
+				"command-option-user-description": "頭髮將會被弄亂的人。"
+			},
+			"high-five": {
+				"command-name": "擊掌",
+				"command-description": "擊掌慶祝！",
+				"command-option-user-description": "和某人擊掌了。"
+			},
+			"hug": {
+				"command-name": "擁抱",
+				"command-description": "擁抱某人！",
+				"command-option-user-description": "某人被擁抱了。"
+			},
+			"krill": {
+				"command-name": "冥龍",
+				"command-description": "冥龍某人！",
+				"command-option-user-description": "某人被冥龍了。"
+			},
+			"play-fight": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-user-description": ""
+			}
+		},
 		"games": {
 			"command-name": "",
 			"command-description": ""
@@ -2400,11 +2429,6 @@
 		"guess": {
 			"command-name": "猜測",
 			"command-description": "開始光遇知識猜謎！在這局中您能連續答對多少次？"
-		},
-		"hair-tousle": {
-			"command-name": "弄亂頭髮",
-			"command-description": "弄亂某人的頭髮！",
-			"command-option-user-description": "頭髮將會被弄亂的人。"
 		},
 		"heart": {
 			"command-name": "愛心",
@@ -2417,26 +2441,6 @@
 			"history": {
 				"command-description": "展現你獲得愛心的歷史紀錄！"
 			}
-		},
-		"high-five": {
-			"command-name": "擊掌",
-			"command-description": "擊掌慶祝！",
-			"command-option-user-description": "和某人擊掌了。"
-		},
-		"hug": {
-			"command-name": "擁抱",
-			"command-description": "擁抱某人！",
-			"command-option-user-description": "某人被擁抱了。"
-		},
-		"krill": {
-			"command-name": "冥龍",
-			"command-description": "冥龍某人！",
-			"command-option-user-description": "某人被冥龍了。"
-		},
-		"play-fight": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-description": ""
 		},
 		"quest": {
 			"command-name": "",
