@@ -244,6 +244,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "title_rain_bluebirdtheater_01",
+		overrides: {
+			Base: {
+				upstreamValue: "Blue Bird Theater",
+				value: "Blue Bird Theatre",
+			},
+		},
 		tsKey: "AreaName.BlueBirdTheatre",
 	},
 	{
@@ -288,6 +294,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "title_sunset_theater_01",
+		overrides: {
+			Base: {
+				upstreamValue: "Village Theater",
+				value: "Village Theatre",
+			},
+		},
 		tsKey: "AreaName.VillageTheatre",
 	},
 	{
@@ -484,6 +496,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "name_season_21",
+		overrides: {
+			Base: {
+				upstreamValue: "Season of the Nine-Colored Deer",
+				value: "Season of the Nine-Coloured Deer",
+			},
+		},
 		tsKey: "SeasonId.NineColouredDeer",
 	},
 	{
@@ -821,6 +839,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_color_voted_for_kite_desc",
+		overrides: {
+			es: {
+				upstreamValue: "Propone un diseño de cometa en las Alturas de la planicie.",
+				value: "Propone un diseño de cometa en las Alturas de la planicie",
+			},
+		},
 		tsKey: "DailyQuest.ProposeAKiteDesignInPrairieHeights",
 	},
 	{
@@ -849,7 +873,1211 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_visit_prairie_cozycave_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Visit the cozy hideout in Prairie Caves",
+				value: "Visit the cosy hideout in Prairie Caves",
+			},
+		},
 		tsKey: "DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_pickup_30_wax_desc",
+		tsKey: "DailyQuest.Collect30PiecesOfLight",
+	},
+	{
+		upstreamKey: "daily_quest_light_20_candles_desc",
+		tsKey: "DailyQuest.Light20Candles",
+	},
+	{
+		upstreamKey: "daily_quest_forge_a_candle_desc",
+		tsKey: "DailyQuest.ForgeACandle",
+	},
+	{
+		upstreamKey: "daily_quest_melt_10_darkstones_desc",
+		tsKey: "DailyQuest.Melt10Darkness",
+	},
+	{
+		upstreamKey: "daily_quest_bow_at_a_player_desc",
+		tsKey: "DailyQuest.BowAtAPlayer",
+	},
+	{
+		upstreamKey: "daily_quest_follow_another_player_desc",
+		tsKey: "DailyQuest.FollowAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_hug_someone_desc",
+		tsKey: "DailyQuest.HugAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_wave_at_a_friend_desc",
+		tsKey: "DailyQuest.WaveToAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_hold_someones_hand_desc",
+		tsKey: "DailyQuest.HoldAFriendsHand",
+	},
+	{
+		upstreamKey: "daily_quest_send_a_gift_desc",
+		tsKey: "DailyQuest.SendAGiftToAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_make_a_new_acquaintance_desc",
+		tsKey: "DailyQuest.MakeANewAcquaintance",
+	},
+	{
+		upstreamKey: "daily_quest_high_five_someone_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "High-Five a friend",
+				value: "High-five a friend",
+			},
+		},
+		tsKey: "DailyQuest.HighFiveAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_express_an_emote_to_a_friend_desc",
+		tsKey: "DailyQuest.UseAnExpressionNearAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_sit_at_a_bench_with_a_stranger_desc",
+		tsKey: "DailyQuest.SitOnABenchWithAStranger",
+	},
+	{
+		upstreamKey: "daily_quest_fly_with_a_manta_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Ride with a Manta",
+				value: "Ride with a manta",
+			},
+		},
+		tsKey: "DailyQuest.RideWithAManta",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories",
+				value: "Relive a spirit's memories",
+			},
+		},
+		tsKey: "DailyQuest.ReliveASpiritsMemories",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_in_day_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Daylight Prairie",
+				value: "Relive a spirit's memories in the Daylight Prairie",
+			},
+		},
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_in_rain_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Hidden Forest",
+				value: "Relive a spirit's memories in the Hidden Forest",
+			},
+		},
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_in_sunset_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Valley of Triumph",
+				value: "Relive a spirit's memories in the Valley of Triumph",
+			},
+		},
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_in_dusk_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Golden Wasteland",
+				value: "Relive a spirit's memories in the Golden Wasteland",
+			},
+		},
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_in_night_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Vault of Knowledge",
+				value: "Relive a spirit's memories in the Vault of Knowledge",
+			},
+		},
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge",
+	},
+	{
+		upstreamKey: "daily_quest_seen_by_dark_creature_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Face the Dark Dragon",
+				value: "Face the dark dragon",
+			},
+		},
+		tsKey: "DailyQuest.FaceTheDarkDragon",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_prairie_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Catch the light in Daylight Prairie",
+				value: "Catch the light in the Daylight Prairie",
+			},
+		},
+		tsKey: "DailyQuest.CatchTheLightInTheDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_forest_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Catch the light in Hidden Forest",
+				value: "Catch the light in the Hidden Forest",
+			},
+		},
+		tsKey: "DailyQuest.CatchTheLightInTheHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_valley_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Catch the light in Valley of Triumph",
+				value: "Catch the light in the Valley of Triumph",
+			},
+		},
+		tsKey: "DailyQuest.CatchTheLightInTheValleyOfTriumph",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_wasteland_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Catch the light in Golden Wasteland",
+				value: "Catch the light in the Golden Wasteland",
+			},
+		},
+		tsKey: "DailyQuest.CatchTheLightInTheGoldenWasteland",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_vault_desc",
+		tsKey: "DailyQuest.CatchTheLightInTheVaultOfKnowledge",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rain_grandmatable_desc",
+		tsKey: "DailyQuest.VisitTheAncestorsTableInTheElevatedClearing",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_nature_vortex1_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Rid the Sanctuary Vortex of Darkness",
+				value: "Rid the sanctuary vortex of darkness",
+			},
+		},
+		tsKey: "DailyQuest.RidTheSanctuaryVortexOfDarkness",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_prairie_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Find the candles at the end of the rainbow in Daylight Prairie",
+				value: "Find the candles at the end of the rainbow in the Daylight Prairie",
+			},
+		},
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_rain_desc",
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_sunset_desc",
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_dusk_desc",
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_night_desc",
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_nestkeeper_desc",
+		tsKey: "DailyQuest.MeditateByTheBirdNest",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_butterfly_desc",
+		tsKey: "DailyQuest.MeditateInButterflyFields",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_cave_desc",
+		tsKey: "DailyQuest.MeditateInPrairieCave",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_village_koi_desc",
+		tsKey: "DailyQuest.MeditateByPrairieTemplesKoiPond",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_main_desc",
+		tsKey: "DailyQuest.MeditateOutsideTheForestCourtyard",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_rainforest_desc",
+		tsKey: "DailyQuest.MeditateAboveTheForestBrook",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_shelter_desc",
+		tsKey: "DailyQuest.MeditateInTheElevatedClearing",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_rainend_desc",
+		tsKey: "DailyQuest.MeditateAtTheSacredPond",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_rainmid_desc",
+		tsKey: "DailyQuest.MeditateByTheForestsBoneyard",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_sunset_main_desc",
+		tsKey: "DailyQuest.MeditateOverlookingTheFrozenLake",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_sunset_citadel_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Meditiere auf dem Eingang zur Zitadelle.",
+				value: "Meditiere auf dem Eingang zur Zitadelle",
+			},
+		},
+		tsKey: "DailyQuest.MeditateAtopTheEntranceToTheCitadel",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_sunset_citadel2_desc",
+		tsKey: "DailyQuest.MeditateHighAboveTheCitadel",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_sunset_raceend_desc",
+		tsKey: "DailyQuest.MeditateInTheColiseum",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_main_desc",
+		tsKey: "DailyQuest.MeditateInTheBrokenTemple",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_oasis_desc",
+		tsKey: "DailyQuest.MeditateByTheForgottenArk",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_graveyard_desc",
+		tsKey: "DailyQuest.MeditateInTheGraveyard",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_crabfields_desc",
+		tsKey: "DailyQuest.MeditateInTheCrabFields",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_duskmid_desc",
+		tsKey: "DailyQuest.MeditateOnTheBattlefield",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_night_main2_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Meditiere am Eingang des Tresor des Wissens.",
+				value: "Meditiere am Eingang des Tresor des Wissens",
+			},
+			fr: {
+				upstreamValue: "Méditez à l'entrée de la Chambre forte de connaissance.",
+				value: "Méditez à l'entrée de la Chambre forte de connaissance",
+			},
+			it: {
+				upstreamValue: "Meditare all'ingresso della Cupola della Conoscenza.",
+				value: "Meditare all'ingresso della Cupola della Conoscenza",
+			},
+			pt: {
+				upstreamValue: "Meditar na entrada do Relicário do Conhecimento.",
+				value: "Meditar na entrada do Relicário do Conhecimento",
+			},
+			vi: {
+				upstreamValue: "Ngồi thiền ở lối vào Kho Tri Thức.",
+				value: "Ngồi thiền ở lối vào Kho Tri Thức",
+			},
+			"zh-Hans": {
+				upstreamValue: "在禁阁的入口冥想。",
+				value: "在禁阁的入口冥想",
+			},
+			"zh-Hant": {
+				upstreamValue: "在禁閣的入口處進行冥想。",
+				value: "在禁閣的入口處進行冥想",
+			},
+		},
+		tsKey: "DailyQuest.MeditateAtTheVaultsEntrance",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_night_main_desc",
+		tsKey: "DailyQuest.MeditateOnTheSecondFloorOfTheVault",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_night_night2_desc",
+		tsKey: "DailyQuest.MeditateAtTheVaultTemple",
+	},
+	{
+		upstreamKey: "daily_quest_fetchlight_earth_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Collect Green Light",
+				value: "Collect green light",
+			},
+			"zh-Hans": {
+				upstreamValue: "收集 绿色光芒",
+				value: "收集绿色光芒",
+			},
+			"zh-Hant": {
+				upstreamValue: "收集 綠色光芒",
+				value: "收集綠色光芒",
+			},
+		},
+		tsKey: "DailyQuest.CollectGreenLight",
+	},
+	{
+		upstreamKey: "daily_quest_fetchlight_fire_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Collect Orange Light",
+				value: "Collect orange light",
+			},
+			"zh-Hans": {
+				upstreamValue: "收集 橙色光芒",
+				value: "收集橙色光芒",
+			},
+			"zh-Hant": {
+				upstreamValue: "收集 橙色光芒",
+				value: "收集橙色光芒",
+			},
+		},
+		tsKey: "DailyQuest.CollectOrangeLight",
+	},
+	{
+		upstreamKey: "daily_quest_fetchlight_water_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Collect Blue Light",
+				value: "Collect blue light",
+			},
+		},
+		tsKey: "DailyQuest.CollectBlueLight",
+	},
+	{
+		upstreamKey: "daily_quest_fetchlight_void_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Collect Red Light",
+				value: "Collect red light",
+			},
+			"zh-Hans": {
+				upstreamValue: "收集 红色光芒",
+				value: "收集红色光芒",
+			},
+			"zh-Hant": {
+				upstreamValue: "收集 紅色光芒",
+				value: "收集紅色光芒",
+			},
+		},
+		tsKey: "DailyQuest.CollectRedLight",
+	},
+	{
+		upstreamKey: "daily_quest_fetchlight_mind_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Collect Purple Light",
+				value: "Collect purple light",
+			},
+		},
+		tsKey: "DailyQuest.CollectPurpleLight",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_ap10_fetch_06_desc",
+		tsKey: "DailyQuest.CompleteTheHoopScavengerHunt",
+	},
+	{
+		upstreamKey: "daily_quest_visit_stormy_event_desc",
+		overrides: {
+			de: {
+				upstreamValue:
+					"Besuche eine Scherbe der Finsternis, die in das Königreich von Sky gefallen ist.",
+				value: "Besuche eine Scherbe der Finsternis, die in das Königreich von Sky gefallen ist",
+			},
+			"zh-Hant": {
+				upstreamValue: "造訪墜入 Sky 國度的黑暗碎片。",
+				value: "造訪墜入 Sky 國度的黑暗碎片",
+			},
+		},
+		tsKey: "DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_selfie_grumpy_desc",
+		tsKey: "DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_selfie_crabvoice_desc",
+		tsKey: "DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_selfie_evillaugh_desc",
+		tsKey: "DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_selfie_welcome_desc",
+		tsKey: "DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_rolling_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Meet Cinnamoroll on a hill in Aviary Village.",
+				value: "Meet Cinnamoroll on a hill in Aviary Village",
+			},
+			de: {
+				upstreamValue: "Triff Cinnamoroll auf einem Hügel im Volieren-Dorf.",
+				value: "Triff Cinnamoroll auf einem Hügel im Volieren-Dorf",
+			},
+			es: {
+				upstreamValue: "Busca a Cinnamoroll en una colina de la aldea aviaria.",
+				value: "Busca a Cinnamoroll en una colina de la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Rencontrez Cinnamoroll sur une colline du village volière.",
+				value: "Rencontrez Cinnamoroll sur une colline du village volière",
+			},
+			it: {
+				upstreamValue: "Incontra Cinnamoroll su una collina nel Villaggio degli Uccelli.",
+				value: "Incontra Cinnamoroll su una collina nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Encontre Cinnamoroll em uma colina na Aldeia Aviária.",
+				value: "Encontre Cinnamoroll em uma colina na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Встретьтесь с Синаморолом на холме Птичьей деревни.",
+				value: "Встретьтесь с Синаморолом на холме Птичьей деревни",
+			},
+			vi: {
+				upstreamValue: "Gặp gỡ Cinnamoroll trên một ngọn đồi ở Làng Chuồng Chim.",
+				value: "Gặp gỡ Cinnamoroll trên một ngọn đồi ở Làng Chuồng Chim",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢的山丘上與 大耳狗喜拿 見面。",
+				value: "在雲巢的山丘上與大耳狗喜拿見面",
+			},
+		},
+		tsKey: "DailyQuest.MeetCinnamorollOnAHillInAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_flowers_1_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Smell flowers with Cinnamoroll in Aviary Village.",
+				value: "Smell flowers with Cinnamoroll in Aviary Village",
+			},
+			de: {
+				upstreamValue: "Rieche an Blumen mit Cinnamoroll im Volieren-Dorf.",
+				value: "Rieche an Blumen mit Cinnamoroll im Volieren-Dorf",
+			},
+			es: {
+				upstreamValue: "Huele flores con Cinnamoroll en la aldea aviaria.",
+				value: "Huele flores con Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Sentez les fleurs avec Cinnamoroll au village volière.",
+				value: "Sentez les fleurs avec Cinnamoroll au village volière",
+			},
+			it: {
+				upstreamValue: "Annusa i fiori con Cinnamoroll nel Villaggio degli Uccelli.",
+				value: "Annusa i fiori con Cinnamoroll nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Cheire flores com o Cinnamoroll na Aldeia Aviária.",
+				value: "Cheire flores com o Cinnamoroll na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Вместе с Синаморолом насладитесь ароматом цветов в Птичьей деревне.",
+				value: "Вместе с Синаморолом насладитесь ароматом цветов в Птичьей деревне",
+			},
+			vi: {
+				upstreamValue: "Thưởng thức hương hoa cùng Cinnamoroll ở Làng Chuồng Chim.",
+				value: "Thưởng thức hương hoa cùng Cinnamoroll ở Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢与Cinnamoroll一起品味花香。",
+				value: "在云巢与Cinnamoroll一起品味花香",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢與 大耳狗喜拿 一起聞花香。",
+				value: "在雲巢與大耳狗喜拿一起聞花香",
+			},
+		},
+		tsKey: "DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_flowers_2_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Find Cinnamoroll peeking around Aviary Village.",
+				value: "Find Cinnamoroll peeking around Aviary Village",
+			},
+			de: {
+				upstreamValue: "Finde Cinnamoroll, während er sich im Volieren-Dorf umsieht.",
+				value: "Finde Cinnamoroll, während er sich im Volieren-Dorf umsieht",
+			},
+			es: {
+				upstreamValue: "Busca a Cinnamoroll en la aldea aviaria.",
+				value: "Busca a Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Trouvez Cinnamoroll quelque part dans le village volière.",
+				value: "Trouvez Cinnamoroll quelque part dans le village volière",
+			},
+			it: {
+				upstreamValue: "Trova Cinnamoroll che gironzola nel Villaggio degli Uccelli.",
+				value: "Trova Cinnamoroll che gironzola nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Encontre Cinnamoroll explorand a Aldeia Aviária.",
+				value: "Encontre Cinnamoroll explorand a Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Найдите Синаморола, который гуляет по Птичьей деревне.",
+				value: "Найдите Синаморола, который гуляет по Птичьей деревне",
+			},
+			vi: {
+				upstreamValue: "Tìm Cinnamoroll đang ẩn quanh Làng Chuồng Chim.",
+				value: "Tìm Cinnamoroll đang ẩn quanh Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢找到躲在角落的Cinnamoroll。",
+				value: "在云巢找到躲在角落的Cinnamoroll",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢找到躲在角落的 大耳狗喜拿。",
+				value: "在雲巢找到躲在角落的大耳狗喜拿",
+			},
+		},
+		tsKey: "DailyQuest.FindCinnamorollPeekingAroundAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_sleeping_1_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Wake up Cinnamoroll in Aviary Village.",
+				value: "Wake up Cinnamoroll in Aviary Village",
+			},
+			de: {
+				upstreamValue: "Wecke Cinnamoroll im Volieren-Dorf auf.",
+				value: "Wecke Cinnamoroll im Volieren-Dorf auf",
+			},
+			es: {
+				upstreamValue: "Despierta a Cinnamoroll en la aldea aviaria.",
+				value: "Despierta a Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Réveillez Cinnamoroll dans le village volière.",
+				value: "Réveillez Cinnamoroll dans le village volière",
+			},
+			it: {
+				upstreamValue: "Sveglia Cinnamoroll nel Villaggio degli Uccelli.",
+				value: "Sveglia Cinnamoroll nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Acorde Cinnamoroll na Aldeia Aviária.",
+				value: "Acorde Cinnamoroll na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Разбудите Синаморола в Птичьей деревне.",
+				value: "Разбудите Синаморола в Птичьей деревне",
+			},
+			vi: {
+				upstreamValue: "Đánh thức Cinnamoroll ở Làng Chuồng Chim.",
+				value: "Đánh thức Cinnamoroll ở Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢叫醒Cinnamoroll。",
+				value: "在云巢叫醒Cinnamoroll",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢叫醒 大耳狗喜拿。",
+				value: "在雲巢叫醒大耳狗喜拿",
+			},
+		},
+		tsKey: "DailyQuest.WakeUpCinnamorollInAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_sleeping_2_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Fly up to the tower with Cinnamoroll in Aviary Village.",
+				value: "Fly up to the tower with Cinnamoroll in Aviary Village",
+			},
+			de: {
+				upstreamValue: "Fliege mit Cinnamoroll zum Turm im Volieren-Dorf.",
+				value: "Fliege mit Cinnamoroll zum Turm im Volieren-Dorf",
+			},
+			es: {
+				upstreamValue: "Vuela hasta la torre con Cinnamoroll en la aldea aviaria.",
+				value: "Vuela hasta la torre con Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Volez jusqu'au clocher avec Cinnamoroll au village volière.",
+				value: "Volez jusqu'au clocher avec Cinnamoroll au village volière",
+			},
+			it: {
+				upstreamValue: "Vola sulla torre con Cinnamoroll nel Villaggio degli Uccelli.",
+				value: "Vola sulla torre con Cinnamoroll nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Voe até a torre com Cinnamoroll na Aldeia Aviária.",
+				value: "Voe até a torre com Cinnamoroll na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Вместе с Синаморолом взлетите на колокольню Птичьей деревни.",
+				value: "Вместе с Синаморолом взлетите на колокольню Птичьей деревни",
+			},
+			vi: {
+				upstreamValue: "Bay lên tòa tháp cùng Cinnamoroll ở Làng Chuồng Chim.",
+				value: "Bay lên tòa tháp cùng Cinnamoroll ở Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢与Cinnamoroll一起飞上塔顶。",
+				value: "在云巢与Cinnamoroll一起飞上塔顶",
+			},
+			"zh-Hant": {
+				upstreamValue: "與 大耳狗喜拿 一起飛到雲巢的塔上。",
+				value: "與大耳狗喜拿一起飛到雲巢的塔上",
+			},
+		},
+		tsKey: "DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_sleeping_3_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Splash in the water with Cinnamoroll in Aviary Village.",
+				value: "Splash in the water with Cinnamoroll in Aviary Village",
+			},
+			de: {
+				upstreamValue: "Plansche im Wasser mit Cinnamoroll im Volieren-Dorf.",
+				value: "Plansche im Wasser mit Cinnamoroll im Volieren-Dorf",
+			},
+			es: {
+				upstreamValue: "Chapotea en el agua con Cinnamoroll en la aldea aviaria.",
+				value: "Chapotea en el agua con Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Plongez dans l'eau avec Cinnamoroll au village volière.",
+				value: "Plongez dans l'eau avec Cinnamoroll au village volière",
+			},
+			it: {
+				upstreamValue: "Tuffati nell'acqua con Cinnamoroll nel Villaggio degli Uccelli.",
+				value: "Tuffati nell'acqua con Cinnamoroll nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Pule na água com Cinnamoroll na Aldeia Aviária.",
+				value: "Pule na água com Cinnamoroll na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Отправляйтесь плескаться вместе с Синаморолом в Птичьей деревне.",
+				value: "Отправляйтесь плескаться вместе с Синаморолом в Птичьей деревне",
+			},
+			vi: {
+				upstreamValue: "Hãy té nước cùng Cinnamoroll tại Làng Chuồng Chim.",
+				value: "Hãy té nước cùng Cinnamoroll tại Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢与Cinnamoroll一起跃入水中。",
+				value: "在云巢与Cinnamoroll一起跃入水中",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢與 大耳狗喜拿 一起玩水。",
+				value: "在雲巢與大耳狗喜拿一起玩水",
+			},
+		},
+		tsKey: "DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_do_competition_play_desc",
+		tsKey: "DailyQuest.PlayAnyTournamentSport",
+	},
+	{
+		upstreamKey: "daily_quest_change_hair_desc",
+		tsKey: "DailyQuest.ChangeYourHairstyle",
+	},
+	{
+		upstreamKey: "daily_quest_change_neck_desc",
+		tsKey: "DailyQuest.ChangeYourNecklace",
+	},
+	{
+		upstreamKey: "daily_quest_change_prop_desc",
+		tsKey: "DailyQuest.ChangeYourProp",
+	},
+	{
+		upstreamKey: "daily_quest_change_mask_desc",
+		tsKey: "DailyQuest.ChangeYourMask",
+	},
+	{
+		upstreamKey: "daily_quest_change_cape_desc",
+		tsKey: "DailyQuest.ChangeYourCape",
+	},
+	{
+		upstreamKey: "daily_quest_runway_recording_shrine_view_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "View a Shared Memory at a style runway shrine",
+				value: "View a shared memory at a Style Runway Shrine",
+			},
+		},
+		tsKey: "DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine",
+	},
+	{
+		upstreamKey: "daily_quest_runway_recording_shrine_walk_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Record a Shared Memory at a style runway shrine",
+				value: "Record a shared memory at a Style Runway Shrine",
+			},
+		},
+		tsKey: "DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_1_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en las Islas Santuario.",
+				value:
+					"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en las Islas Santuario",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors sur les Îles du Sanctuaire.",
+				value:
+					"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors sur les Îles du Sanctuaire",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище на Островах укрытия.",
+				value:
+					"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище на Островах укрытия",
+			},
+		},
+		tsKey: "DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_2_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Contramaestre torpe o al Guía del ensamblaje a buscar tesoros en las Islas Santuario.",
+				value:
+					"Ayuda al Contramaestre torpe o al Guía del ensamblaje a buscar tesoros en las Islas Santuario",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors sur les Îles du Sanctuaire.",
+				value:
+					"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors sur les Îles du Sanctuaire",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище на Островах укрытия.",
+				value:
+					"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище на Островах укрытия",
+			},
+			vi: {
+				upstreamValue:
+					"Giúp Thủy Thủ Hậu Đậu hoặc Chỉ Dẫn Tụ Hội tìm kho báu tại Quần Đảo Thánh Địa.",
+				value: "Giúp Thủy Thủ Hậu Đậu hoặc Chỉ Dẫn Tụ Hội tìm kho báu tại Quần Đảo Thánh Địa",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_night_3_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el desierto Luz de Estrellas.",
+				value:
+					"Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el desierto Luz de Estrellas",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors dans le Désert stellaire.",
+				value:
+					"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors dans le Désert stellaire",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище в Звёздной пустыне.",
+				value:
+					"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище в Звёздной пустыне",
+			},
+			vi: {
+				upstreamValue: "Giúp Thủy Thủ Hậu Đậu hoặc Người Dẫn Đoàn tìm kho báu tại Sa Mạc Ánh Sao.",
+				value: "Giúp Thủy Thủ Hậu Đậu hoặc Người Dẫn Đoàn tìm kho báu tại Sa Mạc Ánh Sao",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_3_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en las Islas Santuario.",
+				value:
+					"Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en las Islas Santuario",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors sur les Îles du Sanctuaire.",
+				value:
+					"Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors sur les Îles du Sanctuaire",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Командору-начальнику или Мечтательному лесовичку найти сокровище на Островах укрытия.",
+				value:
+					"Помогите Командору-начальнику или Мечтательному лесовичку найти сокровище на Островах укрытия",
+			},
+			vi: {
+				upstreamValue:
+					"Giúp Thuyền Trưởng Uy Nghiêm hoặc Người Đi Rừng Mộng Du tìm kho báu tại Quần Đảo Thánh Địa.",
+				value:
+					"Giúp Thuyền Trưởng Uy Nghiêm hoặc Người Đi Rừng Mộng Du tìm kho báu tại Quần Đảo Thánh Địa",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_rain_3_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el Bosque Escondido.",
+				value:
+					"Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el Bosque Escondido",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée.",
+				value:
+					"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище в Тайном лесу.",
+				value: "Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище в Тайном лесу",
+			},
+			vi: {
+				upstreamValue: "Giúp Ngư Dân Lo Lắng hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa.",
+				value: "Giúp Ngư Dân Lo Lắng hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_sunset_3_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en la aldea de los sueños.",
+				value:
+					"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en la aldea de los sueños",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors dans le Village des Rêves.",
+				value:
+					"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors dans le Village des Rêves",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище в Деревушке мечтаний.",
+				value:
+					"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище в Деревушке мечтаний",
+			},
+			vi: {
+				upstreamValue:
+					"Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Làng Mộng Mơ.",
+				value: "Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Làng Mộng Mơ",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdchase_1_desc",
+		tsKey: "DailyQuest.InvestigateABlueBirdSightingInTheFrozenLake",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdchase_2_desc",
+		tsKey: "DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdchase_3_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Investigate a blue bird sighting in Village Theater",
+				value: "Investigate a blue bird sighting in Village Theatre",
+			},
+		},
+		tsKey: "DailyQuest.InvestigateABlueBirdSightingInVillageTheatre",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdchase_4_desc",
+		tsKey: "DailyQuest.InvestigateABlueBirdSightingInTheForestClearing",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdfeather_1_desc",
+		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheFrozenLake",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdfeather_2_desc",
+		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdfeather_3_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Find a clue of the Blue Bird's whereabouts in Village Theater",
+				value: "Find a clue of the Blue Bird's whereabouts in Village Theatre",
+			},
+		},
+		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdfeather_4_desc",
+		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing",
+	},
+	{
+		upstreamKey: "daily_quest_pick_up_1_crab_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Pick up a Crab",
+				value: "Pick up a crab",
+			},
+		},
+		tsKey: "DailyQuest.PickUpACrab",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_anniversary_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Admira los espacios compartidos del campanario destrozado de la aldea aviaria por un momento.",
+				value:
+					"Admira los espacios compartidos del campanario destrozado de la aldea aviaria por un momento",
+			},
+		},
+		tsKey: "DailyQuest.AdmireSharedSpacesAtTheBrokenBellTowerInAviaryVillageForAShortWhile",
+	},
+	{
+		upstreamKey: "daily_quest_sunlight_photo_daily_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Help Praying Acolyte archive summer in the Vault Archive.",
+				value: "Help Praying Acolyte archive summer in the Vault Archive",
+			},
+			de: {
+				upstreamValue: "Hilf dem Betenden Messdiener, den Sommer im Tresor-Archiv zu archivieren.",
+				value: "Hilf dem Betenden Messdiener, den Sommer im Tresor-Archiv zu archivieren",
+			},
+			es: {
+				upstreamValue: "Ayuda al Acólito orador a clasificar el verano en el Archivo de la Bóveda.",
+				value: "Ayuda al Acólito orador a clasificar el verano en el Archivo de la Bóveda",
+			},
+			it: {
+				upstreamValue: "Aiuta l'Accolita supplicante a depositare l'estate negli archivi.",
+				value: "Aiuta l'Accolita supplicante a depositare l'estate negli archivi",
+			},
+			ko: {
+				upstreamValue: "기도하는 조수가 도서관 보관소에서 여름을 기록하는 것을 도와주세요.",
+				value: "기도하는 조수가 도서관 보관소에서 여름을 기록하는 것을 도와주세요",
+			},
+			pt: {
+				upstreamValue: "Ajude a Acólita que Reza a arquivar o verão nos Arquivos do Relicário.",
+				value: "Ajude a Acólita que Reza a arquivar o verão nos Arquivos do Relicário",
+			},
+			ru: {
+				upstreamValue: "Помогите молящемуся прислужнику сохранить лето в Архиве хранилища.",
+				value: "Помогите молящемуся прислужнику сохранить лето в Архиве хранилища",
+			},
+			vi: {
+				upstreamValue: "Giúp Thánh Đồ Cầu Nguyện lưu trữ mùa hè tại Kho Lưu Trữ.",
+				value: "Giúp Thánh Đồ Cầu Nguyện lưu trữ mùa hè tại Kho Lưu Trữ",
+			},
+			"zh-Hans": {
+				upstreamValue: "帮助祈祷圣徒在禁阁档案馆中归档夏天。",
+				value: "帮助祈祷圣徒在禁阁档案馆中归档夏天",
+			},
+			"zh-Hant": {
+				upstreamValue: "幫助祈禱聖徒在禁閣書庫典藏夏日。",
+				value: "幫助祈禱聖徒在禁閣書庫典藏夏日",
+			},
+		},
+		tsKey: "DailyQuest.HelpThePrayingAcolyteArchiveSummerInTheArchives",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_sunset_race_desc",
+		tsKey: "DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace",
+	},
+	{
+		upstreamKey: "daily_quest_ap28_daily_generic_desc",
+		tsKey: "DailyQuest.InviteASeasonOfMigrationSpiritToAdventureWithYouToday",
+	},
+	{
+		upstreamKey: "daily_quest_emote_with_players_desc",
+		tsKey: "DailyQuest.UseExpressionsWithPlayers",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_rain_rainforest_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheForestBrook",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_day_birdnest_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsAroundTheBirdNest",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_day_prairievillage_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInPrairieVillage",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_dusk_graveyard_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheGraveyard",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_dusk_triangle_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsUnderTheSeaInTreasureReef",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_night_floor4_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheUpperVault",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_night_shelter_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheVaultsRepository",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_rain_basecamp_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheTreehouse",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_sunset_citadel_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheCitadel",
+	},
+	{
+		upstreamKey: "daily_quest_ride_giant_manta_prairie_island_desc",
+		tsKey: "DailyQuest.RideAGiantMantaInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_touch_butterflies_butterflyfields_desc",
+		tsKey: "DailyQuest.FlyWithManyButterfliesInButterflyFields",
+	},
+	{
+		upstreamKey: "daily_quest_mischief_broomrace_desc",
+		tsKey: "DailyQuest.FinishNatsBroomstickRaceInCacklingCrab",
+	},
+	{
+		upstreamKey: "daily_quest_catch_pumpkin_crab_desc",
+		tsKey: "DailyQuest.HelpAustinCollect5CrabsInTheBasementOfTheCacklingCrab",
+	},
+	{
+		upstreamKey: "daily_quest_light_mischief_cannon_desc",
+		tsKey: "DailyQuest.HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab",
+	},
+	{
+		upstreamKey: "daily_quest_light_mischief_cauldron_desc",
+		tsKey: "DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab",
+	},
+	{
+		upstreamKey: "daily_quest_feast_fishing_desc",
+		tsKey: "DailyQuest.CatchSomethingGoodWithAFishingPoleInVillageOfDreams",
+	},
+	{
+		upstreamKey: "daily_quest_feast_play_race_desc",
+		tsKey: "DailyQuest.FindBearhugHermitInVillageOfDreamsAndPlayARace",
+	},
+	{
+		upstreamKey: "daily_quest_feast_play_skyball_desc",
+		tsKey: "DailyQuest.PlaySkyballFor60SecondsInVillageOfDreams",
+	},
+	{
+		upstreamKey: "daily_quest_feast_snowball_hit_avatar_desc",
+		tsKey: "DailyQuest.ThrowASnowballAtSomeone",
+	},
+	{
+		upstreamKey: "daily_quest_tidy_rain_grandmatable_desc",
+		tsKey: "DailyQuest.TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing",
+	},
+	{
+		upstreamKey: "daily_quest_rescue_a_manta_from_darkstone_desc",
+		tsKey: "DailyQuest.RescueAMantaFromDarkness",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_sunset_yetipark_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsAtopHermitValley",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_rain_skyway_desc",
+		tsKey: "DailyQuest.CatchThe3LightsInTheWindPaths",
+	},
+	{
+		upstreamKey: "daily_quest_bloom_harvesting_desc",
+		overrides: {
+			ru: {
+				upstreamValue: "Соберите свет семян подсолнуха в саду Полуденной прерии.",
+				value: "Соберите свет семян подсолнуха в саду Полуденной прерии",
+			},
+		},
+		tsKey: "DailyQuest.HarvestTheSunflowerSeedLightAtTheGardenInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_bloom_message_desc",
+		overrides: {
+			ru: {
+				upstreamValue: "Посадите сообщение-подсолнух в саду Полуденной прерии.",
+				value: "Посадите сообщение-подсолнух в саду Полуденной прерии",
+			},
+		},
+		tsKey: "DailyQuest.PlantASunflowerMessageAtTheGardenInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_bloom_music_desc",
+		overrides: {
+			ru: {
+				upstreamValue: "Сыграйте музыку вместе со Смеющимся ловцом света Полуденной прерии.",
+				value: "Сыграйте музыку вместе со Смеющимся ловцом света Полуденной прерии",
+			},
+		},
+		tsKey: "DailyQuest.PlayMusicWithLaughingLightCatcherInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_bloom_watering_desc",
+		overrides: {
+			ru: {
+				upstreamValue: "Полейте подсолнух в саду Полуденной прерии.",
+				value: "Полейте подсолнух в саду Полуденной прерии",
+			},
+		},
+		tsKey: "DailyQuest.WaterTheSunflowerAtTheGardenInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_honk_at_players_desc",
+		tsKey: "DailyQuest.CallTo5DifferentPlayers",
 	},
 	{
 		upstreamKey: "name_questap30",
@@ -905,6 +2133,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "consumable_name_shout_manta",
+		overrides: {
+			Base: {
+				upstreamValue: "Manta Call",
+				value: "Manta call",
+			},
+		},
 		tsKey: "Cosmetic.CallManta",
 	},
 	{
@@ -929,6 +2163,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "consumable_name_shout_crab",
+		overrides: {
+			Base: {
+				upstreamValue: "Crab Call",
+				value: "Crab call",
+			},
+		},
 		tsKey: "Cosmetic.CallCrab",
 	},
 	{
@@ -985,6 +2225,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "consumable_name_shout_jelly",
+		overrides: {
+			Base: {
+				upstreamValue: "Jellyfish Call",
+				value: "Jellyfish call",
+			},
+		},
 		tsKey: "Cosmetic.CallJellyfish",
 	},
 	{
@@ -1317,6 +2563,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_feast_furcape",
+		overrides: {
+			Base: {
+				upstreamValue: "Cozy Hermit Cape",
+				value: "Cosy Hermit Cape",
+			},
+		},
 		tsKey: "Cosmetic.CosyHermitCape",
 	},
 	{
@@ -1333,6 +2585,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_love_heartstaff",
+		overrides: {
+			Base: {
+				upstreamValue: "Days of Love Serendipitous Scepter",
+				value: "Days of Love Serendipitous Sceptre",
+			},
+		},
 		tsKey: "Cosmetic.DaysOfLoveSerendipitousSceptre",
 	},
 	{
@@ -1433,6 +2691,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_feast_yetiboots",
+		overrides: {
+			Base: {
+				upstreamValue: "Cozy Hermit Boots",
+				value: "Cosy Hermit Boots",
+			},
+		},
 		tsKey: "Cosmetic.CosyHermitBoots",
 	},
 	{
@@ -1493,6 +2757,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "placeable_radio_title",
+		overrides: {
+			Base: {
+				upstreamValue: "Music Player",
+				value: "Music player",
+			},
+		},
 		tsKey: "Cosmetic.MusicPlayer",
 	},
 	{
@@ -1501,6 +2771,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_rainbow_bubblemachine",
+		overrides: {
+			Base: {
+				upstreamValue: "Color Bubble Machine",
+				value: "Colour Bubble Machine",
+			},
+		},
 		tsKey: "Cosmetic.ColourBubbleMachine",
 	},
 	{
@@ -1917,22 +3193,52 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "lootbox_name_color_black",
+		overrides: {
+			Base: {
+				upstreamValue: "Black Dye",
+				value: "Black dye",
+			},
+		},
 		tsKey: "CosmeticCommon.BlackDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_blue",
+		overrides: {
+			Base: {
+				upstreamValue: "Blue Dye",
+				value: "Blue dye",
+			},
+		},
 		tsKey: "CosmeticCommon.BlueDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_cyan",
+		overrides: {
+			Base: {
+				upstreamValue: "Cyan Dye",
+				value: "Cyan dye",
+			},
+		},
 		tsKey: "CosmeticCommon.CyanDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_green",
+		overrides: {
+			Base: {
+				upstreamValue: "Green Dye",
+				value: "Green dye",
+			},
+		},
 		tsKey: "CosmeticCommon.GreenDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_magenta",
+		overrides: {
+			Base: {
+				upstreamValue: "Purple Dye",
+				value: "Purple dye",
+			},
+		},
 		tsKey: "CosmeticCommon.PurpleDye",
 	},
 	{
@@ -1941,14 +3247,32 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "lootbox_name_color_red",
+		overrides: {
+			Base: {
+				upstreamValue: "Red Dye",
+				value: "Red dye",
+			},
+		},
 		tsKey: "CosmeticCommon.RedDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_white",
+		overrides: {
+			Base: {
+				upstreamValue: "White Dye",
+				value: "White dye",
+			},
+		},
 		tsKey: "CosmeticCommon.WhiteDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_yellow",
+		overrides: {
+			Base: {
+				upstreamValue: "Yellow Dye",
+				value: "Yellow dye",
+			},
+		},
 		tsKey: "CosmeticCommon.YellowDye",
 	},
 ];
