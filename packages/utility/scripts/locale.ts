@@ -902,6 +902,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.MakeANewAcquaintance",
 	},
 	{
+		upstreamKey: "daily_quest_high_five_someone_desc",
+		tsKey: "DailyQuest.HighFiveAFriend",
+	},
+	{
 		upstreamKey: "daily_quest_express_an_emote_to_a_friend_desc",
 		tsKey: "DailyQuest.UseAnExpressionNearAFriend",
 	},
@@ -910,12 +914,28 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.SitOnABenchWithAStranger",
 	},
 	{
+		upstreamKey: "daily_quest_fly_with_a_manta_desc",
+		tsKey: "DailyQuest.RideWithAManta",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_desc",
+		tsKey: "DailyQuest.ReliveASpiritsMemories",
+	},
+	{
+		upstreamKey: "daily_quest_seen_by_dark_creature_desc",
+		tsKey: "DailyQuest.FaceTheDarkDragon",
+	},
+	{
 		upstreamKey: "daily_quest_lightseeker_vault_desc",
 		tsKey: "DailyQuest.CatchTheLightInTheVaultOfKnowledge",
 	},
 	{
 		upstreamKey: "daily_quest_visit_rain_grandmatable_desc",
 		tsKey: "DailyQuest.VisitTheAncestorsTableInTheElevatedClearing",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_nature_vortex1_desc",
+		tsKey: "DailyQuest.RidTheSanctuaryVortexOfDarkness",
 	},
 	{
 		upstreamKey: "daily_quest_visit_rainbow_rain_desc",
@@ -1054,6 +1074,56 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.MeditateAtTheVaultTemple",
 	},
 	{
+		upstreamKey: "daily_quest_fetchlight_earth_desc",
+		overrides: {
+			"zh-Hans": {
+				upstreamValue: "收集 绿色光芒",
+				value: "收集绿色光芒",
+			},
+			"zh-Hant": {
+				upstreamValue: "收集 綠色光芒",
+				value: "收集綠色光芒",
+			},
+		},
+		tsKey: "DailyQuest.CollectGreenLight",
+	},
+	{
+		upstreamKey: "daily_quest_fetchlight_fire_desc",
+		overrides: {
+			"zh-Hans": {
+				upstreamValue: "收集 橙色光芒",
+				value: "收集橙色光芒",
+			},
+			"zh-Hant": {
+				upstreamValue: "收集 橙色光芒",
+				value: "收集橙色光芒",
+			},
+		},
+		tsKey: "DailyQuest.CollectOrangeLight",
+	},
+	{
+		upstreamKey: "daily_quest_fetchlight_water_desc",
+		tsKey: "DailyQuest.CollectBlueLight",
+	},
+	{
+		upstreamKey: "daily_quest_fetchlight_void_desc",
+		overrides: {
+			"zh-Hans": {
+				upstreamValue: "收集 红色光芒",
+				value: "收集红色光芒",
+			},
+			"zh-Hant": {
+				upstreamValue: "收集 紅色光芒",
+				value: "收集紅色光芒",
+			},
+		},
+		tsKey: "DailyQuest.CollectRedLight",
+	},
+	{
+		upstreamKey: "daily_quest_fetchlight_mind_desc",
+		tsKey: "DailyQuest.CollectPurpleLight",
+	},
+	{
 		upstreamKey: "daily_quest_world_quest_ap10_fetch_06_desc",
 		tsKey: "DailyQuest.CompleteTheHoopScavengerHunt",
 	},
@@ -1111,6 +1181,14 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_change_cape_desc",
 		tsKey: "DailyQuest.ChangeYourCape",
+	},
+	{
+		upstreamKey: "daily_quest_runway_recording_shrine_view_desc",
+		tsKey: "DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine",
+	},
+	{
+		upstreamKey: "daily_quest_runway_recording_shrine_walk_desc",
+		tsKey: "DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine",
 	},
 	{
 		upstreamKey: "daily_quest_dotreasure_day_1_desc",
@@ -1306,6 +1384,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_bluebirdfeather_4_desc",
 		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing",
+	},
+	{
+		upstreamKey: "daily_quest_pick_up_1_crab_desc",
+		tsKey: "DailyQuest.PickUpACrab",
 	},
 	{
 		upstreamKey: "daily_quest_spirit_anniversary_desc",
