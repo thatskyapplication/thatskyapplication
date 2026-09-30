@@ -141,6 +141,70 @@ const MAPPINGS: LocaleMapping[] = [
 		jsonPath: "general.event-names.summer-camping",
 	},
 	{
+		upstreamKey: "notification_doubleseason_title",
+		jsonPath: "general.event-names.double-seasonal-light",
+	},
+	{
+		upstreamKey: "eventboard_name_feast",
+		jsonPath: "general.event-names.days-of-feast",
+	},
+	{
+		upstreamKey: "eventboard_name_love",
+		jsonPath: "general.event-names.days-of-love",
+	},
+	{
+		upstreamKey: "eventboard_name_nature",
+		jsonPath: "general.event-names.days-of-nature",
+	},
+	{
+		upstreamKey: "eventboard_name_skyfest",
+		jsonPath: "general.event-names.sky-anniversary",
+	},
+	{
+		upstreamKey: "eventboard_name_mischief",
+		jsonPath: "general.event-names.days-of-mischief",
+	},
+	{
+		upstreamKey: "eventboard_name_fortune",
+		jsonPath: "general.event-names.days-of-fortune",
+	},
+	{
+		upstreamKey: "eventboard_name_bloom",
+		jsonPath: "general.event-names.days-of-bloom",
+	},
+	{
+		upstreamKey: "eventboard_name_sunlight",
+		jsonPath: "general.event-names.days-of-sunlight",
+	},
+	{
+		upstreamKey: "eventboard_name_color",
+		jsonPath: "general.event-names.days-of-colour",
+	},
+	{
+		upstreamKey: "eventboard_name_competition",
+		jsonPath: "general.event-names.tournament-of-triumph",
+	},
+	{
+		upstreamKey: "eventboard_name_moonlight",
+		jsonPath: "general.event-names.days-of-moonlight",
+	},
+	{
+		upstreamKey: "eventboard_name_treasure",
+		jsonPath: "general.event-names.days-of-treasure",
+	},
+	{
+		upstreamKey: "eventboard_name_radiance_event",
+		jsonPath: "general.event-names.radiance-event",
+	},
+	{
+		upstreamKey: "eventboard_name_ugc",
+		jsonPath: "general.event-names.workshop-show-and-tell",
+	},
+	{
+		upstreamKey: "eventboard_name_personality",
+		jsonPath: "general.event-names.personality-quiz-event",
+	},
+	{
 		upstreamKey: "title_dawn_01",
 		tsKey: "AreaName.DawnCircle",
 	},
@@ -2118,6 +2182,802 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "name_slowwalk",
 		tsKey: "SpiritId.JoyfulMemory",
+	},
+	{
+		upstreamKey: "name_point",
+		tsKey: "SpiritId.PointingCandlemaker",
+	},
+	{
+		upstreamKey: "name_come",
+		tsKey: "SpiritId.UsheringStargazer",
+	},
+	{
+		upstreamKey: "name_nothanks",
+		tsKey: "SpiritId.RejectingVoyager",
+	},
+	{
+		upstreamKey: "name_elder_isle",
+		tsKey: "SpiritId.ElderOfTheIsle",
+	},
+	{
+		upstreamKey: "name_butterfly",
+		tsKey: "SpiritId.ButterflyCharmer",
+	},
+	{
+		upstreamKey: "name_thumbsup",
+		tsKey: "SpiritId.ApplaudingBellmaker",
+	},
+	{
+		upstreamKey: "name_wave",
+		tsKey: "SpiritId.WavingBellmaker",
+	},
+	{
+		upstreamKey: "name_yawn",
+		tsKey: "SpiritId.SlumberingShipwright",
+	},
+	{
+		upstreamKey: "name_laugh",
+		tsKey: "SpiritId.LaughingLightCatcher",
+	},
+	{
+		upstreamKey: "name_bird",
+		tsKey: "SpiritId.BirdWhisperer",
+	},
+	{
+		upstreamKey: "name_wipe",
+		tsKey: "SpiritId.ExhaustedDockWorker",
+	},
+	{
+		upstreamKey: "name_beacon",
+		tsKey: "SpiritId.CeremonialWorshiper",
+	},
+	{
+		upstreamKey: "name_elder_prairie",
+		tsKey: "SpiritId.ElderOfThePrairie",
+	},
+	{
+		upstreamKey: "name_cold",
+		tsKey: "SpiritId.ShiveringTrailblazer",
+	},
+	{
+		upstreamKey: "name_shy",
+		tsKey: "SpiritId.BlushingProspector",
+	},
+	{
+		upstreamKey: "name_seek",
+		tsKey: "SpiritId.HideNSeekPioneer",
+	},
+	{
+		upstreamKey: "name_pout",
+		tsKey: "SpiritId.PoutyPorter",
+	},
+	{
+		upstreamKey: "name_ohno",
+		tsKey: "SpiritId.DismayedHunter",
+	},
+	{
+		upstreamKey: "name_sorry",
+		tsKey: "SpiritId.ApologeticLumberjack",
+	},
+	{
+		upstreamKey: "name_cry",
+		tsKey: "SpiritId.TearfulLightMiner",
+	},
+	{
+		upstreamKey: "name_whale",
+		tsKey: "SpiritId.WhaleWhisperer",
+	},
+	{
+		upstreamKey: "name_elder_forest",
+		tsKey: "SpiritId.ElderOfTheForest",
+	},
+	{
+		upstreamKey: "name_strong",
+		tsKey: "SpiritId.ConfidentSightseer",
+	},
+	{
+		upstreamKey: "name_handstand",
+		tsKey: "SpiritId.HandstandingThrillseeker",
+	},
+	{
+		upstreamKey: "name_manta",
+		tsKey: "SpiritId.MantaWhisperer",
+	},
+	{
+		upstreamKey: "name_backflip",
+		tsKey: "SpiritId.BackflippingChampion",
+	},
+	{
+		upstreamKey: "name_cheer",
+		tsKey: "SpiritId.CheerfulSpectator",
+	},
+	{
+		upstreamKey: "name_bow",
+		tsKey: "SpiritId.BowingMedalist",
+	},
+	{
+		upstreamKey: "name_proud",
+		tsKey: "SpiritId.ProudVictor",
+	},
+	{
+		upstreamKey: "name_elder_valley",
+		tsKey: "SpiritId.ElderOfTheValley",
+	},
+	{
+		upstreamKey: "name_scared",
+		tsKey: "SpiritId.FrightenedRefugee",
+	},
+	{
+		upstreamKey: "name_die",
+		tsKey: "SpiritId.FaintingWarrior",
+	},
+	{
+		upstreamKey: "name_brave",
+		tsKey: "SpiritId.CourageousSoldier",
+	},
+	{
+		upstreamKey: "name_sneaky",
+		tsKey: "SpiritId.StealthySurvivor",
+	},
+	{
+		upstreamKey: "name_salute",
+		tsKey: "SpiritId.SalutingCaptain",
+	},
+	{
+		upstreamKey: "name_lookaround",
+		tsKey: "SpiritId.LookoutScout",
+	},
+	{
+		upstreamKey: "name_elder_wasteland",
+		tsKey: "SpiritId.ElderOfTheWasteland",
+	},
+	{
+		upstreamKey: "name_pray",
+		tsKey: "SpiritId.PrayingAcolyte",
+	},
+	{
+		upstreamKey: "name_force",
+		tsKey: "SpiritId.LevitatingAdept",
+	},
+	{
+		upstreamKey: "name_love",
+		tsKey: "SpiritId.PoliteScholar",
+	},
+	{
+		upstreamKey: "name_ghost",
+		tsKey: "SpiritId.MemoryWhisperer",
+	},
+	{
+		upstreamKey: "name_float",
+		tsKey: "SpiritId.MeditatingMonastic",
+	},
+	{
+		upstreamKey: "name_elder_vault",
+		tsKey: "SpiritId.ElderOfTheVault",
+	},
+	{
+		upstreamKey: "name_questap02",
+		tsKey: "SpiritId.GratitudeGuide",
+	},
+	{
+		upstreamKey: "name_sass",
+		tsKey: "SpiritId.SassyDrifter",
+	},
+	{
+		upstreamKey: "name_salutation",
+		tsKey: "SpiritId.StretchingGuru",
+	},
+	{
+		upstreamKey: "name_sarcastic",
+		tsKey: "SpiritId.ProvokingPerformer",
+	},
+	{
+		upstreamKey: "name_joy",
+		tsKey: "SpiritId.LeapingDancer",
+	},
+	{
+		upstreamKey: "name_acknowledge",
+		tsKey: "SpiritId.SalutingProtector",
+	},
+	{
+		upstreamKey: "name_kungfu",
+		tsKey: "SpiritId.GreetingShaman",
+	},
+	{
+		upstreamKey: "name_questap03",
+		tsKey: "SpiritId.LightseekerGuide",
+	},
+	{
+		upstreamKey: "name_carry",
+		tsKey: "SpiritId.PiggybackLightseeker",
+	},
+	{
+		upstreamKey: "name_doublefive",
+		tsKey: "SpiritId.DoublefiveLightCatcher",
+	},
+	{
+		upstreamKey: "name_lazycool",
+		tsKey: "SpiritId.LaidbackPioneer",
+	},
+	{
+		upstreamKey: "name_tripleaxel",
+		tsKey: "SpiritId.TwirlingChampion",
+	},
+	{
+		upstreamKey: "name_crabvoice",
+		tsKey: "SpiritId.CrabWhisperer",
+	},
+	{
+		upstreamKey: "name_shh",
+		tsKey: "SpiritId.ShushingLightScholar",
+	},
+	{
+		upstreamKey: "name_questap04",
+		tsKey: "SpiritId.BelongingGuide",
+	},
+	{
+		upstreamKey: "name_loopdance",
+		tsKey: "SpiritId.BoogieKid",
+	},
+	{
+		upstreamKey: "name_celebrate",
+		tsKey: "SpiritId.ConfettiCousin",
+	},
+	{
+		upstreamKey: "name_hairtousle",
+		tsKey: "SpiritId.HairtousleTeen",
+	},
+	{
+		upstreamKey: "name_sparkler",
+		tsKey: "SpiritId.SparklerParent",
+	},
+	{
+		upstreamKey: "name_dontgo",
+		tsKey: "SpiritId.PleafulParent",
+	},
+	{
+		upstreamKey: "name_wise",
+		tsKey: "SpiritId.WiseGrandparent",
+	},
+	{
+		upstreamKey: "name_questap05",
+		tsKey: "SpiritId.RhythmGuide",
+	},
+	{
+		upstreamKey: "name_welcome",
+		tsKey: "SpiritId.TroupeGreeter",
+	},
+	{
+		upstreamKey: "name_dance",
+		tsKey: "SpiritId.FestivalSpinDancer",
+	},
+	{
+		upstreamKey: "name_kiss",
+		tsKey: "SpiritId.AdmiringActor",
+	},
+	{
+		upstreamKey: "name_juggle",
+		tsKey: "SpiritId.TroupeJuggler",
+	},
+	{
+		upstreamKey: "name_respect",
+		tsKey: "SpiritId.RespectfulPianist",
+	},
+	{
+		upstreamKey: "name_think",
+		tsKey: "SpiritId.ThoughtfulDirector",
+	},
+	{
+		upstreamKey: "name_questap06",
+		tsKey: "SpiritId.EnchantmentGuide",
+	},
+	{
+		upstreamKey: "name_nod",
+		tsKey: "SpiritId.NoddingMuralist",
+	},
+	{
+		upstreamKey: "name_shrug",
+		tsKey: "SpiritId.IndifferentAlchemist",
+	},
+	{
+		upstreamKey: "name_crabwalk",
+		tsKey: "SpiritId.CrabWalker",
+	},
+	{
+		upstreamKey: "name_scare",
+		tsKey: "SpiritId.ScarecrowFarmer",
+	},
+	{
+		upstreamKey: "name_doze",
+		tsKey: "SpiritId.SnoozingCarpenter",
+	},
+	{
+		upstreamKey: "name_playfight",
+		tsKey: "SpiritId.PlayfightingHerbalist",
+	},
+	{
+		upstreamKey: "name_questap07",
+		tsKey: "SpiritId.SanctuaryGuide",
+	},
+	{
+		upstreamKey: "name_jelly",
+		tsKey: "SpiritId.JellyWhisperer",
+	},
+	{
+		upstreamKey: "name_timid",
+		tsKey: "SpiritId.TimidBookworm",
+	},
+	{
+		upstreamKey: "name_rally",
+		tsKey: "SpiritId.RallyingThrillseeker",
+	},
+	{
+		upstreamKey: "name_grumpy",
+		tsKey: "SpiritId.HikingGrouch",
+	},
+	{
+		upstreamKey: "name_gratitude",
+		tsKey: "SpiritId.GratefulShellCollector",
+	},
+	{
+		upstreamKey: "name_bellyscratch",
+		tsKey: "SpiritId.ChillSunbather",
+	},
+	{
+		upstreamKey: "name_questap08",
+		tsKey: "SpiritId.ProphecyGuide",
+	},
+	{
+		upstreamKey: "name_deepbreath",
+		tsKey: "SpiritId.ProphetOfWater",
+	},
+	{
+		upstreamKey: "name_dustoff",
+		tsKey: "SpiritId.ProphetOfEarth",
+	},
+	{
+		upstreamKey: "name_balance",
+		tsKey: "SpiritId.ProphetOfAir",
+	},
+	{
+		upstreamKey: "name_chestpound",
+		tsKey: "SpiritId.ProphetOfFire",
+	},
+	{
+		upstreamKey: "name_questap09",
+		tsKey: "SpiritId.DreamsGuide",
+	},
+	{
+		upstreamKey: "name_spintrick",
+		tsKey: "SpiritId.SpinningMentor",
+	},
+	{
+		upstreamKey: "name_showdance",
+		tsKey: "SpiritId.DancingPerformer",
+	},
+	{
+		upstreamKey: "name_peek",
+		tsKey: "SpiritId.PeekingPostman",
+	},
+	{
+		upstreamKey: "name_bearhug",
+		tsKey: "SpiritId.BearhugHermit",
+	},
+	{
+		upstreamKey: "name_questap10",
+		tsKey: "SpiritId.AssemblyGuide",
+	},
+	{
+		upstreamKey: "name_facepalm",
+		tsKey: "SpiritId.BaffledBotanist",
+	},
+	{
+		upstreamKey: "name_tsktsk",
+		tsKey: "SpiritId.ScoldingStudent",
+	},
+	{
+		upstreamKey: "name_eww",
+		tsKey: "SpiritId.ScaredyCadet",
+	},
+	{
+		upstreamKey: "name_marching",
+		tsKey: "SpiritId.MarchingAdventurer",
+	},
+	{
+		upstreamKey: "name_chuckle",
+		tsKey: "SpiritId.ChucklingScout",
+	},
+	{
+		upstreamKey: "name_bubbles",
+		tsKey: "SpiritId.DaydreamForester",
+	},
+	{
+		upstreamKey: "name_questap11",
+		tsKey: "SpiritId.TheRose",
+	},
+	{
+		upstreamKey: "name_beckon",
+		tsKey: "SpiritId.BeckoningRuler",
+	},
+	{
+		upstreamKey: "name_gloat",
+		tsKey: "SpiritId.GloatingNarcissist",
+	},
+	{
+		upstreamKey: "name_stretch",
+		tsKey: "SpiritId.StretchingLamplighter",
+	},
+	{
+		upstreamKey: "name_slouch",
+		tsKey: "SpiritId.SlouchingSoldier",
+	},
+	{
+		upstreamKey: "name_sneeze",
+		tsKey: "SpiritId.SneezingGeographer",
+	},
+	{
+		upstreamKey: "name_scheme",
+		tsKey: "SpiritId.StarCollector",
+	},
+	{
+		upstreamKey: "name_questap12",
+		tsKey: "SpiritId.FlightGuide",
+	},
+	{
+		upstreamKey: "name_pointup",
+		tsKey: "SpiritId.LivelyNavigator",
+	},
+	{
+		upstreamKey: "name_babymanta",
+		tsKey: "SpiritId.LightWhisperer",
+	},
+	{
+		upstreamKey: "name_nerdy",
+		tsKey: "SpiritId.TinkeringChimesmith",
+	},
+	{
+		upstreamKey: "name_voila",
+		tsKey: "SpiritId.TalentedBuilder",
+	},
+	{
+		upstreamKey: "name_questap13",
+		tsKey: "SpiritId.AbyssGuide",
+	},
+	{
+		upstreamKey: "name_anxious",
+		tsKey: "SpiritId.AnxiousAngler",
+	},
+	{
+		upstreamKey: "name_wait",
+		tsKey: "SpiritId.CeasingCommodore",
+	},
+	{
+		upstreamKey: "name_ouch",
+		tsKey: "SpiritId.BumblingBoatswain",
+	},
+	{
+		upstreamKey: "name_evillaugh",
+		tsKey: "SpiritId.CacklingCannoneer",
+	},
+	{
+		upstreamKey: "name_questap14",
+		tsKey: "SpiritId.PerformanceGuide",
+	},
+	{
+		upstreamKey: "name_handshake",
+		tsKey: "SpiritId.FranticStagehand",
+	},
+	{
+		upstreamKey: "name_awww",
+		tsKey: "SpiritId.ForgetfulStoryteller",
+	},
+	{
+		upstreamKey: "name_headbob",
+		tsKey: "SpiritId.MellowMusician",
+	},
+	{
+		upstreamKey: "name_duetdance",
+		tsKey: "SpiritId.ModestDancer",
+	},
+	{
+		upstreamKey: "name_questap15",
+		tsKey: "SpiritId.TheVoidOfShattering",
+	},
+	{
+		upstreamKey: "name_questap16",
+		tsKey: "SpiritId.AURORA",
+	},
+	{
+		upstreamKey: "name_armwave",
+		tsKey: "SpiritId.RunningWayfarer",
+	},
+	{
+		upstreamKey: "name_raisetheroof",
+		tsKey: "SpiritId.MindfulMiner",
+	},
+	{
+		upstreamKey: "name_twirl",
+		tsKey: "SpiritId.WarriorOfLove",
+	},
+	{
+		upstreamKey: "name_rhythmicclap",
+		tsKey: "SpiritId.SeedOfHope",
+	},
+	{
+		upstreamKey: "name_questap17",
+		tsKey: "SpiritId.RemembranceGuide",
+	},
+	{
+		upstreamKey: "name_grief",
+		tsKey: "SpiritId.BereftVeteran",
+	},
+	{
+		upstreamKey: "name_plead",
+		tsKey: "SpiritId.PleadingChild",
+	},
+	{
+		upstreamKey: "name_tiptoe",
+		tsKey: "SpiritId.TiptoeingTeaBrewer",
+	},
+	{
+		upstreamKey: "name_injured",
+		tsKey: "SpiritId.WoundedWarrior",
+	},
+	{
+		upstreamKey: "name_questap18",
+		tsKey: "SpiritId.PassageGuide",
+	},
+	{
+		upstreamKey: "name_hackysack",
+		tsKey: "SpiritId.OddballOutcast",
+	},
+	{
+		upstreamKey: "name_roll",
+		tsKey: "SpiritId.TumblingTroublemaker",
+	},
+	{
+		upstreamKey: "name_mope",
+		tsKey: "SpiritId.MelancholyMope",
+	},
+	{
+		upstreamKey: "name_pullup",
+		tsKey: "SpiritId.OveractiveOverachiever",
+	},
+	{
+		upstreamKey: "name_questap19",
+		tsKey: "SpiritId.MomentsGuide",
+	},
+	{
+		upstreamKey: "name_sidehug",
+		tsKey: "SpiritId.ReassuringRanger",
+	},
+	{
+		upstreamKey: "name_nightbird",
+		tsKey: "SpiritId.NightbirdWhisperer",
+	},
+	{
+		upstreamKey: "name_jollydance",
+		tsKey: "SpiritId.JollyGeologist",
+	},
+	{
+		upstreamKey: "name_windpose",
+		tsKey: "SpiritId.AsceticMonk",
+	},
+	{
+		upstreamKey: "name_questap20",
+		tsKey: "SpiritId.HopefulSteward",
+	},
+	{
+		upstreamKey: "name_ap20_lapidary",
+		tsKey: "SpiritId.VestigeOfADesertedOasis",
+	},
+	{
+		upstreamKey: "name_ap20_modiste",
+		tsKey: "SpiritId.MemoryOfALostVillage",
+	},
+	{
+		upstreamKey: "name_ap20_cobbler",
+		tsKey: "SpiritId.EchoOfAnAbandonedRefuge",
+	},
+	{
+		upstreamKey: "name_ap20_haberdasher",
+		tsKey: "SpiritId.RemnantOfAForgottenHaven",
+	},
+	{
+		upstreamKey: "name_questap21",
+		tsKey: "SpiritId.SpiritOfMural",
+	},
+	{
+		upstreamKey: "name_whistle",
+		tsKey: "SpiritId.HerbGatherer",
+	},
+	{
+		upstreamKey: "name_muscle",
+		tsKey: "SpiritId.Hunter",
+	},
+	{
+		upstreamKey: "name_princesscarry",
+		tsKey: "SpiritId.FeudalLord",
+	},
+	{
+		upstreamKey: "name_floatdance",
+		tsKey: "SpiritId.Princess",
+	},
+	{
+		upstreamKey: "name_questap22",
+		tsKey: "SpiritId.NestingGuide",
+	},
+	{
+		upstreamKey: "name_ap22_weaver",
+		tsKey: "SpiritId.NestingSolarium",
+	},
+	{
+		upstreamKey: "name_ap22_carpenter",
+		tsKey: "SpiritId.NestingLoft",
+	},
+	{
+		upstreamKey: "name_ap22_mason",
+		tsKey: "SpiritId.NestingAtrium",
+	},
+	{
+		upstreamKey: "name_ap22_upholsterer",
+		tsKey: "SpiritId.NestingNook",
+	},
+	{
+		upstreamKey: "name_questap23",
+		tsKey: "SpiritId.DuetsGuide",
+	},
+	{
+		upstreamKey: "name_ap23_cello_stage01",
+		tsKey: "SpiritId.TheCellistsBeginnings",
+	},
+	{
+		upstreamKey: "name_ap23_pianist_stage01",
+		tsKey: "SpiritId.ThePianistsBeginnings",
+	},
+	{
+		upstreamKey: "name_ap23_instrument_shop",
+		tsKey: "SpiritId.TheMusiciansLegacy",
+	},
+	{
+		upstreamKey: "name_ap23_cello_stage02",
+		tsKey: "SpiritId.TheCellistsFlourishing",
+	},
+	{
+		upstreamKey: "name_ap23_pianist_stage02",
+		tsKey: "SpiritId.ThePianistsFlourishing",
+	},
+	{
+		upstreamKey: "name_duetbow",
+		tsKey: "SpiritId.CompassionateCellist",
+	},
+	{
+		upstreamKey: "name_questap24",
+		tsKey: "SpiritId.TheMoominStorybook",
+	},
+	{
+		upstreamKey: "name_ap24_home",
+		tsKey: "SpiritId.ComfortOfKindness",
+	},
+	{
+		upstreamKey: "name_ap24_family",
+		tsKey: "SpiritId.SenseOfSelf",
+	},
+	{
+		upstreamKey: "name_ap24_wanderer",
+		tsKey: "SpiritId.SpiritOfAdventure",
+	},
+	{
+		upstreamKey: "name_ap24_friend",
+		tsKey: "SpiritId.InspirationOfInclusion",
+	},
+	{
+		upstreamKey: "name_questap25",
+		tsKey: "SpiritId.RadianceGuide",
+	},
+	{
+		upstreamKey: "name_cartwheel",
+		tsKey: "SpiritId.RadianceLeapingDancer",
+	},
+	{
+		upstreamKey: "name_hypedance",
+		tsKey: "SpiritId.RadianceProvokingPerformer",
+	},
+	{
+		upstreamKey: "name_hearthands",
+		tsKey: "SpiritId.RadianceGreetingShaman",
+	},
+	{
+		upstreamKey: "name_questap26",
+		tsKey: "SpiritId.BlueBirdGuide",
+	},
+	{
+		upstreamKey: "name_ap26_cousin",
+		tsKey: "SpiritId.CostumedConfettiCousin",
+	},
+	{
+		upstreamKey: "name_ap26_future",
+		tsKey: "SpiritId.DiviningWiseGrandparent",
+	},
+	{
+		upstreamKey: "name_ap26_lumberjack",
+		tsKey: "SpiritId.WoodcuttingPleafulParent",
+	},
+	{
+		upstreamKey: "name_ap26_mourner",
+		tsKey: "SpiritId.NostalgicSparklerParent",
+	},
+	{
+		upstreamKey: "name_amazed",
+		tsKey: "SpiritId.RoyalHairtousleTeen",
+	},
+	{
+		upstreamKey: "name_questap27",
+		tsKey: "SpiritId.VaultEldersLantern",
+	},
+	{
+		upstreamKey: "name_ap27_caretaker",
+		tsKey: "SpiritId.TenderToymaker",
+	},
+	{
+		upstreamKey: "name_guard",
+		tsKey: "SpiritId.ScarredSentry",
+	},
+	{
+		upstreamKey: "name_manatee",
+		tsKey: "SpiritId.SternShepherd",
+	},
+	{
+		upstreamKey: "name_ap27_oldman",
+		tsKey: "SpiritId.ResourcefulRecluse",
+	},
+	{
+		upstreamKey: "name_questap27manatee",
+		tsKey: "SpiritId.CaringCompanion",
+	},
+	{
+		upstreamKey: "name_questap28",
+		tsKey: "SpiritId.MigrationGuide",
+	},
+	{
+		upstreamKey: "name_lighthorn",
+		tsKey: "SpiritId.MigratingBellmaker",
+	},
+	{
+		upstreamKey: "name_airplanearms",
+		tsKey: "SpiritId.MigratingBirdWhisperer",
+	},
+	{
+		upstreamKey: "name_dizzy",
+		tsKey: "SpiritId.MigratingButterflyCharmer",
+	},
+	{
+		upstreamKey: "name_jellydance",
+		tsKey: "SpiritId.MigratingJellyWhisperer",
+	},
+	{
+		upstreamKey: "name_flag",
+		tsKey: "SpiritId.MigratingMantaWhisperer",
+	},
+	{
+		upstreamKey: "name_questap29",
+		tsKey: "SpiritId.LightmendingGuide",
+	},
+	{
+		upstreamKey: "name_revolvingdance",
+		tsKey: "SpiritId.LightmendingChampion",
+	},
+	{
+		upstreamKey: "name_secrethandshake",
+		tsKey: "SpiritId.LightmendingLightCatcher",
+	},
+	{
+		upstreamKey: "name_whisper",
+		tsKey: "SpiritId.LightmendingLightScholar",
+	},
+	{
+		upstreamKey: "name_cuteclap",
+		tsKey: "SpiritId.LightmendingPioneer",
 	},
 	{
 		upstreamKey: "commerce_item_name_starter_pack",
