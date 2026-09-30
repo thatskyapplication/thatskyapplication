@@ -400,7 +400,12 @@
 			"310": "Ajude o Comodoro Abandonado ou o Iéti do Abraço de Urso a encontrar tesouros na Aldeia dos Sonhos",
 			"311": "Acene para um jogador",
 			"312": "Sugira um modelo de pipa nas Colinas da Campina",
-			"313": "Medite no Vilarejo da Campina"
+			"313": "Medite no Vilarejo da Campina",
+			"314": "",
+			"315": "",
+			"316": "",
+			"317": "",
+			"318": ""
 		},
 		"light": "Luz",
 		"season": "Temporada",
@@ -2414,7 +2419,7 @@
 				"command-option-user-description": "O indivíduo a ser abraçado."
 			},
 			"krill": {
-				"command-name": "krill",
+				"command-name": "",
 				"command-description": "Fazer alguém ser atacado por um krill!",
 				"command-option-user-description": "O indivíduo a ser atacado por um krill."
 			},
