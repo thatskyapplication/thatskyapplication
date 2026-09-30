@@ -423,7 +423,7 @@ export default {
 			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
 				"Find a clue of the Blue Bird's whereabouts in the Vault Repository",
 			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
-				"Find a clue of the Blue Bird's whereabouts in Village Theater",
+				"Find a clue of the Blue Bird's whereabouts in Village Theatre",
 			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
 				"Find a clue of the Blue Bird's whereabouts in the Forest Clearing",
 			[DailyQuest.PickUpACrab]: "Pick up a crab",

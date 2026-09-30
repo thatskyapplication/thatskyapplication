@@ -244,6 +244,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "title_rain_bluebirdtheater_01",
+		overrides: {
+			Base: {
+				upstreamValue: "Blue Bird Theater",
+				value: "Blue Bird Theatre",
+			},
+		},
 		tsKey: "AreaName.BlueBirdTheatre",
 	},
 	{
@@ -288,6 +294,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "title_sunset_theater_01",
+		overrides: {
+			Base: {
+				upstreamValue: "Village Theater",
+				value: "Village Theatre",
+			},
+		},
 		tsKey: "AreaName.VillageTheatre",
 	},
 	{
@@ -484,6 +496,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "name_season_21",
+		overrides: {
+			Base: {
+				upstreamValue: "Season of the Nine-Colored Deer",
+				value: "Season of the Nine-Coloured Deer",
+			},
+		},
 		tsKey: "SeasonId.NineColouredDeer",
 	},
 	{
@@ -855,6 +873,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_visit_prairie_cozycave_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Visit the cozy hideout in Prairie Caves",
+				value: "Visit the cosy hideout in Prairie Caves",
+			},
+		},
 		tsKey: "DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie",
 	},
 	{
@@ -903,6 +927,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_high_five_someone_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "High-Five a friend",
+				value: "High-five a friend",
+			},
+		},
 		tsKey: "DailyQuest.HighFiveAFriend",
 	},
 	{
@@ -915,50 +945,122 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_fly_with_a_manta_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Ride with a Manta",
+				value: "Ride with a manta",
+			},
+		},
 		tsKey: "DailyQuest.RideWithAManta",
 	},
 	{
 		upstreamKey: "daily_quest_save_a_spirit_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories",
+				value: "Relive a spirit's memories",
+			},
+		},
 		tsKey: "DailyQuest.ReliveASpiritsMemories",
 	},
 	{
 		upstreamKey: "daily_quest_save_a_spirit_in_day_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Daylight Prairie",
+				value: "Relive a spirit's memories in the Daylight Prairie",
+			},
+		},
 		tsKey: "DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie",
 	},
 	{
 		upstreamKey: "daily_quest_save_a_spirit_in_rain_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Hidden Forest",
+				value: "Relive a spirit's memories in the Hidden Forest",
+			},
+		},
 		tsKey: "DailyQuest.ReliveASpiritsMemoriesInHiddenForest",
 	},
 	{
 		upstreamKey: "daily_quest_save_a_spirit_in_sunset_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Valley of Triumph",
+				value: "Relive a spirit's memories in the Valley of Triumph",
+			},
+		},
 		tsKey: "DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph",
 	},
 	{
 		upstreamKey: "daily_quest_save_a_spirit_in_dusk_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Golden Wasteland",
+				value: "Relive a spirit's memories in the Golden Wasteland",
+			},
+		},
 		tsKey: "DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland",
 	},
 	{
 		upstreamKey: "daily_quest_save_a_spirit_in_night_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive a Spirit's memories in Vault of Knowledge",
+				value: "Relive a spirit's memories in the Vault of Knowledge",
+			},
+		},
 		tsKey: "DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge",
 	},
 	{
 		upstreamKey: "daily_quest_seen_by_dark_creature_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Face the Dark Dragon",
+				value: "Face the dark dragon",
+			},
+		},
 		tsKey: "DailyQuest.FaceTheDarkDragon",
 	},
 	{
 		upstreamKey: "daily_quest_lightseeker_prairie_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Catch the light in Daylight Prairie",
+				value: "Catch the light in the Daylight Prairie",
+			},
+		},
 		tsKey: "DailyQuest.CatchTheLightInTheDaylightPrairie",
 	},
 	{
 		upstreamKey: "daily_quest_lightseeker_forest_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Catch the light in Hidden Forest",
+				value: "Catch the light in the Hidden Forest",
+			},
+		},
 		tsKey: "DailyQuest.CatchTheLightInTheHiddenForest",
 	},
 	{
 		upstreamKey: "daily_quest_lightseeker_valley_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Catch the light in Valley of Triumph",
+				value: "Catch the light in the Valley of Triumph",
+			},
+		},
 		tsKey: "DailyQuest.CatchTheLightInTheValleyOfTriumph",
 	},
 	{
 		upstreamKey: "daily_quest_lightseeker_wasteland_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Catch the light in Golden Wasteland",
+				value: "Catch the light in the Golden Wasteland",
+			},
+		},
 		tsKey: "DailyQuest.CatchTheLightInTheGoldenWasteland",
 	},
 	{
@@ -971,10 +1073,22 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_world_quest_nature_vortex1_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Rid the Sanctuary Vortex of Darkness",
+				value: "Rid the sanctuary vortex of darkness",
+			},
+		},
 		tsKey: "DailyQuest.RidTheSanctuaryVortexOfDarkness",
 	},
 	{
 		upstreamKey: "daily_quest_visit_rainbow_prairie_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Find the candles at the end of the rainbow in Daylight Prairie",
+				value: "Find the candles at the end of the rainbow in the Daylight Prairie",
+			},
+		},
 		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie",
 	},
 	{
@@ -1116,6 +1230,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_fetchlight_earth_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Collect Green Light",
+				value: "Collect green light",
+			},
 			"zh-Hans": {
 				upstreamValue: "收集 绿色光芒",
 				value: "收集绿色光芒",
@@ -1130,6 +1248,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_fetchlight_fire_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Collect Orange Light",
+				value: "Collect orange light",
+			},
 			"zh-Hans": {
 				upstreamValue: "收集 橙色光芒",
 				value: "收集橙色光芒",
@@ -1143,11 +1265,21 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_fetchlight_water_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Collect Blue Light",
+				value: "Collect blue light",
+			},
+		},
 		tsKey: "DailyQuest.CollectBlueLight",
 	},
 	{
 		upstreamKey: "daily_quest_fetchlight_void_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Collect Red Light",
+				value: "Collect red light",
+			},
 			"zh-Hans": {
 				upstreamValue: "收集 红色光芒",
 				value: "收集红色光芒",
@@ -1161,6 +1293,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_fetchlight_mind_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Collect Purple Light",
+				value: "Collect purple light",
+			},
+		},
 		tsKey: "DailyQuest.CollectPurpleLight",
 	},
 	{
@@ -1201,6 +1339,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_find_cafe_rolling_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Meet Cinnamoroll on a hill in Aviary Village.",
+				value: "Meet Cinnamoroll on a hill in Aviary Village",
+			},
 			de: {
 				upstreamValue: "Triff Cinnamoroll auf einem Hügel im Volieren-Dorf.",
 				value: "Triff Cinnamoroll auf einem Hügel im Volieren-Dorf",
@@ -1239,6 +1381,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_find_cafe_flowers_1_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Smell flowers with Cinnamoroll in Aviary Village.",
+				value: "Smell flowers with Cinnamoroll in Aviary Village",
+			},
 			de: {
 				upstreamValue: "Rieche an Blumen mit Cinnamoroll im Volieren-Dorf.",
 				value: "Rieche an Blumen mit Cinnamoroll im Volieren-Dorf",
@@ -1281,6 +1427,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_find_cafe_flowers_2_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Find Cinnamoroll peeking around Aviary Village.",
+				value: "Find Cinnamoroll peeking around Aviary Village",
+			},
 			de: {
 				upstreamValue: "Finde Cinnamoroll, während er sich im Volieren-Dorf umsieht.",
 				value: "Finde Cinnamoroll, während er sich im Volieren-Dorf umsieht",
@@ -1323,6 +1473,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_find_cafe_sleeping_1_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Wake up Cinnamoroll in Aviary Village.",
+				value: "Wake up Cinnamoroll in Aviary Village",
+			},
 			de: {
 				upstreamValue: "Wecke Cinnamoroll im Volieren-Dorf auf.",
 				value: "Wecke Cinnamoroll im Volieren-Dorf auf",
@@ -1365,6 +1519,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_find_cafe_sleeping_2_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Fly up to the tower with Cinnamoroll in Aviary Village.",
+				value: "Fly up to the tower with Cinnamoroll in Aviary Village",
+			},
 			de: {
 				upstreamValue: "Fliege mit Cinnamoroll zum Turm im Volieren-Dorf.",
 				value: "Fliege mit Cinnamoroll zum Turm im Volieren-Dorf",
@@ -1407,6 +1565,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_find_cafe_sleeping_3_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Splash in the water with Cinnamoroll in Aviary Village.",
+				value: "Splash in the water with Cinnamoroll in Aviary Village",
+			},
 			de: {
 				upstreamValue: "Plansche im Wasser mit Cinnamoroll im Volieren-Dorf.",
 				value: "Plansche im Wasser mit Cinnamoroll im Volieren-Dorf",
@@ -1472,10 +1634,22 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_runway_recording_shrine_view_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "View a Shared Memory at a style runway shrine",
+				value: "View a shared memory at a Style Runway Shrine",
+			},
+		},
 		tsKey: "DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine",
 	},
 	{
 		upstreamKey: "daily_quest_runway_recording_shrine_walk_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Record a Shared Memory at a style runway shrine",
+				value: "Record a shared memory at a Style Runway Shrine",
+			},
+		},
 		tsKey: "DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine",
 	},
 	{
@@ -1654,6 +1828,16 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository",
 	},
 	{
+		upstreamKey: "daily_quest_bluebirdchase_3_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Investigate a blue bird sighting in Village Theater",
+				value: "Investigate a blue bird sighting in Village Theatre",
+			},
+		},
+		tsKey: "DailyQuest.InvestigateABlueBirdSightingInVillageTheatre",
+	},
+	{
 		upstreamKey: "daily_quest_bluebirdchase_4_desc",
 		tsKey: "DailyQuest.InvestigateABlueBirdSightingInTheForestClearing",
 	},
@@ -1667,6 +1851,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_bluebirdfeather_3_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Find a clue of the Blue Bird's whereabouts in Village Theater",
+				value: "Find a clue of the Blue Bird's whereabouts in Village Theatre",
+			},
+		},
 		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre",
 	},
 	{
@@ -1675,6 +1865,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_pick_up_1_crab_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Pick up a Crab",
+				value: "Pick up a crab",
+			},
+		},
 		tsKey: "DailyQuest.PickUpACrab",
 	},
 	{
@@ -1692,6 +1888,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_sunlight_photo_daily_desc",
 		overrides: {
+			Base: {
+				upstreamValue: "Help Praying Acolyte archive summer in the Vault Archive.",
+				value: "Help Praying Acolyte archive summer in the Vault Archive",
+			},
 			de: {
 				upstreamValue: "Hilf dem Betenden Messdiener, den Sommer im Tresor-Archiv zu archivieren.",
 				value: "Hilf dem Betenden Messdiener, den Sommer im Tresor-Archiv zu archivieren",
@@ -1933,6 +2133,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "consumable_name_shout_manta",
+		overrides: {
+			Base: {
+				upstreamValue: "Manta Call",
+				value: "Manta call",
+			},
+		},
 		tsKey: "Cosmetic.CallManta",
 	},
 	{
@@ -1957,6 +2163,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "consumable_name_shout_crab",
+		overrides: {
+			Base: {
+				upstreamValue: "Crab Call",
+				value: "Crab call",
+			},
+		},
 		tsKey: "Cosmetic.CallCrab",
 	},
 	{
@@ -2013,6 +2225,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "consumable_name_shout_jelly",
+		overrides: {
+			Base: {
+				upstreamValue: "Jellyfish Call",
+				value: "Jellyfish call",
+			},
+		},
 		tsKey: "Cosmetic.CallJellyfish",
 	},
 	{
@@ -2345,6 +2563,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_feast_furcape",
+		overrides: {
+			Base: {
+				upstreamValue: "Cozy Hermit Cape",
+				value: "Cosy Hermit Cape",
+			},
+		},
 		tsKey: "Cosmetic.CosyHermitCape",
 	},
 	{
@@ -2361,6 +2585,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_love_heartstaff",
+		overrides: {
+			Base: {
+				upstreamValue: "Days of Love Serendipitous Scepter",
+				value: "Days of Love Serendipitous Sceptre",
+			},
+		},
 		tsKey: "Cosmetic.DaysOfLoveSerendipitousSceptre",
 	},
 	{
@@ -2461,6 +2691,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_feast_yetiboots",
+		overrides: {
+			Base: {
+				upstreamValue: "Cozy Hermit Boots",
+				value: "Cosy Hermit Boots",
+			},
+		},
 		tsKey: "Cosmetic.CosyHermitBoots",
 	},
 	{
@@ -2521,6 +2757,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "placeable_radio_title",
+		overrides: {
+			Base: {
+				upstreamValue: "Music Player",
+				value: "Music player",
+			},
+		},
 		tsKey: "Cosmetic.MusicPlayer",
 	},
 	{
@@ -2529,6 +2771,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "commerce_item_name_rainbow_bubblemachine",
+		overrides: {
+			Base: {
+				upstreamValue: "Color Bubble Machine",
+				value: "Colour Bubble Machine",
+			},
+		},
 		tsKey: "Cosmetic.ColourBubbleMachine",
 	},
 	{
@@ -2945,22 +3193,52 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "lootbox_name_color_black",
+		overrides: {
+			Base: {
+				upstreamValue: "Black Dye",
+				value: "Black dye",
+			},
+		},
 		tsKey: "CosmeticCommon.BlackDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_blue",
+		overrides: {
+			Base: {
+				upstreamValue: "Blue Dye",
+				value: "Blue dye",
+			},
+		},
 		tsKey: "CosmeticCommon.BlueDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_cyan",
+		overrides: {
+			Base: {
+				upstreamValue: "Cyan Dye",
+				value: "Cyan dye",
+			},
+		},
 		tsKey: "CosmeticCommon.CyanDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_green",
+		overrides: {
+			Base: {
+				upstreamValue: "Green Dye",
+				value: "Green dye",
+			},
+		},
 		tsKey: "CosmeticCommon.GreenDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_magenta",
+		overrides: {
+			Base: {
+				upstreamValue: "Purple Dye",
+				value: "Purple dye",
+			},
+		},
 		tsKey: "CosmeticCommon.PurpleDye",
 	},
 	{
@@ -2969,14 +3247,32 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "lootbox_name_color_red",
+		overrides: {
+			Base: {
+				upstreamValue: "Red Dye",
+				value: "Red dye",
+			},
+		},
 		tsKey: "CosmeticCommon.RedDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_white",
+		overrides: {
+			Base: {
+				upstreamValue: "White Dye",
+				value: "White dye",
+			},
+		},
 		tsKey: "CosmeticCommon.WhiteDye",
 	},
 	{
 		upstreamKey: "lootbox_name_color_yellow",
+		overrides: {
+			Base: {
+				upstreamValue: "Yellow Dye",
+				value: "Yellow dye",
+			},
+		},
 		tsKey: "CosmeticCommon.YellowDye",
 	},
 ];
