@@ -29,7 +29,7 @@ export interface FriendshipActionUploadErrors {
 }
 
 export interface SuccessfulUpload {
-	id: number;
+	asset: string;
 	type: FriendshipActionTypes;
 	users: readonly Snowflake[];
 	assetURL: string;
@@ -265,7 +265,7 @@ export function FriendshipActionUploadForm({
 							<Check className="h-5 w-5 shrink-0 self-start" />
 							<div className="flex flex-col leading-tight">
 								<p>
-									Added {FriendshipActionTypeToLabel[upload.type]} #{upload.id}.
+									Added {FriendshipActionTypeToLabel[upload.type]} {upload.asset.slice(0, 7)}.
 								</p>
 								<p>Users: {upload.users.join(", ")}</p>
 								<p>

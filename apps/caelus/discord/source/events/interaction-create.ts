@@ -836,14 +836,8 @@ export default {
 				}
 
 				if (isDMButton(data) && id === CustomId.FriendshipActionsHugBack) {
-					let number: number | undefined = Number(parts[0]);
-
-					// This will be undefined on the first few buttons before an integer was used.
-					if (Number.isNaN(number)) {
-						number = undefined;
-					}
-
-					await friendshipActionsHugBack(data, number);
+					// Old responses may have a custom id without a separator.
+					await friendshipActionsHugBack(data, parts[0]);
 					return;
 				}
 

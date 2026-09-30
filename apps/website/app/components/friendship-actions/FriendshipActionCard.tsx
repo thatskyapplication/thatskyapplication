@@ -14,8 +14,8 @@ import type { action } from "~/routes/admin.friendship-actions.js";
 import { FIELD_ERROR_CLASS, SKELETON_CLASS } from "~/utility/styles.js";
 
 export interface FriendshipAction {
+	asset: string;
 	assetURL: string;
-	id: number;
 	reference: string | null;
 	skip: boolean;
 	square: boolean;
@@ -31,16 +31,16 @@ const SWITCH_THUMB_CLASS =
 	"aspect-square h-full rounded-full bg-white ring-1 ring-gray-700/70 transition-transform data-checked:translate-x-4" as const;
 
 export function FriendshipActionCard({ friendshipAction }: { friendshipAction: FriendshipAction }) {
-	const { assetURL, id, reference, skip, square, type, typeLabel, users } = friendshipAction;
+	const { asset, assetURL, reference, skip, square, type, typeLabel, users } = friendshipAction;
 	const fetcher = useFetcher<typeof action>();
 	const [assetLoaded, setAssetLoaded] = useState(false);
 	const [previewing, setPreviewing] = useState(false);
 	const isSaving = fetcher.state !== "idle";
-	const name = `${typeLabel} #${id}`;
+	const name = `${typeLabel} ${asset.slice(0, 7)}`;
 	const optimisticSkip = fetcher.formData ? fetcher.formData.get("skip") === "true" : skip;
 	const result = fetcher.data?.intent === "skip" ? fetcher.data : null;
 	const error = result?.ok === false ? result.error : null;
-	const errorId = `friendship-action-error-${type}-${id}`;
+	const errorId = `friendship-action-error-${type}-${asset}`;
 	const squareLabel = square ? "Square." : "Not square.";
 
 	useEffect(() => {
@@ -92,7 +92,7 @@ export function FriendshipActionCard({ friendshipAction }: { friendshipAction: F
 								<Square aria-hidden="true" className="h-3.5 w-3.5 fill-current" />
 							</span>
 						</Tooltip>
-						<FriendshipActionDeleteButton id={id} name={name} type={type} />
+						<FriendshipActionDeleteButton asset={asset} name={name} type={type} />
 					</div>
 				</div>
 
@@ -125,7 +125,7 @@ export function FriendshipActionCard({ friendshipAction }: { friendshipAction: F
 							className={SWITCH_CLASS}
 							onCheckedChange={(nextSkip) =>
 								void fetcher.submit(
-									{ id: String(id), intent: "skip", skip: String(nextSkip), type: String(type) },
+									{ asset, intent: "skip", skip: String(nextSkip), type: String(type) },
 									{ method: "post" },
 								)
 							}

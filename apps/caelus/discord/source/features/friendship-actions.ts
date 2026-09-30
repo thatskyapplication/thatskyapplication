@@ -143,7 +143,7 @@ interface FriendshipActionComponentOptions {
 	type: FriendshipActionTypes;
 	locale: Locale;
 	showHugBack?: boolean;
-	id?: number | undefined;
+	asset?: string | undefined;
 }
 
 export async function friendshipActionComponents({
@@ -152,25 +152,25 @@ export async function friendshipActionComponents({
 	type,
 	locale,
 	showHugBack = false,
-	id,
+	asset,
 }: FriendshipActionComponentOptions): Promise<[APIMessageTopLevelComponent]> {
-	let resolvedId = id;
+	let resolvedAsset = asset;
 
-	if (!resolvedId) {
+	if (!resolvedAsset) {
 		const friendshipActionsPacket = await database
 			.selectFrom("friendship_actions")
-			.select("id")
+			.select("asset")
 			.where("type", "=", type)
 			.where("skip", "=", false)
 			.orderBy(sql`random()`)
 			.limit(1)
 			.executeTakeFirst();
 
-		if (!friendshipActionsPacket?.id) {
-			throw new Error("Unknown friendship actions id.");
+		if (!friendshipActionsPacket?.asset) {
+			throw new Error("Unknown friendship actions asset.");
 		}
 
-		resolvedId = friendshipActionsPacket.id;
+		resolvedAsset = friendshipActionsPacket.asset;
 	}
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -185,7 +185,7 @@ export async function friendshipActionComponents({
 		},
 		{
 			type: ComponentType.MediaGallery,
-			items: [{ media: { url: cdn.FriendshipActionTypeToURL[type](resolvedId) } }],
+			items: [{ media: { url: cdn.FriendshipActionTypeToURL[type](resolvedAsset) } }],
 		},
 	];
 
@@ -196,7 +196,7 @@ export async function friendshipActionComponents({
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Primary,
-					custom_id: `${CustomId.FriendshipActionsHugBack}§${resolvedId}`,
+					custom_id: `${CustomId.FriendshipActionsHugBack}§${resolvedAsset}`,
 					emoji: FRIEND_ACTION_EMOJIS.Hug,
 					label: t("friendship-actions.hug-back-button-label", {
 						lng: locale,
@@ -217,7 +217,7 @@ export async function friendshipActionComponents({
 
 export async function friendshipActionsHugBack(
 	interaction: APIDMInteractionWrapper<APIMessageComponentButtonInteraction>,
-	id: number | undefined,
+	asset: string | undefined,
 ) {
 	const originalInvoker = interaction.message.interaction_metadata!.user;
 	const invoker = interaction.user;
@@ -239,7 +239,7 @@ export async function friendshipActionsHugBack(
 			type: FriendshipActionType.Hug,
 			locale: Locale.EnglishGB,
 			showHugBack: false,
-			id,
+			asset,
 		}),
 	});
 
