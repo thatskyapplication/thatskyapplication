@@ -1008,6 +1008,26 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.SitOnABenchWithAStranger",
 	},
 	{
+		upstreamKey: "daily_quest_recharge_by_jellyfish_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Recharge your light from a jellyfish",
+				value: "Recharge from a jellyfish",
+			},
+		},
+		tsKey: "DailyQuest.RechargeFromAJellyfish",
+	},
+	{
+		upstreamKey: "daily_quest_recharge_by_shroom_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Recharge your light from a light bloom",
+				value: "Recharge from a light bloom",
+			},
+		},
+		tsKey: "DailyQuest.RechargeFromALightBloom",
+	},
+	{
 		upstreamKey: "daily_quest_fly_with_a_manta_desc",
 		overrides: {
 			Base: {
@@ -1088,6 +1108,16 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.FaceTheDarkDragon",
 	},
 	{
+		upstreamKey: "daily_quest_shoute_at_5_crabs_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Knock over 5 Dark Creature Crabs",
+				value: "Knock over 5 dark crabs",
+			},
+		},
+		tsKey: "DailyQuest.KnockOver5DarkCrabs",
+	},
+	{
 		upstreamKey: "daily_quest_lightseeker_prairie_desc",
 		overrides: {
 			Base: {
@@ -1136,6 +1166,118 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.VisitTheAncestorsTableInTheElevatedClearing",
 	},
 	{
+		upstreamKey: "daily_quest_cherry_sappling_prairie_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the sapling in Daylight Prairie for a short while",
+				value: "Admire the sapling in the Daylight Prairie",
+			},
+			fr: {
+				upstreamValue:
+					"Appréciez le jeune arbre dans la Prairie illuminée pendant un petit moment.",
+				value: "Appréciez le jeune arbre dans la Prairie illuminée pendant un petit moment",
+			},
+			it: {
+				upstreamValue: "Apprezza l'alberello nella Prateria Diurna per un breve periodo.",
+				value: "Apprezza l'alberello nella Prateria Diurna per un breve periodo",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheSaplingInTheDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_cherry_sappling_rain_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the sapling in the Hidden Forest for a short while",
+				value: "Admire the sapling in the Hidden Forest",
+			},
+			fr: {
+				upstreamValue: "Appréciez le jeune arbre dans la Forêt cachée pendant un petit moment.",
+				value: "Appréciez le jeune arbre dans la Forêt cachée pendant un petit moment",
+			},
+			it: {
+				upstreamValue: "Apprezza l'alberello nella Foresta Nascosta per un breve periodo.",
+				value: "Apprezza l'alberello nella Foresta Nascosta per un breve periodo",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheSaplingInTheHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_cherry_sappling_sunset_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the sapling in Valley of Triumph for a short while",
+				value: "Admire the sapling in the Valley of Triumph",
+			},
+			fr: {
+				upstreamValue:
+					"Appréciez le jeune arbre dans la Vallée du triomphe pendant un petit moment.",
+				value: "Appréciez le jeune arbre dans la Vallée du triomphe pendant un petit moment",
+			},
+			it: {
+				upstreamValue: "Apprezza l'alberello nella Valle del Trionfo per un breve periodo.",
+				value: "Apprezza l'alberello nella Valle del Trionfo per un breve periodo",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheSaplingInTheValleyOfTriumph",
+	},
+	{
+		upstreamKey: "daily_quest_cherry_sappling_dusk_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the sapling in Golden Wasteland for a short while",
+				value: "Admire the sapling in the Golden Wasteland",
+			},
+			es: {
+				upstreamValue: "Admira el árbol joven en el Páramo Dorado por un rato.",
+				value: "Admira el árbol joven en el Páramo Dorado por un rato",
+			},
+			fr: {
+				upstreamValue: "Appréciez le jeune arbre dans le Désert d'or pendant un petit moment.",
+				value: "Appréciez le jeune arbre dans le Désert d'or pendant un petit moment",
+			},
+			it: {
+				upstreamValue: "Apprezza l'alberello nel Deserto Dorato per un breve periodo.",
+				value: "Apprezza l'alberello nel Deserto Dorato per un breve periodo",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheSaplingInTheGoldenWasteland",
+	},
+	{
+		upstreamKey: "daily_quest_cherry_sappling_night_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the sapling in the Vault of Knowledge for a short while",
+				value: "Admire the sapling in the Vault of Knowledge",
+			},
+			fr: {
+				upstreamValue:
+					"Appréciez le jeune arbre dans la Chambre forte de connaissance pendant un petit moment.",
+				value:
+					"Appréciez le jeune arbre dans la Chambre forte de connaissance pendant un petit moment",
+			},
+			it: {
+				upstreamValue: "Apprezza l'alberello nella Cupola della Conoscenza.",
+				value: "Apprezza l'alberello nella Cupola della Conoscenza",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge",
+	},
+	{
+		upstreamKey: "daily_quest_visit_island_pollution_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Visit the polluted geyser in Sanctuary Islands",
+				value: "Visit the Polluted Geyser",
+			},
+			fr: {
+				upstreamValue: "Visitez le geyser pollué dans les îles du sanctuaire.",
+				value: "Visitez le geyser pollué dans les îles du sanctuaire",
+			},
+		},
+		tsKey: "DailyQuest.VisitThePollutedGeyser",
+	},
+	{
 		upstreamKey: "daily_quest_world_quest_nature_vortex1_desc",
 		overrides: {
 			Base: {
@@ -1172,12 +1314,72 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge",
 	},
 	{
+		upstreamKey: "daily_quest_rainbow_rainbow_prairie_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the rainbow in Sanctuary Islands for a short while",
+				value: "Admire the rainbow in the Sanctuary Islands",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheRainbowInTheSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_rainbow_rainbow_rain_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the rainbow in the Wind Paths for a short while",
+				value: "Admire the rainbow in the Wind Paths",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheRainbowInTheWindPaths",
+	},
+	{
+		upstreamKey: "daily_quest_rainbow_rainbow_sunset_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the rainbow in Hermit Valley for a short while",
+				value: "Admire the rainbow in the Hermit Valley",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheRainbowInTheHermitValley",
+	},
+	{
+		upstreamKey: "daily_quest_rainbow_rainbow_dusk_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the rainbow in Treasure Reef for a short while",
+				value: "Admire the rainbow in the Treasure Reef",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheRainbowInTheTreasureReef",
+	},
+	{
+		upstreamKey: "daily_quest_rainbow_rainbow_night_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Admire the rainbow in Starlight Desert for a short while",
+				value: "Admire the rainbow in the Starlight Desert",
+			},
+		},
+		tsKey: "DailyQuest.AdmireTheRainbowInTheStarlightDesert",
+	},
+	{
 		upstreamKey: "daily_quest_meditate_prairie_nestkeeper_desc",
 		tsKey: "DailyQuest.MeditateByTheBirdNest",
 	},
 	{
 		upstreamKey: "daily_quest_meditate_prairie_butterfly_desc",
 		tsKey: "DailyQuest.MeditateInButterflyFields",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_island_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Meditate in Sanctuary Islands",
+				value: "Meditate at the Sanctuary Islands",
+			},
+		},
+		tsKey: "DailyQuest.MeditateAtTheSanctuaryIslands",
 	},
 	{
 		upstreamKey: "daily_quest_meditate_prairie_cave_desc",
@@ -1364,6 +1566,26 @@ const MAPPINGS: LocaleMapping[] = [
 			},
 		},
 		tsKey: "DailyQuest.CollectPurpleLight",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_ap09_fetch_02_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Race down the slopes with the skater in the Village of Dreams",
+				value: "Race down the slopes with the skater",
+			},
+		},
+		tsKey: "DailyQuest.RaceDownTheSlopesWithTheSkater",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_ap09_fetch_03_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Race down the mountain with the skater in the Hermit Valley",
+				value: "Race down the mountain with the skater",
+			},
+		},
+		tsKey: "DailyQuest.RaceDownTheMountainWithTheSkater",
 	},
 	{
 		upstreamKey: "daily_quest_world_quest_ap10_fetch_06_desc",
