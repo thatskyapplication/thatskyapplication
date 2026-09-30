@@ -12,11 +12,11 @@ import {
 } from "~/utility/styles.js";
 
 export function FriendshipActionDeleteButton({
-	id,
+	asset,
 	name,
 	type,
 }: {
-	id: number;
+	asset: string;
 	name: string;
 	type: FriendshipActionTypes;
 }) {
@@ -49,7 +49,7 @@ export function FriendshipActionDeleteButton({
 						</AlertDialog.Close>
 						<fetcher.Form method="post">
 							<input name="intent" type="hidden" value="delete" />
-							<input name="id" type="hidden" value={id} />
+							<input name="asset" type="hidden" value={asset} />
 							<input name="type" type="hidden" value={type} />
 							<ActionButton
 								aria-disabled={isDeleting}

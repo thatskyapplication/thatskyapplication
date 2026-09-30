@@ -82,7 +82,8 @@ export interface FeedbackUpsell {
 }
 
 export interface FriendshipActions {
-  id: number;
+  asset: string;
+  id: number | null;
   reference: string | null;
   skip: boolean;
   square: boolean;

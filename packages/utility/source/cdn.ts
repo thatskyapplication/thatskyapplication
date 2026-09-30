@@ -13,12 +13,12 @@ const FriendshipActionTypeToDirectory = {
 export class CDN {
 	public constructor(private readonly cdnURL: string) {}
 
-	public friendshipActionRoute(type: FriendshipActionTypes, id: number) {
-		return `${FriendshipActionTypeToDirectory[type]}/${id}.gif` as const;
+	public friendshipActionRoute(type: FriendshipActionTypes, asset: string) {
+		return `${FriendshipActionTypeToDirectory[type]}/${asset}.gif` as const;
 	}
 
-	public friendshipActionURL(type: FriendshipActionTypes, id: number) {
-		return `${this.cdnURL}/${this.friendshipActionRoute(type, id)}` as const;
+	public friendshipActionURL(type: FriendshipActionTypes, asset: string) {
+		return `${this.cdnURL}/${this.friendshipActionRoute(type, asset)}` as const;
 	}
 
 	public skyProfileBannerRoute(userId: Snowflake, hash: string) {
@@ -38,15 +38,15 @@ export class CDN {
 	}
 
 	public readonly FriendshipActionTypeToURL = {
-		[FriendshipActionType.HighFive]: (id: number) =>
-			this.friendshipActionURL(FriendshipActionType.HighFive, id),
-		[FriendshipActionType.Hug]: (id: number) =>
-			this.friendshipActionURL(FriendshipActionType.Hug, id),
-		[FriendshipActionType.HairTousle]: (id: number) =>
-			this.friendshipActionURL(FriendshipActionType.HairTousle, id),
-		[FriendshipActionType.PlayFight]: (id: number) =>
-			this.friendshipActionURL(FriendshipActionType.PlayFight, id),
-		[FriendshipActionType.Krill]: (id: number) =>
-			this.friendshipActionURL(FriendshipActionType.Krill, id),
-	} as const satisfies Readonly<Record<FriendshipActionTypes, (id: number) => string>>;
+		[FriendshipActionType.HighFive]: (asset: string) =>
+			this.friendshipActionURL(FriendshipActionType.HighFive, asset),
+		[FriendshipActionType.Hug]: (asset: string) =>
+			this.friendshipActionURL(FriendshipActionType.Hug, asset),
+		[FriendshipActionType.HairTousle]: (asset: string) =>
+			this.friendshipActionURL(FriendshipActionType.HairTousle, asset),
+		[FriendshipActionType.PlayFight]: (asset: string) =>
+			this.friendshipActionURL(FriendshipActionType.PlayFight, asset),
+		[FriendshipActionType.Krill]: (asset: string) =>
+			this.friendshipActionURL(FriendshipActionType.Krill, asset),
+	} as const satisfies Readonly<Record<FriendshipActionTypes, (asset: string) => string>>;
 }

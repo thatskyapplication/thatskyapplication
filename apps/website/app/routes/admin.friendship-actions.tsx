@@ -1,4 +1,5 @@
 import { Buffer } from "node:buffer";
+import { createHash } from "node:crypto";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import type { Snowflake } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
@@ -34,7 +35,8 @@ import { SECTION_HEADING_CLASS, WARNING_BANNER_CLASS } from "~/utility/styles.js
 import { resolveUserChips, resolveUsers } from "~/utility/users.server.js";
 import type { Route } from "./+types/admin.friendship-actions.js";
 
-const MAXIMUM_FRIENDSHIP_ACTION_ID = 32_767 as const;
+const ASSET_CACHE_CONTROL = "public, max-age=31536000, immutable" as const;
+const FRIENDSHIP_ACTION_ASSET_REGEX = /^[0-9a-f]{32}$/;
 const DISCORD_USER_ID_REGEX = /^\d{17,19}$/;
 
 const REFERENCE_REGEX = new RegExp(
@@ -44,21 +46,16 @@ const REFERENCE_REGEX = new RegExp(
 const cdn = new CDN(CDN_URL);
 
 function parseFriendshipActionReference(formData: FormData) {
-	const rawId = formData.get("id");
+	const rawAsset = formData.get("asset");
 	const rawType = formData.get("type");
-	const id = typeof rawId === "string" ? Number.parseInt(rawId, 10) : Number.NaN;
+	const asset = typeof rawAsset === "string" ? rawAsset : "";
 	const type = typeof rawType === "string" ? Number.parseInt(rawType, 10) : Number.NaN;
 
-	if (
-		!Number.isSafeInteger(id) ||
-		id <= 0 ||
-		id > MAXIMUM_FRIENDSHIP_ACTION_ID ||
-		!isFriendshipActionType(type)
-	) {
+	if (!FRIENDSHIP_ACTION_ASSET_REGEX.test(asset) || !isFriendshipActionType(type)) {
 		return null;
 	}
 
-	return { id, type };
+	return { asset, type };
 }
 
 function parseUserIds(value: string) {
@@ -139,15 +136,15 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		.selectAll()
 		.$narrowType<{ type: FriendshipActionTypes }>()
 		.orderBy("type", "asc")
-		.orderBy("id", "asc")
+		.orderBy("asset", "asc")
 		.execute();
 
 	const userIds = [...new Set(packets.flatMap((packet) => packet.users))];
 	const userChips = await resolveUserChips(userIds);
 
 	const friendshipActions: FriendshipAction[] = packets.map((packet) => ({
-		assetURL: cdn.FriendshipActionTypeToURL[packet.type](packet.id),
-		id: packet.id,
+		asset: packet.asset,
+		assetURL: cdn.FriendshipActionTypeToURL[packet.type](packet.asset),
 		reference: packet.reference,
 		skip: packet.skip,
 		square: packet.square,
@@ -188,7 +185,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 		const result = await database
 			.updateTable("friendship_actions")
 			.set({ skip: rawSkip === "true" })
-			.where("id", "=", reference.id)
+			.where("asset", "=", reference.asset)
 			.where("type", "=", reference.type)
 			.executeTakeFirst();
 
@@ -212,7 +209,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 
 		const result = await database
 			.deleteFrom("friendship_actions")
-			.where("id", "=", reference.id)
+			.where("asset", "=", reference.asset)
 			.where("type", "=", reference.type)
 			.executeTakeFirst();
 
@@ -228,7 +225,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 			await S3Client.send(
 				new DeleteObjectCommand({
 					Bucket: R2_BUCKET_CDN,
-					Key: cdn.friendshipActionRoute(reference.type, reference.id),
+					Key: cdn.friendshipActionRoute(reference.type, reference.asset),
 				}),
 			);
 		} catch (error) {
@@ -303,60 +300,50 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	const validatedUserIds = parsedUserIds as readonly Snowflake[];
 	const validatedUpload = validatedAsset as { buffer: Buffer; square: boolean };
 
-	try {
-		const { maxId } = await database
-			.selectFrom("friendship_actions")
-			.select((eb) => eb.fn.max("id").as("maxId"))
-			.where("type", "=", friendshipActionType)
-			.executeTakeFirstOrThrow();
+	const asset = createHash("md5").update(validatedUpload.buffer).digest("hex");
 
-		const nextId = (maxId ?? 0) + 1;
+	try {
+		await S3Client.send(
+			new PutObjectCommand({
+				Bucket: R2_BUCKET_CDN,
+				Key: cdn.friendshipActionRoute(friendshipActionType, asset),
+				Body: validatedUpload.buffer,
+				CacheControl: ASSET_CACHE_CONTROL,
+				ContentDisposition: "inline",
+				ContentType: "image/gif",
+			}),
+		);
 
 		const row = await database
 			.insertInto("friendship_actions")
 			.values({
-				id: nextId,
+				asset,
 				type: friendshipActionType,
 				users: [...validatedUserIds],
 				square: validatedUpload.square,
 				skip: false,
 				reference,
 			})
+			.onConflict((onConflict) => onConflict.columns(["type", "asset"]).doNothing())
 			.returningAll()
-			.executeTakeFirstOrThrow();
+			.executeTakeFirst();
 
-		try {
-			await S3Client.send(
-				new PutObjectCommand({
-					Bucket: R2_BUCKET_CDN,
-					Key: cdn.friendshipActionRoute(friendshipActionType, nextId),
-					Body: validatedUpload.buffer,
-					ContentDisposition: "inline",
-					ContentType: "image/gif",
-				}),
+		if (!row) {
+			return data(
+				{
+					errors: { asset: "That GIF is already uploaded for this friendship action type." },
+					intent: "upload",
+					ok: false,
+				} as const,
+				{ status: 409 },
 			);
-		} catch (error) {
-			try {
-				await database
-					.deleteFrom("friendship_actions")
-					.where("id", "=", nextId)
-					.where("type", "=", friendshipActionType)
-					.execute();
-			} catch (error) {
-				pino.error(
-					error,
-					"Failed to clean up database after failed friendship action asset upload.",
-				);
-			}
-
-			throw error;
 		}
 
 		const upload: SuccessfulUpload = {
-			id: row.id,
+			asset: row.asset,
 			type: friendshipActionType,
 			users: row.users,
-			assetURL: cdn.FriendshipActionTypeToURL[friendshipActionType](row.id),
+			assetURL: cdn.FriendshipActionTypeToURL[friendshipActionType](row.asset),
 		};
 
 		return data({ intent: "upload", ok: true, upload } as const);
@@ -478,7 +465,7 @@ export default function AdminFriendshipActions({ actionData, loaderData }: Route
 							) : (
 								<ul className="m-0 grid list-none grid-cols-1 gap-3 p-0 lg:grid-cols-2">
 									{group.friendshipActions.map((friendshipAction) => (
-										<li key={friendshipAction.id}>
+										<li key={friendshipAction.asset}>
 											<FriendshipActionCard friendshipAction={friendshipAction} />
 										</li>
 									))}
