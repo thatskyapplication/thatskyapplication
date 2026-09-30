@@ -848,6 +848,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.ShareYourNewYearsResolutionInTheOffice",
 	},
 	{
+		upstreamKey: "daily_quest_visit_prairie_cozycave_desc",
+		tsKey: "DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie",
+	},
+	{
 		upstreamKey: "name_questap30",
 		tsKey: "SpiritId.CarnivalGuide",
 	},
