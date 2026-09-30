@@ -205,7 +205,7 @@ export default {
 			[DailyQuest.CatchTheLightInTheGoldenWasteland]: "Catch the light in the Golden Wasteland",
 			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]: "Catch the light in the Vault of Knowledge",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
-				"Visit the cosy hideout in the Daylight Prairie",
+				"Visit the cosy hideout in Prairie Caves",
 			[DailyQuest.VisitTheAncestorsTableInTheElevatedClearing]:
 				"Visit the Ancestor's table in the Elevated Clearing",
 			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
