@@ -400,7 +400,12 @@
 			"310": "Aidez le Commodore commandant ou le Yéti du câlin à trouver des trésors dans le Village des Rêves",
 			"311": "Faire signe de la main à un joueur",
 			"312": "Proposez un design de cerf-volant dans Hauteurs de la Prairie",
-			"313": "Méditez dans le village de la prairie"
+			"313": "Méditez dans le village de la prairie",
+			"314": "",
+			"315": "",
+			"316": "",
+			"317": "",
+			"318": ""
 		},
 		"light": "",
 		"season": "Saison",
@@ -2414,7 +2419,7 @@
 				"command-option-user-description": "La personne à qui tu veux faire un câlin."
 			},
 			"krill": {
-				"command-name": "krill",
+				"command-name": "",
 				"command-description": "Fait quelqu'un se faire attaquer par un krill !",
 				"command-option-user-description": "La personne qui se fera attaquer par un krill."
 			},
