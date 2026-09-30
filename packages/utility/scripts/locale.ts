@@ -821,6 +821,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "daily_quest_color_voted_for_kite_desc",
+		overrides: {
+			es: {
+				upstreamValue: "Propone un diseño de cometa en las Alturas de la planicie.",
+				value: "Propone un diseño de cometa en las Alturas de la planicie",
+			},
+		},
 		tsKey: "DailyQuest.ProposeAKiteDesignInPrairieHeights",
 	},
 	{
@@ -850,6 +856,616 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_visit_prairie_cozycave_desc",
 		tsKey: "DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_pickup_30_wax_desc",
+		tsKey: "DailyQuest.Collect30PiecesOfLight",
+	},
+	{
+		upstreamKey: "daily_quest_light_20_candles_desc",
+		tsKey: "DailyQuest.Light20Candles",
+	},
+	{
+		upstreamKey: "daily_quest_forge_a_candle_desc",
+		tsKey: "DailyQuest.ForgeACandle",
+	},
+	{
+		upstreamKey: "daily_quest_melt_10_darkstones_desc",
+		tsKey: "DailyQuest.Melt10Darkness",
+	},
+	{
+		upstreamKey: "daily_quest_bow_at_a_player_desc",
+		tsKey: "DailyQuest.BowAtAPlayer",
+	},
+	{
+		upstreamKey: "daily_quest_follow_another_player_desc",
+		tsKey: "DailyQuest.FollowAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_hug_someone_desc",
+		tsKey: "DailyQuest.HugAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_wave_at_a_friend_desc",
+		tsKey: "DailyQuest.WaveToAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_hold_someones_hand_desc",
+		tsKey: "DailyQuest.HoldAFriendsHand",
+	},
+	{
+		upstreamKey: "daily_quest_send_a_gift_desc",
+		tsKey: "DailyQuest.SendAGiftToAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_make_a_new_acquaintance_desc",
+		tsKey: "DailyQuest.MakeANewAcquaintance",
+	},
+	{
+		upstreamKey: "daily_quest_express_an_emote_to_a_friend_desc",
+		tsKey: "DailyQuest.UseAnExpressionNearAFriend",
+	},
+	{
+		upstreamKey: "daily_quest_sit_at_a_bench_with_a_stranger_desc",
+		tsKey: "DailyQuest.SitOnABenchWithAStranger",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_vault_desc",
+		tsKey: "DailyQuest.CatchTheLightInTheVaultOfKnowledge",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rain_grandmatable_desc",
+		tsKey: "DailyQuest.VisitTheAncestorsTableInTheElevatedClearing",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_rain_desc",
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_sunset_desc",
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_dusk_desc",
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_night_desc",
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_nestkeeper_desc",
+		tsKey: "DailyQuest.MeditateByTheBirdNest",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_butterfly_desc",
+		tsKey: "DailyQuest.MeditateInButterflyFields",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_cave_desc",
+		tsKey: "DailyQuest.MeditateInPrairieCave",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_prairie_village_koi_desc",
+		tsKey: "DailyQuest.MeditateByPrairieTemplesKoiPond",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_main_desc",
+		tsKey: "DailyQuest.MeditateOutsideTheForestCourtyard",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_rainforest_desc",
+		tsKey: "DailyQuest.MeditateAboveTheForestBrook",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_shelter_desc",
+		tsKey: "DailyQuest.MeditateInTheElevatedClearing",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_rainend_desc",
+		tsKey: "DailyQuest.MeditateAtTheSacredPond",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_rain_rainmid_desc",
+		tsKey: "DailyQuest.MeditateByTheForestsBoneyard",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_sunset_main_desc",
+		tsKey: "DailyQuest.MeditateOverlookingTheFrozenLake",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_sunset_citadel_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Meditiere auf dem Eingang zur Zitadelle.",
+				value: "Meditiere auf dem Eingang zur Zitadelle",
+			},
+		},
+		tsKey: "DailyQuest.MeditateAtopTheEntranceToTheCitadel",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_sunset_citadel2_desc",
+		tsKey: "DailyQuest.MeditateHighAboveTheCitadel",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_sunset_raceend_desc",
+		tsKey: "DailyQuest.MeditateInTheColiseum",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_main_desc",
+		tsKey: "DailyQuest.MeditateInTheBrokenTemple",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_oasis_desc",
+		tsKey: "DailyQuest.MeditateByTheForgottenArk",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_graveyard_desc",
+		tsKey: "DailyQuest.MeditateInTheGraveyard",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_crabfields_desc",
+		tsKey: "DailyQuest.MeditateInTheCrabFields",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_dusk_duskmid_desc",
+		tsKey: "DailyQuest.MeditateOnTheBattlefield",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_night_main2_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Meditiere am Eingang des Tresor des Wissens.",
+				value: "Meditiere am Eingang des Tresor des Wissens",
+			},
+			fr: {
+				upstreamValue: "Méditez à l'entrée de la Chambre forte de connaissance.",
+				value: "Méditez à l'entrée de la Chambre forte de connaissance",
+			},
+			it: {
+				upstreamValue: "Meditare all'ingresso della Cupola della Conoscenza.",
+				value: "Meditare all'ingresso della Cupola della Conoscenza",
+			},
+			pt: {
+				upstreamValue: "Meditar na entrada do Relicário do Conhecimento.",
+				value: "Meditar na entrada do Relicário do Conhecimento",
+			},
+			vi: {
+				upstreamValue: "Ngồi thiền ở lối vào Kho Tri Thức.",
+				value: "Ngồi thiền ở lối vào Kho Tri Thức",
+			},
+			"zh-Hans": {
+				upstreamValue: "在禁阁的入口冥想。",
+				value: "在禁阁的入口冥想",
+			},
+			"zh-Hant": {
+				upstreamValue: "在禁閣的入口處進行冥想。",
+				value: "在禁閣的入口處進行冥想",
+			},
+		},
+		tsKey: "DailyQuest.MeditateAtTheVaultsEntrance",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_night_main_desc",
+		tsKey: "DailyQuest.MeditateOnTheSecondFloorOfTheVault",
+	},
+	{
+		upstreamKey: "daily_quest_meditate_night_night2_desc",
+		tsKey: "DailyQuest.MeditateAtTheVaultTemple",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_ap10_fetch_06_desc",
+		tsKey: "DailyQuest.CompleteTheHoopScavengerHunt",
+	},
+	{
+		upstreamKey: "daily_quest_visit_stormy_event_desc",
+		overrides: {
+			de: {
+				upstreamValue:
+					"Besuche eine Scherbe der Finsternis, die in das Königreich von Sky gefallen ist.",
+				value: "Besuche eine Scherbe der Finsternis, die in das Königreich von Sky gefallen ist",
+			},
+			"zh-Hant": {
+				upstreamValue: "造訪墜入 Sky 國度的黑暗碎片。",
+				value: "造訪墜入 Sky 國度的黑暗碎片",
+			},
+		},
+		tsKey: "DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_selfie_grumpy_desc",
+		tsKey: "DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_selfie_crabvoice_desc",
+		tsKey: "DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_selfie_evillaugh_desc",
+		tsKey: "DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_selfie_welcome_desc",
+		tsKey: "DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_do_competition_play_desc",
+		tsKey: "DailyQuest.PlayAnyTournamentSport",
+	},
+	{
+		upstreamKey: "daily_quest_change_hair_desc",
+		tsKey: "DailyQuest.ChangeYourHairstyle",
+	},
+	{
+		upstreamKey: "daily_quest_change_neck_desc",
+		tsKey: "DailyQuest.ChangeYourNecklace",
+	},
+	{
+		upstreamKey: "daily_quest_change_prop_desc",
+		tsKey: "DailyQuest.ChangeYourProp",
+	},
+	{
+		upstreamKey: "daily_quest_change_mask_desc",
+		tsKey: "DailyQuest.ChangeYourMask",
+	},
+	{
+		upstreamKey: "daily_quest_change_cape_desc",
+		tsKey: "DailyQuest.ChangeYourCape",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_1_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en las Islas Santuario.",
+				value:
+					"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en las Islas Santuario",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors sur les Îles du Sanctuaire.",
+				value:
+					"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors sur les Îles du Sanctuaire",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище на Островах укрытия.",
+				value:
+					"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище на Островах укрытия",
+			},
+		},
+		tsKey: "DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_2_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Contramaestre torpe o al Guía del ensamblaje a buscar tesoros en las Islas Santuario.",
+				value:
+					"Ayuda al Contramaestre torpe o al Guía del ensamblaje a buscar tesoros en las Islas Santuario",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors sur les Îles du Sanctuaire.",
+				value:
+					"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors sur les Îles du Sanctuaire",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище на Островах укрытия.",
+				value:
+					"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище на Островах укрытия",
+			},
+			vi: {
+				upstreamValue:
+					"Giúp Thủy Thủ Hậu Đậu hoặc Chỉ Dẫn Tụ Hội tìm kho báu tại Quần Đảo Thánh Địa.",
+				value: "Giúp Thủy Thủ Hậu Đậu hoặc Chỉ Dẫn Tụ Hội tìm kho báu tại Quần Đảo Thánh Địa",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_night_3_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el desierto Luz de Estrellas.",
+				value:
+					"Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el desierto Luz de Estrellas",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors dans le Désert stellaire.",
+				value:
+					"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors dans le Désert stellaire",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище в Звёздной пустыне.",
+				value:
+					"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище в Звёздной пустыне",
+			},
+			vi: {
+				upstreamValue: "Giúp Thủy Thủ Hậu Đậu hoặc Người Dẫn Đoàn tìm kho báu tại Sa Mạc Ánh Sao.",
+				value: "Giúp Thủy Thủ Hậu Đậu hoặc Người Dẫn Đoàn tìm kho báu tại Sa Mạc Ánh Sao",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_3_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en las Islas Santuario.",
+				value:
+					"Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en las Islas Santuario",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors sur les Îles du Sanctuaire.",
+				value:
+					"Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors sur les Îles du Sanctuaire",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Командору-начальнику или Мечтательному лесовичку найти сокровище на Островах укрытия.",
+				value:
+					"Помогите Командору-начальнику или Мечтательному лесовичку найти сокровище на Островах укрытия",
+			},
+			vi: {
+				upstreamValue:
+					"Giúp Thuyền Trưởng Uy Nghiêm hoặc Người Đi Rừng Mộng Du tìm kho báu tại Quần Đảo Thánh Địa.",
+				value:
+					"Giúp Thuyền Trưởng Uy Nghiêm hoặc Người Đi Rừng Mộng Du tìm kho báu tại Quần Đảo Thánh Địa",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_rain_3_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el Bosque Escondido.",
+				value:
+					"Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el Bosque Escondido",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée.",
+				value:
+					"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище в Тайном лесу.",
+				value: "Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище в Тайном лесу",
+			},
+			vi: {
+				upstreamValue: "Giúp Ngư Dân Lo Lắng hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa.",
+				value: "Giúp Ngư Dân Lo Lắng hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_sunset_3_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en la aldea de los sueños.",
+				value:
+					"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en la aldea de los sueños",
+			},
+			fr: {
+				upstreamValue:
+					"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors dans le Village des Rêves.",
+				value:
+					"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors dans le Village des Rêves",
+			},
+			ru: {
+				upstreamValue:
+					"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище в Деревушке мечтаний.",
+				value:
+					"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище в Деревушке мечтаний",
+			},
+			vi: {
+				upstreamValue:
+					"Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Làng Mộng Mơ.",
+				value: "Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Làng Mộng Mơ",
+			},
+		},
+		tsKey: "DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdchase_1_desc",
+		tsKey: "DailyQuest.InvestigateABlueBirdSightingInTheFrozenLake",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdchase_2_desc",
+		tsKey: "DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdchase_4_desc",
+		tsKey: "DailyQuest.InvestigateABlueBirdSightingInTheForestClearing",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdfeather_1_desc",
+		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheFrozenLake",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdfeather_2_desc",
+		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdfeather_3_desc",
+		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre",
+	},
+	{
+		upstreamKey: "daily_quest_bluebirdfeather_4_desc",
+		tsKey: "DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing",
+	},
+	{
+		upstreamKey: "daily_quest_spirit_anniversary_desc",
+		overrides: {
+			es: {
+				upstreamValue:
+					"Admira los espacios compartidos del campanario destrozado de la aldea aviaria por un momento.",
+				value:
+					"Admira los espacios compartidos del campanario destrozado de la aldea aviaria por un momento",
+			},
+		},
+		tsKey: "DailyQuest.AdmireSharedSpacesAtTheBrokenBellTowerInAviaryVillageForAShortWhile",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_sunset_race_desc",
+		tsKey: "DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace",
+	},
+	{
+		upstreamKey: "daily_quest_ap28_daily_generic_desc",
+		tsKey: "DailyQuest.InviteASeasonOfMigrationSpiritToAdventureWithYouToday",
+	},
+	{
+		upstreamKey: "daily_quest_emote_with_players_desc",
+		tsKey: "DailyQuest.UseExpressionsWithPlayers",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_rain_rainforest_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheForestBrook",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_day_birdnest_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsAroundTheBirdNest",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_day_prairievillage_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInPrairieVillage",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_dusk_graveyard_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheGraveyard",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_dusk_triangle_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsUnderTheSeaInTreasureReef",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_night_floor4_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheUpperVault",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_night_shelter_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheVaultsRepository",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_rain_basecamp_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheTreehouse",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_sunset_citadel_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsInTheCitadel",
+	},
+	{
+		upstreamKey: "daily_quest_ride_giant_manta_prairie_island_desc",
+		tsKey: "DailyQuest.RideAGiantMantaInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_touch_butterflies_butterflyfields_desc",
+		tsKey: "DailyQuest.FlyWithManyButterfliesInButterflyFields",
+	},
+	{
+		upstreamKey: "daily_quest_mischief_broomrace_desc",
+		tsKey: "DailyQuest.FinishNatsBroomstickRaceInCacklingCrab",
+	},
+	{
+		upstreamKey: "daily_quest_catch_pumpkin_crab_desc",
+		tsKey: "DailyQuest.HelpAustinCollect5CrabsInTheBasementOfTheCacklingCrab",
+	},
+	{
+		upstreamKey: "daily_quest_light_mischief_cannon_desc",
+		tsKey: "DailyQuest.HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab",
+	},
+	{
+		upstreamKey: "daily_quest_light_mischief_cauldron_desc",
+		tsKey: "DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab",
+	},
+	{
+		upstreamKey: "daily_quest_feast_fishing_desc",
+		tsKey: "DailyQuest.CatchSomethingGoodWithAFishingPoleInVillageOfDreams",
+	},
+	{
+		upstreamKey: "daily_quest_feast_play_race_desc",
+		tsKey: "DailyQuest.FindBearhugHermitInVillageOfDreamsAndPlayARace",
+	},
+	{
+		upstreamKey: "daily_quest_feast_play_skyball_desc",
+		tsKey: "DailyQuest.PlaySkyballFor60SecondsInVillageOfDreams",
+	},
+	{
+		upstreamKey: "daily_quest_feast_snowball_hit_avatar_desc",
+		tsKey: "DailyQuest.ThrowASnowballAtSomeone",
+	},
+	{
+		upstreamKey: "daily_quest_tidy_rain_grandmatable_desc",
+		tsKey: "DailyQuest.TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing",
+	},
+	{
+		upstreamKey: "daily_quest_rescue_a_manta_from_darkstone_desc",
+		tsKey: "DailyQuest.RescueAMantaFromDarkness",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_sunset_yetipark_desc",
+		tsKey: "DailyQuest.CatchTheWanderingLightsAtopHermitValley",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker3_rain_skyway_desc",
+		tsKey: "DailyQuest.CatchThe3LightsInTheWindPaths",
+	},
+	{
+		upstreamKey: "daily_quest_bloom_harvesting_desc",
+		overrides: {
+			ru: {
+				upstreamValue: "Соберите свет семян подсолнуха в саду Полуденной прерии.",
+				value: "Соберите свет семян подсолнуха в саду Полуденной прерии",
+			},
+		},
+		tsKey: "DailyQuest.HarvestTheSunflowerSeedLightAtTheGardenInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_bloom_message_desc",
+		overrides: {
+			ru: {
+				upstreamValue: "Посадите сообщение-подсолнух в саду Полуденной прерии.",
+				value: "Посадите сообщение-подсолнух в саду Полуденной прерии",
+			},
+		},
+		tsKey: "DailyQuest.PlantASunflowerMessageAtTheGardenInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_bloom_music_desc",
+		overrides: {
+			ru: {
+				upstreamValue: "Сыграйте музыку вместе со Смеющимся ловцом света Полуденной прерии.",
+				value: "Сыграйте музыку вместе со Смеющимся ловцом света Полуденной прерии",
+			},
+		},
+		tsKey: "DailyQuest.PlayMusicWithLaughingLightCatcherInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_bloom_watering_desc",
+		overrides: {
+			ru: {
+				upstreamValue: "Полейте подсолнух в саду Полуденной прерии.",
+				value: "Полейте подсолнух в саду Полуденной прерии",
+			},
+		},
+		tsKey: "DailyQuest.WaterTheSunflowerAtTheGardenInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_honk_at_players_desc",
+		tsKey: "DailyQuest.CallTo5DifferentPlayers",
 	},
 	{
 		upstreamKey: "name_questap30",
