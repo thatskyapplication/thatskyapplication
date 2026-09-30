@@ -922,8 +922,44 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.ReliveASpiritsMemories",
 	},
 	{
+		upstreamKey: "daily_quest_save_a_spirit_in_day_desc",
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_in_rain_desc",
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_in_sunset_desc",
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_in_dusk_desc",
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland",
+	},
+	{
+		upstreamKey: "daily_quest_save_a_spirit_in_night_desc",
+		tsKey: "DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge",
+	},
+	{
 		upstreamKey: "daily_quest_seen_by_dark_creature_desc",
 		tsKey: "DailyQuest.FaceTheDarkDragon",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_prairie_desc",
+		tsKey: "DailyQuest.CatchTheLightInTheDaylightPrairie",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_forest_desc",
+		tsKey: "DailyQuest.CatchTheLightInTheHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_valley_desc",
+		tsKey: "DailyQuest.CatchTheLightInTheValleyOfTriumph",
+	},
+	{
+		upstreamKey: "daily_quest_lightseeker_wasteland_desc",
+		tsKey: "DailyQuest.CatchTheLightInTheGoldenWasteland",
 	},
 	{
 		upstreamKey: "daily_quest_lightseeker_vault_desc",
@@ -936,6 +972,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_world_quest_nature_vortex1_desc",
 		tsKey: "DailyQuest.RidTheSanctuaryVortexOfDarkness",
+	},
+	{
+		upstreamKey: "daily_quest_visit_rainbow_prairie_desc",
+		tsKey: "DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie",
 	},
 	{
 		upstreamKey: "daily_quest_visit_rainbow_rain_desc",
@@ -1157,6 +1197,254 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_spirit_selfie_welcome_desc",
 		tsKey: "DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_rolling_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Triff Cinnamoroll auf einem Hügel im Volieren-Dorf.",
+				value: "Triff Cinnamoroll auf einem Hügel im Volieren-Dorf",
+			},
+			es: {
+				upstreamValue: "Busca a Cinnamoroll en una colina de la aldea aviaria.",
+				value: "Busca a Cinnamoroll en una colina de la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Rencontrez Cinnamoroll sur une colline du village volière.",
+				value: "Rencontrez Cinnamoroll sur une colline du village volière",
+			},
+			it: {
+				upstreamValue: "Incontra Cinnamoroll su una collina nel Villaggio degli Uccelli.",
+				value: "Incontra Cinnamoroll su una collina nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Encontre Cinnamoroll em uma colina na Aldeia Aviária.",
+				value: "Encontre Cinnamoroll em uma colina na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Встретьтесь с Синаморолом на холме Птичьей деревни.",
+				value: "Встретьтесь с Синаморолом на холме Птичьей деревни",
+			},
+			vi: {
+				upstreamValue: "Gặp gỡ Cinnamoroll trên một ngọn đồi ở Làng Chuồng Chim.",
+				value: "Gặp gỡ Cinnamoroll trên một ngọn đồi ở Làng Chuồng Chim",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢的山丘上與 大耳狗喜拿 見面。",
+				value: "在雲巢的山丘上與大耳狗喜拿見面",
+			},
+		},
+		tsKey: "DailyQuest.MeetCinnamorollOnAHillInAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_flowers_1_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Rieche an Blumen mit Cinnamoroll im Volieren-Dorf.",
+				value: "Rieche an Blumen mit Cinnamoroll im Volieren-Dorf",
+			},
+			es: {
+				upstreamValue: "Huele flores con Cinnamoroll en la aldea aviaria.",
+				value: "Huele flores con Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Sentez les fleurs avec Cinnamoroll au village volière.",
+				value: "Sentez les fleurs avec Cinnamoroll au village volière",
+			},
+			it: {
+				upstreamValue: "Annusa i fiori con Cinnamoroll nel Villaggio degli Uccelli.",
+				value: "Annusa i fiori con Cinnamoroll nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Cheire flores com o Cinnamoroll na Aldeia Aviária.",
+				value: "Cheire flores com o Cinnamoroll na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Вместе с Синаморолом насладитесь ароматом цветов в Птичьей деревне.",
+				value: "Вместе с Синаморолом насладитесь ароматом цветов в Птичьей деревне",
+			},
+			vi: {
+				upstreamValue: "Thưởng thức hương hoa cùng Cinnamoroll ở Làng Chuồng Chim.",
+				value: "Thưởng thức hương hoa cùng Cinnamoroll ở Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢与Cinnamoroll一起品味花香。",
+				value: "在云巢与Cinnamoroll一起品味花香",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢與 大耳狗喜拿 一起聞花香。",
+				value: "在雲巢與大耳狗喜拿一起聞花香",
+			},
+		},
+		tsKey: "DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_flowers_2_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Finde Cinnamoroll, während er sich im Volieren-Dorf umsieht.",
+				value: "Finde Cinnamoroll, während er sich im Volieren-Dorf umsieht",
+			},
+			es: {
+				upstreamValue: "Busca a Cinnamoroll en la aldea aviaria.",
+				value: "Busca a Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Trouvez Cinnamoroll quelque part dans le village volière.",
+				value: "Trouvez Cinnamoroll quelque part dans le village volière",
+			},
+			it: {
+				upstreamValue: "Trova Cinnamoroll che gironzola nel Villaggio degli Uccelli.",
+				value: "Trova Cinnamoroll che gironzola nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Encontre Cinnamoroll explorand a Aldeia Aviária.",
+				value: "Encontre Cinnamoroll explorand a Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Найдите Синаморола, который гуляет по Птичьей деревне.",
+				value: "Найдите Синаморола, который гуляет по Птичьей деревне",
+			},
+			vi: {
+				upstreamValue: "Tìm Cinnamoroll đang ẩn quanh Làng Chuồng Chim.",
+				value: "Tìm Cinnamoroll đang ẩn quanh Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢找到躲在角落的Cinnamoroll。",
+				value: "在云巢找到躲在角落的Cinnamoroll",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢找到躲在角落的 大耳狗喜拿。",
+				value: "在雲巢找到躲在角落的大耳狗喜拿",
+			},
+		},
+		tsKey: "DailyQuest.FindCinnamorollPeekingAroundAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_sleeping_1_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Wecke Cinnamoroll im Volieren-Dorf auf.",
+				value: "Wecke Cinnamoroll im Volieren-Dorf auf",
+			},
+			es: {
+				upstreamValue: "Despierta a Cinnamoroll en la aldea aviaria.",
+				value: "Despierta a Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Réveillez Cinnamoroll dans le village volière.",
+				value: "Réveillez Cinnamoroll dans le village volière",
+			},
+			it: {
+				upstreamValue: "Sveglia Cinnamoroll nel Villaggio degli Uccelli.",
+				value: "Sveglia Cinnamoroll nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Acorde Cinnamoroll na Aldeia Aviária.",
+				value: "Acorde Cinnamoroll na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Разбудите Синаморола в Птичьей деревне.",
+				value: "Разбудите Синаморола в Птичьей деревне",
+			},
+			vi: {
+				upstreamValue: "Đánh thức Cinnamoroll ở Làng Chuồng Chim.",
+				value: "Đánh thức Cinnamoroll ở Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢叫醒Cinnamoroll。",
+				value: "在云巢叫醒Cinnamoroll",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢叫醒 大耳狗喜拿。",
+				value: "在雲巢叫醒大耳狗喜拿",
+			},
+		},
+		tsKey: "DailyQuest.WakeUpCinnamorollInAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_sleeping_2_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Fliege mit Cinnamoroll zum Turm im Volieren-Dorf.",
+				value: "Fliege mit Cinnamoroll zum Turm im Volieren-Dorf",
+			},
+			es: {
+				upstreamValue: "Vuela hasta la torre con Cinnamoroll en la aldea aviaria.",
+				value: "Vuela hasta la torre con Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Volez jusqu'au clocher avec Cinnamoroll au village volière.",
+				value: "Volez jusqu'au clocher avec Cinnamoroll au village volière",
+			},
+			it: {
+				upstreamValue: "Vola sulla torre con Cinnamoroll nel Villaggio degli Uccelli.",
+				value: "Vola sulla torre con Cinnamoroll nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Voe até a torre com Cinnamoroll na Aldeia Aviária.",
+				value: "Voe até a torre com Cinnamoroll na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Вместе с Синаморолом взлетите на колокольню Птичьей деревни.",
+				value: "Вместе с Синаморолом взлетите на колокольню Птичьей деревни",
+			},
+			vi: {
+				upstreamValue: "Bay lên tòa tháp cùng Cinnamoroll ở Làng Chuồng Chim.",
+				value: "Bay lên tòa tháp cùng Cinnamoroll ở Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢与Cinnamoroll一起飞上塔顶。",
+				value: "在云巢与Cinnamoroll一起飞上塔顶",
+			},
+			"zh-Hant": {
+				upstreamValue: "與 大耳狗喜拿 一起飛到雲巢的塔上。",
+				value: "與大耳狗喜拿一起飛到雲巢的塔上",
+			},
+		},
+		tsKey: "DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage",
+	},
+	{
+		upstreamKey: "daily_quest_find_cafe_sleeping_3_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Plansche im Wasser mit Cinnamoroll im Volieren-Dorf.",
+				value: "Plansche im Wasser mit Cinnamoroll im Volieren-Dorf",
+			},
+			es: {
+				upstreamValue: "Chapotea en el agua con Cinnamoroll en la aldea aviaria.",
+				value: "Chapotea en el agua con Cinnamoroll en la aldea aviaria",
+			},
+			fr: {
+				upstreamValue: "Plongez dans l'eau avec Cinnamoroll au village volière.",
+				value: "Plongez dans l'eau avec Cinnamoroll au village volière",
+			},
+			it: {
+				upstreamValue: "Tuffati nell'acqua con Cinnamoroll nel Villaggio degli Uccelli.",
+				value: "Tuffati nell'acqua con Cinnamoroll nel Villaggio degli Uccelli",
+			},
+			pt: {
+				upstreamValue: "Pule na água com Cinnamoroll na Aldeia Aviária.",
+				value: "Pule na água com Cinnamoroll na Aldeia Aviária",
+			},
+			ru: {
+				upstreamValue: "Отправляйтесь плескаться вместе с Синаморолом в Птичьей деревне.",
+				value: "Отправляйтесь плескаться вместе с Синаморолом в Птичьей деревне",
+			},
+			vi: {
+				upstreamValue: "Hãy té nước cùng Cinnamoroll tại Làng Chuồng Chim.",
+				value: "Hãy té nước cùng Cinnamoroll tại Làng Chuồng Chim",
+			},
+			"zh-Hans": {
+				upstreamValue: "在云巢与Cinnamoroll一起跃入水中。",
+				value: "在云巢与Cinnamoroll一起跃入水中",
+			},
+			"zh-Hant": {
+				upstreamValue: "在雲巢與 大耳狗喜拿 一起玩水。",
+				value: "在雲巢與大耳狗喜拿一起玩水",
+			},
+		},
+		tsKey: "DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage",
 	},
 	{
 		upstreamKey: "daily_quest_do_competition_play_desc",
@@ -1400,6 +1688,48 @@ const MAPPINGS: LocaleMapping[] = [
 			},
 		},
 		tsKey: "DailyQuest.AdmireSharedSpacesAtTheBrokenBellTowerInAviaryVillageForAShortWhile",
+	},
+	{
+		upstreamKey: "daily_quest_sunlight_photo_daily_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Hilf dem Betenden Messdiener, den Sommer im Tresor-Archiv zu archivieren.",
+				value: "Hilf dem Betenden Messdiener, den Sommer im Tresor-Archiv zu archivieren",
+			},
+			es: {
+				upstreamValue: "Ayuda al Acólito orador a clasificar el verano en el Archivo de la Bóveda.",
+				value: "Ayuda al Acólito orador a clasificar el verano en el Archivo de la Bóveda",
+			},
+			it: {
+				upstreamValue: "Aiuta l'Accolita supplicante a depositare l'estate negli archivi.",
+				value: "Aiuta l'Accolita supplicante a depositare l'estate negli archivi",
+			},
+			ko: {
+				upstreamValue: "기도하는 조수가 도서관 보관소에서 여름을 기록하는 것을 도와주세요.",
+				value: "기도하는 조수가 도서관 보관소에서 여름을 기록하는 것을 도와주세요",
+			},
+			pt: {
+				upstreamValue: "Ajude a Acólita que Reza a arquivar o verão nos Arquivos do Relicário.",
+				value: "Ajude a Acólita que Reza a arquivar o verão nos Arquivos do Relicário",
+			},
+			ru: {
+				upstreamValue: "Помогите молящемуся прислужнику сохранить лето в Архиве хранилища.",
+				value: "Помогите молящемуся прислужнику сохранить лето в Архиве хранилища",
+			},
+			vi: {
+				upstreamValue: "Giúp Thánh Đồ Cầu Nguyện lưu trữ mùa hè tại Kho Lưu Trữ.",
+				value: "Giúp Thánh Đồ Cầu Nguyện lưu trữ mùa hè tại Kho Lưu Trữ",
+			},
+			"zh-Hans": {
+				upstreamValue: "帮助祈祷圣徒在禁阁档案馆中归档夏天。",
+				value: "帮助祈祷圣徒在禁阁档案馆中归档夏天",
+			},
+			"zh-Hant": {
+				upstreamValue: "幫助祈禱聖徒在禁閣書庫典藏夏日。",
+				value: "幫助祈禱聖徒在禁閣書庫典藏夏日",
+			},
+		},
+		tsKey: "DailyQuest.HelpThePrayingAcolyteArchiveSummerInTheArchives",
 	},
 	{
 		upstreamKey: "daily_quest_lightseeker3_sunset_race_desc",
