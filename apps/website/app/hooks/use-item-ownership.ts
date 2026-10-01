@@ -3,7 +3,7 @@ import { useFetcher } from "react-router";
 import type { Item } from "@thatskyapplication/utility";
 
 export function useItemOwnership(item: Item, data: ReadonlySet<number>) {
-	const fetcher = useFetcher();
+	const fetcher = useFetcher({ key: `item-ownership:${item.cosmetics.join(",")}` });
 	const actualOwned = item.cosmetics.every((cosmetic) => data.has(cosmetic));
 	const owned = fetcher.formData ? fetcher.formData.get("owned") === "true" : actualOwned;
 

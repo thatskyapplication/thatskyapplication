@@ -39,7 +39,11 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
-import { NESTING_WORKSHOP_CATALOGUE_URL, SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
+import {
+	dailyGuidesURL,
+	NESTING_WORKSHOP_CATALOGUE_URL,
+	SCHEDULE_TYPE_TO_WIKI_KEY,
+} from "~/utility/schedule.js";
 
 interface CalendarEntryInput {
 	key: string;
@@ -462,7 +466,7 @@ export function calendarEntriesBetween({
 				};
 
 				if (date <= dailyGuidesMaximumDate) {
-					input.pageURL = `/daily-guides?date=${date}`;
+					input.pageURL = dailyGuidesURL(date, dailyGuidesMaximumDate);
 				}
 
 				entries.push(createCalendarEntry(input));

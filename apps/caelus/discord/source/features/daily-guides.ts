@@ -66,13 +66,12 @@ import {
 	type NestingWorkshopRotationCategories,
 	NestingWorkshopRotationCategory,
 	NestingWorkshopRotationCategoryToCosmetics,
-	nestingWorkshopDate,
-	nestingWorkshopItem,
 	type Packet,
 	parsePlainDate,
 	RADIANCE_EVENTS,
 	returningSpiritsSchedule,
 	resolveCurrencyEmoji,
+	resolveNestingWorkshopItems,
 	ScheduleType,
 	ScheduleTypeToLocaleKey,
 	shardEruption,
@@ -97,7 +96,7 @@ import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { processUploadedImage } from "../utility/assets.js";
-import { itemToSelectMenuOption, nestingWorkshopPropLine } from "../utility/catalogue.js";
+import { itemToSelectMenuOption, nestingWorkshopPropsTextDisplay } from "../utility/catalogue.js";
 import {
 	R2_BUCKET_CDN,
 	CDN_URL,
@@ -143,8 +142,6 @@ import {
 
 type DailyGuidesSetData = Partial<Omit<Packet<"daily_guides">, "date">> &
 	Pick<Packet<"daily_guides">, "last_updated_user_id" | "last_updated_at">;
-
-type NestingWorkshopSetData = Omit<Packet<"nesting_workshop">, "date">;
 
 type DailyGuidesDistributionAllowedChannel =
 	| Extract<
@@ -223,20 +220,6 @@ async function updateDailyGuides(date: Temporal.PlainDate, data: DailyGuidesSetD
 		.insertInto("daily_guides")
 		.values({ date: dailyGuidesDate(date), ...data })
 		.onConflict((oc) => oc.column("date").doUpdateSet(data))
-		.execute();
-}
-
-async function updateNestingWorkshop(date: Temporal.PlainDate, data: NestingWorkshopSetData) {
-	const key = nestingWorkshopDate(date);
-
-	if (!key) {
-		throw new Error(`The Nesting Workshop did not exist on ${date.toString()}.`);
-	}
-
-	await database
-		.insertInto("nesting_workshop")
-		.values({ date: key, ...data })
-		.onConflict((onConflict) => onConflict.column("date").doUpdateSet(data))
 		.execute();
 }
 
@@ -1323,18 +1306,16 @@ async function distributionData({
 
 	const nestingWorkshopPacket = await fetchNestingWorkshop(database, today.toPlainDate());
 
-	const nestingWorkshopProps =
-		nestingWorkshopPacket?.cosmetics
-			.map((cosmetic) => nestingWorkshopItem(cosmetic))
-			.filter((item) => item !== null) ?? [];
+	const nestingWorkshopProps = resolveNestingWorkshopItems(nestingWorkshopPacket?.cosmetics ?? []);
 
 	if (nestingWorkshopProps.length > 0) {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: `### ${t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop], { lng: locale })}\n\n${nestingWorkshopProps
-				.map((item) => nestingWorkshopPropLine(item, locale))
-				.join("\n")}`,
-		});
+		containerComponents.push(
+			nestingWorkshopPropsTextDisplay(
+				t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop], { lng: locale }),
+				nestingWorkshopProps,
+				locale,
+			),
+		);
 	}
 
 	const communityEvents = communityUpcomingEvents(today);
@@ -2162,9 +2143,9 @@ export async function nestingWorkshopModal(
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES.map((category): APILabelComponent => {
-			const options = NestingWorkshopRotationCategoryToCosmetics[category].map((cosmetic) =>
-				itemToSelectMenuOption(nestingWorkshopItem(cosmetic)!, selected, locale),
-			);
+			const options = resolveNestingWorkshopItems(
+				NestingWorkshopRotationCategoryToCosmetics[category],
+			).map((item) => itemToSelectMenuOption(item, selected, locale));
 
 			return {
 				type: ComponentType.Label,
@@ -2190,8 +2171,9 @@ export async function setNestingWorkshop(
 ) {
 	const { locale } = interaction;
 	const now = skyNow();
+	const start = currentNestingWorkshop(now);
 
-	if (currentNestingWorkshop(now)?.toPlainDate().toString() !== rotation) {
+	if (!start || start.toPlainDate().toString() !== rotation) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "The Nesting Workshop has reset since this was opened. Run the command again!",
 			flags: MessageFlags.Ephemeral,
@@ -2232,8 +2214,7 @@ export async function setNestingWorkshop(
 		return;
 	}
 
-	const date = now.toPlainDate();
-	const oldCosmetics = (await fetchNestingWorkshop(database, date))?.cosmetics ?? [];
+	const oldCosmetics = (await fetchNestingWorkshop(database, now.toPlainDate()))?.cosmetics ?? [];
 
 	if (
 		oldCosmetics.length === cosmetics.length &&
@@ -2253,11 +2234,17 @@ export async function setNestingWorkshop(
 		diff: `\`\`\`diff\n${diffJSON({ cosmetics: oldCosmetics }, { cosmetics })}\n\`\`\``,
 	});
 
-	await updateNestingWorkshop(date, {
+	const data = {
 		cosmetics,
 		last_updated_user_id: interaction.member.user.id,
 		last_updated_at: snowflakeDate(interaction.id),
-	});
+	};
+
+	await database
+		.insertInto("nesting_workshop")
+		.values({ date: new Date(start.epochMilliseconds), ...data })
+		.onConflict((onConflict) => onConflict.column("date").doUpdateSet(data))
+		.execute();
 
 	await interactive(interaction, { locale });
 }

@@ -1,4 +1,9 @@
-import type { APISelectMenuOption, Locale } from "@discordjs/core";
+import {
+	type APISelectMenuOption,
+	type APITextDisplayComponent,
+	ComponentType,
+	type Locale,
+} from "@discordjs/core";
 import { t } from "i18next";
 import {
 	type CostEntry,
@@ -79,17 +84,27 @@ export function resolveCostToString(cost: readonly CostEntry[], locale: Locale) 
 	return totalCost;
 }
 
-export function nestingWorkshopPropLine(
-	{ cosmeticDisplay, cost, translation }: Item,
+export function nestingWorkshopPropsTextDisplay(
+	heading: string,
+	items: readonly Item[],
 	locale: Locale,
-) {
-	const emoji = CosmeticToEmoji[cosmeticDisplay];
+	data?: ReadonlySet<number>,
+): APITextDisplayComponent {
+	const lines = items.map(({ cosmeticDisplay, cosmetics, cost, translation }) => {
+		const emoji = CosmeticToEmoji[cosmeticDisplay];
 
-	const prop = emoji
-		? formatEmoji(emoji)
-		: t(translation.key, { lng: locale, ns: "general", number: translation.number });
+		const prop = emoji
+			? formatEmoji(emoji)
+			: t(translation.key, { lng: locale, ns: "general", number: translation.number });
 
-	return `${prop} ${resolveCostToString(sumCosts(cost ? [cost] : []), locale).join("")}`;
+		const line = `${prop} ${resolveCostToString(sumCosts(cost ? [cost] : []), locale).join("")}`;
+
+		return cosmetics.every((cosmetic) => data?.has(cosmetic))
+			? `${line} ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
+			: line;
+	});
+
+	return { type: ComponentType.TextDisplay, content: `### ${heading}\n\n${lines.join("\n")}` };
 }
 
 export function itemToSelectMenuOption(

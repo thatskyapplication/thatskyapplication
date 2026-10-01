@@ -22,3 +22,7 @@ export const SCHEDULE_TYPE_TO_WIKI_KEY: Readonly<Partial<Record<ScheduleTypes, s
 	[ScheduleType.ReturningSpirits]:
 		"features:schedule.detailed-breakdown-returning-spirits-wiki-button-url",
 };
+
+export function dailyGuidesURL(date: string, skyToday: string) {
+	return date === skyToday ? "/daily-guides" : `/daily-guides?date=${date}`;
+}

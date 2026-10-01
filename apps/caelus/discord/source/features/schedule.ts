@@ -30,7 +30,6 @@ import {
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	meteorShowerSchedule,
-	nestingWorkshopItem,
 	nextDailyReset,
 	nextEyeOfEden,
 	nextNestingWorkshop,
@@ -40,6 +39,7 @@ import {
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
 	RADIANCE_EVENTS,
+	resolveNestingWorkshopItems,
 	returningSpiritsSchedule,
 	SCHEDULES,
 	ScheduleType,
@@ -60,7 +60,7 @@ import {
 } from "@thatskyapplication/utility";
 import database from "../database.js";
 import { client } from "../discord.js";
-import { nestingWorkshopPropLine } from "../utility/catalogue.js";
+import { nestingWorkshopPropsTextDisplay } from "../utility/catalogue.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
@@ -920,10 +920,7 @@ async function nestingWorkshopDetailedBreakdown(
 ): Promise<APIComponentInContainer[]> {
 	const nestingWorkshopPacket = await fetchNestingWorkshop(database, now.toPlainDate());
 
-	const props =
-		nestingWorkshopPacket?.cosmetics
-			.map((cosmetic) => nestingWorkshopItem(cosmetic))
-			.filter((item) => item !== null) ?? [];
+	const props = resolveNestingWorkshopItems(nestingWorkshopPacket?.cosmetics ?? []);
 
 	const components: APIComponentInContainer[] = [
 		{
@@ -937,12 +934,13 @@ async function nestingWorkshopDetailedBreakdown(
 	];
 
 	if (props.length > 0) {
-		components.push({
-			type: ComponentType.TextDisplay,
-			content: `### ${t("this-week", { lng: locale, ns: "general" })}\n\n${props
-				.map((item) => nestingWorkshopPropLine(item, locale))
-				.join("\n")}`,
-		});
+		components.push(
+			nestingWorkshopPropsTextDisplay(
+				t("this-week", { lng: locale, ns: "general" }),
+				props,
+				locale,
+			),
+		);
 	}
 
 	return components;

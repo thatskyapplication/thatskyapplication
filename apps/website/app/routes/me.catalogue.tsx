@@ -7,12 +7,12 @@ import {
 	fetchNestingWorkshop,
 	isEventFamilyId,
 	NESTING_WORKSHOP,
-	nestingWorkshopItem,
 	SECRET_AREA,
 	type SeasonIds,
 	type SpiritIds,
 	STARTER_PACKS,
 	returningSpiritsSchedule,
+	resolveNestingWorkshopItems,
 	skyEventFamilies,
 	skyNow,
 	skySeasons,
@@ -35,6 +35,7 @@ import { StartView } from "~/components/catalogue/StartView";
 import { TotalSpentView } from "~/components/catalogue/TotalSpentView";
 import { SitePage } from "~/components/PageLayout";
 import database from "~/database.server";
+import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { parseCosmetics, resolveScopeCosmetics } from "~/utility/catalogue.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { dateTimeLabels } from "~/utility/time.js";
@@ -78,7 +79,9 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			.selectAll()
 			.where("user_id", "=", discordUser.id)
 			.executeTakeFirst(),
-		fetchNestingWorkshop(database, now.toPlainDate()),
+		url.searchParams.get("view") === "nesting-workshop"
+			? fetchNestingWorkshop(database, now.toPlainDate())
+			: null,
 	]);
 
 	return {
@@ -188,6 +191,8 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 	} = loaderData;
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
+	const currentTimestamp = useCurrentTimestamp(nowMillis);
+	useSkyDailyResetRevalidator(currentTimestamp);
 	const data = useMemo(() => new Set(dataArray), [dataArray]);
 	const now = useMemo(
 		() => Temporal.Instant.fromEpochMilliseconds(nowMillis).toZonedDateTimeISO(TIME_ZONE),
@@ -320,9 +325,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 					collection={NESTING_WORKSHOP}
 					data={data}
 					featured={{
-						items: nestingWorkshop
-							.map((cosmetic) => nestingWorkshopItem(cosmetic))
-							.filter((item) => item !== null),
+						items: resolveNestingWorkshopItems(nestingWorkshop),
 						title: t("this-week", { ns: "general" }),
 					}}
 					locale={locale}

@@ -48,10 +48,10 @@ import {
 	isRealm,
 	KINGDOM,
 	NESTING_WORKSHOP,
-	nestingWorkshopItem,
 	type Packet,
 	partitionItemCosts,
 	type RealmName,
+	resolveNestingWorkshopItems,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
 	returningSpiritsSchedule,
@@ -76,7 +76,7 @@ import { client } from "../discord.js";
 import {
 	CatalogueType,
 	itemToSelectMenuOption,
-	nestingWorkshopPropLine,
+	nestingWorkshopPropsTextDisplay,
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import {
@@ -2602,10 +2602,7 @@ export async function viewNestingWorkshop(
 		lng: locale,
 	});
 
-	const thisWeek =
-		nestingWorkshopPacket?.cosmetics
-			.map((cosmetic) => nestingWorkshopItem(cosmetic))
-			.filter((item) => item !== null) ?? [];
+	const thisWeek = resolveNestingWorkshopItems(nestingWorkshopPacket?.cosmetics ?? []);
 
 	const itemSelectionOptions = NESTING_WORKSHOP.items.map((item) =>
 		itemToSelectMenuOption(item, catalogue?.data, locale),
@@ -2644,19 +2641,14 @@ export async function viewNestingWorkshop(
 	];
 
 	if (thisWeek.length > 0) {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: `### ${t("this-week", { lng: locale, ns: "general" })}\n\n${thisWeek
-				.map(
-					(item) =>
-						`${nestingWorkshopPropLine(item, locale)}${
-							item.cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic))
-								? ` ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
-								: ""
-						}`,
-				)
-				.join("\n")}`,
-		});
+		containerComponents.push(
+			nestingWorkshopPropsTextDisplay(
+				t("this-week", { lng: locale, ns: "general" }),
+				thisWeek,
+				locale,
+				catalogue?.data,
+			),
+		);
 	}
 
 	containerComponents.push(

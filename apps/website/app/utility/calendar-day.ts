@@ -34,7 +34,11 @@ import {
 } from "@thatskyapplication/utility";
 import type { CalendarDayOccurrence } from "~/utility/calendar.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
-import { NESTING_WORKSHOP_CATALOGUE_URL, SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
+import {
+	dailyGuidesURL,
+	NESTING_WORKSHOP_CATALOGUE_URL,
+	SCHEDULE_TYPE_TO_WIKI_KEY,
+} from "~/utility/schedule.js";
 
 const MAXIMUM_OCCURRENCES = 200 as const;
 const CADENCE_THRESHOLD = 16 as const;
@@ -213,7 +217,7 @@ function occurrenceFrom(
 		wikiURL: wikiKey ? t(wikiKey) : null,
 		pageURL:
 			refreshDate && refreshDate <= dailyGuidesMaximumDate
-				? `/daily-guides?date=${refreshDate}`
+				? dailyGuidesURL(refreshDate, dailyGuidesMaximumDate)
 				: null,
 		catalogueURL: type === ScheduleType.NestingWorkshop ? NESTING_WORKSHOP_CATALOGUE_URL : null,
 		times,

@@ -155,8 +155,10 @@ export const NESTING_WORKSHOP = {
 	allCosmetics: resolveAllCosmeticsFromItems(nestingWorkshopItems),
 } as const;
 
-export function nestingWorkshopItem(cosmetic: number) {
-	return nestingWorkshopItems.find(({ cosmetics }) => cosmetics.includes(cosmetic)) ?? null;
+export function resolveNestingWorkshopItems(cosmetics: readonly number[]) {
+	return cosmetics
+		.map((cosmetic) => nestingWorkshopItems.find((item) => item.cosmetics.includes(cosmetic)))
+		.filter((item) => item !== undefined);
 }
 
 export const NestingWorkshopRotationCategory = {

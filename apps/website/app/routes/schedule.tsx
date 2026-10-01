@@ -5,7 +5,6 @@ import { Link } from "react-router";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
 	DOUBLE_HEART_EVENTS,
-	fetchNestingWorkshop,
 	formatEmojiURL,
 	isActive,
 	MAINTENANCE_PERIODS,
@@ -24,17 +23,20 @@ import {
 } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList, type ExternalLinkListItem } from "~/components/ExternalLinkList";
-import { NestingWorkshopProps } from "~/components/NestingWorkshopProps.js";
+import {
+	type NestingWorkshopProp,
+	NestingWorkshopProps,
+} from "~/components/NestingWorkshopProps.js";
 import { CentredSitePage } from "~/components/PageLayout";
 import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
-import database from "~/database.server";
-import { getSkyProfileCatalogueData } from "~/features/sky-profile/sky-profile-public.server.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session.js";
+import pino from "~/pino.js";
 import { APPLICATION_ICON_URL, SCHEDULE_DESCRIPTION } from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
+import { fetchNestingWorkshopProps } from "~/utility/nesting-workshop.server.js";
 import { SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
 import { formatClockTimes, type TimePreferences } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server";
@@ -160,7 +162,6 @@ const SCHEDULE_BADGES: Readonly<Partial<Record<ScheduleTypes, DisplayCardBadge>>
 
 interface DisplayCard {
 	type: DisplayCardType;
-	scheduleType?: ScheduleTypes | undefined;
 	badge?: DisplayCardBadge | undefined;
 	key: string;
 	label: string;
@@ -168,6 +169,7 @@ interface DisplayCard {
 	spiritLinks?: readonly ExternalLinkListItem[] | undefined;
 	dyeIcons?: readonly { label: string; url: string }[] | undefined;
 	pageHref?: string | undefined;
+	nestingWorkshop?: readonly NestingWorkshopProp[] | undefined;
 	active: boolean;
 	next: string;
 	nextUnix: number;
@@ -209,7 +211,12 @@ function periodTiming(
 	};
 }
 
-function buildScheduleView(timestamp: number, preferences: TimePreferences, t: TFunction) {
+function buildScheduleView(
+	timestamp: number,
+	preferences: TimePreferences,
+	t: TFunction,
+	nestingWorkshop: readonly NestingWorkshopProp[],
+) {
 	const now = Temporal.Instant.fromEpochMilliseconds(timestamp).toZonedDateTimeISO(TIME_ZONE);
 	const cards: DisplayCard[] = [];
 
@@ -226,7 +233,6 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences, t: T
 
 		cards.push({
 			type: DisplayCardType.Schedule,
-			scheduleType: type,
 			badge: SCHEDULE_BADGES[type],
 			key: `${type}`,
 			label: t(spiritId ? `general:spirits.${spiritId}` : ScheduleTypeToLocaleKey[type]),
@@ -237,6 +243,10 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences, t: T
 				href: t(`general:spirit-wiki.${occurrenceSpiritId}`),
 			})),
 			pageHref: type === ScheduleType.ShardEruption ? SHARD_ERUPTION_PAGE_HREF : undefined,
+			nestingWorkshop:
+				type === ScheduleType.NestingWorkshop && nestingWorkshop.length > 0
+					? nestingWorkshop
+					: undefined,
 			active: active ?? false,
 			next: formatTimestamp(
 				start,
@@ -407,18 +417,18 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const t = getInstance(context).getFixedT(getLocale(context));
 	const discordUser = getRequestSession(context).get("discord_user");
 
-	const [nestingWorkshopPacket, catalogue] = await Promise.all([
-		fetchNestingWorkshop(database, now.toPlainDate()),
-		discordUser ? getSkyProfileCatalogueData(discordUser.id) : null,
-	]);
+	const nestingWorkshop = await fetchNestingWorkshopProps(now.toPlainDate(), discordUser?.id).catch(
+		(error: unknown) => {
+			pino.error(error, "Failed to fetch the Nesting Workshop.");
+			return [];
+		},
+	);
 
 	return {
 		initialTimestamp,
 		...preferences,
-		initialView: buildScheduleView(initialTimestamp, preferences, t),
-		nestingWorkshop: nestingWorkshopPacket?.cosmetics ?? [],
-		nestingWorkshopOwned:
-			nestingWorkshopPacket?.cosmetics.filter((cosmetic) => catalogue?.has(cosmetic)) ?? [],
+		initialView: buildScheduleView(initialTimestamp, preferences, t, nestingWorkshop),
+		nestingWorkshop,
 		title: t("schedule.name", { ns: "features" }),
 	};
 };
@@ -426,14 +436,10 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 function DisplayCardRow({
 	item,
 	locale,
-	nestingWorkshop,
-	nestingWorkshopOwned,
 	timeZoneEstimated,
 }: {
 	item: DisplayCard;
 	locale: string;
-	nestingWorkshop: readonly number[];
-	nestingWorkshopOwned: readonly number[];
 	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
@@ -509,13 +515,12 @@ function DisplayCardRow({
 				{timeZoneEstimated ? <SkeletonText>{timestamp}</SkeletonText> : timestamp}{" "}
 				{relative && <span className="text-gray-400 dark:text-gray-500">({relative})</span>}
 			</span>
-			{item.scheduleType === ScheduleType.NestingWorkshop && nestingWorkshop.length > 0 && (
+			{item.nestingWorkshop && (
 				<div className="col-span-2 mt-1 md:col-span-4">
-					<NestingWorkshopProps
-						cosmetics={nestingWorkshop}
-						locale={locale}
-						owned={nestingWorkshopOwned}
-					/>
+					<p className="mb-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+						{t("this-week", { ns: "general" })}
+					</p>
+					<NestingWorkshopProps locale={locale} nestingWorkshop={item.nestingWorkshop} />
 				</div>
 			)}
 		</div>
@@ -531,7 +536,6 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		hour12,
 		initialView,
 		nestingWorkshop,
-		nestingWorkshopOwned,
 	} = loaderData;
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
@@ -540,7 +544,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	const { active, upcoming, maintenances, localTime, skyTime } =
 		currentTimestamp === initialTimestamp
 			? initialView
-			: buildScheduleView(currentTimestamp, { locale, timeZone, hour12 }, t);
+			: buildScheduleView(currentTimestamp, { locale, timeZone, hour12 }, t, nestingWorkshop);
 
 	const maintenanceDescription =
 		maintenances.length === 1
@@ -613,8 +617,6 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 										item={item}
 										key={item.key}
 										locale={locale}
-										nestingWorkshop={nestingWorkshop}
-										nestingWorkshopOwned={nestingWorkshopOwned}
 										timeZoneEstimated={timeZoneEstimated}
 									/>
 								))}
@@ -634,8 +636,6 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 									item={item}
 									key={item.key}
 									locale={locale}
-									nestingWorkshop={nestingWorkshop}
-									nestingWorkshopOwned={nestingWorkshopOwned}
 									timeZoneEstimated={timeZoneEstimated}
 								/>
 							))}

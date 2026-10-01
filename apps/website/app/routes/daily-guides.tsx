@@ -14,7 +14,6 @@ import {
 	epochSeconds,
 	fetchDailyGuides,
 	fetchFirstDailyGuidesDate,
-	fetchNestingWorkshop,
 	formatEmojiURL,
 	isDailyQuest,
 	KINGDOM,
@@ -49,7 +48,6 @@ import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import database from "~/database.server";
-import { getSkyProfileCatalogueData } from "~/features/sky-profile/sky-profile-public.server.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
@@ -64,6 +62,7 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
+import { fetchNestingWorkshopProps } from "~/utility/nesting-workshop.server.js";
 import { NESTING_WORKSHOP_CATALOGUE_URL } from "~/utility/schedule.js";
 import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
@@ -154,10 +153,9 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const dayStart = date.toZonedDateTime(TIME_ZONE);
 	const discordUser = getRequestSession(context).get("discord_user");
 
-	const [dailyGuides, nestingWorkshopPacket, catalogue] = await Promise.all([
+	const [dailyGuides, nestingWorkshop] = await Promise.all([
 		fetchDailyGuides(database, date),
-		fetchNestingWorkshop(database, date),
-		discordUser && nestingWorkshopDate(date) ? getSkyProfileCatalogueData(discordUser.id) : null,
+		fetchNestingWorkshopProps(date, discordUser?.id),
 	]);
 	const initialTimestamp = now.epochMilliseconds;
 	const shardEruptionExists =
@@ -192,7 +190,10 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		},
 	);
 
-	const cacheMaxAge = dailyGuidesCacheMaxAge(now, isToday ? 300 : 3600);
+	const inCurrentNestingWorkshop =
+		nestingWorkshopDate(date)?.getTime() === nestingWorkshopDate(todayDate)?.getTime();
+
+	const cacheMaxAge = dailyGuidesCacheMaxAge(now, isToday || inCurrentNestingWorkshop ? 300 : 3600);
 
 	return data(
 		{
@@ -211,9 +212,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			todayDate: todayDate.toString(),
 			weekStartsOn: firstDayOfWeek(locale),
 			dailyGuides,
-			nestingWorkshop: nestingWorkshopPacket?.cosmetics ?? [],
-			nestingWorkshopOwned:
-				nestingWorkshopPacket?.cosmetics.filter((cosmetic) => catalogue?.has(cosmetic)) ?? [],
+			nestingWorkshop,
 			treasureCandleLinks,
 			treasureCandleNotes,
 			dateString: new Intl.DateTimeFormat(locale, {
@@ -279,7 +278,6 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		weekStartsOn,
 		dailyGuides,
 		nestingWorkshop,
-		nestingWorkshopOwned,
 		treasureCandleLinks,
 		treasureCandleNotes,
 		dateString,
@@ -1121,11 +1119,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										<ArrowRight className="h-3 w-3" />
 									</Link>
 								</div>
-								<NestingWorkshopProps
-									cosmetics={nestingWorkshop}
-									locale={locale}
-									owned={nestingWorkshopOwned}
-								/>
+								<NestingWorkshopProps locale={locale} nestingWorkshop={nestingWorkshop} />
 							</div>
 						)}
 						{visibleDaysCount.length > 0 && (
