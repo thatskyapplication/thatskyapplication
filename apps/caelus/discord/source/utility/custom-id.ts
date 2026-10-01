@@ -148,7 +148,7 @@ export const enum CustomId {
 	WelcomeHugSend = "143",
 	DailyGuidesNestingWorkshopModal = "144",
 	DailyGuidesNestingWorkshopModalProps = "145",
-	WelcomeAccentColourModal = "146",
+	DailyGuidesNestingWorkshopReorder = "146",
 	WelcomeAccentColourModalAccentColour = "147",
 	DailyGuidesSetupType = "148",
 	MeCustomiseMe = "149",

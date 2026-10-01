@@ -63,6 +63,7 @@ import {
 	handleDistributeButton,
 	InteractiveType,
 	interactive,
+	nestingWorkshopReorder,
 	questsReorder,
 	setNestingWorkshop,
 } from "../features/daily-guides.js";
@@ -935,7 +936,7 @@ export default {
 
 		if (isStringSelectMenu(data)) {
 			pino.info(data, `String select: ${data.data.custom_id}`);
-			const [id] = data.data.custom_id.split("§") as [string, ...string[]];
+			const [id, ...parts] = data.data.custom_id.split("§") as [string, ...string[]];
 
 			if (await isOldId(data, id)) {
 				return;
@@ -1074,6 +1075,11 @@ export default {
 
 					if (id === CustomId.DailyGuidesQuestsReorder) {
 						await questsReorder(data);
+						return;
+					}
+
+					if (id === CustomId.DailyGuidesNestingWorkshopReorder) {
+						await nestingWorkshopReorder(data, parts[0]);
 						return;
 					}
 
