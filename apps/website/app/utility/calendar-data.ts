@@ -64,11 +64,15 @@ export function calendarData({
 		requestedDate === null || Temporal.PlainDate.compare(requestedDate, navigableMaximum) > 0;
 	const weekStartsOn = firstDayOfWeek(locale);
 
-	const shardEruptionMaximumDate = Temporal.Instant.fromEpochMilliseconds(nowMilliseconds)
+	const skyToday = Temporal.Instant.fromEpochMilliseconds(nowMilliseconds)
 		.toZonedDateTimeISO(TIME_ZONE)
-		.toPlainDate()
+		.toPlainDate();
+
+	const shardEruptionMaximumDate = skyToday
 		.add({ days: SHARD_ERUPTION_MAXIMUM_PAGE * 30 + 30 })
 		.toString();
+
+	const dailyGuidesMaximumDate = skyToday.toString();
 	const isMonth = view === CalendarView.Month;
 	const isDay = view === CalendarView.Day;
 	const focus = isMonth ? anchor.with({ day: 1 }) : anchor;
@@ -99,6 +103,7 @@ export function calendarData({
 		t,
 		dayMarkers: true,
 		shardEruptionMaximumDate,
+		dailyGuidesMaximumDate,
 	});
 
 	const summaryEntries = calendarEntriesBetween({
@@ -110,6 +115,7 @@ export function calendarData({
 		t,
 		dayMarkers: false,
 		shardEruptionMaximumDate,
+		dailyGuidesMaximumDate,
 		summary: true,
 	});
 
@@ -199,6 +205,7 @@ export function calendarData({
 						new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }),
 						t,
 						shardEruptionMaximumDate,
+						dailyGuidesMaximumDate,
 					),
 				}
 			: null;

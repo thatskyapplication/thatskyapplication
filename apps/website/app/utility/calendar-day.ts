@@ -193,8 +193,14 @@ function occurrenceFrom(
 	starts: readonly Temporal.ZonedDateTime[],
 	times: readonly string[],
 	t: TFunction,
+	dailyGuidesMaximumDate: string,
 ): CalendarDayOccurrence {
 	const wikiKey = SCHEDULE_TYPE_TO_WIKI_KEY[type];
+
+	const refreshDate =
+		type === ScheduleType.NestingWorkshop
+			? starts[0]?.withTimeZone(TIME_ZONE).toPlainDate().toString()
+			: undefined;
 
 	return {
 		key: `schedule-${type}`,
@@ -205,7 +211,10 @@ function occurrenceFrom(
 		infographicURL: null,
 		acknowledgement: null,
 		wikiURL: wikiKey ? t(wikiKey) : null,
-		pageURL: null,
+		pageURL:
+			refreshDate && refreshDate <= dailyGuidesMaximumDate
+				? `/daily-guides?date=${refreshDate}`
+				: null,
 		catalogueURL: type === ScheduleType.NestingWorkshop ? NESTING_WORKSHOP_CATALOGUE_URL : null,
 		times,
 		cadence: starts.length > CADENCE_THRESHOLD ? cadenceOf(starts, t) : null,
@@ -284,6 +293,7 @@ export function calendarDayOccurrences(
 	timeFormat: Intl.DateTimeFormat,
 	t: TFunction,
 	shardEruptionMaximumDate: string,
+	dailyGuidesMaximumDate: string,
 ): CalendarDayOccurrence[] {
 	const dayEnd = dayStart.add({ days: 1 }).withTimeZone(dayStart.timeZoneId).startOfDay();
 	const skyDayStart = dayStart.withTimeZone(TIME_ZONE);
@@ -311,6 +321,7 @@ export function calendarDayOccurrences(
 							}),
 				),
 				t,
+				dailyGuidesMaximumDate,
 			),
 		);
 	}
@@ -328,6 +339,7 @@ export function calendarDayOccurrences(
 				instants,
 				instants.map((instant) => timeFormat.format(instant.epochMilliseconds)),
 				t,
+				dailyGuidesMaximumDate,
 			),
 		);
 	}
