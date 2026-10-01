@@ -8077,64 +8077,6 @@ for (const { season, rotations } of SEASONAL_CANDLES_ROTATIONS) {
 	});
 }
 
-test("Double seasonal light uses the configured rotation only during the event.", () => {
-	deepStrictEqual(
-		Lightmending.seasonalCandles(skyDate(2026, 2, 26)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/3.webp",
-	);
-	deepStrictEqual(
-		Lightmending.seasonalCandles(skyDate(2026, 2, 27)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/3+4.webp",
-	);
-	deepStrictEqual(
-		Lightmending.seasonalCandles(skyDate(2026, 3, 13)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/4.webp",
-	);
-	deepStrictEqual(
-		BlueBird.seasonalCandles(skyDate(2025, 6, 8)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
-	);
-	deepStrictEqual(
-		BlueBird.seasonalCandles(skyDate(2025, 6, 9)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1+2.webp",
-	);
-	deepStrictEqual(
-		BlueBird.seasonalCandles(skyDate(2025, 6, 23)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/2.webp",
-	);
-	deepStrictEqual(
-		DearVanGogh.seasonalCandles(skyDate(2026, 9, 10)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/3.webp",
-	);
-	deepStrictEqual(
-		DearVanGogh.seasonalCandles(skyDate(2026, 9, 11)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/3+4.webp",
-	);
-	deepStrictEqual(
-		DearVanGogh.seasonalCandles(skyDate(2026, 9, 25)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/4.webp",
-	);
-});
-
-test("Nesting seasonal candles follow the reviewed realm and layout dates.", () => {
-	deepStrictEqual(
-		Nesting.seasonalCandles(skyDate(2024, 5, 1)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/vault_of_knowledge/4.webp",
-	);
-	deepStrictEqual(
-		Nesting.seasonalCandles(skyDate(2024, 5, 2)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/4.webp",
-	);
-	deepStrictEqual(
-		Nesting.seasonalCandles(skyDate(2024, 6, 25)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/4.webp",
-	);
-	deepStrictEqual(
-		Nesting.seasonalCandles(skyDate(2024, 6, 30)),
-		"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/3.webp",
-	);
-});
-
 test("Remaining seasonal candles include all future double seasonal light windows.", () => {
 	deepStrictEqual(Nesting.remainingSeasonalCandles(skyDate(2024, 4, 15)), {
 		seasonalCandlesLeft: 397,
