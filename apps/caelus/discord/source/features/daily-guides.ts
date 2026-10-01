@@ -198,14 +198,14 @@ export function questAutocomplete(focused: string, locale: Locale) {
 				.slice(0, MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT);
 }
 
-function nestingWorkshopPropName({ translation }: Item, locale: Locale) {
-	return t(translation.key, { lng: locale, ns: "general", number: translation.number });
-}
+function nestingWorkshopPropLine({ cosmeticDisplay, cost, translation }: Item, locale: Locale) {
+	const emoji = CosmeticToEmoji[cosmeticDisplay];
 
-function nestingWorkshopPropLine(item: Item, locale: Locale) {
-	const emoji = CosmeticToEmoji[item.cosmeticDisplay];
-	const cost = resolveCostToString(sumCosts(item.cost ? [item.cost] : []), locale).join("");
-	return `${emoji ? formatEmoji(emoji) : nestingWorkshopPropName(item, locale)} ${cost}`;
+	const prop = emoji
+		? formatEmoji(emoji)
+		: t(translation.key, { lng: locale, ns: "general", number: translation.number });
+
+	return `${prop} ${resolveCostToString(sumCosts(cost ? [cost] : []), locale).join("")}`;
 }
 
 export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTopLevelComponent] {
