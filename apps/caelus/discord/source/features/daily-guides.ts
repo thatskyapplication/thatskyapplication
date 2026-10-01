@@ -1727,6 +1727,7 @@ export const enum InteractiveType {
 	Distributed = 2,
 	Locale = 3,
 	Uploading = 4,
+	NestingWorkshopReorder = 5,
 }
 
 interface InteractiveOptions {
@@ -1742,7 +1743,8 @@ export async function interactive(
 		| APIModalSubmitGuildInteraction,
 	{ type, locale }: InteractiveOptions,
 ) {
-	const date = skyNow().toPlainDate();
+	const now = skyNow();
+	const date = now.toPlainDate();
 
 	const {
 		quest1,
@@ -1754,6 +1756,8 @@ export async function interactive(
 	} = await fetchDailyGuides(database, date);
 
 	const nestingWorkshopPacket = await fetchNestingWorkshop(database, date);
+	const nestingWorkshopStart = currentNestingWorkshop(now);
+	const nestingWorkshopProps = resolveNestingWorkshopItems(nestingWorkshopPacket?.cosmetics ?? []);
 	const quests = [quest1, quest2, quest3, quest4];
 	const questOptions = [];
 
@@ -1784,6 +1788,9 @@ export async function interactive(
 		case InteractiveType.Reorder:
 			message = "Quests reordered!";
 			break;
+		case InteractiveType.NestingWorkshopReorder:
+			message = "Nesting Workshop props reordered!";
+			break;
 		case InteractiveType.Distributing:
 			message = "Distributing...";
 			break;
@@ -1808,6 +1815,25 @@ export async function interactive(
 					min_values: questOptions.length,
 					options: questOptions,
 					placeholder: "Reorder quests.",
+					disabled: type === InteractiveType.Distributing,
+				},
+			],
+		});
+	}
+
+	if (nestingWorkshopStart && nestingWorkshopProps.length > 1) {
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CustomId.DailyGuidesNestingWorkshopReorder}§${nestingWorkshopStart.toPlainDate().toString()}`,
+					max_values: nestingWorkshopProps.length,
+					min_values: nestingWorkshopProps.length,
+					options: nestingWorkshopProps.map((item) =>
+						itemToSelectMenuOption(item, undefined, locale),
+					),
+					placeholder: "Reorder Nesting Workshop props.",
 					disabled: type === InteractiveType.Distributing,
 				},
 			],
@@ -1872,6 +1898,7 @@ export async function interactive(
 
 	if (
 		type === InteractiveType.Reorder ||
+		type === InteractiveType.NestingWorkshopReorder ||
 		type === InteractiveType.Distributing ||
 		type === InteractiveType.Locale
 	) {
@@ -2192,9 +2219,14 @@ export async function setNestingWorkshop(
 		),
 	);
 
-	const cosmetics = NESTING_WORKSHOP_ROTATION_COSMETICS.filter((cosmetic) =>
-		selected.has(cosmetic),
-	);
+	const oldCosmetics = (await fetchNestingWorkshop(database, now.toPlainDate()))?.cosmetics ?? [];
+
+	const cosmetics = [
+		...oldCosmetics.filter((cosmetic) => selected.has(cosmetic)),
+		...NESTING_WORKSHOP_ROTATION_COSMETICS.filter(
+			(cosmetic) => selected.has(cosmetic) && !oldCosmetics.includes(cosmetic),
+		),
+	];
 
 	if (cosmetics.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -2213,8 +2245,6 @@ export async function setNestingWorkshop(
 
 		return;
 	}
-
-	const oldCosmetics = (await fetchNestingWorkshop(database, now.toPlainDate()))?.cosmetics ?? [];
 
 	if (
 		oldCosmetics.length === cosmetics.length &&
@@ -2295,4 +2325,69 @@ export async function questsReorder(
 
 	await updateDailyGuides(date, data);
 	await interactive(interaction, { type: InteractiveType.Reorder, locale });
+}
+
+export async function nestingWorkshopReorder(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+	rotation: string | undefined,
+) {
+	const {
+		locale,
+		data: { values },
+	} = interaction;
+
+	const now = skyNow();
+	const start = currentNestingWorkshop(now);
+
+	if (!start || start.toPlainDate().toString() !== rotation) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "The Nesting Workshop has reset since this was opened. Run the command again!",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const oldCosmetics = (await fetchNestingWorkshop(database, now.toPlainDate()))?.cosmetics ?? [];
+	const cosmetics = values.flatMap((value) => JSON.parse(value) as readonly number[]);
+
+	if (
+		oldCosmetics.length !== cosmetics.length ||
+		!cosmetics.every((cosmetic) => oldCosmetics.includes(cosmetic))
+	) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content:
+				"The Nesting Workshop props have changed since this was opened. Run the command again!",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	if (cosmetics.every((cosmetic, index) => cosmetic === oldCosmetics[index])) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "No changes were made. The props are already in this order!",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	await logModification({
+		user: interaction.member.user,
+		content: "reordered the Nesting Workshop props.",
+		diff: `\`\`\`diff\n${diffJSON({ cosmetics: oldCosmetics }, { cosmetics })}\n\`\`\``,
+	});
+
+	await database
+		.updateTable("nesting_workshop")
+		.set({
+			cosmetics,
+			last_updated_user_id: interaction.member.user.id,
+			last_updated_at: snowflakeDate(interaction.id),
+		})
+		.where("date", "=", new Date(start.epochMilliseconds))
+		.execute();
+
+	await interactive(interaction, { type: InteractiveType.NestingWorkshopReorder, locale });
 }
