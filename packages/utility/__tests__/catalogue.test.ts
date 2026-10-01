@@ -7,6 +7,8 @@ import {
 	catalogueSearchEntries,
 	CatalogueSearchType,
 	type CatalogueSpiritSearchEntry,
+	NESTING_WORKSHOP_ROTATION_COSMETICS,
+	nestingWorkshopItem,
 } from "../source/catalogue.js";
 import enGB from "../source/locales/en-gb.js";
 import { SpiritId } from "../source/utility/spirits.js";
@@ -235,4 +237,15 @@ test("An exact match outranks a keyword match on a caller-supplied list.", () =>
 		catalogueSearch(custom, "alpha").map(({ name }) => name),
 		["Alpha", "Beta"],
 	);
+});
+
+test("Every Nesting Workshop rotation cosmetic is a unique Nesting Workshop item.", () => {
+	equal(
+		new Set(NESTING_WORKSHOP_ROTATION_COSMETICS).size,
+		NESTING_WORKSHOP_ROTATION_COSMETICS.length,
+	);
+
+	for (const cosmetic of NESTING_WORKSHOP_ROTATION_COSMETICS) {
+		ok(nestingWorkshopItem(cosmetic), `Cosmetic ${cosmetic} is not in the Nesting Workshop.`);
+	}
 });
