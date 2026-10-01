@@ -4,8 +4,10 @@ import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router";
 import {
 	CLOTHING_SHOP,
+	fetchNestingWorkshop,
 	isEventFamilyId,
 	NESTING_WORKSHOP,
+	nestingWorkshopItem,
 	SECRET_AREA,
 	type SeasonIds,
 	type SpiritIds,
@@ -70,11 +72,14 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 	const now = skyNow();
 
-	const cataloguePacket = await database
-		.selectFrom("catalogue")
-		.selectAll()
-		.where("user_id", "=", discordUser.id)
-		.executeTakeFirst();
+	const [cataloguePacket, nestingWorkshopPacket] = await Promise.all([
+		database
+			.selectFrom("catalogue")
+			.selectAll()
+			.where("user_id", "=", discordUser.id)
+			.executeTakeFirst(),
+		fetchNestingWorkshop(database, now.toPlainDate()),
+	]);
 
 	return {
 		data: cataloguePacket?.data ?? [],
@@ -84,6 +89,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			hour12,
 		}),
 		locale,
+		nestingWorkshop: nestingWorkshopPacket?.cosmetics ?? [],
 		now: now.epochMilliseconds,
 		showEverythingButton: cataloguePacket?.show_everything_button ?? false,
 		timeZoneEstimated,
@@ -175,6 +181,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 		data: dataArray,
 		dateTimeLabels,
 		locale,
+		nestingWorkshop,
 		now: nowMillis,
 		showEverythingButton,
 		timeZoneEstimated,
@@ -312,6 +319,12 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 				<CollectionView
 					collection={NESTING_WORKSHOP}
 					data={data}
+					featured={{
+						items: nestingWorkshop
+							.map((cosmetic) => nestingWorkshopItem(cosmetic))
+							.filter((item) => item !== null),
+						title: t("this-week", { ns: "general" }),
+					}}
 					locale={locale}
 					scope="nesting-workshop"
 					showEverythingButton={showEverythingButton}
