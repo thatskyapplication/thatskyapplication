@@ -64,6 +64,7 @@ import {
 	InteractiveType,
 	interactive,
 	questsReorder,
+	setNestingWorkshop,
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
 import {
@@ -1252,6 +1253,11 @@ export default {
 
 					if (id === CustomId.WelcomeEditModal) {
 						await welcomeHandleEditModal(data);
+						return;
+					}
+
+					if (id === CustomId.DailyGuidesNestingWorkshopModal) {
+						await setNestingWorkshop(data);
 						return;
 					}
 				}

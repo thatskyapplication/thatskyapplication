@@ -97,6 +97,8 @@ export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
 	value: locale,
 }));
 
+export const NESTING_WORKSHOP_MAXIMUM_PROPS = 6 as const;
+
 // Heart.
 export const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 25 as const;
 

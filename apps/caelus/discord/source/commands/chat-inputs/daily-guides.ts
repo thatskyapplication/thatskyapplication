@@ -9,7 +9,12 @@ import {
 	type DailyGuidesDistributionTypes,
 } from "@thatskyapplication/utility";
 import { client } from "../../discord.js";
-import { dailyGuidesResponse, questAutocomplete, set } from "../../features/daily-guides.js";
+import {
+	dailyGuidesResponse,
+	nestingWorkshopModal,
+	questAutocomplete,
+	set,
+} from "../../features/daily-guides.js";
 import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -40,6 +45,10 @@ export default {
 				case "set-quests":
 				case "set-travelling-rock": {
 					await set(interaction as APIChatInputApplicationCommandGuildInteraction, options);
+					return;
+				}
+				case "set-nesting-workshop": {
+					await nestingWorkshopModal(interaction as APIChatInputApplicationCommandGuildInteraction);
 					return;
 				}
 			}

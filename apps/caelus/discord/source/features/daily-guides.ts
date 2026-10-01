@@ -9,11 +9,13 @@ import {
 	type APIContainerComponent,
 	type APIGuildInteractionWrapper,
 	type APIInteractionResponseCallbackData,
+	type APILabelComponent,
 	type APIMediaGalleryItem,
 	type APIMessageChannelSelectInteractionData,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
+	type APIModalSubmitGuildInteraction,
 	type APINewsChannel,
 	type APIPublicThreadChannel,
 	type APITextChannel,
@@ -51,17 +53,28 @@ import {
 	epochSeconds,
 	fetchDailyGuides,
 	fetchFirstDailyGuidesDate,
+	fetchNestingWorkshop,
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
+	type Item,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	MAXIMUM_ASSET_BANNER_DIMENSION,
+	NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES,
+	NESTING_WORKSHOP_ROTATION_COSMETICS,
+	type NestingWorkshopRotationCategories,
+	NestingWorkshopRotationCategory,
+	NestingWorkshopRotationCategoryToCosmetics,
+	nestingWorkshopDate,
+	nestingWorkshopItem,
 	type Packet,
 	parsePlainDate,
 	RADIANCE_EVENTS,
 	returningSpiritsSchedule,
 	resolveCurrencyEmoji,
+	ScheduleType,
+	ScheduleTypeToLocaleKey,
 	shardEruption,
 	SHARD_ERUPTION_START_DATE,
 	skyCurrentEvents,
@@ -69,6 +82,7 @@ import {
 	skyNotEndedEvents,
 	skyNow,
 	skyUpcomingSeason,
+	sumCosts,
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
@@ -84,10 +98,12 @@ import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { processUploadedImage } from "../utility/assets.js";
+import { itemToSelectMenuOption, resolveCostToString } from "../utility/catalogue.js";
 import {
 	R2_BUCKET_CDN,
 	CDN_URL,
 	DAILY_GUIDES_LOG_CHANNEL_ID,
+	DEVELOPER_ROLE_ID,
 	MAXIMUM_CONCURRENCY_LIMIT,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORT_SERVER_INVITE_URL,
@@ -99,9 +115,11 @@ import {
 	LOCALE_OPTIONS,
 	MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
+	NESTING_WORKSHOP_MAXIMUM_PROPS,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
+	CosmeticToEmoji,
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
@@ -117,6 +135,7 @@ import {
 	userTag,
 	validateImageAttachment,
 } from "../utility/functions.js";
+import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
@@ -126,6 +145,8 @@ import {
 
 type DailyGuidesSetData = Partial<Omit<Packet<"daily_guides">, "date">> &
 	Pick<Packet<"daily_guides">, "last_updated_user_id" | "last_updated_at">;
+
+type NestingWorkshopSetData = Omit<Packet<"nesting_workshop">, "date">;
 
 type DailyGuidesDistributionAllowedChannel =
 	| Extract<
@@ -149,6 +170,14 @@ interface DailyGuidesFooterItem extends DailyGuidesDaysCountItem {
 const distributeQueue = new pQueue({ concurrency: MAXIMUM_CONCURRENCY_LIMIT });
 let distributionLock: Promise<unknown> | null = null;
 
+const NestingWorkshopRotationCategoryToLabel = {
+	[NestingWorkshopRotationCategory.Rugs]: "Rugs",
+	[NestingWorkshopRotationCategory.TablesAndDesks]: "Tables and desks",
+	[NestingWorkshopRotationCategory.Seating]: "Seating",
+	[NestingWorkshopRotationCategory.KitchenAndBathroom]: "Kitchen and bathroom",
+	[NestingWorkshopRotationCategory.StorageLightingAndDecor]: "Storage, lighting and decor",
+} as const satisfies Readonly<Record<NestingWorkshopRotationCategories, string>>;
+
 export function questAutocomplete(focused: string, locale: Locale) {
 	return focused === ""
 		? []
@@ -167,6 +196,16 @@ export function questAutocomplete(focused: string, locale: Locale) {
 					return { name: quest, value: dailyQuest };
 				})
 				.slice(0, MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT);
+}
+
+function nestingWorkshopPropName({ translation }: Item, locale: Locale) {
+	return t(translation.key, { lng: locale, ns: "general", number: translation.number });
+}
+
+function nestingWorkshopPropLine(item: Item, locale: Locale) {
+	const emoji = CosmeticToEmoji[item.cosmeticDisplay];
+	const cost = resolveCostToString(sumCosts(item.cost ? [item.cost] : []), locale).join("");
+	return `${emoji ? formatEmoji(emoji) : nestingWorkshopPropName(item, locale)} ${cost}`;
 }
 
 export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTopLevelComponent] {
@@ -196,6 +235,20 @@ async function updateDailyGuides(date: Temporal.PlainDate, data: DailyGuidesSetD
 		.insertInto("daily_guides")
 		.values({ date: dailyGuidesDate(date), ...data })
 		.onConflict((oc) => oc.column("date").doUpdateSet(data))
+		.execute();
+}
+
+async function updateNestingWorkshop(date: Temporal.PlainDate, data: NestingWorkshopSetData) {
+	const key = nestingWorkshopDate(date);
+
+	if (!key) {
+		throw new Error(`The Nesting Workshop did not exist on ${date.toString()}.`);
+	}
+
+	await database
+		.insertInto("nesting_workshop")
+		.values({ date: key, ...data })
+		.onConflict((onConflict) => onConflict.column("date").doUpdateSet(data))
 		.execute();
 }
 
@@ -750,6 +803,7 @@ interface DailyGuidesDistributionDataResponse {
 	isToday: boolean;
 	missingDailyQuests: boolean;
 	missingTravellingRock: boolean;
+	missingNestingWorkshop: boolean;
 }
 
 interface DailyGuidesDistributionDataOptions {
@@ -1279,6 +1333,22 @@ async function distributionData({
 		missingTravellingRock = true;
 	}
 
+	const nestingWorkshopPacket = await fetchNestingWorkshop(database, today.toPlainDate());
+
+	const nestingWorkshopProps =
+		nestingWorkshopPacket?.cosmetics
+			.map((cosmetic) => nestingWorkshopItem(cosmetic))
+			.filter((item) => item !== null) ?? [];
+
+	if (nestingWorkshopProps.length > 0) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `### ${t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop], { lng: locale })}\n\n${nestingWorkshopProps
+				.map((item) => nestingWorkshopPropLine(item, locale))
+				.join("\n")}`,
+		});
+	}
+
 	const communityEvents = communityUpcomingEvents(today);
 
 	if (communityEvents.length > 0) {
@@ -1474,6 +1544,7 @@ async function distributionData({
 		isToday,
 		missingDailyQuests,
 		missingTravellingRock,
+		missingNestingWorkshop: nestingWorkshopPacket === null,
 	};
 }
 
@@ -1584,14 +1655,13 @@ export async function dailyGuidesResponse(
 	const firstDate = (await fetchFirstDailyGuidesDate(database)) ?? todayDate;
 	const day = clampPlainDate(date ?? todayDate, firstDate, todayDate);
 
-	const { components, isToday, missingDailyQuests, missingTravellingRock } = await distributionData(
-		{
+	const { components, isToday, missingDailyQuests, missingTravellingRock, missingNestingWorkshop } =
+		await distributionData({
 			locale,
 			type,
 			showShardTimestampStatus: true,
 			date: day,
-		},
-	);
+		});
 
 	components[0].components.push({
 		type: ComponentType.ActionRow,
@@ -1627,6 +1697,10 @@ export async function dailyGuidesResponse(
 
 	if (isToday && missingTravellingRock) {
 		missing.push(`- ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}`);
+	}
+
+	if (isToday && missingNestingWorkshop) {
+		missing.push(`- ${t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop], { lng: locale })}`);
 	}
 
 	if (missing.length > 0) {
@@ -1695,9 +1769,12 @@ export async function interactive(
 	interaction:
 		| APIChatInputApplicationCommandGuildInteraction
 		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
-		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>
+		| APIModalSubmitGuildInteraction,
 	{ type, locale }: InteractiveOptions,
 ) {
+	const date = skyNow().toPlainDate();
+
 	const {
 		quest1,
 		quest2,
@@ -1705,7 +1782,9 @@ export async function interactive(
 		quest4,
 		last_updated_at: lastUpdatedAt,
 		last_updated_user_id: lastUpdatedUserId,
-	} = await fetchDailyGuides(database, skyNow().toPlainDate());
+	} = await fetchDailyGuides(database, date);
+
+	const nestingWorkshopPacket = await fetchNestingWorkshop(database, date);
 	const quests = [quest1, quest2, quest3, quest4];
 	const questOptions = [];
 
@@ -1783,10 +1862,14 @@ export async function interactive(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content:
+			content: [
 				lastUpdatedAt && lastUpdatedUserId
 					? `-# Last updated by <@${lastUpdatedUserId}> <t:${Math.floor(lastUpdatedAt.getTime() / 1000)}:R>.`
 					: "-# Not updated yet.",
+				nestingWorkshopPacket
+					? `-# Nesting Workshop last updated by <@${nestingWorkshopPacket.last_updated_user_id}> <t:${Math.floor(nestingWorkshopPacket.last_updated_at.getTime() / 1000)}:R>.`
+					: "-# Nesting Workshop not updated yet.",
+			].join("\n"),
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -2079,6 +2162,101 @@ export async function set(
 
 	await updateDailyGuides(date, data);
 	await interactive(interaction, interactiveOptions);
+}
+
+export async function nestingWorkshopModal(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+) {
+	const { locale } = interaction;
+	const nestingWorkshopPacket = await fetchNestingWorkshop(database, skyNow().toPlainDate());
+	const selected = new Set(nestingWorkshopPacket?.cosmetics);
+
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		components: NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES.map((category): APILabelComponent => {
+			const options = NestingWorkshopRotationCategoryToCosmetics[category].map((cosmetic) =>
+				itemToSelectMenuOption(nestingWorkshopItem(cosmetic)!, selected, locale),
+			);
+
+			return {
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.StringSelect,
+					custom_id: `${CustomId.DailyGuidesNestingWorkshopModalProps}§${category}`,
+					max_values: Math.min(NESTING_WORKSHOP_MAXIMUM_PROPS, options.length),
+					min_values: 0,
+					options,
+					required: false,
+				},
+				label: NestingWorkshopRotationCategoryToLabel[category],
+			};
+		}),
+		custom_id: CustomId.DailyGuidesNestingWorkshopModal,
+		title: "Nesting Workshop",
+	});
+}
+
+export async function setNestingWorkshop(interaction: APIModalSubmitGuildInteraction) {
+	const { locale } = interaction;
+	const components = new ModalResolver(interaction.data);
+
+	const selected = new Set(
+		NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES.flatMap((category) =>
+			components
+				.getStringSelectValues(`${CustomId.DailyGuidesNestingWorkshopModalProps}§${category}`)
+				.flatMap((value) => JSON.parse(value) as readonly number[]),
+		),
+	);
+
+	const cosmetics = NESTING_WORKSHOP_ROTATION_COSMETICS.filter((cosmetic) =>
+		selected.has(cosmetic),
+	);
+
+	if (cosmetics.length === 0) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "No props were selected.",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	if (cosmetics.length > NESTING_WORKSHOP_MAXIMUM_PROPS) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `The maximum limit is ${NESTING_WORKSHOP_MAXIMUM_PROPS}. If there are more than ${NESTING_WORKSHOP_MAXIMUM_PROPS}, reach out to a <@&${DEVELOPER_ROLE_ID}>!`,
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const date = skyNow().toPlainDate();
+	const oldCosmetics = (await fetchNestingWorkshop(database, date))?.cosmetics ?? [];
+
+	if (
+		oldCosmetics.length === cosmetics.length &&
+		cosmetics.every((cosmetic) => oldCosmetics.includes(cosmetic))
+	) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "No changes were made. These props are already set!",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	await logModification({
+		user: interaction.member.user,
+		content: "set the Nesting Workshop props.",
+		diff: `\`\`\`diff\n${diffJSON({ cosmetics: oldCosmetics }, { cosmetics })}\n\`\`\``,
+	});
+
+	await updateNestingWorkshop(date, {
+		cosmetics,
+		last_updated_user_id: interaction.member.user.id,
+		last_updated_at: snowflakeDate(interaction.id),
+	});
+
+	await interactive(interaction, { locale });
 }
 
 export async function questsReorder(

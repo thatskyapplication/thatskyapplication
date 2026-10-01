@@ -1177,6 +1177,11 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 					},
 				],
 			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "set-nesting-workshop",
+				description: "Sets this week's props in the Nesting Workshop.",
+			},
 		],
 	},
 ] as const;
