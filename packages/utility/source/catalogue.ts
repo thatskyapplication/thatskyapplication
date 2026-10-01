@@ -155,6 +155,90 @@ export const NESTING_WORKSHOP = {
 	allCosmetics: resolveAllCosmeticsFromItems(nestingWorkshopItems),
 } as const;
 
+export function resolveNestingWorkshopItems(cosmetics: readonly number[]) {
+	return cosmetics
+		.map((cosmetic) => nestingWorkshopItems.find((item) => item.cosmetics.includes(cosmetic)))
+		.filter((item) => item !== undefined);
+}
+
+export const NestingWorkshopRotationCategory = {
+	Rugs: 0,
+	TablesAndDesks: 1,
+	Seating: 2,
+	KitchenAndBathroom: 3,
+	StorageLightingAndDecor: 4,
+} as const satisfies Readonly<Record<string, number>>;
+
+export const NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES = Object.values(
+	NestingWorkshopRotationCategory,
+);
+
+export type NestingWorkshopRotationCategories =
+	(typeof NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES)[number];
+
+export const NestingWorkshopRotationCategoryToCosmetics = {
+	[NestingWorkshopRotationCategory.Rugs]: [
+		Cosmetic.SmallSolidRug,
+		Cosmetic.SmallStripesRug,
+		Cosmetic.SmallClassicRug,
+		Cosmetic.MediumSolidRug,
+		Cosmetic.MediumStripesRug,
+		Cosmetic.MediumDiamondsRug,
+		Cosmetic.MediumArgyleRug,
+		Cosmetic.MediumCircleRug,
+		Cosmetic.LargeSolidRug,
+		Cosmetic.LargeCircleRug,
+	],
+	[NestingWorkshopRotationCategory.TablesAndDesks]: [
+		Cosmetic.StoneSmallTable,
+		Cosmetic.StoneCoffeeTable,
+		Cosmetic.StoneConsoleTable,
+		Cosmetic.StoneRoundDiningTable,
+		Cosmetic.StoneSquareDiningTable,
+		Cosmetic.StoneLongDiningTable,
+		Cosmetic.StoneDesk,
+	],
+	[NestingWorkshopRotationCategory.Seating]: [
+		Cosmetic.StoneChair,
+		Cosmetic.StoneBench,
+		Cosmetic.StoneLoveseat,
+		Cosmetic.StoneSofaSide,
+		Cosmetic.StoneSofaCorner,
+	],
+	[NestingWorkshopRotationCategory.KitchenAndBathroom]: [
+		Cosmetic.StoneWoodFiredOven,
+		Cosmetic.StoneKitchenStove,
+		Cosmetic.StoneKitchenCabinet,
+		Cosmetic.StoneKichenDrawers,
+		Cosmetic.StoneWallPotRack,
+		Cosmetic.StoneWallMugRack,
+		Cosmetic.StoneSmallBathtub,
+		Cosmetic.LargeBathtub,
+		Cosmetic.StoneWashstand,
+		Cosmetic.StoneWallTowelRack,
+		Cosmetic.StoneWallMirror,
+	],
+	[NestingWorkshopRotationCategory.StorageLightingAndDecor]: [
+		Cosmetic.StoneSmallCube,
+		Cosmetic.StoneTallCube,
+		Cosmetic.StoneTallShelf,
+		Cosmetic.StoneClosedBox,
+		Cosmetic.StoneEmptyBox,
+		Cosmetic.StoneCandleLight,
+		Cosmetic.CandleStand,
+		Cosmetic.StoneWallSconce,
+		Cosmetic.DecorPillowOneColour,
+		Cosmetic.DecorPillowTwoColour,
+		Cosmetic.DecorFoldedCloth,
+		Cosmetic.StonePlantStand,
+	],
+} as const satisfies Readonly<Record<NestingWorkshopRotationCategories, readonly Cosmetic[]>>;
+
+export const NESTING_WORKSHOP_ROTATION_COSMETICS =
+	NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES.flatMap(
+		(category) => NestingWorkshopRotationCategoryToCosmetics[category],
+	);
+
 export interface CatalogueProgress {
 	readonly owned: number;
 	readonly total: number;

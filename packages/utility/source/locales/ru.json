@@ -2317,6 +2317,7 @@
 		"navigation-next": "",
 		"close": "",
 		"today": "",
+		"this-week": "",
 		"shard-eruption": "",
 		"donate": "",
 		"wiki": ""
@@ -2757,6 +2758,7 @@
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "Временные метки",
 			"travelling-rock": "",
+			"nesting-workshop-prop-owned": "",
 			"infographic-acknowledgement-item": "",
 			"returning-spirits-leave-today": "",
 			"event-upcoming-time": "",

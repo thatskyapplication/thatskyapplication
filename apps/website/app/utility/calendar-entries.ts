@@ -39,7 +39,11 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
-import { NESTING_WORKSHOP_CATALOGUE_URL, SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
+import {
+	dailyGuidesURL,
+	NESTING_WORKSHOP_CATALOGUE_URL,
+	SCHEDULE_TYPE_TO_WIKI_KEY,
+} from "~/utility/schedule.js";
 
 interface CalendarEntryInput {
 	key: string;
@@ -69,6 +73,7 @@ interface CalendarEntriesOptions {
 	t: TFunction;
 	dayMarkers: boolean;
 	shardEruptionMaximumDate: string;
+	dailyGuidesMaximumDate: string;
 	summary?: boolean;
 }
 
@@ -110,6 +115,7 @@ export function calendarEntriesBetween({
 	t,
 	dayMarkers,
 	shardEruptionMaximumDate,
+	dailyGuidesMaximumDate,
 	summary = false,
 }: CalendarEntriesOptions): (CalendarEntry | CalendarSummaryEntry)[] {
 	const overlapsRange = (start: Temporal.ZonedDateTime, end: Temporal.ZonedDateTime) =>
@@ -450,16 +456,20 @@ export function calendarEntriesBetween({
 					?.toPlainDate()
 					.equals(skyDate.toPlainDate())
 			) {
-				entries.push(
-					createCalendarEntry({
-						key: `nesting-workshop-${date}`,
-						kind: CalendarEntryKind.NestingWorkshop,
-						label: nestingWorkshopLabel,
-						start: skyDate,
-						wikiURL: nestingWorkshopWikiURL,
-						catalogueURL: NESTING_WORKSHOP_CATALOGUE_URL,
-					}),
-				);
+				const input: CalendarEntryInput = {
+					key: `nesting-workshop-${date}`,
+					kind: CalendarEntryKind.NestingWorkshop,
+					label: nestingWorkshopLabel,
+					start: skyDate,
+					wikiURL: nestingWorkshopWikiURL,
+					catalogueURL: NESTING_WORKSHOP_CATALOGUE_URL,
+				};
+
+				if (date <= dailyGuidesMaximumDate) {
+					input.pageURL = dailyGuidesURL(date, dailyGuidesMaximumDate);
+				}
+
+				entries.push(createCalendarEntry(input));
 			}
 
 			if (

@@ -481,6 +481,17 @@ export function nextNestingWorkshop(date: Temporal.ZonedDateTime) {
 	return Temporal.ZonedDateTime.compare(start, NESTING_WORKSHOP_START_DATE) < 0 ? null : start;
 }
 
+export function currentNestingWorkshop(date: Temporal.ZonedDateTime) {
+	const friday = date.subtract({ days: (date.dayOfWeek - 5 + 7) % 7 }).startOfDay();
+
+	const start =
+		Temporal.ZonedDateTime.compare(friday, NESTING_WORKSHOP_FRIDAY_CHANGE_DATE) < 0
+			? date.subtract({ days: date.dayOfWeek - 1 }).startOfDay()
+			: friday;
+
+	return Temporal.ZonedDateTime.compare(start, NESTING_WORKSHOP_START_DATE) < 0 ? null : start;
+}
+
 export function vaultEldersBlessingSchedule(date: Temporal.ZonedDateTime) {
 	if (Temporal.ZonedDateTime.compare(date, VAULT_ELDERS_BLESSING_START_DATE) < 0) {
 		return null;

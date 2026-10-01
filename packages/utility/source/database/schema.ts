@@ -140,6 +140,13 @@ export interface Messages {
   user_id: string;
 }
 
+export interface NestingWorkshop {
+  cosmetics: number[];
+  date: Timestamp;
+  last_updated_at: Generated<Timestamp>;
+  last_updated_user_id: string;
+}
+
 export interface Notifications {
   channel_id: string | null;
   guild_id: string;
@@ -229,6 +236,7 @@ export interface DB {
   guess: Guess;
   hearts: Hearts;
   messages: Messages;
+  nesting_workshop: NestingWorkshop;
   notifications: Notifications;
   sky_profile_likes: SkyProfileLikes;
   sky_profile_reports: SkyProfileReports;

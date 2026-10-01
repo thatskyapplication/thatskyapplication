@@ -4745,7 +4745,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp50: { id: "1313938768952295486", name: "50_small_placeable_prop" },
 	/**
-	 * Small half circle rug.
+	 * Small half-circle rug.
 	 */
 	SmallPlaceableProp51: { id: "1313938851504324648", name: "51_small_placeable_prop" },
 	/**

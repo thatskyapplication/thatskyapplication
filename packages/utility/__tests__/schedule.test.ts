@@ -5,6 +5,7 @@ import { RETURNING_DATES } from "../source/kingdom/seasons/index.js";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
+	currentNestingWorkshop,
 	dreamsSkaterSchedule,
 	grandmaSchedule,
 	internationalSpaceStationDates,
@@ -829,6 +830,45 @@ for (const { date, expected } of EXPECTED_NEXT_NESTING_WORKSHOPS) {
 test("Next nesting workshop is unavailable before the Season of Nesting.", () => {
 	equal(nextNestingWorkshop(skyDate(2017, 12, 19)), null);
 	equal(nextNestingWorkshop(skyDate(2024, 4, 7)), null);
+});
+
+const EXPECTED_CURRENT_NESTING_WORKSHOPS = [
+	{ date: skyDate(2024, 4, 15), expected: skyDate(2024, 4, 15) },
+	{ date: skyDate(2024, 4, 21, 23, 59), expected: skyDate(2024, 4, 15) },
+	{ date: skyDate(2026, 3, 1), expected: skyDate(2026, 2, 23) },
+	{ date: skyDate(2026, 3, 2), expected: skyDate(2026, 3, 2) },
+	{ date: skyDate(2026, 3, 5, 23, 59), expected: skyDate(2026, 3, 2) },
+	{ date: skyDate(2026, 3, 6), expected: skyDate(2026, 3, 6) },
+	{ date: skyDate(2026, 3, 12, 23, 59), expected: skyDate(2026, 3, 6) },
+	{ date: skyDate(2026, 3, 13), expected: skyDate(2026, 3, 13) },
+] as const;
+
+for (const { date, expected } of EXPECTED_CURRENT_NESTING_WORKSHOPS) {
+	test(`Current nesting workshop reset at ${date.toPlainDateTime().toString()}.`, () => {
+		const result = currentNestingWorkshop(date);
+		ok(result);
+		equal(result.toPlainDateTime().toString(), expected.toPlainDateTime().toString());
+	});
+}
+
+test("Current nesting workshop is unavailable before the Season of Nesting.", () => {
+	equal(currentNestingWorkshop(skyDate(2017, 12, 19)), null);
+	equal(currentNestingWorkshop(skyDate(2024, 4, 14, 23, 59)), null);
+});
+
+test("Current nesting workshop agrees with next nesting workshop on every day.", () => {
+	for (
+		let date = skyDate(2024, 4, 15);
+		Temporal.ZonedDateTime.compare(date, skyDate(2027, 1, 1)) < 0;
+		date = date.add({ days: 1 })
+	) {
+		const current = currentNestingWorkshop(date);
+		const label = date.toPlainDate().toString();
+		ok(current, label);
+		ok(Temporal.ZonedDateTime.compare(current, date) <= 0, label);
+		ok(nextNestingWorkshop(current.subtract({ nanoseconds: 1 }))?.equals(current), label);
+		ok(Temporal.ZonedDateTime.compare(nextNestingWorkshop(current)!, date) > 0, label);
+	}
 });
 
 test("Meteor shower active during a Days of Love window.", () => {

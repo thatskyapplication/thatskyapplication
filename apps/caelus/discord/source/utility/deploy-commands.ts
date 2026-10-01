@@ -1150,15 +1150,20 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "set",
-				description: "Sets data for the daily guides.",
+				name: "set-quests",
+				description: "Sets the daily quests.",
+				options: QUEST_NUMBER.map((questNumber) => ({
+					type: ApplicationCommandOptionType.Integer as const,
+					name: `quest-${questNumber}`,
+					description: "The daily quest.",
+					autocomplete: true,
+				})),
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "set-travelling-rock",
+				description: "Sets the travelling rock.",
 				options: [
-					...QUEST_NUMBER.map((questNumber) => ({
-						type: ApplicationCommandOptionType.Integer as const,
-						name: `quest-${questNumber}`,
-						description: "The daily quest.",
-						autocomplete: true,
-					})),
 					{
 						type: ApplicationCommandOptionType.Attachment,
 						name: "travelling-rock",
@@ -1171,6 +1176,11 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 						description: "Whether the travelling rock did not spawn.",
 					},
 				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "set-nesting-workshop",
+				description: "Sets this week's props in the Nesting Workshop.",
 			},
 		],
 	},

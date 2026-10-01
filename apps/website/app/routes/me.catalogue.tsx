@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router";
 import {
 	CLOTHING_SHOP,
+	fetchNestingWorkshop,
 	isEventFamilyId,
 	NESTING_WORKSHOP,
 	SECRET_AREA,
@@ -11,6 +12,7 @@ import {
 	type SpiritIds,
 	STARTER_PACKS,
 	returningSpiritsSchedule,
+	resolveNestingWorkshopItems,
 	skyEventFamilies,
 	skyNow,
 	skySeasons,
@@ -33,6 +35,7 @@ import { StartView } from "~/components/catalogue/StartView";
 import { TotalSpentView } from "~/components/catalogue/TotalSpentView";
 import { SitePage } from "~/components/PageLayout";
 import database from "~/database.server";
+import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { parseCosmetics, resolveScopeCosmetics } from "~/utility/catalogue.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { dateTimeLabels } from "~/utility/time.js";
@@ -70,11 +73,16 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 	const now = skyNow();
 
-	const cataloguePacket = await database
-		.selectFrom("catalogue")
-		.selectAll()
-		.where("user_id", "=", discordUser.id)
-		.executeTakeFirst();
+	const [cataloguePacket, nestingWorkshopPacket] = await Promise.all([
+		database
+			.selectFrom("catalogue")
+			.selectAll()
+			.where("user_id", "=", discordUser.id)
+			.executeTakeFirst(),
+		url.searchParams.get("view") === "nesting-workshop"
+			? fetchNestingWorkshop(database, now.toPlainDate())
+			: null,
+	]);
 
 	return {
 		data: cataloguePacket?.data ?? [],
@@ -84,6 +92,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			hour12,
 		}),
 		locale,
+		nestingWorkshop: nestingWorkshopPacket?.cosmetics ?? [],
 		now: now.epochMilliseconds,
 		showEverythingButton: cataloguePacket?.show_everything_button ?? false,
 		timeZoneEstimated,
@@ -175,12 +184,15 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 		data: dataArray,
 		dateTimeLabels,
 		locale,
+		nestingWorkshop,
 		now: nowMillis,
 		showEverythingButton,
 		timeZoneEstimated,
 	} = loaderData;
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
+	const currentTimestamp = useCurrentTimestamp(nowMillis);
+	useSkyDailyResetRevalidator(currentTimestamp);
 	const data = useMemo(() => new Set(dataArray), [dataArray]);
 	const now = useMemo(
 		() => Temporal.Instant.fromEpochMilliseconds(nowMillis).toZonedDateTimeISO(TIME_ZONE),
@@ -312,6 +324,10 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 				<CollectionView
 					collection={NESTING_WORKSHOP}
 					data={data}
+					featured={{
+						items: resolveNestingWorkshopItems(nestingWorkshop),
+						title: t("this-week", { ns: "general" }),
+					}}
 					locale={locale}
 					scope="nesting-workshop"
 					showEverythingButton={showEverythingButton}

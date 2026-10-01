@@ -9,7 +9,11 @@ import { CalendarLegend } from "~/components/calendar/CalendarLegend";
 import { CalendarSummary } from "~/components/calendar/CalendarSummary";
 import { CalendarToolbar } from "~/components/calendar/CalendarToolbar";
 import { SitePage } from "~/components/PageLayout";
-import { useCurrentTimestamp, useDailyRevalidator } from "~/hooks/use-current-timestamp.js";
+import {
+	useCurrentTimestamp,
+	useDailyRevalidator,
+	useSkyDailyResetRevalidator,
+} from "~/hooks/use-current-timestamp.js";
 import { getInstance } from "~/middleware/i18next.js";
 import { calendarData } from "~/utility/calendar-data.js";
 import {
@@ -130,6 +134,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 	useDailyRevalidator(currentTimestamp, timeZone);
+	useSkyDailyResetRevalidator(currentTimestamp);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const hiddenKinds = useMemo(() => parseHiddenCalendarKinds(searchParams), [searchParams]);
 	const isDay = view === CalendarView.Day;

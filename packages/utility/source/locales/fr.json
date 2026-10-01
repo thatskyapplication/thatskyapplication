@@ -2307,6 +2307,7 @@
 		"navigation-next": "Suivant",
 		"close": "",
 		"today": "Aujourd'hui",
+		"this-week": "",
 		"shard-eruption": "Éruption d'éclats",
 		"donate": "",
 		"wiki": "Wiki"
@@ -2737,6 +2738,7 @@
 			"shard-eruption-data": "Données",
 			"shard-eruption-timestamps": "Heures",
 			"travelling-rock": "Pierre voyageuse",
+			"nesting-workshop-prop-owned": "",
 			"infographic-acknowledgement-item": "Infographie {{infographic}} par {{acknowledgement}}",
 			"returning-spirits-leave-today": "",
 			"event-upcoming-time": "{{event}} commence à {{time}}.",

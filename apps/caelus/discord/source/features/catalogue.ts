@@ -40,6 +40,7 @@ import {
 	type Event,
 	type EventIds,
 	epochSeconds,
+	fetchNestingWorkshop,
 	formatEmoji,
 	formatEmojiURL,
 	friendshipTreeToItems,
@@ -50,6 +51,7 @@ import {
 	type Packet,
 	partitionItemCosts,
 	type RealmName,
+	resolveNestingWorkshopItems,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
 	returningSpiritsSchedule,
@@ -74,6 +76,7 @@ import { client } from "../discord.js";
 import {
 	CatalogueType,
 	itemToSelectMenuOption,
+	nestingWorkshopPropsTextDisplay,
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import {
@@ -2589,11 +2592,17 @@ export async function viewNestingWorkshop(
 		| APIMessageComponentButtonInteraction
 		| APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
+	const [catalogue, nestingWorkshopPacket] = await Promise.all([
+		fetchCatalogue(interactionInvoker(interaction).id),
+		fetchNestingWorkshop(database, skyNow().toPlainDate()),
+	]);
+
 	const { locale } = interaction;
 	const current = t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], {
 		lng: locale,
 	});
+
+	const thisWeek = resolveNestingWorkshopItems(nestingWorkshopPacket?.cosmetics ?? []);
 
 	const itemSelectionOptions = NESTING_WORKSHOP.items.map((item) =>
 		itemToSelectMenuOption(item, catalogue?.data, locale),
@@ -2629,6 +2638,20 @@ export async function viewNestingWorkshop(
 				catalogue?.data,
 			).offerDescription.join("\n"),
 		},
+	];
+
+	if (thisWeek.length > 0) {
+		containerComponents.push(
+			nestingWorkshopPropsTextDisplay(
+				t("this-week", { lng: locale, ns: "general" }),
+				thisWeek,
+				locale,
+				catalogue?.data,
+			),
+		);
+	}
+
+	containerComponents.push(
 		{
 			type: ComponentType.ActionRow,
 			components: [
@@ -2677,7 +2700,7 @@ export async function viewNestingWorkshop(
 				},
 			],
 		},
-	];
+	);
 
 	if (catalogue?.show_everything_button) {
 		containerComponents.push({

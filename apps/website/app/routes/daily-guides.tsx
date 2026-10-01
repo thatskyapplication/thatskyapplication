@@ -18,10 +18,13 @@ import {
 	isDailyQuest,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
+	nestingWorkshopDate,
 	nextDailyReset,
 	parsePlainDate,
 	RADIANCE_EVENTS,
 	returningSpiritsSchedule,
+	ScheduleType,
+	ScheduleTypeToLocaleKey,
 	shardEruption,
 	skyCurrentSeason,
 	skyNow,
@@ -39,6 +42,7 @@ import { DatePicker } from "~/components/DatePicker";
 import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
+import { NestingWorkshopProps } from "~/components/NestingWorkshopProps.js";
 import { CentredSitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
@@ -47,6 +51,7 @@ import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
+import { getRequestSession } from "~/middleware/session.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
 import { APPLICATION_ICON_URL, PIECE_OF_LIGHT_PATH } from "~/utility/constants.js";
 import {
@@ -57,6 +62,8 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
+import { fetchNestingWorkshopProps } from "~/utility/nesting-workshop.server.js";
+import { NESTING_WORKSHOP_CATALOGUE_URL } from "~/utility/schedule.js";
 import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/daily-guides.js";
@@ -68,7 +75,7 @@ interface DaysCountItem extends DailyGuidesDaysCountItem {
 }
 
 const DAILY_GUIDES_DESCRIPTION =
-	"Today's quests, treasure candles, seasonal candles, returning spirits, shard eruption, travelling rock, maintenance, and countdowns for Sky: Children of the Light." as const;
+	"Today's quests, treasure candles, seasonal candles, returning spirits, shard eruption, travelling rock, Nesting Workshop, maintenance, and countdowns for Sky: Children of the Light." as const;
 const RETURNING_SPIRITS_LIST_PLACEHOLDER = "__RETURNING_SPIRITS_LIST__" as const;
 
 function dailyGuidesCacheMaxAge(now: Temporal.ZonedDateTime, maximum: number) {
@@ -144,7 +151,12 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	}
 
 	const dayStart = date.toZonedDateTime(TIME_ZONE);
-	const dailyGuides = await fetchDailyGuides(database, date);
+	const discordUser = getRequestSession(context).get("discord_user");
+
+	const [dailyGuides, nestingWorkshop] = await Promise.all([
+		fetchDailyGuides(database, date),
+		fetchNestingWorkshopProps(date, discordUser?.id),
+	]);
 	const initialTimestamp = now.epochMilliseconds;
 	const shardEruptionExists =
 		Temporal.ZonedDateTime.compare(dayStart, SHARD_ERUPTION_START_DATE) >= 0;
@@ -178,7 +190,10 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		},
 	);
 
-	const cacheMaxAge = dailyGuidesCacheMaxAge(now, isToday ? 300 : 3600);
+	const inCurrentNestingWorkshop =
+		nestingWorkshopDate(date)?.getTime() === nestingWorkshopDate(todayDate)?.getTime();
+
+	const cacheMaxAge = dailyGuidesCacheMaxAge(now, isToday || inCurrentNestingWorkshop ? 300 : 3600);
 
 	return data(
 		{
@@ -197,6 +212,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			todayDate: todayDate.toString(),
 			weekStartsOn: firstDayOfWeek(locale),
 			dailyGuides,
+			nestingWorkshop,
 			treasureCandleLinks,
 			treasureCandleNotes,
 			dateString: new Intl.DateTimeFormat(locale, {
@@ -234,7 +250,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		},
 		{
 			headers: {
-				"Cache-Control": `private, max-age=${cacheMaxAge}`,
+				"Cache-Control": discordUser ? "private, no-cache" : `private, max-age=${cacheMaxAge}`,
 				Vary: "Cookie",
 			},
 		},
@@ -261,6 +277,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		todayDate,
 		weekStartsOn,
 		dailyGuides,
+		nestingWorkshop,
 		treasureCandleLinks,
 		treasureCandleNotes,
 		dateString,
@@ -1086,6 +1103,23 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										{t("none", { ns: "general", context: "travelling-rock" })}
 									</p>
 								)}
+							</div>
+						)}
+						{nestingWorkshop.length > 0 && (
+							<div className="mb-5">
+								<div className="mb-3 flex items-center justify-between gap-3">
+									<h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+										{t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop])}
+									</h2>
+									<Link
+										className="regular-link inline-flex items-center gap-1 text-xs font-medium"
+										to={NESTING_WORKSHOP_CATALOGUE_URL}
+									>
+										{t("catalogue.main-title", { ns: "features" })}
+										<ArrowRight className="h-3 w-3" />
+									</Link>
+								</div>
+								<NestingWorkshopProps locale={locale} nestingWorkshop={nestingWorkshop} />
 							</div>
 						)}
 						{visibleDaysCount.length > 0 && (

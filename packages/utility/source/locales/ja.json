@@ -2302,6 +2302,7 @@
 		"navigation-next": "",
 		"close": "",
 		"today": "",
+		"this-week": "",
 		"shard-eruption": "闇の破片",
 		"donate": "",
 		"wiki": ""
@@ -2727,6 +2728,7 @@
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
 			"travelling-rock": "小さな岩の冒険",
+			"nesting-workshop-prop-owned": "",
 			"infographic-acknowledgement-item": "",
 			"returning-spirits-leave-today": "",
 			"event-upcoming-time": "",
