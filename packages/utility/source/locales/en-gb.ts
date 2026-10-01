@@ -2620,6 +2620,7 @@ export default {
 		"navigation-next": "Next",
 		close: "Close",
 		today: "Today",
+		"this-week": "This week",
 		"shard-eruption": "Shard eruption",
 		donate: "Donate",
 		wiki: "Wiki",

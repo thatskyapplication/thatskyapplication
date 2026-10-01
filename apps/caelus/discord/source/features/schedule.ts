@@ -23,12 +23,14 @@ import {
 	dreamsSkaterSchedule,
 	EventId,
 	epochSeconds,
+	fetchNestingWorkshop,
 	formatEmoji,
 	grandmaSchedule,
 	internationalSpaceStationDates,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	meteorShowerSchedule,
+	nestingWorkshopItem,
 	nextDailyReset,
 	nextEyeOfEden,
 	nextNestingWorkshop,
@@ -56,7 +58,9 @@ import {
 	vaultEldersBlessingSchedule,
 	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
+import database from "../database.js";
 import { client } from "../discord.js";
+import { nestingWorkshopPropLine } from "../utility/catalogue.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
@@ -910,11 +914,18 @@ function nestingWorkshopNext(now: Temporal.ZonedDateTime, locale: Locale) {
 	});
 }
 
-function nestingWorkshopDetailedBreakdown(
+async function nestingWorkshopDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
-): APIComponentInContainer[] {
-	return [
+): Promise<APIComponentInContainer[]> {
+	const nestingWorkshopPacket = await fetchNestingWorkshop(database, now.toPlainDate());
+
+	const props =
+		nestingWorkshopPacket?.cosmetics
+			.map((cosmetic) => nestingWorkshopItem(cosmetic))
+			.filter((item) => item !== null) ?? [];
+
+	const components: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
 			content: t("schedule.detailed-breakdown-nesting-workshop-message", {
@@ -924,6 +935,17 @@ function nestingWorkshopDetailedBreakdown(
 			}),
 		},
 	];
+
+	if (props.length > 0) {
+		components.push({
+			type: ComponentType.TextDisplay,
+			content: `### ${t("this-week", { lng: locale, ns: "general" })}\n\n${props
+				.map((item) => nestingWorkshopPropLine(item, locale))
+				.join("\n")}`,
+		});
+	}
+
+	return components;
 }
 
 function vaultEldersBlessingDetailedBreakdown(
@@ -1663,7 +1685,7 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.NestingWorkshop: {
-			detailedBreakdown = nestingWorkshopDetailedBreakdown(now, locale);
+			detailedBreakdown = await nestingWorkshopDetailedBreakdown(now, locale);
 			wikiURL = t("schedule.detailed-breakdown-nesting-workshop-wiki-button-url", {
 				lng: locale,
 				ns: "features",

@@ -58,7 +58,6 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
-	type Item,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	MAXIMUM_ASSET_BANNER_DIMENSION,
@@ -83,7 +82,6 @@ import {
 	skyNotEndedEvents,
 	skyNow,
 	skyUpcomingSeason,
-	sumCosts,
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
@@ -99,7 +97,7 @@ import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { processUploadedImage } from "../utility/assets.js";
-import { itemToSelectMenuOption, resolveCostToString } from "../utility/catalogue.js";
+import { itemToSelectMenuOption, nestingWorkshopPropLine } from "../utility/catalogue.js";
 import {
 	R2_BUCKET_CDN,
 	CDN_URL,
@@ -120,7 +118,6 @@ import {
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
-	CosmeticToEmoji,
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
@@ -197,16 +194,6 @@ export function questAutocomplete(focused: string, locale: Locale) {
 					return { name: quest, value: dailyQuest };
 				})
 				.slice(0, MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT);
-}
-
-function nestingWorkshopPropLine({ cosmeticDisplay, cost, translation }: Item, locale: Locale) {
-	const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-	const prop = emoji
-		? formatEmoji(emoji)
-		: t(translation.key, { lng: locale, ns: "general", number: translation.number });
-
-	return `${prop} ${resolveCostToString(sumCosts(cost ? [cost] : []), locale).join("")}`;
 }
 
 export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTopLevelComponent] {

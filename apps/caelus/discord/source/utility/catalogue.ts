@@ -2,9 +2,11 @@ import type { APISelectMenuOption, Locale } from "@discordjs/core";
 import { t } from "i18next";
 import {
 	type CostEntry,
+	formatEmoji,
 	type Item,
 	resolveCurrencyEmoji,
 	SeasonId,
+	sumCosts,
 } from "@thatskyapplication/utility";
 import {
 	CosmeticToEmoji,
@@ -75,6 +77,19 @@ export function resolveCostToString(cost: readonly CostEntry[], locale: Locale) 
 	}
 
 	return totalCost;
+}
+
+export function nestingWorkshopPropLine(
+	{ cosmeticDisplay, cost, translation }: Item,
+	locale: Locale,
+) {
+	const emoji = CosmeticToEmoji[cosmeticDisplay];
+
+	const prop = emoji
+		? formatEmoji(emoji)
+		: t(translation.key, { lng: locale, ns: "general", number: translation.number });
+
+	return `${prop} ${resolveCostToString(sumCosts(cost ? [cost] : []), locale).join("")}`;
 }
 
 export function itemToSelectMenuOption(
