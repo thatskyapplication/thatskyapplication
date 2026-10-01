@@ -216,11 +216,9 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			todayDate: todayDate.toString(),
 			weekStartsOn: firstDayOfWeek(locale),
 			dailyGuides,
-			nestingWorkshop: nestingWorkshopPacket?.cosmetics ?? null,
+			nestingWorkshop: nestingWorkshopPacket?.cosmetics ?? [],
 			nestingWorkshopOwned:
-				discordUser && nestingWorkshopPacket
-					? nestingWorkshopPacket.cosmetics.filter((cosmetic) => catalogue?.has(cosmetic))
-					: null,
+				nestingWorkshopPacket?.cosmetics.filter((cosmetic) => catalogue?.has(cosmetic)) ?? [],
 			treasureCandleLinks,
 			treasureCandleNotes,
 			dateString: new Intl.DateTimeFormat(locale, {
@@ -332,10 +330,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		}
 	}
 
-	const nestingWorkshopItems =
-		nestingWorkshop
-			?.map((cosmetic) => nestingWorkshopItem(cosmetic))
-			.filter((item) => item !== null) ?? [];
+	const nestingWorkshopItems = nestingWorkshop
+		.map((cosmetic) => nestingWorkshopItem(cosmetic))
+		.filter((item) => item !== null);
 
 	let seasonalCandles = null;
 	const daysCount: DaysCountItem[] = [];
@@ -1143,7 +1140,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										});
 
 										const owned = item.cosmetics.every((cosmetic) =>
-											nestingWorkshopOwned?.includes(cosmetic),
+											nestingWorkshopOwned.includes(cosmetic),
 										);
 
 										return (
