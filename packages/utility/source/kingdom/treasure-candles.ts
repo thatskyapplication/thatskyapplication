@@ -36,6 +36,11 @@ const TREASURE_CANDLES_REALM_ANCHORS = [
 		start: skyDate(2024, 7, 1).toPlainDate(),
 		realm: RealmName.DaylightPrairie,
 	},
+	{
+		// Valley of Triumph was skipped between 30 September 2026 and 1 October 2026.
+		start: skyDate(2026, 10, 1).toPlainDate(),
+		realm: RealmName.GoldenWasteland,
+	},
 ] as const;
 
 interface TreasureCandlesConfiguration {
@@ -255,6 +260,11 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 	{
 		start: skyDate(2026, 9, 11),
 		end: skyDate(2026, 9, 25),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2026, 10, 1),
+		end: skyDate(2026, 10, 2),
 		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 	},
 ] as const satisfies readonly TreasureCandlesConfiguration[];
