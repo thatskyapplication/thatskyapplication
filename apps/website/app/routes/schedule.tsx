@@ -517,9 +517,6 @@ function DisplayCardRow({
 			</span>
 			{item.nestingWorkshop && (
 				<div className="col-span-2 mt-1 md:col-span-4">
-					<p className="mb-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-						{t("this-week", { ns: "general" })}
-					</p>
 					<NestingWorkshopProps locale={locale} nestingWorkshop={item.nestingWorkshop} />
 				</div>
 			)}
