@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
 	DOUBLE_HEART_EVENTS,
+	fetchNestingWorkshop,
 	formatEmojiURL,
 	isActive,
 	MAINTENANCE_PERIODS,
@@ -13,6 +14,7 @@ import {
 	ScheduleType,
 	type ScheduleTypes,
 	skyCurrentSeason,
+	skyNow,
 	skyNotEndedEvents,
 	skyUpcomingSeason,
 	TIME_ZONE,
@@ -22,11 +24,15 @@ import {
 } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList, type ExternalLinkListItem } from "~/components/ExternalLinkList";
+import { NestingWorkshopProps } from "~/components/NestingWorkshopProps.js";
 import { CentredSitePage } from "~/components/PageLayout";
 import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
-import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
+import database from "~/database.server";
+import { getSkyProfileCatalogueData } from "~/features/sky-profile/sky-profile-public.server.js";
+import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
+import { getRequestSession } from "~/middleware/session.js";
 import { APPLICATION_ICON_URL, SCHEDULE_DESCRIPTION } from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
@@ -154,6 +160,7 @@ const SCHEDULE_BADGES: Readonly<Partial<Record<ScheduleTypes, DisplayCardBadge>>
 
 interface DisplayCard {
 	type: DisplayCardType;
+	scheduleType?: ScheduleTypes | undefined;
 	badge?: DisplayCardBadge | undefined;
 	key: string;
 	label: string;
@@ -219,6 +226,7 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences, t: T
 
 		cards.push({
 			type: DisplayCardType.Schedule,
+			scheduleType: type,
 			badge: SCHEDULE_BADGES[type],
 			key: `${type}`,
 			label: t(spiritId ? `general:spirits.${spiritId}` : ScheduleTypeToLocaleKey[type]),
@@ -392,15 +400,25 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences, t: T
 	return { active, upcoming, maintenances, ...formatClockTimes(timestamp, preferences) };
 }
 
-export const loader = ({ request, context }: Route.LoaderArgs) => {
-	const initialTimestamp = Date.now();
+export const loader = async ({ request, context }: Route.LoaderArgs) => {
+	const now = skyNow();
+	const initialTimestamp = now.epochMilliseconds;
 	const preferences = getTimePreferences(request, context);
 	const t = getInstance(context).getFixedT(getLocale(context));
+	const discordUser = getRequestSession(context).get("discord_user");
+
+	const [nestingWorkshopPacket, catalogue] = await Promise.all([
+		fetchNestingWorkshop(database, now.toPlainDate()),
+		discordUser ? getSkyProfileCatalogueData(discordUser.id) : null,
+	]);
 
 	return {
 		initialTimestamp,
 		...preferences,
 		initialView: buildScheduleView(initialTimestamp, preferences, t),
+		nestingWorkshop: nestingWorkshopPacket?.cosmetics ?? [],
+		nestingWorkshopOwned:
+			nestingWorkshopPacket?.cosmetics.filter((cosmetic) => catalogue?.has(cosmetic)) ?? [],
 		title: t("schedule.name", { ns: "features" }),
 	};
 };
@@ -408,10 +426,14 @@ export const loader = ({ request, context }: Route.LoaderArgs) => {
 function DisplayCardRow({
 	item,
 	locale,
+	nestingWorkshop,
+	nestingWorkshopOwned,
 	timeZoneEstimated,
 }: {
 	item: DisplayCard;
 	locale: string;
+	nestingWorkshop: readonly number[];
+	nestingWorkshopOwned: readonly number[];
 	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
@@ -487,14 +509,33 @@ function DisplayCardRow({
 				{timeZoneEstimated ? <SkeletonText>{timestamp}</SkeletonText> : timestamp}{" "}
 				{relative && <span className="text-gray-400 dark:text-gray-500">({relative})</span>}
 			</span>
+			{item.scheduleType === ScheduleType.NestingWorkshop && nestingWorkshop.length > 0 && (
+				<div className="col-span-2 mt-1 md:col-span-4">
+					<NestingWorkshopProps
+						cosmetics={nestingWorkshop}
+						locale={locale}
+						owned={nestingWorkshopOwned}
+					/>
+				</div>
+			)}
 		</div>
 	);
 }
 
 export default function Schedule({ loaderData }: Route.ComponentProps) {
-	const { initialTimestamp, locale, timeZone, timeZoneEstimated, hour12, initialView } = loaderData;
+	const {
+		initialTimestamp,
+		locale,
+		timeZone,
+		timeZoneEstimated,
+		hour12,
+		initialView,
+		nestingWorkshop,
+		nestingWorkshopOwned,
+	} = loaderData;
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
+	useSkyDailyResetRevalidator(currentTimestamp);
 
 	const { active, upcoming, maintenances, localTime, skyTime } =
 		currentTimestamp === initialTimestamp
@@ -572,6 +613,8 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 										item={item}
 										key={item.key}
 										locale={locale}
+										nestingWorkshop={nestingWorkshop}
+										nestingWorkshopOwned={nestingWorkshopOwned}
 										timeZoneEstimated={timeZoneEstimated}
 									/>
 								))}
@@ -591,6 +634,8 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 									item={item}
 									key={item.key}
 									locale={locale}
+									nestingWorkshop={nestingWorkshop}
+									nestingWorkshopOwned={nestingWorkshopOwned}
 									timeZoneEstimated={timeZoneEstimated}
 								/>
 							))}
