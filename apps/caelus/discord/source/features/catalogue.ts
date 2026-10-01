@@ -40,6 +40,7 @@ import {
 	type Event,
 	type EventIds,
 	epochSeconds,
+	fetchNestingWorkshop,
 	formatEmoji,
 	formatEmojiURL,
 	friendshipTreeToItems,
@@ -47,6 +48,7 @@ import {
 	isRealm,
 	KINGDOM,
 	NESTING_WORKSHOP,
+	nestingWorkshopItem,
 	type Packet,
 	partitionItemCosts,
 	type RealmName,
@@ -74,6 +76,7 @@ import { client } from "../discord.js";
 import {
 	CatalogueType,
 	itemToSelectMenuOption,
+	nestingWorkshopPropLine,
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import {
@@ -2589,11 +2592,20 @@ export async function viewNestingWorkshop(
 		| APIMessageComponentButtonInteraction
 		| APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
+	const [catalogue, nestingWorkshopPacket] = await Promise.all([
+		fetchCatalogue(interactionInvoker(interaction).id),
+		fetchNestingWorkshop(database, skyNow().toPlainDate()),
+	]);
+
 	const { locale } = interaction;
 	const current = t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], {
 		lng: locale,
 	});
+
+	const thisWeek =
+		nestingWorkshopPacket?.cosmetics
+			.map((cosmetic) => nestingWorkshopItem(cosmetic))
+			.filter((item) => item !== null) ?? [];
 
 	const itemSelectionOptions = NESTING_WORKSHOP.items.map((item) =>
 		itemToSelectMenuOption(item, catalogue?.data, locale),
@@ -2629,6 +2641,25 @@ export async function viewNestingWorkshop(
 				catalogue?.data,
 			).offerDescription.join("\n"),
 		},
+	];
+
+	if (thisWeek.length > 0) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `### ${t("this-week", { lng: locale, ns: "general" })}\n\n${thisWeek
+				.map(
+					(item) =>
+						`${nestingWorkshopPropLine(item, locale)}${
+							item.cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic))
+								? ` ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
+								: ""
+						}`,
+				)
+				.join("\n")}`,
+		});
+	}
+
+	containerComponents.push(
 		{
 			type: ComponentType.ActionRow,
 			components: [
@@ -2677,7 +2708,7 @@ export async function viewNestingWorkshop(
 				},
 			],
 		},
-	];
+	);
 
 	if (catalogue?.show_everything_button) {
 		containerComponents.push({
