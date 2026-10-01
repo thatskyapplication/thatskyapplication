@@ -19,6 +19,7 @@ import {
 	isDailyQuest,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
+	nestingWorkshopDate,
 	nestingWorkshopItem,
 	nextDailyReset,
 	parsePlainDate,
@@ -52,6 +53,7 @@ import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
+import { getSkyProfileCatalogueData } from "~/features/sky-profile/sky-profile-public.server.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
@@ -157,16 +159,10 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const dayStart = date.toZonedDateTime(TIME_ZONE);
 	const discordUser = getRequestSession(context).get("discord_user");
 
-	const [dailyGuides, nestingWorkshopPacket, cataloguePacket] = await Promise.all([
+	const [dailyGuides, nestingWorkshopPacket, catalogue] = await Promise.all([
 		fetchDailyGuides(database, date),
 		fetchNestingWorkshop(database, date),
-		discordUser
-			? database
-					.selectFrom("catalogue")
-					.select("data")
-					.where("user_id", "=", discordUser.id)
-					.executeTakeFirst()
-			: null,
+		discordUser && nestingWorkshopDate(date) ? getSkyProfileCatalogueData(discordUser.id) : null,
 	]);
 	const initialTimestamp = now.epochMilliseconds;
 	const shardEruptionExists =
@@ -223,9 +219,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			nestingWorkshop: nestingWorkshopPacket?.cosmetics ?? null,
 			nestingWorkshopOwned:
 				discordUser && nestingWorkshopPacket
-					? nestingWorkshopPacket.cosmetics.filter((cosmetic) =>
-							cataloguePacket?.data.includes(cosmetic),
-						)
+					? nestingWorkshopPacket.cosmetics.filter((cosmetic) => catalogue?.has(cosmetic))
 					: null,
 			treasureCandleLinks,
 			treasureCandleNotes,
