@@ -19,7 +19,7 @@ export default {
 		const options = new OptionResolver(interaction);
 
 		switch (options.requireSubcommand()) {
-			case "set":
+			case "set-quests":
 				await client.api.interactions.createAutocompleteResponse(
 					interaction.id,
 					interaction.token,
@@ -37,7 +37,8 @@ export default {
 
 		if (interaction.data.guild_id === SUPPORT_SERVER_GUILD_ID) {
 			switch (options.requireSubcommand()) {
-				case "set": {
+				case "set-quests":
+				case "set-travelling-rock": {
 					await set(interaction as APIChatInputApplicationCommandGuildInteraction, options);
 					return;
 				}
