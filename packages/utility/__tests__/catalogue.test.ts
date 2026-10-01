@@ -241,7 +241,8 @@ test("An exact match outranks a keyword match on a caller-supplied list.", () =>
 
 test("Every Nesting Workshop rotation cosmetic is a unique Nesting Workshop item.", () => {
 	equal(
-		new Set(NESTING_WORKSHOP_ROTATION_COSMETICS).size,
+		new Set(NESTING_WORKSHOP_ROTATION_COSMETICS.map((cosmetic) => nestingWorkshopItem(cosmetic)))
+			.size,
 		NESTING_WORKSHOP_ROTATION_COSMETICS.length,
 	);
 
