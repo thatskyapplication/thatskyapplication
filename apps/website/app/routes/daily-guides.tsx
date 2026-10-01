@@ -20,7 +20,6 @@ import {
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	nestingWorkshopDate,
-	nestingWorkshopItem,
 	nextDailyReset,
 	parsePlainDate,
 	RADIANCE_EVENTS,
@@ -33,7 +32,6 @@ import {
 	skyNotEndedEvents,
 	skyUpcomingSeason,
 	SHARD_ERUPTION_START_DATE,
-	sumCosts,
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
@@ -41,24 +39,21 @@ import {
 	WEBSITE_URL,
 	dailyQuestLabel,
 } from "@thatskyapplication/utility";
-import { CostList } from "~/components/catalogue/CostList.js";
 import { DatePicker } from "~/components/DatePicker";
-import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
+import { NestingWorkshopProps } from "~/components/NestingWorkshopProps.js";
 import { CentredSitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
-import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
 import { getSkyProfileCatalogueData } from "~/features/sky-profile/sky-profile-public.server.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session.js";
-import { itemEmoji } from "~/utility/catalogue.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
 import { APPLICATION_ICON_URL, PIECE_OF_LIGHT_PATH } from "~/utility/constants.js";
 import {
@@ -329,10 +324,6 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			});
 		}
 	}
-
-	const nestingWorkshopItems = nestingWorkshop
-		.map((cosmetic) => nestingWorkshopItem(cosmetic))
-		.filter((item) => item !== null);
 
 	let seasonalCandles = null;
 	const daysCount: DaysCountItem[] = [];
@@ -1116,7 +1107,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								)}
 							</div>
 						)}
-						{nestingWorkshopItems.length > 0 && (
+						{nestingWorkshop.length > 0 && (
 							<div className="mb-5">
 								<div className="mb-3 flex items-center justify-between gap-3">
 									<h2 className="text-sm font-semibold text-gray-900 dark:text-white">
@@ -1130,57 +1121,11 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										<ArrowRight className="h-3 w-3" />
 									</Link>
 								</div>
-								<ul className="flex flex-wrap gap-3 text-sm text-gray-700 dark:text-gray-300">
-									{nestingWorkshopItems.map((item) => {
-										const emoji = itemEmoji(item);
-
-										const name = t(item.translation.key, {
-											ns: "general",
-											number: item.translation.number,
-										});
-
-										const owned = item.cosmetics.every((cosmetic) =>
-											nestingWorkshopOwned.includes(cosmetic),
-										);
-
-										return (
-											<li
-												className="flex flex-col items-center gap-1"
-												key={item.cosmetics.join(",")}
-											>
-												<Tooltip content={name}>
-													<div
-														aria-label={
-															owned
-																? t("daily-guides.nesting-workshop-prop-owned", {
-																		ns: "features",
-																		prop: name,
-																	})
-																: name
-														}
-														className="relative flex size-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800"
-														role="img"
-													>
-														{emoji ? (
-															<EmojiIcon className="size-7" emoji={emoji} />
-														) : (
-															<span className="px-1 text-center text-[10px] leading-tight">
-																{name}
-															</span>
-														)}
-														{owned && (
-															<EmojiIcon
-																className="absolute -top-1 -right-1 size-4"
-																emoji={MISCELLANEOUS_EMOJIS.Yes}
-															/>
-														)}
-													</div>
-												</Tooltip>
-												{item.cost && <CostList costs={sumCosts([item.cost])} locale={locale} />}
-											</li>
-										);
-									})}
-								</ul>
+								<NestingWorkshopProps
+									cosmetics={nestingWorkshop}
+									locale={locale}
+									owned={nestingWorkshopOwned}
+								/>
 							</div>
 						)}
 						{visibleDaysCount.length > 0 && (
