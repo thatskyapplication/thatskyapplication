@@ -4,6 +4,7 @@ import type { DB } from "./database/schema.js";
 import { isActive, TIME_ZONE } from "./dates.js";
 import { AreaName, isRealm, RealmName } from "./kingdom/geography.js";
 import { dailyGuidesQuestRoute } from "./routes.js";
+import { currentNestingWorkshop } from "./schedule.js";
 import { SpiritId, type SpiritIds } from "./utility/spirits.js";
 
 const DAILY_GUIDES_DAYS_COUNT_MAXIMUM_DAYS = 90 as const;
@@ -1440,6 +1441,27 @@ export async function fetchFirstDailyGuidesDate(database: Kysely<DB>) {
 		: Temporal.Instant.fromEpochMilliseconds(first.getTime())
 				.toZonedDateTimeISO(TIME_ZONE)
 				.toPlainDate();
+}
+
+export function nestingWorkshopDate(date: Temporal.PlainDate) {
+	const start = currentNestingWorkshop(date.toZonedDateTime(TIME_ZONE));
+	return start && new Date(start.epochMilliseconds);
+}
+
+export async function fetchNestingWorkshop(database: Kysely<DB>, date: Temporal.PlainDate) {
+	const key = nestingWorkshopDate(date);
+
+	if (!key) {
+		return null;
+	}
+
+	const nestingWorkshopPacket = await database
+		.selectFrom("nesting_workshop")
+		.selectAll()
+		.where("date", "=", key)
+		.executeTakeFirst();
+
+	return nestingWorkshopPacket ?? null;
 }
 
 export interface DailyGuidesDaysCountItem {

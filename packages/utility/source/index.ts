@@ -82,7 +82,9 @@ export {
 	dailyGuidesDate,
 	fetchDailyGuides,
 	fetchFirstDailyGuidesDate,
+	fetchNestingWorkshop,
 	isDailyQuest,
+	nestingWorkshopDate,
 	visibleDaysCountItems,
 } from "./daily-guides.js";
 export type { Packet } from "./database/index.js";
@@ -239,6 +241,7 @@ export {
 	auroraSchedule,
 	AVIARYS_FIREWORK_FESTIVAL_START_DATE,
 	aviarysFireworkFestivalSchedule,
+	currentNestingWorkshop,
 	DREAMS_SKATER_START_DATE,
 	dreamsSkaterSchedule,
 	GRANDMA_START_DATE,
