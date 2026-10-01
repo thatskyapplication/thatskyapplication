@@ -256,7 +256,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		},
 		{
 			headers: {
-				"Cache-Control": `private, max-age=${cacheMaxAge}`,
+				"Cache-Control": discordUser ? "private, no-cache" : `private, max-age=${cacheMaxAge}`,
 				Vary: "Cookie",
 			},
 		},
