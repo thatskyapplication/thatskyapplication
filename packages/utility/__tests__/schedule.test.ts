@@ -865,6 +865,7 @@ test("Current nesting workshop agrees with next nesting workshop on every day.",
 		const current = currentNestingWorkshop(date);
 		const label = date.toPlainDate().toString();
 		ok(current, label);
+		ok(Temporal.ZonedDateTime.compare(current, date) <= 0, label);
 		ok(nextNestingWorkshop(current.subtract({ nanoseconds: 1 }))?.equals(current), label);
 		ok(Temporal.ZonedDateTime.compare(nextNestingWorkshop(current)!, date) > 0, label);
 	}
