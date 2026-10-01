@@ -85,6 +85,10 @@ export default new Season({
 				start: skyDate(2026, 9, 11),
 				end: skyDate(2026, 9, 25),
 			},
+			{
+				start: skyDate(2026, 10, 1),
+				end: skyDate(2026, 10, 2),
+			},
 		],
 	},
 });

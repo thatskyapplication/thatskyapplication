@@ -8178,6 +8178,11 @@ const SEASONAL_CANDLES_ROTATIONS = [
 				expected:
 					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/daylight_prairie/3.webp",
 			},
+			{
+				date: skyDate(2026, 10, 1),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/3+4.webp",
+			},
 		],
 	},
 ] as const;
