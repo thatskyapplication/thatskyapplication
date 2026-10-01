@@ -14,20 +14,25 @@ import {
 	epochSeconds,
 	fetchDailyGuides,
 	fetchFirstDailyGuidesDate,
+	fetchNestingWorkshop,
 	formatEmojiURL,
 	isDailyQuest,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
+	nestingWorkshopItem,
 	nextDailyReset,
 	parsePlainDate,
 	RADIANCE_EVENTS,
 	returningSpiritsSchedule,
+	ScheduleType,
+	ScheduleTypeToLocaleKey,
 	shardEruption,
 	skyCurrentSeason,
 	skyNow,
 	skyNotEndedEvents,
 	skyUpcomingSeason,
 	SHARD_ERUPTION_START_DATE,
+	sumCosts,
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
@@ -35,7 +40,9 @@ import {
 	WEBSITE_URL,
 	dailyQuestLabel,
 } from "@thatskyapplication/utility";
+import { CostList } from "~/components/catalogue/CostList.js";
 import { DatePicker } from "~/components/DatePicker";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
@@ -43,10 +50,13 @@ import { CentredSitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
+import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
+import { getRequestSession } from "~/middleware/session.js";
+import { itemEmoji } from "~/utility/catalogue.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
 import { APPLICATION_ICON_URL, PIECE_OF_LIGHT_PATH } from "~/utility/constants.js";
 import {
@@ -57,6 +67,7 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
+import { NESTING_WORKSHOP_CATALOGUE_URL } from "~/utility/schedule.js";
 import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/daily-guides.js";
@@ -68,7 +79,7 @@ interface DaysCountItem extends DailyGuidesDaysCountItem {
 }
 
 const DAILY_GUIDES_DESCRIPTION =
-	"Today's quests, treasure candles, seasonal candles, returning spirits, shard eruption, travelling rock, maintenance, and countdowns for Sky: Children of the Light." as const;
+	"Today's quests, treasure candles, seasonal candles, returning spirits, shard eruption, travelling rock, Nesting Workshop, maintenance, and countdowns for Sky: Children of the Light." as const;
 const RETURNING_SPIRITS_LIST_PLACEHOLDER = "__RETURNING_SPIRITS_LIST__" as const;
 
 function dailyGuidesCacheMaxAge(now: Temporal.ZonedDateTime, maximum: number) {
@@ -144,7 +155,19 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	}
 
 	const dayStart = date.toZonedDateTime(TIME_ZONE);
-	const dailyGuides = await fetchDailyGuides(database, date);
+	const discordUser = getRequestSession(context).get("discord_user");
+
+	const [dailyGuides, nestingWorkshopPacket, cataloguePacket] = await Promise.all([
+		fetchDailyGuides(database, date),
+		fetchNestingWorkshop(database, date),
+		discordUser
+			? database
+					.selectFrom("catalogue")
+					.select("data")
+					.where("user_id", "=", discordUser.id)
+					.executeTakeFirst()
+			: null,
+	]);
 	const initialTimestamp = now.epochMilliseconds;
 	const shardEruptionExists =
 		Temporal.ZonedDateTime.compare(dayStart, SHARD_ERUPTION_START_DATE) >= 0;
@@ -197,6 +220,13 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			todayDate: todayDate.toString(),
 			weekStartsOn: firstDayOfWeek(locale),
 			dailyGuides,
+			nestingWorkshop: nestingWorkshopPacket?.cosmetics ?? null,
+			nestingWorkshopOwned:
+				discordUser && nestingWorkshopPacket
+					? nestingWorkshopPacket.cosmetics.filter((cosmetic) =>
+							cataloguePacket?.data.includes(cosmetic),
+						)
+					: null,
 			treasureCandleLinks,
 			treasureCandleNotes,
 			dateString: new Intl.DateTimeFormat(locale, {
@@ -261,6 +291,8 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		todayDate,
 		weekStartsOn,
 		dailyGuides,
+		nestingWorkshop,
+		nestingWorkshopOwned,
 		treasureCandleLinks,
 		treasureCandleNotes,
 		dateString,
@@ -305,6 +337,11 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			});
 		}
 	}
+
+	const nestingWorkshopItems =
+		nestingWorkshop
+			?.map((cosmetic) => nestingWorkshopItem(cosmetic))
+			.filter((item) => item !== null) ?? [];
 
 	let seasonalCandles = null;
 	const daysCount: DaysCountItem[] = [];
@@ -1086,6 +1123,73 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										{t("none", { ns: "general", context: "travelling-rock" })}
 									</p>
 								)}
+							</div>
+						)}
+						{nestingWorkshopItems.length > 0 && (
+							<div className="mb-5">
+								<div className="mb-3 flex items-center justify-between gap-3">
+									<h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+										{t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop])}
+									</h2>
+									<Link
+										className="regular-link inline-flex items-center gap-1 text-xs font-medium"
+										to={NESTING_WORKSHOP_CATALOGUE_URL}
+									>
+										{t("catalogue.main-title", { ns: "features" })}
+										<ArrowRight className="h-3 w-3" />
+									</Link>
+								</div>
+								<ul className="flex flex-wrap gap-3 text-sm text-gray-700 dark:text-gray-300">
+									{nestingWorkshopItems.map((item) => {
+										const emoji = itemEmoji(item);
+
+										const name = t(item.translation.key, {
+											ns: "general",
+											number: item.translation.number,
+										});
+
+										const owned = item.cosmetics.every((cosmetic) =>
+											nestingWorkshopOwned?.includes(cosmetic),
+										);
+
+										return (
+											<li
+												className="flex flex-col items-center gap-1"
+												key={item.cosmetics.join(",")}
+											>
+												<Tooltip content={name}>
+													<div
+														aria-label={
+															owned
+																? t("daily-guides.nesting-workshop-prop-owned", {
+																		ns: "features",
+																		prop: name,
+																	})
+																: name
+														}
+														className="relative flex size-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800"
+														role="img"
+													>
+														{emoji ? (
+															<EmojiIcon className="size-7" emoji={emoji} />
+														) : (
+															<span className="px-1 text-center text-[10px] leading-tight">
+																{name}
+															</span>
+														)}
+														{owned && (
+															<EmojiIcon
+																className="absolute -top-1 -right-1 size-4"
+																emoji={MISCELLANEOUS_EMOJIS.Yes}
+															/>
+														)}
+													</div>
+												</Tooltip>
+												{item.cost && <CostList costs={sumCosts([item.cost])} locale={locale} />}
+											</li>
+										);
+									})}
+								</ul>
 							</div>
 						)}
 						{visibleDaysCount.length > 0 && (

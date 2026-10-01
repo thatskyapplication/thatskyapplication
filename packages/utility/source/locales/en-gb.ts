@@ -3073,6 +3073,7 @@ export default {
 			"shard-eruption-data": "Data",
 			"shard-eruption-timestamps": "Timestamps",
 			"travelling-rock": "Travelling rock",
+			"nesting-workshop-prop-owned": "{{prop}} (owned)",
 			"infographic-acknowledgement-item": "Infographic {{infographic}} by {{acknowledgement}}",
 			"season-upcoming_one": "The new season starts tomorrow.",
 			"season-upcoming_other": "The new season starts in {{count}} days.",
