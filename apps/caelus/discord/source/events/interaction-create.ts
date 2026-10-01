@@ -1257,7 +1257,7 @@ export default {
 					}
 
 					if (id === CustomId.DailyGuidesNestingWorkshopModal) {
-						await setNestingWorkshop(data);
+						await setNestingWorkshop(data, parts[0]);
 						return;
 					}
 				}

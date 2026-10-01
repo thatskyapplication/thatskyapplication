@@ -39,6 +39,7 @@ import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-lin
 import {
 	clampPlainDate,
 	communityUpcomingEvents,
+	currentNestingWorkshop,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
@@ -2168,7 +2169,8 @@ export async function nestingWorkshopModal(
 	interaction: APIChatInputApplicationCommandGuildInteraction,
 ) {
 	const { locale } = interaction;
-	const nestingWorkshopPacket = await fetchNestingWorkshop(database, skyNow().toPlainDate());
+	const now = skyNow();
+	const nestingWorkshopPacket = await fetchNestingWorkshop(database, now.toPlainDate());
 	const selected = new Set(nestingWorkshopPacket?.cosmetics);
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
@@ -2190,13 +2192,27 @@ export async function nestingWorkshopModal(
 				label: NestingWorkshopRotationCategoryToLabel[category],
 			};
 		}),
-		custom_id: CustomId.DailyGuidesNestingWorkshopModal,
+		custom_id: `${CustomId.DailyGuidesNestingWorkshopModal}§${currentNestingWorkshop(now)!.toPlainDate().toString()}`,
 		title: "Nesting Workshop",
 	});
 }
 
-export async function setNestingWorkshop(interaction: APIModalSubmitGuildInteraction) {
+export async function setNestingWorkshop(
+	interaction: APIModalSubmitGuildInteraction,
+	rotation: string | undefined,
+) {
 	const { locale } = interaction;
+	const now = skyNow();
+
+	if (currentNestingWorkshop(now)?.toPlainDate().toString() !== rotation) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "The Nesting Workshop has reset since this was opened. Run the command again!",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
 	const components = new ModalResolver(interaction.data);
 
 	const selected = new Set(
@@ -2229,7 +2245,7 @@ export async function setNestingWorkshop(interaction: APIModalSubmitGuildInterac
 		return;
 	}
 
-	const date = skyNow().toPlainDate();
+	const date = now.toPlainDate();
 	const oldCosmetics = (await fetchNestingWorkshop(database, date))?.cosmetics ?? [];
 
 	if (
