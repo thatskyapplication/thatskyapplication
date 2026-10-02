@@ -563,6 +563,7 @@ export default {
 			[SeasonId.Lightmending]: "Season of Lightmending",
 			[SeasonId.Carnival]: "Season of Carnival",
 			[SeasonId.DearVanGogh]: "Dear Van Gogh",
+			[SeasonId.Pearl]: "Season of Pearl",
 		} satisfies Record<SeasonIds, string>,
 		"season-wiki": {
 			[SeasonId.Gratitude]: "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -600,6 +601,7 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Season_of_Lightmending",
 			[SeasonId.Carnival]: "https://sky-children-of-the-light.fandom.com/Season_of_Carnival",
 			[SeasonId.DearVanGogh]: "https://sky-children-of-the-light.fandom.com/Dear_Van_Gogh",
+			[SeasonId.Pearl]: "https://sky-children-of-the-light.fandom.com/Season_of_Pearl",
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		event: "Event",
 		events: "Events",
@@ -1055,6 +1057,7 @@ export default {
 			[SpiritId.RusticMemory]: "Rustic Memory",
 			[SpiritId.ArtisticMemory]: "Artistic Memory",
 			[SpiritId.JoyfulMemory]: "Joyful Memory",
+			[SpiritId.FishermansLantern]: "Fisherman's Lantern",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1357,6 +1360,8 @@ export default {
 			[SpiritId.RusticMemory]: "https://sky-children-of-the-light.fandom.com/Rustic_Memory",
 			[SpiritId.ArtisticMemory]: "https://sky-children-of-the-light.fandom.com/Artistic_Memory",
 			[SpiritId.JoyfulMemory]: "https://sky-children-of-the-light.fandom.com/Joyful_Memory",
+			[SpiritId.FishermansLantern]:
+				"https://sky-children-of-the-light.fandom.com/Fisherman's_Lantern",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {

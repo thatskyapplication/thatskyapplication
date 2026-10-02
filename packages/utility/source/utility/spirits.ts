@@ -288,6 +288,9 @@ export const SpiritId = {
 	RusticMemory: 210,
 	ArtisticMemory: 211,
 	JoyfulMemory: 212,
+
+	// Season of Pearl.
+	FishermansLantern: 213,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);

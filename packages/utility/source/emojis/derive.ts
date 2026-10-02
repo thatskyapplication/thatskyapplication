@@ -3055,6 +3055,7 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[SeasonId.Lightmending]: SEASON_EMOJIS.Lightmending,
 		[SeasonId.Carnival]: SEASON_EMOJIS.Carnival,
 		[SeasonId.DearVanGogh]: SEASON_EMOJIS.DearVanGogh,
+		[SeasonId.Pearl]: null,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
@@ -3088,6 +3089,7 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[SeasonId.Lightmending]: SEASON_EMOJIS.LightmendingCandle,
 		[SeasonId.Carnival]: SEASON_EMOJIS.CarnivalCandle,
 		[SeasonId.DearVanGogh]: SEASON_EMOJIS.DearVanGoghCandle,
+		[SeasonId.Pearl]: null,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalHeartEmoji = {
@@ -3119,6 +3121,7 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[SeasonId.Lightmending]: SEASON_EMOJIS.LightmendingHeart,
 		[SeasonId.Carnival]: SEASON_EMOJIS.CarnivalHeart,
 		[SeasonId.DearVanGogh]: SEASON_EMOJIS.DearVanGoghHeart,
+		[SeasonId.Pearl]: null,
 	} as const satisfies Readonly<
 		Record<
 			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,

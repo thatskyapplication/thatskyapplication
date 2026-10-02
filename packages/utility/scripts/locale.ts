@@ -2406,6 +2406,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "SpiritId.JoyfulMemory",
 	},
 	{
+		upstreamKey: "name_questap32",
+		tsKey: "SpiritId.FishermansLantern",
+	},
+	{
 		upstreamKey: "name_point",
 		tsKey: "SpiritId.PointingCandlemaker",
 	},

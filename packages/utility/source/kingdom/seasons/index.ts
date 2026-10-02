@@ -33,6 +33,7 @@ import Moomin from "./moomin/index.js";
 import Nesting from "./nesting/index.js";
 import NineColouredDeer from "./nine-coloured-deer/index.js";
 import Passage from "./passage/index.js";
+import pearl from "./pearl/index.js";
 import Performance from "./performance/index.js";
 import Prophecy from "./prophecy/index.js";
 import Radiance from "./radiance/index.js";
@@ -74,6 +75,7 @@ export const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	lightmending,
 	carnival,
 	dearVanGogh,
+	pearl,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
 export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingSpiritVisit> = new Collection<
