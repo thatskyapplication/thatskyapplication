@@ -6179,6 +6179,13 @@ const EXPECTED_ROTATIONS = [
 			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 		],
 	},
+	{
+		date: skyDate(2026, 10, 2),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
+		],
+	},
 ] as const;
 
 function scheduleTestDates(reset: Temporal.ZonedDateTime) {

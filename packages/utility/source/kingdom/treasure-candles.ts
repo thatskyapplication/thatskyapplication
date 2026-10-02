@@ -264,7 +264,7 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 	},
 	{
 		start: skyDate(2026, 10, 1),
-		end: skyDate(2026, 10, 2),
+		end: skyDate(2026, 10, 3),
 		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 	},
 ] as const satisfies readonly TreasureCandlesConfiguration[];
