@@ -3055,7 +3055,7 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[SeasonId.Lightmending]: SEASON_EMOJIS.Lightmending,
 		[SeasonId.Carnival]: SEASON_EMOJIS.Carnival,
 		[SeasonId.DearVanGogh]: SEASON_EMOJIS.DearVanGogh,
-		[SeasonId.Pearl]: null,
+		[SeasonId.Pearl]: SEASON_EMOJIS.Pearl,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {

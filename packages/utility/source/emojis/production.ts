@@ -343,6 +343,7 @@ const SEASON_EMOJIS = {
 	DearVanGogh: { id: "1514530654384164884", name: "dear_van_gogh" },
 	DearVanGoghCandle: { id: "1527600208177926224", name: "dear_van_gogh_candle" },
 	DearVanGoghHeart: { id: "1527600210325536879", name: "dear_van_gogh_heart" },
+	Pearl: { id: "1555728518870999280", name: "pearl" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS = {
