@@ -3240,6 +3240,7 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[EventId.DaysOfSunlight2026]: EVENT_EMOJIS.Sunlight,
 		[EventId.SummerCamping2026]: EVENT_EMOJIS.SummerCamping,
 		[EventId.DaysOfMoonlight2026]: EVENT_EMOJIS.Moonlight,
+		[EventId.DaysOfMischief2026]: EVENT_EMOJIS.Mischief,
 	} as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
 	const SkyProfilePersonalityToEmoji = {

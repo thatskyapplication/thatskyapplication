@@ -837,6 +837,8 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/wiki/Summer_Camping",
 			[EventId.DaysOfMoonlight2026]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Moonlight/2026",
+			[EventId.DaysOfMischief2026]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2026",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
