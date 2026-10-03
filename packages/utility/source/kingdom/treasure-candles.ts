@@ -41,6 +41,11 @@ const TREASURE_CANDLES_REALM_ANCHORS = [
 		start: skyDate(2026, 10, 1).toPlainDate(),
 		realm: RealmName.GoldenWasteland,
 	},
+	{
+		// Vault of Knowledge appeared on both 2 October 2026 and 3 October 2026.
+		start: skyDate(2026, 10, 3).toPlainDate(),
+		realm: RealmName.VaultOfKnowledge,
+	},
 ] as const;
 
 interface TreasureCandlesConfiguration {
