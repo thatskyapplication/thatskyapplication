@@ -440,7 +440,8 @@
 			"26": "Saison de la migration",
 			"27": "Saison de la Réparation de la Lumière",
 			"28": "Saison du Carnaval",
-			"29": "Cher Van Gogh"
+			"29": "Cher Van Gogh",
+			"30": ""
 		},
 		"season-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_la_Gratitude",
@@ -472,7 +473,8 @@
 			"26": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_la_Migration",
 			"27": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_l'Éclairation",
 			"28": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_du_Carnaval",
-			"29": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Cher_Van_Gogh"
+			"29": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Cher_Van_Gogh",
+			"30": ""
 		},
 		"event": "Évènement",
 		"events": "Évènements",
@@ -614,7 +616,8 @@
 			"91": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Anniversaire_de_Sky/2026",
 			"92": "",
 			"93": "",
-			"94": ""
+			"94": "",
+			"95": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -835,7 +838,7 @@
 			"210": "Souvenir rustique",
 			"211": "Souvenir artistique",
 			"212": "Souvenir joyeux",
-			"213": "Lanterne-souvenir du crépuscule"
+			"213": ""
 		},
 		"spirit-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Cirier_pointant",
@@ -1050,7 +1053,8 @@
 			"209": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_néerlandais",
 			"210": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_rustique",
 			"211": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_artistique",
-			"212": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_joyeux"
+			"212": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_joyeux",
+			"213": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {

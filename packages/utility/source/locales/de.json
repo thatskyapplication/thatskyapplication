@@ -440,7 +440,8 @@
 			"26": "Saison der Wanderung",
 			"27": "Saison der Lichtheilung",
 			"28": "Saison des Karnevals",
-			"29": "Lieber Van Gogh"
+			"29": "Lieber Van Gogh",
+			"30": ""
 		},
 		"season-wiki": {
 			"0": "https://sky-kinder-des-lichts.fandom.com/de/wiki/Saison_der_Dankbarkeit",
@@ -472,7 +473,8 @@
 			"26": "",
 			"27": "",
 			"28": "",
-			"29": ""
+			"29": "",
+			"30": ""
 		},
 		"event": "Event",
 		"events": "",
@@ -614,7 +616,8 @@
 			"91": "",
 			"92": "",
 			"93": "",
-			"94": ""
+			"94": "",
+			"95": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -835,7 +838,7 @@
 			"210": "Rustikale Erinnerung",
 			"211": "Künstlerische Erinnerung",
 			"212": "Fröhliche Erinnerung",
-			"213": "Erinnerungslaterne von Dämmerung"
+			"213": ""
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1050,7 +1053,8 @@
 			"209": "",
 			"210": "",
 			"211": "",
-			"212": ""
+			"212": "",
+			"213": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
