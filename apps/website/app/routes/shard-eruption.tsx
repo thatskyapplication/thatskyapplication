@@ -1,16 +1,25 @@
+import {
+	type APIComponentInContainer,
+	type APIContainerComponent,
+	ComponentType,
+} from "@discordjs/core/http-only";
 import { clsx } from "clsx";
+import type { TFunction } from "i18next";
 import { type Ref, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, redirect, useLocation } from "react-router";
 import {
 	clampPlainDate,
 	epochSeconds,
+	formatEmoji,
 	formatEmojiURL,
 	parsePlainDate,
+	resolveCurrencyEmoji,
 	type ShardEruptionData,
 	shardEruption,
 	SHARD_ERUPTION_START_DATE,
 	skyNow,
+	TIME_ZONE,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { DatePicker } from "~/components/DatePicker";
@@ -26,12 +35,16 @@ import {
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_MAXIMUM_PAGE,
 	WEBSITE_COLOUR,
+	WEBSITE_ICON_URL,
 } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
 import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/shard-eruption.js";
+
+const SHARD_STRONG_COLOUR = 0xff4158 as const;
+const SHARD_REGULAR_COLOUR = 0x66798a as const;
 
 type ShardEruptionCardProps = {
 	selected: boolean;
@@ -65,7 +78,7 @@ export const meta = ({ loaderData, location }: Route.MetaArgs) => {
 		{ property: "og:description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: formatEmojiURL(MISCELLANEOUS_EMOJIS.ShardStrong.id) },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: title },
@@ -73,6 +86,74 @@ export const meta = ({ loaderData, location }: Route.MetaArgs) => {
 		{ tagName: "link", rel: "canonical", href: url },
 	];
 };
+
+function shardEruptionComponentEmbed({
+	link,
+	locale,
+	now,
+	t,
+}: {
+	link: string;
+	locale: string;
+	now: Temporal.ZonedDateTime;
+	t: TFunction;
+}): APIContainerComponent {
+	const shard = shardEruption(now);
+
+	const components: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## [${new Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.epochMilliseconds)}](${link})`,
+		},
+		{ type: ComponentType.Separator },
+	];
+
+	if (!shard) {
+		components.push({
+			type: ComponentType.TextDisplay,
+			content: t("shard-eruption.no-shard-eruptions-today", { ns: "features" }),
+		});
+
+		return { type: ComponentType.Container, components };
+	}
+
+	const { area, infographic, realm, reward, strong, timestamps } = shard;
+
+	const rewardString = strong
+		? resolveCurrencyEmoji({
+				emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+				amount: reward.toLocaleString(locale),
+			})
+		: `${reward.toLocaleString(locale)} ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}`;
+
+	const timestampStrings = timestamps.map(({ start, end }) => {
+		const range = t("time-range", {
+			ns: "general",
+			start: `<t:${epochSeconds(start)}:T>`,
+			end: `<t:${epochSeconds(end)}:T>`,
+		});
+
+		return Temporal.ZonedDateTime.compare(now, end) >= 0 ? `~~${range}~~` : range;
+	});
+
+	components.push(
+		{
+			type: ComponentType.TextDisplay,
+			content: `${formatEmoji(strong ? MISCELLANEOUS_EMOJIS.ShardStrong : MISCELLANEOUS_EMOJIS.ShardRegular)} [${t("shard-eruption.realm-area", { ns: "features", realm, area })}](${infographic.url})\n${rewardString}\n${timestampStrings.join("\n")}`,
+		},
+		{ type: ComponentType.MediaGallery, items: [{ media: { url: infographic.url } }] },
+		{
+			type: ComponentType.TextDisplay,
+			content: `-# ${t("infographic-by", { ns: "general", acknowledgement: infographic.acknowledgement })}`,
+		},
+	);
+
+	return {
+		type: ComponentType.Container,
+		accent_color: strong ? SHARD_STRONG_COLOUR : SHARD_REGULAR_COLOUR,
+		components,
+	};
+}
 
 export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	const pageParameter = url.searchParams.get("page");
@@ -184,6 +265,12 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	return {
 		anchorDate: selectedDate ?? today.add({ days: startIndex }).toPlainDate().toString(),
 		currentUnix: epochSeconds(now),
+		discordComponentEmbed: shardEruptionComponentEmbed({
+			link: new URL(url.pathname, WEBSITE_URL).href,
+			locale,
+			now,
+			t,
+		}),
 		locale,
 		maximumDate: maximumDate.toString(),
 		minimumDate: startDate.toString(),
