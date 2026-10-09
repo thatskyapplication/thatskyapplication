@@ -1,10 +1,12 @@
+import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { SiDiscord, SiDiscordHex, SiGithub, SiGithubHex } from "@icons-pack/react-simple-icons";
 import { clsx } from "clsx";
 import { ExternalLinkIcon, Heart } from "lucide-react";
 import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
-import { APPLICATION_ICON_URL, DISCORD_DONATION_URL, WEBSITE_COLOUR } from "~/utility/constants";
+import { DISCORD_DONATION_URL, WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants";
+import { linkButtonRows } from "~/utility/discord-component-embed.server.js";
 import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/donate.js";
 
@@ -41,9 +43,31 @@ const DONATION_METHODS: readonly DonationMethod[] = [
 const DONATE_DESCRIPTION =
 	"Keep thatskyapplication afloat! Donate to keep things running smoothly. 🩵" as const;
 
-export const loader = ({ context }: Route.LoaderArgs) => ({
-	title: getInstance(context).getFixedT(getLocale(context))("donate", { ns: "general" }),
-});
+export const loader = ({ context, url }: Route.LoaderArgs) => {
+	const title = getInstance(context).getFixedT(getLocale(context))("donate", { ns: "general" });
+
+	const discordComponentEmbed: APIContainerComponent = {
+		type: ComponentType.Container,
+		accent_color: WEBSITE_COLOUR,
+		components: [
+			{
+				type: ComponentType.Section,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## [${title}](${new URL(url.pathname, WEBSITE_URL).href})`,
+					},
+					{ type: ComponentType.TextDisplay, content: DONATE_DESCRIPTION },
+				],
+				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
+			},
+			{ type: ComponentType.Separator },
+			...linkButtonRows(DONATION_METHODS.map(({ href, name }) => ({ label: name, to: href }))),
+		],
+	};
+
+	return { discordComponentEmbed, title };
+};
 
 export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
@@ -59,7 +83,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ property: "og:description", content: DONATE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: APPLICATION_ICON_URL },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: loaderData.title },
