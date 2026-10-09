@@ -1,7 +1,8 @@
-import i18next from "i18next";
+import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
+import i18next, { type TFunction } from "i18next";
 import { useMemo } from "react";
 import { type ShouldRevalidateFunctionArgs, useSearchParams } from "react-router";
-import { TIME_ZONE, WEBSITE_URL } from "@thatskyapplication/utility";
+import { formatEmoji, TIME_ZONE, WEBSITE_URL } from "@thatskyapplication/utility";
 import { CalendarDayDialogue } from "~/components/calendar/CalendarDayDialogue";
 import { CalendarDayView } from "~/components/calendar/CalendarDayView";
 import { CalendarGrid } from "~/components/calendar/CalendarGrid";
@@ -19,11 +20,12 @@ import { calendarData } from "~/utility/calendar-data.js";
 import {
 	CALENDAR_HIDDEN_KINDS_PARAMETER,
 	type CalendarEntryKinds,
+	type CalendarSummaryEntry,
 	CalendarView,
 	parseHiddenCalendarKinds,
 	serialiseHiddenCalendarKinds,
 } from "~/utility/calendar.js";
-import { APPLICATION_ICON_URL, CALENDAR_DESCRIPTION, WEBSITE_COLOUR } from "~/utility/constants.js";
+import { CALENDAR_DESCRIPTION, WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
 import { getDocumentHour12 } from "~/utility/hour-cycle.js";
 import { getBrowserTimeZone } from "~/utility/time-zone.js";
 import { getTimePreferences } from "~/utility/time.server.js";
@@ -46,7 +48,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ property: "og:description", content: CALENDAR_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: APPLICATION_ICON_URL },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: loaderData.title },
@@ -55,22 +57,90 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	];
 };
 
+function summaryContent(t: TFunction, entries: readonly CalendarSummaryEntry[], active: boolean) {
+	const heading = t(active ? "schedule.overview-active" : "schedule.overview-upcoming", {
+		ns: "features",
+	});
+
+	if (entries.length === 0) {
+		return `### ${heading}\n${t("calendar.nothing-scheduled", { ns: "features" })}`;
+	}
+
+	const lines = entries.map((entry) => {
+		const name = [
+			entry.iconEmojiIds.map((id) => formatEmoji({ id, name: "emoji" })).join(""),
+			entry.label,
+		]
+			.filter(Boolean)
+			.join(" ");
+
+		const timestamp = t(
+			active ? "schedule.overview-ends-timestamp" : "schedule.overview-next-timestamp",
+			{
+				ns: "features",
+				timestamp: `<t:${Math.floor((active ? entry.endsAt : entry.startsAt) / 1_000)}:R>`,
+			},
+		);
+
+		return `- ${name} | ${timestamp}`;
+	});
+
+	return `### ${heading}\n${lines.join("\n")}`;
+}
+
 export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const t = getInstance(context).getFixedT(locale);
+	const title = t("calendar.name", { ns: "features" });
 
-	return {
-		...calendarData({
-			hour12,
-			locale,
-			nowMilliseconds: Date.now(),
-			preferredTimeZone: timeZone,
-			searchParams: url.searchParams,
-			t,
-			timeZoneEstimated,
-		}),
-		title: t("calendar.name", { ns: "features" }),
+	const data = calendarData({
+		hour12,
+		locale,
+		nowMilliseconds: Date.now(),
+		preferredTimeZone: timeZone,
+		searchParams: url.searchParams,
+		t,
+		timeZoneEstimated,
+	});
+
+	const hiddenKinds = parseHiddenCalendarKinds(url.searchParams);
+
+	const discordComponentEmbed: APIContainerComponent = {
+		type: ComponentType.Container,
+		accent_color: WEBSITE_COLOUR,
+		components: [
+			{
+				type: ComponentType.Section,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## [${title}](${new URL(`${url.pathname}${url.search}`, WEBSITE_URL).href})`,
+					},
+					{ type: ComponentType.TextDisplay, content: CALENDAR_DESCRIPTION },
+				],
+				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
+			},
+			{ type: ComponentType.Separator },
+			{
+				type: ComponentType.TextDisplay,
+				content: summaryContent(
+					t,
+					data.summary.active.filter((entry) => !hiddenKinds.has(entry.kind)),
+					true,
+				),
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content: summaryContent(
+					t,
+					data.summary.upcoming.filter((entry) => !hiddenKinds.has(entry.kind)),
+					false,
+				),
+			},
+		],
 	};
+
+	return { ...data, discordComponentEmbed, title };
 };
 
 export const clientLoader = ({ request }: Route.ClientLoaderArgs) => {
