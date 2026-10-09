@@ -104,7 +104,7 @@ export const CLOTHING_SHOP = {
 const nestingWorkshopItems = resolveOfferFromItems([
 	{ cosmetic: Cosmetic.StoneSingleBench, cost: { candles: 32 } },
 	{ cosmetic: Cosmetic.StoneWoodFiredOven, cost: { ascendedCandles: 35 } },
-	{ cosmetic: Cosmetic.StoneTallCube, cost: { candles: 88 } },
+	{ cosmetic: Cosmetic.StoneTallCube, cost: { candles: 11 } },
 	{ cosmetic: Cosmetic.StoneSingleBed, cost: { hearts: 24 } },
 	{ cosmetic: Cosmetic.StoneChair, cost: { candles: 64 } },
 	{ cosmetic: Cosmetic.StoneSmallTable, cost: { candles: 20 } },
