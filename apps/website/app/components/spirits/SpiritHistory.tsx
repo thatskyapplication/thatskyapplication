@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import {
 	type IndividualSpiritVisit,
+	SPIRITS_HISTORY_PAGE_SIZE,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
 	SPIRITS_HISTORY_TITLE_KEYS,
@@ -17,11 +18,13 @@ import Pagination from "~/components/Pagination.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { formatRelativeTime } from "~/utility/relative-time.js";
-import { SPIRIT_HISTORY_LOCATION_STATE, spiritURL } from "~/utility/spirits.js";
+import {
+	SPIRIT_HISTORY_LOCATION_STATE,
+	spiritsHistoryPagination,
+	spiritURL,
+} from "~/utility/spirits.js";
 import type { DateTimeLabels } from "~/utility/time.js";
 import { VisitNumber } from "./VisitNumber.js";
-
-const SPIRITS_HISTORY_PAGE_SIZE = 10 as const;
 
 const ORDER_LINK_CLASS =
 	"flex min-w-0 flex-1 items-center justify-center gap-2 rounded-md px-3 py-2 text-center text-sm font-medium transition-colors" as const;
@@ -118,10 +121,7 @@ export function SpiritHistory({
 	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
-	const order =
-		searchParams.get("order") === "rarity"
-			? SpiritsHistoryOrderType.Rarity
-			: SpiritsHistoryOrderType.Natural;
+	const { maximumPage, order, page: currentPage } = spiritsHistoryPagination(searchParams);
 	const sourceHistory =
 		order === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
 	const availableSpirits = spirits();
@@ -143,12 +143,6 @@ export function SpiritHistory({
 		}
 	}
 
-	const maximumPage = Math.max(1, Math.ceil(history.length / SPIRITS_HISTORY_PAGE_SIZE));
-	const requestedPage = Number(searchParams.get("page") ?? 1);
-	const currentPage =
-		Number.isSafeInteger(requestedPage) && requestedPage > 0
-			? Math.min(requestedPage, maximumPage)
-			: 1;
 	const offset = (currentPage - 1) * SPIRITS_HISTORY_PAGE_SIZE;
 	const visits = history.slice(offset, offset + SPIRITS_HISTORY_PAGE_SIZE);
 

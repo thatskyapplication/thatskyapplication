@@ -2,7 +2,6 @@ import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIApplicationCommandInteractionDataIntegerOption,
 	type APIChatInputApplicationCommandInteraction,
-	type APIComponentInContainer,
 	type APIInteractionResponseCallbackData,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageTopLevelComponent,
@@ -10,34 +9,22 @@ import {
 	ComponentType,
 	type Locale,
 	MessageFlags,
-	SeparatorSpacingSize,
 } from "@discordjs/core";
 import { t } from "i18next";
 import {
-	epochSeconds,
-	formatEmoji,
 	isSpiritsHistoryOrderType,
-	resolveCostToString,
-	RETURNING_DATES,
-	type SeasonalSpiritVisitTravellingErrorData,
-	spiritNotReturnedTranslationKey,
 	type Spirit,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
-	SPIRITS_HISTORY_TITLE_KEYS,
-	skyNow,
+	spiritContainer,
 	spirits,
-	TRAVELLING_DATES,
-	VISITS_ABSENT,
-	visitsForSpirit,
+	spiritsHistoryContainer,
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
-import { EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
-
-const MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER = 10 as const;
+import { EMOJIS } from "../utility/emojis.js";
 
 export async function searchAutocomplete<
 	Interaction extends APIApplicationCommandAutocompleteInteraction,
@@ -99,146 +86,13 @@ export async function searchAutocomplete<
 	});
 }
 
-function visitField(seasonalSpiritVisit: typeof TRAVELLING_DATES | typeof RETURNING_DATES) {
-	const maxLength = seasonalSpiritVisit.lastKey()!.toString().length;
-	const visits = [];
-
-	for (const [visit, { start }] of seasonalSpiritVisit) {
-		const startUnix = epochSeconds(start);
-		visits.push(
-			`\`#${String(visit).padStart(maxLength, "0")}\` <t:${startUnix}:s> (<t:${startUnix}:R>)`,
-		);
-	}
-
-	return visits.join("\n");
-}
-
-function visitErrorField(
-	seasonalSpiritVisit: SeasonalSpiritVisitTravellingErrorData,
-	locale: Locale,
-) {
-	return seasonalSpiritVisit
-		.reduce<string[]>((visits, start) => {
-			const startUnix = epochSeconds(start);
-			visits.push(
-				`\`${t("spirits.visit-error", { lng: locale, ns: "features" })}\` <t:${startUnix}:s> (<t:${startUnix}:R>)`,
-			);
-			return visits;
-		}, [])
-		.join("\n");
-}
-
 interface SpiritSearchOptions {
 	spirit: Spirit;
 	locale: Locale;
 }
 
 export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopLevelComponent] {
-	const isSeasonalSpirit = spirit.isSeasonalSpirit();
-	const isGuideSpirit = spirit.isGuideSpirit();
-	const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : null;
-	const description = [];
-	const visits = [];
-
-	if (isSeasonalSpirit) {
-		const { travellingErrors } = spirit.visits;
-		const { returning, travelling } = visitsForSpirit(spirit.id);
-		const travellingValue = [];
-
-		if (travelling.size > 0) {
-			travellingValue.push(visitField(travelling));
-		}
-
-		if (travellingErrors.size > 0) {
-			travellingValue.push(visitErrorField(travellingErrors, locale));
-		}
-
-		if (travellingValue.length > 0) {
-			visits.push(
-				`### ${t("spirits.travelling", { lng: locale, ns: "features" })}\n${travellingValue.join("\n")}`,
-			);
-		}
-
-		if (returning.size > 0) {
-			visits.push(
-				`### ${t("spirits.returning", { lng: locale, ns: "features" })}\n${visitField(returning)}`,
-			);
-		}
-
-		const notReturnedKey = spiritNotReturnedTranslationKey(spirit, skyNow());
-
-		if (notReturnedKey) {
-			description.push(`⚠️ ${t(notReturnedKey, { lng: locale, ns: "features" })}`);
-		}
-	}
-
-	const totalOffer = [];
-
-	if (isSeasonalSpirit) {
-		totalOffer.push(
-			resolveCostToString(spirit.totalCostSeasonal, { emojis: EMOJIS, locale }).join(""),
-		);
-	}
-
-	const totalCostString = resolveCostToString(spirit.totalCost, { emojis: EMOJIS, locale }).join(
-		"",
-	);
-
-	if (totalCostString.length > 0) {
-		totalOffer.push(totalCostString);
-	}
-
-	if (totalOffer.length > 0) {
-		description.push(totalOffer.join("\n"));
-	}
-
-	const seasonEmoji = spiritSeason === null ? null : SeasonIdToSeasonalEmoji[spiritSeason];
-
-	const containerComponents: APIComponentInContainer[] = [
-		{
-			type: ComponentType.TextDisplay,
-			content: `##${seasonEmoji ? ` ${formatEmoji(seasonEmoji)}` : ""} [${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})`,
-		},
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-	];
-
-	if (description.length > 0) {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: description.join("\n"),
-		});
-	}
-
-	if (visits.length > 0) {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: visits.join("\n"),
-		});
-	}
-
-	const mediaItems = [isSeasonalSpirit && spirit.imageURLSeasonal, spirit.imageURL]
-		.filter((url) => typeof url === "string")
-		.map((url) => ({ media: { url } }));
-
-	if (mediaItems.length > 0) {
-		containerComponents.push({
-			type: ComponentType.MediaGallery,
-			items: mediaItems,
-		});
-	}
-
-	if (isGuideSpirit && spirit.inProgress) {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: `-# ${t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { lng: locale, ns: "features" })}`,
-		});
-	}
-
-	return [{ type: ComponentType.Container, components: containerComponents }];
+	return [spiritContainer({ emojis: EMOJIS, locale, spirit, t })];
 }
 
 interface SpiritsViewSpiritOptions {
@@ -317,110 +171,67 @@ export async function spiritsHistory(
 	{ page, type, ephemeral, newMessage }: SpiritsHistoryOptions,
 ) {
 	const { locale } = interaction;
-	const offset = (page - 1) * MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
-	const limit = offset + MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
-	const visits = type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
-	const maximumPage = Math.ceil(visits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
 
-	const containerComponents: APIComponentInContainer[] = [
-		{
-			type: ComponentType.TextDisplay,
-			content: `## ${t(SPIRITS_HISTORY_TITLE_KEYS[type], { lng: locale, ns: "features" })}`,
-		},
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-	];
+	const { container, maximumPage } = spiritsHistoryContainer({
+		locale,
+		page,
+		t,
+		type,
+		viewButton: (spiritId, index) => ({
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			// We add the index to prevent custom id duplication.
+			custom_id: `${CustomId.SpiritsViewSpirit}§${spiritId}§${index}`,
+			label: t("view", { lng: locale, ns: "general" }),
+		}),
+	});
 
-	for (let index = offset; index < limit; index++) {
-		const visit = visits.at(index);
-
-		if (!visit) {
-			break;
-		}
-
-		const { spiritId, start } = visit;
-		const visitNumber =
-			type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES.keyAt(index) : null;
-
-		// Need to escape # otherwise Discord will not render the heading correctly.
-		const heading = `###${visitNumber === null || visitNumber === undefined ? "" : ` \\#${visitNumber}`} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
-
-		const startUnix = epochSeconds(start);
-		const lastVisited = `<t:${startUnix}:s> (<t:${startUnix}:R>)`;
-
-		containerComponents.push({
-			type: ComponentType.Section,
-			accessory: {
+	container.components.push({
+		type: ComponentType.ActionRow,
+		components: [
+			{
 				type: ComponentType.Button,
+				custom_id: generateSpiritsHistoryCustomId({
+					prefix: CustomId.SpiritsHistoryBack,
+					type,
+					page: page === 1 ? maximumPage : page - 1,
+				}),
+				emoji: { name: "⬅️" },
+				label: t("navigation-back", { lng: locale, ns: "general" }),
 				style: ButtonStyle.Secondary,
-				// We add the index to prevent custom id duplication.
-				custom_id: `${CustomId.SpiritsViewSpirit}§${spiritId}§${index}`,
-				label: t("view", { lng: locale, ns: "general" }),
 			},
-			components: [{ type: ComponentType.TextDisplay, content: `${heading}\n\n${lastVisited}` }],
-		});
-	}
-
-	containerComponents.push(
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: `-# ${t("page", { lng: locale, ns: "general" })} ${page}/${maximumPage}`,
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.Button,
-					custom_id: generateSpiritsHistoryCustomId({
-						prefix: CustomId.SpiritsHistoryBack,
-						type,
-						page: page === 1 ? maximumPage : page - 1,
-					}),
-					emoji: { name: "⬅️" },
-					label: t("navigation-back", { lng: locale, ns: "general" }),
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: generateSpiritsHistoryCustomId({
-						prefix: CustomId.SpiritsHistoryNext,
-						type:
-							type === SpiritsHistoryOrderType.Natural
-								? SpiritsHistoryOrderType.Rarity
-								: SpiritsHistoryOrderType.Natural,
-						page: 1,
-					}),
-					label:
+			{
+				type: ComponentType.Button,
+				custom_id: generateSpiritsHistoryCustomId({
+					prefix: CustomId.SpiritsHistoryNext,
+					type:
 						type === SpiritsHistoryOrderType.Natural
-							? t("spirits.order-rarity", { lng: locale, ns: "features" })
-							: t("spirits.order-natural", { lng: locale, ns: "features" }),
-					style: ButtonStyle.Primary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: generateSpiritsHistoryCustomId({
-						prefix: CustomId.SpiritsHistoryNext,
-						type,
-						page: page === maximumPage ? 1 : page + 1,
-					}),
-					emoji: { name: "➡️" },
-					label: t("navigation-next", { lng: locale, ns: "general" }),
-					style: ButtonStyle.Secondary,
-				},
-			],
-		},
-	);
+							? SpiritsHistoryOrderType.Rarity
+							: SpiritsHistoryOrderType.Natural,
+					page: 1,
+				}),
+				label:
+					type === SpiritsHistoryOrderType.Natural
+						? t("spirits.order-rarity", { lng: locale, ns: "features" })
+						: t("spirits.order-natural", { lng: locale, ns: "features" }),
+				style: ButtonStyle.Primary,
+			},
+			{
+				type: ComponentType.Button,
+				custom_id: generateSpiritsHistoryCustomId({
+					prefix: CustomId.SpiritsHistoryNext,
+					type,
+					page: page === maximumPage ? 1 : page + 1,
+				}),
+				emoji: { name: "➡️" },
+				label: t("navigation-next", { lng: locale, ns: "general" }),
+				style: ButtonStyle.Secondary,
+			},
+		],
+	});
 
 	const response = {
-		components: [{ type: ComponentType.Container, components: containerComponents }],
+		components: [container],
 		flags: MessageFlags.IsComponentsV2,
 	} satisfies APIInteractionResponseCallbackData;
 

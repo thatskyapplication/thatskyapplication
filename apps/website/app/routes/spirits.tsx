@@ -1,10 +1,13 @@
+import { type APIContainerComponent, ButtonStyle, ComponentType } from "@discordjs/core/http-only";
 import { useTranslation } from "react-i18next";
 import { redirect, type ShouldRevalidateFunctionArgs, useSearchParams } from "react-router";
 import {
 	type Spirit,
+	spiritContainer,
 	spiritOriginTranslationKey,
 	type SpiritIds,
 	spirits,
+	spiritsHistoryContainer,
 	TRAVELLING_DATES,
 	visitsForSpirit,
 	VISITS_ABSENT,
@@ -17,12 +20,14 @@ import { SpiritView } from "~/components/spirits/SpiritView.js";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
 import { getInstance } from "~/middleware/i18next.js";
 import {
-	APPLICATION_ICON_URL,
 	SPIRITS_DESCRIPTION,
 	SPIRITS_TITLE,
 	WEBSITE_COLOUR,
+	WEBSITE_ICON_URL,
 } from "~/utility/constants.js";
-import { spiritHistoryURL } from "~/utility/spirits.js";
+import { fitsDiscordComponentEmbed } from "~/utility/discord-component-embed.server.js";
+import { EMOJIS } from "~/utility/emojis.js";
+import { spiritHistoryURL, spiritsHistoryPagination } from "~/utility/spirits.js";
 import { dateTimeLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/spirits.js";
@@ -51,7 +56,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: APPLICATION_ICON_URL },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: title },
@@ -67,6 +72,12 @@ function resolveSpirit(rawSpiritId: string | null) {
 
 	const spiritId = Number(rawSpiritId);
 	return Number.isSafeInteger(spiritId) ? spirits().get(spiritId as SpiritIds) : undefined;
+}
+
+function spiritPageURL(pathname: string, spiritId: SpiritIds) {
+	const url = new URL(pathname, WEBSITE_URL);
+	url.searchParams.set("spirit", String(spiritId));
+	return url.href;
 }
 
 function visitTimestamps(spirit: Spirit | undefined) {
@@ -126,12 +137,54 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 				}
 			: ({ status: "none" } as const);
 
+	const pageDescription = t("spirits.description", { ns: "features" });
+	const pageTitle = t("spirit-plural", { ns: "general" });
+	let container: APIContainerComponent;
+
+	if (spirit) {
+		container = spiritContainer({ emojis: EMOJIS, locale, spirit, t });
+	} else if (url.searchParams.has("order") || url.searchParams.has("page")) {
+		const { order, page } = spiritsHistoryPagination(url.searchParams);
+
+		container = spiritsHistoryContainer({
+			locale,
+			page,
+			t,
+			type: order,
+			viewButton: (spiritId) => ({
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				label: t("view", { ns: "general" }),
+				url: spiritPageURL(url.pathname, spiritId),
+			}),
+		}).container;
+	} else {
+		container = {
+			type: ComponentType.Container,
+			accent_color: WEBSITE_COLOUR,
+			components: [
+				{
+					type: ComponentType.Section,
+					components: [
+						{
+							type: ComponentType.TextDisplay,
+							content: `## [${pageTitle}](${new URL(url.pathname, WEBSITE_URL).href})`,
+						},
+						{ type: ComponentType.TextDisplay, content: pageDescription },
+					],
+					accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
+				},
+			],
+		};
+	}
+
 	return {
 		dateTimeLabels: dateTimeLabels(visitTimestamps(spirit), { locale, timeZone, hour12 }),
+		discordComponentEmbed: fitsDiscordComponentEmbed(container) ? container : null,
 		initialTimestamp: Date.now(),
 		locale,
-		pageDescription: t("spirits.description", { ns: "features" }),
-		pageTitle: t("spirit-plural", { ns: "general" }),
+		pageDescription,
+		pageTitle,
 		selection,
 		timeZone,
 		timeZoneEstimated,
