@@ -1,5 +1,5 @@
 import { Tooltip } from "@base-ui/react/tooltip";
-import { Locale } from "@discordjs/core/http-only";
+import { type APIContainerComponent, Locale } from "@discordjs/core/http-only";
 import "./tailwind.css";
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { captureException } from "@sentry/react-router";
@@ -16,6 +16,7 @@ import {
 	Scripts,
 	ScrollRestoration,
 	type ShouldRevalidateFunctionArgs,
+	useMatches,
 	useRevalidator,
 	useRouteLoaderData,
 } from "react-router";
@@ -133,6 +134,14 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 export function Layout({ children }: { children: React.ReactNode }) {
 	const { i18n } = useTranslation();
 	const data = useRouteLoaderData<typeof loader>("root");
+	const discordComponentEmbed = useMatches()
+		.map(({ loaderData }) => loaderData)
+		.findLast(
+			(loaderData): loaderData is { discordComponentEmbed: APIContainerComponent } =>
+				typeof loaderData === "object" &&
+				loaderData !== null &&
+				"discordComponentEmbed" in loaderData,
+		)?.discordComponentEmbed;
 	const locale = data?.locale ?? Locale.EnglishGB;
 
 	// oxlint-disable-next-line react/preserve-manual-memoization -- Reading resource bundles off the i18next instance is opaque to the compiler, so it skips this component.
@@ -160,6 +169,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<link href="https://cdn.discordapp.com" rel="preconnect" />
 				<Links />
 				{data?.bareLayout && <style>{"html,body{background-color:#04060f}"}</style>}
+				{discordComponentEmbed && (
+					<script id="discord:component-embed" type="application/json">
+						{JSON.stringify({ component: discordComponentEmbed }).replaceAll(
+							"<",
+							String.raw`\u003c`,
+						)}
+					</script>
+				)}
 			</head>
 			<body>
 				{children}

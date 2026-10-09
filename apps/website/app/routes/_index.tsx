@@ -1,5 +1,12 @@
+import {
+	type APIButtonComponentWithURL,
+	type APIContainerComponent,
+	ButtonStyle,
+	ComponentType,
+} from "@discordjs/core/http-only";
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { clsx } from "clsx";
+import type { TFunction } from "i18next";
 import {
 	AlarmClock,
 	BookOpenCheck,
@@ -15,12 +22,19 @@ import {
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { CROWDIN_URL } from "@thatskyapplication/utility";
+import { CROWDIN_URL, WEBSITE_URL } from "@thatskyapplication/utility";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import {
 	APPLICATION_NAME,
 	INVITE_APPLICATION_URL,
 	INVITE_SUPPORT_SERVER_URL,
+	WEBSITE_DESCRIPTION,
+	WEBSITE_ICON_URL,
+	WEBSITE_NAME,
 } from "~/utility/constants";
+import type { Route } from "./+types/_index.js";
+
+const MAXIMUM_ACTION_ROW_BUTTONS = 5 as const;
 
 const HUB = { x: 50, y: 46 } as const;
 
@@ -150,10 +164,8 @@ const FOOTER_LINKS = [
 const FOOTER_LINK_CLASS =
 	"underline-offset-2 transition hover:text-sky-100 hover:underline" as const;
 
-export default function Index() {
-	const { t } = useTranslation();
-
-	const nodes = [
+function constellationNodes(t: TFunction) {
+	return [
 		{
 			...NODE_POSITIONS.caelus,
 			key: "caelus",
@@ -227,6 +239,50 @@ export default function Index() {
 			Icon: History,
 		},
 	];
+}
+
+export const loader = ({ context }: Route.LoaderArgs) => {
+	const locale = getLocale(context);
+
+	const buttons = constellationNodes(getInstance(context).getFixedT(locale))
+		.sort((a, b) => a.label.localeCompare(b.label, locale))
+		.map(({ label, to }): APIButtonComponentWithURL => ({
+			type: ComponentType.Button,
+			style: ButtonStyle.Link,
+			label,
+			url: new URL(to, WEBSITE_URL).href,
+		}));
+
+	const discordComponentEmbed: APIContainerComponent = {
+		type: ComponentType.Container,
+		accent_color: 0x49add8,
+		components: [
+			{
+				type: ComponentType.Section,
+				components: [
+					{ type: ComponentType.TextDisplay, content: `## [${WEBSITE_NAME}](${WEBSITE_URL})` },
+				],
+				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
+			},
+			{ type: ComponentType.Separator },
+			{ type: ComponentType.TextDisplay, content: WEBSITE_DESCRIPTION },
+		],
+	};
+
+	for (let index = 0; index < buttons.length; index += MAXIMUM_ACTION_ROW_BUTTONS) {
+		discordComponentEmbed.components.push({
+			type: ComponentType.ActionRow,
+			components: buttons.slice(index, index + MAXIMUM_ACTION_ROW_BUTTONS),
+		});
+	}
+
+	return { discordComponentEmbed };
+};
+
+export default function Index() {
+	const { t } = useTranslation();
+
+	const nodes = constellationNodes(t);
 
 	return (
 		<div className="relative h-svh w-full overflow-hidden bg-[#04060f] text-white">
