@@ -1,12 +1,26 @@
+import { Popover } from "@base-ui/react/popover";
 import { clsx } from "clsx";
-import { ArrowLeft, CheckCircle, Circle } from "lucide-react";
+import {
+	ArrowLeft,
+	CheckCircle,
+	Circle,
+	Eye,
+	EyeOff,
+	Settings as SettingsIcon,
+} from "lucide-react";
+import { useId } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Link } from "react-router";
+import { Link, useFetcher } from "react-router";
 import {
 	AreaName,
+	CHECKLIST_HIDDEN_COLUMNS,
+	type ChecklistColumn,
+	type ChecklistHiddenColumn,
+	ChecklistHiddenColumnToLocaleKey,
 	type ChecklistSetData,
 	checklistRefresh,
 	checklistResetPayload,
+	type Packet,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
@@ -40,6 +54,8 @@ const CHECKLIST_LABEL_CLASS = "font-medium transition-colors" as const;
 const CHECKLIST_COMPLETE_LABEL_CLASS = "text-green-800 line-through dark:text-green-200" as const;
 const CHECKLIST_INCOMPLETE_LABEL_CLASS = "text-gray-900 dark:text-gray-100" as const;
 const CHECKLIST_UNAVAILABLE_LABEL_CLASS = "text-gray-400 dark:text-gray-600" as const;
+const CHECKLIST_SETTINGS_TRIGGER_CLASS =
+	"inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800" as const;
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const preferences = getTimePreferences(request, context);
@@ -137,6 +153,14 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 			payload.event_tickets = eventTickets === "0";
 		}
 
+		for (const column of CHECKLIST_HIDDEN_COLUMNS) {
+			const hidden = formData.get(column);
+
+			if (hidden !== null) {
+				payload[column] = hidden === "0";
+			}
+		}
+
 		await transaction
 			.updateTable("checklist")
 			.set(payload)
@@ -146,6 +170,93 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 
 	return;
 };
+
+function useChecklistToggle(column: ChecklistColumn, value: boolean) {
+	const fetcher = useFetcher({ key: `checklist:${column}` });
+	return [fetcher, fetcher.formData ? fetcher.formData.get(column) === "0" : value] as const;
+}
+
+function ChecklistVisibilitySetting({
+	column,
+	hidden,
+}: {
+	column: ChecklistHiddenColumn;
+	hidden: boolean;
+}) {
+	const { t } = useTranslation();
+	const [fetcher, optimisticHidden] = useChecklistToggle(column, hidden);
+	const labelId = useId();
+
+	return (
+		<fetcher.Form className="flex items-center justify-between gap-3" method="post">
+			<span
+				className={clsx(
+					"min-w-0 text-sm font-medium",
+					optimisticHidden
+						? "text-gray-400 dark:text-gray-500"
+						: "text-gray-900 dark:text-gray-100",
+				)}
+				id={labelId}
+			>
+				{t(ChecklistHiddenColumnToLocaleKey[column])}
+			</span>
+			<input name={column} type="hidden" value={Number(optimisticHidden)} />
+			<button
+				aria-describedby={labelId}
+				className={clsx(
+					CHECKLIST_VIEW_LINK_CLASS,
+					"inline-flex cursor-pointer items-center gap-1.5",
+				)}
+				type="submit"
+			>
+				{optimisticHidden ? (
+					<Eye aria-hidden="true" className="h-4 w-4" />
+				) : (
+					<EyeOff aria-hidden="true" className="h-4 w-4" />
+				)}
+				{t(optimisticHidden ? "show" : "hide", { ns: "general" })}
+			</button>
+		</fetcher.Form>
+	);
+}
+
+function ChecklistSettings({
+	checklistPacket,
+}: {
+	checklistPacket: Pick<Packet<"checklist">, ChecklistHiddenColumn> | undefined;
+}) {
+	const { t } = useTranslation();
+
+	return (
+		<Popover.Root>
+			<Popover.Trigger
+				aria-label={t("settings.name", { ns: "features" })}
+				className={CHECKLIST_SETTINGS_TRIGGER_CLASS}
+			>
+				<SettingsIcon aria-hidden="true" className="h-4 w-4" />
+			</Popover.Trigger>
+			<Popover.Portal>
+				<Popover.Positioner
+					align="end"
+					className="z-50"
+					collisionPadding={8}
+					side="bottom"
+					sideOffset={6}
+				>
+					<Popover.Popup className="flex max-h-(--available-height) w-72 flex-col gap-3 overflow-y-auto rounded-xl border border-gray-200 bg-white p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+						{CHECKLIST_HIDDEN_COLUMNS.map((column) => (
+							<ChecklistVisibilitySetting
+								column={column}
+								hidden={checklistPacket?.[column] ?? false}
+								key={column}
+							/>
+						))}
+					</Popover.Popup>
+				</Popover.Positioner>
+			</Popover.Portal>
+		</Popover.Root>
+	);
+}
 
 export default function Checklist({ loaderData }: Route.ComponentProps) {
 	const {
@@ -172,14 +283,52 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 			? initialClockTimes
 			: formatClockTimes(currentTimestamp, { locale, timeZone, hour12 });
 
-	const dailyQuestsComplete = checklistPacket?.daily_quests ?? false;
-	const seasonalCandlesComplete = checklistPacket?.seasonal_candles ?? false;
-	const eyeOfEdenComplete = checklistPacket?.eye_of_eden ?? false;
-	const shardEruptionsComplete = checklistPacket?.shard_eruptions ?? false;
-	const dyeWorkshopComplete = checklistPacket?.dye_workshop ?? false;
-	const doNotDisturbBlessingComplete = checklistPacket?.do_not_disturb ?? false;
-	const eventTicketsComplete = checklistPacket?.event_tickets ?? false;
+	const [dailyQuestsFetcher, dailyQuestsComplete] = useChecklistToggle(
+		"daily_quests",
+		checklistPacket?.daily_quests ?? false,
+	);
+	const [seasonalCandlesFetcher, seasonalCandlesComplete] = useChecklistToggle(
+		"seasonal_candles",
+		checklistPacket?.seasonal_candles ?? false,
+	);
+	const [eyeOfEdenFetcher, eyeOfEdenComplete] = useChecklistToggle(
+		"eye_of_eden",
+		checklistPacket?.eye_of_eden ?? false,
+	);
+	const [shardEruptionsFetcher, shardEruptionsComplete] = useChecklistToggle(
+		"shard_eruptions",
+		checklistPacket?.shard_eruptions ?? false,
+	);
+	const [dyeWorkshopFetcher, dyeWorkshopComplete] = useChecklistToggle(
+		"dye_workshop",
+		checklistPacket?.dye_workshop ?? false,
+	);
+	const [doNotDisturbBlessingFetcher, doNotDisturbBlessingComplete] = useChecklistToggle(
+		"do_not_disturb",
+		checklistPacket?.do_not_disturb ?? false,
+	);
+	const [eventTicketsFetcher, eventTicketsComplete] = useChecklistToggle(
+		"event_tickets",
+		checklistPacket?.event_tickets ?? false,
+	);
 	const shardUnavailable = shard === null;
+	const dailyQuestsVisible = !checklistPacket?.daily_quests_hidden;
+	const seasonalCandlesVisible = season !== null && !checklistPacket?.seasonal_candles_hidden;
+	const eyeOfEdenVisible = !checklistPacket?.eye_of_eden_hidden;
+	const shardEruptionsVisible = !checklistPacket?.shard_eruptions_hidden;
+	const dyeWorkshopVisible = !checklistPacket?.dye_workshop_hidden;
+	const doNotDisturbBlessingVisible = !checklistPacket?.do_not_disturb_hidden;
+	const eventTicketsVisible = isAnyEventWithEventTickets && !checklistPacket?.event_tickets_hidden;
+
+	const nothingVisible = !(
+		dailyQuestsVisible ||
+		seasonalCandlesVisible ||
+		eyeOfEdenVisible ||
+		shardEruptionsVisible ||
+		dyeWorkshopVisible ||
+		doNotDisturbBlessingVisible ||
+		eventTicketsVisible
+	);
 
 	return (
 		<SitePage>
@@ -193,9 +342,12 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 				</Link>
 
 				<div>
-					<h1 className="mb-1 text-4xl font-bold text-gray-900 dark:text-gray-100">
-						{t("checklist.title", { ns: "features" })}
-					</h1>
+					<div className="mb-1 flex items-center justify-between gap-4">
+						<h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">
+							{t("checklist.title", { ns: "features" })}
+						</h1>
+						<ChecklistSettings checklistPacket={checklistPacket} />
+					</div>
 					<p className="mt-4 text-base text-gray-600 dark:text-gray-400">
 						{t("checklist.description", { ns: "features", user: discordUser.username })}
 					</p>
@@ -206,57 +358,65 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 					skyTime={skyTime}
 				/>
 
-				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%-0.5rem)] md:[&>*:last-child]:w-full">
-					<div>
-						<Form className="flex h-full w-full" method="post">
-							<input name="daily_quests" type="hidden" value={Number(dailyQuestsComplete)} />
-							<button
-								className={clsx(
-									CHECKLIST_INTERACTIVE_CARD_CLASS,
-									dailyQuestsComplete
-										? CHECKLIST_COMPLETE_CARD_CLASS
-										: CHECKLIST_INCOMPLETE_CARD_CLASS,
-								)}
-								type="submit"
-							>
-								<div className="shrink-0">
-									{dailyQuestsComplete ? (
-										<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
-									) : (
-										<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
-									)}
-								</div>
-								<div className="min-w-0 flex-1 text-left">
-									<div
-										className={clsx(
-											CHECKLIST_LABEL_CLASS,
-											dailyQuestsComplete
-												? CHECKLIST_COMPLETE_LABEL_CLASS
-												: CHECKLIST_INCOMPLETE_LABEL_CLASS,
-										)}
-									>
-										{t("daily-quests", { ns: "general" })}
-									</div>
-									<div className="text-xs text-gray-500 dark:text-gray-400">
-										{dailyQuestsComplete
-											? t("checklist.daily-quests-message-complete", { ns: "features" })
-											: t("checklist.daily-quests-message-incomplete", { ns: "features" })}
-									</div>
-								</div>
-								<Link
-									className={CHECKLIST_VIEW_LINK_CLASS}
-									onClick={(event) => event.stopPropagation()}
-									to="/daily-guides"
-								>
-									{t("view", { ns: "general" })}
-								</Link>
-							</button>
-						</Form>
-					</div>
+				{nothingVisible && (
+					<p className="rounded-lg border border-gray-200 bg-gray-100 p-6 text-center font-medium text-gray-900 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
+						{t("checklist.nothing-to-do", { ns: "features" })}
+					</p>
+				)}
 
-					{season && (
+				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%-0.5rem)] md:[&>*:nth-child(odd):last-child]:w-full">
+					{dailyQuestsVisible && (
 						<div>
-							<Form className="flex h-full w-full" method="post">
+							<dailyQuestsFetcher.Form className="flex h-full w-full" method="post">
+								<input name="daily_quests" type="hidden" value={Number(dailyQuestsComplete)} />
+								<button
+									className={clsx(
+										CHECKLIST_INTERACTIVE_CARD_CLASS,
+										dailyQuestsComplete
+											? CHECKLIST_COMPLETE_CARD_CLASS
+											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+									)}
+									type="submit"
+								>
+									<div className="shrink-0">
+										{dailyQuestsComplete ? (
+											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+										) : (
+											<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
+										)}
+									</div>
+									<div className="min-w-0 flex-1 text-left">
+										<div
+											className={clsx(
+												CHECKLIST_LABEL_CLASS,
+												dailyQuestsComplete
+													? CHECKLIST_COMPLETE_LABEL_CLASS
+													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+											)}
+										>
+											{t("daily-quests", { ns: "general" })}
+										</div>
+										<div className="text-xs text-gray-500 dark:text-gray-400">
+											{dailyQuestsComplete
+												? t("checklist.daily-quests-message-complete", { ns: "features" })
+												: t("checklist.daily-quests-message-incomplete", { ns: "features" })}
+										</div>
+									</div>
+									<Link
+										className={CHECKLIST_VIEW_LINK_CLASS}
+										onClick={(event) => event.stopPropagation()}
+										to="/daily-guides"
+									>
+										{t("view", { ns: "general" })}
+									</Link>
+								</button>
+							</dailyQuestsFetcher.Form>
+						</div>
+					)}
+
+					{seasonalCandlesVisible && (
+						<div>
+							<seasonalCandlesFetcher.Form className="flex h-full w-full" method="post">
 								<input
 									name="seasonal_candles"
 									type="hidden"
@@ -302,218 +462,230 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 										</div>
 									</div>
 								</button>
-							</Form>
+							</seasonalCandlesFetcher.Form>
 						</div>
 					)}
 
-					<div>
-						<Form className="flex h-full w-full" method="post">
-							<input name="eye_of_eden" type="hidden" value={Number(eyeOfEdenComplete)} />
-							<button
-								className={clsx(
-									CHECKLIST_INTERACTIVE_CARD_CLASS,
-									eyeOfEdenComplete
-										? CHECKLIST_COMPLETE_CARD_CLASS
-										: CHECKLIST_INCOMPLETE_CARD_CLASS,
-								)}
-								type="submit"
-							>
-								<div className="shrink-0">
-									{eyeOfEdenComplete ? (
-										<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
-									) : (
-										<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
-									)}
-								</div>
-								<div className="min-w-0 flex-1 text-left">
-									<div
-										className={clsx(
-											CHECKLIST_LABEL_CLASS,
-											eyeOfEdenComplete
-												? CHECKLIST_COMPLETE_LABEL_CLASS
-												: CHECKLIST_INCOMPLETE_LABEL_CLASS,
-										)}
-									>
-										{t(`areas.${AreaName.EyeOfEden}`, { ns: "general" })}
-									</div>
-									<div className="text-xs text-gray-500 dark:text-gray-400">
-										{eyeOfEdenComplete
-											? t("checklist.eye-of-eden-message-complete", { ns: "features" })
-											: t("checklist.eye-of-eden-message-incomplete", { ns: "features" })}
-									</div>
-								</div>
-							</button>
-						</Form>
-					</div>
-
-					<div>
-						<Form className="flex h-full w-full" method="post">
-							<input name="shard_eruptions" type="hidden" value={Number(shardEruptionsComplete)} />
-							<div
-								className={clsx(
-									CHECKLIST_CARD_BASE_CLASS,
-									shardUnavailable
-										? CHECKLIST_UNAVAILABLE_CARD_CLASS
-										: [
-												"cursor-pointer hover:shadow-md",
-												shardEruptionsComplete
-													? CHECKLIST_COMPLETE_CARD_CLASS
-													: CHECKLIST_INCOMPLETE_CARD_CLASS,
-											],
-								)}
-							>
+					{eyeOfEdenVisible && (
+						<div>
+							<eyeOfEdenFetcher.Form className="flex h-full w-full" method="post">
+								<input name="eye_of_eden" type="hidden" value={Number(eyeOfEdenComplete)} />
 								<button
-									className="flex min-w-0 flex-1 items-center gap-3 text-left"
-									disabled={shardUnavailable}
+									className={clsx(
+										CHECKLIST_INTERACTIVE_CARD_CLASS,
+										eyeOfEdenComplete
+											? CHECKLIST_COMPLETE_CARD_CLASS
+											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+									)}
 									type="submit"
 								>
 									<div className="shrink-0">
-										{shardEruptionsComplete ? (
+										{eyeOfEdenComplete ? (
 											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
 										) : (
-											<Circle
-												className={clsx(
-													"h-6 w-6",
-													shardUnavailable
-														? "text-gray-300 dark:text-gray-600"
-														: "text-gray-400 dark:text-gray-500",
-												)}
-											/>
+											<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
 										)}
 									</div>
 									<div className="min-w-0 flex-1 text-left">
 										<div
 											className={clsx(
 												CHECKLIST_LABEL_CLASS,
-												shardEruptionsComplete
+												eyeOfEdenComplete
 													? CHECKLIST_COMPLETE_LABEL_CLASS
-													: shardUnavailable
-														? CHECKLIST_UNAVAILABLE_LABEL_CLASS
-														: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
 											)}
 										>
-											{t("shard-eruption.name-plural", { ns: "features" })}
+											{t(`areas.${AreaName.EyeOfEden}`, { ns: "general" })}
 										</div>
-										<div
-											className={clsx(
-												"text-xs",
-												shardUnavailable
-													? CHECKLIST_UNAVAILABLE_LABEL_CLASS
-													: "text-gray-500 dark:text-gray-400",
-											)}
-										>
-											{shardEruptionsComplete
-												? t("checklist.shard-eruptions-message-complete", {
-														ns: "features",
-													})
-												: shard
-													? t("checklist.shard-eruptions-message-incomplete", {
-															ns: "features",
-														})
-													: t("checklist.shard-eruptions-message-none", {
-															ns: "features",
-														})}
+										<div className="text-xs text-gray-500 dark:text-gray-400">
+											{eyeOfEdenComplete
+												? t("checklist.eye-of-eden-message-complete", { ns: "features" })
+												: t("checklist.eye-of-eden-message-incomplete", { ns: "features" })}
 										</div>
 									</div>
 								</button>
-								<Link className={CHECKLIST_VIEW_LINK_CLASS} to="/shard-eruption">
-									{t("view", { ns: "general" })}
-								</Link>
-							</div>
-						</Form>
-					</div>
+							</eyeOfEdenFetcher.Form>
+						</div>
+					)}
 
-					<div>
-						<Form className="flex h-full w-full" method="post">
-							<input name="dye_workshop" type="hidden" value={Number(dyeWorkshopComplete)} />
-							<button
-								className={clsx(
-									CHECKLIST_INTERACTIVE_CARD_CLASS,
-									dyeWorkshopComplete
-										? CHECKLIST_COMPLETE_CARD_CLASS
-										: CHECKLIST_INCOMPLETE_CARD_CLASS,
-								)}
-								type="submit"
-							>
-								<div className="shrink-0">
-									{dyeWorkshopComplete ? (
-										<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
-									) : (
-										<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
-									)}
-								</div>
-								<div className="min-w-0 flex-1 text-left">
-									<div
-										className={clsx(
-											CHECKLIST_LABEL_CLASS,
-											dyeWorkshopComplete
-												? CHECKLIST_COMPLETE_LABEL_CLASS
-												: CHECKLIST_INCOMPLETE_LABEL_CLASS,
-										)}
-									>
-										{t("dye-workshop", { ns: "general" })}
-									</div>
-									<div className="text-xs text-gray-500 dark:text-gray-400">
-										{dyeWorkshopComplete
-											? t("checklist.dye-workshop-message-complete", { ns: "features" })
-											: t("checklist.dye-workshop-message-incomplete", { ns: "features" })}
-									</div>
-								</div>
-							</button>
-						</Form>
-					</div>
-
-					<div>
-						<Form className="flex h-full w-full" method="post">
-							<input
-								name="do_not_disturb"
-								type="hidden"
-								value={Number(doNotDisturbBlessingComplete)}
-							/>
-							<button
-								className={clsx(
-									CHECKLIST_INTERACTIVE_CARD_CLASS,
-									doNotDisturbBlessingComplete
-										? CHECKLIST_COMPLETE_CARD_CLASS
-										: CHECKLIST_INCOMPLETE_CARD_CLASS,
-								)}
-								type="submit"
-							>
-								<div className="shrink-0">
-									{doNotDisturbBlessingComplete ? (
-										<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
-									) : (
-										<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
-									)}
-								</div>
-								<div className="min-w-0 flex-1 text-left">
-									<div
-										className={clsx(
-											CHECKLIST_LABEL_CLASS,
-											doNotDisturbBlessingComplete
-												? CHECKLIST_COMPLETE_LABEL_CLASS
-												: CHECKLIST_INCOMPLETE_LABEL_CLASS,
-										)}
-									>
-										{t("checklist.do-not-disturb-blessing", { ns: "features" })}
-									</div>
-									<div className="text-xs text-gray-500 dark:text-gray-400">
-										{doNotDisturbBlessingComplete
-											? t("checklist.do-not-disturb-blessing-message-complete", {
-													ns: "features",
-												})
-											: t("checklist.do-not-disturb-blessing-message-incomplete", {
-													ns: "features",
-												})}
-									</div>
-								</div>
-							</button>
-						</Form>
-					</div>
-
-					{isAnyEventWithEventTickets && (
+					{shardEruptionsVisible && (
 						<div>
-							<Form className="flex h-full w-full" method="post">
+							<shardEruptionsFetcher.Form className="flex h-full w-full" method="post">
+								<input
+									name="shard_eruptions"
+									type="hidden"
+									value={Number(shardEruptionsComplete)}
+								/>
+								<div
+									className={clsx(
+										CHECKLIST_CARD_BASE_CLASS,
+										shardUnavailable
+											? CHECKLIST_UNAVAILABLE_CARD_CLASS
+											: [
+													"cursor-pointer hover:shadow-md",
+													shardEruptionsComplete
+														? CHECKLIST_COMPLETE_CARD_CLASS
+														: CHECKLIST_INCOMPLETE_CARD_CLASS,
+												],
+									)}
+								>
+									<button
+										className="flex min-w-0 flex-1 items-center gap-3 text-left"
+										disabled={shardUnavailable}
+										type="submit"
+									>
+										<div className="shrink-0">
+											{shardEruptionsComplete ? (
+												<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+											) : (
+												<Circle
+													className={clsx(
+														"h-6 w-6",
+														shardUnavailable
+															? "text-gray-300 dark:text-gray-600"
+															: "text-gray-400 dark:text-gray-500",
+													)}
+												/>
+											)}
+										</div>
+										<div className="min-w-0 flex-1 text-left">
+											<div
+												className={clsx(
+													CHECKLIST_LABEL_CLASS,
+													shardEruptionsComplete
+														? CHECKLIST_COMPLETE_LABEL_CLASS
+														: shardUnavailable
+															? CHECKLIST_UNAVAILABLE_LABEL_CLASS
+															: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+												)}
+											>
+												{t("shard-eruption.name-plural", { ns: "features" })}
+											</div>
+											<div
+												className={clsx(
+													"text-xs",
+													shardUnavailable
+														? CHECKLIST_UNAVAILABLE_LABEL_CLASS
+														: "text-gray-500 dark:text-gray-400",
+												)}
+											>
+												{shardEruptionsComplete
+													? t("checklist.shard-eruptions-message-complete", {
+															ns: "features",
+														})
+													: shard
+														? t("checklist.shard-eruptions-message-incomplete", {
+																ns: "features",
+															})
+														: t("checklist.shard-eruptions-message-none", {
+																ns: "features",
+															})}
+											</div>
+										</div>
+									</button>
+									<Link className={CHECKLIST_VIEW_LINK_CLASS} to="/shard-eruption">
+										{t("view", { ns: "general" })}
+									</Link>
+								</div>
+							</shardEruptionsFetcher.Form>
+						</div>
+					)}
+
+					{dyeWorkshopVisible && (
+						<div>
+							<dyeWorkshopFetcher.Form className="flex h-full w-full" method="post">
+								<input name="dye_workshop" type="hidden" value={Number(dyeWorkshopComplete)} />
+								<button
+									className={clsx(
+										CHECKLIST_INTERACTIVE_CARD_CLASS,
+										dyeWorkshopComplete
+											? CHECKLIST_COMPLETE_CARD_CLASS
+											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+									)}
+									type="submit"
+								>
+									<div className="shrink-0">
+										{dyeWorkshopComplete ? (
+											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+										) : (
+											<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
+										)}
+									</div>
+									<div className="min-w-0 flex-1 text-left">
+										<div
+											className={clsx(
+												CHECKLIST_LABEL_CLASS,
+												dyeWorkshopComplete
+													? CHECKLIST_COMPLETE_LABEL_CLASS
+													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+											)}
+										>
+											{t("dye-workshop", { ns: "general" })}
+										</div>
+										<div className="text-xs text-gray-500 dark:text-gray-400">
+											{dyeWorkshopComplete
+												? t("checklist.dye-workshop-message-complete", { ns: "features" })
+												: t("checklist.dye-workshop-message-incomplete", { ns: "features" })}
+										</div>
+									</div>
+								</button>
+							</dyeWorkshopFetcher.Form>
+						</div>
+					)}
+
+					{doNotDisturbBlessingVisible && (
+						<div>
+							<doNotDisturbBlessingFetcher.Form className="flex h-full w-full" method="post">
+								<input
+									name="do_not_disturb"
+									type="hidden"
+									value={Number(doNotDisturbBlessingComplete)}
+								/>
+								<button
+									className={clsx(
+										CHECKLIST_INTERACTIVE_CARD_CLASS,
+										doNotDisturbBlessingComplete
+											? CHECKLIST_COMPLETE_CARD_CLASS
+											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+									)}
+									type="submit"
+								>
+									<div className="shrink-0">
+										{doNotDisturbBlessingComplete ? (
+											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+										) : (
+											<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
+										)}
+									</div>
+									<div className="min-w-0 flex-1 text-left">
+										<div
+											className={clsx(
+												CHECKLIST_LABEL_CLASS,
+												doNotDisturbBlessingComplete
+													? CHECKLIST_COMPLETE_LABEL_CLASS
+													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+											)}
+										>
+											{t("checklist.do-not-disturb-blessing", { ns: "features" })}
+										</div>
+										<div className="text-xs text-gray-500 dark:text-gray-400">
+											{doNotDisturbBlessingComplete
+												? t("checklist.do-not-disturb-blessing-message-complete", {
+														ns: "features",
+													})
+												: t("checklist.do-not-disturb-blessing-message-incomplete", {
+														ns: "features",
+													})}
+										</div>
+									</div>
+								</button>
+							</doNotDisturbBlessingFetcher.Form>
+						</div>
+					)}
+
+					{eventTicketsVisible && (
+						<div>
+							<eventTicketsFetcher.Form className="flex h-full w-full" method="post">
 								<input name="event_tickets" type="hidden" value={Number(eventTicketsComplete)} />
 								<button
 									className={clsx(
@@ -549,7 +721,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 										</div>
 									</div>
 								</button>
-							</Form>
+							</eventTicketsFetcher.Form>
 						</div>
 					)}
 				</div>

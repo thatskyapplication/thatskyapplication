@@ -2704,7 +2704,8 @@
 			"dye-workshop-message-complete": "",
 			"do-not-disturb-blessing": "",
 			"do-not-disturb-blessing-message-incomplete": "",
-			"do-not-disturb-blessing-message-complete": ""
+			"do-not-disturb-blessing-message-complete": "",
+			"nothing-to-do": ""
 		},
 		"daily-guides": {
 			"name": "デイリーガイド",

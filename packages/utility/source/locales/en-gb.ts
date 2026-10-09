@@ -3054,6 +3054,7 @@ export default {
 			"do-not-disturb-blessing": "Do not disturb blessing",
 			"do-not-disturb-blessing-message-incomplete": "Claimed your daily do not disturb blessing?",
 			"do-not-disturb-blessing-message-complete": "Do not disturb blessing obtained!",
+			"nothing-to-do": "Yo, check this Sky kid out. Nothing to do. 'Tis the life.",
 		},
 		"daily-guides": {
 			name: "Daily guides",

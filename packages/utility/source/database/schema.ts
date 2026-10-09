@@ -31,13 +31,20 @@ export interface Catalogue {
 
 export interface Checklist {
   daily_quests: Generated<boolean>;
+  daily_quests_hidden: Generated<boolean>;
   do_not_disturb: Generated<boolean>;
+  do_not_disturb_hidden: Generated<boolean>;
   dye_workshop: Generated<boolean>;
+  dye_workshop_hidden: Generated<boolean>;
   event_tickets: Generated<boolean>;
+  event_tickets_hidden: Generated<boolean>;
   eye_of_eden: Generated<boolean>;
+  eye_of_eden_hidden: Generated<boolean>;
   last_updated_at: Timestamp;
   seasonal_candles: Generated<boolean>;
+  seasonal_candles_hidden: Generated<boolean>;
   shard_eruptions: Generated<boolean>;
+  shard_eruptions_hidden: Generated<boolean>;
   user_id: string;
 }
 

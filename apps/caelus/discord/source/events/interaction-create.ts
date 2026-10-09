@@ -54,7 +54,12 @@ import {
 	viewStarterPacks,
 	viewTotalSpent,
 } from "../features/catalogue.js";
-import { checklistToggle } from "../features/checklist.js";
+import {
+	checklistSettings,
+	checklistSettingsVisibility,
+	checklistToggle,
+	checklistView,
+} from "../features/checklist.js";
 import {
 	dailyGuidesNavigation,
 	dailyGuidesResponse,
@@ -630,6 +635,21 @@ export default {
 
 				if (id === CustomId.ChecklistDoNotDisturbBlessingComplete) {
 					await checklistToggle(data, "do_not_disturb");
+					return;
+				}
+
+				if (id === CustomId.ChecklistSettings) {
+					await checklistSettings(data);
+					return;
+				}
+
+				if (id === CustomId.ChecklistSettingsVisibility) {
+					await checklistSettingsVisibility(data, parts[0], parts[1]);
+					return;
+				}
+
+				if (id === CustomId.ChecklistView) {
+					await checklistView(data);
 					return;
 				}
 

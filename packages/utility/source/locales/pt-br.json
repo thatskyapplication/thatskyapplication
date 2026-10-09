@@ -2714,7 +2714,8 @@
 			"dye-workshop-message-complete": "Você visitou a Oficina de Tingimento esta semana!",
 			"do-not-disturb-blessing": "Bênção ‘Não perturbe’",
 			"do-not-disturb-blessing-message-incomplete": "Você já resgatou sua bênção diária ‘Não perturbe’?",
-			"do-not-disturb-blessing-message-complete": "Você obteve a bênção ‘Não perturbe’!"
+			"do-not-disturb-blessing-message-complete": "Você obteve a bênção ‘Não perturbe’!",
+			"nothing-to-do": ""
 		},
 		"daily-guides": {
 			"name": "Guias diários",

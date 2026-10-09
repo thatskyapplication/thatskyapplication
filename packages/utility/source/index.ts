@@ -63,8 +63,13 @@ export {
 	spiritOriginTranslationKey,
 	STARTER_PACKS,
 } from "./catalogue.js";
-export type { ChecklistSetData } from "./checklist.js";
-export { checklistRefresh, checklistResetPayload } from "./checklist.js";
+export type { ChecklistColumn, ChecklistHiddenColumn, ChecklistSetData } from "./checklist.js";
+export {
+	CHECKLIST_HIDDEN_COLUMNS,
+	ChecklistHiddenColumnToLocaleKey,
+	checklistRefresh,
+	checklistResetPayload,
+} from "./checklist.js";
 export { Cosmetic, CosmeticCommon, CosmeticPackName, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export {
