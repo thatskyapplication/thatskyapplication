@@ -16,7 +16,6 @@ import {
 	type APIMessageTopLevelComponent,
 	type APIModalSubmitInteraction,
 	type APISelectMenuOption,
-	type APITextDisplayComponent,
 	type APITextInputComponent,
 	type APIUser,
 	type APIUserApplicationCommandInteraction,
@@ -37,14 +36,8 @@ import {
 	ANIMATED_HASH_PREFIX,
 	COUNTRY_VALUES,
 	type Country,
-	CountryToEmoji,
 	CROWDIN_URL,
-	catalogueItems,
-	cataloguePercentage,
-	catalogueProgress,
-	computeMaximumWingedLight,
 	type DB,
-	type Emoji,
 	fetchSkyProfileWithFlags,
 	formatEmoji,
 	GuessType,
@@ -56,9 +49,7 @@ import {
 	MAXIMUM_ASSET_SIZE,
 	type Packet,
 	PLATFORM_ID_VALUES,
-	PlatformId,
 	type PlatformIds,
-	resolveCurrencyEmoji,
 	type SeasonIds,
 	SKY_PROFILE_EDIT_TYPE_VALUES,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
@@ -79,6 +70,7 @@ import {
 	SkyProfilePersonalityToMBTI,
 	type SkyProfilePersonalityTypes,
 	SkyProfileWingedLightType,
+	skyProfileContainer,
 	skySeasons,
 	SkyProfileEditTypeToLocaleKey,
 } from "@thatskyapplication/utility";
@@ -91,6 +83,7 @@ import { cdn } from "../../thatskyapplication.js";
 import { processUploadedImage } from "../../utility/assets.js";
 import {
 	ARTIST_ROLE_ID,
+	CDN_URL,
 	R2_BUCKET_CDN,
 	R2_BUCKET_REPORTS,
 	SUPPORT_SERVER_GUILD_ID,
@@ -111,8 +104,10 @@ import {
 	SKY_PROFILE_EXPLORERS,
 } from "../../utility/custom-id.js";
 import {
+	EMOJIS,
 	EMOTE_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
+	PlatformIdToEmoji,
 	SeasonIdToSeasonalEmoji,
 	SkyProfilePersonalityToEmoji,
 } from "../../utility/emojis.js";
@@ -162,15 +157,6 @@ const SKY_PROFILE_EDIT_TYPE_WITHOUT_AUTOCOMPLETE_VALUES: readonly Exclude<
 >[] = SKY_PROFILE_EDIT_TYPE_VALUES.filter(
 	(value) => value !== SkyProfileEditType.Country && value !== SkyProfileEditType.Spirit,
 );
-
-const PlatformIdToEmoji = {
-	[PlatformId.iOS]: MISCELLANEOUS_EMOJIS.PlatformIOS,
-	[PlatformId.Android]: MISCELLANEOUS_EMOJIS.PlatformAndroid,
-	[PlatformId.Mac]: MISCELLANEOUS_EMOJIS.PlatformMac,
-	[PlatformId.NintendoSwitch]: MISCELLANEOUS_EMOJIS.PlatformSwitch,
-	[PlatformId.PlayStation]: MISCELLANEOUS_EMOJIS.PlatformPlayStation,
-	[PlatformId.Steam]: MISCELLANEOUS_EMOJIS.PlatformSteam,
-} as const satisfies Readonly<Record<PlatformIds, Emoji>>;
 
 export const enum AssetType {
 	Icon = 0,
@@ -2290,239 +2276,45 @@ async function skyProfileComponents(
 
 	const {
 		user_id: userId,
-		name,
-		icon,
-		description,
 		country,
 		winged_light: wingedLight,
-		seasons,
-		platform,
-		spirit,
-		hangout,
 		catalogue_progression: catalogueProgression,
 		guess_rank: guessRank,
 		supporter,
 		artist,
 		translator,
-		personality,
 	} = data;
 
-	const components: APIMessageTopLevelComponent[] = [];
-	const containerComponents: APIComponentInContainer[] = [];
-	let seasonsComponent: APITextDisplayComponent | undefined;
-	let platformsComponent: APITextDisplayComponent | undefined;
-
-	if (seasons && seasons.length > 0) {
-		seasonsComponent = {
-			type: ComponentType.TextDisplay,
-			content: seasons
-				.sort((a, b) => a - b)
-				.reduce<string[]>((seasonEmojis, season) => {
-					const seasonEmoji = SeasonIdToSeasonalEmoji[season as SeasonIds];
-
-					if (seasonEmoji) {
-						seasonEmojis.push(formatEmoji(seasonEmoji));
-					}
-
-					return seasonEmojis;
-				}, [])
-				.join(" "),
-		};
+	if (country && !isCountry(country)) {
+		pino.error(interaction, `Invalid country code in Sky profile: ${country}`);
 	}
 
-	if (platform && platform.length > 0) {
-		platformsComponent = {
-			type: ComponentType.TextDisplay,
-			content: platform
-				.sort((a, b) => a - b)
-				.map((platformId) => formatEmoji(PlatformIdToEmoji[platformId as PlatformIds]))
-				.join(" "),
-		};
-	}
+	const catalogue =
+		wingedLight === SkyProfileWingedLightType.InferFromCatalogue || catalogueProgression
+			? await fetchCatalogue(userId)
+			: null;
 
-	if (name) {
-		let nameText = `## [${name}](${skyProfileWebsiteURL(userId)})`;
-
-		if (personality !== null && isSkyProfilePersonalityType(personality)) {
-			nameText += `\n\n${formatEmoji(SkyProfilePersonalityToEmoji[personality])} ${t("sky-profile.personality-with-mbti", { lng: locale, ns: "features", personality, mbti: SkyProfilePersonalityToMBTI[personality] })}`;
-		}
-
-		const textDisplay: APITextDisplayComponent = {
-			type: ComponentType.TextDisplay,
-			content: nameText,
-		};
-
-		if (icon) {
-			const mediaComponents = [textDisplay];
-
-			if (seasonsComponent) {
-				mediaComponents.push(seasonsComponent);
+	const ranks = guessRank
+		? {
+				events: (await findUser(userId, GuessType.Events))?.rank ?? null,
+				spirits: (await findUser(userId, GuessType.Spirits))?.rank ?? null,
+				spiritsHard: (await findUser(userId, GuessType.SpiritsHard))?.rank ?? null,
 			}
+		: null;
 
-			if (platformsComponent) {
-				mediaComponents.push(platformsComponent);
-			}
-
-			containerComponents.push({
-				type: ComponentType.Section,
-				accessory: {
-					type: ComponentType.Thumbnail,
-					media: { url: cdn.skyProfileIconURL(userId, icon) },
-				},
-				components: mediaComponents,
-			});
-		} else {
-			containerComponents.push(textDisplay);
-
-			if (seasonsComponent) {
-				containerComponents.push(seasonsComponent);
-			}
-
-			if (platformsComponent) {
-				containerComponents.push(platformsComponent);
-			}
-		}
-	} else if (icon && (seasonsComponent || platformsComponent)) {
-		const mediaComponents = [];
-
-		if (seasonsComponent) {
-			mediaComponents.push(seasonsComponent);
-		}
-
-		if (platformsComponent) {
-			mediaComponents.push(platformsComponent);
-		}
-
-		containerComponents.push({
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Thumbnail,
-				media: { url: cdn.skyProfileIconURL(userId, icon) },
-			},
-			components: mediaComponents,
-		});
-	} else {
-		if (seasonsComponent) {
-			containerComponents.push(seasonsComponent);
-		}
-
-		if (platformsComponent) {
-			containerComponents.push(platformsComponent);
-		}
-	}
-
-	if (containerComponents.length > 0) {
-		containerComponents.push({
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		});
-	}
-
-	if (description) {
-		containerComponents.push({ type: ComponentType.TextDisplay, content: description });
-	}
-
-	const miscellaneous = [];
-
-	if (country) {
-		if (isCountry(country)) {
-			miscellaneous.push(
-				`**${t("sky-profile.country", { lng: locale, ns: "features" })}** ${CountryToEmoji[country]} ${new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!}`,
-			);
-		} else {
-			pino.error(interaction, `Invalid country code in Sky profile: ${country}`);
-		}
-	}
-
-	if (typeof wingedLight === "number") {
-		if (wingedLight === SkyProfileWingedLightType.Capeless) {
-			miscellaneous.push(
-				`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${t(`sky-profile-winged-light-types.${SkyProfileWingedLightType.Capeless}`, { lng: locale, ns: "general" })}`,
-			);
-		} else {
-			const catalogue = await fetchCatalogue(userId);
-
-			if (catalogue) {
-				const { count, isMax } = computeMaximumWingedLight(catalogue.data);
-
-				miscellaneous.push(
-					`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${
-						isMax
-							? `${count} (${t("sky-profile.winged-light-max", { lng: locale, ns: "features" })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
-							: count.toString()
-					}`,
-				);
-			}
-		}
-	}
-
-	if (typeof spirit === "number") {
-		miscellaneous.push(
-			`**${t("sky-profile.favourite-spirit", { lng: locale, ns: "features" })}** ${t(`spirits.${spirit}`, { lng: locale, ns: "general" })}`,
-		);
-	}
-
-	if (hangout) {
-		miscellaneous.push(
-			`**${t("sky-profile.favourite-hangout", { lng: locale, ns: "features" })}** ${hangout}`,
-		);
-	}
-
-	if (catalogueProgression) {
-		const catalogue = await fetchCatalogue(userId);
-		const allProgressResult =
-			cataloguePercentage(catalogueProgress(catalogueItems(), catalogue?.data)) ?? 0;
-
-		miscellaneous.push(
-			`**${t("sky-profile.catalogue-progression", { lng: locale, ns: "features" })}** ${allProgressResult}%`,
-		);
-	}
-
-	if (guessRank) {
-		const spiritsRanking = await findUser(userId, GuessType.Spirits);
-		const spiritsHardRanking = await findUser(userId, GuessType.SpiritsHard);
-		const eventsRanking = await findUser(userId, GuessType.Events);
-
-		miscellaneous.push(
-			`**${t("sky-profile.guess-rank-spirits", { lng: locale, ns: "features" })}** ${spiritsRanking ? `#${spiritsRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
-		);
-
-		miscellaneous.push(
-			`**${t("sky-profile.guess-rank-spirits-hard", { lng: locale, ns: "features" })}** ${spiritsHardRanking ? `#${spiritsHardRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
-		);
-
-		miscellaneous.push(
-			`**${t("sky-profile.guess-rank-events", { lng: locale, ns: "features" })}** ${eventsRanking ? `#${eventsRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
-		);
-	}
-
-	if (miscellaneous.length > 0) {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: miscellaneous.join("\n"),
-		});
-	}
-
-	if (description || miscellaneous.length > 0) {
-		containerComponents.push({
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		});
-	}
-
-	const hearts = await totalReceived(data.user_id);
-
-	containerComponents.push({
-		type: ComponentType.TextDisplay,
-		content: `-# ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, amount: hearts.toLocaleString(locale) })}`,
-	});
-
-	components.push({
-		type: ComponentType.Container,
-		components: containerComponents,
-	});
+	const components: APIMessageTopLevelComponent[] = [
+		skyProfileContainer({
+			catalogue: catalogue?.data ?? null,
+			cdnURL: CDN_URL,
+			data,
+			emojis: EMOJIS,
+			guessRank: ranks,
+			hearts: await totalReceived(userId),
+			locale,
+			t,
+			url: skyProfileWebsiteURL(userId),
+		}),
+	];
 
 	const userDataContent = [];
 	const suffix = guildId === SUPPORT_SERVER_GUILD_ID ? "support-server" : "other-server";

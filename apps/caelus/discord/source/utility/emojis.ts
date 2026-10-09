@@ -17,6 +17,7 @@ export const {
 	EventIdToEventTicketEmoji,
 	SkyProfilePersonalityToEmoji,
 	DyeTypeToEmoji,
+	PlatformIdToEmoji,
 } = EMOJIS;
 
 export const CUSTOM_EMOJI_REPLACEMENTS = [

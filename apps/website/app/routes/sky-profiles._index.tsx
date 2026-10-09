@@ -1,3 +1,4 @@
+import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { sql } from "kysely";
 import { Search } from "lucide-react";
@@ -26,10 +27,10 @@ import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import type { loader as rootLoader } from "~/root";
 import {
-	APPLICATION_ICON_URL,
 	SKY_KID_PATH,
 	SKY_PROFILES_DESCRIPTION,
 	WEBSITE_COLOUR,
+	WEBSITE_ICON_URL,
 } from "~/utility/constants";
 import { formatCountryLabel } from "~/utility/country.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
@@ -65,7 +66,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ property: "og:description", content: SKY_PROFILES_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: APPLICATION_ICON_URL },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: loaderData.title },
@@ -76,6 +77,26 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 
 export const loader = async ({ context, url }: Route.LoaderArgs) => {
 	const t = getInstance(context).getFixedT(getLocale(context));
+	const title = t("sky-profile.name-plural", { ns: "features" });
+
+	const discordComponentEmbed: APIContainerComponent = {
+		type: ComponentType.Container,
+		accent_color: WEBSITE_COLOUR,
+		components: [
+			{
+				type: ComponentType.Section,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## [${title}](${new URL(url.pathname, WEBSITE_URL).href})`,
+					},
+					{ type: ComponentType.TextDisplay, content: SKY_PROFILES_DESCRIPTION },
+				],
+				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
+			},
+		],
+	};
+
 	const name = url.searchParams.get("name")?.trim() || null;
 	const country = url.searchParams.get("country") || null;
 	const browsingAll = url.searchParams.get("view") === VIEW_ALL;
@@ -101,13 +122,14 @@ export const loader = async ({ context, url }: Route.LoaderArgs) => {
 			.execute();
 
 		return {
+			discordComponentEmbed,
 			profiles,
 			name,
 			country,
 			countries,
 			browsingAll,
 			recent: true,
-			title: t("sky-profile.name-plural", { ns: "features" }),
+			title,
 			currentPage: 1,
 			maximumPage: 1,
 		};
@@ -161,13 +183,14 @@ export const loader = async ({ context, url }: Route.LoaderArgs) => {
 		.execute();
 
 	return {
+		discordComponentEmbed,
 		profiles,
 		name,
 		country,
 		countries,
 		browsingAll,
 		recent: false,
-		title: t("sky-profile.name-plural", { ns: "features" }),
+		title,
 		currentPage,
 		maximumPage,
 	};

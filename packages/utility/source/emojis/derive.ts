@@ -1,5 +1,6 @@
 import { Cosmetic } from "../cosmetics.js";
 import { DyeType, type DyeTypes } from "../events/miscellaneous.js";
+import { PlatformId, type PlatformIds } from "../platforms.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import { SkyProfilePersonalityType, type SkyProfilePersonalityTypes } from "../sky-profile.js";
 import { EventId, type EventIds } from "../utility/event.js";
@@ -25,6 +26,7 @@ export interface DerivedEmojis {
 	EventIdToEventTicketEmoji: Readonly<Record<EventIds, Emoji | null>>;
 	SkyProfilePersonalityToEmoji: Readonly<Record<SkyProfilePersonalityTypes, Emoji>>;
 	DyeTypeToEmoji: Readonly<Record<DyeTypes, Emoji>>;
+	PlatformIdToEmoji: Readonly<Record<PlatformIds, Emoji>>;
 }
 
 export function deriveEmojis<const Tables extends EmojiTables>(
@@ -3273,6 +3275,15 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[DyeType.White]: MISCELLANEOUS_EMOJIS.DyeWhite,
 	} as const satisfies Readonly<Record<DyeTypes, Emoji>>;
 
+	const PlatformIdToEmoji = {
+		[PlatformId.iOS]: MISCELLANEOUS_EMOJIS.PlatformIOS,
+		[PlatformId.Android]: MISCELLANEOUS_EMOJIS.PlatformAndroid,
+		[PlatformId.Mac]: MISCELLANEOUS_EMOJIS.PlatformMac,
+		[PlatformId.NintendoSwitch]: MISCELLANEOUS_EMOJIS.PlatformSwitch,
+		[PlatformId.PlayStation]: MISCELLANEOUS_EMOJIS.PlatformPlayStation,
+		[PlatformId.Steam]: MISCELLANEOUS_EMOJIS.PlatformSteam,
+	} as const satisfies Readonly<Record<PlatformIds, Emoji>>;
+
 	return {
 		...tables,
 		CosmeticToEmoji,
@@ -3282,5 +3293,6 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		EventIdToEventTicketEmoji,
 		SkyProfilePersonalityToEmoji,
 		DyeTypeToEmoji,
+		PlatformIdToEmoji,
 	};
 }

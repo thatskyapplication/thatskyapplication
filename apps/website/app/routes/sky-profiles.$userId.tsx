@@ -34,6 +34,8 @@ import {
 	SkyProfileEditType,
 	SkyProfilePersonalityToMBTI,
 	SkyProfileWingedLightType,
+	skyProfileContainer,
+	totalHearts,
 	WEBSITE_URL,
 	SkyProfileEditTypeToLocaleKey,
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
@@ -48,6 +50,7 @@ import { ShareButton } from "~/components/ShareButton.js";
 import { SkyProfileReportDialogue } from "~/components/sky-profile/SkyProfileReportDialogue.js";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { Tooltip } from "~/components/Tooltip";
+import { CDN_URL } from "~/config.server";
 import database from "~/database.server";
 import {
 	findGuessUserRanking,
@@ -60,7 +63,8 @@ import { getRequestSession } from "~/middleware/session";
 import pino from "~/pino.js";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
 import { WEBSITE_COLOUR } from "~/utility/constants.js";
-import { MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
+import { fitsDiscordComponentEmbed } from "~/utility/discord-component-embed.server.js";
+import { EMOJIS, MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { snapshotSkyProfileReportAssets } from "~/utility/sky-profile-reports.server.js";
 import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/sky-profiles.$userId.js";
@@ -164,7 +168,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 	];
 };
 
-export const loader = async ({ context, params }: Route.LoaderArgs) => {
+export const loader = async ({ context, params, url }: Route.LoaderArgs) => {
 	const { userId } = params;
 
 	if (!userId) {
@@ -221,9 +225,27 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
 			}
 		: null;
 
+	const locale = getLocale(context);
+
+	const container = skyProfileContainer(
+		{
+			catalogue: catalogueData,
+			cdnURL: CDN_URL,
+			data,
+			emojis: EMOJIS,
+			guessRank,
+			hearts: await totalHearts(database, "giftee_id", userId),
+			locale,
+			t: getInstance(context).getFixedT(locale),
+			url: new URL(url.pathname, WEBSITE_URL).href,
+		},
+		{ fits: fitsDiscordComponentEmbed },
+	);
+
 	return {
 		catalogueProgression,
 		data,
+		discordComponentEmbed: fitsDiscordComponentEmbed(container) ? container : null,
 		guessRank,
 		canReport: discordUser !== null && discordUser.id !== data.user_id,
 		isOwner: discordUser?.id === data.user_id,

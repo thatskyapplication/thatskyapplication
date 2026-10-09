@@ -326,6 +326,7 @@ export {
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	type SkyProfileReportAsset,
 } from "./sky-profile.js";
+export { skyProfileContainer } from "./sky-profile-container.js";
 export { SPIRITS_HISTORY_PAGE_SIZE, spiritContainer, spiritsHistoryContainer } from "./spirits.js";
 export {
 	type BaseVisit,
