@@ -1,3 +1,4 @@
+import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { Equal, Plus, Search } from "lucide-react";
 import { useRef, useState } from "react";
@@ -17,7 +18,7 @@ import { SitePage } from "~/components/PageLayout";
 import { Tooltip } from "~/components/Tooltip";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
-import { APPLICATION_ICON_URL, WEBSITE_COLOUR } from "~/utility/constants";
+import { WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import {
 	MAJOR_HEADING_CLASS,
@@ -122,9 +123,29 @@ const PATTERNS = [
 
 const EXAMPLE_URL = destinationOf(EXAMPLE_IDENTIFIER);
 
-export const loader = ({ context }: Route.LoaderArgs) => {
+export const loader = ({ context, url }: Route.LoaderArgs) => {
 	const t = getInstance(context).getFixedT(getLocale(context));
-	return { description: t("thatskylink.meta-description", { ns: "features" }) };
+	const description = t("thatskylink.meta-description", { ns: "features" });
+
+	const discordComponentEmbed: APIContainerComponent = {
+		type: ComponentType.Container,
+		accent_color: WEBSITE_COLOUR,
+		components: [
+			{
+				type: ComponentType.Section,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## [${THATSKYLINK_TITLE}](${new URL(url.pathname, WEBSITE_URL).href})`,
+					},
+					{ type: ComponentType.TextDisplay, content: description },
+				],
+				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
+			},
+		],
+	};
+
+	return { description, discordComponentEmbed };
 };
 
 export const meta: Route.MetaFunction = ({ loaderData, location }) => {
@@ -142,7 +163,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: APPLICATION_ICON_URL },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: THATSKYLINK_TITLE },
