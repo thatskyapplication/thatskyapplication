@@ -48,9 +48,6 @@ catalogs:
     typescript: "npm:@typescript/typescript6@^6.0.2"
 catalogMode: manual
 catalogPrune: true
-injectWorkspacePackages: true
-syncInjectedDepsAfterScripts:
-  - build
 allowBuilds:
   "@sentry/cli": true
   "@sentry/node-cpu-profiler": false
@@ -66,4 +63,3 @@ minimumReleaseAgeExclude:
   - "@discordjs/rest"
   - "@discordjs/util"
   - "@discordjs/ws"
-  - "@types/node@26.1.1"
