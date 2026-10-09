@@ -1,84 +1,13 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
-import { SiCrowdin, SiDiscord } from "@icons-pack/react-simple-icons";
-import type { TFunction } from "i18next";
-import { BookOpen, Heart } from "lucide-react";
+import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
-import { getInstance, getLocale } from "~/middleware/i18next.js";
+import { caelusLinks } from "~/utility/caelus";
 import {
 	APPLICATION_BADGE_PATH,
-	APPLICATION_COLOUR,
-	APPLICATION_DESCRIPTION,
-	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
-	GUIDE_URL,
 	INVITE_APPLICATION_URL,
-	INVITE_SUPPORT_SERVER_URL,
 } from "~/utility/constants";
-import { linkButtonRows } from "~/utility/discord-component-embed.server.js";
-import type { Route } from "./+types/caelus._index.js";
-
-function caelusLinks(t: TFunction) {
-	return [
-		{
-			to: GUIDE_URL,
-			label: "Guide",
-			description: "Learn how to use Caelus.",
-			icon: <BookOpen className="h-5 w-5 text-green-600" />,
-			external: true,
-		},
-		{
-			to: INVITE_SUPPORT_SERVER_URL,
-			label: t("support-server", { ns: "general" }),
-			description: "Get help, report bugs, or just hang out.",
-			icon: <SiDiscord className="h-5 w-5 text-discord-button" />,
-			external: true,
-		},
-		{
-			to: "https://guide.thatskyapplication.com/translating",
-			label: "Translations",
-			description: "Help translate Caelus into your language.",
-			icon: <SiCrowdin className="h-5 w-5 text-[#263238] dark:text-white" />,
-			external: true,
-		},
-		{
-			to: "/acknowledgements",
-			label: "Acknowledgements",
-			description: "The people that make Caelus possible.",
-			icon: <Heart className="h-5 w-5 text-pink-600 dark:text-pink-400" />,
-			external: false,
-		},
-	] as const;
-}
-
-export const loader = ({ context, url }: Route.LoaderArgs) => {
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: APPLICATION_COLOUR,
-		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${APPLICATION_NAME}](${new URL(url.pathname, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: APPLICATION_DESCRIPTION },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: APPLICATION_ICON_URL } },
-			},
-			{ type: ComponentType.Separator },
-			...linkButtonRows([
-				{ label: "Add to server", to: INVITE_APPLICATION_URL },
-				...caelusLinks(getInstance(context).getFixedT(getLocale(context))),
-			]),
-		],
-	};
-
-	return { discordComponentEmbed };
-};
 
 export default function CaelusIndex() {
 	const { t } = useTranslation();
