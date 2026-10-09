@@ -261,11 +261,11 @@ export const loader = ({ context }: Route.LoaderArgs) => {
 				type: ComponentType.Section,
 				components: [
 					{ type: ComponentType.TextDisplay, content: `## [${WEBSITE_NAME}](${WEBSITE_URL})` },
+					{ type: ComponentType.TextDisplay, content: WEBSITE_DESCRIPTION },
 				],
 				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
 			},
 			{ type: ComponentType.Separator },
-			{ type: ComponentType.TextDisplay, content: WEBSITE_DESCRIPTION },
 		],
 	};
 
