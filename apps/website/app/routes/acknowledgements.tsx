@@ -1,3 +1,4 @@
+import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import { data, type HeadersArgs } from "react-router";
@@ -8,12 +9,12 @@ import { SitePage } from "~/components/PageLayout";
 import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import {
-	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
 	SKY_COTL_INFOGRAPHICS_DATABASE_INSTAGRAM_URL,
 	SKY_COTL_INFOGRAPHICS_DATABASE_URL,
 	SKY_COTL_INFOGRAPHICS_DATABASE_X_URL,
 	WEBSITE_COLOUR,
+	WEBSITE_ICON_URL,
 	WIKI_BLUESKY_URL,
 	WIKI_DISCORD_URL,
 	WIKI_URL,
@@ -39,7 +40,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ property: "og:description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: APPLICATION_ICON_URL },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: loaderData.title },
@@ -48,8 +49,9 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	];
 };
 
-export const loader = async ({ context }: Route.LoaderArgs) => {
+export const loader = async ({ context, url }: Route.LoaderArgs) => {
 	const t = getInstance(context).getFixedT(getLocale(context));
+	const title = t("acknowledgements.name", { ns: "features" });
 	const [friendshipActionContributors, translators] = await Promise.all([
 		publicProfilesQuery()
 			.innerJoin(
@@ -76,10 +78,29 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
 			.execute(),
 	]);
 
+	const discordComponentEmbed: APIContainerComponent = {
+		type: ComponentType.Container,
+		accent_color: WEBSITE_COLOUR,
+		components: [
+			{
+				type: ComponentType.Section,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## [${title}](${new URL(url.pathname, WEBSITE_URL).href})`,
+					},
+					{ type: ComponentType.TextDisplay, content: ACKNOWLEDGEMENTS_DESCRIPTION },
+				],
+				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
+			},
+		],
+	};
+
 	return data(
 		{
+			discordComponentEmbed,
 			friendshipActionContributors,
-			title: t("acknowledgements.name", { ns: "features" }),
+			title,
 			translators,
 		},
 		{
