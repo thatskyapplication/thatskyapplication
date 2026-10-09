@@ -1,13 +1,14 @@
+import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
 import { SitePage } from "~/components/PageLayout";
 import { SubredditLink } from "~/components/SubredditLink";
-import { WEBSITE_COLOUR } from "~/utility/constants.js";
 import { MAJOR_HEADING_CLASS, PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/sky-elder.terms-privacy.js";
 
 const SKY_ELDER_NAME = "Sky Elder" as const;
+const SKY_ELDER_COLOUR = 0xc83d43 as const;
 const SKY_ELDER_TITLE = `${SKY_ELDER_NAME} terms & privacy` as const;
 
 const SKY_ELDER_DESCRIPTION =
@@ -28,7 +29,7 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: SKY_ELDER_TITLE },
 		{ name: "description", content: SKY_ELDER_DESCRIPTION },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: `#${SKY_ELDER_COLOUR.toString(16)}` },
 		{ property: "og:title", content: SKY_ELDER_TITLE },
 		{ property: "og:description", content: SKY_ELDER_DESCRIPTION },
 		{ property: "og:type", content: "website" },
@@ -40,6 +41,28 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ name: "twitter:description", content: SKY_ELDER_DESCRIPTION },
 		{ tagName: "link", rel: "canonical", href: url },
 	];
+};
+
+export const loader = ({ url }: Route.LoaderArgs) => {
+	const discordComponentEmbed: APIContainerComponent = {
+		type: ComponentType.Container,
+		accent_color: SKY_ELDER_COLOUR,
+		components: [
+			{
+				type: ComponentType.Section,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## [${SKY_ELDER_TITLE}](${new URL(url.pathname, WEBSITE_URL).href})`,
+					},
+					{ type: ComponentType.TextDisplay, content: SKY_ELDER_DESCRIPTION },
+				],
+				accessory: { type: ComponentType.Thumbnail, media: { url: SKY_ELDER_ICON_URL } },
+			},
+		],
+	};
+
+	return { discordComponentEmbed };
 };
 
 export default function SkyElderTermsPrivacy() {
