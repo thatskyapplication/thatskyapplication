@@ -75,6 +75,8 @@ import {
 	ScheduleType,
 	ScheduleTypeToLocaleKey,
 	shardEruption,
+	shardEruptionInformationString,
+	shardEruptionTimestampsString,
 	SHARD_ERUPTION_START_DATE,
 	skyCurrentEvents,
 	skyCurrentSeason,
@@ -135,10 +137,6 @@ import {
 import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
-import {
-	shardEruptionInformationString,
-	shardEruptionTimestampsString,
-} from "../utility/shard-eruption.js";
 
 type DailyGuidesSetData = Partial<Omit<Packet<"daily_guides">, "date">> &
 	Pick<Packet<"daily_guides">, "last_updated_user_id" | "last_updated_at">;
@@ -1228,14 +1226,13 @@ async function distributionData({
 
 		if (shard) {
 			if (type === DailyGuidesDistributionType.Compact) {
-				shardEruptionContent += `${shardEruptionInformationString(shard, locale)}\n`;
+				shardEruptionContent += `${shardEruptionInformationString(shard, { emojis: MISCELLANEOUS_EMOJIS, locale, t })}\n`;
 			}
 
-			shardEruptionContent += shardEruptionTimestampsString({
-				now: showShardTimestampStatus ? now : undefined,
-				timestamps: shard.timestamps,
-				locale,
-			});
+			shardEruptionContent += shardEruptionTimestampsString(
+				{ now: showShardTimestampStatus ? now : undefined, timestamps: shard.timestamps },
+				{ locale, t },
+			);
 		} else {
 			shardEruptionContent += t("none", { lng: locale, ns: "general" });
 		}

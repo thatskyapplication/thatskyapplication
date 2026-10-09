@@ -292,6 +292,10 @@ export {
 export {
 	type ShardEruptionData,
 	shardEruption,
+	shardEruptionContainer,
+	shardEruptionInformationString,
+	shardEruptionTimestampString,
+	shardEruptionTimestampsString,
 	SHARD_ERUPTION_PREDICTION_START_DATE,
 	SHARD_ERUPTION_START_DATE,
 } from "./shard-eruption.js";

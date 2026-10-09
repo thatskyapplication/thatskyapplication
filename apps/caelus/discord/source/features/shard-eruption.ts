@@ -2,7 +2,6 @@ import {
 	type APIActionRowComponent,
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
-	type APIComponentInContainer,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
@@ -18,6 +17,7 @@ import { t } from "i18next";
 import {
 	parsePlainDate,
 	shardEruption,
+	shardEruptionContainer,
 	SHARD_ERUPTION_START_DATE,
 	skyNow,
 	skyToday,
@@ -26,12 +26,8 @@ import {
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";
-import {
-	MAXIMUM_OPTION_NUMBER,
-	resolveShardEruptionEmoji,
-	shardEruptionInformationString,
-	shardEruptionTimestampsString,
-} from "../utility/shard-eruption.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { MAXIMUM_OPTION_NUMBER, resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
 
 function generateShardEruptionSelectMenuOptions(
 	date: Temporal.ZonedDateTime,
@@ -108,7 +104,6 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 	const date = now.add({ days: effectiveOffset });
 	const shardYesterday =
 		effectiveOffset === minimumOffset ? undefined : shardEruption(date.subtract({ days: 1 }));
-	const shardToday = shardEruption(date);
 	const shard = shardEruption(now);
 	const shardTomorrow = shardEruption(date.add({ days: 1 }));
 
@@ -146,46 +141,17 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 		buttonTomorrow.emoji = resolveShardEruptionEmoji(shardTomorrow.strong);
 	}
 
-	const containerComponents: APIComponentInContainer[] = [
-		{
-			type: ComponentType.TextDisplay,
-			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(date.epochMilliseconds)}](${SHARD_ERUPTION_URL})`,
-		},
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-	];
-
-	if (shardToday) {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: `${shardEruptionInformationString(shardToday, locale)}\n${shardEruptionTimestampsString({ timestamps: shardToday.timestamps, locale, now })}`,
-		});
-
-		containerComponents.push(
-			{
-				type: ComponentType.MediaGallery,
-				items: [{ media: { url: shardToday.infographic.url } }],
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content: `-# ${t("infographic-by", { lng: locale, ns: "general", acknowledgement: shardToday.infographic.acknowledgement })}`,
-			},
-		);
-	} else {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content:
-				effectiveOffset === 0
-					? t("shard-eruption.no-shard-eruptions-today", { lng: locale, ns: "features" })
-					: t("shard-eruption.no-shard-eruptions-not-today", { lng: locale, ns: "features" }),
-		});
-	}
+	const container = shardEruptionContainer({
+		date,
+		emojis: MISCELLANEOUS_EMOJIS,
+		link: SHARD_ERUPTION_URL,
+		locale,
+		now,
+		t,
+	});
 
 	if (navigation) {
-		containerComponents.push(
+		container.components.push(
 			{
 				type: ComponentType.Separator,
 				divider: true,
@@ -209,7 +175,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 		);
 	}
 
-	return [{ type: ComponentType.Container, components: containerComponents }];
+	return [container];
 }
 
 export function browseOffset(date: string | undefined) {

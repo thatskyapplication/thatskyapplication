@@ -46,7 +46,9 @@ import {
 	type ScheduleOccurrence,
 	type ScheduleTypes,
 	shardEruption,
+	shardEruptionInformationString,
 	shardEruptionSchedule,
+	shardEruptionTimestampString,
 	skyCurrentSeason,
 	skyNotEndedEvents,
 	skyNow,
@@ -75,11 +77,7 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
-import {
-	resolveShardEruptionEmoji,
-	shardEruptionInformationString,
-	shardEruptionTimestampString,
-} from "../utility/shard-eruption.js";
+import { resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
 
 function dailyResetNext(now: Temporal.ZonedDateTime, locale: Locale) {
 	const timestamp = epochSeconds(nextDailyReset(now));
@@ -582,10 +580,10 @@ function shardEruptionDetailedBreakdown(
 
 	if (shard) {
 		const timestamps = shard.timestamps.map(
-			(timestamp) => `- ${shardEruptionTimestampString({ now, timestamp, locale })}`,
+			(timestamp) => `- ${shardEruptionTimestampString({ now, timestamp }, { locale, t })}`,
 		);
 
-		status = `${shardEruptionInformationString(shard, locale)}\n${timestamps.join("\n")}`;
+		status = `${shardEruptionInformationString(shard, { emojis: MISCELLANEOUS_EMOJIS, locale, t })}\n${timestamps.join("\n")}`;
 	} else {
 		const shardOverview = shardEruptionOverview(now);
 

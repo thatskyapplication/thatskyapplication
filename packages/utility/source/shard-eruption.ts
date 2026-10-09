@@ -1,7 +1,17 @@
-import { skyDate, TIME_ZONE } from "./dates.js";
+import {
+	type APIComponentInContainer,
+	type APIContainerComponent,
+	ComponentType,
+	SeparatorSpacingSize,
+} from "discord-api-types/v10";
+import { epochSeconds, skyDate, TIME_ZONE } from "./dates.js";
+import { type Emoji, formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
 import { realmForArea } from "./kingdom/areas/index.js";
 import { AreaName, type RealmName } from "./kingdom/geography.js";
 import { CDN_URL } from "./routes.js";
+
+const SHARD_STRONG_COLOUR = 0xff4158 as const;
+const SHARD_REGULAR_COLOUR = 0x66798a as const;
 
 function resolveShardEruptionAreaURL(area: AreaName) {
 	return `${CDN_URL}/daily_guides/shard_eruptions/${area.toLowerCase().replaceAll(" ", "_")}.webp`;
@@ -431,5 +441,139 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 			url: resolveShardEruptionAreaURL(area),
 			acknowledgement: "Clement",
 		},
+	};
+}
+
+interface ShardEruptionFormatting {
+	emojis: Record<"AscendedCandle" | "Light" | "ShardRegular" | "ShardStrong", Emoji>;
+	locale: string;
+	t: (key: string, options: Record<string, unknown>) => string;
+}
+
+export function shardEruptionInformationString(
+	{ realm, area, strong, reward, infographic }: ShardEruptionData,
+	{ emojis, locale, t }: ShardEruptionFormatting,
+) {
+	const realmMap = `[${t("shard-eruption.realm-area", {
+		lng: locale,
+		ns: "features",
+		realm,
+		area,
+	})}](${infographic.url})`;
+
+	return `${formatEmoji(strong ? emojis.ShardStrong : emojis.ShardRegular)} ${realmMap}\n${
+		strong
+			? resolveCurrencyEmoji({
+					emoji: emojis.AscendedCandle,
+					amount: reward.toLocaleString(locale),
+				})
+			: `${reward.toLocaleString(locale)} ${formatEmoji(emojis.Light)}`
+	}`;
+}
+
+interface ShardEruptionTimestampStringOptions {
+	bold?: boolean;
+	now: Temporal.ZonedDateTime | undefined;
+	timestamp: ShardEruptionTimestampsData;
+}
+
+export function shardEruptionTimestampString(
+	{ bold = true, now, timestamp: { start, end } }: ShardEruptionTimestampStringOptions,
+	{ locale, t }: Pick<ShardEruptionFormatting, "locale" | "t">,
+) {
+	const string = t("time-range", {
+		lng: locale,
+		ns: "general",
+		start: `<t:${epochSeconds(start)}:T>`,
+		end: `<t:${epochSeconds(end)}:T>`,
+	});
+
+	if (now) {
+		if (Temporal.ZonedDateTime.compare(now, end) >= 0) {
+			return `~~${string}~~`;
+		}
+
+		if (bold && Temporal.ZonedDateTime.compare(now, start) >= 0) {
+			return `**${string}**`;
+		}
+	}
+
+	return string;
+}
+
+interface ShardEruptionTimestampsStringOptions {
+	bold?: boolean;
+	now: Temporal.ZonedDateTime | undefined;
+	timestamps: ShardEruptionData["timestamps"];
+}
+
+export function shardEruptionTimestampsString(
+	{ bold = true, now, timestamps }: ShardEruptionTimestampsStringOptions,
+	formatting: Pick<ShardEruptionFormatting, "locale" | "t">,
+) {
+	return timestamps
+		.map((timestamp) => shardEruptionTimestampString({ bold, now, timestamp }, formatting))
+		.join("\n");
+}
+
+interface ShardEruptionContainerData extends ShardEruptionFormatting {
+	date: Temporal.ZonedDateTime;
+	link: string;
+	now: Temporal.ZonedDateTime;
+}
+
+interface ShardEruptionContainerOptions {
+	bold?: boolean;
+}
+
+export function shardEruptionContainer(
+	{ date, emojis, link, locale, now, t }: ShardEruptionContainerData,
+	{ bold = true }: ShardEruptionContainerOptions = {},
+): APIContainerComponent {
+	const shard = shardEruption(date);
+	const formatting = { emojis, locale, t };
+
+	const components: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## [${new Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(date.epochMilliseconds)}](${link})`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
+	if (!shard) {
+		components.push({
+			type: ComponentType.TextDisplay,
+			content: t(
+				date.toPlainDate().equals(now.toPlainDate())
+					? "shard-eruption.no-shard-eruptions-today"
+					: "shard-eruption.no-shard-eruptions-not-today",
+				{ lng: locale, ns: "features" },
+			),
+		});
+
+		return { type: ComponentType.Container, components };
+	}
+
+	components.push(
+		{
+			type: ComponentType.TextDisplay,
+			content: `${shardEruptionInformationString(shard, formatting)}\n${shardEruptionTimestampsString({ bold, now, timestamps: shard.timestamps }, formatting)}`,
+		},
+		{ type: ComponentType.MediaGallery, items: [{ media: { url: shard.infographic.url } }] },
+		{
+			type: ComponentType.TextDisplay,
+			content: `-# ${t("infographic-by", { lng: locale, ns: "general", acknowledgement: shard.infographic.acknowledgement })}`,
+		},
+	);
+
+	return {
+		type: ComponentType.Container,
+		accent_color: shard.strong ? SHARD_STRONG_COLOUR : SHARD_REGULAR_COLOUR,
+		components,
 	};
 }
