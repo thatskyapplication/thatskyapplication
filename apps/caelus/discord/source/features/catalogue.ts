@@ -20,7 +20,7 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
-import { t } from "i18next";
+import { getFixedT, t } from "i18next";
 import {
 	CLOTHING_SHOP,
 	type CostEntry,
@@ -2649,7 +2649,7 @@ export async function viewNestingWorkshop(
 			nestingWorkshopPropsTextDisplay(
 				t("this-week", { lng: locale, ns: "general" }),
 				thisWeek,
-				{ emojis: EMOJIS, locale, t },
+				{ emojis: EMOJIS, locale, t: getFixedT(locale) },
 				catalogue?.data,
 			),
 		);

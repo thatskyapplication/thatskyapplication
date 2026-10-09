@@ -13,7 +13,7 @@ import {
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
-import { t } from "i18next";
+import { getFixedT, t } from "i18next";
 import {
 	parsePlainDate,
 	shardEruption,
@@ -147,7 +147,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 		link: SHARD_ERUPTION_URL,
 		locale,
 		now,
-		t,
+		t: getFixedT(locale),
 	});
 
 	if (navigation) {

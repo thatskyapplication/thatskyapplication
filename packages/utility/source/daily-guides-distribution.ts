@@ -21,7 +21,7 @@ import {
 	visibleDaysCountItems,
 } from "./daily-guides.js";
 import { epochSeconds, TIME_ZONE } from "./dates.js";
-import { formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis/emoji.js";
+import { formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
 import { communityUpcomingEvents, skyCurrentEvents, skyNotEndedEvents } from "./events/index.js";
 import { DOUBLE_HEART_EVENTS, RADIANCE_EVENTS } from "./events/miscellaneous.js";
 import { KINGDOM } from "./kingdom/index.js";
@@ -56,7 +56,7 @@ interface DailyGuidesContainerData extends MessageFormatting {
 	cdnURL: string;
 	currentTime: Temporal.ZonedDateTime;
 	dailyGuides: Awaited<ReturnType<typeof fetchDailyGuides>>;
-	date: Temporal.PlainDate | undefined;
+	date: Temporal.PlainDate;
 	nestingWorkshopItems: readonly Item[];
 	shardEruptionButton: APIButtonComponent;
 	upcomingUpdate: { date: string; version: string } | null;
@@ -64,6 +64,7 @@ interface DailyGuidesContainerData extends MessageFormatting {
 }
 
 interface DailyGuidesContainerOptions {
+	bold?: boolean;
 	fits?: (container: APIContainerComponent) => boolean;
 	showShardTimestampStatus?: boolean;
 	type?: DailyGuidesDistributionTypes;
@@ -127,17 +128,6 @@ function dailyGuidesEventData(
 		};
 	});
 
-	const event1 = events.first();
-	let iconURL = null;
-
-	if (event1) {
-		const eventTicketEmoji = EventIdToEventTicketEmoji[event1.id];
-
-		if (eventTicketEmoji) {
-			iconURL = formatEmojiURL(eventTicketEmoji.id);
-		}
-	}
-
 	const currentEventsWithEventTickets = events.filter(
 		(event) =>
 			event.eventTickets &&
@@ -159,7 +149,7 @@ function dailyGuidesEventData(
 					.join(" | ")
 			: null;
 
-	return { eventEndText, iconURL, eventTickets };
+	return { eventEndText, eventTickets };
 }
 
 export function dailyGuidesContainer(
@@ -177,6 +167,7 @@ export function dailyGuidesContainer(
 		url,
 	}: DailyGuidesContainerData,
 	{
+		bold = true,
 		fits = () => true,
 		showShardTimestampStatus = false,
 		type = DailyGuidesDistributionType.Compact,
@@ -189,7 +180,7 @@ export function dailyGuidesContainer(
 		SeasonIdToSeasonalEmoji,
 	} = emojis;
 
-	const isToday = date === undefined || date.equals(currentTime.toPlainDate());
+	const isToday = date.equals(currentTime.toPlainDate());
 	const now = isToday ? currentTime : date.toZonedDateTime(TIME_ZONE);
 	const today = now.startOfDay();
 
@@ -368,8 +359,6 @@ export function dailyGuidesContainer(
 				}
 			}
 		}
-	} else {
-		missingDailyQuests = true;
 	}
 
 	const treasureCandleSchedule = treasureCandles(today);
@@ -630,7 +619,7 @@ export function dailyGuidesContainer(
 			}
 
 			shardEruptionContent += shardEruptionTimestampsString(
-				{ now: showShardTimestampStatus ? now : undefined, timestamps: shard.timestamps },
+				{ bold, now: showShardTimestampStatus ? now : undefined, timestamps: shard.timestamps },
 				{ locale, t },
 			);
 		} else {
@@ -907,6 +896,10 @@ export function dailyGuidesContainer(
 			if (fits(container)) {
 				break;
 			}
+		}
+
+		if (!fits(container)) {
+			containerComponents.splice(-2);
 		}
 	}
 

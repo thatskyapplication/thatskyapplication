@@ -39,6 +39,7 @@ import {
 } from "~/utility/constants";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
 import { discordComponentEmbedPayload } from "~/utility/discord-component-embed";
+import { hexColour } from "~/utility/functions.js";
 import {
 	getBrowserTimeZone,
 	TIME_ZONE_COOKIE_MAX_AGE,
@@ -76,7 +77,7 @@ export const meta: Route.MetaFunction = ({ location }) => [
 	{ name: "robots", content: "index, follow" },
 	{ title: WEBSITE_NAME },
 	{ name: "description", content: WEBSITE_DESCRIPTION },
-	{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+	{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 	{ property: "og:title", content: WEBSITE_NAME },
 	{ property: "og:description", content: WEBSITE_DESCRIPTION },
 	{ property: "og:type", content: "website" },
@@ -165,11 +166,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
 				<link href="/favicon.svg" rel="icon" sizes="any" type="image/svg+xml" />
 				<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
-				<link
-					color={`#${WEBSITE_COLOUR.toString(16)}`}
-					href="/safari-pinned-tab.svg"
-					rel="mask-icon"
-				/>
+				<link color={hexColour(WEBSITE_COLOUR)} href="/safari-pinned-tab.svg" rel="mask-icon" />
 				<link href="/site.webmanifest" rel="manifest" />
 				{data?.cdnURL && <link href={data.cdnURL} rel="preconnect" />}
 				<link href="https://cdn.discordapp.com" rel="preconnect" />

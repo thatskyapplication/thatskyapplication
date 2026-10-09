@@ -10,7 +10,7 @@ import {
 	type Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { t } from "i18next";
+import { getFixedT, t } from "i18next";
 import {
 	isSpiritsHistoryOrderType,
 	type Spirit,
@@ -92,7 +92,7 @@ interface SpiritSearchOptions {
 }
 
 export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopLevelComponent] {
-	return [spiritContainer({ emojis: EMOJIS, locale, spirit, t })];
+	return [spiritContainer({ emojis: EMOJIS, locale, spirit, t: getFixedT(locale) })];
 }
 
 interface SpiritsViewSpiritOptions {
@@ -175,7 +175,7 @@ export async function spiritsHistory(
 	const { container, maximumPage } = spiritsHistoryContainer({
 		locale,
 		page,
-		t,
+		t: getFixedT(locale),
 		type,
 		viewButton: (spiritId, index) => ({
 			type: ComponentType.Button,

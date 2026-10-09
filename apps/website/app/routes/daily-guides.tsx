@@ -66,6 +66,7 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
+import { hexColour } from "~/utility/functions.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
 import { fetchNestingWorkshopProps } from "~/utility/nesting-workshop.server.js";
 import { NESTING_WORKSHOP_CATALOGUE_URL } from "~/utility/schedule.js";
@@ -98,7 +99,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: loaderData.title },
 		{ name: "description", content: DAILY_GUIDES_DESCRIPTION },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: DAILY_GUIDES_DESCRIPTION },
 		{ property: "og:type", content: "website" },
@@ -227,7 +228,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			},
 			url: new URL(url.pathname, WEBSITE_URL).href,
 		},
-		{ fits: fitsDiscordComponentEmbed },
+		{ bold: false, fits: fitsDiscordComponentEmbed, showShardTimestampStatus: true },
 	);
 
 	const cacheMaxAge = dailyGuidesCacheMaxAge(now, isToday || inCurrentNestingWorkshop ? 300 : 3600);

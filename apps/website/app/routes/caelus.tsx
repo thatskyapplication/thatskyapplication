@@ -1,4 +1,4 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
+import { ComponentType } from "@discordjs/core/http-only";
 import { Outlet } from "react-router";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
@@ -11,7 +11,8 @@ import {
 	INVITE_APPLICATION_URL,
 	WEBSITE_NAME,
 } from "~/utility/constants";
-import { linkButtonRows } from "~/utility/discord-component-embed.server.js";
+import { cardContainer, linkButtonRows } from "~/utility/discord-component-embed.server.js";
+import { hexColour } from "~/utility/functions.js";
 import type { Route } from "./+types/caelus.js";
 
 export const meta: Route.MetaFunction = ({ location }) => {
@@ -23,7 +24,7 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: APPLICATION_NAME },
 		{ name: "description", content: APPLICATION_DESCRIPTION },
-		{ name: "theme-color", content: `#${APPLICATION_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(APPLICATION_COLOUR) },
 		{ property: "og:title", content: APPLICATION_NAME },
 		{ property: "og:description", content: APPLICATION_DESCRIPTION },
 		{ property: "og:type", content: "website" },
@@ -38,28 +39,20 @@ export const meta: Route.MetaFunction = ({ location }) => {
 };
 
 export const loader = ({ context, url }: Route.LoaderArgs) => {
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: APPLICATION_COLOUR,
+	const discordComponentEmbed = cardContainer({
+		colour: APPLICATION_COLOUR,
 		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${APPLICATION_NAME}](${new URL(url.pathname, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: APPLICATION_DESCRIPTION },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: APPLICATION_ICON_URL } },
-			},
 			{ type: ComponentType.Separator },
 			...linkButtonRows([
 				{ label: "Add to server", to: INVITE_APPLICATION_URL },
 				...caelusLinks(getInstance(context).getFixedT(getLocale(context))),
 			]),
 		],
-	};
+		description: APPLICATION_DESCRIPTION,
+		icon: APPLICATION_ICON_URL,
+		title: APPLICATION_NAME,
+		url: new URL(url.pathname, WEBSITE_URL).href,
+	});
 
 	return { discordComponentEmbed };
 };

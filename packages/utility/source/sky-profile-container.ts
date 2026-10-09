@@ -10,7 +10,7 @@ import { CDN } from "./cdn.js";
 import { CountryToEmoji, isCountry } from "./country.js";
 import { formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
 import { computeMaximumWingedLight } from "./kingdom/winged-light.js";
-import type { PlatformIds } from "./platforms.js";
+import { isPlatformId } from "./platforms.js";
 import type { SeasonIds } from "./season.js";
 import {
 	isSkyProfilePersonalityType,
@@ -20,12 +20,155 @@ import {
 } from "./sky-profile.js";
 import type { MessageFormatting } from "./types/index.js";
 
+const DISCORD_MARKUP_PATTERN =
+	/<(?:a?:\w+:\d+|@[!&]?\d+|#\d+|t:-?\d+(?::[A-Za-z])?|\/[^\n>]+:\d+|https?:\/\/[^\s>]+)>|\[[^\]\n]*\]\([^)\s]*\)|https?:\/\/[^\s<]+/g;
+
+const PAIRED_MARKDOWN_MARKERS = new Set(["||", "**", "__", "~~"]);
+const MAXIMUM_WORD_BOUNDARY_DISTANCE = 24 as const;
+
+type SkyProfileMaximumWingedLight =
+	| { capeless: true }
+	| { capeless: false; count: number; isMax: boolean };
+
+export function skyProfileCatalogueStatistics(
+	{
+		catalogue_progression: catalogueProgression,
+		winged_light: wingedLight,
+	}: Pick<SkyProfileData, "catalogue_progression" | "winged_light">,
+	catalogue: ReadonlySet<number> | null,
+) {
+	let maximumWingedLight: SkyProfileMaximumWingedLight | null = null;
+
+	if (wingedLight === SkyProfileWingedLightType.Capeless) {
+		maximumWingedLight = { capeless: true };
+	} else if (wingedLight === SkyProfileWingedLightType.InferFromCatalogue && catalogue) {
+		maximumWingedLight = { capeless: false, ...computeMaximumWingedLight(catalogue) };
+	}
+
+	return {
+		catalogueProgression: catalogueProgression
+			? (cataloguePercentage(catalogueProgress(catalogueItems(), catalogue ?? undefined)) ?? 0)
+			: null,
+		maximumWingedLight,
+	};
+}
+
+function markdownClosers(text: string, markupEnds: ReadonlyMap<number, number>) {
+	const open: string[] = [];
+	let code: string | null = null;
+	let index = 0;
+
+	while (index < text.length) {
+		if (code !== null) {
+			if (text.startsWith(code, index)) {
+				index += code.length;
+				code = null;
+			} else {
+				index++;
+			}
+
+			continue;
+		}
+
+		const markupEnd = markupEnds.get(index);
+
+		if (markupEnd !== undefined) {
+			index = markupEnd;
+			continue;
+		}
+
+		if (text[index] === "\\") {
+			index += 2;
+			continue;
+		}
+
+		if (text.startsWith("`", index)) {
+			code = text.startsWith("```", index) ? "```" : "`";
+			index += code.length;
+			continue;
+		}
+
+		const pair = text.slice(index, index + 2);
+
+		if (PAIRED_MARKDOWN_MARKERS.has(pair)) {
+			const position = open.lastIndexOf(pair);
+
+			if (position === -1) {
+				open.push(pair);
+			} else {
+				open.splice(position, 1);
+			}
+
+			index += 2;
+			continue;
+		}
+
+		index++;
+	}
+
+	return `${code ?? ""}${open.reverse().join("")}`;
+}
+
+function trimMarkdown(text: string, locale: string, fits: (content: string) => boolean) {
+	const markupEnds = new Map<number, number>();
+	const insideMarkup = new Set<number>();
+
+	for (const { 0: markup, index } of text.matchAll(DISCORD_MARKUP_PATTERN)) {
+		markupEnds.set(index, index + markup.length);
+
+		for (let offset = index + 1; offset < index + markup.length; offset++) {
+			insideMarkup.add(offset);
+		}
+	}
+
+	const cuts = Array.from(
+		new Intl.Segmenter(locale, { granularity: "grapheme" }).segment(text),
+		({ index }) => index,
+	).filter((index) => !insideMarkup.has(index));
+
+	const wordBoundaries = new Set(
+		Array.from(
+			new Intl.Segmenter(locale, { granularity: "word" }).segment(text),
+			({ index }) => index,
+		),
+	);
+
+	const trimmed = (cut: number) => {
+		const prefix = text.slice(0, cut).trimEnd();
+		return `${prefix}…${markdownClosers(prefix, markupEnds)}`;
+	};
+
+	let low = 0;
+	let high = cuts.length - 1;
+
+	while (low < high) {
+		const middle = Math.ceil((low + high) / 2);
+
+		if (fits(trimmed(cuts[middle]!))) {
+			low = middle;
+		} else {
+			high = middle - 1;
+		}
+	}
+
+	for (let index = low; index > 0 && low - index < MAXIMUM_WORD_BOUNDARY_DISTANCE; index--) {
+		const cut = cuts[index]!;
+
+		if (wordBoundaries.has(cut) && fits(trimmed(cut))) {
+			return trimmed(cut);
+		}
+	}
+
+	return trimmed(cuts[low]!);
+}
+
 interface SkyProfileContainerData extends MessageFormatting {
-	catalogue: ReadonlySet<number> | null;
+	catalogueProgression: number | null;
 	cdnURL: string;
 	data: SkyProfileData;
 	guessRank: { events: number | null; spirits: number | null; spiritsHard: number | null } | null;
 	hearts: number;
+	maximumWingedLight: SkyProfileMaximumWingedLight | null;
 	url: string;
 }
 
@@ -34,7 +177,18 @@ interface SkyProfileContainerOptions {
 }
 
 export function skyProfileContainer(
-	{ catalogue, cdnURL, data, emojis, guessRank, hearts, locale, t, url }: SkyProfileContainerData,
+	{
+		catalogueProgression,
+		cdnURL,
+		data,
+		emojis,
+		guessRank,
+		hearts,
+		locale,
+		maximumWingedLight,
+		t,
+		url,
+	}: SkyProfileContainerData,
 	{ fits = () => true }: SkyProfileContainerOptions = {},
 ): APIContainerComponent {
 	const {
@@ -50,12 +204,10 @@ export function skyProfileContainer(
 		icon,
 		description,
 		country,
-		winged_light: wingedLight,
 		seasons,
 		platform,
 		spirit,
 		hangout,
-		catalogue_progression: catalogueProgression,
 		personality,
 	} = data;
 
@@ -64,30 +216,28 @@ export function skyProfileContainer(
 	let platformsComponent: APITextDisplayComponent | undefined;
 	let descriptionComponent: APITextDisplayComponent | undefined;
 
-	if (seasons && seasons.length > 0) {
-		seasonsComponent = {
-			type: ComponentType.TextDisplay,
-			content: seasons
-				.toSorted((a, b) => a - b)
-				.reduce<string[]>((seasonEmojis, season) => {
-					const seasonEmoji = SeasonIdToSeasonalEmoji[season as SeasonIds];
+	const seasonEmojis = [];
 
-					if (seasonEmoji) {
-						seasonEmojis.push(formatEmoji(seasonEmoji));
-					}
+	for (const season of seasons?.toSorted((a, b) => a - b) ?? []) {
+		const seasonEmoji = SeasonIdToSeasonalEmoji[season as SeasonIds];
 
-					return seasonEmojis;
-				}, [])
-				.join(" "),
-		};
+		if (seasonEmoji) {
+			seasonEmojis.push(formatEmoji(seasonEmoji));
+		}
 	}
 
-	if (platform && platform.length > 0) {
+	if (seasonEmojis.length > 0) {
+		seasonsComponent = { type: ComponentType.TextDisplay, content: seasonEmojis.join(" ") };
+	}
+
+	const platformIds = platform?.filter((platformId) => isPlatformId(platformId)) ?? [];
+
+	if (platformIds.length > 0) {
 		platformsComponent = {
 			type: ComponentType.TextDisplay,
-			content: platform
-				.toSorted((a, b) => a - b)
-				.map((platformId) => formatEmoji(PlatformIdToEmoji[platformId as PlatformIds]))
+			content: platformIds
+				.sort((a, b) => a - b)
+				.map((platformId) => formatEmoji(PlatformIdToEmoji[platformId]))
 				.join(" "),
 		};
 	}
@@ -184,22 +334,20 @@ export function skyProfileContainer(
 		);
 	}
 
-	if (typeof wingedLight === "number") {
-		if (wingedLight === SkyProfileWingedLightType.Capeless) {
-			miscellaneous.push(
-				`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${t(`sky-profile-winged-light-types.${SkyProfileWingedLightType.Capeless}`, { lng: locale, ns: "general" })}`,
-			);
-		} else if (catalogue) {
-			const { count, isMax } = computeMaximumWingedLight(catalogue);
+	if (maximumWingedLight?.capeless) {
+		miscellaneous.push(
+			`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${t(`sky-profile-winged-light-types.${SkyProfileWingedLightType.Capeless}`, { lng: locale, ns: "general" })}`,
+		);
+	} else if (maximumWingedLight) {
+		const { count, isMax } = maximumWingedLight;
 
-			miscellaneous.push(
-				`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${
-					isMax
-						? `${count} (${t("sky-profile.winged-light-max", { lng: locale, ns: "features" })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
-						: count.toString()
-				}`,
-			);
-		}
+		miscellaneous.push(
+			`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${
+				isMax
+					? `${count} (${t("sky-profile.winged-light-max", { lng: locale, ns: "features" })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
+					: count.toString()
+			}`,
+		);
 	}
 
 	if (typeof spirit === "number") {
@@ -214,12 +362,9 @@ export function skyProfileContainer(
 		);
 	}
 
-	if (catalogueProgression) {
-		const allProgressResult =
-			cataloguePercentage(catalogueProgress(catalogueItems(), catalogue ?? undefined)) ?? 0;
-
+	if (catalogueProgression !== null) {
 		miscellaneous.push(
-			`**${t("sky-profile.catalogue-progression", { lng: locale, ns: "features" })}** ${allProgressResult}%`,
+			`**${t("sky-profile.catalogue-progression", { lng: locale, ns: "features" })}** ${catalogueProgression}%`,
 		);
 	}
 
@@ -262,26 +407,12 @@ export function skyProfileContainer(
 	const container: APIContainerComponent = { type: ComponentType.Container, components };
 
 	if (descriptionComponent && !fits(container)) {
-		const words = Array.from(
-			new Intl.Segmenter(locale, { granularity: "word" }).segment(descriptionComponent.content),
-			({ segment }) => segment,
-		);
+		const component = descriptionComponent;
 
-		let low = 0;
-		let high = words.length - 1;
-
-		while (low < high) {
-			const middle = Math.ceil((low + high) / 2);
-			descriptionComponent.content = `${words.slice(0, middle).join("").trimEnd()}…`;
-
-			if (fits(container)) {
-				low = middle;
-			} else {
-				high = middle - 1;
-			}
-		}
-
-		descriptionComponent.content = `${words.slice(0, low).join("").trimEnd()}…`;
+		component.content = trimMarkdown(component.content, locale, (content) => {
+			component.content = content;
+			return fits(container);
+		});
 	}
 
 	return container;

@@ -1,9 +1,10 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
 import { SitePage } from "~/components/PageLayout";
 import { SubredditLink } from "~/components/SubredditLink";
+import { cardContainer } from "~/utility/discord-component-embed.server.js";
+import { hexColour } from "~/utility/functions.js";
 import { MAJOR_HEADING_CLASS, PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/sky-elder.terms-privacy.js";
 
@@ -29,7 +30,7 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: SKY_ELDER_TITLE },
 		{ name: "description", content: SKY_ELDER_DESCRIPTION },
-		{ name: "theme-color", content: `#${SKY_ELDER_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(SKY_ELDER_COLOUR) },
 		{ property: "og:title", content: SKY_ELDER_TITLE },
 		{ property: "og:description", content: SKY_ELDER_DESCRIPTION },
 		{ property: "og:type", content: "website" },
@@ -44,23 +45,13 @@ export const meta: Route.MetaFunction = ({ location }) => {
 };
 
 export const loader = ({ url }: Route.LoaderArgs) => {
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: SKY_ELDER_COLOUR,
-		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${SKY_ELDER_TITLE}](${new URL(url.pathname, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: SKY_ELDER_DESCRIPTION },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: SKY_ELDER_ICON_URL } },
-			},
-		],
-	};
+	const discordComponentEmbed = cardContainer({
+		colour: SKY_ELDER_COLOUR,
+		description: SKY_ELDER_DESCRIPTION,
+		icon: SKY_ELDER_ICON_URL,
+		title: SKY_ELDER_TITLE,
+		url: new URL(url.pathname, WEBSITE_URL).href,
+	});
 
 	return { discordComponentEmbed };
 };

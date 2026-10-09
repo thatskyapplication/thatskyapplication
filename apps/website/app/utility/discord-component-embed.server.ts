@@ -1,6 +1,7 @@
 import {
 	type APIActionRowComponent,
 	type APIButtonComponentWithURL,
+	type APIComponentInContainer,
 	type APIContainerComponent,
 	ButtonStyle,
 	ComponentType,
@@ -16,6 +17,40 @@ export function fitsDiscordComponentEmbed(component: APIContainerComponent) {
 		Buffer.byteLength(discordComponentEmbedPayload(component)) <=
 		MAXIMUM_DISCORD_COMPONENT_EMBED_BYTES
 	);
+}
+
+interface CardContainerOptions {
+	colour: number;
+	components?: readonly APIComponentInContainer[];
+	description: string;
+	icon: string;
+	title: string;
+	url: string;
+}
+
+export function cardContainer({
+	colour,
+	components = [],
+	description,
+	icon,
+	title,
+	url,
+}: CardContainerOptions): APIContainerComponent {
+	return {
+		type: ComponentType.Container,
+		accent_color: colour,
+		components: [
+			{
+				type: ComponentType.Section,
+				components: [
+					{ type: ComponentType.TextDisplay, content: `## [${title}](${url})` },
+					{ type: ComponentType.TextDisplay, content: description },
+				],
+				accessory: { type: ComponentType.Thumbnail, media: { url: icon } },
+			},
+			...components,
+		],
+	};
 }
 
 export function linkButtonRows(links: readonly { label: string; to: string }[]) {

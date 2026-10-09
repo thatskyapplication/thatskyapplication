@@ -1,4 +1,3 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { sql } from "kysely";
 import { Search } from "lucide-react";
@@ -33,8 +32,9 @@ import {
 	WEBSITE_ICON_URL,
 } from "~/utility/constants";
 import { formatCountryLabel } from "~/utility/country.js";
+import { cardContainer } from "~/utility/discord-component-embed.server.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
-import { parsePage } from "~/utility/functions.js";
+import { hexColour, parsePage } from "~/utility/functions.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import {
 	MAJOR_HEADING_CLASS,
@@ -61,7 +61,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: loaderData.title },
 		{ name: "description", content: SKY_PROFILES_DESCRIPTION },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: SKY_PROFILES_DESCRIPTION },
 		{ property: "og:type", content: "website" },
@@ -79,28 +79,18 @@ export const loader = async ({ context, url }: Route.LoaderArgs) => {
 	const t = getInstance(context).getFixedT(getLocale(context));
 	const title = t("sky-profile.name-plural", { ns: "features" });
 
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: WEBSITE_COLOUR,
-		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${title}](${new URL(url.pathname, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: SKY_PROFILES_DESCRIPTION },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
-			},
-		],
-	};
+	const discordComponentEmbed = cardContainer({
+		colour: WEBSITE_COLOUR,
+		description: SKY_PROFILES_DESCRIPTION,
+		icon: WEBSITE_ICON_URL,
+		title: title,
+		url: new URL(url.pathname, WEBSITE_URL).href,
+	});
 
 	const name = url.searchParams.get("name")?.trim() || null;
 	const country = url.searchParams.get("country") || null;
 	const browsingAll = url.searchParams.get("view") === VIEW_ALL;
-	const page = parsePage(url);
+	const page = parsePage(url.searchParams);
 
 	const countries = await database
 		.selectFrom("sky_profiles")

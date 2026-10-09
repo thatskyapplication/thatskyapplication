@@ -1,6 +1,6 @@
 import { type APITextDisplayComponent, ComponentType } from "discord-api-types/v10";
 import { Cosmetic, CosmeticPackName } from "./cosmetics.js";
-import { formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
+import { type Emoji, formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
 import { skyEventFamilies, skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
@@ -591,76 +591,46 @@ export function catalogueSearch<Entry extends CatalogueSearchEntry>(
 	return [...exactMatches, ...prefixMatches, ...nameMatches, ...keywordMatches].slice(0, limit);
 }
 
-export function resolveCostToString(
-	cost: readonly CostEntry[],
-	{ emojis, locale }: Pick<MessageFormatting, "emojis" | "locale">,
-) {
-	const {
+export function costEntryEmoji(
+	entry: CostEntry,
+	{
 		EventIdToEventTicketEmoji,
 		MISCELLANEOUS_EMOJIS,
 		SeasonIdToSeasonalCandleEmoji,
 		SeasonIdToSeasonalHeartEmoji,
-	} = emojis;
-	const totalCost = [];
-
-	for (const entry of cost) {
-		const number = entry.amount.toLocaleString(locale);
-
-		switch (entry.type) {
-			case "money":
-				totalCost.push(`$${entry.amount.toLocaleString(locale, { minimumFractionDigits: 2 })} `);
-
-				break;
-			case "candles":
-				totalCost.push(
-					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, amount: number }),
-				);
-				break;
-			case "hearts":
-				totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, amount: number }));
-				break;
-			case "ascendedCandles":
-				totalCost.push(
-					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, amount: number }),
-				);
-
-				break;
-			case "seasonalCandles":
-				totalCost.push(
-					resolveCurrencyEmoji({
-						emoji:
-							SeasonIdToSeasonalCandleEmoji[entry.seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
-						amount: number,
-					}),
-				);
-
-				break;
-			case "seasonalHearts":
-				totalCost.push(
-					resolveCurrencyEmoji({
-						emoji:
-							entry.seasonId === SeasonId.Gratitude || entry.seasonId === SeasonId.Lightseekers
-								? MISCELLANEOUS_EMOJIS.SeasonalHeart
-								: (SeasonIdToSeasonalHeartEmoji[entry.seasonId] ??
-									MISCELLANEOUS_EMOJIS.SeasonalHeart),
-						amount: number,
-					}),
-				);
-
-				break;
-			case "eventTickets":
-				totalCost.push(
-					resolveCurrencyEmoji({
-						emoji: EventIdToEventTicketEmoji[entry.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket,
-						amount: number,
-					}),
-				);
-
-				break;
-		}
+	}: MessageFormatting["emojis"],
+): Emoji | null {
+	switch (entry.type) {
+		case "money":
+			return null;
+		case "candles":
+			return MISCELLANEOUS_EMOJIS.Candle;
+		case "hearts":
+			return MISCELLANEOUS_EMOJIS.Heart;
+		case "ascendedCandles":
+			return MISCELLANEOUS_EMOJIS.AscendedCandle;
+		case "seasonalCandles":
+			return SeasonIdToSeasonalCandleEmoji[entry.seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
+		case "seasonalHearts":
+			return entry.seasonId === SeasonId.Gratitude || entry.seasonId === SeasonId.Lightseekers
+				? MISCELLANEOUS_EMOJIS.SeasonalHeart
+				: (SeasonIdToSeasonalHeartEmoji[entry.seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalHeart);
+		case "eventTickets":
+			return EventIdToEventTicketEmoji[entry.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket;
 	}
+}
 
-	return totalCost;
+export function resolveCostToString(
+	cost: readonly CostEntry[],
+	{ emojis, locale }: Pick<MessageFormatting, "emojis" | "locale">,
+) {
+	return cost.map((entry) => {
+		const emoji = costEntryEmoji(entry, emojis);
+
+		return emoji
+			? resolveCurrencyEmoji({ emoji, amount: entry.amount.toLocaleString(locale) })
+			: `$${entry.amount.toLocaleString(locale, { minimumFractionDigits: 2 })} `;
+	});
 }
 
 export function nestingWorkshopPropsTextDisplay(

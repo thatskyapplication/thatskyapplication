@@ -25,8 +25,12 @@ import {
 	WEBSITE_COLOUR,
 	WEBSITE_ICON_URL,
 } from "~/utility/constants.js";
-import { fitsDiscordComponentEmbed } from "~/utility/discord-component-embed.server.js";
+import {
+	cardContainer,
+	fitsDiscordComponentEmbed,
+} from "~/utility/discord-component-embed.server.js";
 import { EMOJIS } from "~/utility/emojis.js";
+import { hexColour } from "~/utility/functions.js";
 import { spiritHistoryURL, spiritsHistoryPagination } from "~/utility/spirits.js";
 import { dateTimeLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
@@ -51,7 +55,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title },
 		{ name: "description", content: description },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: title },
 		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },
@@ -159,23 +163,13 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 			}),
 		}).container;
 	} else {
-		container = {
-			type: ComponentType.Container,
-			accent_color: WEBSITE_COLOUR,
-			components: [
-				{
-					type: ComponentType.Section,
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `## [${pageTitle}](${new URL(url.pathname, WEBSITE_URL).href})`,
-						},
-						{ type: ComponentType.TextDisplay, content: pageDescription },
-					],
-					accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
-				},
-			],
-		};
+		container = cardContainer({
+			colour: WEBSITE_COLOUR,
+			description: pageDescription,
+			icon: WEBSITE_ICON_URL,
+			title: pageTitle,
+			url: new URL(url.pathname, WEBSITE_URL).href,
+		});
 	}
 
 	return {

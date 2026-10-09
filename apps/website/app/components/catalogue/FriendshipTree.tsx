@@ -8,6 +8,7 @@ import {
 	ASSET_SIZE,
 	catalogueComplete,
 	catalogueProgress,
+	costEntryEmoji,
 	type Emoji,
 	FONT_SIZE,
 	FRIENDSHIP_TREE_WIDTH,
@@ -33,11 +34,12 @@ import { useItemOwnership } from "~/hooks/use-item-ownership.js";
 import { parseCosmetics } from "~/utility/catalogue.js";
 import {
 	CosmeticToEmoji,
+	EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 import { Tooltip } from "../Tooltip";
-import { COST_ENTRY_NAME_KEYS, CostList, costEntryEmoji } from "./CostList";
+import { COST_ENTRY_NAME_KEYS, CostList } from "./CostList";
 
 type AnyFriendshipTree = FriendshipTreeData | LegacyFriendshipTree;
 
@@ -70,7 +72,7 @@ function resolveNodeCost(
 	}
 
 	return {
-		emoji: costEntryEmoji(entry),
+		emoji: costEntryEmoji(entry, EMOJIS),
 		nameKey: COST_ENTRY_NAME_KEYS[entry.type],
 		text: entry.amount.toLocaleString(locale),
 	};

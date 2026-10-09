@@ -32,7 +32,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { t } from "i18next";
+import { getFixedT, t } from "i18next";
 import pQueue from "p-queue";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
@@ -677,7 +677,7 @@ async function distributionData({
 			cdnURL: CDN_URL,
 			currentTime,
 			dailyGuides,
-			date,
+			date: day,
 			emojis: EMOJIS,
 			locale,
 			nestingWorkshopItems: resolveNestingWorkshopItems(nestingWorkshopPacket?.cosmetics ?? []),
@@ -687,7 +687,7 @@ async function distributionData({
 				custom_id: `${CustomId.DailyGuidesShardEruptionsMore}§${day.toString()}`,
 				label: t("more", { lng: locale, ns: "general" }),
 			},
-			t,
+			t: getFixedT(locale),
 			upcomingUpdate: upcomingUpdate && {
 				date: upcomingUpdate.date,
 				version: patchNoteVersion(upcomingUpdate.identifier),

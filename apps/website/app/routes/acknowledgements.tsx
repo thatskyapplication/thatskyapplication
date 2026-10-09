@@ -1,4 +1,3 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import { data, type HeadersArgs } from "react-router";
@@ -19,6 +18,8 @@ import {
 	WIKI_DISCORD_URL,
 	WIKI_URL,
 } from "~/utility/constants";
+import { cardContainer } from "~/utility/discord-component-embed.server.js";
+import { hexColour } from "~/utility/functions.js";
 import { MAJOR_HEADING_CLASS, PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/acknowledgements.js";
 
@@ -35,7 +36,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: loaderData.title },
 		{ name: "description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
 		{ property: "og:type", content: "website" },
@@ -78,23 +79,13 @@ export const loader = async ({ context, url }: Route.LoaderArgs) => {
 			.execute(),
 	]);
 
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: WEBSITE_COLOUR,
-		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${title}](${new URL(url.pathname, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: ACKNOWLEDGEMENTS_DESCRIPTION },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
-			},
-		],
-	};
+	const discordComponentEmbed = cardContainer({
+		colour: WEBSITE_COLOUR,
+		description: ACKNOWLEDGEMENTS_DESCRIPTION,
+		icon: WEBSITE_ICON_URL,
+		title: title,
+		url: new URL(url.pathname, WEBSITE_URL).href,
+	});
 
 	return data(
 		{

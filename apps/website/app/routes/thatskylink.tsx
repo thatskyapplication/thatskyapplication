@@ -1,4 +1,3 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { Equal, Plus, Search } from "lucide-react";
 import { useRef, useState } from "react";
@@ -19,6 +18,8 @@ import { Tooltip } from "~/components/Tooltip";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants";
+import { cardContainer } from "~/utility/discord-component-embed.server.js";
+import { hexColour } from "~/utility/functions.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import {
 	MAJOR_HEADING_CLASS,
@@ -127,23 +128,13 @@ export const loader = ({ context, url }: Route.LoaderArgs) => {
 	const t = getInstance(context).getFixedT(getLocale(context));
 	const description = t("thatskylink.meta-description", { ns: "features" });
 
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: WEBSITE_COLOUR,
-		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${THATSKYLINK_TITLE}](${new URL(url.pathname, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: description },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
-			},
-		],
-	};
+	const discordComponentEmbed = cardContainer({
+		colour: WEBSITE_COLOUR,
+		description: description,
+		icon: WEBSITE_ICON_URL,
+		title: THATSKYLINK_TITLE,
+		url: new URL(url.pathname, WEBSITE_URL).href,
+	});
 
 	return { description, discordComponentEmbed };
 };
@@ -158,7 +149,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: THATSKYLINK_TITLE },
 		{ name: "description", content: description },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: THATSKYLINK_TITLE },
 		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },

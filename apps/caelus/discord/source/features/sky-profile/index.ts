@@ -30,7 +30,7 @@ import {
 	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
-import { t } from "i18next";
+import { getFixedT, t } from "i18next";
 import { type Kysely, sql } from "kysely";
 import {
 	ANIMATED_HASH_PREFIX,
@@ -70,6 +70,7 @@ import {
 	SkyProfilePersonalityToMBTI,
 	type SkyProfilePersonalityTypes,
 	SkyProfileWingedLightType,
+	skyProfileCatalogueStatistics,
 	skyProfileContainer,
 	skySeasons,
 	SkyProfileEditTypeToLocaleKey,
@@ -2304,14 +2305,14 @@ async function skyProfileComponents(
 
 	const components: APIMessageTopLevelComponent[] = [
 		skyProfileContainer({
-			catalogue: catalogue?.data ?? null,
+			...skyProfileCatalogueStatistics(data, catalogue?.data ?? null),
 			cdnURL: CDN_URL,
 			data,
 			emojis: EMOJIS,
 			guessRank: ranks,
 			hearts: await totalReceived(userId),
 			locale,
-			t,
+			t: getFixedT(locale),
 			url: skyProfileWebsiteURL(userId),
 		}),
 	];

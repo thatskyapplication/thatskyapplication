@@ -1,4 +1,4 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
+import { ComponentType } from "@discordjs/core/http-only";
 import { SiDiscord, SiDiscordHex, SiGithub, SiGithubHex } from "@icons-pack/react-simple-icons";
 import { clsx } from "clsx";
 import { ExternalLinkIcon, Heart } from "lucide-react";
@@ -6,7 +6,8 @@ import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { DISCORD_DONATION_URL, WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants";
-import { linkButtonRows } from "~/utility/discord-component-embed.server.js";
+import { cardContainer, linkButtonRows } from "~/utility/discord-component-embed.server.js";
+import { hexColour } from "~/utility/functions.js";
 import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/donate.js";
 
@@ -46,25 +47,17 @@ const DONATE_DESCRIPTION =
 export const loader = ({ context, url }: Route.LoaderArgs) => {
 	const title = getInstance(context).getFixedT(getLocale(context))("donate", { ns: "general" });
 
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: WEBSITE_COLOUR,
+	const discordComponentEmbed = cardContainer({
+		colour: WEBSITE_COLOUR,
 		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${title}](${new URL(url.pathname, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: DONATE_DESCRIPTION },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
-			},
 			{ type: ComponentType.Separator },
 			...linkButtonRows(DONATION_METHODS.map(({ href, name }) => ({ label: name, to: href }))),
 		],
-	};
+		description: DONATE_DESCRIPTION,
+		icon: WEBSITE_ICON_URL,
+		title: title,
+		url: new URL(url.pathname, WEBSITE_URL).href,
+	});
 
 	return { discordComponentEmbed, title };
 };
@@ -78,7 +71,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: loaderData.title },
 		{ name: "description", content: DONATE_DESCRIPTION },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: DONATE_DESCRIPTION },
 		{ property: "og:type", content: "website" },

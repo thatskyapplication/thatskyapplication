@@ -12,6 +12,7 @@ import {
 	shardEruptionContainer,
 	SHARD_ERUPTION_START_DATE,
 	skyNow,
+	TIME_ZONE,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { DatePicker } from "~/components/DatePicker";
@@ -30,6 +31,7 @@ import {
 	WEBSITE_ICON_URL,
 } from "~/utility/constants";
 import { EMOJIS, MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
+import { hexColour } from "~/utility/functions.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
 import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
@@ -62,7 +64,7 @@ export const meta = ({ loaderData, location }: Route.MetaArgs) => {
 		{ name: "robots", content: "index, follow" },
 		{ title },
 		{ name: "description", content: SHARD_ERUPTION_DESCRIPTION },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: title },
 		{ property: "og:description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ property: "og:type", content: "website" },
@@ -88,8 +90,8 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	const minimumPage =
 		startDaysOffset > 0 ? Math.floor((startDaysOffset - 1) / 30) : Math.floor(startDaysOffset / 30);
 	const jumpingToPage = Boolean(pageParameter);
-	let dateSelection: { date: string; page: number } | null = null;
-	let selectedDate: string | null = null;
+	let dateSelection: { date: Temporal.PlainDate; page: number } | null = null;
+	let selectedDate: Temporal.PlainDate | null = null;
 	let selectedPage: number | null = null;
 
 	if (todayParameter !== "1" && dateParameter !== null) {
@@ -110,14 +112,14 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 		const daysOffset = targetDate.since(today.toPlainDate()).days;
 
 		dateSelection = {
-			date: targetDate.toString(),
+			date: targetDate,
 			page: daysOffset > 0 ? Math.floor((daysOffset - 1) / 30) : Math.floor(daysOffset / 30),
 		};
 	}
 
 	if (!jumpingToPage) {
 		if (todayParameter === "1") {
-			selectedDate = today.toPlainDate().toString();
+			selectedDate = today.toPlainDate();
 		} else if (dateSelection !== null) {
 			selectedDate = dateSelection.date;
 			selectedPage = dateSelection.page;
@@ -182,15 +184,20 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	}
 
 	const t = getInstance(context).getFixedT(getLocale(context));
+	const previewURL = new URL(url.pathname, WEBSITE_URL);
+
+	if (selectedDate !== null && todayParameter !== "1") {
+		previewURL.searchParams.set("date", selectedDate.toString());
+	}
 
 	return {
-		anchorDate: selectedDate ?? today.add({ days: startIndex }).toPlainDate().toString(),
+		anchorDate: (selectedDate ?? today.add({ days: startIndex }).toPlainDate()).toString(),
 		currentUnix: epochSeconds(now),
 		discordComponentEmbed: shardEruptionContainer(
 			{
-				date: now,
+				date: selectedDate?.toZonedDateTime(TIME_ZONE) ?? now,
 				emojis: EMOJIS,
-				link: new URL(url.pathname, WEBSITE_URL).href,
+				link: previewURL.href,
 				locale,
 				now,
 				t,
@@ -202,7 +209,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 		minimumDate: startDate.toString(),
 		minimumPage,
 		page,
-		selectedDate,
+		selectedDate: selectedDate?.toString() ?? null,
 		shards,
 		timeZoneEstimated,
 		title: t("shard-eruption", { ns: "general" }),

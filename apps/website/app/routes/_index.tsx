@@ -1,4 +1,4 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
+import { ComponentType } from "@discordjs/core/http-only";
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { clsx } from "clsx";
 import type { TFunction } from "i18next";
@@ -28,7 +28,7 @@ import {
 	WEBSITE_ICON_URL,
 	WEBSITE_NAME,
 } from "~/utility/constants";
-import { linkButtonRows } from "~/utility/discord-component-embed.server.js";
+import { cardContainer, linkButtonRows } from "~/utility/discord-component-embed.server.js";
 import type { Route } from "./+types/_index.js";
 
 const HUB = { x: 50, y: 46 } as const;
@@ -243,25 +243,14 @@ export const loader = ({ context, url }: Route.LoaderArgs) => {
 		a.label.localeCompare(b.label, locale),
 	);
 
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: WEBSITE_COLOUR,
-		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${WEBSITE_NAME}](${new URL(url.pathname, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: WEBSITE_DESCRIPTION },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
-			},
-			{ type: ComponentType.Separator },
-			...linkButtonRows(nodes),
-		],
-	};
+	const discordComponentEmbed = cardContainer({
+		colour: WEBSITE_COLOUR,
+		components: [{ type: ComponentType.Separator }, ...linkButtonRows(nodes)],
+		description: WEBSITE_DESCRIPTION,
+		icon: WEBSITE_ICON_URL,
+		title: WEBSITE_NAME,
+		url: new URL(url.pathname, WEBSITE_URL).href,
+	});
 
 	return { discordComponentEmbed };
 };

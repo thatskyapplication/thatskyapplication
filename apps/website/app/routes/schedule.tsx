@@ -1,4 +1,3 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import type { TFunction } from "i18next";
 import { AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -36,7 +35,9 @@ import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session.js";
 import pino from "~/pino.js";
 import { SCHEDULE_DESCRIPTION, WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
+import { cardContainer } from "~/utility/discord-component-embed.server.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
+import { hexColour } from "~/utility/functions.js";
 import { fetchNestingWorkshopProps } from "~/utility/nesting-workshop.server.js";
 import { SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
 import { formatClockTimes, type TimePreferences } from "~/utility/time.js";
@@ -54,7 +55,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: loaderData.title },
 		{ name: "description", content: SCHEDULE_DESCRIPTION },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: SCHEDULE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
@@ -427,23 +428,13 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 
 	const title = t("schedule.name", { ns: "features" });
 
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: WEBSITE_COLOUR,
-		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${title}](${new URL(url.pathname, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: SCHEDULE_DESCRIPTION },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
-			},
-		],
-	};
+	const discordComponentEmbed = cardContainer({
+		colour: WEBSITE_COLOUR,
+		description: SCHEDULE_DESCRIPTION,
+		icon: WEBSITE_ICON_URL,
+		title: title,
+		url: new URL(url.pathname, WEBSITE_URL).href,
+	});
 
 	return {
 		discordComponentEmbed,

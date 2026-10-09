@@ -21,10 +21,6 @@ import {
 	CDN,
 	CountryToEmoji,
 	CROWDIN_URL,
-	catalogueItems,
-	cataloguePercentage,
-	catalogueProgress,
-	computeMaximumWingedLight,
 	fetchSkyProfileWithFlags,
 	GuessType,
 	isCountry,
@@ -34,6 +30,7 @@ import {
 	SkyProfileEditType,
 	SkyProfilePersonalityToMBTI,
 	SkyProfileWingedLightType,
+	skyProfileCatalogueStatistics,
 	skyProfileContainer,
 	totalHearts,
 	WEBSITE_URL,
@@ -65,6 +62,7 @@ import { getCDNURLFromMatches } from "~/utility/cdn.js";
 import { WEBSITE_COLOUR } from "~/utility/constants.js";
 import { fitsDiscordComponentEmbed } from "~/utility/discord-component-embed.server.js";
 import { EMOJIS, MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
+import { hexColour } from "~/utility/functions.js";
 import { snapshotSkyProfileReportAssets } from "~/utility/sky-profile-reports.server.js";
 import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/sky-profiles.$userId.js";
@@ -141,7 +139,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 			name: "description",
 			content: skyProfileData?.description ?? "A Sky profile.",
 		},
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: skyProfileData?.name ?? "Sky profile" },
 		{
 			property: "og:description",
@@ -188,34 +186,19 @@ export const loader = async ({ context, params, url }: Route.LoaderArgs) => {
 		data.catalogue_progression === true ||
 		data.winged_light === SkyProfileWingedLightType.InferFromCatalogue;
 
-	const catalogueData = shouldFetchCatalogue ? await getSkyProfileCatalogueData(userId) : null;
-	let catalogueProgression = null;
-	let maximumWingedLight:
-		| { capeless: true }
-		| { capeless: false; count: number; isMax: boolean }
-		| null = null;
+	const [catalogueData, hearts, eventsRanking, spiritsRanking, spiritsHardRanking] =
+		await Promise.all([
+			shouldFetchCatalogue ? getSkyProfileCatalogueData(userId) : null,
+			totalHearts(database, "giftee_id", userId),
+			data.guess_rank ? findGuessUserRanking(userId, GuessType.Events) : null,
+			data.guess_rank ? findGuessUserRanking(userId, GuessType.Spirits) : null,
+			data.guess_rank ? findGuessUserRanking(userId, GuessType.SpiritsHard) : null,
+		]);
 
-	if (data.winged_light !== null) {
-		if (data.winged_light === SkyProfileWingedLightType.Capeless) {
-			maximumWingedLight = { capeless: true };
-		} else if (catalogueData) {
-			const { count, isMax } = computeMaximumWingedLight(catalogueData);
-			maximumWingedLight = { capeless: false, count, isMax };
-		}
-	}
-
-	if (data.catalogue_progression) {
-		catalogueProgression =
-			cataloguePercentage(catalogueProgress(catalogueItems(), catalogueData ?? undefined)) ?? 0;
-	}
-
-	const [eventsRanking, spiritsRanking, spiritsHardRanking] = data.guess_rank
-		? await Promise.all([
-				findGuessUserRanking(userId, GuessType.Events),
-				findGuessUserRanking(userId, GuessType.Spirits),
-				findGuessUserRanking(userId, GuessType.SpiritsHard),
-			])
-		: [null, null, null];
+	const { catalogueProgression, maximumWingedLight } = skyProfileCatalogueStatistics(
+		data,
+		catalogueData,
+	);
 
 	const guessRank = data.guess_rank
 		? {
@@ -229,13 +212,14 @@ export const loader = async ({ context, params, url }: Route.LoaderArgs) => {
 
 	const container = skyProfileContainer(
 		{
-			catalogue: catalogueData,
+			catalogueProgression,
 			cdnURL: CDN_URL,
 			data,
 			emojis: EMOJIS,
 			guessRank,
-			hearts: await totalHearts(database, "giftee_id", userId),
+			hearts,
 			locale,
+			maximumWingedLight,
 			t: getInstance(context).getFixedT(locale),
 			url: new URL(url.pathname, WEBSITE_URL).href,
 		},

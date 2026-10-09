@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
 	type CostEntry,
 	catalogueItems,
+	costEntryEmoji,
 	type Emoji,
 	partitionItemCosts,
 	type SeasonIds,
@@ -11,10 +12,9 @@ import {
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
-import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import { EMOJIS, MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
-import { costEntryEmoji } from "./CostList";
 
 function Section({ children, title }: { children: ReactNode; title: string }) {
 	return (
@@ -184,14 +184,14 @@ export function TotalSpentView({ data, locale }: { data: ReadonlySet<number>; lo
 													{season.candles ? (
 														<CostStat
 															amount={season.candles.amount}
-															emoji={costEntryEmoji(season.candles)}
+															emoji={costEntryEmoji(season.candles, EMOJIS)}
 															locale={locale}
 														/>
 													) : null}
 													{season.hearts ? (
 														<CostStat
 															amount={season.hearts.amount}
-															emoji={costEntryEmoji(season.hearts)}
+															emoji={costEntryEmoji(season.hearts, EMOJIS)}
 															locale={locale}
 														/>
 													) : null}
@@ -211,7 +211,7 @@ export function TotalSpentView({ data, locale }: { data: ReadonlySet<number>; lo
 									.map((entry) => (
 										<CostStat
 											amount={entry.amount}
-											emoji={costEntryEmoji(entry)}
+											emoji={costEntryEmoji(entry, EMOJIS)}
 											key={entry.eventId}
 											locale={locale}
 										/>

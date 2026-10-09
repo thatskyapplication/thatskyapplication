@@ -51,6 +51,7 @@ export {
 	catalogueSeasonItems,
 	catalogueSpiritItems,
 	collectSpiritCosmetics,
+	costEntryEmoji,
 	NESTING_WORKSHOP,
 	NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES,
 	NESTING_WORKSHOP_ROTATION_COSMETICS,
@@ -326,8 +327,13 @@ export {
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	type SkyProfileReportAsset,
 } from "./sky-profile.js";
-export { skyProfileContainer } from "./sky-profile-container.js";
-export { SPIRITS_HISTORY_PAGE_SIZE, spiritContainer, spiritsHistoryContainer } from "./spirits.js";
+export { skyProfileCatalogueStatistics, skyProfileContainer } from "./sky-profile-container.js";
+export {
+	SPIRITS_HISTORY_PAGE_SIZE,
+	spiritContainer,
+	spiritsHistoryContainer,
+	spiritsHistoryData,
+} from "./spirits.js";
 export {
 	type BaseVisit,
 	type IndividualSpiritVisit,

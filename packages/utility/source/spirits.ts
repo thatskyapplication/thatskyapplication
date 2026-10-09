@@ -26,6 +26,11 @@ import {
 
 export const SPIRITS_HISTORY_PAGE_SIZE = 10 as const;
 
+export function spiritsHistoryData(type: SpiritsHistoryOrderTypes) {
+	const visits = type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
+	return { maximumPage: Math.max(1, Math.ceil(visits.size / SPIRITS_HISTORY_PAGE_SIZE)), visits };
+}
+
 function visitField(seasonalSpiritVisit: typeof TRAVELLING_DATES | typeof RETURNING_DATES) {
 	const maxLength = seasonalSpiritVisit.lastKey()!.toString().length;
 	const visits = [];
@@ -183,8 +188,7 @@ export function spiritsHistoryContainer({
 }: SpiritsHistoryContainerData) {
 	const offset = (page - 1) * SPIRITS_HISTORY_PAGE_SIZE;
 	const limit = offset + SPIRITS_HISTORY_PAGE_SIZE;
-	const visits = type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
-	const maximumPage = Math.ceil(visits.size / SPIRITS_HISTORY_PAGE_SIZE);
+	const { maximumPage, visits } = spiritsHistoryData(type);
 
 	const components: APIComponentInContainer[] = [
 		{

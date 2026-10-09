@@ -14,7 +14,7 @@ import {
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
-import { t } from "i18next";
+import { getFixedT, t } from "i18next";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
 	auroraSchedule,
@@ -580,11 +580,13 @@ function shardEruptionDetailedBreakdown(
 	let status: string;
 
 	if (shard) {
+		const formatting = { emojis: EMOJIS, locale, t: getFixedT(locale) };
+
 		const timestamps = shard.timestamps.map(
-			(timestamp) => `- ${shardEruptionTimestampString({ now, timestamp }, { locale, t })}`,
+			(timestamp) => `- ${shardEruptionTimestampString({ now, timestamp }, formatting)}`,
 		);
 
-		status = `${shardEruptionInformationString(shard, { emojis: EMOJIS, locale, t })}\n${timestamps.join("\n")}`;
+		status = `${shardEruptionInformationString(shard, formatting)}\n${timestamps.join("\n")}`;
 	} else {
 		const shardOverview = shardEruptionOverview(now);
 
@@ -937,7 +939,7 @@ async function nestingWorkshopDetailedBreakdown(
 			nestingWorkshopPropsTextDisplay(t("this-week", { lng: locale, ns: "general" }), props, {
 				emojis: EMOJIS,
 				locale,
-				t,
+				t: getFixedT(locale),
 			}),
 		);
 	}

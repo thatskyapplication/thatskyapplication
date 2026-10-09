@@ -10,8 +10,6 @@ import {
 	SPIRITS_HISTORY_TITLE_KEYS,
 	type Spirit,
 	spirits,
-	TRAVELLING_DATES,
-	VISITS_ABSENT,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import Pagination from "~/components/Pagination.js";
@@ -121,9 +119,12 @@ export function SpiritHistory({
 	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
-	const { maximumPage, order, page: currentPage } = spiritsHistoryPagination(searchParams);
-	const sourceHistory =
-		order === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
+	const {
+		maximumPage,
+		order,
+		page: currentPage,
+		visits: sourceHistory,
+	} = spiritsHistoryPagination(searchParams);
 	const availableSpirits = spirits();
 	const history: {
 		spirit: Spirit;

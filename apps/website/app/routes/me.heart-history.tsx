@@ -30,7 +30,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 	const userId = discordUser.id;
-	const requestedPage = parsePage(url);
+	const requestedPage = parsePage(url.searchParams);
 	const today = skyToday();
 
 	const [gifted, received, totalRows, giftedToday] = await Promise.all([

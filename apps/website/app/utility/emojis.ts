@@ -10,5 +10,4 @@ export const {
 	SeasonIdToSeasonalEmoji,
 	SkyProfilePersonalityToEmoji,
 	SeasonIdToSeasonalCandleEmoji,
-	SeasonIdToSeasonalHeartEmoji,
 } = EMOJIS;

@@ -1,9 +1,5 @@
-import {
-	SPIRITS_HISTORY_PAGE_SIZE,
-	SpiritsHistoryOrderType,
-	TRAVELLING_DATES,
-	VISITS_ABSENT,
-} from "@thatskyapplication/utility";
+import { SpiritsHistoryOrderType, spiritsHistoryData } from "@thatskyapplication/utility";
+import { parsePage } from "~/utility/functions.js";
 
 export const SPIRIT_HISTORY_LOCATION_STATE = { fromSpiritHistory: true } as const;
 
@@ -35,14 +31,6 @@ export function spiritsHistoryPagination(searchParams: URLSearchParams) {
 			? SpiritsHistoryOrderType.Rarity
 			: SpiritsHistoryOrderType.Natural;
 
-	const visits = order === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
-	const maximumPage = Math.max(1, Math.ceil(visits.size / SPIRITS_HISTORY_PAGE_SIZE));
-	const requestedPage = Number(searchParams.get("page") ?? 1);
-
-	const page =
-		Number.isSafeInteger(requestedPage) && requestedPage > 0
-			? Math.min(requestedPage, maximumPage)
-			: 1;
-
-	return { maximumPage, order, page };
+	const { maximumPage, visits } = spiritsHistoryData(order);
+	return { maximumPage, order, page: Math.min(parsePage(searchParams), maximumPage), visits };
 }

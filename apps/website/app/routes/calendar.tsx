@@ -1,4 +1,4 @@
-import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
+import { ComponentType } from "@discordjs/core/http-only";
 import i18next, { type TFunction } from "i18next";
 import { useMemo } from "react";
 import { type ShouldRevalidateFunctionArgs, useSearchParams } from "react-router";
@@ -26,6 +26,11 @@ import {
 	serialiseHiddenCalendarKinds,
 } from "~/utility/calendar.js";
 import { CALENDAR_DESCRIPTION, WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
+import {
+	cardContainer,
+	fitsDiscordComponentEmbed,
+} from "~/utility/discord-component-embed.server.js";
+import { hexColour } from "~/utility/functions.js";
 import { getDocumentHour12 } from "~/utility/hour-cycle.js";
 import { getBrowserTimeZone } from "~/utility/time-zone.js";
 import { getTimePreferences } from "~/utility/time.server.js";
@@ -43,7 +48,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		},
 		{ title: loaderData.title },
 		{ name: "description", content: CALENDAR_DESCRIPTION },
-		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: CALENDAR_DESCRIPTION },
 		{ property: "og:type", content: "website" },
@@ -105,21 +110,9 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 
 	const hiddenKinds = parseHiddenCalendarKinds(url.searchParams);
 
-	const discordComponentEmbed: APIContainerComponent = {
-		type: ComponentType.Container,
-		accent_color: WEBSITE_COLOUR,
+	const discordComponentEmbed = cardContainer({
+		colour: WEBSITE_COLOUR,
 		components: [
-			{
-				type: ComponentType.Section,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## [${title}](${new URL(`${url.pathname}${url.search}`, WEBSITE_URL).href})`,
-					},
-					{ type: ComponentType.TextDisplay, content: CALENDAR_DESCRIPTION },
-				],
-				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
-			},
 			{ type: ComponentType.Separator },
 			{
 				type: ComponentType.TextDisplay,
@@ -138,9 +131,19 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 				),
 			},
 		],
-	};
+		description: CALENDAR_DESCRIPTION,
+		icon: WEBSITE_ICON_URL,
+		title: title,
+		url: new URL(`${url.pathname}${url.search}`, WEBSITE_URL).href,
+	});
 
-	return { ...data, discordComponentEmbed, title };
+	return {
+		...data,
+		discordComponentEmbed: fitsDiscordComponentEmbed(discordComponentEmbed)
+			? discordComponentEmbed
+			: null,
+		title,
+	};
 };
 
 export const clientLoader = ({ request }: Route.ClientLoaderArgs) => {
