@@ -1,4 +1,6 @@
+import { type APITextDisplayComponent, ComponentType } from "discord-api-types/v10";
 import { Cosmetic, CosmeticPackName } from "./cosmetics.js";
+import { formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
 import { skyEventFamilies, skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
@@ -8,7 +10,14 @@ import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
 import { NotificationType } from "./notifications.js";
-import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
+import { SeasonId } from "./season.js";
+import type { MessageFormatting } from "./types/index.js";
+import {
+	type CostEntry,
+	resolveAllCosmeticsFromItems,
+	resolveOfferFromItems,
+	sumCosts,
+} from "./utility/functions.js";
 import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
 const starterPackItems = resolveOfferFromItems([
@@ -580,4 +589,101 @@ export function catalogueSearch<Entry extends CatalogueSearchEntry>(
 	}
 
 	return [...exactMatches, ...prefixMatches, ...nameMatches, ...keywordMatches].slice(0, limit);
+}
+
+export function resolveCostToString(
+	cost: readonly CostEntry[],
+	{ emojis, locale }: Pick<MessageFormatting, "emojis" | "locale">,
+) {
+	const {
+		EventIdToEventTicketEmoji,
+		MISCELLANEOUS_EMOJIS,
+		SeasonIdToSeasonalCandleEmoji,
+		SeasonIdToSeasonalHeartEmoji,
+	} = emojis;
+	const totalCost = [];
+
+	for (const entry of cost) {
+		const number = entry.amount.toLocaleString(locale);
+
+		switch (entry.type) {
+			case "money":
+				totalCost.push(`$${entry.amount.toLocaleString(locale, { minimumFractionDigits: 2 })} `);
+
+				break;
+			case "candles":
+				totalCost.push(
+					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, amount: number }),
+				);
+				break;
+			case "hearts":
+				totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, amount: number }));
+				break;
+			case "ascendedCandles":
+				totalCost.push(
+					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, amount: number }),
+				);
+
+				break;
+			case "seasonalCandles":
+				totalCost.push(
+					resolveCurrencyEmoji({
+						emoji:
+							SeasonIdToSeasonalCandleEmoji[entry.seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
+						amount: number,
+					}),
+				);
+
+				break;
+			case "seasonalHearts":
+				totalCost.push(
+					resolveCurrencyEmoji({
+						emoji:
+							entry.seasonId === SeasonId.Gratitude || entry.seasonId === SeasonId.Lightseekers
+								? MISCELLANEOUS_EMOJIS.SeasonalHeart
+								: (SeasonIdToSeasonalHeartEmoji[entry.seasonId] ??
+									MISCELLANEOUS_EMOJIS.SeasonalHeart),
+						amount: number,
+					}),
+				);
+
+				break;
+			case "eventTickets":
+				totalCost.push(
+					resolveCurrencyEmoji({
+						emoji: EventIdToEventTicketEmoji[entry.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket,
+						amount: number,
+					}),
+				);
+
+				break;
+		}
+	}
+
+	return totalCost;
+}
+
+export function nestingWorkshopPropsTextDisplay(
+	heading: string,
+	items: readonly Item[],
+	{ emojis, locale, t }: MessageFormatting,
+	data?: ReadonlySet<number>,
+): APITextDisplayComponent {
+	const { CosmeticToEmoji, MISCELLANEOUS_EMOJIS } = emojis;
+
+	const lines = items.map(({ cosmeticDisplay, cosmetics, cost, translation }) => {
+		const emoji = CosmeticToEmoji[cosmeticDisplay];
+
+		const prop = emoji
+			? formatEmoji(emoji)
+			: t(translation.key, { lng: locale, ns: "general", number: translation.number });
+
+		const line = `${prop} ${resolveCostToString(sumCosts(cost ? [cost] : []), { emojis, locale }).join("")}`;
+
+		return cosmetics.every((cosmetic) => data?.has(cosmetic))
+			? `${line} ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
+			: line;
+	});
+
+	return { type: ComponentType.TextDisplay, content: `### ${heading}\n\n${lines.join("\n")}` };
 }

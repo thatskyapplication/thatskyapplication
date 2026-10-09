@@ -1,6 +1,15 @@
+import type { DerivedEmojis, EmojiTables } from "../emojis/derive.js";
 import type { SpiritIds } from "../utility/spirits.js";
 
 export type Snowflake = `${bigint}`;
+
+type Translate = (key: string, options: Record<string, unknown>) => string;
+
+export interface MessageFormatting {
+	emojis: EmojiTables & DerivedEmojis;
+	locale: string;
+	t: Translate;
+}
 
 export type Nullable<Type> = {
 	[Property in keyof Type]: Type[Property] | null;

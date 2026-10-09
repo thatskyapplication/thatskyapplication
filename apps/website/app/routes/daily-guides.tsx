@@ -1,3 +1,4 @@
+import { ButtonStyle, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { AlertTriangle, ArrowRight } from "lucide-react";
 import { type JSX, useState } from "react";
@@ -7,6 +8,7 @@ import { data, Link, redirect } from "react-router";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
 	communityUpcomingEvents,
+	dailyGuidesContainer,
 	type DailyGuidesDaysCountItem,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
@@ -47,15 +49,18 @@ import { CentredSitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
+import { CDN_URL } from "~/config.server";
 import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
-import { APPLICATION_ICON_URL, PIECE_OF_LIGHT_PATH, WEBSITE_COLOUR } from "~/utility/constants.js";
+import { PIECE_OF_LIGHT_PATH, WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
+import { fitsDiscordComponentEmbed } from "~/utility/discord-component-embed.server.js";
 import {
 	DyeTypeToEmoji,
+	EMOJIS,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalCandleEmoji,
@@ -98,7 +103,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ property: "og:description", content: DAILY_GUIDES_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: APPLICATION_ICON_URL },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: loaderData.title },
@@ -193,6 +198,38 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const inCurrentNestingWorkshop =
 		nestingWorkshopDate(date)?.getTime() === nestingWorkshopDate(todayDate)?.getTime();
 
+	const upcomingUpdate = upcomingPatchNote(date.toString());
+	const shardEruptionURL = new URL("/shard-eruption", WEBSITE_URL);
+
+	if (!isToday) {
+		shardEruptionURL.searchParams.set("date", date.toString());
+	}
+
+	const { container } = dailyGuidesContainer(
+		{
+			cdnURL: CDN_URL,
+			currentTime: now,
+			dailyGuides,
+			date,
+			emojis: EMOJIS,
+			locale,
+			nestingWorkshopItems: nestingWorkshop.map(({ item }) => item),
+			shardEruptionButton: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: shardEruptionURL.href,
+				label: t("more", { ns: "general" }),
+			},
+			t,
+			upcomingUpdate: upcomingUpdate && {
+				date: upcomingUpdate.date,
+				version: patchNoteVersion(upcomingUpdate.identifier),
+			},
+			url: new URL(url.pathname, WEBSITE_URL).href,
+		},
+		{ fits: fitsDiscordComponentEmbed },
+	);
+
 	const cacheMaxAge = dailyGuidesCacheMaxAge(now, isToday || inCurrentNestingWorkshop ? 300 : 3600);
 
 	return data(
@@ -212,6 +249,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			todayDate: todayDate.toString(),
 			weekStartsOn: firstDayOfWeek(locale),
 			dailyGuides,
+			discordComponentEmbed: fitsDiscordComponentEmbed(container) ? container : null,
 			nestingWorkshop,
 			treasureCandleLinks,
 			treasureCandleNotes,

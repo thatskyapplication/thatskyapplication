@@ -29,7 +29,7 @@ import {
 	WEBSITE_COLOUR,
 	WEBSITE_ICON_URL,
 } from "~/utility/constants";
-import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
+import { EMOJIS, MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
 import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
@@ -189,7 +189,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 		discordComponentEmbed: shardEruptionContainer(
 			{
 				date: now,
-				emojis: MISCELLANEOUS_EMOJIS,
+				emojis: EMOJIS,
 				link: new URL(url.pathname, WEBSITE_URL).href,
 				locale,
 				now,

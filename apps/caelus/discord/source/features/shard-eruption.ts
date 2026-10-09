@@ -26,7 +26,7 @@ import {
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";
-import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { EMOJIS } from "../utility/emojis.js";
 import { MAXIMUM_OPTION_NUMBER, resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
 
 function generateShardEruptionSelectMenuOptions(
@@ -143,7 +143,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 
 	const container = shardEruptionContainer({
 		date,
-		emojis: MISCELLANEOUS_EMOJIS,
+		emojis: EMOJIS,
 		link: SHARD_ERUPTION_URL,
 		locale,
 		now,

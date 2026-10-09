@@ -1,6 +1,8 @@
 import { emojiConstants, formatEmoji } from "@thatskyapplication/utility";
 import { PRODUCTION } from "./configuration.js";
 
+export const EMOJIS = emojiConstants(PRODUCTION);
+
 export const {
 	MISCELLANEOUS_EMOJIS,
 	EMOTE_EMOJIS,
@@ -12,11 +14,10 @@ export const {
 	CosmeticToEmoji,
 	SeasonIdToSeasonalEmoji,
 	SeasonIdToSeasonalCandleEmoji,
-	SeasonIdToSeasonalHeartEmoji,
 	EventIdToEventTicketEmoji,
 	SkyProfilePersonalityToEmoji,
 	DyeTypeToEmoji,
-} = emojiConstants(PRODUCTION);
+} = EMOJIS;
 
 export const CUSTOM_EMOJI_REPLACEMENTS = [
 	{ from: formatEmoji(MISCELLANEOUS_EMOJIS.Yes), to: "✅" },

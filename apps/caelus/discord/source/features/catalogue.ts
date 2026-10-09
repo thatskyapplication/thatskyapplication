@@ -48,9 +48,11 @@ import {
 	isRealm,
 	KINGDOM,
 	NESTING_WORKSHOP,
+	nestingWorkshopPropsTextDisplay,
 	type Packet,
 	partitionItemCosts,
 	type RealmName,
+	resolveCostToString,
 	resolveNestingWorkshopItems,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
@@ -73,12 +75,7 @@ import {
 } from "@thatskyapplication/utility";
 import database from "../database.js";
 import { client } from "../discord.js";
-import {
-	CatalogueType,
-	itemToSelectMenuOption,
-	nestingWorkshopPropsTextDisplay,
-	resolveCostToString,
-} from "../utility/catalogue.js";
+import { CatalogueType, itemToSelectMenuOption } from "../utility/catalogue.js";
 import {
 	CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT,
 	CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT,
@@ -90,6 +87,7 @@ import { CustomId } from "../utility/custom-id.js";
 import {
 	CosmeticToEmoji,
 	CUSTOM_EMOJI_REPLACEMENTS,
+	EMOJIS,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
@@ -157,7 +155,10 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	}
 
 	const remainingCosts = partitionItemCosts(offer, data).remaining;
-	const resolvedRemainingCurrency = resolveCostToString(sumCosts(remainingCosts), locale);
+	const resolvedRemainingCurrency = resolveCostToString(sumCosts(remainingCosts), {
+		emojis: EMOJIS,
+		locale,
+	});
 
 	if (resolvedRemainingCurrency.length > 0) {
 		offerDescription.push(resolvedRemainingCurrency.join(""));
@@ -273,7 +274,10 @@ function offerData({
 	}
 
 	if (remainingCurrencies.length > 0) {
-		const totalRemainingCurrency = resolveCostToString(sumCosts(remainingCurrencies), locale);
+		const totalRemainingCurrency = resolveCostToString(sumCosts(remainingCurrencies), {
+			emojis: EMOJIS,
+			locale,
+		});
 
 		if (totalRemainingCurrency.length > 0) {
 			remainingCurrency = `### ${t("catalogue.remaining-currency", { lng: locale, ns: "features" })}\n\n${totalRemainingCurrency.join("")}`;
@@ -859,7 +863,7 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 		seasonalHeartEntries,
 		eventTicketEntries,
 	]
-		.map((entries) => resolveCostToString(entries, locale).join(""))
+		.map((entries) => resolveCostToString(entries, { emojis: EMOJIS, locale }).join(""))
 		.filter((line) => line.length > 0);
 
 	const content = `### ${t("catalogue.total-spent", { lng: locale, ns: "features" })}\n\n${
@@ -1198,7 +1202,7 @@ export async function viewRealms(
 			sumCosts(partitionItemCosts(items, catalogue?.data).remaining, {
 				includeSeasonalCurrency: false,
 			}),
-			locale,
+			{ emojis: EMOJIS, locale },
 		);
 		content += `\n\n${remainingCurrencyResult.length > 0 ? remainingCurrencyResult.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`;
 
@@ -2645,7 +2649,7 @@ export async function viewNestingWorkshop(
 			nestingWorkshopPropsTextDisplay(
 				t("this-week", { lng: locale, ns: "general" }),
 				thisWeek,
-				locale,
+				{ emojis: EMOJIS, locale, t },
 				catalogue?.data,
 			),
 		);

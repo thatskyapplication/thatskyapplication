@@ -30,6 +30,7 @@ import {
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	meteorShowerSchedule,
+	nestingWorkshopPropsTextDisplay,
 	nextDailyReset,
 	nextEyeOfEden,
 	nextNestingWorkshop,
@@ -62,12 +63,12 @@ import {
 } from "@thatskyapplication/utility";
 import database from "../database.js";
 import { client } from "../discord.js";
-import { nestingWorkshopPropsTextDisplay } from "../utility/catalogue.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
 	CAPE_EMOJIS,
 	DyeTypeToEmoji,
+	EMOJIS,
 	EVENT_EMOJIS,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
@@ -583,7 +584,7 @@ function shardEruptionDetailedBreakdown(
 			(timestamp) => `- ${shardEruptionTimestampString({ now, timestamp }, { locale, t })}`,
 		);
 
-		status = `${shardEruptionInformationString(shard, { emojis: MISCELLANEOUS_EMOJIS, locale, t })}\n${timestamps.join("\n")}`;
+		status = `${shardEruptionInformationString(shard, { emojis: EMOJIS, locale, t })}\n${timestamps.join("\n")}`;
 	} else {
 		const shardOverview = shardEruptionOverview(now);
 
@@ -933,11 +934,11 @@ async function nestingWorkshopDetailedBreakdown(
 
 	if (props.length > 0) {
 		components.push(
-			nestingWorkshopPropsTextDisplay(
-				t("this-week", { lng: locale, ns: "general" }),
-				props,
+			nestingWorkshopPropsTextDisplay(t("this-week", { lng: locale, ns: "general" }), props, {
+				emojis: EMOJIS,
 				locale,
-			),
+				t,
+			}),
 		);
 	}
 

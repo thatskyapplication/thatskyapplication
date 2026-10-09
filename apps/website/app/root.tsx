@@ -38,6 +38,7 @@ import {
 	WEBSITE_NAME,
 } from "~/utility/constants";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
+import { discordComponentEmbedPayload } from "~/utility/discord-component-embed";
 import {
 	getBrowserTimeZone,
 	TIME_ZONE_COOKIE_MAX_AGE,
@@ -138,7 +139,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	const discordComponentEmbed = useMatches()
 		.map(({ loaderData }) => loaderData)
 		.findLast(
-			(loaderData): loaderData is { discordComponentEmbed: APIContainerComponent } =>
+			(loaderData): loaderData is { discordComponentEmbed: APIContainerComponent | null } =>
 				typeof loaderData === "object" &&
 				loaderData !== null &&
 				"discordComponentEmbed" in loaderData,
@@ -176,10 +177,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				{data?.bareLayout && <style>{"html,body{background-color:#04060f}"}</style>}
 				{discordComponentEmbed && (
 					<script id="discord:component-embed" type="application/json">
-						{JSON.stringify({ component: discordComponentEmbed }).replaceAll(
-							"<",
-							String.raw`\u003c`,
-						)}
+						{discordComponentEmbedPayload(discordComponentEmbed)}
 					</script>
 				)}
 			</head>

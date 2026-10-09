@@ -17,6 +17,7 @@ import {
 	epochSeconds,
 	formatEmoji,
 	isSpiritsHistoryOrderType,
+	resolveCostToString,
 	RETURNING_DATES,
 	type SeasonalSpiritVisitTravellingErrorData,
 	spiritNotReturnedTranslationKey,
@@ -32,10 +33,9 @@ import {
 	visitsForSpirit,
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
-import { resolveCostToString } from "../utility/catalogue.js";
 import { MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
-import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
+import { EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 
 const MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER = 10 as const;
 
@@ -175,10 +175,14 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 	const totalOffer = [];
 
 	if (isSeasonalSpirit) {
-		totalOffer.push(resolveCostToString(spirit.totalCostSeasonal, locale).join(""));
+		totalOffer.push(
+			resolveCostToString(spirit.totalCostSeasonal, { emojis: EMOJIS, locale }).join(""),
+		);
 	}
 
-	const totalCostString = resolveCostToString(spirit.totalCost, locale).join("");
+	const totalCostString = resolveCostToString(spirit.totalCost, { emojis: EMOJIS, locale }).join(
+		"",
+	);
 
 	if (totalCostString.length > 0) {
 		totalOffer.push(totalCostString);

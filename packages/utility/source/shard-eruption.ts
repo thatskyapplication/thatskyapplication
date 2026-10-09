@@ -5,10 +5,11 @@ import {
 	SeparatorSpacingSize,
 } from "discord-api-types/v10";
 import { epochSeconds, skyDate, TIME_ZONE } from "./dates.js";
-import { type Emoji, formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
+import { formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
 import { realmForArea } from "./kingdom/areas/index.js";
 import { AreaName, type RealmName } from "./kingdom/geography.js";
 import { CDN_URL } from "./routes.js";
+import type { MessageFormatting } from "./types/index.js";
 
 const SHARD_STRONG_COLOUR = 0xff4158 as const;
 const SHARD_REGULAR_COLOUR = 0x66798a as const;
@@ -444,16 +445,12 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 	};
 }
 
-interface ShardEruptionFormatting {
-	emojis: Record<"AscendedCandle" | "Light" | "ShardRegular" | "ShardStrong", Emoji>;
-	locale: string;
-	t: (key: string, options: Record<string, unknown>) => string;
-}
-
 export function shardEruptionInformationString(
 	{ realm, area, strong, reward, infographic }: ShardEruptionData,
-	{ emojis, locale, t }: ShardEruptionFormatting,
+	{ emojis, locale, t }: MessageFormatting,
 ) {
+	const { MISCELLANEOUS_EMOJIS } = emojis;
+
 	const realmMap = `[${t("shard-eruption.realm-area", {
 		lng: locale,
 		ns: "features",
@@ -461,13 +458,13 @@ export function shardEruptionInformationString(
 		area,
 	})}](${infographic.url})`;
 
-	return `${formatEmoji(strong ? emojis.ShardStrong : emojis.ShardRegular)} ${realmMap}\n${
+	return `${formatEmoji(strong ? MISCELLANEOUS_EMOJIS.ShardStrong : MISCELLANEOUS_EMOJIS.ShardRegular)} ${realmMap}\n${
 		strong
 			? resolveCurrencyEmoji({
-					emoji: emojis.AscendedCandle,
+					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
 					amount: reward.toLocaleString(locale),
 				})
-			: `${reward.toLocaleString(locale)} ${formatEmoji(emojis.Light)}`
+			: `${reward.toLocaleString(locale)} ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}`
 	}`;
 }
 
@@ -479,7 +476,7 @@ interface ShardEruptionTimestampStringOptions {
 
 export function shardEruptionTimestampString(
 	{ bold = true, now, timestamp: { start, end } }: ShardEruptionTimestampStringOptions,
-	{ locale, t }: Pick<ShardEruptionFormatting, "locale" | "t">,
+	{ locale, t }: Pick<MessageFormatting, "locale" | "t">,
 ) {
 	const string = t("time-range", {
 		lng: locale,
@@ -509,14 +506,14 @@ interface ShardEruptionTimestampsStringOptions {
 
 export function shardEruptionTimestampsString(
 	{ bold = true, now, timestamps }: ShardEruptionTimestampsStringOptions,
-	formatting: Pick<ShardEruptionFormatting, "locale" | "t">,
+	formatting: Pick<MessageFormatting, "locale" | "t">,
 ) {
 	return timestamps
 		.map((timestamp) => shardEruptionTimestampString({ bold, now, timestamp }, formatting))
 		.join("\n");
 }
 
-interface ShardEruptionContainerData extends ShardEruptionFormatting {
+interface ShardEruptionContainerData extends MessageFormatting {
 	date: Temporal.ZonedDateTime;
 	link: string;
 	now: Temporal.ZonedDateTime;

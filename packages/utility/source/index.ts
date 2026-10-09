@@ -54,10 +54,12 @@ export {
 	NESTING_WORKSHOP,
 	NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES,
 	NESTING_WORKSHOP_ROTATION_COSMETICS,
+	nestingWorkshopPropsTextDisplay,
 	type NestingWorkshopRotationCategories,
 	NestingWorkshopRotationCategory,
 	NestingWorkshopRotationCategoryToCosmetics,
 	partitionItemCosts,
+	resolveCostToString,
 	resolveNestingWorkshopItems,
 	SECRET_AREA,
 	spiritOriginTranslationKey,
@@ -92,6 +94,7 @@ export {
 	nestingWorkshopDate,
 	visibleDaysCountItems,
 } from "./daily-guides.js";
+export { dailyGuidesContainer } from "./daily-guides-distribution.js";
 export type { Packet } from "./database/index.js";
 export type { DB } from "./database/schema.js";
 export {
