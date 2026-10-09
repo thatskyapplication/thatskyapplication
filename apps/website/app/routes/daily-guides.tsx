@@ -53,7 +53,7 @@ import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-cu
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
-import { APPLICATION_ICON_URL, PIECE_OF_LIGHT_PATH } from "~/utility/constants.js";
+import { APPLICATION_ICON_URL, PIECE_OF_LIGHT_PATH, WEBSITE_COLOUR } from "~/utility/constants.js";
 import {
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
@@ -93,7 +93,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: loaderData.title },
 		{ name: "description", content: DAILY_GUIDES_DESCRIPTION },
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: DAILY_GUIDES_DESCRIPTION },
 		{ property: "og:type", content: "website" },

@@ -34,7 +34,7 @@ import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-cu
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session.js";
 import pino from "~/pino.js";
-import { APPLICATION_ICON_URL, SCHEDULE_DESCRIPTION } from "~/utility/constants.js";
+import { APPLICATION_ICON_URL, SCHEDULE_DESCRIPTION, WEBSITE_COLOUR } from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { fetchNestingWorkshopProps } from "~/utility/nesting-workshop.server.js";
 import { SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
@@ -53,7 +53,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: loaderData.title },
 		{ name: "description", content: SCHEDULE_DESCRIPTION },
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: SCHEDULE_DESCRIPTION },
 		{ property: "og:type", content: "website" },

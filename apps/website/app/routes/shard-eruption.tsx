@@ -25,6 +25,7 @@ import {
 	PIECE_OF_LIGHT_PATH,
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_MAXIMUM_PAGE,
+	WEBSITE_COLOUR,
 } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
@@ -59,7 +60,7 @@ export const meta = ({ loaderData, location }: Route.MetaArgs) => {
 		{ name: "robots", content: "index, follow" },
 		{ title },
 		{ name: "description", content: SHARD_ERUPTION_DESCRIPTION },
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: title },
 		{ property: "og:description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ property: "og:type", content: "website" },

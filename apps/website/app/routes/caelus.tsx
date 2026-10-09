@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
 import {
+	APPLICATION_COLOUR,
 	APPLICATION_DESCRIPTION,
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
@@ -17,7 +18,7 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: APPLICATION_NAME },
 		{ name: "description", content: APPLICATION_DESCRIPTION },
-		{ name: "theme-color", content: "#a5b5f1" },
+		{ name: "theme-color", content: `#${APPLICATION_COLOUR.toString(16)}` },
 		{ property: "og:title", content: APPLICATION_NAME },
 		{ property: "og:description", content: APPLICATION_DESCRIPTION },
 		{ property: "og:type", content: "website" },

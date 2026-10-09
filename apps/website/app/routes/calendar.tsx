@@ -23,7 +23,7 @@ import {
 	parseHiddenCalendarKinds,
 	serialiseHiddenCalendarKinds,
 } from "~/utility/calendar.js";
-import { APPLICATION_ICON_URL, CALENDAR_DESCRIPTION } from "~/utility/constants.js";
+import { APPLICATION_ICON_URL, CALENDAR_DESCRIPTION, WEBSITE_COLOUR } from "~/utility/constants.js";
 import { getDocumentHour12 } from "~/utility/hour-cycle.js";
 import { getBrowserTimeZone } from "~/utility/time-zone.js";
 import { getTimePreferences } from "~/utility/time.server.js";
@@ -41,7 +41,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		},
 		{ title: loaderData.title },
 		{ name: "description", content: CALENDAR_DESCRIPTION },
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: CALENDAR_DESCRIPTION },
 		{ property: "og:type", content: "website" },

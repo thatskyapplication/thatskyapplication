@@ -16,7 +16,12 @@ import { SpiritSearch } from "~/components/spirits/SpiritSearch.js";
 import { SpiritView } from "~/components/spirits/SpiritView.js";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
 import { getInstance } from "~/middleware/i18next.js";
-import { APPLICATION_ICON_URL, SPIRITS_DESCRIPTION, SPIRITS_TITLE } from "~/utility/constants.js";
+import {
+	APPLICATION_ICON_URL,
+	SPIRITS_DESCRIPTION,
+	SPIRITS_TITLE,
+	WEBSITE_COLOUR,
+} from "~/utility/constants.js";
 import { spiritHistoryURL } from "~/utility/spirits.js";
 import { dateTimeLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
@@ -41,7 +46,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title },
 		{ name: "description", content: description },
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: title },
 		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },

@@ -25,7 +25,12 @@ import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import type { loader as rootLoader } from "~/root";
-import { APPLICATION_ICON_URL, SKY_KID_PATH, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
+import {
+	APPLICATION_ICON_URL,
+	SKY_KID_PATH,
+	SKY_PROFILES_DESCRIPTION,
+	WEBSITE_COLOUR,
+} from "~/utility/constants";
 import { formatCountryLabel } from "~/utility/country.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
@@ -55,7 +60,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: loaderData.title },
 		{ name: "description", content: SKY_PROFILES_DESCRIPTION },
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: SKY_PROFILES_DESCRIPTION },
 		{ property: "og:type", content: "website" },

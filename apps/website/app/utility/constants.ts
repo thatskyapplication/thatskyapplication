@@ -3,7 +3,9 @@ import { WEBSITE_URL } from "@thatskyapplication/utility";
 
 export const EXCLUDE_TOP_BAR_AND_FOOTER = ["/"] as const;
 export const APPLICATION_NAME = "Caelus" as const;
+export const APPLICATION_COLOUR = 0xa5b5f1 as const;
 export const WEBSITE_NAME = "thatskyapplication" as const;
+export const WEBSITE_COLOUR = 0x49add8 as const;
 const APPLICATION_ICON_PATH = "/caelus.webp" as const;
 const WEBSITE_ICON_PATH = "/web-app-icon-1024x1024.png" as const;
 export const SKY_LOGO_PATH = "/sky_logo.webp" as const;

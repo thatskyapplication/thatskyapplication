@@ -3,6 +3,7 @@ import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
 import { SitePage } from "~/components/PageLayout";
 import { SubredditLink } from "~/components/SubredditLink";
+import { WEBSITE_COLOUR } from "~/utility/constants.js";
 import { MAJOR_HEADING_CLASS, PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/sky-elder.terms-privacy.js";
 
@@ -27,7 +28,7 @@ export const meta: Route.MetaFunction = ({ location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: SKY_ELDER_TITLE },
 		{ name: "description", content: SKY_ELDER_DESCRIPTION },
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: SKY_ELDER_TITLE },
 		{ property: "og:description", content: SKY_ELDER_DESCRIPTION },
 		{ property: "og:type", content: "website" },

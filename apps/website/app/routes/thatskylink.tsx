@@ -17,7 +17,7 @@ import { SitePage } from "~/components/PageLayout";
 import { Tooltip } from "~/components/Tooltip";
 import { useSearchShortcut } from "~/hooks/use-search-shortcut.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
-import { APPLICATION_ICON_URL } from "~/utility/constants";
+import { APPLICATION_ICON_URL, WEBSITE_COLOUR } from "~/utility/constants";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import {
 	MAJOR_HEADING_CLASS,
@@ -137,7 +137,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: THATSKYLINK_TITLE },
 		{ name: "description", content: description },
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: THATSKYLINK_TITLE },
 		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },

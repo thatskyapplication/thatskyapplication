@@ -1,9 +1,4 @@
-import {
-	type APIButtonComponentWithURL,
-	type APIContainerComponent,
-	ButtonStyle,
-	ComponentType,
-} from "@discordjs/core/http-only";
+import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { clsx } from "clsx";
 import type { TFunction } from "i18next";
@@ -28,13 +23,13 @@ import {
 	APPLICATION_NAME,
 	INVITE_APPLICATION_URL,
 	INVITE_SUPPORT_SERVER_URL,
+	WEBSITE_COLOUR,
 	WEBSITE_DESCRIPTION,
 	WEBSITE_ICON_URL,
 	WEBSITE_NAME,
 } from "~/utility/constants";
+import { linkButtonRows } from "~/utility/discord-component-embed.server.js";
 import type { Route } from "./+types/_index.js";
-
-const MAXIMUM_ACTION_ROW_BUTTONS = 5 as const;
 
 const HUB = { x: 50, y: 46 } as const;
 
@@ -241,40 +236,32 @@ function constellationNodes(t: TFunction) {
 	];
 }
 
-export const loader = ({ context }: Route.LoaderArgs) => {
+export const loader = ({ context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 
-	const buttons = constellationNodes(getInstance(context).getFixedT(locale))
-		.sort((a, b) => a.label.localeCompare(b.label, locale))
-		.map(({ label, to }): APIButtonComponentWithURL => ({
-			type: ComponentType.Button,
-			style: ButtonStyle.Link,
-			label,
-			url: new URL(to, WEBSITE_URL).href,
-		}));
+	const nodes = constellationNodes(getInstance(context).getFixedT(locale)).sort((a, b) =>
+		a.label.localeCompare(b.label, locale),
+	);
 
 	const discordComponentEmbed: APIContainerComponent = {
 		type: ComponentType.Container,
-		accent_color: 0x49add8,
+		accent_color: WEBSITE_COLOUR,
 		components: [
 			{
 				type: ComponentType.Section,
 				components: [
-					{ type: ComponentType.TextDisplay, content: `## [${WEBSITE_NAME}](${WEBSITE_URL})` },
+					{
+						type: ComponentType.TextDisplay,
+						content: `## [${WEBSITE_NAME}](${new URL(url.pathname, WEBSITE_URL).href})`,
+					},
 					{ type: ComponentType.TextDisplay, content: WEBSITE_DESCRIPTION },
 				],
 				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
 			},
 			{ type: ComponentType.Separator },
+			...linkButtonRows(nodes),
 		],
 	};
-
-	for (let index = 0; index < buttons.length; index += MAXIMUM_ACTION_ROW_BUTTONS) {
-		discordComponentEmbed.components.push({
-			type: ComponentType.ActionRow,
-			components: buttons.slice(index, index + MAXIMUM_ACTION_ROW_BUTTONS),
-		});
-	}
 
 	return { discordComponentEmbed };
 };

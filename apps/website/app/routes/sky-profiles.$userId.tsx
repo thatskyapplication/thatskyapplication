@@ -59,6 +59,7 @@ import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session";
 import pino from "~/pino.js";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
+import { WEBSITE_COLOUR } from "~/utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { snapshotSkyProfileReportAssets } from "~/utility/sky-profile-reports.server.js";
 import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
@@ -136,7 +137,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 			name: "description",
 			content: skyProfileData?.description ?? "A Sky profile.",
 		},
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: skyProfileData?.name ?? "Sky profile" },
 		{
 			property: "og:description",

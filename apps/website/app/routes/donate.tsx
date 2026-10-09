@@ -4,7 +4,7 @@ import { ExternalLinkIcon, Heart } from "lucide-react";
 import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
-import { APPLICATION_ICON_URL, DISCORD_DONATION_URL } from "~/utility/constants";
+import { APPLICATION_ICON_URL, DISCORD_DONATION_URL, WEBSITE_COLOUR } from "~/utility/constants";
 import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/donate.js";
 
@@ -54,7 +54,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ name: "robots", content: "index, follow" },
 		{ title: loaderData.title },
 		{ name: "description", content: DONATE_DESCRIPTION },
-		{ name: "theme-color", content: "#49add8" },
+		{ name: "theme-color", content: `#${WEBSITE_COLOUR.toString(16)}` },
 		{ property: "og:title", content: loaderData.title },
 		{ property: "og:description", content: DONATE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
