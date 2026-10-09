@@ -1,3 +1,4 @@
+import { type APIContainerComponent, ComponentType } from "@discordjs/core/http-only";
 import type { TFunction } from "i18next";
 import { AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -34,7 +35,7 @@ import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-cu
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session.js";
 import pino from "~/pino.js";
-import { APPLICATION_ICON_URL, SCHEDULE_DESCRIPTION, WEBSITE_COLOUR } from "~/utility/constants.js";
+import { SCHEDULE_DESCRIPTION, WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { fetchNestingWorkshopProps } from "~/utility/nesting-workshop.server.js";
 import { SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
@@ -58,7 +59,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ property: "og:description", content: SCHEDULE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: APPLICATION_ICON_URL },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: loaderData.title },
@@ -410,7 +411,7 @@ function buildScheduleView(
 	return { active, upcoming, maintenances, ...formatClockTimes(timestamp, preferences) };
 }
 
-export const loader = async ({ request, context }: Route.LoaderArgs) => {
+export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const now = skyNow();
 	const initialTimestamp = now.epochMilliseconds;
 	const preferences = getTimePreferences(request, context);
@@ -424,12 +425,33 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 		},
 	);
 
+	const title = t("schedule.name", { ns: "features" });
+
+	const discordComponentEmbed: APIContainerComponent = {
+		type: ComponentType.Container,
+		accent_color: WEBSITE_COLOUR,
+		components: [
+			{
+				type: ComponentType.Section,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## [${title}](${new URL(url.pathname, WEBSITE_URL).href})`,
+					},
+					{ type: ComponentType.TextDisplay, content: SCHEDULE_DESCRIPTION },
+				],
+				accessory: { type: ComponentType.Thumbnail, media: { url: WEBSITE_ICON_URL } },
+			},
+		],
+	};
+
 	return {
+		discordComponentEmbed,
 		initialTimestamp,
 		...preferences,
 		initialView: buildScheduleView(initialTimestamp, preferences, t, nestingWorkshop),
 		nestingWorkshop,
-		title: t("schedule.name", { ns: "features" }),
+		title,
 	};
 };
 
