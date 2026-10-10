@@ -440,7 +440,8 @@
 			"26": "Temporada de la Migración",
 			"27": "Temporada de la Reparación Lumínica",
 			"28": "Temporada del Carnaval",
-			"29": "Querido Van Gogh"
+			"29": "Querido Van Gogh",
+			"30": ""
 		},
 		"season-wiki": {
 			"0": "",
@@ -472,7 +473,8 @@
 			"26": "",
 			"27": "",
 			"28": "",
-			"29": ""
+			"29": "",
+			"30": ""
 		},
 		"event": "Evento",
 		"events": "Eventos",
@@ -614,7 +616,8 @@
 			"91": "",
 			"92": "",
 			"93": "",
-			"94": ""
+			"94": "",
+			"95": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -835,7 +838,7 @@
 			"210": "Recuerdo rústico",
 			"211": "Recuerdo artístico",
 			"212": "Recuerdo alegre",
-			"213": "Farol del recuerdo del anochecer"
+			"213": ""
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1050,7 +1053,8 @@
 			"209": "",
 			"210": "",
 			"211": "",
-			"212": ""
+			"212": "",
+			"213": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
