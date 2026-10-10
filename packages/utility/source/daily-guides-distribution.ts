@@ -619,7 +619,11 @@ export function dailyGuidesContainer(
 			}
 
 			shardEruptionContent += shardEruptionTimestampsString(
-				{ bold, now: showShardTimestampStatus ? now : undefined, timestamps: shard.timestamps },
+				{
+					bold,
+					now: showShardTimestampStatus ? currentTime : undefined,
+					timestamps: shard.timestamps,
+				},
 				{ locale, t },
 			);
 		} else {

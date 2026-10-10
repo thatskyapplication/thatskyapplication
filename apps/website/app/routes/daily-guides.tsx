@@ -339,7 +339,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const now = isToday
 		? Temporal.Instant.fromEpochMilliseconds(currentTimestamp).toZonedDateTimeISO(TIME_ZONE)
 		: Temporal.PlainDate.from(date).toZonedDateTime(TIME_ZONE);
-	const currentUnix = epochSeconds(now);
+	const currentUnix = Math.floor(currentTimestamp / 1_000);
 	const today = now.startOfDay();
 	const quest1 = dailyGuides.quest1;
 	const quest2 = dailyGuides.quest2;
