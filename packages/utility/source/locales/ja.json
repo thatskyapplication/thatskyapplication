@@ -435,7 +435,8 @@
 			"26": "渡りの季節",
 			"27": "光の修繕者の季節",
 			"28": "カーニバルの季節",
-			"29": "Dear Van Gogh 親愛なるファン・ゴッホへ"
+			"29": "Dear Van Gogh 親愛なるファン・ゴッホへ",
+			"30": ""
 		},
 		"season-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%84%9F%E8%AC%9D%E3%81%AE%E5%AD%A3%E7%AF%80",
@@ -467,7 +468,8 @@
 			"26": "https://sky-children-of-the-light.fandom.com/ja/wiki/渡りの季節",
 			"27": "https://sky-children-of-the-light.fandom.com/ja/wiki/光の修繕者の季節",
 			"28": "https://sky-children-of-the-light.fandom.com/ja/wiki/カーニバルの季節",
-			"29": "https://sky-children-of-the-light.fandom.com/ja/wiki/Dear_Van_Gogh_親愛なるファン・ゴッホへ"
+			"29": "https://sky-children-of-the-light.fandom.com/ja/wiki/Dear_Van_Gogh_親愛なるファン・ゴッホへ",
+			"30": ""
 		},
 		"event": "イベント",
 		"events": "イベント",
@@ -609,7 +611,8 @@
 			"91": "",
 			"92": "",
 			"93": "",
-			"94": ""
+			"94": "",
+			"95": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "カタログから推測する",
@@ -830,7 +833,7 @@
 			"210": "素朴な思い出",
 			"211": "画家の思い出",
 			"212": "歓喜の思い出",
-			"213": "捨てられた地の記憶の燈"
+			"213": ""
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%8C%87%E5%B7%AE%E3%81%99%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%89%E3%83%AB%E8%81%B7%E4%BA%BA",
@@ -1045,7 +1048,8 @@
 			"209": "",
 			"210": "",
 			"211": "",
-			"212": ""
+			"212": "",
+			"213": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
