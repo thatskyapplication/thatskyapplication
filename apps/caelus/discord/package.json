@@ -13,6 +13,8 @@
 		"format": "oxlint --fix . && oxfmt .",
 		"lint": "oxfmt --check . && oxlint .",
 		"start": "node --import ./distribution/sentry.js distribution/index.js",
+		"synchronise-emoji-names": "node source/utility/synchronise-emoji-names.ts",
+		"synchronise-emoji-names-dev": "node --env-file=.env.development source/utility/synchronise-emoji-names.ts",
 		"test": "tsc --noEmit"
 	},
 	"dependencies": {

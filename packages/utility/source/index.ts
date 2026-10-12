@@ -112,6 +112,7 @@ export {
 export {
 	type Emoji,
 	emojiConstants,
+	emojiTables,
 	formatEmoji,
 	formatEmojiURL,
 	productionEmojis,
