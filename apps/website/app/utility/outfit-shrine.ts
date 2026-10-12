@@ -1,5 +1,26 @@
-import type { Emoji } from "@thatskyapplication/utility";
-import { EMOJIS } from "~/utility/emojis.js";
+import {
+	CatalogueCollection,
+	type CatalogueSearchTargetWithoutEventFamily,
+	CatalogueSearchType,
+	CLOTHING_SHOP,
+	type Emoji,
+	friendshipTreeToItems,
+	type Item,
+	NESTING_WORKSHOP,
+	SECRET_AREA,
+	STARTER_PACKS,
+	skyEvents,
+	skySeasons,
+	spirits,
+} from "@thatskyapplication/utility";
+import { CosmeticToEmoji, EMOJIS } from "~/utility/emojis.js";
+
+const CATALOGUE_COLLECTION_ITEMS = [
+	[CatalogueCollection.StarterPacks, STARTER_PACKS.items],
+	[CatalogueCollection.SecretArea, SECRET_AREA.items],
+	[CatalogueCollection.ClothingShop, CLOTHING_SHOP.items],
+	[CatalogueCollection.NestingWorkshop, NESTING_WORKSHOP.items],
+] as const;
 
 type OutfitShrineTable =
 	| "OUTFIT_EMOJIS"
@@ -1294,3 +1315,45 @@ export const OUTFIT_SHRINE_SECTIONS = OUTFIT_SHRINE_ORDER.map(({ name, order, ta
 
 	return { emojis: ordered, name };
 });
+
+function itemsUseEmoji(items: Iterable<Item>, emoji: Emoji) {
+	for (const item of items) {
+		for (const cosmetic of item.cosmetics) {
+			if (CosmeticToEmoji[cosmetic]?.id === emoji.id) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+export function outfitShrineCatalogueTargets(emoji: Emoji) {
+	const targets: CatalogueSearchTargetWithoutEventFamily[] = [];
+
+	for (const spirit of spirits().values()) {
+		if (itemsUseEmoji(friendshipTreeToItems(spirit.displayFriendshipTree), emoji)) {
+			targets.push({ type: CatalogueSearchType.Spirit, spirit });
+		}
+	}
+
+	for (const season of skySeasons().values()) {
+		if (itemsUseEmoji(season.items, emoji)) {
+			targets.push({ type: CatalogueSearchType.Season, season });
+		}
+	}
+
+	for (const event of skyEvents().values()) {
+		if (itemsUseEmoji(event.offer, emoji)) {
+			targets.push({ type: CatalogueSearchType.Event, event });
+		}
+	}
+
+	for (const [collection, items] of CATALOGUE_COLLECTION_ITEMS) {
+		if (itemsUseEmoji(items, emoji)) {
+			targets.push({ type: CatalogueSearchType.Collection, collection });
+		}
+	}
+
+	return targets;
+}

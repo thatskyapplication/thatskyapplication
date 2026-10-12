@@ -1,6 +1,9 @@
 import { clsx } from "clsx";
 import type { TFunction } from "i18next";
 import {
+	CatalogueCollection,
+	type CatalogueSearchTarget,
+	CatalogueSearchType,
 	CLOTHING_SHOP,
 	Cosmetic,
 	collectSpiritCosmetics,
@@ -26,6 +29,14 @@ const VALID_COSMETICS = new Set(
 	Object.values(Cosmetic).filter((value): value is number => typeof value === "number"),
 );
 
+const CATALOGUE_COLLECTION_VIEWS = {
+	[CatalogueCollection.StarterPacks]: "starter-packs",
+	[CatalogueCollection.SecretArea]: "secret-area",
+	[CatalogueCollection.ClothingShop]: "clothing-shop",
+	[CatalogueCollection.NestingWorkshop]: "nesting-workshop",
+	[CatalogueCollection.Loyalty]: "loyalty",
+} as const satisfies Readonly<Record<CatalogueCollection, string>>;
+
 export const CARD_CLASS =
 	"rounded-lg border border-gray-200 bg-gray-100 p-4 dark:border-gray-700 dark:bg-gray-900" as const;
 export const LINK_CARD_CLASS = clsx(
@@ -41,6 +52,21 @@ export const TREE_COLUMN_LABEL_CLASS =
 
 export function eventAnchor(eventId: EventIds) {
 	return `event-${eventId}`;
+}
+
+export function catalogueTargetQuery(target: CatalogueSearchTarget) {
+	switch (target.type) {
+		case CatalogueSearchType.Season:
+			return `?view=season&season=${target.season.id}`;
+		case CatalogueSearchType.Event:
+			return `?view=event-family&family=${target.event.family}#${eventAnchor(target.event.id)}`;
+		case CatalogueSearchType.EventFamily:
+			return `?view=event-family&family=${target.family.id}`;
+		case CatalogueSearchType.Spirit:
+			return `?view=spirit&spirit=${target.spirit.id}`;
+		case CatalogueSearchType.Collection:
+			return `?view=${CATALOGUE_COLLECTION_VIEWS[target.collection]}`;
+	}
 }
 
 export function eventFamilyYears(occurrences: EventFamilyOccurrences, t: TFunction) {
