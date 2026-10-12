@@ -22,7 +22,7 @@ const CATALOGUE_COLLECTION_ITEMS = [
 	[CatalogueCollection.NestingWorkshop, NESTING_WORKSHOP.items],
 ] as const;
 
-type OutfitShrineTable =
+type CosmeticsTable =
 	| "OUTFIT_EMOJIS"
 	| "SHOE_EMOJIS"
 	| "FULL_OUTFIT_EMOJIS"
@@ -37,15 +37,15 @@ type OutfitShrineTable =
 	| "LARGE_PLACEABLE_PROPS_EMOJIS"
 	| "SMALL_PLACEABLE_PROPS_EMOJIS";
 
-type OutfitShrineSectionOrder = {
-	[Table in OutfitShrineTable]: {
+type CosmeticsSectionOrder = {
+	[Table in CosmeticsTable]: {
 		name: string;
 		table: Table;
 		order: readonly (keyof (typeof EMOJIS)[Table])[];
 	};
-}[OutfitShrineTable];
+}[CosmeticsTable];
 
-const OUTFIT_SHRINE_ORDER = [
+const COSMETICS_ORDER = [
 	{
 		name: "Outfit emojis",
 		table: "OUTFIT_EMOJIS",
@@ -1300,9 +1300,9 @@ const OUTFIT_SHRINE_ORDER = [
 			"SmallPlaceableProp138",
 		],
 	},
-] as const satisfies readonly OutfitShrineSectionOrder[];
+] as const satisfies readonly CosmeticsSectionOrder[];
 
-export const OUTFIT_SHRINE_SECTIONS = OUTFIT_SHRINE_ORDER.map(({ name, order, table }) => {
+export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ name, order, table }) => {
 	const emojis: Readonly<Record<string, Emoji>> = EMOJIS[table];
 	const listed = new Set<string>(order);
 	const ordered = order.map((key: string) => emojis[key]!);
@@ -1328,7 +1328,7 @@ function itemsUseEmoji(items: Iterable<Item>, emoji: Emoji) {
 	return false;
 }
 
-export function outfitShrineCatalogueTargets(emoji: Emoji) {
+export function cosmeticCatalogueTargets(emoji: Emoji) {
 	const targets: CatalogueSearchTargetWithoutEventFamily[] = [];
 
 	for (const spirit of spirits().values()) {

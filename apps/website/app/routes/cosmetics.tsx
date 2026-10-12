@@ -13,8 +13,8 @@ import {
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
 import { catalogueTargetQuery } from "~/utility/catalogue.js";
+import { COSMETICS_SECTIONS, cosmeticCatalogueTargets } from "~/utility/cosmetics.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
-import { OUTFIT_SHRINE_SECTIONS, outfitShrineCatalogueTargets } from "~/utility/outfit-shrine.js";
 import { PAGE_TITLE_CLASS, SECTION_HEADING_CLASS } from "~/utility/styles.js";
 
 const catalogueLocationsPopover = Popover.createHandle<Emoji>();
@@ -60,9 +60,7 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 
 function CatalogueLocations({ emoji }: { emoji: Emoji }) {
 	const { t } = useTranslation();
-	const locations = outfitShrineCatalogueTargets(emoji).map((target) =>
-		catalogueLocation(target, t),
-	);
+	const locations = cosmeticCatalogueTargets(emoji).map((target) => catalogueLocation(target, t));
 
 	if (locations.length === 0) {
 		return (
@@ -98,14 +96,14 @@ function CatalogueLocations({ emoji }: { emoji: Emoji }) {
 	);
 }
 
-export default function OutfitShrine() {
+export default function Cosmetics() {
 	return (
 		<SitePage>
 			<div className="container mx-auto max-w-4xl space-y-4">
-				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>Outfit shrine</h1>
+				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>Cosmetics</h1>
 				<hr />
 
-				{OUTFIT_SHRINE_SECTIONS.map((section) => (
+				{COSMETICS_SECTIONS.map((section) => (
 					<section className="flex flex-col gap-3" key={section.name}>
 						<h2 className={SECTION_HEADING_CLASS}>
 							{section.name} ({section.emojis.length})
