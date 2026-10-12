@@ -437,7 +437,7 @@ const OUTFIT_EMOJIS = {
 	 */
 	Outfit18: { id: "1313933830503010354", name: "18_outfit" },
 	/**
-	 * Bearhug Yeti.
+	 * Bearhug Hermit.
 	 */
 	Outfit19: { id: "1313933860857450507", name: "19_outfit" },
 	/**
