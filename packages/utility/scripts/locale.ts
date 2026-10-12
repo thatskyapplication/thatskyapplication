@@ -4184,6 +4184,16 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "CosmeticPackName.SparrowAppreciationPack",
 	},
 	{
+		upstreamKey: "commerce_item_name_deer_horn",
+		overrides: {
+			Base: {
+				upstreamValue: "Gift of the Nine-Colored Deer",
+				value: "Gift of the Nine-Coloured Deer",
+			},
+		},
+		tsKey: "CosmeticPackName.GiftOfTheNineColouredDeer",
+	},
+	{
 		upstreamKey: "commerce_item_name_cafe_pastryhair",
 		tsKey: "CosmeticPackName.CinnamorollPopUpCafeHairAndEars",
 	},

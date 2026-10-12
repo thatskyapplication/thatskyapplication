@@ -1303,7 +1303,7 @@ const MASK_EMOJIS = {
 	 */
 	Mask88: { id: "1313935307376164874", name: "88_mask" },
 	/**
-	 * Gift of the Nine-Coloured Deer.
+	 * Gift of the Nine-Coloured Deer mask.
 	 */
 	Mask89: { id: "1313935291609780384", name: "89_mask" },
 	/**
@@ -2950,7 +2950,7 @@ const HEAD_ACCESSORY_EMOJIS = {
 	 */
 	HeadAccessory14: { id: "1313935584045301791", name: "14_head_accessory" },
 	/**
-	 * Gift of the Nine-Coloured Deer.
+	 * Gift of the Nine-Coloured Deer antlers.
 	 */
 	HeadAccessory15: { id: "1313935563610394624", name: "15_head_accessory" },
 	/**

@@ -1444,6 +1444,7 @@ export default {
 			[CosmeticPackName.MischiefWitchJumper]: "Mischief Witch Jumper",
 			[CosmeticPackName.MothAppreciationPack]: "Moth Appreciation Pack",
 			[CosmeticPackName.SparrowAppreciationPack]: "Sparrow Appreciation Pack",
+			[CosmeticPackName.GiftOfTheNineColouredDeer]: "Gift of the Nine-Coloured Deer",
 			[CosmeticPackName.CinnamorollPopUpCafeHairAndEars]: "Cinnamoroll Pop-Up Cafe Combo",
 			[CosmeticPackName.CinnamorollPopUpCafeBowtieAndCape]:
 				"Cinnamoroll Pop-Up Cafe Bowtie and Cloud Cape",
@@ -2175,7 +2176,8 @@ export default {
 			[Cosmetic.CourseCreationProp]: "Course Creation Prop",
 			[Cosmetic.CosyHermitBoots]: "Cosy Hermit Boots",
 			[Cosmetic.WinterQuiltedCape]: "Winter Quilted Cape",
-			[Cosmetic.GiftOfTheNineColouredDeer]: "Gift of the Nine-Coloured Deer",
+			[Cosmetic.GiftOfTheNineColouredDeerAntlers]: "Gift of the Nine-Coloured Deer antlers",
+			[Cosmetic.GiftOfTheNineColouredDeerMask]: "Gift of the Nine-Coloured Deer mask",
 			[Cosmetic.RadianceOfTheNineColouredDeer]: "Radiance of the Nine-Coloured Deer",
 			[Cosmetic.EmoteWhistle1]: "Whistle 1",
 			[Cosmetic.EmoteWhistle2]: "Whistle 2",

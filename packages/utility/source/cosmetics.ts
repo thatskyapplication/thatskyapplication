@@ -2302,7 +2302,8 @@ export enum Cosmetic {
 	HopefulStewardQuest10 = 1845,
 
 	// 15/01/2024 | Season of the Nine-Coloured Deer.
-	GiftOfTheNineColouredDeer = 1846,
+	GiftOfTheNineColouredDeerAntlers = 1846,
+	GiftOfTheNineColouredDeerMask = 2964,
 	RadianceOfTheNineColouredDeer = 1847,
 	SpiritOfMuralQuest1 = 1848,
 	SpiritOfMuralHeart1 = 1849,
@@ -3826,6 +3827,7 @@ export enum CosmeticPackName {
 	MischiefWitchJumper = 31,
 	MothAppreciationPack = 6,
 	SparrowAppreciationPack = 7,
+	GiftOfTheNineColouredDeer = 32,
 	CinnamorollPopUpCafeHairAndEars = 8,
 	CinnamorollPopUpCafeBowtieAndCape = 9,
 	MoonlightFrockPack = 10,

@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { SeasonId } from "../../../season.js";
@@ -17,7 +17,9 @@ export default new Season({
 	spirits: [HerbGatherer, Hunter, FeudalLord, Princess],
 	items: [
 		{
-			cosmetic: Cosmetic.GiftOfTheNineColouredDeer,
+			cosmetic: [Cosmetic.GiftOfTheNineColouredDeerAntlers, Cosmetic.GiftOfTheNineColouredDeerMask],
+			cosmeticDisplay: Cosmetic.GiftOfTheNineColouredDeerAntlers,
+			packName: CosmeticPackName.GiftOfTheNineColouredDeer,
 			cost: { money: 14.99 },
 		},
 		{
