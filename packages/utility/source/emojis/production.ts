@@ -4477,7 +4477,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Days of Treasure 2026 1.
 	 */
-	LargePlaceableProp112: { id: "1502288923257213079", name: "112_large_placeable_prop" },
+	LargePlaceableProp112: { id: "1559295436391719013", name: "112_large_placeable_prop" },
 	/**
 	 * Days of Treasure 2026 2.
 	 */

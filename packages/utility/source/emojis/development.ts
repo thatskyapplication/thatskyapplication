@@ -1414,7 +1414,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	LargePlaceableProp109: { id: "1492226495027085524", name: "109_large_placeable_prop" },
 	LargePlaceableProp110: { id: "1494694927093727302", name: "110_large_placeable_prop" },
 	LargePlaceableProp111: { id: "1494694930453500155", name: "111_large_placeable_prop" },
-	LargePlaceableProp112: { id: "1502288937425571931", name: "112_large_placeable_prop" },
+	LargePlaceableProp112: { id: "1559295314060382238", name: "112_large_placeable_prop" },
 	LargePlaceableProp113: { id: "1502288934271717466", name: "113_large_placeable_prop" },
 	LargePlaceableProp114: { id: "1506377588992512071", name: "114_large_placeable_prop" },
 	LargePlaceableProp115: { id: "1506377590724759598", name: "115_large_placeable_prop" },
