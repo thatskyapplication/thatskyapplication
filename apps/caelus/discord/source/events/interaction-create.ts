@@ -79,7 +79,6 @@ import {
 	friendshipActionsHugBack,
 } from "../features/friendship-actions.js";
 import { history } from "../features/heart.js";
-import { localeUpsell } from "../features/locale-upsell.js";
 import {
 	meHandleCustomiseMeButton,
 	meHandleCustomiseMeModal,
@@ -422,13 +421,6 @@ export default {
 				await command.chatInput(data);
 			} catch (error) {
 				void recoverInteractionError(data, error);
-				return;
-			}
-
-			try {
-				await localeUpsell(data);
-			} catch (error) {
-				pino.error(error, "Failed to send locale upsell.");
 			}
 
 			return;
