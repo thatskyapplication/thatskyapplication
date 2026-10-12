@@ -401,421 +401,249 @@ const OUTFIT_EMOJIS = {
 	 */
 	Outfit09: { id: "1392512455741280449", name: "09_outfit" },
 	/**
-	 * Boogie Kid.
-	 */
-	Outfit10: { id: "1313933832994426881", name: "10_outfit" },
-	/**
-	 * Troupe Greeter.
-	 */
-	Outfit11: { id: "1313933883284127797", name: "11_outfit" },
-	/**
-	 * Troupe Juggler.
-	 */
-	Outfit12: { id: "1313933842972672023", name: "12_outfit" },
-	/**
-	 * Festival Spin Dancer.
-	 */
-	Outfit13: { id: "1313933915831931032", name: "13_outfit" },
-	/**
-	 * Admiring Actor.
-	 */
-	Outfit14: { id: "1313933827076259930", name: "14_outfit" },
-	/**
-	 * Jellyfish Whisperer.
-	 */
-	Outfit15: { id: "1313933870697287772", name: "15_outfit" },
-	/**
-	 * Rallying Thrillseeker.
-	 */
-	Outfit16: { id: "1313933850270765107", name: "16_outfit" },
-	/**
-	 * Prophet of Fire.
-	 */
-	Outfit17: { id: "1313933869082349568", name: "17_outfit" },
-	/**
 	 * Peeking Postman.
 	 */
-	Outfit18: { id: "1559315178607087696", name: "18_outfit" },
-	/**
-	 * Bearhug Hermit.
-	 */
-	Outfit19: { id: "1313933860857450507", name: "19_outfit" },
+	Outfit10: { id: "1559315178607087696", name: "10_outfit" },
 	/**
 	 * Chuckling Scout.
 	 */
-	Outfit20: { id: "1313933886287249549", name: "20_outfit" },
+	Outfit11: { id: "1313933886287249549", name: "11_outfit" },
 	/**
 	 * Gloating Narcissist.
 	 */
-	Outfit21: { id: "1313933839676215416", name: "21_outfit" },
-	/**
-	 * The Rose (non-ultimate).
-	 */
-	Outfit22: { id: "1313933888673812490", name: "22_outfit" },
-	/**
-	 * The Rose (ultimate).
-	 */
-	Outfit23: { id: "1313933901340606464", name: "23_outfit" },
-	/**
-	 * Flight Guide.
-	 */
-	Outfit24: { id: "1313933863537348699", name: "24_outfit" },
-	/**
-	 * Talented Builder.
-	 */
-	Outfit25: { id: "1313933879169646633", name: "25_outfit" },
-	/**
-	 * Tinkering Chimesmith.
-	 */
-	Outfit26: { id: "1313933884731293889", name: "26_outfit" },
-	/**
-	 * Light Whisperer.
-	 */
-	Outfit27: { id: "1313933867182194768", name: "27_outfit" },
+	Outfit12: { id: "1313933839676215416", name: "12_outfit" },
 	/**
 	 * Mischief Witch Jumper.
 	 */
-	Outfit28: { id: "1313933841181835336", name: "28_outfit" },
-	/**
-	 * Anxious Angler.
-	 */
-	Outfit29: { id: "1313933872857350165", name: "29_outfit" },
-	/**
-	 * Modest Dancer.
-	 */
-	Outfit30: { id: "1313933858047135895", name: "30_outfit" },
-	/**
-	 * Frantic Stagehand.
-	 */
-	Outfit31: { id: "1313933856012763186", name: "31_outfit" },
-	/**
-	 * Forgetful Storyteller.
-	 */
-	Outfit32: { id: "1313933896429080636", name: "32_outfit" },
+	Outfit13: { id: "1313933841181835336", name: "13_outfit" },
 	/**
 	 * Rainbow Trousers.
 	 */
-	Outfit33: { id: "1313933908206948424", name: "33_outfit" },
+	Outfit14: { id: "1313933908206948424", name: "14_outfit" },
 	/**
 	 * Ancient Light (manta).
 	 */
-	Outfit34: { id: "1313933865609334805", name: "34_outfit" },
+	Outfit15: { id: "1313933865609334805", name: "15_outfit" },
 	/**
 	 * Mindful Miner.
 	 */
-	Outfit35: { id: "1313933911876702228", name: "35_outfit" },
+	Outfit16: { id: "1313933911876702228", name: "16_outfit" },
 	/**
 	 * AURORA (ultimate).
 	 */
-	Outfit36: { id: "1313933913198166026", name: "36_outfit" },
+	Outfit17: { id: "1313933913198166026", name: "17_outfit" },
 	/**
 	 * AURORA (non-ultimate).
 	 */
-	Outfit37: { id: "1313933891828056176", name: "37_outfit" },
+	Outfit18: { id: "1313933891828056176", name: "18_outfit" },
 	/**
 	 * To The Love Outfit.
 	 */
-	Outfit38: { id: "1313933909599191090", name: "38_outfit" },
+	Outfit19: { id: "1313933909599191090", name: "19_outfit" },
 	/**
 	 * Runaway Outfit.
 	 */
-	Outfit39: { id: "1313933890221772860", name: "39_outfit" },
+	Outfit20: { id: "1313933890221772860", name: "20_outfit" },
 	/**
 	 * Pleading Child.
 	 */
-	Outfit40: { id: "1313933898148741233", name: "40_outfit" },
-	/**
-	 * Wounded Warrior.
-	 */
-	Outfit41: { id: "1313933904104656938", name: "41_outfit" },
-	/**
-	 * Tiptoeing Tea-Brewer.
-	 */
-	Outfit42: { id: "1313933887566778409", name: "42_outfit" },
-	/**
-	 * Days of Fortune Muralist's Smock.
-	 */
-	Outfit43: { id: "1313933895032504360", name: "43_outfit" },
-	/**
-	 * Bloom Gardening Tunic.
-	 */
-	Outfit44: { id: "1313933905581310083", name: "44_outfit" },
-	/**
-	 * Melancholy Mope.
-	 */
-	Outfit45: { id: "1313933880776069193", name: "45_outfit" },
-	/**
-	 * Oddball Outcast.
-	 */
-	Outfit46: { id: "1313933899851632680", name: "46_outfit" },
-	/**
-	 * Dark Rainbow Tunic.
-	 */
-	Outfit47: { id: "1313933914456326154", name: "47_outfit" },
+	Outfit21: { id: "1313933898148741233", name: "21_outfit" },
 	/**
 	 * Ascetic Monk.
 	 */
-	Outfit48: { id: "1313933874987929712", name: "48_outfit" },
+	Outfit22: { id: "1313933874987929712", name: "22_outfit" },
 	/**
 	 * Nightbird Whisperer.
 	 */
-	Outfit49: { id: "1313933877571751967", name: "49_outfit" },
+	Outfit23: { id: "1313933877571751967", name: "23_outfit" },
 	/**
 	 * Style Wide-Leg Jeans.
 	 */
-	Outfit50: { id: "1313933893434474606", name: "50_outfit" },
+	Outfit24: { id: "1313933893434474606", name: "24_outfit" },
 	/**
 	 * Memory of a Lost Village.
 	 */
-	Outfit51: { id: "1313934002150834256", name: "51_outfit" },
+	Outfit25: { id: "1313934002150834256", name: "25_outfit" },
 	/**
 	 * Mischief Goth Garment.
 	 */
-	Outfit52: { id: "1313934008681234523", name: "52_outfit" },
+	Outfit26: { id: "1313934008681234523", name: "26_outfit" },
 	/**
 	 * Spirit of Mural (ultimate).
 	 */
-	Outfit53: { id: "1313934014817501198", name: "53_outfit" },
+	Outfit27: { id: "1313934014817501198", name: "27_outfit" },
 	/**
 	 * Herb Gatherer.
 	 */
-	Outfit54: { id: "1313934005502087189", name: "54_outfit" },
-	/**
-	 * Hunter.
-	 */
-	Outfit55: { id: "1313934006932476009", name: "55_outfit" },
+	Outfit28: { id: "1313934005502087189", name: "28_outfit" },
 	/**
 	 * Princess.
 	 */
-	Outfit56: { id: "1313934013228122235", name: "56_outfit" },
-	/**
-	 * Days of Fortune Dragon Vestment.
-	 */
-	Outfit57: { id: "1313934019036975145", name: "57_outfit" },
-	/**
-	 * Nesting Guide (ultimate).
-	 */
-	Outfit58: { id: "1313934017166315612", name: "58_outfit" },
+	Outfit29: { id: "1313934013228122235", name: "29_outfit" },
 	/**
 	 * SkyFest 5th Anniversary T-shirt.
 	 */
-	Outfit59: { id: "1313934020924538890", name: "59_outfit" },
+	Outfit30: { id: "1313934020924538890", name: "30_outfit" },
 	/**
 	 * The Cellist's Beginnings.
 	 */
-	Outfit60: { id: "1313934004109443164", name: "60_outfit" },
+	Outfit31: { id: "1313934004109443164", name: "31_outfit" },
 	/**
 	 * The Pianist's Beginnings.
 	 */
-	Outfit61: { id: "1313934023978127410", name: "61_outfit" },
+	Outfit32: { id: "1313934023978127410", name: "32_outfit" },
 	/**
 	 * The Cellist's Flourishing.
 	 */
-	Outfit62: { id: "1313934011755790447", name: "62_outfit" },
+	Outfit33: { id: "1313934011755790447", name: "33_outfit" },
 	/**
 	 * The Pianist's Flourishing.
 	 */
-	Outfit63: { id: "1313934010304561193", name: "63_outfit" },
+	Outfit34: { id: "1313934010304561193", name: "34_outfit" },
 	/**
 	 * Tournament Tunic.
 	 */
-	Outfit64: { id: "1313934034811883560", name: "64_outfit" },
+	Outfit35: { id: "1313934034811883560", name: "35_outfit" },
 	/**
 	 * Sunlight Beach Shorts outfit.
 	 */
-	Outfit65: { id: "1313934027878563913", name: "65_outfit" },
+	Outfit36: { id: "1313934027878563913", name: "36_outfit" },
 	/**
 	 * Moonlight Frock.
 	 */
-	Outfit66: { id: "1313934030495940729", name: "66_outfit" },
+	Outfit37: { id: "1313934030495940729", name: "37_outfit" },
 	/**
 	 * Style Dazzling Dress.
 	 */
-	Outfit67: { id: "1313934031922008154", name: "67_outfit" },
+	Outfit38: { id: "1313934031922008154", name: "38_outfit" },
 	/**
 	 * Style Dapper Suit.
 	 */
-	Outfit68: { id: "1313934022929420389", name: "68_outfit" },
-	/**
-	 * Roving Snufkin Robe.
-	 */
-	Outfit69: { id: "1313934026658152652", name: "69_outfit" },
+	Outfit39: { id: "1313934022929420389", name: "39_outfit" },
 	/**
 	 * The Moomin Storybook (ultimate).
 	 */
-	Outfit70: { id: "1313934033029431366", name: "70_outfit" },
+	Outfit40: { id: "1313934033029431366", name: "40_outfit" },
 	/**
 	 * Inspiration of Inclusion.
 	 */
-	Outfit71: { id: "1313934029287850075", name: "71_outfit" },
-	/**
-	 * Music Marching Uniform.
-	 */
-	Outfit72: { id: "1313934025106264124", name: "72_outfit" },
+	Outfit41: { id: "1313934029287850075", name: "41_outfit" },
 	/**
 	 * The Moomin Storybook (non-ultimate).
 	 */
-	Outfit73: { id: "1315724161330577490", name: "73_outfit" },
+	Outfit42: { id: "1315724161330577490", name: "42_outfit" },
 	/**
 	 * Wonderland Primrose Pinafore Set.
 	 */
-	Outfit74: { id: "1320563769931468810", name: "74_outfit" },
+	Outfit43: { id: "1320563769931468810", name: "43_outfit" },
 	/**
 	 * Radiance Leaping Dancer.
 	 */
-	Outfit75: { id: "1330514815864672299", name: "75_outfit" },
+	Outfit44: { id: "1330514815864672299", name: "44_outfit" },
 	/**
 	 * Radiance Provoking Performer.
 	 */
-	Outfit76: { id: "1330644916203815054", name: "76_outfit" },
+	Outfit45: { id: "1330644916203815054", name: "45_outfit" },
 	/**
 	 * Radiance Greeting Shaman.
 	 */
-	Outfit77: { id: "1330666163813879828", name: "77_outfit" },
+	Outfit46: { id: "1330666163813879828", name: "46_outfit" },
 	/**
 	 * Fortune Snake Outfit.
 	 */
-	Outfit78: { id: "1333204969163325482", name: "78_outfit" },
+	Outfit47: { id: "1333204969163325482", name: "47_outfit" },
 	/**
 	 * Treasure Seeker's Outfit.
 	 */
-	Outfit79: { id: "1345901512416690260", name: "79_outfit" },
-	/**
-	 * Costumed Confetti Cousin.
-	 */
-	Outfit80: { id: "1364902537895088128", name: "80_outfit" },
+	Outfit48: { id: "1345901512416690260", name: "48_outfit" },
 	/**
 	 * Woodcutting Pleaful Parent.
 	 */
-	Outfit81: { id: "1365257960279900252", name: "81_outfit" },
-	/**
-	 * Royal Hairtousle Teen.
-	 */
-	Outfit82: { id: "1365271623120195704", name: "82_outfit" },
+	Outfit49: { id: "1365257960279900252", name: "49_outfit" },
 	/**
 	 * Ocean Waves Outfit.
 	 */
-	Outfit83: { id: "1366370362606223451", name: "83_outfit" },
-	/**
-	 * Rainbow Smock.
-	 */
-	Outfit84: { id: "1376529972608372756", name: "84_outfit" },
+	Outfit50: { id: "1366370362606223451", name: "50_outfit" },
 	/**
 	 * Tending Toymaker.
 	 */
-	Outfit85: { id: "1396908098257686548", name: "85_outfit" },
+	Outfit51: { id: "1396908098257686548", name: "51_outfit" },
 	/**
 	 * Scarred Sentry.
 	 */
-	Outfit86: { id: "1396917161343189012", name: "86_outfit" },
-	/**
-	 * Stern Shepherd.
-	 */
-	Outfit87: { id: "1396949612899602533", name: "87_outfit" },
+	Outfit52: { id: "1396917161343189012", name: "52_outfit" },
 	/**
 	 * Resourceful Recluse.
 	 */
-	Outfit88: { id: "1396955999528685578", name: "88_outfit" },
-	/**
-	 * Anniversary Suit.
-	 */
-	Outfit89: { id: "1401820507371737190", name: "89_outfit" },
+	Outfit53: { id: "1396955999528685578", name: "53_outfit" },
 	/**
 	 * Anniversary Gown Ensemble Gown.
 	 */
-	Outfit90: { id: "1404327666202710016", name: "90_outfit" },
+	Outfit54: { id: "1404327666202710016", name: "54_outfit" },
 	/**
 	 * Sunlight Bonnet Dress.
 	 */
-	Outfit91: { id: "1412357405106372608", name: "91_outfit" },
+	Outfit55: { id: "1412357405106372608", name: "55_outfit" },
 	/**
 	 * Migration Guide (ultimate).
 	 */
-	Outfit92: { id: "1431638759744606258", name: "92_outfit" },
+	Outfit56: { id: "1431638759744606258", name: "56_outfit" },
 	/**
 	 * Migrating Bird Whisperer.
 	 */
-	Outfit93: { id: "1431816159728242782", name: "93_outfit" },
+	Outfit57: { id: "1431816159728242782", name: "57_outfit" },
 	/**
 	 * Migrating Jellyfish Whisperer.
 	 */
-	Outfit94: { id: "1431949634774761649", name: "94_outfit" },
-	/**
-	 * Migrating Manta Whisperer.
-	 */
-	Outfit95: { id: "1431952759711862907", name: "95_outfit" },
+	Outfit58: { id: "1431949634774761649", name: "58_outfit" },
 	/**
 	 * Days of Feast 2025.
 	 */
-	Outfit96: { id: "1449477359920218124", name: "96_outfit" },
-	/**
-	 * Lightmending Champion.
-	 */
-	Outfit97: { id: "1464063594055336079", name: "97_outfit" },
-	/**
-	 * Lightmending Light Scholar.
-	 */
-	Outfit98: { id: "1464067775189356666", name: "98_outfit" },
-	/**
-	 * Lightmending Pioneer.
-	 */
-	Outfit99: { id: "1464069073997533184", name: "99_outfit" },
+	Outfit59: { id: "1449477359920218124", name: "59_outfit" },
 	/**
 	 * Tournament Sleek Skating Set.
 	 */
-	Outfit100: { id: "1469073919960154173", name: "100_outfit" },
-	/**
-	 * Fortune Pleated Dress.
-	 */
-	Outfit101: { id: "1471652521775861810", name: "101_outfit" },
+	Outfit60: { id: "1469073919960154173", name: "60_outfit" },
 	/**
 	 * Days of Bloom 2026.
 	 */
-	Outfit102: { id: "1482684563519180921", name: "102_outfit" },
+	Outfit61: { id: "1482684563519180921", name: "61_outfit" },
 	/**
 	 * Bloom Sunflower Sundress.
 	 */
-	Outfit103: { id: "1482684567012901069", name: "103_outfit" },
+	Outfit62: { id: "1482684567012901069", name: "62_outfit" },
 	/**
 	 * Charming Creature outfit.
 	 */
-	Outfit104: { id: "1492226476723146883", name: "104_outfit" },
-	/**
-	 * Carnival Athletic Dancer.
-	 */
-	Outfit105: { id: "1494755154891636848", name: "105_outfit" },
+	Outfit63: { id: "1492226476723146883", name: "63_outfit" },
 	/**
 	 * Carnival Juggler.
 	 */
-	Outfit106: { id: "1494828828315615304", name: "106_outfit" },
+	Outfit64: { id: "1494828828315615304", name: "64_outfit" },
 	/**
 	 * Carnival Puzzle Director.
 	 */
-	Outfit107: { id: "1494847933030338591", name: "107_outfit" },
-	/**
-	 * Carnival Stunt Actor.
-	 */
-	Outfit108: { id: "1495324960066109460", name: "108_outfit" },
+	Outfit65: { id: "1494847933030338591", name: "65_outfit" },
 	/**
 	 * Days of Treasure 2026.
 	 */
-	Outfit109: { id: "1502282536955547809", name: "109_outfit" },
+	Outfit66: { id: "1502282536955547809", name: "66_outfit" },
 	/**
 	 * Rainbow Tied Jumpsuit.
 	 */
-	Outfit110: { id: "1510010628541124638", name: "110_outfit" },
+	Outfit67: { id: "1510010628541124638", name: "67_outfit" },
 	/**
 	 * Dutch Memory.
 	 */
-	Outfit111: { id: "1529590597973967019", name: "111_outfit" },
+	Outfit68: { id: "1529590597973967019", name: "68_outfit" },
 	/**
 	 * Sunlight Diver Duo.
 	 */
-	Outfit112: { id: "1532453826991231086", name: "112_outfit" },
+	Outfit69: { id: "1532453826991231086", name: "69_outfit" },
 	/**
 	 * Days of Moonlight 2026.
 	 */
-	Outfit113: { id: "1552077092903190568", name: "113_outfit" },
+	Outfit70: { id: "1552077092903190568", name: "70_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -939,6 +767,181 @@ const SHOE_EMOJIS = {
 	 * Sunlight Diver Duo.
 	 */
 	Shoe30: { id: "1532453819273969935", name: "30_shoe" },
+} as const satisfies Readonly<Record<string, Emoji>>;
+
+const FULL_OUTFIT_EMOJIS = {
+	/**
+	 * Boogie Kid.
+	 */
+	FullOutfit01: { id: "1313933832994426881", name: "01_full_outfit" },
+	/**
+	 * Troupe Greeter.
+	 */
+	FullOutfit02: { id: "1313933883284127797", name: "02_full_outfit" },
+	/**
+	 * Troupe Juggler.
+	 */
+	FullOutfit03: { id: "1313933842972672023", name: "03_full_outfit" },
+	/**
+	 * Festival Spin Dancer.
+	 */
+	FullOutfit04: { id: "1313933915831931032", name: "04_full_outfit" },
+	/**
+	 * Admiring Actor.
+	 */
+	FullOutfit05: { id: "1313933827076259930", name: "05_full_outfit" },
+	/**
+	 * Jellyfish Whisperer.
+	 */
+	FullOutfit06: { id: "1313933870697287772", name: "06_full_outfit" },
+	/**
+	 * Rallying Thrillseeker.
+	 */
+	FullOutfit07: { id: "1313933850270765107", name: "07_full_outfit" },
+	/**
+	 * Prophet of Fire.
+	 */
+	FullOutfit08: { id: "1313933869082349568", name: "08_full_outfit" },
+	/**
+	 * Bearhug Hermit.
+	 */
+	FullOutfit09: { id: "1313933860857450507", name: "09_full_outfit" },
+	/**
+	 * The Rose (non-ultimate).
+	 */
+	FullOutfit10: { id: "1313933888673812490", name: "10_full_outfit" },
+	/**
+	 * The Rose (ultimate).
+	 */
+	FullOutfit11: { id: "1313933901340606464", name: "11_full_outfit" },
+	/**
+	 * Flight Guide.
+	 */
+	FullOutfit12: { id: "1313933863537348699", name: "12_full_outfit" },
+	/**
+	 * Talented Builder.
+	 */
+	FullOutfit13: { id: "1313933879169646633", name: "13_full_outfit" },
+	/**
+	 * Tinkering Chimesmith.
+	 */
+	FullOutfit14: { id: "1313933884731293889", name: "14_full_outfit" },
+	/**
+	 * Light Whisperer.
+	 */
+	FullOutfit15: { id: "1313933867182194768", name: "15_full_outfit" },
+	/**
+	 * Anxious Angler.
+	 */
+	FullOutfit16: { id: "1313933872857350165", name: "16_full_outfit" },
+	/**
+	 * Modest Dancer.
+	 */
+	FullOutfit17: { id: "1313933858047135895", name: "17_full_outfit" },
+	/**
+	 * Frantic Stagehand.
+	 */
+	FullOutfit18: { id: "1313933856012763186", name: "18_full_outfit" },
+	/**
+	 * Forgetful Storyteller.
+	 */
+	FullOutfit19: { id: "1313933896429080636", name: "19_full_outfit" },
+	/**
+	 * Wounded Warrior.
+	 */
+	FullOutfit20: { id: "1313933904104656938", name: "20_full_outfit" },
+	/**
+	 * Tiptoeing Tea-Brewer.
+	 */
+	FullOutfit21: { id: "1313933887566778409", name: "21_full_outfit" },
+	/**
+	 * Days of Fortune Muralist's Smock.
+	 */
+	FullOutfit22: { id: "1313933895032504360", name: "22_full_outfit" },
+	/**
+	 * Bloom Gardening Tunic.
+	 */
+	FullOutfit23: { id: "1313933905581310083", name: "23_full_outfit" },
+	/**
+	 * Melancholy Mope.
+	 */
+	FullOutfit24: { id: "1313933880776069193", name: "24_full_outfit" },
+	/**
+	 * Oddball Outcast.
+	 */
+	FullOutfit25: { id: "1313933899851632680", name: "25_full_outfit" },
+	/**
+	 * Dark Rainbow Tunic.
+	 */
+	FullOutfit26: { id: "1313933914456326154", name: "26_full_outfit" },
+	/**
+	 * Hunter.
+	 */
+	FullOutfit27: { id: "1313934006932476009", name: "27_full_outfit" },
+	/**
+	 * Days of Fortune Dragon Vestment.
+	 */
+	FullOutfit28: { id: "1313934019036975145", name: "28_full_outfit" },
+	/**
+	 * Nesting Guide (ultimate).
+	 */
+	FullOutfit29: { id: "1313934017166315612", name: "29_full_outfit" },
+	/**
+	 * Roving Snufkin Robe.
+	 */
+	FullOutfit30: { id: "1313934026658152652", name: "30_full_outfit" },
+	/**
+	 * Music Marching Uniform.
+	 */
+	FullOutfit31: { id: "1313934025106264124", name: "31_full_outfit" },
+	/**
+	 * Costumed Confetti Cousin.
+	 */
+	FullOutfit32: { id: "1364902537895088128", name: "32_full_outfit" },
+	/**
+	 * Royal Hairtousle Teen.
+	 */
+	FullOutfit33: { id: "1365271623120195704", name: "33_full_outfit" },
+	/**
+	 * Rainbow Smock.
+	 */
+	FullOutfit34: { id: "1376529972608372756", name: "34_full_outfit" },
+	/**
+	 * Stern Shepherd.
+	 */
+	FullOutfit35: { id: "1396949612899602533", name: "35_full_outfit" },
+	/**
+	 * Anniversary Suit.
+	 */
+	FullOutfit36: { id: "1401820507371737190", name: "36_full_outfit" },
+	/**
+	 * Migrating Manta Whisperer.
+	 */
+	FullOutfit37: { id: "1431952759711862907", name: "37_full_outfit" },
+	/**
+	 * Lightmending Champion.
+	 */
+	FullOutfit38: { id: "1464063594055336079", name: "38_full_outfit" },
+	/**
+	 * Lightmending Light Scholar.
+	 */
+	FullOutfit39: { id: "1464067775189356666", name: "39_full_outfit" },
+	/**
+	 * Lightmending Pioneer.
+	 */
+	FullOutfit40: { id: "1464069073997533184", name: "40_full_outfit" },
+	/**
+	 * Fortune Pleated Dress.
+	 */
+	FullOutfit41: { id: "1471652521775861810", name: "41_full_outfit" },
+	/**
+	 * Carnival Athletic Dancer.
+	 */
+	FullOutfit42: { id: "1494755154891636848", name: "42_full_outfit" },
+	/**
+	 * Carnival Stunt Actor.
+	 */
+	FullOutfit43: { id: "1495324960066109460", name: "43_full_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS = {
@@ -5144,6 +5147,7 @@ export const PRODUCTION_TABLES = {
 	EVENT_EMOJIS,
 	OUTFIT_EMOJIS,
 	SHOE_EMOJIS,
+	FULL_OUTFIT_EMOJIS,
 	MASK_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
 	NECKLACE_EMOJIS,
