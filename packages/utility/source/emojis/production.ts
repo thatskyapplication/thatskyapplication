@@ -435,7 +435,7 @@ const OUTFIT_EMOJIS = {
 	/**
 	 * Peeking Postman.
 	 */
-	Outfit18: { id: "1313933830503010354", name: "18_outfit" },
+	Outfit18: { id: "1559315178607087696", name: "18_outfit" },
 	/**
 	 * Bearhug Hermit.
 	 */
@@ -3467,7 +3467,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Mischief Crabula Cloak.
 	 */
-	Cape117: { id: "1313937619490439169", name: "117_cape" },
+	Cape117: { id: "1559318127593132153", name: "117_cape" },
 	/**
 	 * Sparrow Appreciation.
 	 */
