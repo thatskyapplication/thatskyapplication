@@ -4039,1077 +4039,1077 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp02: { id: "1313938239555371058", name: "02_large_placeable_prop" },
 	/**
+	 * Days of Love 2020.
+	 */
+	LargePlaceableProp03: { id: "1313938750883233884", name: "03_large_placeable_prop" },
+	/**
 	 * Days of Feast 2020.
 	 */
-	LargePlaceableProp03: { id: "1313938289463656530", name: "03_large_placeable_prop" },
+	LargePlaceableProp04: { id: "1313938289463656530", name: "04_large_placeable_prop" },
+	/**
+	 * Days of Love Seesaw.
+	 */
+	LargePlaceableProp05: { id: "1313938691462533174", name: "05_large_placeable_prop" },
 	/**
 	 * Pink Bloom Teaset.
 	 */
-	LargePlaceableProp04: { id: "1313938248871186524", name: "04_large_placeable_prop" },
+	LargePlaceableProp06: { id: "1313938248871186524", name: "06_large_placeable_prop" },
 	/**
 	 * Assembly Guide (non-ultimate 1).
 	 */
-	LargePlaceableProp05: { id: "1313938247054917763", name: "05_large_placeable_prop" },
+	LargePlaceableProp07: { id: "1313938247054917763", name: "07_large_placeable_prop" },
 	/**
 	 * Assembly Guide (non-ultimate 2).
 	 */
-	LargePlaceableProp06: { id: "1313938300850933760", name: "06_large_placeable_prop" },
+	LargePlaceableProp08: { id: "1313938300850933760", name: "08_large_placeable_prop" },
 	/**
 	 * Scaredy Cadet.
 	 */
-	LargePlaceableProp07: { id: "1313938271985729616", name: "07_large_placeable_prop" },
+	LargePlaceableProp09: { id: "1313938271985729616", name: "09_large_placeable_prop" },
 	/**
 	 * Marching Adventurer.
 	 */
-	LargePlaceableProp08: { id: "1313938241744932969", name: "08_large_placeable_prop" },
+	LargePlaceableProp10: { id: "1313938241744932969", name: "10_large_placeable_prop" },
 	/**
 	 * Assembly Guide (non-ultimate 5).
 	 */
-	LargePlaceableProp09: { id: "1313938281297088663", name: "09_large_placeable_prop" },
+	LargePlaceableProp11: { id: "1313938281297088663", name: "11_large_placeable_prop" },
 	/**
 	 * Baffled Botanist.
 	 */
-	LargePlaceableProp10: { id: "1313938269519745074", name: "10_large_placeable_prop" },
+	LargePlaceableProp12: { id: "1313938269519745074", name: "12_large_placeable_prop" },
 	/**
 	 * Chuckling Scout.
 	 */
-	LargePlaceableProp11: { id: "1313938243259072622", name: "11_large_placeable_prop" },
+	LargePlaceableProp13: { id: "1313938243259072622", name: "13_large_placeable_prop" },
 	/**
 	 * Star Collector.
 	 */
-	LargePlaceableProp12: { id: "1313938279531417621", name: "12_large_placeable_prop" },
+	LargePlaceableProp14: { id: "1313938279531417621", name: "14_large_placeable_prop" },
 	/**
 	 * Double Deck Chairs.
 	 */
-	LargePlaceableProp13: { id: "1313938263131684875", name: "13_large_placeable_prop" },
+	LargePlaceableProp15: { id: "1313938263131684875", name: "15_large_placeable_prop" },
 	/**
 	 * Chill Sunbather.
 	 */
-	LargePlaceableProp14: { id: "1313938245213491331", name: "14_large_placeable_prop" },
+	LargePlaceableProp16: { id: "1313938245213491331", name: "16_large_placeable_prop" },
 	/**
 	 * Crab Whisperer.
 	 */
-	LargePlaceableProp15: { id: "1313938250603429898", name: "15_large_placeable_prop" },
+	LargePlaceableProp17: { id: "1313938250603429898", name: "17_large_placeable_prop" },
 	/**
 	 * Troupe Juggler.
 	 */
-	LargePlaceableProp16: { id: "1313938298934268005", name: "16_large_placeable_prop" },
+	LargePlaceableProp18: { id: "1313938298934268005", name: "18_large_placeable_prop" },
 	/**
 	 * Grateful Shell Collector.
 	 */
-	LargePlaceableProp17: { id: "1313938276385554442", name: "17_large_placeable_prop" },
+	LargePlaceableProp19: { id: "1313938276385554442", name: "19_large_placeable_prop" },
 	/**
 	 * Festival Spin Dancer.
 	 */
-	LargePlaceableProp18: { id: "1313938265262264411", name: "18_large_placeable_prop" },
+	LargePlaceableProp20: { id: "1313938265262264411", name: "20_large_placeable_prop" },
 	/**
 	 * Mischief Spooky Dining Set.
 	 */
-	LargePlaceableProp19: { id: "1313938274124959806", name: "19_large_placeable_prop" },
+	LargePlaceableProp21: { id: "1313938274124959806", name: "21_large_placeable_prop" },
 	/**
 	 * Playfighting Herbalist.
 	 */
-	LargePlaceableProp20: { id: "1313938261621739601", name: "20_large_placeable_prop" },
+	LargePlaceableProp22: { id: "1313938261621739601", name: "22_large_placeable_prop" },
 	/**
 	 * Jelly Whisperer.
 	 */
-	LargePlaceableProp21: { id: "1313938253799489607", name: "21_large_placeable_prop" },
+	LargePlaceableProp23: { id: "1313938253799489607", name: "23_large_placeable_prop" },
 	/**
 	 * Prophet of Fire 1.
 	 */
-	LargePlaceableProp22: { id: "1313938305431375998", name: "22_large_placeable_prop" },
+	LargePlaceableProp24: { id: "1313938305431375998", name: "24_large_placeable_prop" },
 	/**
 	 * Purple Bloom Teaset.
 	 */
-	LargePlaceableProp23: { id: "1313938316395151401", name: "23_large_placeable_prop" },
+	LargePlaceableProp25: { id: "1313938316395151401", name: "25_large_placeable_prop" },
 	/**
 	 * Performance Guide (non-ultmate).
 	 */
-	LargePlaceableProp24: { id: "1313938267330314295", name: "24_large_placeable_prop" },
+	LargePlaceableProp26: { id: "1313938267330314295", name: "26_large_placeable_prop" },
 	/**
 	 * Days of Sunlight 2022.
 	 */
-	LargePlaceableProp25: { id: "1313938317644922952", name: "25_large_placeable_prop" },
+	LargePlaceableProp27: { id: "1313938317644922952", name: "27_large_placeable_prop" },
 	/**
 	 * Light fence.
 	 */
-	LargePlaceableProp26: { id: "1313938306878275635", name: "26_large_placeable_prop" },
+	LargePlaceableProp28: { id: "1313938306878275635", name: "28_large_placeable_prop" },
 	/**
 	 * Snowkid Prop.
 	 */
-	LargePlaceableProp27: { id: "1313938285030281376", name: "27_large_placeable_prop" },
+	LargePlaceableProp29: { id: "1313938285030281376", name: "29_large_placeable_prop" },
+	/**
+	 * Tournament Skyball Set.
+	 */
+	LargePlaceableProp30: { id: "1313938767324909579", name: "30_large_placeable_prop" },
 	/**
 	 * Remembrance Guide (non-ultimate 2).
 	 */
-	LargePlaceableProp28: { id: "1313938319112933507", name: "28_large_placeable_prop" },
+	LargePlaceableProp31: { id: "1313938319112933507", name: "31_large_placeable_prop" },
 	/**
 	 * Remembrance Guide (non-ultimate 3).
 	 */
-	LargePlaceableProp29: { id: "1313938310045110364", name: "29_large_placeable_prop" },
+	LargePlaceableProp32: { id: "1313938310045110364", name: "32_large_placeable_prop" },
 	/**
 	 * Remembrance Guide (ultimate).
 	 */
-	LargePlaceableProp30: { id: "1313938291938037831", name: "30_large_placeable_prop" },
+	LargePlaceableProp33: { id: "1313938291938037831", name: "33_large_placeable_prop" },
 	/**
 	 * Days of Love Flowery Archway.
 	 */
-	LargePlaceableProp31: { id: "1313938326704623646", name: "31_large_placeable_prop" },
+	LargePlaceableProp34: { id: "1313938326704623646", name: "34_large_placeable_prop" },
 	/**
 	 * Bloom Picnic Basket.
 	 */
-	LargePlaceableProp32: { id: "1313938282924605461", name: "32_large_placeable_prop" },
+	LargePlaceableProp35: { id: "1313938282924605461", name: "35_large_placeable_prop" },
 	/**
 	 * Anniversary Party Lights.
 	 */
-	LargePlaceableProp33: { id: "1313938304135336037", name: "33_large_placeable_prop" },
+	LargePlaceableProp36: { id: "1313938304135336037", name: "36_large_placeable_prop" },
 	/**
 	 * Nesting Solarium 1.
 	 */
-	LargePlaceableProp34: { id: "1313938286489768006", name: "34_large_placeable_prop" },
+	LargePlaceableProp37: { id: "1313938286489768006", name: "37_large_placeable_prop" },
 	/**
 	 * Nesting Solarium 2.
 	 */
-	LargePlaceableProp35: { id: "1313938311664107580", name: "35_large_placeable_prop" },
+	LargePlaceableProp38: { id: "1313938311664107580", name: "38_large_placeable_prop" },
 	/**
 	 * Nesting Solarium 3.
 	 */
-	LargePlaceableProp36: { id: "1313938294031257600", name: "36_large_placeable_prop" },
+	LargePlaceableProp39: { id: "1313938294031257600", name: "39_large_placeable_prop" },
 	/**
 	 * Nesting Loft 1.
 	 */
-	LargePlaceableProp37: { id: "1313938314721759302", name: "37_large_placeable_prop" },
+	LargePlaceableProp40: { id: "1313938314721759302", name: "40_large_placeable_prop" },
 	/**
 	 * Nesting Loft 2.
 	 */
-	LargePlaceableProp38: { id: "1313938323492048906", name: "38_large_placeable_prop" },
+	LargePlaceableProp41: { id: "1313938323492048906", name: "41_large_placeable_prop" },
 	/**
 	 * Nesting Atrium 1.
 	 */
-	LargePlaceableProp39: { id: "1404328860958593107", name: "39_large_placeable_prop" },
+	LargePlaceableProp42: { id: "1404328860958593107", name: "42_large_placeable_prop" },
 	/**
 	 * Nesting Atrium 2.
 	 */
-	LargePlaceableProp40: { id: "1313938302205689857", name: "40_large_placeable_prop" },
+	LargePlaceableProp43: { id: "1313938302205689857", name: "43_large_placeable_prop" },
 	/**
 	 * Nesting Nook.
 	 */
-	LargePlaceableProp41: { id: "1313938295255863326", name: "41_large_placeable_prop" },
+	LargePlaceableProp44: { id: "1313938295255863326", name: "44_large_placeable_prop" },
 	/**
 	 * Stone stool.
 	 */
-	LargePlaceableProp42: { id: "1313938297008951347", name: "42_large_placeable_prop" },
+	LargePlaceableProp45: { id: "1313938297008951347", name: "45_large_placeable_prop" },
 	/**
 	 * Stone single bench.
 	 */
-	LargePlaceableProp43: { id: "1313938320866152499", name: "43_large_placeable_prop" },
+	LargePlaceableProp46: { id: "1313938320866152499", name: "46_large_placeable_prop" },
 	/**
 	 * Stone wood-fired oven.
 	 */
-	LargePlaceableProp44: { id: "1313938329636704276", name: "44_large_placeable_prop" },
+	LargePlaceableProp47: { id: "1313938329636704276", name: "47_large_placeable_prop" },
 	/**
 	 * Stone single bed.
 	 */
-	LargePlaceableProp45: { id: "1313938287898923018", name: "45_large_placeable_prop" },
+	LargePlaceableProp48: { id: "1313938287898923018", name: "48_large_placeable_prop" },
 	/**
 	 * Stone tall cube.
 	 */
-	LargePlaceableProp46: { id: "1313938308329504861", name: "46_large_placeable_prop" },
+	LargePlaceableProp49: { id: "1313938308329504861", name: "49_large_placeable_prop" },
 	/**
 	 * Stone chair.
 	 */
-	LargePlaceableProp47: { id: "1313938328231608340", name: "47_large_placeable_prop" },
+	LargePlaceableProp50: { id: "1313938328231608340", name: "50_large_placeable_prop" },
 	/**
 	 * Stone small table.
 	 */
-	LargePlaceableProp48: { id: "1313938322212519997", name: "48_large_placeable_prop" },
+	LargePlaceableProp51: { id: "1313938322212519997", name: "51_large_placeable_prop" },
 	/**
 	 * Stone tall shelf.
 	 */
-	LargePlaceableProp49: { id: "1313938278109679677", name: "49_large_placeable_prop" },
+	LargePlaceableProp52: { id: "1313938278109679677", name: "52_large_placeable_prop" },
 	/**
 	 * Cosy Cafe Table.
 	 */
-	LargePlaceableProp50: { id: "1313938325316309122", name: "50_large_placeable_prop" },
+	LargePlaceableProp53: { id: "1313938325316309122", name: "53_large_placeable_prop" },
 	/**
 	 * Stone bench.
 	 */
-	LargePlaceableProp51: { id: "1313938415930183720", name: "51_large_placeable_prop" },
+	LargePlaceableProp54: { id: "1313938415930183720", name: "54_large_placeable_prop" },
 	/**
 	 * Stone desk.
 	 */
-	LargePlaceableProp52: { id: "1313938418107023410", name: "52_large_placeable_prop" },
+	LargePlaceableProp55: { id: "1313938418107023410", name: "55_large_placeable_prop" },
 	/**
 	 * Stone armchair.
 	 */
-	LargePlaceableProp53: { id: "1313938421793951845", name: "53_large_placeable_prop" },
+	LargePlaceableProp56: { id: "1313938421793951845", name: "56_large_placeable_prop" },
 	/**
 	 * Stone console table.
 	 */
-	LargePlaceableProp54: { id: "1313938414235553894", name: "54_large_placeable_prop" },
+	LargePlaceableProp57: { id: "1313938414235553894", name: "57_large_placeable_prop" },
 	/**
 	 * Stone loveseat.
 	 */
-	LargePlaceableProp55: { id: "1313938419914768434", name: "55_large_placeable_prop" },
+	LargePlaceableProp58: { id: "1313938419914768434", name: "58_large_placeable_prop" },
 	/**
 	 * Stone round dining table.
 	 */
-	LargePlaceableProp56: { id: "1313938412113231933", name: "56_large_placeable_prop" },
+	LargePlaceableProp59: { id: "1313938412113231933", name: "59_large_placeable_prop" },
 	/**
 	 * Stone plant stand.
 	 */
-	LargePlaceableProp57: { id: "1313938426873118720", name: "57_large_placeable_prop" },
+	LargePlaceableProp60: { id: "1313938426873118720", name: "60_large_placeable_prop" },
 	/**
 	 * Stone sofa corner.
 	 */
-	LargePlaceableProp58: { id: "1313938425140740126", name: "58_large_placeable_prop" },
+	LargePlaceableProp61: { id: "1313938425140740126", name: "61_large_placeable_prop" },
 	/**
 	 * Stone square dining table.
 	 */
-	LargePlaceableProp59: { id: "1313938450311020647", name: "59_large_placeable_prop" },
+	LargePlaceableProp62: { id: "1313938450311020647", name: "62_large_placeable_prop" },
 	/**
 	 * Stone sofa side.
 	 */
-	LargePlaceableProp60: { id: "1313938432589828217", name: "60_large_placeable_prop" },
+	LargePlaceableProp63: { id: "1313938432589828217", name: "63_large_placeable_prop" },
 	/**
 	 * Stone long dining table.
 	 */
-	LargePlaceableProp61: { id: "1313938423228141640", name: "61_large_placeable_prop" },
+	LargePlaceableProp64: { id: "1313938423228141640", name: "64_large_placeable_prop" },
 	/**
 	 * Stone small bathtub.
 	 */
-	LargePlaceableProp62: { id: "1313938447517618257", name: "62_large_placeable_prop" },
+	LargePlaceableProp65: { id: "1313938447517618257", name: "65_large_placeable_prop" },
 	/**
 	 * Stone kitchen drawers.
 	 */
-	LargePlaceableProp63: { id: "1313938438692802560", name: "63_large_placeable_prop" },
+	LargePlaceableProp66: { id: "1313938438692802560", name: "66_large_placeable_prop" },
 	/**
 	 * Stone coffee table.
 	 */
-	LargePlaceableProp64: { id: "1313938430182428835", name: "64_large_placeable_prop" },
+	LargePlaceableProp67: { id: "1313938430182428835", name: "67_large_placeable_prop" },
 	/**
 	 * Stone candle light.
 	 */
-	LargePlaceableProp65: { id: "1313938451581898826", name: "65_large_placeable_prop" },
+	LargePlaceableProp68: { id: "1313938451581898826", name: "68_large_placeable_prop" },
 	/**
 	 * Stone washstand.
 	 */
-	LargePlaceableProp66: { id: "1313938441624490055", name: "66_large_placeable_prop" },
+	LargePlaceableProp69: { id: "1313938441624490055", name: "69_large_placeable_prop" },
 	/**
 	 * Stone kitchen cabinet.
 	 */
-	LargePlaceableProp67: { id: "1313938440320057384", name: "67_large_placeable_prop" },
+	LargePlaceableProp70: { id: "1313938440320057384", name: "70_large_placeable_prop" },
 	/**
 	 * Stone kitchen stove.
 	 */
-	LargePlaceableProp68: { id: "1313938446170980372", name: "68_large_placeable_prop" },
+	LargePlaceableProp71: { id: "1313938446170980372", name: "71_large_placeable_prop" },
 	/**
 	 * Stone wide cube.
 	 */
-	LargePlaceableProp69: { id: "1313938437308416031", name: "69_large_placeable_prop" },
+	LargePlaceableProp72: { id: "1313938437308416031", name: "72_large_placeable_prop" },
 	/**
 	 * Large bathtub.
 	 */
-	LargePlaceableProp70: { id: "1313938435668574239", name: "70_large_placeable_prop" },
+	LargePlaceableProp73: { id: "1313938435668574239", name: "73_large_placeable_prop" },
+	/**
+	 * Duets Guide (ultimate 2).
+	 */
+	LargePlaceableProp74: { id: "1313938887621480508", name: "74_large_placeable_prop" },
+	/**
+	 * The Musicians' Legacy.
+	 */
+	LargePlaceableProp75: { id: "1313938894571442327", name: "75_large_placeable_prop" },
 	/**
 	 * Sunlight Manta Float.
 	 */
-	LargePlaceableProp71: { id: "1313938434309750926", name: "71_large_placeable_prop" },
+	LargePlaceableProp76: { id: "1313938434309750926", name: "76_large_placeable_prop" },
 	/**
 	 * Moonlight Lantern Decoration.
 	 */
-	LargePlaceableProp72: { id: "1313938442387980310", name: "72_large_placeable_prop" },
+	LargePlaceableProp77: { id: "1313938442387980310", name: "77_large_placeable_prop" },
 	/**
 	 * Comfort of Kindness.
 	 */
-	LargePlaceableProp73: { id: "1313938453469069392", name: "73_large_placeable_prop" },
+	LargePlaceableProp78: { id: "1313938453469069392", name: "78_large_placeable_prop" },
 	/**
 	 * Spirit of Adventure.
 	 */
-	LargePlaceableProp74: { id: "1313938448629108809", name: "74_large_placeable_prop" },
+	LargePlaceableProp79: { id: "1313938448629108809", name: "79_large_placeable_prop" },
 	/**
 	 * Inspiration of Inclusion.
 	 */
-	LargePlaceableProp75: { id: "1313938444317233234", name: "75_large_placeable_prop" },
+	LargePlaceableProp80: { id: "1313938444317233234", name: "80_large_placeable_prop" },
 	/**
 	 * Mischief Cauldron.
 	 */
-	LargePlaceableProp76: { id: "1313938431558156288", name: "76_large_placeable_prop" },
+	LargePlaceableProp81: { id: "1313938431558156288", name: "81_large_placeable_prop" },
 	/**
 	 * Jam Station.
 	 */
-	LargePlaceableProp77: { id: "1313938428546514945", name: "77_large_placeable_prop" },
+	LargePlaceableProp82: { id: "1313938428546514945", name: "82_large_placeable_prop" },
+	/**
+	 * Fledgling Upright Piano.
+	 */
+	LargePlaceableProp83: { id: "1313938897440477215", name: "83_large_placeable_prop" },
 	/**
 	 * Wonderland Teacup Bath.
 	 */
-	LargePlaceableProp78: { id: "1320564773204791337", name: "78_large_placeable_prop" },
+	LargePlaceableProp84: { id: "1320564773204791337", name: "84_large_placeable_prop" },
 	/**
 	 * Radiance Leaping Dancer.
 	 */
-	LargePlaceableProp79: { id: "1330514299126419539", name: "79_large_placeable_prop" },
+	LargePlaceableProp85: { id: "1330514299126419539", name: "85_large_placeable_prop" },
 	/**
 	 * Fortune Vertical Poster.
 	 */
-	LargePlaceableProp80: { id: "1333205583003652096", name: "80_large_placeable_prop" },
+	LargePlaceableProp86: { id: "1333205583003652096", name: "86_large_placeable_prop" },
 	/**
 	 * Fortune Candle Flags.
 	 */
-	LargePlaceableProp81: { id: "1333206106943656057", name: "81_large_placeable_prop" },
+	LargePlaceableProp87: { id: "1333206106943656057", name: "87_large_placeable_prop" },
 	/**
 	 * Fortune Plant.
 	 */
-	LargePlaceableProp82: { id: "1333206450998214696", name: "82_large_placeable_prop" },
+	LargePlaceableProp88: { id: "1333206450998214696", name: "88_large_placeable_prop" },
 	/**
 	 * Dressing table.
 	 */
-	LargePlaceableProp83: { id: "1391669691172520028", name: "83_large_placeable_prop" },
+	LargePlaceableProp89: { id: "1391669691172520028", name: "89_large_placeable_prop" },
 	/**
 	 * Blue stool.
 	 */
-	LargePlaceableProp84: { id: "1391669703046332457", name: "84_large_placeable_prop" },
+	LargePlaceableProp90: { id: "1391669703046332457", name: "90_large_placeable_prop" },
 	/**
 	 * Floor curtain.
 	 */
-	LargePlaceableProp85: { id: "1391669711476883609", name: "85_large_placeable_prop" },
+	LargePlaceableProp91: { id: "1391669711476883609", name: "91_large_placeable_prop" },
 	/**
 	 * Left curtain.
 	 */
-	LargePlaceableProp86: { id: "1391669720335388702", name: "87_large_placeable_prop" },
+	LargePlaceableProp92: { id: "1391669720335388702", name: "92_large_placeable_prop" },
 	/**
 	 * Blue Bird Guide (non-ultimate).
 	 */
-	LargePlaceableProp87: { id: "1389136116308774962", name: "87_large_placeable_prop" },
+	LargePlaceableProp93: { id: "1389136116308774962", name: "93_large_placeable_prop" },
 	/**
 	 * Anniversary Film Seats.
 	 */
-	LargePlaceableProp88: { id: "1391822982787108884", name: "88_large_placeable_prop" },
+	LargePlaceableProp94: { id: "1391822982787108884", name: "94_large_placeable_prop" },
 	/**
 	 * Resourceful Recluse 1.
 	 */
-	LargePlaceableProp89: { id: "1396956391478001894", name: "89_large_placeable_prop" },
+	LargePlaceableProp95: { id: "1396956391478001894", name: "95_large_placeable_prop" },
 	/**
 	 * Resourceful Recluse 2.
 	 */
-	LargePlaceableProp90: { id: "1396956605022732379", name: "90_large_placeable_prop" },
+	LargePlaceableProp96: { id: "1396956605022732379", name: "96_large_placeable_prop" },
 	/**
 	 * Sky Balloon Prop.
 	 */
-	LargePlaceableProp91: { id: "1401821013708242945", name: "91_large_placeable_prop" },
+	LargePlaceableProp97: { id: "1401821013708242945", name: "97_large_placeable_prop" },
 	/**
 	 * Balloon Arch.
 	 */
-	LargePlaceableProp92: { id: "1401820180027412540", name: "92_large_placeable_prop" },
+	LargePlaceableProp98: { id: "1401820180027412540", name: "98_large_placeable_prop" },
 	/**
 	 * Moonlight Basin.
 	 */
-	LargePlaceableProp93: { id: "1422145351481036862", name: "93_large_placeable_prop" },
+	LargePlaceableProp99: { id: "1422145351481036862", name: "99_large_placeable_prop" },
 	/**
 	 * Mischief Withered Sapling.
 	 */
-	LargePlaceableProp94: { id: "1433424877750190100", name: "94_large_placeable_prop" },
+	LargePlaceableProp100: { id: "1433424877750190100", name: "100_large_placeable_prop" },
 	/**
 	 * Puzzle Box.
 	 */
-	LargePlaceableProp95: { id: "1433424881311027362", name: "95_large_placeable_prop" },
+	LargePlaceableProp101: { id: "1433424881311027362", name: "101_large_placeable_prop" },
 	/**
 	 * Puzzle Chest.
 	 */
-	LargePlaceableProp96: { id: "1433424885493006416", name: "96_large_placeable_prop" },
+	LargePlaceableProp102: { id: "1433424885493006416", name: "102_large_placeable_prop" },
 	/**
 	 * Puzzle Cage.
 	 */
-	LargePlaceableProp97: { id: "1433424887216607383", name: "97_large_placeable_prop" },
+	LargePlaceableProp103: { id: "1433424887216607383", name: "103_large_placeable_prop" },
 	/**
 	 * Migration Guide (non-ultimate).
 	 */
-	LargePlaceableProp98: { id: "1451111865974259794", name: "98_large_placeable_prop" },
+	LargePlaceableProp104: { id: "1451111865974259794", name: "104_large_placeable_prop" },
 	/**
 	 * Horizontal ice block.
 	 */
-	LargePlaceableProp99: { id: "1453075356826337372", name: "99_large_placeable_prop" },
+	LargePlaceableProp105: { id: "1453075356826337372", name: "105_large_placeable_prop" },
 	/**
 	 * Vertical ice block.
 	 */
-	LargePlaceableProp100: { id: "1453075360055824524", name: "100_large_placeable_prop" },
+	LargePlaceableProp106: { id: "1453075360055824524", name: "106_large_placeable_prop" },
 	/**
 	 * Ice concave slide.
 	 */
-	LargePlaceableProp101: { id: "1453075364028088572", name: "101_large_placeable_prop" },
+	LargePlaceableProp107: { id: "1453075364028088572", name: "107_large_placeable_prop" },
 	/**
 	 * Ice convex slide.
 	 */
-	LargePlaceableProp102: { id: "1453075367891042473", name: "102_large_placeable_prop" },
+	LargePlaceableProp108: { id: "1453075367891042473", name: "108_large_placeable_prop" },
 	/**
 	 * Ice stool.
 	 */
-	LargePlaceableProp103: { id: "1453075371514794106", name: "103_large_placeable_prop" },
+	LargePlaceableProp109: { id: "1453075371514794106", name: "109_large_placeable_prop" },
 	/**
 	 * Ice small table.
 	 */
-	LargePlaceableProp104: { id: "1453075375251787908", name: "104_large_placeable_prop" },
+	LargePlaceableProp110: { id: "1453075375251787908", name: "110_large_placeable_prop" },
 	/**
 	 * Tournament podium.
 	 */
-	LargePlaceableProp105: { id: "1481575598416597002", name: "105_large_placeable_prop" },
+	LargePlaceableProp111: { id: "1481575598416597002", name: "111_large_placeable_prop" },
 	/**
 	 * Days of Fortune 2026.
 	 */
-	LargePlaceableProp106: { id: "1471653526777364491", name: "106_large_placeable_prop" },
+	LargePlaceableProp112: { id: "1471653526777364491", name: "112_large_placeable_prop" },
 	/**
 	 * Sunflower Round Table.
 	 */
-	LargePlaceableProp107: { id: "1482686827856003173", name: "107_large_placeable_prop" },
+	LargePlaceableProp113: { id: "1482686827856003173", name: "113_large_placeable_prop" },
 	/**
 	 * Sunflower Ladder.
 	 */
-	LargePlaceableProp108: { id: "1482686829319688275", name: "108_large_placeable_prop" },
+	LargePlaceableProp114: { id: "1482686829319688275", name: "114_large_placeable_prop" },
 	/**
 	 * Days of Nature 2026.
 	 */
-	LargePlaceableProp109: { id: "1492226478887407696", name: "109_large_placeable_prop" },
+	LargePlaceableProp115: { id: "1492226478887407696", name: "115_large_placeable_prop" },
 	/**
 	 * Bounce pad 1.
 	 */
-	LargePlaceableProp110: { id: "1494694936971317468", name: "110_large_placeable_prop" },
+	LargePlaceableProp116: { id: "1494694936971317468", name: "116_large_placeable_prop" },
 	/**
 	 * Carnival Guide (non-ultimate).
 	 */
-	LargePlaceableProp111: { id: "1494694938573799666", name: "111_large_placeable_prop" },
+	LargePlaceableProp117: { id: "1494694938573799666", name: "117_large_placeable_prop" },
 	/**
 	 * Days of Treasure 2026 1.
 	 */
-	LargePlaceableProp112: { id: "1559295436391719013", name: "112_large_placeable_prop" },
+	LargePlaceableProp118: { id: "1559295436391719013", name: "118_large_placeable_prop" },
 	/**
 	 * Days of Treasure 2026 2.
 	 */
-	LargePlaceableProp113: { id: "1502288919545249972", name: "113_large_placeable_prop" },
+	LargePlaceableProp119: { id: "1502288919545249972", name: "119_large_placeable_prop" },
 	/**
 	 * Bounce pad 2.
 	 */
-	LargePlaceableProp114: { id: "1506377579098148984", name: "114_large_placeable_prop" },
+	LargePlaceableProp120: { id: "1506377579098148984", name: "120_large_placeable_prop" },
 	/**
 	 * Bounce pad 3.
 	 */
-	LargePlaceableProp115: { id: "1506377582528954478", name: "115_large_placeable_prop" },
+	LargePlaceableProp121: { id: "1506377582528954478", name: "121_large_placeable_prop" },
 	/**
 	 * Days of Colour 2026 manatee kite.
 	 */
-	LargePlaceableProp116: { id: "1510008602650214410", name: "116_large_placeable_prop" },
+	LargePlaceableProp122: { id: "1510008602650214410", name: "122_large_placeable_prop" },
 	/**
 	 * Days of Colour 2026 whale kite.
 	 */
-	LargePlaceableProp117: { id: "1510008605586489405", name: "117_large_placeable_prop" },
+	LargePlaceableProp123: { id: "1510008605586489405", name: "123_large_placeable_prop" },
 	/**
 	 * Days of Colour 2026 lighthorn kite.
 	 */
-	LargePlaceableProp118: { id: "1510008607276794107", name: "118_large_placeable_prop" },
+	LargePlaceableProp124: { id: "1510008607276794107", name: "124_large_placeable_prop" },
 	/**
 	 * Vase with Fifteen Sunflowers (ultimate).
 	 */
-	LargePlaceableProp119: { id: "1529588114266390631", name: "119_large_placeable_prop" },
+	LargePlaceableProp125: { id: "1529588114266390631", name: "125_large_placeable_prop" },
 	/**
 	 * Sunlight Crab Float.
 	 */
-	LargePlaceableProp120: { id: "1532453834582921296", name: "120_large_placeable_prop" },
+	LargePlaceableProp126: { id: "1532453834582921296", name: "126_large_placeable_prop" },
 	/**
 	 * Vase with Fifteen Sunflowers (non-ultimate).
 	 */
-	LargePlaceableProp121: { id: "1548408985445474344", name: "121_large_placeable_prop" },
+	LargePlaceableProp127: { id: "1548408985445474344", name: "127_large_placeable_prop" },
 	/**
 	 * Summer Camping 2026.
 	 */
-	LargePlaceableProp122: { id: "1542584833166016612", name: "122_large_placeable_prop" },
+	LargePlaceableProp128: { id: "1542584833166016612", name: "128_large_placeable_prop" },
 	/**
 	 * Summer Camping 2026.
 	 */
-	LargePlaceableProp123: { id: "1542584836894756864", name: "123_large_placeable_prop" },
+	LargePlaceableProp129: { id: "1542584836894756864", name: "129_large_placeable_prop" },
 	/**
 	 * Summer Camping 2026.
 	 */
-	LargePlaceableProp124: { id: "1542584839285375036", name: "124_large_placeable_prop" },
+	LargePlaceableProp130: { id: "1542584839285375036", name: "130_large_placeable_prop" },
 	/**
 	 * Summer Camping 2026.
 	 */
-	LargePlaceableProp125: { id: "1542584841541779567", name: "125_large_placeable_prop" },
+	LargePlaceableProp131: { id: "1542584841541779567", name: "131_large_placeable_prop" },
 	/**
 	 * Stone small cube.
 	 */
-	LargePlaceableProp126: { id: "1553338329611771924", name: "126_large_placeable_prop" },
+	LargePlaceableProp132: { id: "1553338329611771924", name: "132_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
-	 * Days of Love 2020.
-	 */
-	SmallPlaceableProp01: { id: "1313938750883233884", name: "01_small_placeable_prop" },
-	/**
-	 * Days of Love Seesaw.
-	 */
-	SmallPlaceableProp02: { id: "1313938691462533174", name: "02_small_placeable_prop" },
-	/**
 	 * Assembly Guide (non-ultimate 3).
 	 */
-	SmallPlaceableProp03: { id: "1313938676207587328", name: "03_small_placeable_prop" },
+	SmallPlaceableProp01: { id: "1313938676207587328", name: "01_small_placeable_prop" },
 	/**
 	 * Assembly Guide (non-ultimate 4).
 	 */
-	SmallPlaceableProp04: { id: "1313938740204277770", name: "04_small_placeable_prop" },
+	SmallPlaceableProp02: { id: "1313938740204277770", name: "02_small_placeable_prop" },
 	/**
 	 * The Rose.
 	 */
-	SmallPlaceableProp05: { id: "1313938692800385135", name: "05_small_placeable_prop" },
+	SmallPlaceableProp03: { id: "1313938692800385135", name: "03_small_placeable_prop" },
 	/**
 	 * Little Prince Fox.
 	 */
-	SmallPlaceableProp06: { id: "1313938745208344666", name: "06_small_placeable_prop" },
+	SmallPlaceableProp04: { id: "1313938745208344666", name: "04_small_placeable_prop" },
 	/**
 	 * Second Sky Anniversary.
 	 */
-	SmallPlaceableProp07: { id: "1313938674169413645", name: "07_small_placeable_prop" },
+	SmallPlaceableProp05: { id: "1313938674169413645", name: "05_small_placeable_prop" },
 	/**
 	 * Mischief Pumpkin Prop.
 	 */
-	SmallPlaceableProp08: { id: "1313938696096976987", name: "08_small_placeable_prop" },
+	SmallPlaceableProp06: { id: "1313938696096976987", name: "06_small_placeable_prop" },
 	/**
 	 * Wise Grandparent.
 	 */
-	SmallPlaceableProp09: { id: "1313938752552439888", name: "09_small_placeable_prop" },
+	SmallPlaceableProp07: { id: "1313938752552439888", name: "07_small_placeable_prop" },
 	/**
 	 * Winter Feast Pillow.
 	 */
-	SmallPlaceableProp10: { id: "1313938729295155304", name: "10_small_placeable_prop" },
+	SmallPlaceableProp08: { id: "1313938729295155304", name: "08_small_placeable_prop" },
 	/**
 	 * Winter Feast Snowglobe.
 	 */
-	SmallPlaceableProp11: { id: "1313938733124288532", name: "11_small_placeable_prop" },
+	SmallPlaceableProp09: { id: "1313938733124288532", name: "09_small_placeable_prop" },
 	/**
 	 * Sparkler Parent.
 	 */
-	SmallPlaceableProp12: { id: "1313938743832346714", name: "12_small_placeable_prop" },
+	SmallPlaceableProp10: { id: "1313938743832346714", name: "10_small_placeable_prop" },
 	/**
 	 * Prophet of Earth.
 	 */
-	SmallPlaceableProp13: { id: "1313938731438313563", name: "13_small_placeable_prop" },
+	SmallPlaceableProp11: { id: "1313938731438313563", name: "11_small_placeable_prop" },
 	/**
 	 * Days of Love Gondola.
 	 */
-	SmallPlaceableProp14: { id: "1313938727873019914", name: "14_small_placeable_prop" },
+	SmallPlaceableProp12: { id: "1313938727873019914", name: "12_small_placeable_prop" },
 	/**
 	 * Prophet of Air.
 	 */
-	SmallPlaceableProp15: { id: "1313938724882747473", name: "15_small_placeable_prop" },
+	SmallPlaceableProp13: { id: "1313938724882747473", name: "13_small_placeable_prop" },
 	/**
 	 * Balloon.
 	 */
-	SmallPlaceableProp16: { id: "1313938749385867334", name: "16_small_placeable_prop" },
+	SmallPlaceableProp14: { id: "1313938749385867334", name: "14_small_placeable_prop" },
 	/**
 	 * Confetti launcher.
 	 */
-	SmallPlaceableProp17: { id: "1313938747477463092", name: "17_small_placeable_prop" },
+	SmallPlaceableProp15: { id: "1313938747477463092", name: "15_small_placeable_prop" },
 	/**
 	 * Sunlight Campfire Snack Kit.
 	 */
-	SmallPlaceableProp18: { id: "1313938710672179342", name: "18_small_placeable_prop" },
+	SmallPlaceableProp16: { id: "1313938710672179342", name: "16_small_placeable_prop" },
 	/**
 	 * Feline Familiar Prop.
 	 */
-	SmallPlaceableProp19: { id: "1313938735859241060", name: "19_small_placeable_prop" },
+	SmallPlaceableProp17: { id: "1313938735859241060", name: "17_small_placeable_prop" },
 	/**
 	 * Prophet of Water.
 	 */
-	SmallPlaceableProp20: { id: "1313938721233440828", name: "20_small_placeable_prop" },
-	/**
-	 * Tournament Skyball Set.
-	 */
-	SmallPlaceableProp21: { id: "1313938767324909579", name: "21_small_placeable_prop" },
+	SmallPlaceableProp18: { id: "1313938721233440828", name: "18_small_placeable_prop" },
 	/**
 	 * Remembrance Guide (non-ultimate 1).
 	 */
-	SmallPlaceableProp22: { id: "1313938758755946577", name: "22_small_placeable_prop" },
+	SmallPlaceableProp19: { id: "1313938758755946577", name: "19_small_placeable_prop" },
 	/**
 	 * Remembrance Guide (non-ultimate 4).
 	 */
-	SmallPlaceableProp23: { id: "1313938681203130408", name: "23_small_placeable_prop" },
+	SmallPlaceableProp20: { id: "1313938681203130408", name: "20_small_placeable_prop" },
 	/**
 	 * Remembrance Guide (non-ultimate 5).
 	 */
-	SmallPlaceableProp24: { id: "1313938665478553630", name: "24_small_placeable_prop" },
+	SmallPlaceableProp21: { id: "1313938665478553630", name: "21_small_placeable_prop" },
 	/**
 	 * Bloom Butterfly Fountain.
 	 */
-	SmallPlaceableProp25: { id: "1313938682926989362", name: "25_small_placeable_prop" },
+	SmallPlaceableProp22: { id: "1313938682926989362", name: "22_small_placeable_prop" },
 	/**
 	 * Passage Guide (non-ultimate).
 	 */
-	SmallPlaceableProp26: { id: "1313938677432320031", name: "26_small_placeable_prop" },
+	SmallPlaceableProp23: { id: "1313938677432320031", name: "23_small_placeable_prop" },
 	/**
 	 * Nature Sonorous Seashell.
 	 */
-	SmallPlaceableProp27: { id: "1313938760521613373", name: "27_small_placeable_prop" },
+	SmallPlaceableProp24: { id: "1313938760521613373", name: "24_small_placeable_prop" },
 	/**
 	 * Jolly Geologist.
 	 */
-	SmallPlaceableProp28: { id: "1313938672567189605", name: "28_small_placeable_prop" },
+	SmallPlaceableProp25: { id: "1313938672567189605", name: "25_small_placeable_prop" },
 	/**
 	 * Anniversary Sonorous Seashell.
 	 */
-	SmallPlaceableProp29: { id: "1313938679206645821", name: "29_small_placeable_prop" },
+	SmallPlaceableProp26: { id: "1313938679206645821", name: "26_small_placeable_prop" },
 	/**
 	 * Anniversary Plush.
 	 */
-	SmallPlaceableProp30: { id: "1313938737452945479", name: "30_small_placeable_prop" },
+	SmallPlaceableProp27: { id: "1313938737452945479", name: "27_small_placeable_prop" },
 	/**
 	 * Prophet of Fire 2.
 	 */
-	SmallPlaceableProp31: { id: "1313938670545408023", name: "31_small_placeable_prop" },
+	SmallPlaceableProp28: { id: "1313938670545408023", name: "28_small_placeable_prop" },
 	/**
 	 * Sunlight Surfboard.
 	 */
-	SmallPlaceableProp32: { id: "1313938669287243838", name: "32_small_placeable_prop" },
+	SmallPlaceableProp29: { id: "1313938669287243838", name: "29_small_placeable_prop" },
 	/**
 	 * Days of Feast 2023.
 	 */
-	SmallPlaceableProp33: { id: "1313938684562899084", name: "33_small_placeable_prop" },
+	SmallPlaceableProp30: { id: "1313938684562899084", name: "30_small_placeable_prop" },
 	/**
 	 * Herb Gatherer.
 	 */
-	SmallPlaceableProp34: { id: "1313938667059937381", name: "34_small_placeable_prop" },
+	SmallPlaceableProp31: { id: "1313938667059937381", name: "31_small_placeable_prop" },
 	/**
 	 * Love Heart Plushie.
 	 */
-	SmallPlaceableProp35: { id: "1313938694880886815", name: "35_small_placeable_prop" },
+	SmallPlaceableProp32: { id: "1313938694880886815", name: "32_small_placeable_prop" },
 	/**
 	 * Companion Cube.
 	 */
-	SmallPlaceableProp36: { id: "1313938772156747826", name: "36_small_placeable_prop" },
+	SmallPlaceableProp33: { id: "1313938772156747826", name: "33_small_placeable_prop" },
 	/**
 	 * Nesting Guide (ultimate).
 	 */
-	SmallPlaceableProp37: { id: "1313938726564397076", name: "37_small_placeable_prop" },
+	SmallPlaceableProp34: { id: "1313938726564397076", name: "34_small_placeable_prop" },
 	/**
 	 * Nesting Solarium.
 	 */
-	SmallPlaceableProp38: { id: "1313938741840318535", name: "38_small_placeable_prop" },
+	SmallPlaceableProp35: { id: "1313938741840318535", name: "35_small_placeable_prop" },
 	/**
 	 * Nesting Loft.
 	 */
-	SmallPlaceableProp39: { id: "1313938766099906590", name: "39_small_placeable_prop" },
+	SmallPlaceableProp36: { id: "1313938766099906590", name: "36_small_placeable_prop" },
 	/**
 	 * Nesting Atrium.
 	 */
-	SmallPlaceableProp40: { id: "1313938712551489649", name: "40_small_placeable_prop" },
+	SmallPlaceableProp37: { id: "1313938712551489649", name: "37_small_placeable_prop" },
 	/**
 	 * Nesting Nook 1.
 	 */
-	SmallPlaceableProp41: { id: "1313938756184834111", name: "41_small_placeable_prop" },
+	SmallPlaceableProp38: { id: "1313938756184834111", name: "38_small_placeable_prop" },
 	/**
 	 * Nesting Nook 2.
 	 */
-	SmallPlaceableProp42: { id: "1313938738711232564", name: "42_small_placeable_prop" },
+	SmallPlaceableProp39: { id: "1313938738711232564", name: "39_small_placeable_prop" },
 	/**
 	 * Decor pillow one colour.
 	 */
-	SmallPlaceableProp43: { id: "1313938754729410670", name: "43_small_placeable_prop" },
+	SmallPlaceableProp40: { id: "1313938754729410670", name: "40_small_placeable_prop" },
 	/**
 	 * Cinnamoroll Pop-Up Cafe Plushie.
 	 */
-	SmallPlaceableProp44: { id: "1313938723414474762", name: "44_small_placeable_prop" },
+	SmallPlaceableProp41: { id: "1313938723414474762", name: "41_small_placeable_prop" },
 	/**
 	 * Decor pillow two colours.
 	 */
-	SmallPlaceableProp45: { id: "1313938762509848738", name: "45_small_placeable_prop" },
+	SmallPlaceableProp42: { id: "1313938762509848738", name: "42_small_placeable_prop" },
 	/**
 	 * Small solid rug.
 	 */
-	SmallPlaceableProp46: { id: "1313938746600853504", name: "46_small_placeable_prop" },
+	SmallPlaceableProp43: { id: "1313938746600853504", name: "43_small_placeable_prop" },
 	/**
 	 * Decor folded cloth.
 	 */
-	SmallPlaceableProp47: { id: "1313938770680352799", name: "47_small_placeable_prop" },
+	SmallPlaceableProp44: { id: "1313938770680352799", name: "44_small_placeable_prop" },
 	/**
 	 * Small stripes rug.
 	 */
-	SmallPlaceableProp48: { id: "1313938763969331272", name: "48_small_placeable_prop" },
+	SmallPlaceableProp45: { id: "1313938763969331272", name: "45_small_placeable_prop" },
 	/**
 	 * Small classic rug.
 	 */
-	SmallPlaceableProp49: { id: "1313938734290440234", name: "49_small_placeable_prop" },
+	SmallPlaceableProp46: { id: "1313938734290440234", name: "46_small_placeable_prop" },
 	/**
 	 * Stone wall sconce.
 	 */
-	SmallPlaceableProp50: { id: "1313938768952295486", name: "50_small_placeable_prop" },
+	SmallPlaceableProp47: { id: "1313938768952295486", name: "47_small_placeable_prop" },
 	/**
 	 * Small half-circle rug.
 	 */
-	SmallPlaceableProp51: { id: "1313938851504324648", name: "51_small_placeable_prop" },
+	SmallPlaceableProp48: { id: "1313938851504324648", name: "48_small_placeable_prop" },
 	/**
 	 * Medium solid rug.
 	 */
-	SmallPlaceableProp52: { id: "1313938867090493560", name: "52_small_placeable_prop" },
+	SmallPlaceableProp49: { id: "1313938867090493560", name: "49_small_placeable_prop" },
 	/**
 	 * Stone figurine.
 	 */
-	SmallPlaceableProp53: { id: "1313938853970710608", name: "53_small_placeable_prop" },
+	SmallPlaceableProp50: { id: "1313938853970710608", name: "50_small_placeable_prop" },
 	/**
 	 * Medium stripes rug.
 	 */
-	SmallPlaceableProp54: { id: "1313938856562917467", name: "54_small_placeable_prop" },
+	SmallPlaceableProp51: { id: "1313938856562917467", name: "51_small_placeable_prop" },
 	/**
 	 * Instrument stand.
 	 */
-	SmallPlaceableProp55: { id: "1313938857955295334", name: "55_small_placeable_prop" },
+	SmallPlaceableProp52: { id: "1313938857955295334", name: "52_small_placeable_prop" },
 	/**
 	 * Stone wall pot rack.
 	 */
-	SmallPlaceableProp56: { id: "1313938893061488640", name: "56_small_placeable_prop" },
+	SmallPlaceableProp53: { id: "1313938893061488640", name: "53_small_placeable_prop" },
 	/**
 	 * Stone closed box.
 	 */
-	SmallPlaceableProp57: { id: "1313938861440766043", name: "57_small_placeable_prop" },
+	SmallPlaceableProp54: { id: "1313938861440766043", name: "54_small_placeable_prop" },
 	/**
 	 * Medium diamonds rug.
 	 */
-	SmallPlaceableProp58: { id: "1313938859553460234", name: "58_small_placeable_prop" },
+	SmallPlaceableProp55: { id: "1313938859553460234", name: "55_small_placeable_prop" },
 	/**
 	 * Music player.
 	 */
-	SmallPlaceableProp59: { id: "1313938863239987220", name: "59_small_placeable_prop" },
+	SmallPlaceableProp56: { id: "1313938863239987220", name: "56_small_placeable_prop" },
 	/**
 	 * Stone empty box.
 	 */
-	SmallPlaceableProp60: { id: "1313938865383411763", name: "60_small_placeable_prop" },
+	SmallPlaceableProp57: { id: "1313938865383411763", name: "57_small_placeable_prop" },
 	/**
 	 * Stone wall mirror.
 	 */
-	SmallPlaceableProp61: { id: "1313938889077166100", name: "61_small_placeable_prop" },
+	SmallPlaceableProp58: { id: "1313938889077166100", name: "58_small_placeable_prop" },
 	/**
 	 * Medium argyle rug.
 	 */
-	SmallPlaceableProp62: { id: "1313938885939695698", name: "62_small_placeable_prop" },
+	SmallPlaceableProp59: { id: "1313938885939695698", name: "59_small_placeable_prop" },
 	/**
 	 * Colour Bubble Machine.
 	 */
-	SmallPlaceableProp63: { id: "1313938855237255238", name: "63_small_placeable_prop" },
+	SmallPlaceableProp60: { id: "1313938855237255238", name: "60_small_placeable_prop" },
 	/**
 	 * Stone wall mug rack.
 	 */
-	SmallPlaceableProp64: { id: "1313938883582623805", name: "64_small_placeable_prop" },
+	SmallPlaceableProp61: { id: "1313938883582623805", name: "61_small_placeable_prop" },
 	/**
 	 * Stone wall towel rack.
 	 */
-	SmallPlaceableProp65: { id: "1313938901919862815", name: "65_small_placeable_prop" },
+	SmallPlaceableProp62: { id: "1313938901919862815", name: "62_small_placeable_prop" },
 	/**
 	 * Medium circle rug.
 	 */
-	SmallPlaceableProp66: { id: "1313938869921779722", name: "66_small_placeable_prop" },
+	SmallPlaceableProp63: { id: "1313938869921779722", name: "63_small_placeable_prop" },
 	/**
 	 * Stone wall shelf.
 	 */
-	SmallPlaceableProp67: { id: "1313938903937450005", name: "67_small_placeable_prop" },
+	SmallPlaceableProp64: { id: "1313938903937450005", name: "64_small_placeable_prop" },
 	/**
 	 * Large solid rug.
 	 */
-	SmallPlaceableProp68: { id: "1313938899307073536", name: "68_small_placeable_prop" },
+	SmallPlaceableProp65: { id: "1313938899307073536", name: "65_small_placeable_prop" },
 	/**
 	 * Large circle rug.
 	 */
-	SmallPlaceableProp69: { id: "1313938868562690080", name: "69_small_placeable_prop" },
+	SmallPlaceableProp66: { id: "1313938868562690080", name: "66_small_placeable_prop" },
 	/**
 	 * SkyFest Star Jar.
 	 */
-	SmallPlaceableProp70: { id: "1313938871343644732", name: "70_small_placeable_prop" },
+	SmallPlaceableProp67: { id: "1313938871343644732", name: "67_small_placeable_prop" },
 	/**
 	 * Duets Guide (ultimate 1).
 	 */
-	SmallPlaceableProp71: { id: "1313938875307131053", name: "71_small_placeable_prop" },
-	/**
-	 * Duets Guide (ultimate 2).
-	 */
-	SmallPlaceableProp72: { id: "1313938887621480508", name: "72_small_placeable_prop" },
+	SmallPlaceableProp68: { id: "1313938875307131053", name: "68_small_placeable_prop" },
 	/**
 	 * The Cellist's Beginnings.
 	 */
-	SmallPlaceableProp73: { id: "1313938905610981429", name: "73_small_placeable_prop" },
+	SmallPlaceableProp69: { id: "1313938905610981429", name: "69_small_placeable_prop" },
 	/**
 	 * The Pianist's Beginnings 1.
 	 */
-	SmallPlaceableProp74: { id: "1313938876955365517", name: "74_small_placeable_prop" },
+	SmallPlaceableProp70: { id: "1313938876955365517", name: "70_small_placeable_prop" },
 	/**
 	 * The Pianist's Beginnings 2.
 	 */
-	SmallPlaceableProp75: { id: "1313938878578823268", name: "75_small_placeable_prop" },
-	/**
-	 * The Musicians' Legacy.
-	 */
-	SmallPlaceableProp76: { id: "1313938894571442327", name: "76_small_placeable_prop" },
+	SmallPlaceableProp71: { id: "1313938878578823268", name: "71_small_placeable_prop" },
 	/**
 	 * The Cellist's Flourishing 1.
 	 */
-	SmallPlaceableProp77: { id: "1313938879857823855", name: "77_small_placeable_prop" },
+	SmallPlaceableProp72: { id: "1313938879857823855", name: "72_small_placeable_prop" },
 	/**
 	 * The Cellist's Flourishing 2.
 	 */
-	SmallPlaceableProp78: { id: "1313938873021235241", name: "78_small_placeable_prop" },
+	SmallPlaceableProp73: { id: "1313938873021235241", name: "73_small_placeable_prop" },
 	/**
 	 * The Pianist's Flourishing.
 	 */
-	SmallPlaceableProp79: { id: "1313938881854308443", name: "79_small_placeable_prop" },
+	SmallPlaceableProp74: { id: "1313938881854308443", name: "74_small_placeable_prop" },
 	/**
 	 * The Moomin Storybook (ultimate).
 	 */
-	SmallPlaceableProp80: { id: "1313938896350085141", name: "80_small_placeable_prop" },
+	SmallPlaceableProp75: { id: "1313938896350085141", name: "75_small_placeable_prop" },
 	/**
 	 * Comfort of Kindness.
 	 */
-	SmallPlaceableProp81: { id: "1313938907049492491", name: "81_small_placeable_prop" },
+	SmallPlaceableProp76: { id: "1313938907049492491", name: "76_small_placeable_prop" },
 	/**
 	 * Inspiration of Inclusion.
 	 */
-	SmallPlaceableProp82: { id: "1313938900712030318", name: "82_small_placeable_prop" },
+	SmallPlaceableProp77: { id: "1313938900712030318", name: "77_small_placeable_prop" },
 	/**
 	 * Hanging mask.
 	 */
-	SmallPlaceableProp83: { id: "1313938890666803230", name: "83_small_placeable_prop" },
-	/**
-	 * Hanging mask.
-	 */
-	SmallPlaceableProp84: { id: "1313938897440477215", name: "84_small_placeable_prop" },
+	SmallPlaceableProp78: { id: "1313938890666803230", name: "78_small_placeable_prop" },
 	/**
 	 * The Moomin Storybook (non-ultimate).
 	 */
-	SmallPlaceableProp85: { id: "1315723498727145513", name: "85_small_placeable_prop" },
+	SmallPlaceableProp79: { id: "1315723498727145513", name: "79_small_placeable_prop" },
 	/**
 	 * Wonderland Cafe Corridor.
 	 */
-	SmallPlaceableProp86: { id: "1320566969392435303", name: "86_small_placeable_prop" },
+	SmallPlaceableProp80: { id: "1320566969392435303", name: "80_small_placeable_prop" },
 	/**
 	 * Days of Love Violet Crystal.
 	 */
-	SmallPlaceableProp87: { id: "1338230430813520012", name: "87_small_placeable_prop" },
+	SmallPlaceableProp81: { id: "1338230430813520012", name: "81_small_placeable_prop" },
 	/**
 	 * Bloom Rose Jar.
 	 */
-	SmallPlaceableProp88: { id: "1353522647463624875", name: "88_small_placeable_prop" },
+	SmallPlaceableProp82: { id: "1353522647463624875", name: "82_small_placeable_prop" },
 	/**
 	 * Flower vase.
 	 */
-	SmallPlaceableProp89: { id: "1391669733245583370", name: "89_small_placeable_prop" },
+	SmallPlaceableProp83: { id: "1391669733245583370", name: "83_small_placeable_prop" },
 	/**
 	 * Small crescent rug.
 	 */
-	SmallPlaceableProp90: { id: "1391669740564381847", name: "90_small_placeable_prop" },
+	SmallPlaceableProp84: { id: "1391669740564381847", name: "84_small_placeable_prop" },
 	/**
 	 * Decorative stick jar.
 	 */
-	SmallPlaceableProp91: { id: "1391669748420575322", name: "91_small_placeable_prop" },
+	SmallPlaceableProp85: { id: "1391669748420575322", name: "85_small_placeable_prop" },
 	/**
 	 * Tender Toymaker.
 	 */
-	SmallPlaceableProp92: { id: "1396906802330865715", name: "92_small_placeable_prop" },
+	SmallPlaceableProp86: { id: "1396906802330865715", name: "86_small_placeable_prop" },
 	/**
 	 * Blue Carpet.
 	 */
-	SmallPlaceableProp93: { id: "1401820772309270588", name: "93_small_placeable_prop" },
+	SmallPlaceableProp87: { id: "1401820772309270588", name: "87_small_placeable_prop" },
 	/**
 	 * Manatee Plush.
 	 */
-	SmallPlaceableProp94: { id: "1399294985655947375", name: "94_small_placeable_prop" },
+	SmallPlaceableProp88: { id: "1399294985655947375", name: "88_small_placeable_prop" },
 	// Sky Creator Award not yet created.
 	/**
 	 * Vault Elder's Lantern (non-ultimate).
 	 */
-	SmallPlaceableProp96: { id: "1414165166928691281", name: "96_small_placeable_prop" },
+	SmallPlaceableProp90: { id: "1414165166928691281", name: "90_small_placeable_prop" },
 	/**
 	 * Caring Companion.
 	 */
-	SmallPlaceableProp97: { id: "1410974814767681566", name: "97_small_placeable_prop" },
+	SmallPlaceableProp91: { id: "1410974814767681566", name: "91_small_placeable_prop" },
 	/**
 	 * Sunlight Wave Projector.
 	 */
-	SmallPlaceableProp98: { id: "1412356286833627157", name: "98_small_placeable_prop" },
+	SmallPlaceableProp92: { id: "1412356286833627157", name: "92_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 1.
 	 */
-	SmallPlaceableProp99: { id: "1412362936252629072", name: "99_small_placeable_prop" },
+	SmallPlaceableProp93: { id: "1412362936252629072", name: "93_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 2.
 	 */
-	SmallPlaceableProp100: { id: "1412362954199924787", name: "100_small_placeable_prop" },
+	SmallPlaceableProp94: { id: "1412362954199924787", name: "94_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 3.
 	 */
-	SmallPlaceableProp101: { id: "1412362978061189281", name: "101_small_placeable_prop" },
+	SmallPlaceableProp95: { id: "1412362978061189281", name: "95_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 4.
 	 */
-	SmallPlaceableProp102: { id: "1412362986105999400", name: "102_small_placeable_prop" },
+	SmallPlaceableProp96: { id: "1412362986105999400", name: "96_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 5.
 	 */
-	SmallPlaceableProp103: { id: "1412362994616369212", name: "103_small_placeable_prop" },
+	SmallPlaceableProp97: { id: "1412362994616369212", name: "97_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 6.
 	 */
-	SmallPlaceableProp104: { id: "1412363003201982546", name: "104_small_placeable_prop" },
+	SmallPlaceableProp98: { id: "1412363003201982546", name: "98_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 7.
 	 */
-	SmallPlaceableProp105: { id: "1412363013624959056", name: "105_small_placeable_prop" },
+	SmallPlaceableProp99: { id: "1412363013624959056", name: "99_small_placeable_prop" },
 	/**
 	 * Projector of Memories.
 	 */
-	SmallPlaceableProp106: { id: "1413962451191464036", name: "106_small_placeable_prop" },
+	SmallPlaceableProp100: { id: "1413962451191464036", name: "100_small_placeable_prop" },
 	/**
 	 * Moonlight Banner.
 	 */
-	SmallPlaceableProp107: { id: "1422145740154736803", name: "107_small_placeable_prop" },
+	SmallPlaceableProp101: { id: "1422145740154736803", name: "101_small_placeable_prop" },
 	/**
 	 * Mischief Crabkin Lamp.
 	 */
-	SmallPlaceableProp108: { id: "1433429774738391040", name: "108_small_placeable_prop" },
+	SmallPlaceableProp102: { id: "1433429774738391040", name: "102_small_placeable_prop" },
 	/**
 	 * Mischief Cobweb Decor.
 	 */
-	SmallPlaceableProp109: { id: "1433429752865357945", name: "109_small_placeable_prop" },
+	SmallPlaceableProp103: { id: "1433429752865357945", name: "103_small_placeable_prop" },
 	/**
 	 * Mischief Dark Dragon Rug.
 	 */
-	SmallPlaceableProp110: { id: "1433429754832228474", name: "110_small_placeable_prop" },
+	SmallPlaceableProp104: { id: "1433429754832228474", name: "104_small_placeable_prop" },
 	/**
 	 * Mischief Symbol 1.
 	 */
-	SmallPlaceableProp111: { id: "1441416741791203378", name: "111_small_placeable_prop" },
+	SmallPlaceableProp105: { id: "1441416741791203378", name: "105_small_placeable_prop" },
 	/**
 	 * Mischief Symbol 2.
 	 */
-	SmallPlaceableProp112: { id: "1441416743888359454", name: "112_small_placeable_prop" },
+	SmallPlaceableProp106: { id: "1441416743888359454", name: "106_small_placeable_prop" },
 	/**
 	 * Mischief Symbol 3.
 	 */
-	SmallPlaceableProp113: { id: "1441416746245423267", name: "113_small_placeable_prop" },
+	SmallPlaceableProp107: { id: "1441416746245423267", name: "107_small_placeable_prop" },
 	/**
 	 * Mischief Symbol 4.
 	 */
-	SmallPlaceableProp114: { id: "1441416748116217977", name: "114_small_placeable_prop" },
+	SmallPlaceableProp108: { id: "1441416748116217977", name: "108_small_placeable_prop" },
 	/**
 	 * Tournament Prairie Flag.
 	 */
-	SmallPlaceableProp115: { id: "1512759203788230747", name: "115_small_placeable_prop" },
+	SmallPlaceableProp109: { id: "1512759203788230747", name: "109_small_placeable_prop" },
 	/**
 	 * Tournament Forest Flag.
 	 */
-	SmallPlaceableProp116: { id: "1512759206145556590", name: "116_small_placeable_prop" },
+	SmallPlaceableProp110: { id: "1512759206145556590", name: "110_small_placeable_prop" },
 	/**
 	 * Tournament Valley Flag.
 	 */
-	SmallPlaceableProp117: { id: "1512759208146243655", name: "117_small_placeable_prop" },
+	SmallPlaceableProp111: { id: "1512759208146243655", name: "111_small_placeable_prop" },
 	/**
 	 * Tournament Wasteland Flag.
 	 */
-	SmallPlaceableProp118: { id: "1512759210742517811", name: "118_small_placeable_prop" },
+	SmallPlaceableProp112: { id: "1512759210742517811", name: "112_small_placeable_prop" },
 	/**
 	 * Sunflower Small Pillow.
 	 */
-	SmallPlaceableProp119: { id: "1482687407349301320", name: "119_small_placeable_prop" },
+	SmallPlaceableProp113: { id: "1482687407349301320", name: "113_small_placeable_prop" },
 	/**
 	 * Sunflower Rug.
 	 */
-	SmallPlaceableProp120: { id: "1482687410956533921", name: "120_small_placeable_prop" },
+	SmallPlaceableProp114: { id: "1482687410956533921", name: "114_small_placeable_prop" },
 	/**
 	 * Sunflower Wall Shelf.
 	 */
-	SmallPlaceableProp121: { id: "1482687413384904815", name: "121_small_placeable_prop" },
+	SmallPlaceableProp115: { id: "1482687413384904815", name: "115_small_placeable_prop" },
 	/**
 	 * Candle stand.
 	 */
-	SmallPlaceableProp122: { id: "1487147895865213120", name: "122_small_placeable_prop" },
+	SmallPlaceableProp116: { id: "1487147895865213120", name: "116_small_placeable_prop" },
 	/**
 	 * Days of Nature 2026.
 	 */
-	SmallPlaceableProp123: { id: "1492226480652943360", name: "123_small_placeable_prop" },
+	SmallPlaceableProp117: { id: "1492226480652943360", name: "117_small_placeable_prop" },
 	/**
 	 * Carnival Guide (non-ultimate).
 	 */
-	SmallPlaceableProp124: { id: "1494696455796031529", name: "124_small_placeable_prop" },
+	SmallPlaceableProp118: { id: "1494696455796031529", name: "118_small_placeable_prop" },
 	/**
 	 * Days of Colour 2026 butterfly kite.
 	 */
-	SmallPlaceableProp125: { id: "1509850377653059675", name: "125_small_placeable_prop" },
+	SmallPlaceableProp119: { id: "1509850377653059675", name: "119_small_placeable_prop" },
 	/**
 	 * Days of Colour 2026 crab kite.
 	 */
-	SmallPlaceableProp126: { id: "1510006724222910514", name: "126_small_placeable_prop" },
+	SmallPlaceableProp120: { id: "1510006724222910514", name: "120_small_placeable_prop" },
 	/**
 	 * Days of Colour 2026 bird kite.
 	 */
-	SmallPlaceableProp127: { id: "1510006727758708767", name: "127_small_placeable_prop" },
+	SmallPlaceableProp121: { id: "1510006727758708767", name: "121_small_placeable_prop" },
 	/**
 	 * Days of Colour 2026 manta kite.
 	 */
-	SmallPlaceableProp128: { id: "1510006730732605642", name: "128_small_placeable_prop" },
+	SmallPlaceableProp122: { id: "1510006730732605642", name: "122_small_placeable_prop" },
 	/**
 	 * Days of Colour 2026 jellyfish kite.
 	 */
-	SmallPlaceableProp129: { id: "1510006733186269364", name: "129_small_placeable_prop" },
+	SmallPlaceableProp123: { id: "1510006733186269364", name: "123_small_placeable_prop" },
 	/**
 	 * Days of Colour 2026 turtle kite.
 	 */
-	SmallPlaceableProp130: { id: "1510006735203467294", name: "130_small_placeable_prop" },
+	SmallPlaceableProp124: { id: "1510006735203467294", name: "124_small_placeable_prop" },
 	/**
 	 * Moth Plush.
 	 */
-	SmallPlaceableProp131: { id: "1522919382727266407", name: "131_small_placeable_prop" },
+	SmallPlaceableProp125: { id: "1522919382727266407", name: "125_small_placeable_prop" },
 	/**
 	 * Vase with Fifteen Sunflowers (non-ultimate) 1.
 	 */
-	SmallPlaceableProp132: { id: "1529585409347026955", name: "132_small_placeable_prop" },
+	SmallPlaceableProp126: { id: "1529585409347026955", name: "126_small_placeable_prop" },
 	/**
 	 * Vase with Fifteen Sunflowers (non-ultimate) 2.
 	 */
-	SmallPlaceableProp133: { id: "1529585412933288108", name: "133_small_placeable_prop" },
+	SmallPlaceableProp127: { id: "1529585412933288108", name: "127_small_placeable_prop" },
 	/**
 	 * Vase with Fifteen Sunflowers (non-ultimate) 3.
 	 */
-	SmallPlaceableProp134: { id: "1529585415353405440", name: "134_small_placeable_prop" },
+	SmallPlaceableProp128: { id: "1529585415353405440", name: "128_small_placeable_prop" },
 	/**
 	 * Vase with Fifteen Sunflowers (non-ultimate) 4.
 	 */
-	SmallPlaceableProp135: { id: "1529585417941422180", name: "135_small_placeable_prop" },
+	SmallPlaceableProp129: { id: "1529585417941422180", name: "129_small_placeable_prop" },
 	/**
 	 * Vase with Fifteen Sunflowers (non-ultimate) 5.
 	 */
-	SmallPlaceableProp136: { id: "1529585420185112727", name: "136_small_placeable_prop" },
+	SmallPlaceableProp130: { id: "1529585420185112727", name: "130_small_placeable_prop" },
 	/**
 	 * Vase with Fifteen Sunflowers (non-ultimate) 6.
 	 */
-	SmallPlaceableProp137: { id: "1529585422622265464", name: "137_small_placeable_prop" },
+	SmallPlaceableProp131: { id: "1529585422622265464", name: "131_small_placeable_prop" },
 	/**
 	 * Dutch Memory.
 	 */
-	SmallPlaceableProp138: { id: "1529590663081885847", name: "138_small_placeable_prop" },
+	SmallPlaceableProp132: { id: "1529590663081885847", name: "132_small_placeable_prop" },
 	/**
 	 * Rustic Memory.
 	 */
-	SmallPlaceableProp139: { id: "1529592864160350338", name: "139_small_placeable_prop" },
+	SmallPlaceableProp133: { id: "1529592864160350338", name: "133_small_placeable_prop" },
 	/**
 	 * Artistic Memory 1.
 	 */
-	SmallPlaceableProp140: { id: "1529594761512747079", name: "140_small_placeable_prop" },
+	SmallPlaceableProp134: { id: "1529594761512747079", name: "134_small_placeable_prop" },
 	/**
 	 * Artistic Memory 2.
 	 */
-	SmallPlaceableProp141: { id: "1529594764981305487", name: "141_small_placeable_prop" },
+	SmallPlaceableProp135: { id: "1529594764981305487", name: "135_small_placeable_prop" },
 	/**
 	 * Joyful Memory.
 	 */
-	SmallPlaceableProp142: { id: "1529596980626718880", name: "142_small_placeable_prop" },
+	SmallPlaceableProp136: { id: "1529596980626718880", name: "136_small_placeable_prop" },
 	/**
 	 * Days of Sunlight 2026.
 	 */
-	SmallPlaceableProp143: { id: "1532453823933710356", name: "143_small_placeable_prop" },
+	SmallPlaceableProp137: { id: "1532453823933710356", name: "137_small_placeable_prop" },
 	/**
 	 * Days of Moonlight 2026.
 	 */
-	SmallPlaceableProp144: { id: "1552077097508413762", name: "144_small_placeable_prop" },
+	SmallPlaceableProp138: { id: "1552077097508413762", name: "138_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 /**

@@ -1022,7 +1022,7 @@ function projectorOfMemoriesDetailedBreakdown(
 			content: t("schedule.detailed-breakdown-requires", {
 				lng: locale,
 				ns: "features",
-				emoji: formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106),
+				emoji: formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp100),
 			}),
 		},
 	];
@@ -1518,7 +1518,7 @@ export async function scheduleOverview(
 		{
 			label: t(ScheduleTypeToLocaleKey[ScheduleType.ProjectorOfMemories], { lng: locale }),
 			value: ScheduleType.ProjectorOfMemories.toString(),
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp100,
 		},
 	);
 
