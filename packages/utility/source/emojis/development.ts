@@ -213,17 +213,17 @@ const STANCE_EMOJIS = {
 
 const CALL_EMOJIS = {
 	Base: { id: "1313867161948917871", name: "base_call" },
-	Bird: { id: "1313867169045676094", name: "bird" },
-	Whale: { id: "1313867164926873600", name: "whale" },
-	Manta: { id: "1313867170140262573", name: "manta" },
-	CosmicManta: { id: "1313867166621110323", name: "cosmic_manta" },
-	Crab: { id: "1313867163005751296", name: "crab" },
-	Jellyfish: { id: "1313867163966374048", name: "jellyfish" },
-	BabyManta: { id: "1313867160228986891", name: "baby_manta" },
-	Nightbird: { id: "1313867168001298557", name: "nightbird" },
-	BlueBird: { id: "1389264024423764018", name: "blue_bird" },
-	Manatee: { id: "1396948907115937832", name: "manatee" },
-	Lighthorn: { id: "1431655254428225733", name: "lighthorn" },
+	Bird: { id: "1313867169045676094", name: "call_bird" },
+	Whale: { id: "1313867164926873600", name: "call_whale" },
+	Manta: { id: "1313867170140262573", name: "call_manta" },
+	CosmicManta: { id: "1313867166621110323", name: "call_cosmic_manta" },
+	Crab: { id: "1313867163005751296", name: "call_crab" },
+	Jellyfish: { id: "1313867163966374048", name: "call_jellyfish" },
+	BabyManta: { id: "1313867160228986891", name: "call_baby_manta" },
+	Nightbird: { id: "1313867168001298557", name: "call_nightbird" },
+	BlueBird: { id: "1389264024423764018", name: "call_blue_bird" },
+	Manatee: { id: "1396948907115937832", name: "call_manatee" },
+	Lighthorn: { id: "1431655254428225733", name: "call_lighthorn" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FRIEND_ACTION_EMOJIS = {
