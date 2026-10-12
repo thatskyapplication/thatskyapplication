@@ -1518,29 +1518,33 @@ const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory26: { id: "1431639054042271786", name: "26_face_accessory" },
 	/**
+	 * Migrating Bellmaker.
+	 */
+	FaceAccessory27: { id: "1431663764666716212", name: "27_face_accessory" },
+	/**
 	 * Elder of the Valley 1.
 	 */
-	FaceAccessory27: { id: "1456314912082231399", name: "27_face_accessory" },
+	FaceAccessory28: { id: "1456314912082231399", name: "28_face_accessory" },
 	/**
 	 * Elder of the Valley 2.
 	 */
-	FaceAccessory28: { id: "1456314918012981268", name: "28_face_accessory" },
+	FaceAccessory29: { id: "1456314918012981268", name: "29_face_accessory" },
 	/**
 	 * Personality Quiz Event 1.
 	 */
-	FaceAccessory29: { id: "1459119275548741683", name: "29_face_accessory" },
+	FaceAccessory30: { id: "1459119275548741683", name: "30_face_accessory" },
 	/**
 	 * Personality Quiz Event 2.
 	 */
-	FaceAccessory30: { id: "1459119279403302944", name: "30_face_accessory" },
+	FaceAccessory31: { id: "1459119279403302944", name: "31_face_accessory" },
 	/**
 	 * Purple Spectacles.
 	 */
-	FaceAccessory31: { id: "1459119281328619530", name: "31_face_accessory" },
+	FaceAccessory32: { id: "1459119281328619530", name: "32_face_accessory" },
 	/**
 	 * Fortune Token Glasses.
 	 */
-	FaceAccessory32: { id: "1471652959086575636", name: "32_face_accessory" },
+	FaceAccessory33: { id: "1471652959086575636", name: "33_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS = {
@@ -2974,29 +2978,25 @@ const HEAD_ACCESSORY_EMOJIS = {
 	 */
 	HeadAccessory22: { id: "1401818086453149776", name: "22_head_accessory" },
 	/**
-	 * Migrating Bellmaker.
-	 */
-	HeadAccessory23: { id: "1431663764666716212", name: "23_head_accessory" },
-	/**
 	 * Lightmending Champion.
 	 */
-	HeadAccessory24: { id: "1464063372784963715", name: "24_head_accessory" },
+	HeadAccessory23: { id: "1464063372784963715", name: "23_head_accessory" },
 	/**
 	 * Bloom Sunflower Studs.
 	 */
-	HeadAccessory25: { id: "1482685936688173146", name: "25_head_accessory" },
+	HeadAccessory24: { id: "1482685936688173146", name: "24_head_accessory" },
 	/**
 	 * Charming Creature head accessory.
 	 */
-	HeadAccessory26: { id: "1492226472071397517", name: "26_head_accessory" },
+	HeadAccessory25: { id: "1492226472071397517", name: "25_head_accessory" },
 	/**
 	 * Starry Night's Kiss.
 	 */
-	HeadAccessory27: { id: "1529491252448329768", name: "27_head_accessory" },
+	HeadAccessory26: { id: "1529491252448329768", name: "26_head_accessory" },
 	/**
 	 * Days of Moonlight 2026.
 	 */
-	HeadAccessory28: { id: "1552077085865017535", name: "28_head_accessory" },
+	HeadAccessory27: { id: "1552077085865017535", name: "27_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS = {

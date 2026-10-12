@@ -52,8 +52,8 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 6 },
 				},
 				{
-					translation: CosmeticCommon.HeadAccessory,
-					cosmetic: Cosmetic.MigratingBellmakerHeadAccessory,
+					translation: CosmeticCommon.FaceAccessory,
+					cosmetic: Cosmetic.MigratingBellmakerFaceAccessory,
 					seasonPass: true,
 				},
 			],

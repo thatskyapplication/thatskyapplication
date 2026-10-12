@@ -3178,7 +3178,7 @@ export enum Cosmetic {
 	MigratingBellmakerDye = 2512,
 	MigratingBellmakerBlueDye = 2513,
 	MigratingBellmakerBlessing2 = 2514,
-	MigratingBellmakerHeadAccessory = 2515,
+	MigratingBellmakerFaceAccessory = 2515,
 	MigratingBellmakerCape = 2516,
 	MigratingBellmakerTrust = 2517,
 	MigratingBellmakerBlessing3 = 2518,

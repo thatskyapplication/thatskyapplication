@@ -659,12 +659,13 @@ const FACE_ACCESSORY_EMOJIS = {
 	FaceAccessory24: { id: "1365251466738139169", name: "24_face_accessory" },
 	FaceAccessory25: { id: "1391821700949082252", name: "25_face_accessory" },
 	FaceAccessory26: { id: "1431639061537488918", name: "26_face_accessory" },
-	FaceAccessory27: { id: "1456314922425254031", name: "27_face_accessory" },
-	FaceAccessory28: { id: "1456314924509696114", name: "28_face_accessory" },
-	FaceAccessory29: { id: "1459119286248411198", name: "29_face_accessory" },
-	FaceAccessory30: { id: "1459119288194437336", name: "30_face_accessory" },
-	FaceAccessory31: { id: "1459119290052513854", name: "31_face_accessory" },
-	FaceAccessory32: { id: "1471652968108396714", name: "32_face_accessory" },
+	FaceAccessory27: { id: "1431663772413726841", name: "27_face_accessory" },
+	FaceAccessory28: { id: "1456314922425254031", name: "28_face_accessory" },
+	FaceAccessory29: { id: "1456314924509696114", name: "29_face_accessory" },
+	FaceAccessory30: { id: "1459119286248411198", name: "30_face_accessory" },
+	FaceAccessory31: { id: "1459119288194437336", name: "31_face_accessory" },
+	FaceAccessory32: { id: "1459119290052513854", name: "32_face_accessory" },
+	FaceAccessory33: { id: "1471652968108396714", name: "33_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS = {
@@ -1032,12 +1033,11 @@ const HEAD_ACCESSORY_EMOJIS = {
 	HeadAccessory20: { id: "1365271440584212492", name: "20_head_accessory" },
 	HeadAccessory21: { id: "1399295009513279508", name: "21_head_accessory" },
 	HeadAccessory22: { id: "1401818096985182218", name: "22_head_accessory" },
-	HeadAccessory23: { id: "1431663772413726841", name: "23_head_accessory" },
-	HeadAccessory24: { id: "1464063379953156177", name: "24_head_accessory" },
-	HeadAccessory25: { id: "1482685944338579567", name: "25_head_accessory" },
-	HeadAccessory26: { id: "1492226486923563049", name: "26_head_accessory" },
-	HeadAccessory27: { id: "1529491258488393748", name: "27_head_accessory" },
-	HeadAccessory28: { id: "1552077096300318861", name: "28_head_accessory" },
+	HeadAccessory23: { id: "1464063379953156177", name: "23_head_accessory" },
+	HeadAccessory24: { id: "1482685944338579567", name: "24_head_accessory" },
+	HeadAccessory25: { id: "1492226486923563049", name: "25_head_accessory" },
+	HeadAccessory26: { id: "1529491258488393748", name: "26_head_accessory" },
+	HeadAccessory27: { id: "1552077096300318861", name: "27_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS = {
