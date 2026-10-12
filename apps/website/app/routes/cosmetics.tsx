@@ -64,7 +64,9 @@ function CatalogueLocations({ emoji }: { emoji: Emoji }) {
 
 	if (locations.length === 0) {
 		return (
-			<p className="px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400">Not in the catalogue.</p>
+			<p className="px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400">
+				{t("cosmetics.no-source", { ns: "features" })}
+			</p>
 		);
 	}
 
@@ -97,16 +99,20 @@ function CatalogueLocations({ emoji }: { emoji: Emoji }) {
 }
 
 export default function Cosmetics() {
+	const { t } = useTranslation();
+
 	return (
 		<SitePage>
 			<div className="container mx-auto max-w-4xl space-y-4">
-				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>Cosmetics</h1>
+				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>
+					{t("cosmetics.title", { ns: "features" })}
+				</h1>
 				<hr />
 
 				{COSMETICS_SECTIONS.map((section) => (
-					<section className="flex flex-col gap-3" key={section.name}>
+					<section className="flex flex-col gap-3" key={section.heading}>
 						<h2 className={SECTION_HEADING_CLASS}>
-							{section.name} ({section.emojis.length})
+							{t(section.heading, { ns: "features" })} ({section.emojis.length})
 						</h2>
 						<ul className="mx-auto flex max-w-[32.5rem] flex-wrap justify-center gap-2.5">
 							{section.emojis.map((emoji) => (
