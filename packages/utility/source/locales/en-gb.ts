@@ -3072,6 +3072,8 @@ export default {
 		cosmetics: {
 			title: "Cosmetics",
 			"no-source": "No source; unlocked by default.",
+			source_one: "Source",
+			source_other: "Sources",
 			sections: {
 				outfits: "Outfits",
 				shoes: "Shoes",

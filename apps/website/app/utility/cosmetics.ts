@@ -15,6 +15,8 @@ import {
 } from "@thatskyapplication/utility";
 import { CosmeticToEmoji, EMOJIS } from "~/utility/emojis.js";
 
+const UNNAMED_TRANSLATION_PREFIX = "cosmetic-common-names." as const;
+
 const CATALOGUE_COLLECTION_ITEMS = [
 	[CatalogueCollection.StarterPacks, STARTER_PACKS.items],
 	[CatalogueCollection.SecretArea, SECRET_AREA.items],
@@ -1316,44 +1318,68 @@ export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, order, table }
 	return { emojis: ordered, heading };
 });
 
-function itemsUseEmoji(items: Iterable<Item>, emoji: Emoji) {
+interface CosmeticCatalogueEntry {
+	nameKeys: string[] | null;
+	sources: CatalogueSearchTargetWithoutEventFamily[];
+}
+
+function addCatalogueItems(
+	catalogue: Map<Emoji["id"], CosmeticCatalogueEntry>,
+	items: Iterable<Item>,
+	source: CatalogueSearchTargetWithoutEventFamily,
+) {
 	for (const item of items) {
 		for (const cosmetic of item.cosmetics) {
-			if (CosmeticToEmoji[cosmetic]?.id === emoji.id) {
-				return true;
+			const emoji = CosmeticToEmoji[cosmetic];
+
+			if (!emoji) {
+				continue;
+			}
+
+			let entry = catalogue.get(emoji.id);
+
+			if (!entry) {
+				entry = { nameKeys: null, sources: [] };
+				catalogue.set(emoji.id, entry);
+			}
+
+			if (entry.nameKeys === null && !item.translation.key.startsWith(UNNAMED_TRANSLATION_PREFIX)) {
+				entry.nameKeys = [`cosmetic-names.${cosmetic}`, item.translation.key];
+			}
+
+			if (!entry.sources.includes(source)) {
+				entry.sources.push(source);
 			}
 		}
 	}
-
-	return false;
 }
 
-export function cosmeticCatalogueTargets(emoji: Emoji) {
-	const targets: CatalogueSearchTargetWithoutEventFamily[] = [];
+function cosmeticCatalogue() {
+	const catalogue = new Map<Emoji["id"], CosmeticCatalogueEntry>();
 
 	for (const spirit of spirits().values()) {
-		if (itemsUseEmoji(friendshipTreeToItems(spirit.displayFriendshipTree), emoji)) {
-			targets.push({ type: CatalogueSearchType.Spirit, spirit });
-		}
+		addCatalogueItems(catalogue, friendshipTreeToItems(spirit.displayFriendshipTree), {
+			type: CatalogueSearchType.Spirit,
+			spirit,
+		});
 	}
 
 	for (const season of skySeasons().values()) {
-		if (itemsUseEmoji(season.items, emoji)) {
-			targets.push({ type: CatalogueSearchType.Season, season });
-		}
+		addCatalogueItems(catalogue, season.items, { type: CatalogueSearchType.Season, season });
 	}
 
 	for (const event of skyEvents().values()) {
-		if (itemsUseEmoji(event.offer, emoji)) {
-			targets.push({ type: CatalogueSearchType.Event, event });
-		}
+		addCatalogueItems(catalogue, event.offer, { type: CatalogueSearchType.Event, event });
 	}
 
 	for (const [collection, items] of CATALOGUE_COLLECTION_ITEMS) {
-		if (itemsUseEmoji(items, emoji)) {
-			targets.push({ type: CatalogueSearchType.Collection, collection });
-		}
+		addCatalogueItems(catalogue, items, { type: CatalogueSearchType.Collection, collection });
 	}
 
-	return targets;
+	return catalogue;
 }
+
+export const COSMETIC_CATALOGUE: ReadonlyMap<
+	Emoji["id"],
+	Readonly<CosmeticCatalogueEntry>
+> = cosmeticCatalogue();

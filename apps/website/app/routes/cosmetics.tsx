@@ -12,12 +12,13 @@ import {
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
+import { Tooltip } from "~/components/Tooltip";
 import { catalogueTargetQuery } from "~/utility/catalogue.js";
-import { COSMETICS_SECTIONS, cosmeticCatalogueTargets } from "~/utility/cosmetics.js";
+import { COSMETIC_CATALOGUE, COSMETICS_SECTIONS } from "~/utility/cosmetics.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { PAGE_TITLE_CLASS, SECTION_HEADING_CLASS } from "~/utility/styles.js";
 
-const catalogueLocationsPopover = Popover.createHandle<Emoji>();
+const cosmeticPopover = Popover.createHandle<Emoji>();
 
 function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: TFunction) {
 	const query = catalogueTargetQuery(target);
@@ -58,44 +59,73 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 	}
 }
 
-function CatalogueLocations({ emoji }: { emoji: Emoji }) {
+function CosmeticDetails({ emoji }: { emoji: Emoji }) {
 	const { t } = useTranslation();
-	const locations = cosmeticCatalogueTargets(emoji).map((target) => catalogueLocation(target, t));
-
-	if (locations.length === 0) {
-		return (
-			<p className="px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400">
-				{t("cosmetics.no-source", { ns: "features" })}
-			</p>
-		);
-	}
-
-	const reserveEmojiSpace = locations.some((location) => location.emoji);
+	const entry = COSMETIC_CATALOGUE.get(emoji.id);
+	const sources = entry?.sources.map((source) => catalogueLocation(source, t)) ?? [];
+	const reserveEmojiSpace = sources.some((source) => source.emoji);
 
 	return (
-		<ul className="flex flex-col">
-			{locations.map(({ detail, emoji: locationEmoji, name, query }) => (
-				<li key={query}>
-					<Link
-						className="flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-						to={`/me/catalogue${query}`}
-					>
-						{locationEmoji ? (
-							<EmojiIcon className="size-5 shrink-0" emoji={locationEmoji} />
-						) : (
-							reserveEmojiSpace && <span aria-hidden="true" className="size-5 shrink-0" />
-						)}
-						<span className="flex min-w-0 flex-col">
-							<span className="truncate text-sm text-gray-900 dark:text-gray-100">{name}</span>
-							{detail && (
-								<span className="truncate text-xs text-gray-600 dark:text-gray-300">{detail}</span>
-							)}
-						</span>
-					</Link>
-				</li>
-			))}
-		</ul>
+		<>
+			{entry?.nameKeys && (
+				<Popover.Title className="px-2 pt-1 text-base font-semibold text-gray-900 dark:text-gray-100">
+					{t(entry.nameKeys, { ns: "general" })}
+				</Popover.Title>
+			)}
+			<h3 className="mt-1 px-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+				{t("cosmetics.source", { ns: "features", count: sources.length })}
+			</h3>
+			{sources.length === 0 ? (
+				<p className="px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400">
+					{t("cosmetics.no-source", { ns: "features" })}
+				</p>
+			) : (
+				<ul className="flex flex-col">
+					{sources.map(({ detail, emoji: sourceEmoji, name, query }) => (
+						<li key={query}>
+							<Link
+								className="flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+								to={`/me/catalogue${query}`}
+							>
+								{sourceEmoji ? (
+									<EmojiIcon className="size-5 shrink-0" emoji={sourceEmoji} />
+								) : (
+									reserveEmojiSpace && <span aria-hidden="true" className="size-5 shrink-0" />
+								)}
+								<span className="flex min-w-0 flex-col">
+									<span className="truncate text-sm text-gray-900 dark:text-gray-100">{name}</span>
+									{detail && (
+										<span className="truncate text-xs text-gray-600 dark:text-gray-300">
+											{detail}
+										</span>
+									)}
+								</span>
+							</Link>
+						</li>
+					))}
+				</ul>
+			)}
+		</>
 	);
+}
+
+function CosmeticTile({ emoji }: { emoji: Emoji }) {
+	const { t } = useTranslation();
+	const nameKeys = COSMETIC_CATALOGUE.get(emoji.id)?.nameKeys;
+	const name = nameKeys ? t(nameKeys, { ns: "general" }) : null;
+
+	const trigger = (
+		<Popover.Trigger
+			aria-label={name ?? emoji.name}
+			className="flex size-12 cursor-pointer items-center justify-center rounded-xl bg-black/70 transition-colors hover:bg-black/55 data-popup-open:bg-black/55 dark:bg-black/30 dark:hover:bg-black/50 dark:data-popup-open:bg-black/50"
+			handle={cosmeticPopover}
+			payload={emoji}
+		>
+			<EmojiIcon className="size-8" emoji={emoji} />
+		</Popover.Trigger>
+	);
+
+	return name ? <Tooltip content={name}>{trigger}</Tooltip> : trigger;
 }
 
 export default function Cosmetics() {
@@ -117,14 +147,7 @@ export default function Cosmetics() {
 						<ul className="mx-auto flex max-w-[32.5rem] flex-wrap justify-center gap-2.5">
 							{section.emojis.map((emoji) => (
 								<li key={emoji.id}>
-									<Popover.Trigger
-										aria-label={emoji.name}
-										className="flex size-12 cursor-pointer items-center justify-center rounded-xl bg-black/70 transition-colors hover:bg-black/55 data-popup-open:bg-black/55 dark:bg-black/30 dark:hover:bg-black/50 dark:data-popup-open:bg-black/50"
-										handle={catalogueLocationsPopover}
-										payload={emoji}
-									>
-										<EmojiIcon className="size-8" emoji={emoji} />
-									</Popover.Trigger>
+									<CosmeticTile emoji={emoji} />
 								</li>
 							))}
 						</ul>
@@ -132,7 +155,7 @@ export default function Cosmetics() {
 				))}
 			</div>
 
-			<Popover.Root handle={catalogueLocationsPopover}>
+			<Popover.Root handle={cosmeticPopover}>
 				{({ payload }) => (
 					<Popover.Portal>
 						<Popover.Positioner
@@ -143,7 +166,7 @@ export default function Cosmetics() {
 							sideOffset={6}
 						>
 							<Popover.Popup className="max-h-(--available-height) w-72 max-w-[calc(100vw-1rem)] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
-								{payload && <CatalogueLocations emoji={payload} />}
+								{payload && <CosmeticDetails emoji={payload} />}
 							</Popover.Popup>
 						</Popover.Positioner>
 					</Popover.Portal>
