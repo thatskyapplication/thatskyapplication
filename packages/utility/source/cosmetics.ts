@@ -2228,6 +2228,7 @@ export enum Cosmetic {
 	HopefulStewardHeart2 = 1809,
 
 	// 23/10/2023 | Days of Mischief.
+	MischiefWitchJumperShoes = 2963,
 	MischiefCrabkinAccessory = 1810,
 	MischiefGothBoots = 1811,
 	MischiefGothGarment = 1812,
@@ -3822,6 +3823,7 @@ export enum CosmeticPackName {
 	KizunaAIPack = 3,
 	CatCostumePack = 4,
 	JourneyPack = 5,
+	MischiefWitchJumper = 31,
 	MothAppreciationPack = 6,
 	SparrowAppreciationPack = 7,
 	CinnamorollPopUpCafeHairAndEars = 8,

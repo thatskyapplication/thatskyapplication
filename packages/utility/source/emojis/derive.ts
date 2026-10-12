@@ -1866,6 +1866,7 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.RemnantOfAForgottenHavenSeasonalHeart]: SEASON_EMOJIS.RevivalHeart,
 		[Cosmetic.HopefulStewardQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.HopefulStewardHeart2]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.MischiefWitchJumperShoes]: SHOE_EMOJIS.Shoe02,
 		[Cosmetic.MischiefCrabkinAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory32,
 		[Cosmetic.MischiefGothBoots]: SHOE_EMOJIS.Shoe13,
 		[Cosmetic.MischiefGothGarment]: OUTFIT_EMOJIS.Outfit52,

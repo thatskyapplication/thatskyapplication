@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
 import { EventFamilyId, EventId } from "../../utility/event.js";
@@ -23,7 +23,9 @@ export default new Event({
 			cost: { hearts: 33 },
 		},
 		{
-			cosmetic: Cosmetic.MischiefWitchJumper,
+			cosmetic: [Cosmetic.MischiefWitchJumper, Cosmetic.MischiefWitchJumperShoes],
+			cosmeticDisplay: Cosmetic.MischiefWitchJumper,
+			packName: CosmeticPackName.MischiefWitchJumper,
 			cost: { money: 9.99 },
 		},
 		{

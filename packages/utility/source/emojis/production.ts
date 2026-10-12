@@ -832,7 +832,7 @@ const SHOE_EMOJIS = {
 	 */
 	Shoe01: { id: "1313934732756652142", name: "01_shoe" },
 	/**
-	 * Days of Mischief 2021.
+	 * Mischief Witch Jumper shoes.
 	 */
 	Shoe02: { id: "1313934728906145852", name: "02_shoe" },
 	/**
