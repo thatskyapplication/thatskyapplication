@@ -47,7 +47,7 @@ type CosmeticsSectionOrder = {
 
 const COSMETICS_ORDER = [
 	{
-		name: "Outfit emojis",
+		name: "Outfits",
 		table: "OUTFIT_EMOJIS",
 		order: [
 			"Outfit01",
@@ -123,7 +123,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Shoe emojis",
+		name: "Shoes",
 		table: "SHOE_EMOJIS",
 		order: [
 			"Shoe05",
@@ -159,7 +159,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Full outfit emojis",
+		name: "Full outfits",
 		table: "FULL_OUTFIT_EMOJIS",
 		order: [
 			"FullOutfit01",
@@ -208,7 +208,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Mask emojis",
+		name: "Masks",
 		table: "MASK_EMOJIS",
 		order: [
 			"Mask01",
@@ -331,7 +331,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Face accessory emojis",
+		name: "Face accessories",
 		table: "FACE_ACCESSORY_EMOJIS",
 		order: [
 			"FaceAccessory01",
@@ -370,7 +370,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Necklace emojis",
+		name: "Necklaces",
 		table: "NECKLACE_EMOJIS",
 		order: [
 			"Necklace01",
@@ -435,7 +435,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Hair emojis",
+		name: "Hair",
 		table: "HAIR_EMOJIS",
 		order: [
 			"Hair01",
@@ -628,7 +628,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Hair accessory emojis",
+		name: "Hair accessories",
 		table: "HAIR_ACCESSORY_EMOJIS",
 		order: [
 			"HairAccessory02",
@@ -720,7 +720,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Head accessory emojis",
+		name: "Head accessories",
 		table: "HEAD_ACCESSORY_EMOJIS",
 		order: [
 			"HeadAccessory01",
@@ -752,7 +752,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Cape emojis",
+		name: "Capes",
 		table: "CAPE_EMOJIS",
 		order: [
 			"Cape01",
@@ -949,7 +949,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Held props emojis",
+		name: "Held props",
 		table: "HELD_PROPS_EMOJIS",
 		order: [
 			"HeldProp01",
@@ -1020,7 +1020,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Large placeable props emojis",
+		name: "Large placeable props",
 		table: "LARGE_PLACEABLE_PROPS_EMOJIS",
 		order: [
 			"LargePlaceableProp76",
@@ -1158,7 +1158,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		name: "Small placeable props emojis",
+		name: "Small placeable props",
 		table: "SMALL_PLACEABLE_PROPS_EMOJIS",
 		order: [
 			"SmallPlaceableProp07",
