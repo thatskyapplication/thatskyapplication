@@ -1596,6 +1596,16 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.CompleteTheHoopScavengerHunt",
 	},
 	{
+		upstreamKey: "daily_quest_world_quest_night_wise_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Wise Grandparent's memory from Vault of Knowledge",
+				value: "Relive the Wise Grandparent",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheWiseGrandparent",
+	},
+	{
 		upstreamKey: "daily_quest_visit_stormy_event_desc",
 		overrides: {
 			de: {
