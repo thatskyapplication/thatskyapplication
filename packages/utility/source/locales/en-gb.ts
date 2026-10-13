@@ -3071,7 +3071,7 @@ export default {
 		},
 		cosmetics: {
 			title: "Cosmetics",
-			"no-source": "No source; unlocked by default.",
+			"no-source": "No source.",
 			source_one: "Source",
 			source_other: "Sources",
 			"search-placeholder": "Search cosmetics…",
