@@ -1060,7 +1060,7 @@ export default {
 			[SpiritId.RusticMemory]: "Rustic Memory",
 			[SpiritId.ArtisticMemory]: "Artistic Memory",
 			[SpiritId.JoyfulMemory]: "Joyful Memory",
-			[SpiritId.FishermansLantern]: "Fisherman's Lantern",
+			[SpiritId.AnglersLantern]: "Angler's Lantern",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1363,8 +1363,7 @@ export default {
 			[SpiritId.RusticMemory]: "https://sky-children-of-the-light.fandom.com/Rustic_Memory",
 			[SpiritId.ArtisticMemory]: "https://sky-children-of-the-light.fandom.com/Artistic_Memory",
 			[SpiritId.JoyfulMemory]: "https://sky-children-of-the-light.fandom.com/Joyful_Memory",
-			[SpiritId.FishermansLantern]:
-				"https://sky-children-of-the-light.fandom.com/Fisherman's_Lantern",
+			[SpiritId.AnglersLantern]: "https://sky-children-of-the-light.fandom.com/Angler's_Lantern",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {

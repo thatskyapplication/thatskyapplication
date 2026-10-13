@@ -3209,7 +3209,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "name_questap32",
-		tsKey: "SpiritId.FishermansLantern",
+		tsKey: "SpiritId.AnglersLantern",
 	},
 	{
 		upstreamKey: "name_point",
