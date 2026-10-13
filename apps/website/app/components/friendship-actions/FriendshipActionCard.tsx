@@ -11,7 +11,12 @@ import { InfographicPreview } from "~/components/InfographicPreview.js";
 import { Tooltip } from "~/components/Tooltip.js";
 import { UserChip, type UserChipUser } from "~/components/UserChip.js";
 import type { action } from "~/routes/admin.friendship-actions.js";
-import { FIELD_ERROR_CLASS, SKELETON_CLASS } from "~/utility/styles.js";
+import {
+	FIELD_ERROR_CLASS,
+	SKELETON_CLASS,
+	SWITCH_CLASS,
+	SWITCH_THUMB_CLASS,
+} from "~/utility/styles.js";
 
 export interface FriendshipAction {
 	asset: string;
@@ -23,12 +28,6 @@ export interface FriendshipAction {
 	typeLabel: string;
 	users: readonly UserChipUser[];
 }
-
-const SWITCH_CLASS =
-	"relative flex h-6 w-10 shrink-0 cursor-pointer rounded-full border border-gray-500 bg-gray-300 p-0.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 data-checked:border-amber-700 data-checked:bg-amber-600 data-disabled:cursor-not-allowed data-disabled:opacity-60 dark:border-gray-400 dark:bg-gray-600 dark:data-checked:border-amber-400 dark:data-checked:bg-amber-600" as const;
-
-const SWITCH_THUMB_CLASS =
-	"aspect-square h-full rounded-full bg-white ring-1 ring-gray-700/70 transition-transform data-checked:translate-x-4" as const;
 
 export function FriendshipActionCard({ friendshipAction }: { friendshipAction: FriendshipAction }) {
 	const { asset, assetURL, reference, skip, square, type, typeLabel, users } = friendshipAction;

@@ -1,5 +1,6 @@
 import {
 	CatalogueCollection,
+	type Cosmetic,
 	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
 	CLOTHING_SHOP,
@@ -1319,6 +1320,10 @@ const COSMETICS_ORDER = [
 	},
 ] as const satisfies readonly CosmeticsSectionOrder[];
 
+const PULLED_EMOJIS: ReadonlySet<Emoji["id"]> = new Set([
+	EMOJIS.HAIR_ACCESSORY_EMOJIS.HairAccessory75.id,
+]);
+
 export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, table }) => {
 	const emojis: Readonly<Record<string, Emoji>> = EMOJIS[table];
 	const listed = new Set<string>(order);
@@ -1326,7 +1331,7 @@ export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, t
 
 	ordered.push(
 		...Object.entries(emojis)
-			.filter(([key]) => !listed.has(key))
+			.filter(([key, emoji]) => !listed.has(key) && !PULLED_EMOJIS.has(emoji.id))
 			.map(([, emoji]) => emoji),
 	);
 
@@ -1357,6 +1362,7 @@ export const COSMETIC_GROUP_TARGETS: ReadonlyMap<
 );
 
 interface CosmeticCatalogueEntry {
+	cosmetics: Cosmetic[];
 	nameKeys: string[] | null;
 	sources: CatalogueSearchTargetWithoutEventFamily[];
 }
@@ -1377,12 +1383,16 @@ function addCatalogueItems(
 			let entry = catalogue.get(emoji.id);
 
 			if (!entry) {
-				entry = { nameKeys: null, sources: [] };
+				entry = { cosmetics: [], nameKeys: null, sources: [] };
 				catalogue.set(emoji.id, entry);
 			}
 
 			if (entry.nameKeys === null && !item.translation.key.startsWith(UNNAMED_TRANSLATION_PREFIX)) {
 				entry.nameKeys = [`cosmetic-names.${cosmetic}`, item.translation.key];
+			}
+
+			if (!entry.cosmetics.includes(cosmetic)) {
+				entry.cosmetics.push(cosmetic);
 			}
 
 			if (!entry.sources.includes(source)) {

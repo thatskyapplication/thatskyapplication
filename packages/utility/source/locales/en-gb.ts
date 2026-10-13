@@ -3071,6 +3071,8 @@ export default {
 		},
 		cosmetics: {
 			title: "Cosmetics",
+			"description-short": "Browse all cosmetics.",
+			"highlight-owned": "Highlight what I own",
 			"no-source": "No source.",
 			source_one: "Source",
 			source_other: "Sources",

@@ -13,7 +13,9 @@ import {
 	Zap,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
+import { EMOJIS } from "~/utility/emojis.js";
 
 export interface NavigationItem {
 	to: string;
@@ -52,6 +54,12 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					label: t("checklist.title", { ns: "features" }),
 					icon: <CheckSquare className="h-5 w-5" />,
 					description: t("checklist.description-short", { ns: "features" }),
+				},
+				{
+					to: "/cosmetics",
+					label: t("cosmetics.title", { ns: "features" }),
+					icon: <EmojiIcon className="h-5 w-5" emoji={EMOJIS.OUTFIT_EMOJIS.Outfit01} />,
+					description: t("cosmetics.description-short", { ns: "features" }),
 				},
 				{
 					to: "/daily-guides",

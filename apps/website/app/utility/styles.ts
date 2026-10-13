@@ -81,3 +81,9 @@ export function characterCountClass(outOfRange: boolean) {
 		outOfRange ? "text-red-600 dark:text-red-400" : "text-gray-600 dark:text-gray-400",
 	);
 }
+
+export const SWITCH_CLASS =
+	"relative flex h-6 w-10 shrink-0 cursor-pointer rounded-full border border-gray-500 bg-gray-300 p-0.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 data-checked:border-amber-700 data-checked:bg-amber-600 data-disabled:cursor-not-allowed data-disabled:opacity-60 dark:border-gray-400 dark:bg-gray-600 dark:data-checked:border-amber-400 dark:data-checked:bg-amber-600" as const;
+
+export const SWITCH_THUMB_CLASS =
+	"aspect-square h-full rounded-full bg-white ring-1 ring-gray-700/70 transition-transform data-checked:translate-x-4" as const;

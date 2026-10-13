@@ -1,7 +1,9 @@
+import { Field } from "@base-ui/react/field";
 import { Popover } from "@base-ui/react/popover";
+import { Switch } from "@base-ui/react/switch";
 import { clsx } from "clsx";
 import type { TFunction } from "i18next";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import {
@@ -15,6 +17,8 @@ import { CatalogueSearchAutocomplete } from "~/components/catalogue/CatalogueSea
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
 import { Tooltip } from "~/components/Tooltip";
+import database from "~/database.server";
+import { getRequestSession } from "~/middleware/session";
 import { catalogueTargetQuery } from "~/utility/catalogue.js";
 import {
 	COSMETIC_ANCHOR_PREFIX,
@@ -25,9 +29,26 @@ import {
 	cosmeticAnchor,
 } from "~/utility/cosmetics.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
-import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
+import { PAGE_TITLE_CLASS, SWITCH_CLASS, SWITCH_THUMB_CLASS } from "~/utility/styles.js";
+import type { Route } from "./+types/cosmetics.js";
 
 const cosmeticPopover = Popover.createHandle<Emoji>();
+
+export const loader = async ({ context }: Route.LoaderArgs) => {
+	const discordUser = getRequestSession(context).get("discord_user");
+
+	if (!discordUser) {
+		return { owned: null };
+	}
+
+	const cataloguePacket = await database
+		.selectFrom("catalogue")
+		.select("data")
+		.where("user_id", "=", discordUser.id)
+		.executeTakeFirst();
+
+	return { owned: cataloguePacket?.data ?? [] };
+};
 
 interface CosmeticSearchEntry {
 	readonly emoji: Emoji;
@@ -167,7 +188,7 @@ function CosmeticSearch() {
 	);
 }
 
-function CosmeticTile({ emoji }: { emoji: Emoji }) {
+function CosmeticTile({ dimmed, emoji }: { dimmed: boolean; emoji: Emoji }) {
 	const { t } = useTranslation();
 	const nameKeys = COSMETIC_CATALOGUE.get(emoji.id)?.nameKeys;
 	const name = nameKeys ? t(nameKeys, { ns: "general" }) : null;
@@ -175,7 +196,10 @@ function CosmeticTile({ emoji }: { emoji: Emoji }) {
 	const trigger = (
 		<Popover.Trigger
 			aria-label={name ?? emoji.name}
-			className="flex size-11 cursor-pointer items-center justify-center rounded-lg bg-black/70 transition-colors hover:bg-black/55 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none data-popup-open:bg-black/55 data-popup-open:ring-2 data-popup-open:ring-blue-500 dark:bg-black/30 dark:hover:bg-black/50 dark:focus-visible:ring-blue-300 dark:data-popup-open:bg-black/50 dark:data-popup-open:ring-blue-300"
+			className={clsx(
+				"flex size-11 cursor-pointer items-center justify-center rounded-lg bg-black/70 transition hover:bg-black/55 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none data-popup-open:bg-black/55 data-popup-open:ring-2 data-popup-open:ring-blue-500 dark:bg-black/30 dark:hover:bg-black/50 dark:focus-visible:ring-blue-300 dark:data-popup-open:bg-black/50 dark:data-popup-open:ring-blue-300",
+				dimmed && "opacity-30",
+			)}
 			handle={cosmeticPopover}
 			id={cosmeticAnchor(emoji.id)}
 			payload={emoji}
@@ -208,10 +232,12 @@ function CosmeticSectionLabel({ section }: { section: CosmeticSection }) {
 
 function CosmeticGroup({
 	activeTable,
+	dimmedEmojiIds,
 	onSelect,
 	sections,
 }: {
 	activeTable: string;
+	dimmedEmojiIds: ReadonlySet<string>;
 	onSelect: (table: string) => void;
 	sections: readonly CosmeticSection[];
 }) {
@@ -255,7 +281,7 @@ function CosmeticGroup({
 					<ul className="flex flex-wrap justify-center gap-1">
 						{section.emojis.map((emoji) => (
 							<li key={emoji.id}>
-								<CosmeticTile emoji={emoji} />
+								<CosmeticTile dimmed={dimmedEmojiIds.has(emoji.id)} emoji={emoji} />
 							</li>
 						))}
 					</ul>
@@ -265,8 +291,27 @@ function CosmeticGroup({
 	);
 }
 
-export default function Cosmetics() {
+export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	const { t } = useTranslation();
+	const [highlightOwned, setHighlightOwned] = useState(false);
+
+	const dimmedEmojiIds = useMemo(() => {
+		const dimmed = new Set<string>();
+
+		if (!highlightOwned || loaderData.owned === null) {
+			return dimmed;
+		}
+
+		const owned = new Set(loaderData.owned);
+
+		for (const [emojiId, entry] of COSMETIC_CATALOGUE) {
+			if (!entry.cosmetics.some((cosmetic) => owned.has(cosmetic))) {
+				dimmed.add(emojiId);
+			}
+		}
+
+		return dimmed;
+	}, [highlightOwned, loaderData.owned]);
 	const location = useLocation();
 
 	const [selections, setSelections] = useState<
@@ -305,14 +350,31 @@ export default function Cosmetics() {
 					{t("cosmetics.title", { ns: "features" })}
 				</h1>
 				<hr />
-				<div className="max-w-xl">
-					<CosmeticSearch />
+				<div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+					<div className="w-full max-w-xl">
+						<CosmeticSearch />
+					</div>
+					{loaderData.owned !== null && (
+						<Field.Root className="flex items-center gap-2">
+							<Switch.Root
+								checked={highlightOwned}
+								className={SWITCH_CLASS}
+								onCheckedChange={setHighlightOwned}
+							>
+								<Switch.Thumb className={SWITCH_THUMB_CLASS} />
+							</Switch.Root>
+							<Field.Label className="cursor-pointer text-sm text-gray-600 dark:text-gray-400">
+								{t("cosmetics.highlight-owned", { ns: "features" })}
+							</Field.Label>
+						</Field.Root>
+					)}
 				</div>
 
 				<div className="columns-[26.75rem] gap-8">
 					{COSMETICS_GROUPS.map((sections, groupIndex) => (
 						<CosmeticGroup
 							activeTable={activeTables[groupIndex]!}
+							dimmedEmojiIds={dimmedEmojiIds}
 							key={sections[0]!.table}
 							onSelect={(table) =>
 								setSelections((previous) =>
