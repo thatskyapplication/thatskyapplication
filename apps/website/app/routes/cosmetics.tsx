@@ -3,14 +3,23 @@ import { Popover } from "@base-ui/react/popover";
 import { Switch } from "@base-ui/react/switch";
 import { clsx } from "clsx";
 import type { TFunction } from "i18next";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+	memo,
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useState,
+	useSyncExternalStore,
+} from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
 	CatalogueCollectionToLocaleKey,
 	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
 	type Emoji,
+	formatEmojiURL,
 	spiritOriginTranslationKey,
 } from "@thatskyapplication/utility";
 import { CatalogueSearchAutocomplete } from "~/components/catalogue/CatalogueSearchAutocomplete.js";
@@ -21,18 +30,20 @@ import database from "~/database.server";
 import { getRequestSession } from "~/middleware/session";
 import { catalogueTargetQuery } from "~/utility/catalogue.js";
 import {
-	COSMETIC_ANCHOR_PREFIX,
+	COSMETIC_ANCHOR_TARGETS,
+	COSMETIC_ANCHORS,
 	COSMETIC_CATALOGUE,
-	COSMETIC_GROUP_TARGETS,
 	COSMETICS_GROUPS,
 	COSMETICS_SECTIONS,
-	cosmeticAnchor,
 } from "~/utility/cosmetics.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { PAGE_TITLE_CLASS, SWITCH_CLASS, SWITCH_THUMB_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/cosmetics.js";
 
-const cosmeticPopover = Popover.createHandle<Emoji>();
+const COSMETIC_TILE_SELECTOR = "[data-cosmetic-tile]" as const;
+const COSMETIC_TILE_IMAGE_SIZE = 64;
+
+const subscribeToNothing = () => () => {};
 
 export const loader = async ({ context }: Route.LoaderArgs) => {
 	const discordUser = getRequestSession(context).get("discord_user");
@@ -51,6 +62,7 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
 };
 
 interface CosmeticSearchEntry {
+	readonly anchor: string;
 	readonly emoji: Emoji;
 	readonly keywords: readonly string[];
 	readonly name: string;
@@ -156,12 +168,14 @@ function CosmeticSearch() {
 			const sectionName = t(section.heading, { ns: "features" });
 
 			for (const emoji of section.emojis) {
+				const anchor = COSMETIC_ANCHORS.get(emoji.id);
 				const entry = COSMETIC_CATALOGUE.get(emoji.id);
 				const sourceNames = entry?.sources.map((source) => catalogueLocation(source, t).name) ?? [];
 				const name = entry?.nameKeys ? t(entry.nameKeys, { ns: "general" }) : sourceNames[0];
 
-				if (name) {
+				if (anchor && name) {
 					entries.push({
+						anchor,
 						emoji,
 						keywords: [...sourceNames, sectionName],
 						name,
@@ -178,38 +192,66 @@ function CosmeticSearch() {
 		<CatalogueSearchAutocomplete
 			getEntries={getEntries}
 			placeholder={t("cosmetics.search-placeholder", { ns: "features" })}
-			resolveResult={({ emoji, section }) => ({
+			resolveResult={({ anchor, emoji, section }) => ({
 				detail: section,
 				emoji,
 				replace: true,
-				to: `#${cosmeticAnchor(emoji.id)}`,
+				to: `#${anchor}`,
 			})}
 		/>
 	);
 }
 
-function CosmeticTile({ dimmed, emoji }: { dimmed: boolean; emoji: Emoji }) {
+type CosmeticTileSelect = (emoji: Emoji, tile: HTMLElement, keyboard: boolean) => void;
+
+interface CosmeticSelection {
+	readonly emoji: Emoji;
+	readonly open: boolean;
+	readonly opener: "hash" | "keyboard" | "pointer";
+	readonly tile: () => Element | null;
+}
+
+const CosmeticTile = memo(function CosmeticTile({
+	dimmed,
+	emoji,
+	onSelect,
+}: {
+	dimmed: boolean;
+	emoji: Emoji;
+	onSelect: CosmeticTileSelect;
+}) {
 	const { t } = useTranslation();
 	const nameKeys = COSMETIC_CATALOGUE.get(emoji.id)?.nameKeys;
 	const name = nameKeys ? t(nameKeys, { ns: "general" }) : null;
 
-	const trigger = (
-		<Popover.Trigger
+	const tile = (
+		<button
+			aria-expanded={false}
+			aria-haspopup="dialog"
 			aria-label={name ?? emoji.name}
 			className={clsx(
-				"flex size-11 cursor-pointer items-center justify-center rounded-lg bg-black/70 transition hover:bg-black/55 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none data-popup-open:bg-black/55 data-popup-open:ring-2 data-popup-open:ring-blue-500 dark:bg-black/30 dark:hover:bg-black/50 dark:focus-visible:ring-blue-300 dark:data-popup-open:bg-black/50 dark:data-popup-open:ring-blue-300",
+				"flex size-11 cursor-pointer items-center justify-center rounded-lg bg-black/70 transition hover:bg-black/55 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none aria-expanded:bg-black/55 aria-expanded:ring-2 aria-expanded:ring-blue-500 dark:bg-black/30 dark:hover:bg-black/50 dark:focus-visible:ring-blue-300 dark:aria-expanded:bg-black/50 dark:aria-expanded:ring-blue-300",
 				dimmed && "opacity-30",
 			)}
-			handle={cosmeticPopover}
-			id={cosmeticAnchor(emoji.id)}
-			payload={emoji}
+			data-cosmetic-tile=""
+			id={COSMETIC_ANCHORS.get(emoji.id)}
+			onClick={(event) => onSelect(emoji, event.currentTarget, event.detail === 0)}
+			type="button"
 		>
-			<EmojiIcon className="size-8" emoji={emoji} />
-		</Popover.Trigger>
+			<img
+				alt=""
+				className="size-8"
+				decoding="async"
+				height={32}
+				loading="lazy"
+				src={`${formatEmojiURL(emoji.id)}?size=${COSMETIC_TILE_IMAGE_SIZE}`}
+				width={32}
+			/>
+		</button>
 	);
 
-	return name ? <Tooltip content={name}>{trigger}</Tooltip> : trigger;
-}
+	return name ? <Tooltip content={name}>{tile}</Tooltip> : tile;
+});
 
 type CosmeticSection = (typeof COSMETICS_SECTIONS)[number];
 
@@ -233,12 +275,14 @@ function CosmeticSectionLabel({ section }: { section: CosmeticSection }) {
 function CosmeticGroup({
 	activeTable,
 	dimmedEmojiIds,
-	onSelect,
+	onSelectTable,
+	onSelectTile,
 	sections,
 }: {
 	activeTable: string;
 	dimmedEmojiIds: ReadonlySet<string>;
-	onSelect: (table: string) => void;
+	onSelectTable: (table: string) => void;
+	onSelectTile: CosmeticTileSelect;
 	sections: readonly CosmeticSection[];
 }) {
 	const tabbed = sections.length > 1;
@@ -257,7 +301,7 @@ function CosmeticGroup({
 									: "border-transparent opacity-50 hover:opacity-80",
 							)}
 							key={section.table}
-							onClick={() => onSelect(section.table)}
+							onClick={() => onSelectTable(section.table)}
 							type="button"
 						>
 							<CosmeticSectionLabel section={section} />
@@ -281,7 +325,11 @@ function CosmeticGroup({
 					<ul className="flex flex-wrap justify-center gap-1">
 						{section.emojis.map((emoji) => (
 							<li key={emoji.id}>
-								<CosmeticTile dimmed={dimmedEmojiIds.has(emoji.id)} emoji={emoji} />
+								<CosmeticTile
+									dimmed={dimmedEmojiIds.has(emoji.id)}
+									emoji={emoji}
+									onSelect={onSelectTile}
+								/>
 							</li>
 						))}
 					</ul>
@@ -293,7 +341,19 @@ function CosmeticGroup({
 
 export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	const { t } = useTranslation();
+	const location = useLocation();
+	const navigate = useNavigate();
+	const hydrated = useSyncExternalStore(
+		subscribeToNothing,
+		() => true,
+		() => false,
+	);
 	const [highlightOwned, setHighlightOwned] = useState(false);
+	const [activeTables, setActiveTables] = useState<readonly string[]>(() =>
+		COSMETICS_GROUPS.map((sections) => sections[0]!.table),
+	);
+	const [selection, setSelection] = useState<CosmeticSelection | null>(null);
+	const [adoptedLocationKey, setAdoptedLocationKey] = useState<string | null>(null);
 
 	const dimmedEmojiIds = useMemo(() => {
 		const dimmed = new Set<string>();
@@ -312,36 +372,69 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 
 		return dimmed;
 	}, [highlightOwned, loaderData.owned]);
-	const location = useLocation();
 
-	const [selections, setSelections] = useState<
-		readonly ({ readonly locationKey: string; readonly table: string } | null)[]
-	>(() => COSMETICS_GROUPS.map(() => null));
+	const anchorTarget = hydrated ? COSMETIC_ANCHOR_TARGETS.get(location.hash.slice(1)) : undefined;
 
-	const anchor = location.hash.slice(1);
-
-	const anchorTarget = anchor.startsWith(COSMETIC_ANCHOR_PREFIX)
-		? COSMETIC_GROUP_TARGETS.get(anchor.slice(COSMETIC_ANCHOR_PREFIX.length))
-		: undefined;
-
-	const activeTables = COSMETICS_GROUPS.map((sections, groupIndex) => {
-		const selection = selections[groupIndex];
-
-		if (anchorTarget?.groupIndex === groupIndex && selection?.locationKey !== location.key) {
-			return anchorTarget.table;
-		}
-
-		return selection?.table ?? sections[0]!.table;
-	});
+	if (anchorTarget && adoptedLocationKey !== location.key) {
+		setAdoptedLocationKey(location.key);
+		setActiveTables((previous) => previous.with(anchorTarget.groupIndex, anchorTarget.table));
+		setSelection({
+			emoji: anchorTarget.emoji,
+			open: true,
+			opener: "hash",
+			tile: () => document.getElementById(anchorTarget.anchor),
+		});
+	}
 
 	useEffect(() => {
-		const tile = anchorTarget ? document.getElementById(anchor) : null;
-
-		if (tile) {
-			tile.scrollIntoView({ block: "center" });
-			cosmeticPopover.open(anchor);
+		if (selection?.open && selection.opener === "hash") {
+			selection.tile()?.scrollIntoView({ block: "center" });
 		}
-	}, [anchor, anchorTarget, location.key]);
+	}, [selection]);
+
+	useLayoutEffect(() => {
+		const tile = selection?.open ? selection.tile() : null;
+		tile?.setAttribute("aria-expanded", "true");
+		return () => tile?.setAttribute("aria-expanded", "false");
+	}, [selection]);
+
+	const clearAnchor = useCallback(() => {
+		if (window.location.hash) {
+			void navigate(
+				{ pathname: window.location.pathname, search: window.location.search },
+				{ preventScrollReset: true, replace: true },
+			);
+		}
+	}, [navigate]);
+
+	const selectTile = useCallback<CosmeticTileSelect>(
+		(emoji, tile, keyboard) => {
+			setSelection((current) =>
+				current?.open && current.emoji.id === emoji.id
+					? { ...current, open: false }
+					: { emoji, open: true, opener: keyboard ? "keyboard" : "pointer", tile: () => tile },
+			);
+
+			clearAnchor();
+		},
+		[clearAnchor],
+	);
+
+	const onOpenChange = (open: boolean, eventDetails: Popover.Root.ChangeEventDetails) => {
+		const { event, reason } = eventDetails;
+
+		if (
+			open ||
+			(reason === "outside-press" &&
+				event.target instanceof Element &&
+				event.target.closest(COSMETIC_TILE_SELECTOR))
+		) {
+			return;
+		}
+
+		setSelection((current) => current && { ...current, open: false });
+		clearAnchor();
+	};
 
 	return (
 		<SitePage>
@@ -376,36 +469,36 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 							activeTable={activeTables[groupIndex]!}
 							dimmedEmojiIds={dimmedEmojiIds}
 							key={sections[0]!.table}
-							onSelect={(table) =>
-								setSelections((previous) =>
-									previous.with(groupIndex, { locationKey: location.key, table }),
-								)
+							onSelectTable={(table) =>
+								setActiveTables((previous) => previous.with(groupIndex, table))
 							}
+							onSelectTile={selectTile}
 							sections={sections}
 						/>
 					))}
 				</div>
 			</div>
 
-			<Popover.Root handle={cosmeticPopover}>
-				{({ payload }) => (
-					<Popover.Portal>
-						<Popover.Positioner
-							align="center"
-							className="z-50"
-							collisionPadding={8}
-							side="bottom"
-							sideOffset={6}
+			<Popover.Root onOpenChange={onOpenChange} open={selection?.open ?? false}>
+				<Popover.Portal>
+					<Popover.Positioner
+						align="center"
+						anchor={selection?.tile}
+						className="z-50"
+						collisionPadding={8}
+						key={selection?.emoji.id}
+						side="bottom"
+						sideOffset={6}
+					>
+						<Popover.Popup
+							className="max-h-(--available-height) w-72 max-w-[calc(100vw-1rem)] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-900"
+							finalFocus={selection?.opener !== "hash"}
+							initialFocus={selection?.opener === "keyboard"}
 						>
-							<Popover.Popup
-								className="max-h-(--available-height) w-72 max-w-[calc(100vw-1rem)] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-900"
-								initialFocus={false}
-							>
-								{payload && <CosmeticDetails emoji={payload} />}
-							</Popover.Popup>
-						</Popover.Positioner>
-					</Popover.Portal>
-				)}
+							{selection && <CosmeticDetails emoji={selection.emoji} />}
+						</Popover.Popup>
+					</Popover.Positioner>
+				</Popover.Portal>
 			</Popover.Root>
 		</SitePage>
 	);

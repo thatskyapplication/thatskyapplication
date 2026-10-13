@@ -17,7 +17,7 @@ import {
 import { CosmeticToEmoji, EMOJIS } from "~/utility/emojis.js";
 
 const UNNAMED_TRANSLATION_PREFIX = "cosmetic-common-names." as const;
-export const COSMETIC_ANCHOR_PREFIX = "cosmetic-" as const;
+const COSMETIC_ANCHOR_PREFIX = "cosmetic-" as const;
 
 const CATALOGUE_COLLECTION_ITEMS = [
 	[CatalogueCollection.StarterPacks, STARTER_PACKS.items],
@@ -1350,16 +1350,64 @@ export const COSMETICS_GROUPS = (
 	tables.map((table) => COSMETICS_SECTIONS.find((section) => section.table === table)!),
 );
 
-export const COSMETIC_GROUP_TARGETS: ReadonlyMap<
-	string,
-	{ readonly groupIndex: number; readonly table: string }
-> = new Map(
-	COSMETICS_GROUPS.flatMap((sections, groupIndex) =>
-		sections.flatMap((section) =>
-			section.emojis.map((emoji) => [emoji.id, { groupIndex, table: section.table }] as const),
-		),
-	),
-);
+interface CosmeticAnchorTarget {
+	readonly anchor: string;
+	readonly emoji: Emoji;
+	readonly groupIndex: number;
+	readonly table: string;
+}
+
+function cosmeticAnchors(): {
+	anchors: ReadonlyMap<Emoji["id"], string>;
+	targets: ReadonlyMap<string, CosmeticAnchorTarget>;
+} {
+	const emojiCosmetics = new Map<Emoji["id"], string[]>();
+
+	for (const [cosmetic, emoji] of Object.entries(CosmeticToEmoji)) {
+		if (!emoji) {
+			continue;
+		}
+
+		const cosmetics = emojiCosmetics.get(emoji.id);
+
+		if (cosmetics) {
+			cosmetics.push(cosmetic);
+		} else {
+			emojiCosmetics.set(emoji.id, [cosmetic]);
+		}
+	}
+
+	const anchors = new Map<Emoji["id"], string>();
+	const targets = new Map<string, CosmeticAnchorTarget>();
+
+	for (const [groupIndex, sections] of COSMETICS_GROUPS.entries()) {
+		for (const section of sections) {
+			for (const emoji of section.emojis) {
+				const cosmetics = emojiCosmetics.get(emoji.id);
+
+				if (!cosmetics) {
+					continue;
+				}
+
+				const anchor = `${COSMETIC_ANCHOR_PREFIX}${cosmetics[0]}`;
+				anchors.set(emoji.id, anchor);
+
+				for (const cosmetic of cosmetics) {
+					targets.set(`${COSMETIC_ANCHOR_PREFIX}${cosmetic}`, {
+						anchor,
+						emoji,
+						groupIndex,
+						table: section.table,
+					});
+				}
+			}
+		}
+	}
+
+	return { anchors, targets };
+}
+
+export const { anchors: COSMETIC_ANCHORS, targets: COSMETIC_ANCHOR_TARGETS } = cosmeticAnchors();
 
 interface CosmeticCatalogueEntry {
 	cosmetics: Cosmetic[];
@@ -1425,10 +1473,6 @@ function cosmeticCatalogue() {
 	}
 
 	return catalogue;
-}
-
-export function cosmeticAnchor(emojiId: Emoji["id"]) {
-	return `${COSMETIC_ANCHOR_PREFIX}${emojiId}`;
 }
 
 export const COSMETIC_CATALOGUE: ReadonlyMap<
