@@ -1166,6 +1166,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.VisitTheAncestorsTableInTheElevatedClearing",
 	},
 	{
+		upstreamKey: "daily_quest_visit_dusk_spitroast_desc",
+		tsKey: "DailyQuest.VisitTheBonfireAtTheGoldenWasteland",
+	},
+	{
 		upstreamKey: "daily_quest_cherry_sappling_prairie_01_desc",
 		overrides: {
 			Base: {

@@ -210,7 +210,8 @@ export default {
 				"Visit the Ancestor's table in the Elevated Clearing",
 			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
 				"Visit the hot spring in the Village of Dreams",
-			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]: "Visit the bonfire at the Golden Wasteland",
+			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]:
+				"Visit the bonfire at the Wasteland's Graveyard",
 			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]:
 				"Admire the sapling in the Daylight Prairie",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "Admire the sapling in the Hidden Forest",
