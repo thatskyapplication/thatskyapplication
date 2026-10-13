@@ -764,7 +764,11 @@ export const PATCH_NOTES: readonly PatchNote[] = [
 		identifier: "p345",
 		url: "https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1469-update-34-5---august-25th-2026",
 	},
-	{ date: "2026-10-13", identifier: "p350" },
+	{
+		date: "2026-10-13",
+		identifier: "p350",
+		url: "https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1470-update-35-0---october-13th-2026",
+	},
 ];
 
 export function isPublishedPatchNote(patchNote: PatchNote): patchNote is PublishedPatchNote {
