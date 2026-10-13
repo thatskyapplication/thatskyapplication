@@ -1,7 +1,7 @@
 import { Popover } from "@base-ui/react/popover";
 import { clsx } from "clsx";
 import type { TFunction } from "i18next";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import {
@@ -19,6 +19,8 @@ import { catalogueTargetQuery } from "~/utility/catalogue.js";
 import {
 	COSMETIC_ANCHOR_PREFIX,
 	COSMETIC_CATALOGUE,
+	COSMETIC_GROUP_TARGETS,
+	COSMETICS_GROUPS,
 	COSMETICS_SECTIONS,
 	cosmeticAnchor,
 } from "~/utility/cosmetics.js";
@@ -185,19 +187,116 @@ function CosmeticTile({ emoji }: { emoji: Emoji }) {
 	return name ? <Tooltip content={name}>{trigger}</Tooltip> : trigger;
 }
 
+type CosmeticSection = (typeof COSMETICS_SECTIONS)[number];
+
+function CosmeticSectionLabel({ section }: { section: CosmeticSection }) {
+	const { t } = useTranslation();
+
+	return (
+		<>
+			<EmojiIcon
+				className="size-8"
+				emoji={section.icon}
+				label={t(section.heading, { ns: "features" })}
+			/>
+			<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+				{section.emojis.length}
+			</span>
+		</>
+	);
+}
+
+function CosmeticGroup({
+	activeTable,
+	onSelect,
+	sections,
+}: {
+	activeTable: string;
+	onSelect: (table: string) => void;
+	sections: readonly CosmeticSection[];
+}) {
+	const tabbed = sections.length > 1;
+
+	return (
+		<div>
+			{tabbed && (
+				<div className="mb-2 flex justify-center gap-1 lg:hidden">
+					{sections.map((section) => (
+						<button
+							aria-pressed={section.table === activeTable}
+							className={clsx(
+								"flex cursor-pointer items-center gap-1.5 border-b-2 px-3 pb-1 transition-opacity",
+								section.table === activeTable
+									? "border-gray-500 dark:border-gray-300"
+									: "border-transparent opacity-50 hover:opacity-80",
+							)}
+							key={section.table}
+							onClick={() => onSelect(section.table)}
+							type="button"
+						>
+							<CosmeticSectionLabel section={section} />
+						</button>
+					))}
+				</div>
+			)}
+			{sections.map((section) => (
+				<section
+					className={clsx(
+						"mx-auto mb-6 max-w-[26.75rem] break-inside-avoid",
+						tabbed && section.table !== activeTable && "max-lg:hidden",
+					)}
+					key={section.table}
+				>
+					<h2 className={clsx("mb-2 flex justify-center", tabbed && "max-lg:hidden")}>
+						<span className="flex items-center gap-1.5 border-b-2 border-gray-500 px-3 pb-1 dark:border-gray-300">
+							<CosmeticSectionLabel section={section} />
+						</span>
+					</h2>
+					<ul className="flex flex-wrap justify-center gap-1">
+						{section.emojis.map((emoji) => (
+							<li key={emoji.id}>
+								<CosmeticTile emoji={emoji} />
+							</li>
+						))}
+					</ul>
+				</section>
+			))}
+		</div>
+	);
+}
+
 export default function Cosmetics() {
 	const { t } = useTranslation();
 	const location = useLocation();
 
+	const [selections, setSelections] = useState<
+		readonly ({ readonly locationKey: string; readonly table: string } | null)[]
+	>(() => COSMETICS_GROUPS.map(() => null));
+
+	const anchor = location.hash.slice(1);
+
+	const anchorTarget = anchor.startsWith(COSMETIC_ANCHOR_PREFIX)
+		? COSMETIC_GROUP_TARGETS.get(anchor.slice(COSMETIC_ANCHOR_PREFIX.length))
+		: undefined;
+
+	const activeTables = COSMETICS_GROUPS.map((sections, groupIndex) => {
+		const selection = selections[groupIndex];
+
+		if (anchorTarget?.groupIndex === groupIndex && selection?.locationKey !== location.key) {
+			return anchorTarget.table;
+		}
+
+		return selection?.table ?? sections[0]!.table;
+	});
+
 	useEffect(() => {
-		const anchor = location.hash.slice(1);
-		const tile = anchor.startsWith(COSMETIC_ANCHOR_PREFIX) ? document.getElementById(anchor) : null;
+		const tile = anchorTarget ? document.getElementById(anchor) : null;
 
 		if (tile) {
 			tile.scrollIntoView({ block: "center" });
 			cosmeticPopover.open(anchor);
 		}
-	}, [location.hash, location.key]);
+	}, [anchor, anchorTarget, location.key]);
 
 	return (
 		<SitePage>
@@ -211,31 +310,17 @@ export default function Cosmetics() {
 				</div>
 
 				<div className="columns-[26.75rem] gap-8">
-					{COSMETICS_SECTIONS.map((section) => (
-						<section
-							className="mx-auto mb-6 max-w-[26.75rem] break-inside-avoid"
-							key={section.heading}
-						>
-							<h2 className="mb-2 flex justify-center">
-								<span className="flex items-center gap-1.5 border-b-2 border-gray-500 px-3 pb-1 dark:border-gray-300">
-									<EmojiIcon
-										className="size-8"
-										emoji={section.icon}
-										label={t(section.heading, { ns: "features" })}
-									/>
-									<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-										{section.emojis.length}
-									</span>
-								</span>
-							</h2>
-							<ul className="flex flex-wrap justify-center gap-1">
-								{section.emojis.map((emoji) => (
-									<li key={emoji.id}>
-										<CosmeticTile emoji={emoji} />
-									</li>
-								))}
-							</ul>
-						</section>
+					{COSMETICS_GROUPS.map((sections, groupIndex) => (
+						<CosmeticGroup
+							activeTable={activeTables[groupIndex]!}
+							key={sections[0]!.table}
+							onSelect={(table) =>
+								setSelections((previous) =>
+									previous.with(groupIndex, { locationKey: location.key, table }),
+								)
+							}
+							sections={sections}
+						/>
 					))}
 				</div>
 			</div>

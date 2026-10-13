@@ -1330,8 +1330,31 @@ export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, t
 			.map(([, emoji]) => emoji),
 	);
 
-	return { emojis: ordered, heading, icon };
+	return { emojis: ordered, heading, icon, table };
 });
+
+export const COSMETICS_GROUPS = (
+	[
+		["OUTFIT_EMOJIS", "SHOE_EMOJIS", "FULL_OUTFIT_EMOJIS"],
+		["MASK_EMOJIS", "FACE_ACCESSORY_EMOJIS", "NECKLACE_EMOJIS"],
+		["HAIR_EMOJIS", "HAIR_ACCESSORY_EMOJIS", "HEAD_ACCESSORY_EMOJIS"],
+		["CAPE_EMOJIS"],
+		["HELD_PROPS_EMOJIS", "LARGE_PLACEABLE_PROPS_EMOJIS", "SMALL_PLACEABLE_PROPS_EMOJIS"],
+	] as const satisfies readonly (readonly CosmeticsTable[])[]
+).map((tables) =>
+	tables.map((table) => COSMETICS_SECTIONS.find((section) => section.table === table)!),
+);
+
+export const COSMETIC_GROUP_TARGETS: ReadonlyMap<
+	string,
+	{ readonly groupIndex: number; readonly table: string }
+> = new Map(
+	COSMETICS_GROUPS.flatMap((sections, groupIndex) =>
+		sections.flatMap((section) =>
+			section.emojis.map((emoji) => [emoji.id, { groupIndex, table: section.table }] as const),
+		),
+	),
+);
 
 interface CosmeticCatalogueEntry {
 	nameKeys: string[] | null;
