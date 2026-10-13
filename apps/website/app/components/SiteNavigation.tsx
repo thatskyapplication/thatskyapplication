@@ -241,7 +241,7 @@ function DesktopNavigation({
 					side="bottom"
 					sideOffset={8}
 				>
-					<NavigationMenu.Popup className="relative z-50 h-(--popup-height) w-(--popup-width) overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg transition-[width,height] duration-150 dark:border-gray-700 dark:bg-gray-900">
+					<NavigationMenu.Popup className="relative z-50 h-(--popup-height) max-h-(--available-height) w-(--popup-width) overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg transition-[width,height] duration-150 dark:border-gray-700 dark:bg-gray-900">
 						<NavigationMenu.Viewport className="relative h-full w-full overflow-hidden" />
 					</NavigationMenu.Popup>
 				</NavigationMenu.Positioner>

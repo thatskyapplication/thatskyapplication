@@ -13,7 +13,13 @@ import {
 	useSyncExternalStore,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation, useNavigate } from "react-router";
+import {
+	Link,
+	type Location,
+	type ShouldRevalidateFunctionArgs,
+	useLocation,
+	useNavigate,
+} from "react-router";
 import {
 	CatalogueCollectionToLocaleKey,
 	type CatalogueSearchTargetWithoutEventFamily,
@@ -21,35 +27,47 @@ import {
 	type Emoji,
 	formatEmojiURL,
 	spiritOriginTranslationKey,
+	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { CatalogueSearchAutocomplete } from "~/components/catalogue/CatalogueSearchAutocomplete.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
 import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session";
 import { catalogueTargetQuery } from "~/utility/catalogue.js";
+import { WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
 import {
 	COSMETIC_ANCHOR_TARGETS,
 	COSMETIC_ANCHORS,
 	COSMETIC_CATALOGUE,
+	cosmeticName,
 	COSMETICS_GROUPS,
 	COSMETICS_SECTIONS,
+	UNLOCKED_BY_DEFAULT_EMOJIS,
 } from "~/utility/cosmetics.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import { hexColour } from "~/utility/functions.js";
 import { PAGE_TITLE_CLASS, SWITCH_CLASS, SWITCH_THUMB_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/cosmetics.js";
 
+const COSMETICS_TITLE = "Cosmetics" as const;
+const COSMETICS_DESCRIPTION = "Browse all cosmetics." as const;
 const COSMETIC_TILE_SELECTOR = "[data-cosmetic-tile]" as const;
-const COSMETIC_TILE_IMAGE_SIZE = 64;
+const COSMETIC_TILE_IMAGE_SIZE = 32 as const;
+const COSMETIC_TILE_PIXEL_DENSITIES = [1, 2, 3] as const;
 
 const subscribeToNothing = () => () => {};
 
 export const loader = async ({ context }: Route.LoaderArgs) => {
+	const t = getInstance(context).getFixedT(getLocale(context));
+	const pageDescription = t("cosmetics.description-short", { ns: "features" });
+	const pageTitle = t("cosmetics.title", { ns: "features" });
 	const discordUser = getRequestSession(context).get("discord_user");
 
 	if (!discordUser) {
-		return { owned: null };
+		return { owned: null, pageDescription, pageTitle };
 	}
 
 	const cataloguePacket = await database
@@ -58,8 +76,55 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
 		.where("user_id", "=", discordUser.id)
 		.executeTakeFirst();
 
-	return { owned: cataloguePacket?.data ?? [] };
+	return { owned: cataloguePacket?.data ?? [], pageDescription, pageTitle };
 };
+
+export const meta: Route.MetaFunction = ({ loaderData, location }) => {
+	const url = String(new URL(location.pathname, WEBSITE_URL));
+	const title = loaderData?.pageTitle ?? COSMETICS_TITLE;
+	const description = loaderData?.pageDescription ?? COSMETICS_DESCRIPTION;
+
+	return [
+		{ charSet: "utf-8" },
+		{ name: "viewport", content: "width=device-width, initial-scale=1" },
+		{ name: "robots", content: "index, follow" },
+		{ title },
+		{ name: "description", content: description },
+		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
+		{ property: "og:title", content: title },
+		{ property: "og:description", content: description },
+		{ property: "og:type", content: "website" },
+		{ property: "og:site_name", content: "thatskyapplication" },
+		{ property: "og:image", content: WEBSITE_ICON_URL },
+		{ property: "og:url", content: url },
+		{ name: "twitter:card", content: "summary" },
+		{ name: "twitter:title", content: title },
+		{ name: "twitter:description", content: description },
+		{ tagName: "link", rel: "canonical", href: url },
+	];
+};
+
+export function shouldRevalidate({
+	currentUrl,
+	defaultShouldRevalidate,
+	nextUrl,
+}: ShouldRevalidateFunctionArgs) {
+	return currentUrl.href !== nextUrl.href &&
+		currentUrl.pathname === nextUrl.pathname &&
+		currentUrl.search === nextUrl.search
+		? false
+		: defaultShouldRevalidate;
+}
+
+function cosmeticTileImageSourceSet(imageURL: string) {
+	return COSMETIC_TILE_PIXEL_DENSITIES.map(
+		(density) => `${imageURL}?size=${COSMETIC_TILE_IMAGE_SIZE * density} ${density}x`,
+	).join(", ");
+}
+
+function withActiveTable(activeTables: readonly string[], groupIndex: number, table: string) {
+	return activeTables[groupIndex] === table ? activeTables : activeTables.with(groupIndex, table);
+}
 
 interface CosmeticSearchEntry {
 	readonly anchor: string;
@@ -109,7 +174,7 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 }
 
 function CosmeticDetails({ emoji }: { emoji: Emoji }) {
-	const { t } = useTranslation();
+	const { i18n, t } = useTranslation();
 	const entry = COSMETIC_CATALOGUE.get(emoji.id);
 	const sources = entry?.sources.map((source) => catalogueLocation(source, t)) ?? [];
 	const reserveEmojiSpace = sources.some((source) => source.emoji);
@@ -118,7 +183,7 @@ function CosmeticDetails({ emoji }: { emoji: Emoji }) {
 		<>
 			{entry?.nameKeys && (
 				<Popover.Title className="px-2 pt-1 text-base font-semibold text-gray-900 dark:text-gray-100">
-					{t(entry.nameKeys, { ns: "general" })}
+					{cosmeticName(entry.nameKeys, i18n, t)}
 				</Popover.Title>
 			)}
 			<h3 className="mt-1 px-2 text-xs font-medium text-gray-500 dark:text-gray-400">
@@ -159,7 +224,7 @@ function CosmeticDetails({ emoji }: { emoji: Emoji }) {
 }
 
 function CosmeticSearch() {
-	const { t } = useTranslation();
+	const { i18n, t } = useTranslation();
 
 	const getEntries = useCallback(() => {
 		const entries: CosmeticSearchEntry[] = [];
@@ -171,7 +236,7 @@ function CosmeticSearch() {
 				const anchor = COSMETIC_ANCHORS.get(emoji.id);
 				const entry = COSMETIC_CATALOGUE.get(emoji.id);
 				const sourceNames = entry?.sources.map((source) => catalogueLocation(source, t).name) ?? [];
-				const name = entry?.nameKeys ? t(entry.nameKeys, { ns: "general" }) : sourceNames[0];
+				const name = entry?.nameKeys ? cosmeticName(entry.nameKeys, i18n, t) : sourceNames[0];
 
 				if (anchor && name) {
 					entries.push({
@@ -186,7 +251,7 @@ function CosmeticSearch() {
 		}
 
 		return entries;
-	}, [t]);
+	}, [i18n, t]);
 
 	return (
 		<CatalogueSearchAutocomplete
@@ -214,15 +279,15 @@ interface CosmeticSelection {
 const CosmeticTile = memo(function CosmeticTile({
 	dimmed,
 	emoji,
+	name,
 	onSelect,
 }: {
 	dimmed: boolean;
 	emoji: Emoji;
+	name: string | null;
 	onSelect: CosmeticTileSelect;
 }) {
-	const { t } = useTranslation();
-	const nameKeys = COSMETIC_CATALOGUE.get(emoji.id)?.nameKeys;
-	const name = nameKeys ? t(nameKeys, { ns: "general" }) : null;
+	const imageURL = formatEmojiURL(emoji.id);
 
 	const tile = (
 		<button
@@ -240,12 +305,14 @@ const CosmeticTile = memo(function CosmeticTile({
 		>
 			<img
 				alt=""
-				className="size-8"
+				className="size-8 object-contain [-webkit-user-drag:none]"
 				decoding="async"
-				height={32}
+				draggable={false}
+				height={COSMETIC_TILE_IMAGE_SIZE}
 				loading="lazy"
-				src={`${formatEmojiURL(emoji.id)}?size=${COSMETIC_TILE_IMAGE_SIZE}`}
-				width={32}
+				src={`${imageURL}?size=${COSMETIC_TILE_IMAGE_SIZE}`}
+				srcSet={cosmeticTileImageSourceSet(imageURL)}
+				width={COSMETIC_TILE_IMAGE_SIZE}
 			/>
 		</button>
 	);
@@ -274,12 +341,14 @@ function CosmeticSectionLabel({ section }: { section: CosmeticSection }) {
 
 function CosmeticGroup({
 	activeTable,
+	cosmeticNames,
 	dimmedEmojiIds,
 	onSelectTable,
 	onSelectTile,
 	sections,
 }: {
 	activeTable: string;
+	cosmeticNames: ReadonlyMap<string, string>;
 	dimmedEmojiIds: ReadonlySet<string>;
 	onSelectTable: (table: string) => void;
 	onSelectTile: CosmeticTileSelect;
@@ -328,6 +397,7 @@ function CosmeticGroup({
 								<CosmeticTile
 									dimmed={dimmedEmojiIds.has(emoji.id)}
 									emoji={emoji}
+									name={cosmeticNames.get(emoji.id) ?? null}
 									onSelect={onSelectTile}
 								/>
 							</li>
@@ -340,7 +410,7 @@ function CosmeticGroup({
 }
 
 export default function Cosmetics({ loaderData }: Route.ComponentProps) {
-	const { t } = useTranslation();
+	const { i18n, t } = useTranslation();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const hydrated = useSyncExternalStore(
@@ -353,7 +423,23 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 		COSMETICS_GROUPS.map((sections) => sections[0]!.table),
 	);
 	const [selection, setSelection] = useState<CosmeticSelection | null>(null);
-	const [adoptedLocationKey, setAdoptedLocationKey] = useState<string | null>(null);
+	const [adoptedLocation, setAdoptedLocation] = useState<Location | null>(null);
+
+	const cosmeticNames = useMemo(() => {
+		const names = new Map<string, string>();
+
+		for (const section of COSMETICS_SECTIONS) {
+			for (const emoji of section.emojis) {
+				const nameKeys = COSMETIC_CATALOGUE.get(emoji.id)?.nameKeys;
+
+				if (nameKeys) {
+					names.set(emoji.id, cosmeticName(nameKeys, i18n, t));
+				}
+			}
+		}
+
+		return names;
+	}, [i18n, t]);
 
 	const dimmedEmojiIds = useMemo(() => {
 		const dimmed = new Set<string>();
@@ -364,9 +450,17 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 
 		const owned = new Set(loaderData.owned);
 
-		for (const [emojiId, entry] of COSMETIC_CATALOGUE) {
-			if (!entry.cosmetics.some((cosmetic) => owned.has(cosmetic))) {
-				dimmed.add(emojiId);
+		for (const section of COSMETICS_SECTIONS) {
+			for (const emoji of section.emojis) {
+				const entry = COSMETIC_CATALOGUE.get(emoji.id);
+
+				if (
+					entry
+						? !entry.cosmetics.some((cosmetic) => owned.has(cosmetic))
+						: !UNLOCKED_BY_DEFAULT_EMOJIS.has(emoji.id)
+				) {
+					dimmed.add(emoji.id);
+				}
 			}
 		}
 
@@ -375,9 +469,11 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 
 	const anchorTarget = hydrated ? COSMETIC_ANCHOR_TARGETS.get(location.hash.slice(1)) : undefined;
 
-	if (anchorTarget && adoptedLocationKey !== location.key) {
-		setAdoptedLocationKey(location.key);
-		setActiveTables((previous) => previous.with(anchorTarget.groupIndex, anchorTarget.table));
+	if (anchorTarget && adoptedLocation !== location) {
+		setAdoptedLocation(location);
+		setActiveTables((previous) =>
+			withActiveTable(previous, anchorTarget.groupIndex, anchorTarget.table),
+		);
 		setSelection({
 			emoji: anchorTarget.emoji,
 			open: true,
@@ -409,11 +505,17 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 
 	const selectTile = useCallback<CosmeticTileSelect>(
 		(emoji, tile, keyboard) => {
+			const target = COSMETIC_ANCHOR_TARGETS.get(tile.id);
+
 			setSelection((current) =>
 				current?.open && current.emoji.id === emoji.id
 					? { ...current, open: false }
 					: { emoji, open: true, opener: keyboard ? "keyboard" : "pointer", tile: () => tile },
 			);
+
+			if (target) {
+				setActiveTables((previous) => withActiveTable(previous, target.groupIndex, target.table));
+			}
 
 			clearAnchor();
 		},
@@ -467,10 +569,11 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 					{COSMETICS_GROUPS.map((sections, groupIndex) => (
 						<CosmeticGroup
 							activeTable={activeTables[groupIndex]!}
+							cosmeticNames={cosmeticNames}
 							dimmedEmojiIds={dimmedEmojiIds}
 							key={sections[0]!.table}
 							onSelectTable={(table) =>
-								setActiveTables((previous) => previous.with(groupIndex, table))
+								setActiveTables((previous) => withActiveTable(previous, groupIndex, table))
 							}
 							onSelectTile={selectTile}
 							sections={sections}
@@ -492,7 +595,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 					>
 						<Popover.Popup
 							className="max-h-(--available-height) w-72 max-w-[calc(100vw-1rem)] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-900"
-							finalFocus={selection?.opener !== "hash"}
+							finalFocus={selection?.opener === "keyboard"}
 							initialFocus={selection?.opener === "keyboard"}
 						>
 							{selection && <CosmeticDetails emoji={selection.emoji} />}

@@ -1,6 +1,7 @@
+import type { i18n as I18n, TFunction } from "i18next";
 import {
 	CatalogueCollection,
-	type Cosmetic,
+	Cosmetic,
 	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
 	CLOTHING_SHOP,
@@ -1324,6 +1325,17 @@ const PULLED_EMOJIS: ReadonlySet<Emoji["id"]> = new Set([
 	EMOJIS.HAIR_ACCESSORY_EMOJIS.HairAccessory75.id,
 ]);
 
+export const UNLOCKED_BY_DEFAULT_EMOJIS: ReadonlySet<Emoji["id"]> = new Set(
+	[
+		Cosmetic.BaseOutfit,
+		Cosmetic.BaseMask,
+		Cosmetic.BaseHair1,
+		Cosmetic.BaseHair2,
+		Cosmetic.BaseHair3,
+		Cosmetic.BaseCape,
+	].map((cosmetic) => CosmeticToEmoji[cosmetic]!.id),
+);
+
 export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, table }) => {
 	const emojis: Readonly<Record<string, Emoji>> = EMOJIS[table];
 	const listed = new Set<string>(order);
@@ -1436,7 +1448,12 @@ function addCatalogueItems(
 			}
 
 			if (entry.nameKeys === null && !item.translation.key.startsWith(UNNAMED_TRANSLATION_PREFIX)) {
-				entry.nameKeys = [`cosmetic-names.${cosmetic}`, item.translation.key];
+				const cosmeticNameKey = `cosmetic-names.${cosmetic}`;
+
+				entry.nameKeys =
+					item.translation.key === cosmeticNameKey
+						? [cosmeticNameKey]
+						: [cosmeticNameKey, item.translation.key];
 			}
 
 			if (!entry.cosmetics.includes(cosmetic)) {
@@ -1479,3 +1496,11 @@ export const COSMETIC_CATALOGUE: ReadonlyMap<
 	Emoji["id"],
 	Readonly<CosmeticCatalogueEntry>
 > = cosmeticCatalogue();
+
+export function cosmeticName(nameKeys: string[], i18n: I18n, t: TFunction) {
+	const translatedNameKey = nameKeys.find((nameKey) =>
+		i18n.getResource(i18n.language, "general", nameKey),
+	);
+
+	return t(translatedNameKey ?? nameKeys, { ns: "general" });
+}
