@@ -1,8 +1,9 @@
 import { Popover } from "@base-ui/react/popover";
 import { clsx } from "clsx";
 import type { TFunction } from "i18next";
+import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import {
 	CatalogueCollectionToLocaleKey,
 	type CatalogueSearchTargetWithoutEventFamily,
@@ -10,15 +11,28 @@ import {
 	type Emoji,
 	spiritOriginTranslationKey,
 } from "@thatskyapplication/utility";
+import { CatalogueSearchAutocomplete } from "~/components/catalogue/CatalogueSearchAutocomplete.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
 import { Tooltip } from "~/components/Tooltip";
 import { catalogueTargetQuery } from "~/utility/catalogue.js";
-import { COSMETIC_CATALOGUE, COSMETICS_SECTIONS } from "~/utility/cosmetics.js";
+import {
+	COSMETIC_ANCHOR_PREFIX,
+	COSMETIC_CATALOGUE,
+	COSMETICS_SECTIONS,
+	cosmeticAnchor,
+} from "~/utility/cosmetics.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { PAGE_TITLE_CLASS, SECTION_HEADING_CLASS } from "~/utility/styles.js";
 
 const cosmeticPopover = Popover.createHandle<Emoji>();
+
+interface CosmeticSearchEntry {
+	readonly emoji: Emoji;
+	readonly keywords: readonly string[];
+	readonly name: string;
+	readonly section: string;
+}
 
 function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: TFunction) {
 	const query = catalogueTargetQuery(target);
@@ -109,6 +123,48 @@ function CosmeticDetails({ emoji }: { emoji: Emoji }) {
 	);
 }
 
+function CosmeticSearch() {
+	const { t } = useTranslation();
+
+	const getEntries = useCallback(() => {
+		const entries: CosmeticSearchEntry[] = [];
+
+		for (const section of COSMETICS_SECTIONS) {
+			const sectionName = t(section.heading, { ns: "features" });
+
+			for (const emoji of section.emojis) {
+				const entry = COSMETIC_CATALOGUE.get(emoji.id);
+				const sourceNames = entry?.sources.map((source) => catalogueLocation(source, t).name) ?? [];
+				const name = entry?.nameKeys ? t(entry.nameKeys, { ns: "general" }) : sourceNames[0];
+
+				if (name) {
+					entries.push({
+						emoji,
+						keywords: [...sourceNames, sectionName],
+						name,
+						section: sectionName,
+					});
+				}
+			}
+		}
+
+		return entries;
+	}, [t]);
+
+	return (
+		<CatalogueSearchAutocomplete
+			getEntries={getEntries}
+			placeholder={t("cosmetics.search-placeholder", { ns: "features" })}
+			resolveResult={({ emoji, section }) => ({
+				detail: section,
+				emoji,
+				replace: true,
+				to: `#${cosmeticAnchor(emoji.id)}`,
+			})}
+		/>
+	);
+}
+
 function CosmeticTile({ emoji }: { emoji: Emoji }) {
 	const { t } = useTranslation();
 	const nameKeys = COSMETIC_CATALOGUE.get(emoji.id)?.nameKeys;
@@ -117,8 +173,9 @@ function CosmeticTile({ emoji }: { emoji: Emoji }) {
 	const trigger = (
 		<Popover.Trigger
 			aria-label={name ?? emoji.name}
-			className="flex size-12 cursor-pointer items-center justify-center rounded-xl bg-black/70 transition-colors hover:bg-black/55 data-popup-open:bg-black/55 dark:bg-black/30 dark:hover:bg-black/50 dark:data-popup-open:bg-black/50"
+			className="flex size-12 cursor-pointer items-center justify-center rounded-xl bg-black/70 transition-colors hover:bg-black/55 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none data-popup-open:bg-black/55 data-popup-open:ring-2 data-popup-open:ring-blue-500 dark:bg-black/30 dark:hover:bg-black/50 dark:focus-visible:ring-blue-300 dark:data-popup-open:bg-black/50 dark:data-popup-open:ring-blue-300"
 			handle={cosmeticPopover}
+			id={cosmeticAnchor(emoji.id)}
 			payload={emoji}
 		>
 			<EmojiIcon className="size-8" emoji={emoji} />
@@ -130,6 +187,17 @@ function CosmeticTile({ emoji }: { emoji: Emoji }) {
 
 export default function Cosmetics() {
 	const { t } = useTranslation();
+	const location = useLocation();
+
+	useEffect(() => {
+		const anchor = location.hash.slice(1);
+		const tile = anchor.startsWith(COSMETIC_ANCHOR_PREFIX) ? document.getElementById(anchor) : null;
+
+		if (tile) {
+			tile.scrollIntoView({ block: "center" });
+			cosmeticPopover.open(anchor);
+		}
+	}, [location.hash, location.key]);
 
 	return (
 		<SitePage>
@@ -138,6 +206,7 @@ export default function Cosmetics() {
 					{t("cosmetics.title", { ns: "features" })}
 				</h1>
 				<hr />
+				<CosmeticSearch />
 
 				{COSMETICS_SECTIONS.map((section) => (
 					<section className="flex flex-col gap-3" key={section.heading}>
@@ -165,7 +234,10 @@ export default function Cosmetics() {
 							side="bottom"
 							sideOffset={6}
 						>
-							<Popover.Popup className="max-h-(--available-height) w-72 max-w-[calc(100vw-1rem)] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+							<Popover.Popup
+								className="max-h-(--available-height) w-72 max-w-[calc(100vw-1rem)] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-900"
+								initialFocus={false}
+							>
 								{payload && <CosmeticDetails emoji={payload} />}
 							</Popover.Popup>
 						</Popover.Positioner>

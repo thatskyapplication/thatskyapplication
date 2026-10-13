@@ -582,7 +582,7 @@ export function catalogueSearchEntries(
 	return entries;
 }
 
-export function catalogueSearch<Entry extends CatalogueSearchEntry>(
+export function catalogueSearch<Entry extends Pick<CatalogueSearchEntry, "keywords" | "name">>(
 	entries: readonly Entry[],
 	query: string,
 	limit?: number,

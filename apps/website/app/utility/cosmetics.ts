@@ -16,6 +16,7 @@ import {
 import { CosmeticToEmoji, EMOJIS } from "~/utility/emojis.js";
 
 const UNNAMED_TRANSLATION_PREFIX = "cosmetic-common-names." as const;
+export const COSMETIC_ANCHOR_PREFIX = "cosmetic-" as const;
 
 const CATALOGUE_COLLECTION_ITEMS = [
 	[CatalogueCollection.StarterPacks, STARTER_PACKS.items],
@@ -1377,6 +1378,10 @@ function cosmeticCatalogue() {
 	}
 
 	return catalogue;
+}
+
+export function cosmeticAnchor(emojiId: Emoji["id"]) {
+	return `${COSMETIC_ANCHOR_PREFIX}${emojiId}`;
 }
 
 export const COSMETIC_CATALOGUE: ReadonlyMap<

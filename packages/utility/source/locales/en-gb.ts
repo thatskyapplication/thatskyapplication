@@ -3074,6 +3074,7 @@ export default {
 			"no-source": "No source; unlocked by default.",
 			source_one: "Source",
 			source_other: "Sources",
+			"search-placeholder": "Search cosmetics…",
 			sections: {
 				outfits: "Outfits",
 				shoes: "Shoes",
