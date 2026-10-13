@@ -43,6 +43,7 @@ type CosmeticsTable =
 type CosmeticsSectionOrder = {
 	[Table in CosmeticsTable]: {
 		heading: string;
+		icon: Emoji;
 		table: Table;
 		order: readonly (keyof (typeof EMOJIS)[Table])[];
 	};
@@ -51,6 +52,7 @@ type CosmeticsSectionOrder = {
 const COSMETICS_ORDER = [
 	{
 		heading: "cosmetics.sections.outfits",
+		icon: EMOJIS.OUTFIT_EMOJIS.Outfit01,
 		table: "OUTFIT_EMOJIS",
 		order: [
 			"Outfit01",
@@ -127,6 +129,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.shoes",
+		icon: EMOJIS.SHOE_EMOJIS.Shoe01,
 		table: "SHOE_EMOJIS",
 		order: [
 			"Shoe05",
@@ -163,6 +166,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.full-outfits",
+		icon: EMOJIS.FULL_OUTFIT_EMOJIS.FullOutfit13,
 		table: "FULL_OUTFIT_EMOJIS",
 		order: [
 			"FullOutfit01",
@@ -212,6 +216,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.masks",
+		icon: EMOJIS.MASK_EMOJIS.Mask01,
 		table: "MASK_EMOJIS",
 		order: [
 			"Mask01",
@@ -335,6 +340,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.face-accessories",
+		icon: EMOJIS.FACE_ACCESSORY_EMOJIS.FaceAccessory08,
 		table: "FACE_ACCESSORY_EMOJIS",
 		order: [
 			"FaceAccessory01",
@@ -374,6 +380,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.necklaces",
+		icon: EMOJIS.NECKLACE_EMOJIS.Necklace43,
 		table: "NECKLACE_EMOJIS",
 		order: [
 			"Necklace01",
@@ -439,6 +446,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.hair",
+		icon: EMOJIS.HAIR_EMOJIS.Hair01,
 		table: "HAIR_EMOJIS",
 		order: [
 			"Hair01",
@@ -632,6 +640,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.hair-accessories",
+		icon: EMOJIS.HAIR_ACCESSORY_EMOJIS.HairAccessory07,
 		table: "HAIR_ACCESSORY_EMOJIS",
 		order: [
 			"HairAccessory02",
@@ -724,6 +733,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.head-accessories",
+		icon: EMOJIS.HEAD_ACCESSORY_EMOJIS.HeadAccessory04,
 		table: "HEAD_ACCESSORY_EMOJIS",
 		order: [
 			"HeadAccessory01",
@@ -756,6 +766,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.capes",
+		icon: EMOJIS.MISCELLANEOUS_EMOJIS.CapeCategory,
 		table: "CAPE_EMOJIS",
 		order: [
 			"Cape01",
@@ -953,6 +964,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.held-props",
+		icon: EMOJIS.HELD_PROPS_EMOJIS.HeldProp01,
 		table: "HELD_PROPS_EMOJIS",
 		order: [
 			"HeldProp01",
@@ -1024,6 +1036,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.large-placeable-props",
+		icon: EMOJIS.LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp08,
 		table: "LARGE_PLACEABLE_PROPS_EMOJIS",
 		order: [
 			"LargePlaceableProp76",
@@ -1162,6 +1175,7 @@ const COSMETICS_ORDER = [
 	},
 	{
 		heading: "cosmetics.sections.small-placeable-props",
+		icon: EMOJIS.MISCELLANEOUS_EMOJIS.SmallPlaceablePropsCategory,
 		table: "SMALL_PLACEABLE_PROPS_EMOJIS",
 		order: [
 			"SmallPlaceableProp07",
@@ -1305,7 +1319,7 @@ const COSMETICS_ORDER = [
 	},
 ] as const satisfies readonly CosmeticsSectionOrder[];
 
-export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, order, table }) => {
+export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, table }) => {
 	const emojis: Readonly<Record<string, Emoji>> = EMOJIS[table];
 	const listed = new Set<string>(order);
 	const ordered = order.map((key: string) => emojis[key]!);
@@ -1316,7 +1330,7 @@ export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, order, table }
 			.map(([, emoji]) => emoji),
 	);
 
-	return { emojis: ordered, heading };
+	return { emojis: ordered, heading, icon };
 });
 
 interface CosmeticCatalogueEntry {

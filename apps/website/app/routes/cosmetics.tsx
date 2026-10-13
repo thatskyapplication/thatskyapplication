@@ -23,7 +23,7 @@ import {
 	cosmeticAnchor,
 } from "~/utility/cosmetics.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
-import { PAGE_TITLE_CLASS, SECTION_HEADING_CLASS } from "~/utility/styles.js";
+import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 
 const cosmeticPopover = Popover.createHandle<Emoji>();
 
@@ -173,7 +173,7 @@ function CosmeticTile({ emoji }: { emoji: Emoji }) {
 	const trigger = (
 		<Popover.Trigger
 			aria-label={name ?? emoji.name}
-			className="flex size-12 cursor-pointer items-center justify-center rounded-xl bg-black/70 transition-colors hover:bg-black/55 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none data-popup-open:bg-black/55 data-popup-open:ring-2 data-popup-open:ring-blue-500 dark:bg-black/30 dark:hover:bg-black/50 dark:focus-visible:ring-blue-300 dark:data-popup-open:bg-black/50 dark:data-popup-open:ring-blue-300"
+			className="flex size-11 cursor-pointer items-center justify-center rounded-lg bg-black/70 transition-colors hover:bg-black/55 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none data-popup-open:bg-black/55 data-popup-open:ring-2 data-popup-open:ring-blue-500 dark:bg-black/30 dark:hover:bg-black/50 dark:focus-visible:ring-blue-300 dark:data-popup-open:bg-black/50 dark:data-popup-open:ring-blue-300"
 			handle={cosmeticPopover}
 			id={cosmeticAnchor(emoji.id)}
 			payload={emoji}
@@ -201,27 +201,43 @@ export default function Cosmetics() {
 
 	return (
 		<SitePage>
-			<div className="container mx-auto max-w-4xl space-y-4">
+			<div className="space-y-4">
 				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6")}>
 					{t("cosmetics.title", { ns: "features" })}
 				</h1>
 				<hr />
-				<CosmeticSearch />
+				<div className="max-w-xl">
+					<CosmeticSearch />
+				</div>
 
-				{COSMETICS_SECTIONS.map((section) => (
-					<section className="flex flex-col gap-3" key={section.heading}>
-						<h2 className={SECTION_HEADING_CLASS}>
-							{t(section.heading, { ns: "features" })} ({section.emojis.length})
-						</h2>
-						<ul className="mx-auto flex max-w-[32.5rem] flex-wrap justify-center gap-2.5">
-							{section.emojis.map((emoji) => (
-								<li key={emoji.id}>
-									<CosmeticTile emoji={emoji} />
-								</li>
-							))}
-						</ul>
-					</section>
-				))}
+				<div className="columns-[26.75rem] gap-8">
+					{COSMETICS_SECTIONS.map((section) => (
+						<section
+							className="mx-auto mb-6 max-w-[26.75rem] break-inside-avoid"
+							key={section.heading}
+						>
+							<h2 className="mb-2 flex justify-center">
+								<span className="flex items-center gap-1.5 border-b-2 border-gray-500 px-3 pb-1 dark:border-gray-300">
+									<EmojiIcon
+										className="size-8"
+										emoji={section.icon}
+										label={t(section.heading, { ns: "features" })}
+									/>
+									<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+										{section.emojis.length}
+									</span>
+								</span>
+							</h2>
+							<ul className="flex flex-wrap justify-center gap-1">
+								{section.emojis.map((emoji) => (
+									<li key={emoji.id}>
+										<CosmeticTile emoji={emoji} />
+									</li>
+								))}
+							</ul>
+						</section>
+					))}
+				</div>
 			</div>
 
 			<Popover.Root handle={cosmeticPopover}>

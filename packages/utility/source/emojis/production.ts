@@ -69,6 +69,11 @@ const MISCELLANEOUS_EMOJIS = {
 	TreasureCandle: { id: "1512540307886047303", name: "treasure_candle" },
 	MomentsCameraUpgrade: { id: "1542851961228107857", name: "moments_camera_upgrade" },
 	Loyalty: { id: "1559958227045711872", name: "loyalty" },
+	CapeCategory: { id: "1559365009908432966", name: "cape_category" },
+	SmallPlaceablePropsCategory: {
+		id: "1559365013771395082",
+		name: "small_placeable_props_category",
+	},
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS = {
