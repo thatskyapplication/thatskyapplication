@@ -1166,6 +1166,16 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.VisitTheAncestorsTableInTheElevatedClearing",
 	},
 	{
+		upstreamKey: "daily_quest_visit_sunset_hotspring_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Visit the Hotspring in the Village of Dreams",
+				value: "Visit the hot spring in the Village of Dreams",
+			},
+		},
+		tsKey: "DailyQuest.VisitTheHotSpringInTheValleyOfTriumph",
+	},
+	{
 		upstreamKey: "daily_quest_visit_dusk_spitroast_desc",
 		tsKey: "DailyQuest.VisitTheBonfireAtTheGoldenWasteland",
 	},
@@ -1572,6 +1582,16 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.CollectPurpleLight",
 	},
 	{
+		upstreamKey: "daily_quest_world_quest_ap09_fetch_01_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Practice with the skater in the Village of Dreams",
+				value: "Practise with the skater",
+			},
+		},
+		tsKey: "DailyQuest.PractiseWithTheSkater",
+	},
+	{
 		upstreamKey: "daily_quest_world_quest_ap09_fetch_02_desc",
 		overrides: {
 			Base: {
@@ -1596,6 +1616,504 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.CompleteTheHoopScavengerHunt",
 	},
 	{
+		upstreamKey: "daily_quest_world_quest_prairie_butterfly_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Butterfly Charmer's memory from Daylight Prairie",
+				value: "Relive the Butterfly Charmer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheButterflyCharmer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_thumbsup_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Applauding Bellmaker's memory from Daylight Prairie",
+				value: "Relive the Applauding Bellmaker",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheApplaudingBellmaker",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_wave_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Waving Bellmaker's memory from Daylight Prairie",
+				value: "Relive the Waving Bellmaker",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheWavingBellmaker",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_yawn_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Slumbering Shipwright's memory from Daylight Prairie",
+				value: "Relive the Slumbering Shipwright",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheSlumberingShipwright",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_laugh_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Laughing Light Catcher's memory from Daylight Prairie",
+				value: "Relive the Laughing Light Catcher",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheLaughingLightCatcher",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_bird_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Bird Whisperer's memory from Daylight Prairie",
+				value: "Relive the Bird Whisperer",
+			},
+			fr: {
+				upstreamValue: "Revivez le souvenir de le murmureur d'oiseaux dans la Prairie illuminée",
+				value: "Revivez le souvenir du murmureur d'oiseaux dans la Prairie illuminée",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheBirdWhisperer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_wipe_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Exhausted Dock Worker's memory from Daylight Prairie",
+				value: "Relive the Exhausted Dock Worker",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheExhaustedDockWorker",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_cold_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Shivering Trailblazer's memory from Hidden Forest",
+				value: "Relive the Shivering Trailblazer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheShiveringTrailblazer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_shy_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Blushing Prospector 's memory from Hidden Forest",
+				value: "Relive the Blushing Prospector",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheBlushingProspector",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_seek_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Hide'n'seek Pioneer's memory from Hidden Forest",
+				value: "Relive the Hide'n'Seek Pioneer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheHideNSeekPioneer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_pout_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Pouty Porter's memory from Hidden Forest",
+				value: "Relive the Pouty Porter",
+			},
+		},
+		tsKey: "DailyQuest.ReliveThePoutyPorter",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_ohno_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Dismayed Hunter's memory from Hidden Forest",
+				value: "Relive the Dismayed Hunter",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheDismayedHunter",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_sorry_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Apologetic Lumberjack's memory from Hidden Forest",
+				value: "Relive the Apologetic Lumberjack",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheApologeticLumberjack",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_cry_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Tearful Light Miner's memory from Hidden Forest",
+				value: "Relive the Tearful Light Miner",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheTearfulLightMiner",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_whale_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Whale Whisperer's memory from Hidden Forest",
+				value: "Relive the Whale Whisperer",
+			},
+			fr: {
+				upstreamValue: "Revivez le souvenir de le murmureur de baleines dans la Forêt cachée",
+				value: "Revivez le souvenir du murmureur de baleines dans la Forêt cachée",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheWhaleWhisperer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_strong_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Confident Sightseer's memory from Valley of Triumph",
+				value: "Relive the Confident Sightseer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheConfidentSightseer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_handstand_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Handstanding Thrillseeker's memory from Valley of Triumph",
+				value: "Relive the Handstanding Thrillseeker",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheHandstandingThrillseeker",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_manta_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Manta Whisperer's memory from Valley of Triumph",
+				value: "Relive the Manta Whisperer",
+			},
+			fr: {
+				upstreamValue:
+					"Revivez le souvenir de le murmureur de raies mantas dans la Vallée du triomphe",
+				value: "Revivez le souvenir du murmureur de raies mantas dans la Vallée du triomphe",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheMantaWhisperer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_backflip_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Backflipping Champion's memory from Valley of Triumph",
+				value: "Relive the Backflipping Champion",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheBackflippingChampion",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_cheer_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Cheerful Spectator's memory from Valley of Triumph",
+				value: "Relive the Cheerful Spectator",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheCheerfulSpectator",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_bow_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Bowing Medalist's memory from Valley of Triumph",
+				value: "Relive the Bowing Medalist",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheBowingMedalist",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_proud_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Proud Victor's memory from Valley of Triumph",
+				value: "Relive the Proud Victor",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheProudVictor",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_scared_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Frightened Refugee's memory from Golden Wasteland",
+				value: "Relive the Frightened Refugee",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheFrightenedRefugee",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_die_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Fainting Warrior's memory from Golden Wasteland",
+				value: "Relive the Fainting Warrior",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheFaintingWarrior",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_brave_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Courageous Soldier's memory from Golden Wasteland",
+				value: "Relive the Courageous Soldier",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheCourageousSoldier",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_sneaky_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Stealthy Survivor's memory from Golden Wasteland",
+				value: "Relive the Stealthy Survivor",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheStealthySurvivor",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_salute_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Saluting Captain's memory from Golden Wasteland",
+				value: "Relive the Saluting Captain",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheSalutingCaptain",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_lookaround_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Lookout Scout's memory from Golden Wasteland",
+				value: "Relive the Lookout Scout",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheLookoutScout",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_night_pray_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Praying Acolyte's memory from Vault of Knowledge",
+				value: "Relive the Praying Acolyte",
+			},
+		},
+		tsKey: "DailyQuest.ReliveThePrayingAcolyte",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_night_force_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Levitating Adept's memory from Vault of Knowledge",
+				value: "Relive the Levitating Adept",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheLevitatingAdept",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_night_love_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Polite Scholar's memory from Vault of Knowledge",
+				value: "Relive the Polite Scholar",
+			},
+		},
+		tsKey: "DailyQuest.ReliveThePoliteScholar",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_night_ghost_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Memory Whisperer's memory from Vault of Knowledge",
+				value: "Relive the Memory Whisperer",
+			},
+			fr: {
+				upstreamValue:
+					"Revivez le souvenir de le murmureur de souvenirs dans la Chambre forte de connaissance",
+				value:
+					"Revivez le souvenir du murmureur de souvenirs dans la Chambre forte de connaissance",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheMemoryWhisperer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_night_float_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Meditating Monastic's memory from Vault of Knowledge",
+				value: "Relive the Meditating Monastic",
+			},
+			fr: {
+				upstreamValue:
+					"Revivez le souvenir de l'moine méditatif dans la Chambre forte de connaissance",
+				value: "Revivez le souvenir du moine méditatif dans la Chambre forte de connaissance",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheMeditatingMonastic",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_salutation_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Stretching Guru's memory from Daylight Prairie",
+				value: "Relive the Stretching Guru",
+			},
+			vi: {
+				upstreamValue: "Hồi tưởng lại ký ức của Sư Phụ Giãn Cơ\t đến từ Thảo Nguyên Ánh Sáng",
+				value: "Hồi tưởng lại ký ức của Sư Phụ Giãn Cơ đến từ Thảo Nguyên Ánh Sáng",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheStretchingGuru",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_sarcastic_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Provoking Performer's memory from Hidden Forest",
+				value: "Relive the Provoking Performer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheProvokingPerformer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_joy_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Leaping Dancer's memory from Valley of Triumph",
+				value: "Relive the Leaping Dancer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheLeapingDancer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_acknowledge_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Saluting Protector's memory from Golden Wasteland",
+				value: "Relive the Saluting Protector",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheSalutingProtector",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_night_kungfu_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Greeting Shaman's memory from Vault of Knowledge",
+				value: "Relive the Greeting Shaman",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheGreetingShaman",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_doublefive_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Doublefive Light Catcher's memory from Daylight Prairie",
+				value: "Relive the Doublefive Light Catcher",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheDoublefiveLightCatcher",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_lazycool_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Laidback Pioneer's memory from Hidden Forest",
+				value: "Relive the Laidback Pioneer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheLaidbackPioneer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_tripleaxel_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Twirling Champion's memory from Valley of Triumph",
+				value: "Relive the Twirling Champion",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheTwirlingChampion",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_crabvoice_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Crab Whisperer's memory from Golden Wasteland",
+				value: "Relive the Crab Whisperer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheCrabWhisperer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_night_shh_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Shushing Light Scholar's memory from Vault of Knowledge",
+				value: "Relive the Shushing Light Scholar",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheShushingLightScholar",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_celebrate_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Confetti Cousin's memory from Daylight Prairie",
+				value: "Relive the Confetti Cousin",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheConfettiCousin",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_hairtousle_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Hairtousle Teen's memory from Hidden Forest",
+				value: "Relive the Hairtousle Teen",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheHairtousleTeen",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_sparkler_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Sparkler Parent's memory from Valley of Triumph",
+				value: "Relive the Sparkler Parent",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheSparklerParent",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_dontgo_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Pleaful Parent's memory from Golden Wasteland",
+				value: "Relive the Pleaful Parent",
+			},
+		},
+		tsKey: "DailyQuest.ReliveThePleafulParent",
+	},
+	{
 		upstreamKey: "daily_quest_world_quest_night_wise_desc",
 		overrides: {
 			Base: {
@@ -1604,6 +2122,276 @@ const MAPPINGS: LocaleMapping[] = [
 			},
 		},
 		tsKey: "DailyQuest.ReliveTheWiseGrandparent",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_dance_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Festival Spin Dancer's memory from Daylight Prairie",
+				value: "Relive the Festival Spin Dancer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheFestivalSpinDancer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_kiss_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Admiring Actor's memory from Hidden Forest",
+				value: "Relive the Admiring Actor",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheAdmiringActor",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_juggle_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Troupe Juggler's memory from Valley of Triumph",
+				value: "Relive the Troupe Juggler",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheTroupeJuggler",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_dusk_respect_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Respectful Pianist's memory from Golden Wasteland",
+				value: "Relive the Respectful Pianist",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheRespectfulPianist",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_night_think_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Thoughtful Director's memory from Vault of Knowledge",
+				value: "Relive the Thoughtful Director",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheThoughtfulDirector",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_oasis_nod_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Nodding Muralist's memory from Golden Wasteland",
+				value: "Relive the Nodding Muralist",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheNoddingMuralist",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_oasis_shrug_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Indifferent Alchemist's memory from Golden Wasteland",
+				value: "Relive the Indifferent Alchemist",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheIndifferentAlchemist",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_oasis_crabwalk_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Crab Walker 's memory from Golden Wasteland",
+				value: "Relive the Crab Walker",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheCrabWalker",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_oasis_scare_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Scarecrow Farmer's memory from Golden Wasteland",
+				value: "Relive the Scarecrow Farmer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheScarecrowFarmer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_oasis_doze_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Snoozing Carpenter's memory from Golden Wasteland",
+				value: "Relive the Snoozing Carpenter",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheSnoozingCarpenter",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_oasis_playfight_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Playfighting Herbalist's memory from Golden Wasteland",
+				value: "Relive the Playfighting Herbalist",
+			},
+		},
+		tsKey: "DailyQuest.ReliveThePlayfightingHerbalist",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_jelly_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Jelly Whisperer's memory from Daylight Prairie",
+				value: "Relive the Jelly Whisperer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheJellyWhisperer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_timid_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Timid Bookworm's memory from Daylight Prairie",
+				value: "Relive the Timid Bookworm",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheTimidBookworm",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_rally_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Rallying Thrillseeker's memory from Daylight Prairie",
+				value: "Relive the Rallying Thrillseeker",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheRallyingThrillseeker",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_grumpy_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Hiking Grouch's memory from Daylight Prairie",
+				value: "Relive the Hiking Grouch",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheHikingGrouch",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_gratitude_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Grateful Shell Collector's memory from Daylight Prairie",
+				value: "Relive the Grateful Shell Collector",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheGratefulShellCollector",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_prairie_bellyscratch_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Chill Sunbather's memory from Daylight Prairie",
+				value: "Relive the Chill Sunbather",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheChillSunbather",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_village_spintrick_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Spinning Mentor's memory from Valley of Triumph",
+				value: "Relive the Spinning Mentor",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheSpinningMentor",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_village_showdance_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Dancing Performer's memory from Valley of Triumph",
+				value: "Relive the Dancing Performer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheDancingPerformer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_village_peek_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Peeking Postman's memory from Valley of Triumph",
+				value: "Relive the Peeking Postman",
+			},
+		},
+		tsKey: "DailyQuest.ReliveThePeekingPostman",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_sunset_village_bearhug_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Bearhug Hermit's memory from Valley of Triumph",
+				value: "Relive the Bearhug Hermit",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheBearhugHermit",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_facepalm_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Baffled Botanist's memory from Hidden Forest",
+				value: "Relive the Baffled Botanist",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheBaffledBotanist",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_tsktsk_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Scolding Student's memory from Hidden Forest",
+				value: "Relive the Scolding Student",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheScoldingStudent",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_eww_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Scaredy Cadet's memory from Hidden Forest",
+				value: "Relive the Scaredy Cadet",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheScaredyCadet",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_marching_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Marching Adventurer's memory from Hidden Forest",
+				value: "Relive the Marching Adventurer",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheMarchingAdventurer",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_chuckle_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Chuckling Scout's memory from Hidden Forest",
+				value: "Relive the Chuckling Scout",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheChucklingScout",
+	},
+	{
+		upstreamKey: "daily_quest_world_quest_rain_bubbles_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relive Daydream Forester's memory from Hidden Forest",
+				value: "Relive the Daydream Forester",
+			},
+		},
+		tsKey: "DailyQuest.ReliveTheDaydreamForester",
 	},
 	{
 		upstreamKey: "daily_quest_visit_stormy_event_desc",
