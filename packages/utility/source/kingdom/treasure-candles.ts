@@ -46,6 +46,11 @@ const TREASURE_CANDLES_REALM_ANCHORS = [
 		start: skyDate(2026, 10, 3).toPlainDate(),
 		realm: RealmName.VaultOfKnowledge,
 	},
+	{
+		// Vault of Knowledge was skipped between 12 October 2026 and 13 October 2026 after the 35.0 update.
+		start: skyDate(2026, 10, 13).toPlainDate(),
+		realm: RealmName.DaylightPrairie,
+	},
 ] as const;
 
 interface TreasureCandlesConfiguration {

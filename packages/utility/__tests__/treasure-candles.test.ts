@@ -6190,6 +6190,46 @@ const EXPECTED_ROTATIONS = [
 		date: skyDate(2026, 10, 3),
 		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
 	},
+	{
+		date: skyDate(2026, 10, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 10, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 10, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 10, 7),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 10, 8),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 10, 9),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 10, 10),
+		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 10, 11),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 10, 12),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 10, 13),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL))],
+	},
 ] as const;
 
 function scheduleTestDates(reset: Temporal.ZonedDateTime) {
@@ -6332,7 +6372,7 @@ test("Daylight-saving availability anomalies no longer apply from 2025.", () => 
 		{ reset: skyDate(2025, 11, 3), layouts: ["daylight_prairie/1"] },
 		{ reset: skyDate(2026, 3, 9), layouts: ["hidden_forest/1", "hidden_forest/2"] },
 		// 2 November 2026 checks the inferred cutoff rule, not an observed historical layout.
-		{ reset: skyDate(2026, 11, 2), layouts: ["vault_of_knowledge/1"] },
+		{ reset: skyDate(2026, 11, 2), layouts: ["daylight_prairie/1"] },
 	];
 
 	for (const { reset, layouts } of scenarios) {
