@@ -586,7 +586,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 					)}
 				</div>
 
-				<div className="columns-[26.75rem] gap-8">
+				<div className="cosmetic-grid columns-[26.75rem] gap-8">
 					{COSMETICS_GROUPS.map((sections, groupIndex) => (
 						<CosmeticGroup
 							activeTable={activeTables[groupIndex]!}
@@ -600,6 +600,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 							sections={sections}
 						/>
 					))}
+					<span className="cosmetic-grid-end" hidden />
 				</div>
 			</div>
 

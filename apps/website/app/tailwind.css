@@ -52,6 +52,10 @@
 		@apply size-8 object-contain;
 		-webkit-user-drag: none;
 	}
+
+	.cosmetic-grid:not(:has(> .cosmetic-grid-end)) {
+		display: none;
+	}
 }
 
 .constellation-sparkle {
