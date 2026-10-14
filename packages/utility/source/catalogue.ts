@@ -90,10 +90,6 @@ const clothingShopItems = resolveOfferFromItems([
 		cosmetic: Cosmetic.CompanionCube,
 		cost: { candles: 50 },
 	},
-	// {
-	// 	cosmetic: Cosmetic.SpringCloverSprout,
-	// 	cost: { money: 0.99 },
-	// },
 ]);
 
 export const CLOTHING_SHOP = {
