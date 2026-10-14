@@ -34,7 +34,7 @@ const ENABLED_CONTROL_CLASS_NAME =
 const DISABLED_CONTROL_CLASS_NAME = "cursor-not-allowed opacity-50" as const;
 
 const PAGE_LINK_CLASS_NAME =
-	"inline-flex h-9 min-w-[var(--pagination-page-width)] items-center justify-center rounded-full px-2 text-sm font-medium tabular-nums transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 hover:bg-gray-100/75 hover:shadow-lg sm:h-10 sm:min-w-[var(--pagination-page-width-sm)] sm:px-3 sm:text-base dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950 dark:hover:bg-gray-900/50" as const;
+	"inline-flex h-9 min-w-(--pagination-page-width) items-center justify-center rounded-full px-2 text-sm font-medium tabular-nums transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 hover:bg-gray-100/75 hover:shadow-lg sm:h-10 sm:min-w-(--pagination-page-width-sm) sm:px-3 sm:text-base dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950 dark:hover:bg-gray-900/50" as const;
 
 interface PaginationControlProps {
 	"aria-label": string;

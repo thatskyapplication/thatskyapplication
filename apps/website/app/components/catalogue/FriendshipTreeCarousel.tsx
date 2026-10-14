@@ -12,7 +12,7 @@ export function FriendshipTreeCarousel({
 		<div
 			aria-label={accessibleLabel}
 			className={clsx(
-				"col-span-full flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:snap-none [&>*]:snap-center [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto",
+				"col-span-full flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 *:snap-center sm:snap-none [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto",
 				accessibleLabel &&
 					"focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:focus-visible:outline-blue-300",
 			)}

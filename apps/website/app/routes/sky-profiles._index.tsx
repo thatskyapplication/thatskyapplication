@@ -379,7 +379,7 @@ function SkyProfilesFilters({
 			</label>
 			<div className="relative w-64">
 				<input
-					className="peer w-full rounded-lg border border-gray-200 bg-gray-100 py-2.5 pr-14 pl-3 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400 pointer-coarse:pr-3 [&:not(:placeholder-shown)]:pr-3"
+					className="peer w-full rounded-lg border border-gray-200 bg-gray-100 py-2.5 pr-14 pl-3 text-sm text-gray-900 not-placeholder-shown:pr-3 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400 pointer-coarse:pr-3"
 					defaultValue={name ?? ""}
 					id="sky-profile-name-search"
 					name="name"

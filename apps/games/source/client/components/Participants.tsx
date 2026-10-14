@@ -3,7 +3,7 @@ import { useSyncExternalStore } from "react";
 import { profileFor, profilesSnapshot, subscribeToParticipants } from "../participants.js";
 
 const CORNER_CLASS =
-	"tile:hidden mt-[var(--safe-area-inset-top)] ml-[var(--safe-area-inset-left)] flex max-w-[10rem] shrink-0 flex-col gap-1 self-start" as const;
+	"tile:hidden mt-(--safe-area-inset-top) ml-(--safe-area-inset-left) flex max-w-40 shrink-0 flex-col gap-1 self-start" as const;
 const HOST_ROW_CLASS = "flex items-center gap-1.5" as const;
 const HOST_AVATAR_CLASS =
 	"ring-candle/70 short:size-5 size-6 shrink-0 rounded-full bg-white/10 ring-2" as const;

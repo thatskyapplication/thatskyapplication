@@ -51,7 +51,7 @@ export function SkyProfileReportSnapshots({
 						className="flex flex-col items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 dark:border-gray-600 dark:bg-gray-800"
 						key={snapshot}
 					>
-						<span className="flex h-16 w-16 items-center justify-center text-center text-[10px] leading-tight break-words text-gray-600 dark:text-gray-400">
+						<span className="flex h-16 w-16 items-center justify-center text-center text-[10px] leading-tight wrap-break-word text-gray-600 dark:text-gray-400">
 							Unavailable
 						</span>
 						<span className="text-[11px] text-gray-600 dark:text-gray-400">

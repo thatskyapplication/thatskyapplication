@@ -392,7 +392,7 @@ function CosmeticGroup({
 			{sections.map((section) => (
 				<section
 					className={clsx(
-						"mx-auto mb-6 max-w-[26.75rem] break-inside-avoid",
+						"mx-auto mb-6 max-w-107 break-inside-avoid",
 						tabbed && section.table !== activeTable && "max-lg:hidden",
 					)}
 					key={section.table}

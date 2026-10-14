@@ -135,7 +135,7 @@ const BACKGROUND_STARS = Array.from({ length: 56 }, (_, index) => {
 const SOCIAL_LINKS = [
 	{
 		Icon: SiDiscord,
-		className: "bg-[#5865F2] hover:bg-[#4752C4]",
+		className: "bg-discord-button hover:bg-[#4752C4]",
 		href: INVITE_SUPPORT_SERVER_URL,
 		label: "Join the Discord support server.",
 	},
