@@ -19,7 +19,7 @@ import {
 } from "react-router";
 import {
 	CDN,
-	CountryToEmoji,
+	countryToEmoji,
 	CROWDIN_URL,
 	fetchSkyProfileWithFlags,
 	GuessType,
@@ -462,7 +462,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 					{data.country && isCountry(data.country) ? (
 						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<span aria-hidden="true" className="mr-2 text-2xl leading-none">
-								{CountryToEmoji[data.country]}
+								{countryToEmoji(data.country)}
 							</span>
 							<div className="flex-1">
 								<p className="text-xs text-gray-500 dark:text-gray-400">

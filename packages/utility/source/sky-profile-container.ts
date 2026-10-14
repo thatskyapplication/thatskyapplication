@@ -7,7 +7,7 @@ import {
 } from "discord-api-types/v10";
 import { catalogueItems, cataloguePercentage, catalogueProgress } from "./catalogue.js";
 import { CDN } from "./cdn.js";
-import { CountryToEmoji, isCountry } from "./country.js";
+import { countryToEmoji, isCountry } from "./country.js";
 import { formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
 import { computeMaximumWingedLight } from "./kingdom/winged-light.js";
 import { isPlatformId } from "./platforms.js";
@@ -330,7 +330,7 @@ export function skyProfileContainer(
 
 	if (country && isCountry(country)) {
 		miscellaneous.push(
-			`**${t("sky-profile.country", { lng: locale, ns: "features" })}** ${CountryToEmoji[country]} ${new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!}`,
+			`**${t("sky-profile.country", { lng: locale, ns: "features" })}** ${countryToEmoji(country)} ${new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!}`,
 		);
 	}
 
