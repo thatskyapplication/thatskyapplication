@@ -25,6 +25,7 @@ import lowerVault from "./lower-vault.js";
 import moominvalley from "./moominvalley.js";
 import passageRock from "./passage-rock.js";
 import pathOfEden from "./path-of-eden.js";
+import pearlVillage from "./pearl-village.js";
 import prairieCave from "./prairie-cave.js";
 import prairieHeights from "./prairie-heights.js";
 import prairiePeaks from "./prairie-peaks.js";
@@ -116,6 +117,7 @@ export const AREAS = [
 	theBattlefield,
 	crabFields,
 	templeOfTheWasteland,
+	pearlVillage,
 
 	// Vault of Knowledge.
 	vaultRest,

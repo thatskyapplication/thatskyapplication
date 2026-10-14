@@ -120,7 +120,8 @@
 			"The Void of Shattering": "砕ける闇の虚",
 			"Aviary Village": "花鳥郷",
 			"Wandering Carnival": "さすらいカーニバル",
-			"The Last City": "最後の街"
+			"The Last City": "最後の街",
+			"Pearl Village": "真珠の村"
 		},
 		"occurrences": {
 			"0": "デイリー更新",
@@ -436,7 +437,8 @@
 			"26": "渡りの季節",
 			"27": "光の修繕者の季節",
 			"28": "カーニバルの季節",
-			"29": "Dear Van Gogh 親愛なるファン・ゴッホへ"
+			"29": "Dear Van Gogh 親愛なるファン・ゴッホへ",
+			"30": "遥かなる真珠の季節"
 		},
 		"season-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%84%9F%E8%AC%9D%E3%81%AE%E5%AD%A3%E7%AF%80",
@@ -831,7 +833,11 @@
 			"210": "素朴な思い出",
 			"211": "画家の思い出",
 			"212": "歓喜の思い出",
-			"213": "漁師の記憶の燈"
+			"213": "漁師の記憶の燈",
+			"214": "転げまわる幼子",
+			"215": "老いた漁師",
+			"216": "見せびらかしの商人",
+			"217": "腕っぷし自慢の船乗り"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%8C%87%E5%B7%AE%E3%81%99%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%89%E3%83%AB%E8%81%B7%E4%BA%BA",

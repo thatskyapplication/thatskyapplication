@@ -399,6 +399,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "AreaName.TempleOfTheWasteland",
 	},
 	{
+		upstreamKey: "title_dusk_pearlisland_01",
+		tsKey: "AreaName.PearlVillage",
+	},
+	{
 		upstreamKey: "title_night_01",
 		tsKey: "AreaName.VaultRest",
 	},
@@ -607,6 +611,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "name_season_31",
 		tsKey: "SeasonId.DearVanGogh",
+	},
+	{
+		upstreamKey: "name_season_32",
+		tsKey: "SeasonId.Pearl",
 	},
 	{
 		upstreamKey: "daily_quest_world_quest_ap09_fetch_04_desc",
@@ -3210,6 +3218,22 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "name_questap32",
 		tsKey: "SpiritId.AnglersLantern",
+	},
+	{
+		upstreamKey: "name_wallow",
+		tsKey: "SpiritId.CuddlyRollingChild",
+	},
+	{
+		upstreamKey: "name_hesitate",
+		tsKey: "SpiritId.OldAngler",
+	},
+	{
+		upstreamKey: "name_showoff",
+		tsKey: "SpiritId.ShowyMerchant",
+	},
+	{
+		upstreamKey: "name_armwrestle",
+		tsKey: "SpiritId.WrestlingSailor",
 	},
 	{
 		upstreamKey: "name_point",

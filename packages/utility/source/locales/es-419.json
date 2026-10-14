@@ -125,7 +125,8 @@
 			"The Void of Shattering": "El Vacío de la Destrucción",
 			"Aviary Village": "Aldea aviaria",
 			"Wandering Carnival": "Carnaval errante",
-			"The Last City": "La Última Ciudad"
+			"The Last City": "La Última Ciudad",
+			"Pearl Village": "Aldea de las perlas"
 		},
 		"occurrences": {
 			"0": "",
@@ -441,7 +442,8 @@
 			"26": "Temporada de la Migración",
 			"27": "Temporada de la Reparación Lumínica",
 			"28": "Temporada del Carnaval",
-			"29": "Querido Van Gogh"
+			"29": "Querido Van Gogh",
+			"30": "Temporada de Perlas"
 		},
 		"season-wiki": {
 			"0": "",
@@ -836,7 +838,11 @@
 			"210": "Recuerdo rústico",
 			"211": "Recuerdo artístico",
 			"212": "Recuerdo alegre",
-			"213": "Farol del pescador"
+			"213": "Farol del pescador",
+			"214": "Infante adorable que rueda",
+			"215": "Viejo pescador",
+			"216": "Mercader petulante",
+			"217": "Marinero luchador"
 		},
 		"spirit-wiki": {
 			"0": "",

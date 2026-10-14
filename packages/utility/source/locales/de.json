@@ -125,7 +125,8 @@
 			"The Void of Shattering": "Die Leere der Zertrümmerung",
 			"Aviary Village": "Volieren-Dorf",
 			"Wandering Carnival": "Wandernder Karneval",
-			"The Last City": "Die letzte Stadt"
+			"The Last City": "Die letzte Stadt",
+			"Pearl Village": "Perlendorf"
 		},
 		"occurrences": {
 			"0": "",
@@ -441,7 +442,8 @@
 			"26": "Saison der Wanderung",
 			"27": "Saison der Lichtheilung",
 			"28": "Saison des Karnevals",
-			"29": "Lieber Van Gogh"
+			"29": "Lieber Van Gogh",
+			"30": "Saison der Perlen"
 		},
 		"season-wiki": {
 			"0": "https://sky-kinder-des-lichts.fandom.com/de/wiki/Saison_der_Dankbarkeit",
@@ -836,7 +838,11 @@
 			"210": "Rustikale Erinnerung",
 			"211": "Künstlerische Erinnerung",
 			"212": "Fröhliche Erinnerung",
-			"213": "Anglerlaterne"
+			"213": "Anglerlaterne",
+			"214": "Süßes rollendes Kind",
+			"215": "Alter Angler",
+			"216": "Prahlender Händler",
+			"217": "Ringender Seemann"
 		},
 		"spirit-wiki": {
 			"0": "",

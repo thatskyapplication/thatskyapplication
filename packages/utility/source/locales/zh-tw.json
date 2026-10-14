@@ -120,7 +120,8 @@
 			"The Void of Shattering": "破碎虛空",
 			"Aviary Village": "雲巢",
 			"Wandering Carnival": "漫遊狂歡號",
-			"The Last City": "最後的王都"
+			"The Last City": "最後的王都",
+			"Pearl Village": "珍珠村"
 		},
 		"occurrences": {
 			"0": "",
@@ -436,7 +437,8 @@
 			"26": "遷徙季",
 			"27": "織光季",
 			"28": "狂歡季",
-			"29": "致梵谷"
+			"29": "致梵谷",
+			"30": "珍珠季"
 		},
 		"season-wiki": {
 			"0": "",
@@ -831,7 +833,11 @@
 			"210": "鄉野的回憶",
 			"211": "藝術的回憶",
 			"212": "喜悅的回憶",
-			"213": "釣客之燈"
+			"213": "釣客之燈",
+			"214": "可愛打滾孩童",
+			"215": "老釣客",
+			"216": "愛現商人",
+			"217": "腕力水手"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/Pointing_Candlemaker",

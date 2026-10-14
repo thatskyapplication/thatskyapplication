@@ -291,6 +291,10 @@ export const SpiritId = {
 
 	// Season of Pearl.
 	AnglersLantern: 213,
+	CuddlyRollingChild: 214,
+	OldAngler: 215,
+	ShowyMerchant: 216,
+	WrestlingSailor: 217,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);

@@ -120,7 +120,8 @@
 			"The Void of Shattering": "Tinh thể Tan vỡ",
 			"Aviary Village": "Làng Chuồng Chim",
 			"Wandering Carnival": "Lễ Hội Lưu Động",
-			"The Last City": "Thành Phố Cuối Cùng"
+			"The Last City": "Thành Phố Cuối Cùng",
+			"Pearl Village": "Làng Ngọc Trai"
 		},
 		"occurrences": {
 			"0": "",
@@ -436,7 +437,8 @@
 			"26": "Mùa Di Cư",
 			"27": "Mùa Hồi Phục Ánh Sáng",
 			"28": "Mùa Lễ Hội",
-			"29": "Van Gogh Thương Mến"
+			"29": "Van Gogh Thương Mến",
+			"30": "Mùa Ngọc Trai"
 		},
 		"season-wiki": {
 			"0": "",
@@ -831,7 +833,11 @@
 			"210": "Ký Ức Mộc Mạc",
 			"211": "Ký Ức Nghệ Thuật",
 			"212": "Ký Ức Vui Vẻ",
-			"213": "Lồng Đèn Ngư Dân"
+			"213": "Lồng Đèn Ngư Dân",
+			"214": "Bé Lăn Lộn Đáng Yêu",
+			"215": "Ngư Dân Già",
+			"216": "Thương Nhân Phô Trương",
+			"217": "Thủy Thủ Vật Lộn"
 		},
 		"spirit-wiki": {
 			"0": "",

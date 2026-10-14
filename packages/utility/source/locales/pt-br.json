@@ -125,7 +125,8 @@
 			"The Void of Shattering": "O Vazio Despedaçado",
 			"Aviary Village": "Aldeia Aviária",
 			"Wandering Carnival": "Circo Itinerante",
-			"The Last City": "A Última Cidade"
+			"The Last City": "A Última Cidade",
+			"Pearl Village": "Aldeia das Pérolas"
 		},
 		"occurrences": {
 			"0": "Reinicialização diária",
@@ -441,7 +442,8 @@
 			"26": "Temporada da Migração",
 			"27": "Temporada da Restauração da Luz",
 			"28": "Temporada do Circo",
-			"29": "Querido Van Gogh"
+			"29": "Querido Van Gogh",
+			"30": "Temporada das Pérolas"
 		},
 		"season-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Gratid%C3%A3o",
@@ -836,7 +838,11 @@
 			"210": "Lembrança Rústica",
 			"211": "Lembrança Artística",
 			"212": "Lembrança de Alegria",
-			"213": "Lanterna de Pescador"
+			"213": "Lanterna de Pescador",
+			"214": "Criança Fofinha Rolante",
+			"215": "Velho Pescador",
+			"216": "Comerciante Extravagante",
+			"217": "Marinheiro Lutador"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Candeeiro_Denotante",

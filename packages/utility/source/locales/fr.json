@@ -125,7 +125,8 @@
 			"The Void of Shattering": "Le Néant de l'Éclatement",
 			"Aviary Village": "Village volière",
 			"Wandering Carnival": "Carnaval itinérant",
-			"The Last City": "La Dernière Ville"
+			"The Last City": "La Dernière Ville",
+			"Pearl Village": "Village des perles"
 		},
 		"occurrences": {
 			"0": "Réinitialisation journalière",
@@ -441,7 +442,8 @@
 			"26": "Saison de la migration",
 			"27": "Saison de la Réparation de la Lumière",
 			"28": "Saison du Carnaval",
-			"29": "Cher Van Gogh"
+			"29": "Cher Van Gogh",
+			"30": "Saison de la Perle"
 		},
 		"season-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_la_Gratitude",
@@ -836,7 +838,11 @@
 			"210": "Souvenir rustique",
 			"211": "Souvenir artistique",
 			"212": "Souvenir joyeux",
-			"213": "Lanterne de pêcheur"
+			"213": "Lanterne de pêcheur",
+			"214": "Enfant câlin en boule",
+			"215": "Vieux pêcheur",
+			"216": "Marchand ostentatoire",
+			"217": "Marin lutteur"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Cirier_pointant",

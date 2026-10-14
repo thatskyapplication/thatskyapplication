@@ -130,6 +130,7 @@ export default {
 			[AreaName.TheBattlefield]: "The Battlefield",
 			[AreaName.CrabFields]: "Crab Fields",
 			[AreaName.TempleOfTheWasteland]: "Temple of the Wasteland",
+			[AreaName.PearlVillage]: "Pearl Village",
 			[AreaName.VaultRest]: "Vault Rest",
 			[AreaName.VaultArchive]: "Vault Archive",
 			[AreaName.RepositoryOfRefuge]: "Repository of Refuge",
@@ -1064,6 +1065,10 @@ export default {
 			[SpiritId.ArtisticMemory]: "Artistic Memory",
 			[SpiritId.JoyfulMemory]: "Joyful Memory",
 			[SpiritId.AnglersLantern]: "Angler's Lantern",
+			[SpiritId.CuddlyRollingChild]: "Cuddly Rolling Child",
+			[SpiritId.OldAngler]: "Old Angler",
+			[SpiritId.ShowyMerchant]: "Showy Merchant",
+			[SpiritId.WrestlingSailor]: "Wrestling Sailor",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1367,6 +1372,11 @@ export default {
 			[SpiritId.ArtisticMemory]: "https://sky-children-of-the-light.fandom.com/Artistic_Memory",
 			[SpiritId.JoyfulMemory]: "https://sky-children-of-the-light.fandom.com/Joyful_Memory",
 			[SpiritId.AnglersLantern]: "https://sky-children-of-the-light.fandom.com/Angler's_Lantern",
+			[SpiritId.CuddlyRollingChild]:
+				"https://sky-children-of-the-light.fandom.com/Cuddly_Rolling_Child",
+			[SpiritId.OldAngler]: "https://sky-children-of-the-light.fandom.com/Old_Angler",
+			[SpiritId.ShowyMerchant]: "https://sky-children-of-the-light.fandom.com/Showy_Merchant",
+			[SpiritId.WrestlingSailor]: "https://sky-children-of-the-light.fandom.com/Wrestling_Sailor",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {

@@ -78,6 +78,7 @@ export enum AreaName {
 	TheBattlefield = "The Battlefield",
 	CrabFields = "Crab Fields",
 	TempleOfTheWasteland = "Temple of the Wasteland",
+	PearlVillage = "Pearl Village",
 
 	// Vault of Knowledge.
 	VaultRest = "Vault Rest",
