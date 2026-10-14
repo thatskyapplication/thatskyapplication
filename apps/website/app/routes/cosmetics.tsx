@@ -319,8 +319,8 @@ const CosmeticTile = memo(function CosmeticTile({
 				alt=""
 				decoding="async"
 				draggable={false}
+				fetchPriority="low"
 				height={COSMETIC_TILE_IMAGE_SIZE}
-				loading="lazy"
 				src={`${imageURL}?size=${COSMETIC_TILE_IMAGE_SIZE}`}
 				srcSet={cosmeticTileImageSourceSet(imageURL)}
 				width={COSMETIC_TILE_IMAGE_SIZE}
