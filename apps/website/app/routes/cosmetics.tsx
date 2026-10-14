@@ -2,6 +2,7 @@ import { Field } from "@base-ui/react/field";
 import { Popover } from "@base-ui/react/popover";
 import { Switch } from "@base-ui/react/switch";
 import { clsx } from "clsx";
+import { parseCookie } from "cookie";
 import type { TFunction } from "i18next";
 import {
 	memo,
@@ -38,6 +39,7 @@ import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session";
 import { catalogueTargetQuery } from "~/utility/catalogue.js";
 import { WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
+import { cookieStoreSet } from "~/utility/cookie-store.client";
 import {
 	COSMETIC_ANCHOR_TARGETS,
 	COSMETIC_ANCHORS,
@@ -58,10 +60,12 @@ const COSMETICS_DESCRIPTION = "View all cosmetics, find out where they're from, 
 const COSMETIC_TILE_SELECTOR = "[data-cosmetic-tile]" as const;
 const COSMETIC_TILE_IMAGE_SIZE = 32 as const;
 const COSMETIC_TILE_PIXEL_DENSITIES = [1, 2, 3] as const;
+const HIGHLIGHT_OWNED_COOKIE_NAME = "cosmetics_highlight_owned" as const;
+const HIGHLIGHT_OWNED_COOKIE_MAX_AGE = 31536000 as const;
 
 const subscribeToNothing = () => () => {};
 
-export const loader = async ({ context, url }: Route.LoaderArgs) => {
+export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const t = getInstance(context).getFixedT(getLocale(context));
 	const pageTitle = t("cosmetics.title", { ns: "features" });
 
@@ -76,8 +80,11 @@ export const loader = async ({ context, url }: Route.LoaderArgs) => {
 	const discordUser = getRequestSession(context).get("discord_user");
 
 	if (!discordUser) {
-		return { discordComponentEmbed, owned: null, pageTitle };
+		return { discordComponentEmbed, highlightOwned: false, owned: null, pageTitle };
 	}
+
+	const highlightOwned =
+		parseCookie(request.headers.get("Cookie") ?? "")[HIGHLIGHT_OWNED_COOKIE_NAME] === "true";
 
 	const cataloguePacket = await database
 		.selectFrom("catalogue")
@@ -85,7 +92,7 @@ export const loader = async ({ context, url }: Route.LoaderArgs) => {
 		.where("user_id", "=", discordUser.id)
 		.executeTakeFirst();
 
-	return { discordComponentEmbed, owned: cataloguePacket?.data ?? [], pageTitle };
+	return { discordComponentEmbed, highlightOwned, owned: cataloguePacket?.data ?? [], pageTitle };
 };
 
 export const meta: Route.MetaFunction = ({ loaderData, location }) => {
@@ -426,7 +433,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 		() => true,
 		() => false,
 	);
-	const [highlightOwned, setHighlightOwned] = useState(false);
+	const [highlightOwned, setHighlightOwned] = useState(loaderData.highlightOwned);
 	const [activeTables, setActiveTables] = useState<readonly string[]>(() =>
 		COSMETICS_GROUPS.map((sections) => sections[0]!.table),
 	);
@@ -546,6 +553,16 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 		clearAnchor();
 	};
 
+	const onHighlightOwnedChange = (checked: boolean) => {
+		setHighlightOwned(checked);
+
+		void cookieStoreSet({
+			maxAge: HIGHLIGHT_OWNED_COOKIE_MAX_AGE,
+			name: HIGHLIGHT_OWNED_COOKIE_NAME,
+			value: String(checked),
+		});
+	};
+
 	return (
 		<SitePage>
 			<div className="space-y-4">
@@ -562,7 +579,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 							<Switch.Root
 								checked={highlightOwned}
 								className={SWITCH_CLASS}
-								onCheckedChange={setHighlightOwned}
+								onCheckedChange={onHighlightOwnedChange}
 							>
 								<Switch.Thumb className={SWITCH_THUMB_CLASS} />
 							</Switch.Root>
