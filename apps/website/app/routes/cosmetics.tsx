@@ -47,27 +47,36 @@ import {
 	COSMETICS_SECTIONS,
 	UNLOCKED_BY_DEFAULT_EMOJIS,
 } from "~/utility/cosmetics.js";
+import { cardContainer } from "~/utility/discord-component-embed.server.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { hexColour } from "~/utility/functions.js";
 import { PAGE_TITLE_CLASS, SWITCH_CLASS, SWITCH_THUMB_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/cosmetics.js";
 
 const COSMETICS_TITLE = "Cosmetics" as const;
-const COSMETICS_DESCRIPTION = "Browse all cosmetics." as const;
+const COSMETICS_DESCRIPTION = "View all cosmetics, find out where they're from, and more!" as const;
 const COSMETIC_TILE_SELECTOR = "[data-cosmetic-tile]" as const;
 const COSMETIC_TILE_IMAGE_SIZE = 32 as const;
 const COSMETIC_TILE_PIXEL_DENSITIES = [1, 2, 3] as const;
 
 const subscribeToNothing = () => () => {};
 
-export const loader = async ({ context }: Route.LoaderArgs) => {
+export const loader = async ({ context, url }: Route.LoaderArgs) => {
 	const t = getInstance(context).getFixedT(getLocale(context));
-	const pageDescription = t("cosmetics.description-short", { ns: "features" });
 	const pageTitle = t("cosmetics.title", { ns: "features" });
+
+	const discordComponentEmbed = cardContainer({
+		colour: WEBSITE_COLOUR,
+		description: COSMETICS_DESCRIPTION,
+		icon: WEBSITE_ICON_URL,
+		title: pageTitle,
+		url: new URL(url.pathname, WEBSITE_URL).href,
+	});
+
 	const discordUser = getRequestSession(context).get("discord_user");
 
 	if (!discordUser) {
-		return { owned: null, pageDescription, pageTitle };
+		return { discordComponentEmbed, owned: null, pageTitle };
 	}
 
 	const cataloguePacket = await database
@@ -76,30 +85,29 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
 		.where("user_id", "=", discordUser.id)
 		.executeTakeFirst();
 
-	return { owned: cataloguePacket?.data ?? [], pageDescription, pageTitle };
+	return { discordComponentEmbed, owned: cataloguePacket?.data ?? [], pageTitle };
 };
 
 export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 	const title = loaderData?.pageTitle ?? COSMETICS_TITLE;
-	const description = loaderData?.pageDescription ?? COSMETICS_DESCRIPTION;
 
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
 		{ name: "robots", content: "index, follow" },
 		{ title },
-		{ name: "description", content: description },
+		{ name: "description", content: COSMETICS_DESCRIPTION },
 		{ name: "theme-color", content: hexColour(WEBSITE_COLOUR) },
 		{ property: "og:title", content: title },
-		{ property: "og:description", content: description },
+		{ property: "og:description", content: COSMETICS_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{ property: "og:image", content: WEBSITE_ICON_URL },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: title },
-		{ name: "twitter:description", content: description },
+		{ name: "twitter:description", content: COSMETICS_DESCRIPTION },
 		{ tagName: "link", rel: "canonical", href: url },
 	];
 };
