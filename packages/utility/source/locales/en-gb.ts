@@ -3079,12 +3079,10 @@ export default {
 			"search-placeholder": "Search cosmetics…",
 			sections: {
 				outfits: "Outfits",
-				shoes: "Shoes",
 				"full-outfits": "Full outfits",
 				masks: "Masks",
 				"face-accessories": "Face accessories",
 				necklaces: "Necklaces",
-				hair: "Hair",
 				"hair-accessories": "Hair accessories",
 				"head-accessories": "Head accessories",
 				capes: "Capes",

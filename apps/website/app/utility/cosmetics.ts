@@ -2,6 +2,7 @@ import type { i18n as I18n, TFunction } from "i18next";
 import {
 	CatalogueCollection,
 	Cosmetic,
+	CosmeticCommon,
 	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
 	CLOTHING_SHOP,
@@ -133,7 +134,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		heading: "cosmetics.sections.shoes",
+		heading: `general:cosmetic-common-names.${CosmeticCommon.Shoes}`,
 		icon: EMOJIS.SHOE_EMOJIS.Shoe01,
 		table: "SHOE_EMOJIS",
 		order: [
@@ -451,7 +452,7 @@ const COSMETICS_ORDER = [
 		],
 	},
 	{
-		heading: "cosmetics.sections.hair",
+		heading: `general:cosmetic-common-names.${CosmeticCommon.Hair}`,
 		icon: EMOJIS.HAIR_EMOJIS.Hair01,
 		table: "HAIR_EMOJIS",
 		order: [
