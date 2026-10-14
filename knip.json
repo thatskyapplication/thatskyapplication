@@ -11,12 +11,7 @@
 		},
 		"apps/caelus/discord": {
 			"entry": "source/sentry.ts",
-			"ignoreMembers": [
-				"StandardSpirits",
-				"Elders",
-				"SeasonalSpirits",
-				"Events"
-			]
+			"ignoreMembers": ["StandardSpirits", "Elders", "SeasonalSpirits", "Events"]
 		},
 		"apps/sky-elder": {
 			"entry": ["source/server/index.ts", "source/server/vite.config.ts"]
