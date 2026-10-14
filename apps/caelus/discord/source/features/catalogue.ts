@@ -81,6 +81,7 @@ import { CatalogueType, itemToSelectMenuOption } from "../utility/catalogue.js";
 import {
 	CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT,
 	CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT,
+	MAXIMUM_ACTION_ROW_BUTTONS_LIMIT,
 	MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
@@ -352,14 +353,6 @@ async function start({
 	const data = catalogue?.data;
 	const percentage = (items: readonly Item[]) =>
 		cataloguePercentage(catalogueProgress(items, data));
-	const standardProgress = percentage(catalogueSpiritItems(KINGDOM.standardSpirits.values()));
-	const elderProgress = percentage(catalogueSpiritItems(KINGDOM.elderSpirits.values()));
-	const seasonalProgress = percentage(catalogueSeasonItems(skySeasons().values()));
-	const eventProgressResult = percentage(catalogueEventItems(skyEvents().values()));
-	const starterPackProgressResult = percentage(STARTER_PACKS.items);
-	const secretAreaProgressResult = percentage(SECRET_AREA.items);
-	const clothingShopProgressResult = percentage(CLOTHING_SHOP.items);
-	const nestingWorkshopProgressResult = percentage(NESTING_WORKSHOP.items);
 	const now = skyNow();
 	const currentSeason = skyCurrentSeason(now);
 	const events = skyCurrentEvents(now);
@@ -458,6 +451,71 @@ async function start({
 		}
 	}
 
+	const sectionButtons = [
+		{
+			customId: CustomId.CatalogueViewRealms,
+			name: t("catalogue.standard-spirits", { lng: locale, ns: "features" }),
+			items: catalogueSpiritItems(KINGDOM.standardSpirits.values()),
+		},
+		{
+			customId: CustomId.CatalogueViewElders,
+			name: t("catalogue.elders", { lng: locale, ns: "features" }),
+			items: catalogueSpiritItems(KINGDOM.elderSpirits.values()),
+		},
+		{
+			customId: `${CustomId.CatalogueViewSeasons}§1`,
+			name: t("season-plural", { lng: locale, ns: "general" }),
+			items: catalogueSeasonItems(skySeasons().values()),
+		},
+		{
+			customId: `${CustomId.CatalogueViewEvents}§1`,
+			name: t("events", { lng: locale, ns: "general" }),
+			items: catalogueEventItems(skyEvents().values()),
+		},
+		{
+			customId: CustomId.CatalogueViewStarterPacks,
+			name: t("catalogue.starter-packs", { lng: locale, ns: "features" }),
+			items: STARTER_PACKS.items,
+		},
+		{
+			customId: CustomId.CatalogueViewSecretArea,
+			name: t("catalogue.secret-area", { lng: locale, ns: "features" }),
+			items: SECRET_AREA.items,
+		},
+		{
+			customId: CustomId.CatalogueViewClothingShop,
+			name: t("catalogue.clothing-shop", { lng: locale, ns: "features" }),
+			items: CLOTHING_SHOP.items,
+		},
+		{
+			customId: CustomId.CatalogueViewNestingWorkshop,
+			name: t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], { lng: locale }),
+			items: NESTING_WORKSHOP.items,
+		},
+		{
+			customId: CustomId.CatalogueViewLoyalty,
+			name: t("catalogue.loyalty", { lng: locale, ns: "features" }),
+			items: LOYALTY.items,
+		},
+	].map(({ customId, name, items }): APIButtonComponentWithCustomId => {
+		const progress = percentage(items);
+
+		return {
+			type: ComponentType.Button,
+			custom_id: customId,
+			label:
+				progress === null
+					? name
+					: t("catalogue.main-progress-label", {
+							lng: locale,
+							ns: "features",
+							name,
+							number: progress,
+						}),
+			style: ButtonStyle.Secondary,
+		};
+	});
+
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
@@ -483,144 +541,26 @@ async function start({
 				},
 			],
 		},
-		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Primary,
-				custom_id: CustomId.CatalogueViewRealms,
-				label: t("view", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.standard-spirits", { lng: locale, ns: "features" })}\n\n${standardProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: standardProgress })}`,
-				},
-			],
-		},
-		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Primary,
-				custom_id: CustomId.CatalogueViewElders,
-				label: t("view", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.elders", { lng: locale, ns: "features" })}\n\n${elderProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: elderProgress })}`,
-				},
-			],
-		},
-		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Primary,
-				custom_id: `${CustomId.CatalogueViewSeasons}§1`,
-				label: t("view", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t("season-plural", { lng: locale, ns: "general" })}\n\n${seasonalProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: seasonalProgress })}`,
-				},
-			],
-		},
-		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Primary,
-				custom_id: `${CustomId.CatalogueViewEvents}§1`,
-				label: t("view", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t("events", { lng: locale, ns: "general" })}\n\n${eventProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: eventProgressResult })}`,
-				},
-			],
-		},
-		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Primary,
-				custom_id: CustomId.CatalogueViewStarterPacks,
-				label: t("view", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.starter-packs", { lng: locale, ns: "features" })}\n\n${starterPackProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: starterPackProgressResult })}`,
-				},
-			],
-		},
-		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Primary,
-				custom_id: CustomId.CatalogueViewSecretArea,
-				label: t("view", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.secret-area", { lng: locale, ns: "features" })}\n\n${secretAreaProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: secretAreaProgressResult })}`,
-				},
-			],
-		},
-		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Primary,
-				custom_id: CustomId.CatalogueViewClothingShop,
-				label: t("view", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.clothing-shop", { lng: locale, ns: "features" })}\n\n${clothingShopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: clothingShopProgressResult })}`,
-				},
-			],
-		},
-		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Primary,
-				custom_id: CustomId.CatalogueViewNestingWorkshop,
-				label: t("view", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], { lng: locale })}\n\n${nestingWorkshopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: nestingWorkshopProgressResult })}`,
-				},
-			],
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.Button,
-					custom_id: CustomId.CatalogueViewTotalSpent,
-					label: t("catalogue.total-spent", { lng: locale, ns: "features" }),
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: CustomId.CatalogueViewLoyalty,
-					label: t("catalogue.loyalty", { lng: locale, ns: "features" }),
-					style: ButtonStyle.Secondary,
-				},
-			],
-		},
 	];
+
+	for (let index = 0; index < sectionButtons.length; index += MAXIMUM_ACTION_ROW_BUTTONS_LIMIT) {
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: sectionButtons.slice(index, index + MAXIMUM_ACTION_ROW_BUTTONS_LIMIT),
+		});
+	}
+
+	containerComponents.push({
+		type: ComponentType.ActionRow,
+		components: [
+			{
+				type: ComponentType.Button,
+				custom_id: CustomId.CatalogueViewTotalSpent,
+				label: t("catalogue.total-spent", { lng: locale, ns: "features" }),
+				style: ButtonStyle.Secondary,
+			},
+		],
+	});
 
 	return [
 		{
@@ -632,8 +572,11 @@ async function start({
 			components: [
 				{
 					type: ComponentType.ActionRow,
-					// Limit the potential current event buttons to 4 to not exceed the limit.
-					components: [currentSeasonButton, ...currentEventButtons.slice(0, 4)],
+					// The current season button takes one of the slots.
+					components: [
+						currentSeasonButton,
+						...currentEventButtons.slice(0, MAXIMUM_ACTION_ROW_BUTTONS_LIMIT - 1),
+					],
 				},
 				{
 					type: ComponentType.ActionRow,

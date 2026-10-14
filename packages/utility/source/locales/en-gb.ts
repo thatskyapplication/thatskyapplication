@@ -2981,6 +2981,7 @@ export default {
 			loyalty: "Loyalty",
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
+			"main-progress-label": "{{name}} ({{number}}%)",
 			"search-placeholder": "Search seasons, events, and spirits...",
 			"search-no-results": "Nothing was found.",
 			"search-result-detail": "{{name}} ({{detail}})",

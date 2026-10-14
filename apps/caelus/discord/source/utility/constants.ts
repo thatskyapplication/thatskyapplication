@@ -63,6 +63,7 @@ export const MAXIMUM_TEXT_DISPLAY_LENGTH = 4000 as const;
 export const MAXIMUM_AUTOCOMPLETE_NAME_LIMIT = 100 as const;
 export const MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT = 25 as const;
 export const MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT = 25 as const;
+export const MAXIMUM_ACTION_ROW_BUTTONS_LIMIT = 5 as const;
 export const MARKDOWN_ESCAPE_REGEX = /[\\[\]*_`|~]/g;
 export const LINE_BREAK_REGULAR_EXPRESSION = /[\r\n]/;
 
