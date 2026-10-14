@@ -43,6 +43,15 @@
 	.discord-emoji {
 		@apply shrink-0 bg-contain bg-center bg-no-repeat;
 	}
+
+	.cosmetic-tile {
+		@apply flex size-11 cursor-pointer items-center justify-center rounded-lg bg-black/70 transition hover:bg-black/55 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none aria-expanded:bg-black/55 aria-expanded:ring-2 aria-expanded:ring-blue-500 dark:bg-black/30 dark:hover:bg-black/50 dark:focus-visible:ring-blue-300 dark:aria-expanded:bg-black/50 dark:aria-expanded:ring-blue-300;
+	}
+
+	.cosmetic-tile > img {
+		@apply size-8 object-contain;
+		-webkit-user-drag: none;
+	}
 }
 
 .constellation-sparkle {

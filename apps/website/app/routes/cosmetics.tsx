@@ -309,10 +309,7 @@ const CosmeticTile = memo(function CosmeticTile({
 			aria-expanded={false}
 			aria-haspopup="dialog"
 			aria-label={name ?? emoji.name}
-			className={clsx(
-				"flex size-11 cursor-pointer items-center justify-center rounded-lg bg-black/70 transition hover:bg-black/55 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none aria-expanded:bg-black/55 aria-expanded:ring-2 aria-expanded:ring-blue-500 dark:bg-black/30 dark:hover:bg-black/50 dark:focus-visible:ring-blue-300 dark:aria-expanded:bg-black/50 dark:aria-expanded:ring-blue-300",
-				dimmed && "opacity-30",
-			)}
+			className={clsx("cosmetic-tile", dimmed && "opacity-30")}
 			data-cosmetic-tile=""
 			id={COSMETIC_ANCHORS.get(emoji.id)}
 			onClick={(event) => onSelect(emoji, event.currentTarget, event.detail === 0)}
@@ -320,7 +317,6 @@ const CosmeticTile = memo(function CosmeticTile({
 		>
 			<img
 				alt=""
-				className="size-8 object-contain [-webkit-user-drag:none]"
 				decoding="async"
 				draggable={false}
 				height={COSMETIC_TILE_IMAGE_SIZE}
