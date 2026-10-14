@@ -117,6 +117,7 @@ const COSMETICS_ORDER = [
 			"Outfit55",
 			"Outfit69",
 			"Outfit37",
+			"Outfit70",
 			"Outfit24",
 			"Outfit38",
 			"Outfit39",
@@ -128,7 +129,6 @@ const COSMETICS_ORDER = [
 			"Outfit60",
 			"Outfit66",
 			"Outfit63",
-			"Outfit70",
 		],
 	},
 	{
