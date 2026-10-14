@@ -149,7 +149,7 @@ export const enum CustomId {
 	DailyGuidesNestingWorkshopModal = "144",
 	DailyGuidesNestingWorkshopModalProps = "145",
 	DailyGuidesNestingWorkshopReorder = "146",
-	WelcomeAccentColourModalAccentColour = "147",
+	CatalogueViewLoyalty = "147",
 	DailyGuidesSetupType = "148",
 	MeCustomiseMe = "149",
 	MeCustomiseMeModal = "150",

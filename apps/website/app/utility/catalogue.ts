@@ -9,6 +9,7 @@ import {
 	type Item,
 	isRealm,
 	KINGDOM,
+	LOYALTY,
 	NESTING_WORKSHOP,
 	type RealmName,
 	SECRET_AREA,
@@ -102,6 +103,8 @@ export function resolveScopeCosmetics(
 			return new Set(CLOTHING_SHOP.allCosmetics);
 		case "nesting-workshop":
 			return new Set(NESTING_WORKSHOP.allCosmetics);
+		case "loyalty":
+			return new Set(LOYALTY.allCosmetics);
 		default:
 	}
 

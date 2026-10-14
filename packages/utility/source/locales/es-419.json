@@ -25,6 +25,7 @@
 		"candles": "",
 		"hearts": "",
 		"ascended-candles": "",
+		"loyalty-points": "Puntos de Fidelidad",
 		"seasonal-candles": "",
 		"jump-to-date": "",
 		"none": "Ninguna",
@@ -2286,7 +2287,10 @@
 			"2959": "Laúd de luz de luna",
 			"2960": "Nimbo de luz de luna",
 			"2961": "Velo de luz de luna",
-			"2962": ""
+			"2962": "",
+			"2965": "Vincha de girasol",
+			"2966": "Corbata de girasol",
+			"2967": "Vestido de girasoles"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2313,7 +2317,8 @@
 		"this-week": "",
 		"shard-eruption": "",
 		"donate": "",
-		"wiki": ""
+		"wiki": "",
+		"web-store": ""
 	},
 	"commands": {
 		"common": {
@@ -2633,6 +2638,7 @@
 			"starter-packs": "Packs de inicio",
 			"secret-area": "Área secreta",
 			"clothing-shop": "",
+			"loyalty": "Tienda de fidelidad",
 			"main-no-progress": "Sin progreso",
 			"main-progress": "Progreso: {{number}}%",
 			"search-placeholder": "",

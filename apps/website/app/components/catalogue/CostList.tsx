@@ -12,6 +12,7 @@ export const COST_ENTRY_NAME_KEYS = {
 	candles: "candles",
 	hearts: "hearts",
 	ascendedCandles: "ascended-candles",
+	loyalty: "loyalty-points",
 	seasonalCandles: "seasonal-candles",
 	seasonalHearts: "seasonal-hearts",
 	eventTickets: "event-tickets",

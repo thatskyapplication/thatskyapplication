@@ -25,6 +25,7 @@
 		"candles": "",
 		"hearts": "",
 		"ascended-candles": "",
+		"loyalty-points": "로열티 포인트",
 		"seasonal-candles": "시즌양초",
 		"jump-to-date": "",
 		"none": "",
@@ -2281,7 +2282,10 @@
 			"2959": "달빛 류트",
 			"2960": "달빛 후광",
 			"2961": "달빛 베일",
-			"2962": ""
+			"2962": "",
+			"2965": "해바라기 머리띠",
+			"2966": "해바라기 넥타이",
+			"2967": "해바라기 드레스"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2308,7 +2312,8 @@
 		"this-week": "",
 		"shard-eruption": "파편 분출",
 		"donate": "",
-		"wiki": ""
+		"wiki": "",
+		"web-store": ""
 	},
 	"commands": {
 		"common": {
@@ -2623,6 +2628,7 @@
 			"starter-packs": "",
 			"secret-area": "",
 			"clothing-shop": "",
+			"loyalty": "로열티 스토어",
 			"main-no-progress": "",
 			"main-progress": "",
 			"search-placeholder": "",

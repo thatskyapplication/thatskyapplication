@@ -3746,6 +3746,11 @@ export enum Cosmetic {
 
 	// 25/09/2026 | Version 34.5.
 	StoneSmallCube = 2962,
+
+	// 14/10/2026 | Loyalty.
+	SunflowerHeadband = 2965,
+	SunflowerNeckTie = 2966,
+	SunflowerDress = 2967,
 }
 
 export enum CosmeticCommon {

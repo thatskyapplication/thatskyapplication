@@ -42,6 +42,7 @@ import {
 	viewClothingShop,
 	viewElders,
 	viewEvents,
+	viewLoyalty,
 	viewNestingWorkshop,
 	viewRealm,
 	viewRealms,
@@ -547,6 +548,11 @@ export default {
 
 				if (id === CustomId.CatalogueViewNestingWorkshop) {
 					await viewNestingWorkshop(data);
+					return;
+				}
+
+				if (id === CustomId.CatalogueViewLoyalty) {
+					await viewLoyalty(data);
 					return;
 				}
 

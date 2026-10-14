@@ -25,6 +25,7 @@
 		"candles": "",
 		"hearts": "",
 		"ascended-candles": "",
+		"loyalty-points": "Punti Fedeltà",
 		"seasonal-candles": "",
 		"jump-to-date": "",
 		"none": "",
@@ -2286,7 +2287,10 @@
 			"2959": "Liuto del chiaro di luna",
 			"2960": "Nembo del chiaro di luna",
 			"2961": "Velo del chiaro di luna",
-			"2962": ""
+			"2962": "",
+			"2965": "Cerchietto Girasole",
+			"2966": "Cravatta Girasole",
+			"2967": "Vestito Girasole"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2313,7 +2317,8 @@
 		"this-week": "",
 		"shard-eruption": "",
 		"donate": "",
-		"wiki": ""
+		"wiki": "",
+		"web-store": ""
 	},
 	"commands": {
 		"common": {
@@ -2633,6 +2638,7 @@
 			"starter-packs": "",
 			"secret-area": "",
 			"clothing-shop": "",
+			"loyalty": "Negozio Fedeltà",
 			"main-no-progress": "",
 			"main-progress": "",
 			"search-placeholder": "",

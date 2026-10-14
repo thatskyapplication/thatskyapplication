@@ -6,6 +6,7 @@ import {
 	CLOTHING_SHOP,
 	fetchNestingWorkshop,
 	isEventFamilyId,
+	LOYALTY,
 	NESTING_WORKSHOP,
 	SECRET_AREA,
 	type SeasonIds,
@@ -332,6 +333,18 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 					scope="nesting-workshop"
 					showEverythingButton={showEverythingButton}
 					title={t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop])}
+				/>
+			);
+			break;
+		case "loyalty":
+			content = (
+				<CollectionView
+					collection={LOYALTY}
+					data={data}
+					locale={locale}
+					scope="loyalty"
+					showEverythingButton={showEverythingButton}
+					title={t("catalogue.loyalty", { ns: "features" })}
 				/>
 			);
 			break;

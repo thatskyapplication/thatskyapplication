@@ -22,6 +22,7 @@ const CATALOGUE_COLLECTION_VIEWS = {
 	[CatalogueCollection.SecretArea]: "secret-area",
 	[CatalogueCollection.ClothingShop]: "clothing-shop",
 	[CatalogueCollection.NestingWorkshop]: "nesting-workshop",
+	[CatalogueCollection.Loyalty]: "loyalty",
 } as const satisfies Readonly<Record<CatalogueCollection, string>>;
 
 function targetResult(entry: CatalogueSearchEntry, t: TFunction) {

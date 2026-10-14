@@ -25,6 +25,7 @@
 		"candles": "",
 		"hearts": "",
 		"ascended-candles": "",
+		"loyalty-points": "酬賓點數",
 		"seasonal-candles": "",
 		"jump-to-date": "",
 		"none": "無",
@@ -2281,7 +2282,10 @@
 			"2959": "月華魯特琴",
 			"2960": "月華光輪",
 			"2961": "月華面紗",
-			"2962": ""
+			"2962": "",
+			"2965": "向日葵髮箍",
+			"2966": "向日葵領結",
+			"2967": "向日葵洋裝"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2308,7 +2312,8 @@
 		"this-week": "",
 		"shard-eruption": "",
 		"donate": "",
-		"wiki": ""
+		"wiki": "",
+		"web-store": ""
 	},
 	"commands": {
 		"common": {
@@ -2623,6 +2628,7 @@
 			"starter-packs": "入門包",
 			"secret-area": "秘密區域",
 			"clothing-shop": "",
+			"loyalty": "酬賓商店",
 			"main-no-progress": "沒有進展",
 			"main-progress": "進度: {{number}}%",
 			"search-placeholder": "",

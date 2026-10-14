@@ -52,6 +52,7 @@ export {
 	catalogueSpiritItems,
 	collectSpiritCosmetics,
 	costEntryEmoji,
+	LOYALTY,
 	NESTING_WORKSHOP,
 	NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES,
 	NESTING_WORKSHOP_ROTATION_COSMETICS,

@@ -58,6 +58,7 @@ export default {
 		candles: "Candles",
 		hearts: "Hearts",
 		"ascended-candles": "Ascended candles",
+		"loyalty-points": "Loyalty points",
 		"seasonal-candles": "Seasonal candles",
 		"jump-to-date": "Jump to a date",
 		none: "None",
@@ -2606,6 +2607,9 @@ export default {
 			[Cosmetic.MoonlightNimbus]: "Moonlight Nimbus",
 			[Cosmetic.MoonlightVeil]: "Moonlight Veil",
 			[Cosmetic.StoneSmallCube]: "Stone small cube",
+			[Cosmetic.SunflowerHeadband]: "Sunflower Headband",
+			[Cosmetic.SunflowerNeckTie]: "Sunflower Neck Tie",
+			[Cosmetic.SunflowerDress]: "Sunflower Dress",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
@@ -2637,6 +2641,7 @@ export default {
 		"shard-eruption": "Shard eruption",
 		donate: "Donate",
 		wiki: "Wiki",
+		"web-store": "Web store",
 	},
 	commands: {
 		common: {
@@ -2973,6 +2978,7 @@ export default {
 			"starter-packs": "Starter packs",
 			"secret-area": "Secret area",
 			"clothing-shop": "Clothing shop",
+			loyalty: "Loyalty",
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
 			"search-placeholder": "Search seasons, events, and spirits...",

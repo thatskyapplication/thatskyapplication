@@ -25,6 +25,7 @@
 		"candles": "",
 		"hearts": "",
 		"ascended-candles": "",
+		"loyalty-points": "Очки лояльности",
 		"seasonal-candles": "",
 		"jump-to-date": "",
 		"none": "",
@@ -2296,7 +2297,10 @@
 			"2959": "Лунная лютня",
 			"2960": "Лунный нимб",
 			"2961": "Лунная вуаль",
-			"2962": ""
+			"2962": "",
+			"2965": "Ободок «Подсолнух»",
+			"2966": "Галстук «Подсолнух»",
+			"2967": "Платье «Подсолнух»"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2323,7 +2327,8 @@
 		"this-week": "",
 		"shard-eruption": "",
 		"donate": "",
-		"wiki": ""
+		"wiki": "",
+		"web-store": ""
 	},
 	"commands": {
 		"common": {
@@ -2653,6 +2658,7 @@
 			"starter-packs": "",
 			"secret-area": "",
 			"clothing-shop": "",
+			"loyalty": "Магазин лояльности",
 			"main-no-progress": "",
 			"main-progress": "",
 			"search-placeholder": "",

@@ -248,6 +248,30 @@ export const NESTING_WORKSHOP_ROTATION_COSMETICS =
 		(category) => NestingWorkshopRotationCategoryToCosmetics[category],
 	);
 
+const loyaltyItems = resolveOfferFromItems([
+	{
+		cosmetic: Cosmetic.SunflowerHeadband,
+		cost: { loyalty: 10 },
+	},
+	{
+		cosmetic: Cosmetic.SpringCloverSprout,
+		cost: { loyalty: 20 },
+	},
+	{
+		cosmetic: Cosmetic.SunflowerNeckTie,
+		cost: { loyalty: 50 },
+	},
+	{
+		cosmetic: Cosmetic.SunflowerDress,
+		cost: { loyalty: 150 },
+	},
+]);
+
+export const LOYALTY = {
+	items: loyaltyItems,
+	allCosmetics: resolveAllCosmeticsFromItems(loyaltyItems),
+} as const;
+
 export interface CatalogueProgress {
 	readonly owned: number;
 	readonly total: number;
@@ -362,6 +386,7 @@ export function catalogueItems(): readonly Item[] {
 		...SECRET_AREA.items,
 		...CLOTHING_SHOP.items,
 		...NESTING_WORKSHOP.items,
+		...LOYALTY.items,
 	];
 }
 
@@ -378,6 +403,7 @@ export enum CatalogueCollection {
 	SecretArea = 1,
 	ClothingShop = 2,
 	NestingWorkshop = 3,
+	Loyalty = 4,
 }
 
 export const CatalogueCollectionToLocaleKey = {
@@ -385,6 +411,7 @@ export const CatalogueCollectionToLocaleKey = {
 	[CatalogueCollection.SecretArea]: "features:catalogue.secret-area",
 	[CatalogueCollection.ClothingShop]: "features:catalogue.clothing-shop",
 	[CatalogueCollection.NestingWorkshop]: `general:occurrences.${NotificationType.NestingWorkshop}`,
+	[CatalogueCollection.Loyalty]: "features:catalogue.loyalty",
 } as const satisfies Readonly<Record<CatalogueCollection, string>>;
 
 export type CatalogueSearchTarget =
@@ -545,6 +572,7 @@ export function catalogueSearchEntries(
 		[CatalogueCollection.SecretArea, SECRET_AREA],
 		[CatalogueCollection.ClothingShop, CLOTHING_SHOP],
 		[CatalogueCollection.NestingWorkshop, NESTING_WORKSHOP],
+		[CatalogueCollection.Loyalty, LOYALTY],
 	] as const) {
 		entries.push(
 			...inAppPurchaseEntries(
@@ -609,6 +637,8 @@ export function costEntryEmoji(
 			return MISCELLANEOUS_EMOJIS.Heart;
 		case "ascendedCandles":
 			return MISCELLANEOUS_EMOJIS.AscendedCandle;
+		case "loyalty":
+			return MISCELLANEOUS_EMOJIS.Loyalty;
 		case "seasonalCandles":
 			return SeasonIdToSeasonalCandleEmoji[entry.seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 		case "seasonalHearts":

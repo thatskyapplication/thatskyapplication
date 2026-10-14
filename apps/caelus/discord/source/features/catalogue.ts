@@ -47,6 +47,7 @@ import {
 	type Item,
 	isRealm,
 	KINGDOM,
+	LOYALTY,
 	NESTING_WORKSHOP,
 	nestingWorkshopPropsTextDisplay,
 	type Packet,
@@ -82,6 +83,8 @@ import {
 	MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
+	SKY_WEB_STORE_LOCALES,
+	SKY_WEB_STORE_URL,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
@@ -106,6 +109,10 @@ function breadcrumb(locale: Locale, current: string, trail: readonly string[] = 
 	return `-# ${[t("catalogue.main-title", { lng: locale, ns: "features" }), ...trail, current].join(
 		" → ",
 	)}`;
+}
+
+function webStoreURL(locale: Locale) {
+	return String(new URL(SKY_WEB_STORE_LOCALES[locale] ?? "", SKY_WEB_STORE_URL));
 }
 
 function backToStartButton(locale: Locale): APIButtonComponentWithCustomId {
@@ -610,6 +617,12 @@ async function start({
 					label: t("catalogue.total-spent", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Secondary,
 				},
+				{
+					type: ComponentType.Button,
+					custom_id: CustomId.CatalogueViewLoyalty,
+					label: t("catalogue.loyalty", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Secondary,
+				},
 			],
 		},
 	];
@@ -750,6 +763,9 @@ export async function viewSearch(
 			case CatalogueCollection.NestingWorkshop:
 				await viewNestingWorkshop(interaction);
 				return;
+			case CatalogueCollection.Loyalty:
+				await viewLoyalty(interaction);
+				return;
 		}
 	}
 
@@ -885,6 +901,7 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 	let candles = 0;
 	let hearts = 0;
 	let ascendedCandles = 0;
+	let loyalty = 0;
 	const seasons = new Map<SeasonIds, { seasonalCandles: number; seasonalHearts: number }>();
 	const events: [EventIds, number][] = [];
 
@@ -901,6 +918,9 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 				break;
 			case "ascendedCandles":
 				ascendedCandles = entry.amount;
+				break;
+			case "loyalty":
+				loyalty = entry.amount;
 				break;
 			case "seasonalCandles":
 			case "seasonalHearts": {
@@ -928,6 +948,7 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 				t("ascended-candles", { lng: locale, ns: "general" }),
 				ascendedCandles.toLocaleString(locale),
 			],
+			[t("loyalty-points", { lng: locale, ns: "general" }), loyalty.toLocaleString(locale)],
 		],
 	);
 
@@ -1012,6 +1033,7 @@ interface CatalogueTraversalContainerOptions {
 	isInSecretArea?: boolean;
 	isInClothingShop?: boolean;
 	isInNestingWorkshop?: boolean;
+	isInLoyalty?: boolean;
 }
 
 function traversalContainer({
@@ -1026,6 +1048,7 @@ function traversalContainer({
 	isInSecretArea = false,
 	isInClothingShop = false,
 	isInNestingWorkshop = false,
+	isInLoyalty = false,
 }: CatalogueTraversalContainerOptions): APIContainerComponent {
 	const standardSpirits: APISelectMenuOption = {
 		label: t("catalogue.standard-spirits", { lng: locale, ns: "features" }),
@@ -1099,6 +1122,15 @@ function traversalContainer({
 		nestingWorkshop.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
 	}
 
+	const loyalty: APISelectMenuOption = {
+		label: t("catalogue.loyalty", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewLoyalty,
+	};
+
+	if (isInLoyalty) {
+		loyalty.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
 	return {
 		type: ComponentType.Container,
 		components: [
@@ -1117,6 +1149,7 @@ function traversalContainer({
 							secretArea,
 							clothingShop,
 							nestingWorkshop,
+							loyalty,
 						],
 						max_values: 1,
 						min_values: 1,
@@ -1165,6 +1198,8 @@ export async function catalogueTraversal(
 			return viewClothingShop(interaction);
 		case CustomId.CatalogueViewNestingWorkshop:
 			return viewNestingWorkshop(interaction);
+		case CustomId.CatalogueViewLoyalty:
+			return viewLoyalty(interaction);
 		default:
 			throw new Error("Unknown catalogue traversal.");
 	}
@@ -2744,6 +2779,103 @@ export async function viewNestingWorkshop(
 	}
 }
 
+export async function viewLoyalty(
+	interaction:
+		| APIChatInputApplicationCommandInteraction
+		| APIMessageComponentButtonInteraction
+		| APIMessageComponentSelectMenuInteraction,
+) {
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
+	const { locale } = interaction;
+	const current = t("catalogue.loyalty", { lng: locale, ns: "features" });
+
+	const itemSelectionOptions = LOYALTY.items.map((item) =>
+		itemToSelectMenuOption(item, catalogue?.data, locale),
+	);
+
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: webStoreURL(locale),
+				label: t("web-store", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `## ${current}\n\n${breadcrumb(locale, current)}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: progress(interaction.locale, LOYALTY.items, catalogue?.data).offerDescription.join(
+				"\n",
+			),
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.Loyalty}`,
+					max_values: itemSelectionOptions.length,
+					min_values: 0,
+					options: itemSelectionOptions,
+					placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+				},
+			],
+		},
+	];
+
+	if (catalogue?.show_everything_button) {
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.Loyalty}`,
+					disabled: catalogueComplete(catalogueProgress(LOYALTY.items, catalogue?.data)),
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Success,
+				},
+			],
+		});
+	}
+
+	const response = {
+		components: [
+			{
+				type: ComponentType.Container,
+				components: containerComponents,
+			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInLoyalty: true,
+			}),
+		],
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	} satisfies APIInteractionResponseCallbackData;
+
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+	}
+}
+
 export async function setRealm(interaction: APIMessageComponentButtonInteraction) {
 	const realm = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 
@@ -2850,6 +2982,10 @@ export async function parseSetItems(
 			}
 			case CatalogueType.NestingWorkshop: {
 				await setNestingWorkshopItems(interaction);
+				return;
+			}
+			case CatalogueType.Loyalty: {
+				await setLoyaltyItems(interaction);
 				return;
 			}
 			default: {
@@ -2963,6 +3099,16 @@ async function setNestingWorkshopItems(
 	});
 
 	await viewNestingWorkshop(interaction);
+}
+
+async function setLoyaltyItems(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	await update(interaction, {
+		data: (existing) => calculateSetItems(interaction, LOYALTY.allCosmetics, existing),
+	});
+
+	await viewLoyalty(interaction);
 }
 
 export async function updateEverythingButtonSetting(

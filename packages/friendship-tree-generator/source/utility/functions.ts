@@ -23,6 +23,10 @@ export function resolveCostEmojiId(cost: ItemCost, seasonId: SeasonIds | undefin
 		return MISCELLANEOUS_EMOJIS.AscendedCandle.id;
 	}
 
+	if ("loyalty" in cost) {
+		return MISCELLANEOUS_EMOJIS.Loyalty.id;
+	}
+
 	if (seasonId !== undefined && cost.seasonalCandles.length > 0) {
 		return SeasonIdToSeasonalCandleEmoji[seasonId]?.id ?? MISCELLANEOUS_EMOJIS.SeasonalCandle.id;
 	}

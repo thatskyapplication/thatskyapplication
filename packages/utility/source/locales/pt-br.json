@@ -25,6 +25,7 @@
 		"candles": "Velas",
 		"hearts": "Corações",
 		"ascended-candles": "Velas ascendidas",
+		"loyalty-points": "Pontos de Fidelidade",
 		"seasonal-candles": "Velas de temporada",
 		"jump-to-date": "Ir para uma data",
 		"none": "Nada",
@@ -2286,7 +2287,10 @@
 			"2959": "Alaúde do Luar",
 			"2960": "Nuvem do Luar",
 			"2961": "Véu do Luar",
-			"2962": ""
+			"2962": "",
+			"2965": "Tiara de Girassol",
+			"2966": "Gravata de Girassol",
+			"2967": "Vestido de Girassol"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -2313,7 +2317,8 @@
 		"this-week": "",
 		"shard-eruption": "Erupções de fragmentos",
 		"donate": "Doar",
-		"wiki": "Wiki"
+		"wiki": "Wiki",
+		"web-store": ""
 	},
 	"commands": {
 		"common": {
@@ -2633,6 +2638,7 @@
 			"starter-packs": "Pacotes de iniciante",
 			"secret-area": "Área secreta",
 			"clothing-shop": "Loja de roupas",
+			"loyalty": "Loja de Fidelidade",
 			"main-no-progress": "Sem progresso",
 			"main-progress": "Progresso: {{number}}%",
 			"search-placeholder": "Procure por temporadas, eventos, ou espíritos...",

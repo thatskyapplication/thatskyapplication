@@ -14,6 +14,7 @@ import {
 	type Emoji,
 	type Item,
 	KINGDOM,
+	LOYALTY,
 	NESTING_WORKSHOP,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
@@ -103,6 +104,11 @@ export function StartView({
 				title: t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop]),
 				to: "?view=nesting-workshop",
 			},
+			{
+				percentage: percentage(LOYALTY.items),
+				title: t("catalogue.loyalty", { ns: "features" }),
+				to: "?view=loyalty",
+			},
 		];
 	}, [data, t]);
 
@@ -176,7 +182,7 @@ export function StartView({
 				</div>
 			)}
 
-			<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+			<div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:[&>*:nth-child(odd):last-child]:col-span-2">
 				{sections.map((section) => (
 					<SectionCard key={section.to} {...section} />
 				))}

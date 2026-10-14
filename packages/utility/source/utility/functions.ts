@@ -149,7 +149,10 @@ export function resolveOfferFromItems(
 }
 
 export type CostEntry =
-	| { readonly type: "money" | "candles" | "hearts" | "ascendedCandles"; readonly amount: number }
+	| {
+			readonly type: "money" | "candles" | "hearts" | "ascendedCandles" | "loyalty";
+			readonly amount: number;
+	  }
 	| {
 			readonly type: "seasonalCandles" | "seasonalHearts";
 			readonly seasonId: SeasonIds;
@@ -162,6 +165,7 @@ interface CostTally {
 	candles: number;
 	hearts: number;
 	ascendedCandles: number;
+	loyalty: number;
 	seasonalCandles: Map<SeasonIds, number>;
 	seasonalHearts: Map<SeasonIds, number>;
 	eventTickets: Map<EventIds, number>;
@@ -173,6 +177,7 @@ function createCostTally(): CostTally {
 		candles: 0,
 		hearts: 0,
 		ascendedCandles: 0,
+		loyalty: 0,
 		seasonalCandles: new Map(),
 		seasonalHearts: new Map(),
 		eventTickets: new Map(),
@@ -200,6 +205,7 @@ export function sumCosts(
 		tally.candles += cost.candles ?? 0;
 		tally.hearts += cost.hearts ?? 0;
 		tally.ascendedCandles += cost.ascendedCandles ?? 0;
+		tally.loyalty += cost.loyalty ?? 0;
 
 		if (includeSeasonalCurrency) {
 			for (const seasonalCandles of cost.seasonalCandles) {
@@ -236,6 +242,10 @@ function tallyToEntries(tally: CostTally): readonly CostEntry[] {
 
 	if (tally.ascendedCandles > 0) {
 		entries.push({ type: "ascendedCandles", amount: tally.ascendedCandles });
+	}
+
+	if (tally.loyalty > 0) {
+		entries.push({ type: "loyalty", amount: tally.loyalty });
 	}
 
 	for (const [seasonId, amount] of [...tally.seasonalCandles].sort(([a], [b]) => a - b)) {

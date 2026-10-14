@@ -60,50 +60,64 @@ function CostStat({
 export function TotalSpentView({ data, locale }: { data: ReadonlySet<number>; locale: string }) {
 	const { t } = useTranslation();
 
-	const { ascendedCandles, candles, events, hearts, money, seasons, total } = useMemo(() => {
-		const spentCosts = sumCosts(partitionItemCosts(catalogueItems(), data).obtained);
+	const { ascendedCandles, candles, events, hearts, loyalty, money, seasons, total } =
+		useMemo(() => {
+			const spentCosts = sumCosts(partitionItemCosts(catalogueItems(), data).obtained);
 
-		let money = 0;
-		let candles = 0;
-		let hearts = 0;
-		let ascendedCandles = 0;
-		const seasons = new Map<SeasonIds, { candles?: CostEntry; hearts?: CostEntry }>();
-		const events: Extract<CostEntry, { type: "eventTickets" }>[] = [];
+			let money = 0;
+			let candles = 0;
+			let hearts = 0;
+			let ascendedCandles = 0;
+			let loyalty = 0;
+			const seasons = new Map<SeasonIds, { candles?: CostEntry; hearts?: CostEntry }>();
+			const events: Extract<CostEntry, { type: "eventTickets" }>[] = [];
 
-		for (const entry of spentCosts) {
-			switch (entry.type) {
-				case "money":
-					money = entry.amount;
-					break;
-				case "candles":
-					candles = entry.amount;
-					break;
-				case "hearts":
-					hearts = entry.amount;
-					break;
-				case "ascendedCandles":
-					ascendedCandles = entry.amount;
-					break;
-				case "seasonalCandles": {
-					const season = seasons.get(entry.seasonId) ?? {};
-					season.candles = entry;
-					seasons.set(entry.seasonId, season);
-					break;
+			for (const entry of spentCosts) {
+				switch (entry.type) {
+					case "money":
+						money = entry.amount;
+						break;
+					case "candles":
+						candles = entry.amount;
+						break;
+					case "hearts":
+						hearts = entry.amount;
+						break;
+					case "ascendedCandles":
+						ascendedCandles = entry.amount;
+						break;
+					case "loyalty":
+						loyalty = entry.amount;
+						break;
+					case "seasonalCandles": {
+						const season = seasons.get(entry.seasonId) ?? {};
+						season.candles = entry;
+						seasons.set(entry.seasonId, season);
+						break;
+					}
+					case "seasonalHearts": {
+						const season = seasons.get(entry.seasonId) ?? {};
+						season.hearts = entry;
+						seasons.set(entry.seasonId, season);
+						break;
+					}
+					case "eventTickets":
+						events.push(entry);
+						break;
 				}
-				case "seasonalHearts": {
-					const season = seasons.get(entry.seasonId) ?? {};
-					season.hearts = entry;
-					seasons.set(entry.seasonId, season);
-					break;
-				}
-				case "eventTickets":
-					events.push(entry);
-					break;
 			}
-		}
 
-		return { ascendedCandles, candles, events, hearts, money, seasons, total: spentCosts.length };
-	}, [data]);
+			return {
+				ascendedCandles,
+				candles,
+				events,
+				hearts,
+				loyalty,
+				money,
+				seasons,
+				total: spentCosts.length,
+			};
+		}, [data]);
 
 	return (
 		<>
@@ -158,6 +172,15 @@ export function TotalSpentView({ data, locale }: { data: ReadonlySet<number>; lo
 								</>
 							}
 							value={ascendedCandles.toLocaleString(locale)}
+						/>
+						<Row
+							label={
+								<>
+									<EmojiIcon className="h-4 w-4" emoji={MISCELLANEOUS_EMOJIS.Loyalty} />
+									{t("loyalty-points", { ns: "general" })}
+								</>
+							}
+							value={loyalty.toLocaleString(locale)}
 						/>
 					</Section>
 

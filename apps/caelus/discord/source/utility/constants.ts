@@ -87,6 +87,26 @@ export const LOCALES = [
 export const CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT = 8 as const;
 export const CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT = 7 as const;
 
+// Web store.
+export const SKY_WEB_STORE_URL = "https://store.thatskygame.com" as const;
+
+export const SKY_WEB_STORE_LOCALES: Readonly<Partial<Record<Locale, string>>> = {
+	[Locale.German]: "de-DE",
+	[Locale.SpanishLATAM]: "es-ES",
+	[Locale.SpanishES]: "es-ES",
+	[Locale.French]: "fr-FR",
+	[Locale.Indonesian]: "id-ID",
+	[Locale.Italian]: "it-IT",
+	[Locale.Japanese]: "ja-JP",
+	[Locale.Korean]: "ko-KR",
+	[Locale.PortugueseBR]: "pt-BR",
+	[Locale.Russian]: "ru-RU",
+	[Locale.Thai]: "th-TH",
+	[Locale.Vietnamese]: "vi-VN",
+	[Locale.ChineseCN]: "zh-CN",
+	[Locale.ChineseTW]: "zh-TW",
+};
+
 // Daily guides.
 export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
 	label: locale,

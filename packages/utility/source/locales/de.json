@@ -25,6 +25,7 @@
 		"candles": "",
 		"hearts": "",
 		"ascended-candles": "",
+		"loyalty-points": "Treuepunkte",
 		"seasonal-candles": "",
 		"jump-to-date": "",
 		"none": "",
@@ -2286,7 +2287,10 @@
 			"2959": "Mondlicht-Laute",
 			"2960": "Mondlicht-Nimbus",
 			"2961": "Mondlicht-Schleier",
-			"2962": ""
+			"2962": "",
+			"2965": "Sonnenblumen-Stirnband",
+			"2966": "Sonnenblumen-Krawatte",
+			"2967": "Sonnenblumen-Kleid"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2313,7 +2317,8 @@
 		"this-week": "",
 		"shard-eruption": "",
 		"donate": "",
-		"wiki": ""
+		"wiki": "",
+		"web-store": ""
 	},
 	"commands": {
 		"common": {
@@ -2633,6 +2638,7 @@
 			"starter-packs": "Starterpaket",
 			"secret-area": "Geheimversteck",
 			"clothing-shop": "",
+			"loyalty": "Treueshop",
 			"main-no-progress": "Kein Fortschritt",
 			"main-progress": "Fortschritt: {{number}}%",
 			"search-placeholder": "",

@@ -464,6 +464,7 @@ interface ItemCostRaw {
 	candles?: number;
 	hearts?: number;
 	ascendedCandles?: number;
+	loyalty?: number;
 	seasonalCandles?: number;
 	seasonalHearts?: number;
 	eventTickets?: number;
@@ -548,6 +549,7 @@ export interface ItemCost {
 	candles?: number;
 	hearts?: number;
 	ascendedCandles?: number;
+	loyalty?: number;
 	seasonalCandles: ItemCostSeasonal[];
 	seasonalHearts: ItemCostSeasonal[];
 	eventTickets: ItemCostEvent[];

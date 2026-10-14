@@ -25,6 +25,7 @@
 		"candles": "キャンドル",
 		"hearts": "ハート",
 		"ascended-candles": "星のキャンドル",
+		"loyalty-points": "ロイヤリティ・ポイント",
 		"seasonal-candles": "シーズンキャンドル",
 		"jump-to-date": "",
 		"none": "",
@@ -2281,7 +2282,10 @@
 			"2959": "月灯りリュート",
 			"2960": "月灯りの光背",
 			"2961": "月灯りベール",
-			"2962": ""
+			"2962": "",
+			"2965": "ひまわりカチューシャ",
+			"2966": "ひまわりクロスタイ",
+			"2967": "ひまわりドレス"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2308,7 +2312,8 @@
 		"this-week": "",
 		"shard-eruption": "闇の破片",
 		"donate": "",
-		"wiki": ""
+		"wiki": "",
+		"web-store": ""
 	},
 	"commands": {
 		"common": {
@@ -2623,6 +2628,7 @@
 			"starter-packs": "",
 			"secret-area": "",
 			"clothing-shop": "",
+			"loyalty": "ロイヤリティ・クラブ",
 			"main-no-progress": "",
 			"main-progress": "",
 			"search-placeholder": "",

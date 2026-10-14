@@ -36,4 +36,5 @@ export const enum CatalogueType {
 	SecretArea = 5,
 	ClothingShop = 6,
 	NestingWorkshop = 7,
+	Loyalty = 8,
 }
