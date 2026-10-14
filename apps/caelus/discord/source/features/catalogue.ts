@@ -69,6 +69,7 @@ import {
 	skyEvents,
 	skyNow,
 	skySeasons,
+	skyWebStoreURL,
 	spiritOriginTranslationKey,
 	spirits,
 	sumCosts,
@@ -83,8 +84,6 @@ import {
 	MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
-	SKY_WEB_STORE_LOCALES,
-	SKY_WEB_STORE_URL,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
@@ -109,10 +108,6 @@ function breadcrumb(locale: Locale, current: string, trail: readonly string[] = 
 	return `-# ${[t("catalogue.main-title", { lng: locale, ns: "features" }), ...trail, current].join(
 		" → ",
 	)}`;
-}
-
-function webStoreURL(locale: Locale) {
-	return String(new URL(SKY_WEB_STORE_LOCALES[locale] ?? "", SKY_WEB_STORE_URL));
 }
 
 function backToStartButton(locale: Locale): APIButtonComponentWithCustomId {
@@ -2799,7 +2794,7 @@ export async function viewLoyalty(
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: webStoreURL(locale),
+				url: skyWebStoreURL(locale),
 				label: t("web-store", { lng: locale, ns: "general" }),
 			},
 			components: [

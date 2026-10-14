@@ -378,3 +378,4 @@ export {
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
 } from "./utility/spirits.js";
+export { skyWebStoreURL } from "./web-store.js";

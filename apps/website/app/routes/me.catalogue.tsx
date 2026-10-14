@@ -17,6 +17,7 @@ import {
 	skyEventFamilies,
 	skyNow,
 	skySeasons,
+	skyWebStoreURL,
 	spirits,
 	TIME_ZONE,
 	CatalogueCollection,
@@ -341,6 +342,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 				<CollectionView
 					collection={LOYALTY}
 					data={data}
+					link={{ href: skyWebStoreURL(locale), label: t("web-store", { ns: "general" }) }}
 					locale={locale}
 					scope="loyalty"
 					showEverythingButton={showEverythingButton}

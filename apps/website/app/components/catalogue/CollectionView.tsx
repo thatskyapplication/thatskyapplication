@@ -1,6 +1,8 @@
+import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import type { Item } from "@thatskyapplication/utility";
-import { CARD_CLASS } from "~/utility/catalogue.js";
+import { ExternalLink } from "~/components/ExternalLink";
+import { CARD_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EverythingButton } from "./EverythingButton";
@@ -11,6 +13,7 @@ export function CollectionView({
 	collection,
 	data,
 	featured,
+	link,
 	locale,
 	scope,
 	showEverythingButton,
@@ -19,6 +22,7 @@ export function CollectionView({
 	collection: { readonly items: readonly Item[] };
 	data: ReadonlySet<number>;
 	featured?: { items: readonly Item[]; title: string };
+	link?: { href: string; label: string };
 	locale: string;
 	scope: string;
 	showEverythingButton: boolean;
@@ -28,10 +32,21 @@ export function CollectionView({
 
 	return (
 		<>
-			<Breadcrumb
-				current={title}
-				trail={[{ label: t("catalogue.main-title", { ns: "features" }), to: "/me/catalogue" }]}
-			/>
+			<div className="flex flex-wrap items-center justify-between gap-2">
+				<Breadcrumb
+					current={title}
+					trail={[{ label: t("catalogue.main-title", { ns: "features" }), to: "/me/catalogue" }]}
+				/>
+				{link && (
+					<ExternalLink
+						className={clsx(VIEW_LINK_CLASS, "inline-flex items-center gap-1.5")}
+						href={link.href}
+						icon
+					>
+						{link.label}
+					</ExternalLink>
+				)}
+			</div>
 
 			<RemainingCostList data={data} items={collection.items} locale={locale} />
 
