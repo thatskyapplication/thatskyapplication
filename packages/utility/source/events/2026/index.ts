@@ -9,6 +9,7 @@ import daysOfSunlight from "./days-of-sunlight.js";
 import daysOfTreasure from "./days-of-treasure.js";
 import personalityQuizEvent from "./personality-quiz-event.js";
 import skyAnniversary from "./sky-anniversary.js";
+import skyXCinnamorollPopUpCafe from "./sky-×-cinnamoroll-pop-up-cafe.js";
 import summerCamping from "./summer-camping.js";
 import tournamentOfTriumph from "./tournament-of-triumph.js";
 
@@ -26,4 +27,5 @@ export default [
 	summerCamping,
 	daysOfMoonlight,
 	daysOfMischief,
+	skyXCinnamorollPopUpCafe,
 ] as const;

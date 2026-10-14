@@ -110,6 +110,7 @@ export const EventId = {
 	SummerCamping2026: 93,
 	DaysOfMoonlight2026: 94,
 	DaysOfMischief2026: 95,
+	SkyXCinnamorollPopUpCafe2026: 96,
 } as const satisfies Readonly<Record<string, number>>;
 
 const EVENT_ID_VALUES = Object.values(EventId);
