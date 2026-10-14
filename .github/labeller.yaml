@@ -57,6 +57,11 @@ f:checklist:
           - apps/website/app/routes/me.checklist.tsx
           - packages/utility/__tests__/checklist.test.ts
           - packages/utility/source/checklist.ts
+f:cosmetics:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/website/app/routes/cosmetics.tsx
+          - apps/website/app/utility/cosmetics.ts
 f:daily-guides:
   - changed-files:
       - any-glob-to-any-file:

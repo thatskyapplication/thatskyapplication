@@ -10,8 +10,8 @@ export function formatEmoji(emoji: Emoji) {
 	return emoji.animated ? `<a:${emoji.name}:${emoji.id}>` : `<:${emoji.name}:${emoji.id}>`;
 }
 
-export function formatEmojiURL(id: Snowflake) {
-	return `https://cdn.discordapp.com/emojis/${id}.webp`;
+export function formatEmojiURL(id: Snowflake, animated = false) {
+	return `https://cdn.discordapp.com/emojis/${id}.webp${animated ? "?animated=true" : ""}`;
 }
 
 interface CurrencyEmojiOptions {

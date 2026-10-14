@@ -2,14 +2,13 @@ import type { TFunction } from "i18next";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import {
-	CatalogueCollection,
 	type CatalogueSearchEntry,
 	catalogueSearchEntries,
 	CatalogueSearchType,
 	spiritOriginTranslationKey,
 	CatalogueCollectionToLocaleKey,
 } from "@thatskyapplication/utility";
-import { eventAnchor, eventFamilyYears } from "~/utility/catalogue.js";
+import { catalogueTargetQuery, eventFamilyYears } from "~/utility/catalogue.js";
 import {
 	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,
@@ -17,21 +16,14 @@ import {
 } from "~/utility/emojis.js";
 import { CatalogueSearchAutocomplete } from "./CatalogueSearchAutocomplete.js";
 
-const CATALOGUE_COLLECTION_VIEWS = {
-	[CatalogueCollection.StarterPacks]: "starter-packs",
-	[CatalogueCollection.SecretArea]: "secret-area",
-	[CatalogueCollection.ClothingShop]: "clothing-shop",
-	[CatalogueCollection.NestingWorkshop]: "nesting-workshop",
-	[CatalogueCollection.Loyalty]: "loyalty",
-} as const satisfies Readonly<Record<CatalogueCollection, string>>;
-
 function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 	const { cosmeticDisplay, target } = entry;
+	const to = catalogueTargetQuery(target);
 
 	switch (target.type) {
 		case CatalogueSearchType.Season:
 			return {
-				to: `?view=season&season=${target.season.id}`,
+				to,
 				emoji: SeasonIdToSeasonalEmoji[target.season.id],
 				detail:
 					cosmeticDisplay === null
@@ -40,13 +32,13 @@ function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 			};
 		case CatalogueSearchType.Event:
 			return {
-				to: `?view=event-family&family=${target.event.family}#${eventAnchor(target.event.id)}`,
+				to,
 				emoji: EventIdToEventTicketEmoji[target.event.id],
 				detail: String(target.event.start.year),
 			};
 		case CatalogueSearchType.EventFamily:
 			return {
-				to: `?view=event-family&family=${target.family.id}`,
+				to,
 				emoji: EventIdToEventTicketEmoji[target.occurrences[0].id],
 				detail: eventFamilyYears(target.occurrences, t),
 			};
@@ -55,14 +47,14 @@ function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 			const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
 
 			return {
-				to: `?view=spirit&spirit=${spirit.id}`,
+				to,
 				emoji: seasonal ? SeasonIdToSeasonalEmoji[spirit.seasonId] : null,
 				detail: t(spiritOriginTranslationKey(spirit), { ns: "general" }),
 			};
 		}
 		case CatalogueSearchType.Collection: {
 			return {
-				to: `?view=${CATALOGUE_COLLECTION_VIEWS[target.collection]}`,
+				to,
 				emoji: null,
 				detail: t(CatalogueCollectionToLocaleKey[target.collection]),
 			};

@@ -30,5 +30,11 @@ export function EmojiIcon({
 	emoji: Emoji;
 	label?: string | undefined;
 }) {
-	return <EmojiImage className={className} label={label} url={formatEmojiURL(emoji.id)} />;
+	return (
+		<EmojiImage
+			className={className}
+			label={label}
+			url={formatEmojiURL(emoji.id, emoji.animated)}
+		/>
+	);
 }

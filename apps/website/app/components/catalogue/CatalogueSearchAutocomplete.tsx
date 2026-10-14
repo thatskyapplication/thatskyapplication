@@ -29,7 +29,9 @@ export interface CatalogueSearchResult {
 	readonly to: string;
 }
 
-export function CatalogueSearchAutocomplete<Entry extends CatalogueSearchEntry>({
+export function CatalogueSearchAutocomplete<
+	Entry extends Pick<CatalogueSearchEntry, "keywords" | "name">,
+>({
 	getEntries,
 	placeholder,
 	resolveResult,

@@ -18,6 +18,7 @@ import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CROWDIN_URL, WEBSITE_URL } from "@thatskyapplication/utility";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import {
 	APPLICATION_NAME,
@@ -29,6 +30,7 @@ import {
 	WEBSITE_NAME,
 } from "~/utility/constants";
 import { cardContainer, linkButtonRows } from "~/utility/discord-component-embed.server.js";
+import { EMOJIS } from "~/utility/emojis.js";
 import type { Route } from "./+types/_index.js";
 
 const HUB = { x: 50, y: 46 } as const;
@@ -38,6 +40,7 @@ const NODE_POSITIONS = {
 	calendar: { x: 22, y: 76 },
 	catalogue: { x: 67, y: 31 },
 	checklist: { x: 17, y: 16 },
+	cosmetics: { x: 84, y: 86 },
 	dailyGuides: { x: 34, y: 61 },
 	schedule: { x: 83, y: 16 },
 	shardEruption: { x: 28, y: 90 },
@@ -75,6 +78,7 @@ const CONSTELLATION_SEGMENTS: {
 	{ from: NODE_POSITIONS.dailyGuides, to: hubEdge(NODE_POSITIONS.dailyGuides) },
 	{ from: NODE_POSITIONS.skyProfile, to: hubEdge(NODE_POSITIONS.skyProfile) },
 	{ from: NODE_POSITIONS.skyProfile, to: NODE_POSITIONS.spirits },
+	{ from: NODE_POSITIONS.skyProfile, to: NODE_POSITIONS.cosmetics },
 	{ from: NODE_POSITIONS.spirits, to: PLACEHOLDER_RINGS[0], faint: true },
 ];
 
@@ -159,6 +163,10 @@ const FOOTER_LINKS = [
 const FOOTER_LINK_CLASS =
 	"underline-offset-2 transition hover:text-sky-100 hover:underline" as const;
 
+function CosmeticsIcon({ className }: { className: string }) {
+	return <EmojiIcon className={className} emoji={EMOJIS.OUTFIT_EMOJIS.Outfit01} />;
+}
+
 function constellationNodes(t: TFunction) {
 	return [
 		{
@@ -184,6 +192,14 @@ function constellationNodes(t: TFunction) {
 			label: t("catalogue.main-title", { ns: "features" }),
 			description: t("catalogue.description-short", { ns: "features" }),
 			Icon: BookOpenCheck,
+		},
+		{
+			...NODE_POSITIONS.cosmetics,
+			key: "cosmetics",
+			to: "/cosmetics",
+			label: t("cosmetics.title", { ns: "features" }),
+			description: t("cosmetics.description-short", { ns: "features" }),
+			Icon: CosmeticsIcon,
 		},
 		{
 			...NODE_POSITIONS.schedule,
@@ -304,19 +320,6 @@ export default function Index() {
 						}}
 					/>
 				))}
-				{PLACEHOLDER_RINGS.map((ring) => (
-					<span
-						aria-hidden
-						className="pointer-events-none absolute h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-sky-100/35"
-						key={`${ring.x}-${ring.y}`}
-						style={{
-							left: `${ring.x}%`,
-							top: `${ring.y}%`,
-							boxShadow: "0 0 10px rgba(165,181,241,0.25)",
-						}}
-					/>
-				))}
-
 				{DECOR_STARS.map((star) => (
 					<span
 						className="constellation-sparkle absolute -translate-x-1/2 -translate-y-1/2"
@@ -372,6 +375,19 @@ export default function Index() {
 						/>
 					))}
 				</svg>
+
+				{PLACEHOLDER_RINGS.map((ring) => (
+					<span
+						aria-hidden
+						className="pointer-events-none absolute h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-sky-100/35"
+						key={`${ring.x}-${ring.y}`}
+						style={{
+							left: `${ring.x}%`,
+							top: `${ring.y}%`,
+							boxShadow: "0 0 10px rgba(165,181,241,0.25)",
+						}}
+					/>
+				))}
 
 				<div
 					aria-hidden
