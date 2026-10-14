@@ -8,6 +8,7 @@ import {
 	type Emoji,
 	friendshipTreeToItems,
 	type Item,
+	LOYALTY,
 	NESTING_WORKSHOP,
 	SECRET_AREA,
 	STARTER_PACKS,
@@ -25,6 +26,7 @@ const CATALOGUE_COLLECTION_ITEMS = [
 	[CatalogueCollection.SecretArea, SECRET_AREA.items],
 	[CatalogueCollection.ClothingShop, CLOTHING_SHOP.items],
 	[CatalogueCollection.NestingWorkshop, NESTING_WORKSHOP.items],
+	[CatalogueCollection.Loyalty, LOYALTY.items],
 ] as const;
 
 type CosmeticsTable =
@@ -1321,10 +1323,6 @@ const COSMETICS_ORDER = [
 	},
 ] as const satisfies readonly CosmeticsSectionOrder[];
 
-const PULLED_EMOJIS: ReadonlySet<Emoji["id"]> = new Set([
-	EMOJIS.HAIR_ACCESSORY_EMOJIS.HairAccessory75.id,
-]);
-
 export const UNLOCKED_BY_DEFAULT_EMOJIS: ReadonlySet<Emoji["id"]> = new Set(
 	[
 		Cosmetic.BaseOutfit,
@@ -1343,7 +1341,7 @@ export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, t
 
 	ordered.push(
 		...Object.entries(emojis)
-			.filter(([key, emoji]) => !listed.has(key) && !PULLED_EMOJIS.has(emoji.id))
+			.filter(([key]) => !listed.has(key))
 			.map(([, emoji]) => emoji),
 	);
 
