@@ -129,6 +129,7 @@ const COSMETICS_ORDER = [
 			"Outfit60",
 			"Outfit66",
 			"Outfit63",
+			// "Outfit71",
 		],
 	},
 	{
@@ -446,6 +447,7 @@ const COSMETICS_ORDER = [
 			"Necklace49",
 			"Necklace53",
 			"Necklace51",
+			// "Necklace60",
 		],
 	},
 	{
@@ -734,6 +736,7 @@ const COSMETICS_ORDER = [
 			"HairAccessory79",
 			"HairAccessory33",
 			"HairAccessory61",
+			// "HairAccessory88",
 		],
 	},
 	{

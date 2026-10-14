@@ -440,6 +440,7 @@ const OUTFIT_EMOJIS = {
 	Outfit68: { id: "1529590609420222474", name: "68_outfit" },
 	Outfit69: { id: "1532453924437758003", name: "69_outfit" },
 	Outfit70: { id: "1552077102361092107", name: "70_outfit" },
+	// Outfit71: { id: "", name: "71_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -737,6 +738,7 @@ const NECKLACE_EMOJIS = {
 	Necklace57: { id: "1502284997216702645", name: "57_necklace" },
 	Necklace58: { id: "1529496734483349554", name: "58_necklace" },
 	Necklace59: { id: "1529583314308956371", name: "59_necklace" },
+	// Necklace60: { id: "", name: "60_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS = {
@@ -1017,6 +1019,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	HairAccessory85: { id: "1529596982761619569", name: "85_hair_accessory" },
 	HairAccessory86: { id: "1532453920172150986", name: "86_hair_accessory" },
 	HairAccessory87: { id: "1552077100360405053", name: "87_hair_accessory" },
+	// HairAccessory88: { id: "", name: "88_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS = {

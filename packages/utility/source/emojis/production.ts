@@ -650,6 +650,10 @@ const OUTFIT_EMOJIS = {
 	 * Days of Moonlight 2026.
 	 */
 	Outfit70: { id: "1552077092903190568", name: "70_outfit" },
+	// /**
+	//  * Sunflower Dress.
+	//  */
+	// Outfit71: { id: "", name: "71_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -1793,6 +1797,10 @@ const NECKLACE_EMOJIS = {
 	 * Dear Van Gogh pendant.
 	 */
 	Necklace59: { id: "1529583308285935836", name: "59_necklace" },
+	// /**
+	//  * Sunflower Neck Tie.
+	//  */
+	// Necklace60: { id: "", name: "60_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS = {
@@ -2895,6 +2903,10 @@ const HAIR_ACCESSORY_EMOJIS = {
 	 * Moonlight Nimbus.
 	 */
 	HairAccessory87: { id: "1552077091233599529", name: "87_hair_accessory" },
+	// /**
+	//  * Sunflower Headband.
+	//  */
+	// HairAccessory88: { id: "", name: "88_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS = {
