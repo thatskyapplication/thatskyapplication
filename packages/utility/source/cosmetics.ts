@@ -3746,9 +3746,6 @@ export enum Cosmetic {
 
 	// 25/09/2026 | Version 34.5.
 	StoneSmallCube = 2962,
-
-	// 13/10/2026 | Version 35.0.
-	TreeSwing = 2965,
 }
 
 export enum CosmeticCommon {
