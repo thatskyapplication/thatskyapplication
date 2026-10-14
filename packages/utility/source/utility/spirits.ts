@@ -426,6 +426,10 @@ export enum SpiritEmote {
 	SlowWalk = "Slow walk",
 	Bask = "Bask",
 	Draw = "Draw",
+	Wallow = "Wallow",
+	Hesitate = "Hesitate",
+	ShowOff = "Show off",
+	ArmWrestle = "Arm wrestle",
 }
 
 export enum FriendAction {

@@ -2296,7 +2296,8 @@
 			"2962": "",
 			"2965": "Tiara de Girassol",
 			"2966": "Gravata de Girassol",
-			"2967": "Vestido de Girassol"
+			"2967": "Vestido de Girassol",
+			"2993": "O Velho Pescador"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
