@@ -769,6 +769,11 @@ export const PATCH_NOTES: readonly PatchNote[] = [
 		identifier: "p350",
 		url: "https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1470-update-35-0---october-13th-2026",
 	},
+	{
+		date: "2026-10-15",
+		identifier: "p351",
+		url: "https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1474-hotfix-35-1---october-15-2026",
+	},
 ];
 
 export function isPublishedPatchNote(patchNote: PatchNote): patchNote is PublishedPatchNote {
