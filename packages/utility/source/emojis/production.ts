@@ -656,10 +656,10 @@ const OUTFIT_EMOJIS = {
 	 * Days of Moonlight 2026.
 	 */
 	Outfit70: { id: "1552077092903190568", name: "70_outfit" },
-	// /**
-	//  * Sunflower Dress.
-	//  */
-	// Outfit71: { id: "", name: "71_outfit" },
+	/**
+	 * Sunflower Dress.
+	 */
+	Outfit71: { id: "1560726009777754192", name: "71_outfit" },
 	/**
 	 * Cuddly Rolling Child.
 	 */
@@ -1827,10 +1827,10 @@ const NECKLACE_EMOJIS = {
 	 * Dear Van Gogh pendant.
 	 */
 	Necklace59: { id: "1529583308285935836", name: "59_necklace" },
-	// /**
-	//  * Sunflower Neck Tie.
-	//  */
-	// Necklace60: { id: "", name: "60_necklace" },
+	/**
+	 * Sunflower Neck Tie.
+	 */
+	Necklace60: { id: "1560726007638659123", name: "60_necklace" },
 	/**
 	 * Pearl Pendant.
 	 */
@@ -2949,10 +2949,10 @@ const HAIR_ACCESSORY_EMOJIS = {
 	 * Moonlight Nimbus.
 	 */
 	HairAccessory87: { id: "1552077091233599529", name: "87_hair_accessory" },
-	// /**
-	//  * Sunflower Headband.
-	//  */
-	// HairAccessory88: { id: "", name: "88_hair_accessory" },
+	/**
+	 * Sunflower Headband.
+	 */
+	HairAccessory88: { id: "1560726003783958720", name: "88_hair_accessory" },
 	/**
 	 * Angler's Lantern (ultimate).
 	 */
