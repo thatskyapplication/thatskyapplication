@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	emote: SpiritEmote.ArmWrestle,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			[
 				{

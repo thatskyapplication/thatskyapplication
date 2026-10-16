@@ -10,7 +10,6 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Pearl,
 	area: AreaName.PearlVillage,
 	offer: {
-		hasInfographic: false,
 		inProgress: true,
 		current: [
 			[
