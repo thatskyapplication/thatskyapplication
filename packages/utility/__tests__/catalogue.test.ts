@@ -85,7 +85,8 @@ test("Spirits are searchable by their expressions.", () => {
 		["Clap", [SpiritId.ApplaudingBellmaker]],
 		["Wise Stance", [SpiritId.WiseGrandparent]],
 		["Nightbird Call", [SpiritId.NightbirdWhisperer]],
-		["Whisper", [SpiritId.LightmendingLightCatcher, SpiritId.LightmendingLightScholar]],
+		["Whisper", [SpiritId.LightmendingLightScholar]],
+		["Secret Handshake", [SpiritId.LightmendingLightCatcher]],
 	] as const) {
 		const results = catalogueSearch(entries, query).filter(
 			(entry): entry is CatalogueSpiritSearchEntry =>
