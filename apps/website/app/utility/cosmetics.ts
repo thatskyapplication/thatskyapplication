@@ -1349,16 +1349,50 @@ const COSMETICS_ORDER = [
 	},
 ] as const satisfies readonly CosmeticsSectionOrder[];
 
-export const UNLOCKED_BY_DEFAULT_EMOJIS: ReadonlySet<Emoji["id"]> = new Set(
-	[
-		Cosmetic.BaseOutfit,
-		Cosmetic.BaseMask,
-		Cosmetic.BaseHair1,
-		Cosmetic.BaseHair2,
-		Cosmetic.BaseHair3,
-		Cosmetic.BaseCape,
-	].map((cosmetic) => CosmeticToEmoji[cosmetic]!.id),
-);
+export const UNLOCKED_BY_DEFAULT_COSMETICS: ReadonlySet<Cosmetic> = new Set([
+	Cosmetic.BaseOutfit,
+	Cosmetic.BaseMask,
+	Cosmetic.BaseHair1,
+	Cosmetic.BaseHair2,
+	Cosmetic.BaseHair3,
+	Cosmetic.BaseCape,
+]);
+
+export interface CosmeticTile {
+	readonly anchor: string;
+	readonly cosmetic: Cosmetic;
+	readonly emoji: Emoji;
+}
+
+function emojiCosmetics() {
+	const cosmetics = new Map<Emoji["id"], Cosmetic[]>();
+
+	for (const [cosmetic, emoji] of Object.entries(CosmeticToEmoji)) {
+		if (!emoji) {
+			continue;
+		}
+
+		const emojiCosmeticList = cosmetics.get(emoji.id);
+
+		if (emojiCosmeticList) {
+			emojiCosmeticList.push(Number(cosmetic));
+		} else {
+			cosmetics.set(emoji.id, [Number(cosmetic)]);
+		}
+	}
+
+	return cosmetics;
+}
+
+const EMOJI_COSMETICS = emojiCosmetics();
+
+function cosmeticTiles(emoji: Emoji): CosmeticTile[] {
+	return (EMOJI_COSMETICS.get(emoji.id) ?? []).map((cosmetic) => ({
+		anchor: `${COSMETIC_ANCHOR_PREFIX}${cosmetic}`,
+		cosmetic,
+		emoji,
+	}));
+}
 
 export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, table }) => {
 	const emojis: Readonly<Record<string, Emoji>> = EMOJIS[table];
@@ -1371,7 +1405,7 @@ export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, t
 			.map(([, emoji]) => emoji),
 	);
 
-	return { emojis: ordered, heading, icon, table };
+	return { heading, icon, table, tiles: ordered.flatMap(cosmeticTiles) };
 });
 
 export const COSMETICS_GROUPS = (
@@ -1387,88 +1421,45 @@ export const COSMETICS_GROUPS = (
 );
 
 interface CosmeticAnchorTarget {
-	readonly anchor: string;
-	readonly emoji: Emoji;
 	readonly groupIndex: number;
 	readonly table: string;
+	readonly tile: CosmeticTile;
 }
 
-function cosmeticAnchors(): {
-	anchors: ReadonlyMap<Emoji["id"], string>;
-	targets: ReadonlyMap<string, CosmeticAnchorTarget>;
-} {
-	const emojiCosmetics = new Map<Emoji["id"], string[]>();
-
-	for (const [cosmetic, emoji] of Object.entries(CosmeticToEmoji)) {
-		if (!emoji) {
-			continue;
-		}
-
-		const cosmetics = emojiCosmetics.get(emoji.id);
-
-		if (cosmetics) {
-			cosmetics.push(cosmetic);
-		} else {
-			emojiCosmetics.set(emoji.id, [cosmetic]);
-		}
-	}
-
-	const anchors = new Map<Emoji["id"], string>();
+function cosmeticAnchorTargets() {
 	const targets = new Map<string, CosmeticAnchorTarget>();
 
 	for (const [groupIndex, sections] of COSMETICS_GROUPS.entries()) {
 		for (const section of sections) {
-			for (const emoji of section.emojis) {
-				const cosmetics = emojiCosmetics.get(emoji.id);
-
-				if (!cosmetics) {
-					continue;
-				}
-
-				const anchor = `${COSMETIC_ANCHOR_PREFIX}${cosmetics[0]}`;
-				anchors.set(emoji.id, anchor);
-
-				for (const cosmetic of cosmetics) {
-					targets.set(`${COSMETIC_ANCHOR_PREFIX}${cosmetic}`, {
-						anchor,
-						emoji,
-						groupIndex,
-						table: section.table,
-					});
-				}
+			for (const tile of section.tiles) {
+				targets.set(tile.anchor, { groupIndex, table: section.table, tile });
 			}
 		}
 	}
 
-	return { anchors, targets };
+	return targets;
 }
 
-export const { anchors: COSMETIC_ANCHORS, targets: COSMETIC_ANCHOR_TARGETS } = cosmeticAnchors();
+export const COSMETIC_ANCHOR_TARGETS: ReadonlyMap<string, CosmeticAnchorTarget> =
+	cosmeticAnchorTargets();
 
 interface CosmeticCatalogueEntry {
-	cosmetics: Cosmetic[];
 	nameKeys: string[] | null;
 	sources: CatalogueSearchTargetWithoutEventFamily[];
 }
 
 function addCatalogueItems(
-	catalogue: Map<Emoji["id"], CosmeticCatalogueEntry>,
+	catalogue: Map<Cosmetic, CosmeticCatalogueEntry>,
 	items: Iterable<Item>,
 	source: CatalogueSearchTargetWithoutEventFamily,
 ) {
 	for (const item of items) {
 		for (const cosmetic of item.cosmetics) {
-			const emoji = CosmeticToEmoji[cosmetic];
-
-			if (!emoji) {
-				continue;
-			}
-
-			let entry = catalogue.get(emoji.id);
+			let entry = catalogue.get(cosmetic);
 
 			if (!entry) {
-				entry = { cosmetics: [], nameKeys: null, sources: [] };
-				catalogue.set(emoji.id, entry);
+				entry = { nameKeys: null, sources: [] };
+				catalogue.set(cosmetic, entry);
 			}
 
 			if (entry.nameKeys === null && !item.translation.key.startsWith(UNNAMED_TRANSLATION_PREFIX)) {
@@ -1480,10 +1471,6 @@ function addCatalogueItems(
 						: [cosmeticNameKey, item.translation.key];
 			}
 
-			if (!entry.cosmetics.includes(cosmetic)) {
-				entry.cosmetics.push(cosmetic);
-			}
-
 			if (!entry.sources.includes(source)) {
 				entry.sources.push(source);
 			}
@@ -1492,7 +1479,7 @@ function addCatalogueItems(
 }
 
 function cosmeticCatalogue() {
-	const catalogue = new Map<Emoji["id"], CosmeticCatalogueEntry>();
+	const catalogue = new Map<Cosmetic, CosmeticCatalogueEntry>();
 
 	for (const spirit of spirits().values()) {
 		addCatalogueItems(catalogue, friendshipTreeToItems(spirit.displayFriendshipTree), {
@@ -1517,7 +1504,7 @@ function cosmeticCatalogue() {
 }
 
 export const COSMETIC_CATALOGUE: ReadonlyMap<
-	Emoji["id"],
+	Cosmetic,
 	Readonly<CosmeticCatalogueEntry>
 > = cosmeticCatalogue();
 

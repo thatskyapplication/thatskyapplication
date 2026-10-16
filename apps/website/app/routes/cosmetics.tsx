@@ -25,6 +25,7 @@ import {
 	CatalogueCollectionToLocaleKey,
 	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
+	type Cosmetic,
 	type Emoji,
 	formatEmojiURL,
 	spiritOriginTranslationKey,
@@ -42,12 +43,12 @@ import { WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
 import {
 	COSMETIC_ANCHOR_TARGETS,
-	COSMETIC_ANCHORS,
 	COSMETIC_CATALOGUE,
 	cosmeticName,
+	type CosmeticTile as CosmeticTileData,
 	COSMETICS_GROUPS,
 	COSMETICS_SECTIONS,
-	UNLOCKED_BY_DEFAULT_EMOJIS,
+	UNLOCKED_BY_DEFAULT_COSMETICS,
 } from "~/utility/cosmetics.js";
 import { cardContainer } from "~/utility/discord-component-embed.server.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
@@ -188,9 +189,9 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 	}
 }
 
-function CosmeticDetails({ emoji }: { emoji: Emoji }) {
+function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 	const { i18n, t } = useTranslation();
-	const entry = COSMETIC_CATALOGUE.get(emoji.id);
+	const entry = COSMETIC_CATALOGUE.get(tile.cosmetic);
 	const sources = entry?.sources.map((source) => catalogueLocation(source, t)) ?? [];
 	const reserveEmojiSpace = sources.some((source) => source.emoji);
 
@@ -247,13 +248,12 @@ function CosmeticSearch() {
 		for (const section of COSMETICS_SECTIONS) {
 			const sectionName = t(section.heading, { ns: "features" });
 
-			for (const emoji of section.emojis) {
-				const anchor = COSMETIC_ANCHORS.get(emoji.id);
-				const entry = COSMETIC_CATALOGUE.get(emoji.id);
+			for (const { anchor, cosmetic, emoji } of section.tiles) {
+				const entry = COSMETIC_CATALOGUE.get(cosmetic);
 				const sourceNames = entry?.sources.map((source) => catalogueLocation(source, t).name) ?? [];
 				const name = entry?.nameKeys ? cosmeticName(entry.nameKeys, i18n, t) : sourceNames[0];
 
-				if (anchor && name) {
+				if (name) {
 					entries.push({
 						anchor,
 						emoji,
@@ -282,37 +282,37 @@ function CosmeticSearch() {
 	);
 }
 
-type CosmeticTileSelect = (emoji: Emoji, tile: HTMLElement, keyboard: boolean) => void;
+type CosmeticTileSelect = (tile: CosmeticTileData, element: HTMLElement, keyboard: boolean) => void;
 
 interface CosmeticSelection {
-	readonly emoji: Emoji;
+	readonly element: () => Element | null;
 	readonly open: boolean;
 	readonly opener: "hash" | "keyboard" | "pointer";
-	readonly tile: () => Element | null;
+	readonly tile: CosmeticTileData;
 }
 
 const CosmeticTile = memo(function CosmeticTile({
 	dimmed,
-	emoji,
 	name,
 	onSelect,
+	tile,
 }: {
 	dimmed: boolean;
-	emoji: Emoji;
 	name: string | null;
 	onSelect: CosmeticTileSelect;
+	tile: CosmeticTileData;
 }) {
-	const imageURL = formatEmojiURL(emoji.id);
+	const imageURL = formatEmojiURL(tile.emoji.id);
 
-	const tile = (
+	const button = (
 		<button
 			aria-expanded={false}
 			aria-haspopup="dialog"
-			aria-label={name ?? emoji.name}
+			aria-label={name ?? tile.emoji.name}
 			className={clsx("cosmetic-tile", dimmed && "opacity-30")}
 			data-cosmetic-tile=""
-			id={COSMETIC_ANCHORS.get(emoji.id)}
-			onClick={(event) => onSelect(emoji, event.currentTarget, event.detail === 0)}
+			id={tile.anchor}
+			onClick={(event) => onSelect(tile, event.currentTarget, event.detail === 0)}
 			type="button"
 		>
 			<img
@@ -328,7 +328,7 @@ const CosmeticTile = memo(function CosmeticTile({
 		</button>
 	);
 
-	return name ? <Tooltip content={name}>{tile}</Tooltip> : tile;
+	return name ? <Tooltip content={name}>{button}</Tooltip> : button;
 });
 
 type CosmeticSection = (typeof COSMETICS_SECTIONS)[number];
@@ -344,7 +344,7 @@ function CosmeticSectionLabel({ section }: { section: CosmeticSection }) {
 				label={t(section.heading, { ns: "features" })}
 			/>
 			<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-				{section.emojis.length}
+				{section.tiles.length}
 			</span>
 		</>
 	);
@@ -353,14 +353,14 @@ function CosmeticSectionLabel({ section }: { section: CosmeticSection }) {
 function CosmeticGroup({
 	activeTable,
 	cosmeticNames,
-	dimmedEmojiIds,
+	dimmedCosmetics,
 	onSelectTable,
 	onSelectTile,
 	sections,
 }: {
 	activeTable: string;
-	cosmeticNames: ReadonlyMap<string, string>;
-	dimmedEmojiIds: ReadonlySet<string>;
+	cosmeticNames: ReadonlyMap<Cosmetic, string>;
+	dimmedCosmetics: ReadonlySet<Cosmetic>;
 	onSelectTable: (table: string) => void;
 	onSelectTile: CosmeticTileSelect;
 	sections: readonly CosmeticSection[];
@@ -403,13 +403,13 @@ function CosmeticGroup({
 						</span>
 					</h2>
 					<ul className="flex flex-wrap justify-center gap-1">
-						{section.emojis.map((emoji) => (
-							<li key={emoji.id}>
+						{section.tiles.map((tile) => (
+							<li key={tile.anchor}>
 								<CosmeticTile
-									dimmed={dimmedEmojiIds.has(emoji.id)}
-									emoji={emoji}
-									name={cosmeticNames.get(emoji.id) ?? null}
+									dimmed={dimmedCosmetics.has(tile.cosmetic)}
+									name={cosmeticNames.get(tile.cosmetic) ?? null}
 									onSelect={onSelectTile}
+									tile={tile}
 								/>
 							</li>
 						))}
@@ -437,14 +437,14 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	const [adoptedLocation, setAdoptedLocation] = useState<Location | null>(null);
 
 	const cosmeticNames = useMemo(() => {
-		const names = new Map<string, string>();
+		const names = new Map<Cosmetic, string>();
 
 		for (const section of COSMETICS_SECTIONS) {
-			for (const emoji of section.emojis) {
-				const nameKeys = COSMETIC_CATALOGUE.get(emoji.id)?.nameKeys;
+			for (const { cosmetic } of section.tiles) {
+				const nameKeys = COSMETIC_CATALOGUE.get(cosmetic)?.nameKeys;
 
 				if (nameKeys) {
-					names.set(emoji.id, cosmeticName(nameKeys, i18n, t));
+					names.set(cosmetic, cosmeticName(nameKeys, i18n, t));
 				}
 			}
 		}
@@ -452,25 +452,19 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 		return names;
 	}, [i18n, t]);
 
-	const dimmedEmojiIds = useMemo(() => {
-		const dimmed = new Set<string>();
+	const dimmedCosmetics = useMemo(() => {
+		const dimmed = new Set<Cosmetic>();
 
 		if (!highlightOwned || loaderData.owned === null) {
 			return dimmed;
 		}
 
-		const owned = new Set(loaderData.owned);
+		const owned = new Set([...loaderData.owned, ...UNLOCKED_BY_DEFAULT_COSMETICS]);
 
 		for (const section of COSMETICS_SECTIONS) {
-			for (const emoji of section.emojis) {
-				const entry = COSMETIC_CATALOGUE.get(emoji.id);
-
-				if (
-					entry
-						? !entry.cosmetics.some((cosmetic) => owned.has(cosmetic))
-						: !UNLOCKED_BY_DEFAULT_EMOJIS.has(emoji.id)
-				) {
-					dimmed.add(emoji.id);
+			for (const { cosmetic } of section.tiles) {
+				if (!owned.has(cosmetic)) {
+					dimmed.add(cosmetic);
 				}
 			}
 		}
@@ -486,23 +480,23 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 			withActiveTable(previous, anchorTarget.groupIndex, anchorTarget.table),
 		);
 		setSelection({
-			emoji: anchorTarget.emoji,
+			element: () => document.getElementById(anchorTarget.tile.anchor),
 			open: true,
 			opener: "hash",
-			tile: () => document.getElementById(anchorTarget.anchor),
+			tile: anchorTarget.tile,
 		});
 	}
 
 	useEffect(() => {
 		if (selection?.open && selection.opener === "hash") {
-			selection.tile()?.scrollIntoView({ block: "center" });
+			selection.element()?.scrollIntoView({ block: "center" });
 		}
 	}, [selection]);
 
 	useLayoutEffect(() => {
-		const tile = selection?.open ? selection.tile() : null;
-		tile?.setAttribute("aria-expanded", "true");
-		return () => tile?.setAttribute("aria-expanded", "false");
+		const element = selection?.open ? selection.element() : null;
+		element?.setAttribute("aria-expanded", "true");
+		return () => element?.setAttribute("aria-expanded", "false");
 	}, [selection]);
 
 	const clearAnchor = useCallback(() => {
@@ -515,13 +509,18 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	}, [navigate]);
 
 	const selectTile = useCallback<CosmeticTileSelect>(
-		(emoji, tile, keyboard) => {
-			const target = COSMETIC_ANCHOR_TARGETS.get(tile.id);
+		(tile, element, keyboard) => {
+			const target = COSMETIC_ANCHOR_TARGETS.get(tile.anchor);
 
 			setSelection((current) =>
-				current?.open && current.emoji.id === emoji.id
+				current?.open && current.tile.cosmetic === tile.cosmetic
 					? { ...current, open: false }
-					: { emoji, open: true, opener: keyboard ? "keyboard" : "pointer", tile: () => tile },
+					: {
+							element: () => element,
+							open: true,
+							opener: keyboard ? "keyboard" : "pointer",
+							tile,
+						},
 			);
 
 			if (target) {
@@ -591,7 +590,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 						<CosmeticGroup
 							activeTable={activeTables[groupIndex]!}
 							cosmeticNames={cosmeticNames}
-							dimmedEmojiIds={dimmedEmojiIds}
+							dimmedCosmetics={dimmedCosmetics}
 							key={sections[0]!.table}
 							onSelectTable={(table) =>
 								setActiveTables((previous) => withActiveTable(previous, groupIndex, table))
@@ -608,10 +607,10 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 				<Popover.Portal>
 					<Popover.Positioner
 						align="center"
-						anchor={selection?.tile}
+						anchor={selection?.element}
 						className="z-50"
 						collisionPadding={8}
-						key={selection?.emoji.id}
+						key={selection?.tile.anchor}
 						side="bottom"
 						sideOffset={6}
 					>
@@ -620,7 +619,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 							finalFocus={selection?.opener === "keyboard"}
 							initialFocus={selection?.opener === "keyboard"}
 						>
-							{selection && <CosmeticDetails emoji={selection.emoji} />}
+							{selection && <CosmeticDetails tile={selection.tile} />}
 						</Popover.Popup>
 					</Popover.Positioner>
 				</Popover.Portal>
