@@ -3129,7 +3129,16 @@ export enum Cosmetic {
 	AnniversaryTuxedoCape = 2477,
 
 	// 15/08/2025 | Sky Creator Awards.
-	SkyCreatorAward = 2478,
+	SkyCreatorAward2025BestCrafts = 2478,
+	SkyCreatorAward2025BestLivestream = 3029,
+	SkyCreatorAward2025BestCosplay = 3030,
+	SkyCreatorAward2025BestStorytelling = 3031,
+	SkyCreatorAward2025BestGameplay = 3032,
+	SkyCreatorAward2025BestIllustration = 3033,
+	SkyCreatorAward2025BestSkyScapes = 3034,
+	SkyCreatorAward2025BestMusic = 3035,
+	SkyCreatorAward2025SkyCommunityAward = 3036,
+	SkyCreatorAward2025SkyContentOfTheYearAward = 3037,
 
 	// 18/08/2025 | Returning Spirits #10.
 	TiptoeingTeaBrewerWingBuff = 2479,
@@ -3632,6 +3641,17 @@ export enum Cosmetic {
 
 	// 11/07/2026 23:00 | Sky Creator Awards.
 	SkyCreatorAwardsCap = 2864,
+	SkyCreatorAward2026BestVisualArt = 3038,
+	SkyCreatorAward2026BestCraft = 3039,
+	SkyCreatorAward2026BestCosplay = 3040,
+	SkyCreatorAward2026BestMusic = 3041,
+	SkyCreatorAward2026BestStorytelling = 3042,
+	SkyCreatorAward2026BestInGameCreation = 3043,
+	SkyCreatorAward2026BestComedy = 3044,
+	SkyCreatorAward2026ContentOfTheYear = 3045,
+	SkyCreatorAward2026PlayersChoice = 3046,
+	SkyCreatorAward2026RisingStar = 3047,
+	SkyCreatorAward2026BestMentor = 3048,
 
 	// 17/07/2026 | Dear Van Gogh.
 	WheatfieldCape = 2865,

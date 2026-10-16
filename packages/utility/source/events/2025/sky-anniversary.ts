@@ -115,7 +115,34 @@ export default new Event({
 			cost: { money: 14.99 },
 		},
 		{
-			cosmetic: Cosmetic.SkyCreatorAward,
+			cosmetic: Cosmetic.SkyCreatorAward2025BestCrafts,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2025BestLivestream,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2025BestCosplay,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2025BestStorytelling,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2025BestGameplay,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2025BestIllustration,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2025BestSkyScapes,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2025BestMusic,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2025SkyCommunityAward,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2025SkyContentOfTheYearAward,
 		},
 	],
 });

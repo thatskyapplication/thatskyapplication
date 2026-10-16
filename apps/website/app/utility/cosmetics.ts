@@ -1243,6 +1243,7 @@ const COSMETICS_ORDER = [
 			"SmallPlaceableProp98",
 			"SmallPlaceableProp99",
 			"SmallPlaceableProp101",
+			"SmallPlaceableProp89",
 			"SmallPlaceableProp87",
 			"SmallPlaceableProp125",
 			"SmallPlaceableProp104",

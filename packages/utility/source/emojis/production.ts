@@ -5012,7 +5012,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Manatee Plush.
 	 */
 	SmallPlaceableProp88: { id: "1399294985655947375", name: "88_small_placeable_prop" },
-	// Sky Creator Award not yet created.
+	/**
+	 * Sky Creator Award.
+	 */
+	SmallPlaceableProp89: { id: "1560745272903082135", name: "89_small_placeable_prop" },
 	/**
 	 * Vault Elder's Lantern (non-ultimate).
 	 */

@@ -2537,7 +2537,20 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.AnniversaryGown]: OUTFIT_EMOJIS.Outfit54,
 		[Cosmetic.AnniversaryShoes]: SHOE_EMOJIS.Shoe24,
 		[Cosmetic.AnniversaryTuxedoCape]: CAPE_EMOJIS.Cape158,
-		[Cosmetic.SkyCreatorAward]: null,
+		[Cosmetic.SkyCreatorAward2025BestCrafts]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2025BestLivestream]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2025BestCosplay]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2025BestStorytelling]:
+			SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2025BestGameplay]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2025BestIllustration]:
+			SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2025BestSkyScapes]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2025BestMusic]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2025SkyCommunityAward]:
+			SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2025SkyContentOfTheYearAward]:
+			SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
 		[Cosmetic.TiptoeingTeaBrewerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.WoundedWarriorWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.VaultEldersLanternQuest5]: MISCELLANEOUS_EMOJIS.Quest,
@@ -2928,6 +2941,20 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.SkyAnniversary2026HeldProp]: HELD_PROPS_EMOJIS.HeldProp63,
 		[Cosmetic.MomentsCameraUpgrade]: MISCELLANEOUS_EMOJIS.MomentsCameraUpgrade,
 		[Cosmetic.SkyCreatorAwardsCap]: HAIR_ACCESSORY_EMOJIS.HairAccessory82,
+		[Cosmetic.SkyCreatorAward2026BestVisualArt]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026BestCraft]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026BestCosplay]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026BestMusic]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026BestStorytelling]:
+			SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026BestInGameCreation]:
+			SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026BestComedy]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026ContentOfTheYear]:
+			SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026PlayersChoice]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026RisingStar]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.SkyCreatorAward2026BestMentor]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
 		[Cosmetic.WheatfieldCape]: CAPE_EMOJIS.Cape185,
 		[Cosmetic.StarryNightsVisage]: MASK_EMOJIS.Mask114,
 		[Cosmetic.StarryNightsKiss]: HEAD_ACCESSORY_EMOJIS.HeadAccessory26,

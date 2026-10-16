@@ -62,5 +62,38 @@ export default new Event({
 		{
 			cosmetic: Cosmetic.SkyCreatorAwardsCap,
 		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026BestVisualArt,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026BestCraft,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026BestCosplay,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026BestMusic,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026BestStorytelling,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026BestInGameCreation,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026BestComedy,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026ContentOfTheYear,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026PlayersChoice,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026RisingStar,
+		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward2026BestMentor,
+		},
 	],
 });
