@@ -198,6 +198,10 @@ const EMOTE_EMOJIS = {
 	Bask: { id: "1527614983977042070", name: "bask" },
 	Draw: { id: "1527614986870849616", name: "draw" },
 	SlowWalk: { id: "1527614989748277388", name: "slow_walk" },
+	Wallow: { id: "1560712219140948168", name: "wallow" },
+	Hesitate: { id: "1560712227370180758", name: "hesitate" },
+	ShowOff: { id: "1560712242280927382", name: "show_off" },
+	ArmWrestle: { id: "1560712248526381066", name: "arm_wrestle" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS = {
@@ -443,6 +447,10 @@ const OUTFIT_EMOJIS = {
 	Outfit69: { id: "1532453924437758003", name: "69_outfit" },
 	Outfit70: { id: "1552077102361092107", name: "70_outfit" },
 	// Outfit71: { id: "", name: "71_outfit" },
+	Outfit72: { id: "1560712222563631235", name: "72_outfit" },
+	Outfit73: { id: "1560712239382532196", name: "73_outfit" },
+	Outfit74: { id: "1560712246974226523", name: "74_outfit" },
+	Outfit75: { id: "1560712251554668584", name: "75_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -642,6 +650,8 @@ const MASK_EMOJIS = {
 	Mask115: { id: "1532453926107086912", name: "115_mask" },
 	Mask116: { id: "1542584853420187748", name: "116_mask" },
 	Mask117: { id: "1552077104802308166", name: "117_mask" },
+	Mask118: { id: "1560712221011476511", name: "118_mask" },
+	Mask119: { id: "1560712237495353394", name: "119_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS = {
@@ -741,6 +751,7 @@ const NECKLACE_EMOJIS = {
 	Necklace58: { id: "1529496734483349554", name: "58_necklace" },
 	Necklace59: { id: "1529583314308956371", name: "59_necklace" },
 	// Necklace60: { id: "", name: "60_necklace" },
+	Necklace61: { id: "1560714445326520370", name: "61_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS = {
@@ -931,6 +942,9 @@ const HAIR_EMOJIS = {
 	Hair185: { id: "1529590612872134766", name: "185_hair" },
 	Hair186: { id: "1529596987450724472", name: "186_hair" },
 	Hair187: { id: "1532453933379751966", name: "187_hair" },
+	Hair188: { id: "1560712224295747744", name: "188_hair" },
+	Hair189: { id: "1560712243606454443", name: "189_hair" },
+	Hair190: { id: "1560712252783460444", name: "190_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS = {
@@ -1022,6 +1036,8 @@ const HAIR_ACCESSORY_EMOJIS = {
 	HairAccessory86: { id: "1532453920172150986", name: "86_hair_accessory" },
 	HairAccessory87: { id: "1552077100360405053", name: "87_hair_accessory" },
 	// HairAccessory88: { id: "", name: "88_hair_accessory" },
+	HairAccessory89: { id: "1560712209468752013", name: "89_hair_accessory" },
+	HairAccessory90: { id: "1560712240901005443", name: "90_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS = {
@@ -1246,6 +1262,10 @@ const CAPE_EMOJIS = {
 	Cape189: { id: "1529592945756344440", name: "189_cape" },
 	Cape190: { id: "1529594770362470501", name: "190_cape" },
 	Cape191: { id: "1529596989736620102", name: "191_cape" },
+	Cape192: { id: "1560712212866142250", name: "192_cape" },
+	Cape193: { id: "1560712225763762196", name: "193_cape" },
+	Cape194: { id: "1560712245476991027", name: "194_cape" },
+	Cape195: { id: "1560712249671417878", name: "195_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS = {
@@ -1589,6 +1609,8 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	SmallPlaceableProp136: { id: "1529596984917364768", name: "136_small_placeable_prop" },
 	SmallPlaceableProp137: { id: "1532453922202194101", name: "137_small_placeable_prop" },
 	SmallPlaceableProp138: { id: "1552077106664710155", name: "138_small_placeable_prop" },
+	SmallPlaceableProp139: { id: "1560712211314385036", name: "139_small_placeable_prop" },
+	SmallPlaceableProp140: { id: "1560712217295331359", name: "140_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS = {

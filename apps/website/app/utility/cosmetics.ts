@@ -131,6 +131,10 @@ const COSMETICS_ORDER = [
 			"Outfit66",
 			"Outfit63",
 			// "Outfit71",
+			"Outfit73",
+			"Outfit74",
+			"Outfit72",
+			"Outfit75",
 		],
 	},
 	{
@@ -342,6 +346,8 @@ const COSMETICS_ORDER = [
 			"Mask72",
 			"Mask97",
 			"Mask04",
+			"Mask119",
+			"Mask118",
 		],
 	},
 	{
@@ -449,6 +455,7 @@ const COSMETICS_ORDER = [
 			"Necklace53",
 			"Necklace51",
 			// "Necklace60",
+			"Necklace61",
 		],
 	},
 	{
@@ -643,6 +650,9 @@ const COSMETICS_ORDER = [
 			"Hair118",
 			"Hair160",
 			"Hair28",
+			"Hair189",
+			"Hair190",
+			"Hair188",
 		],
 	},
 	{
@@ -738,6 +748,8 @@ const COSMETICS_ORDER = [
 			"HairAccessory33",
 			"HairAccessory61",
 			// "HairAccessory88",
+			"HairAccessory89",
+			"HairAccessory90",
 		],
 	},
 	{
@@ -970,6 +982,10 @@ const COSMETICS_ORDER = [
 			"Cape146",
 			"Cape182",
 			"Cape181",
+			"Cape192",
+			"Cape195",
+			"Cape193",
+			"Cape194",
 		],
 	},
 	{
@@ -1325,6 +1341,8 @@ const COSMETICS_ORDER = [
 			"SmallPlaceableProp136",
 			"SmallPlaceableProp130",
 			"SmallPlaceableProp131",
+			"SmallPlaceableProp140",
+			"SmallPlaceableProp139",
 		],
 	},
 ] as const satisfies readonly CosmeticsSectionOrder[];

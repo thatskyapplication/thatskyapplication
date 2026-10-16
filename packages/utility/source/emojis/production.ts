@@ -198,6 +198,10 @@ const EMOTE_EMOJIS = {
 	Bask: { id: "1527614972656484422", name: "bask" },
 	Draw: { id: "1527614974044798986", name: "draw" },
 	SlowWalk: { id: "1527614977505103912", name: "slow_walk" },
+	Wallow: { id: "1560712175981568193", name: "wallow" },
+	Hesitate: { id: "1560712185364226188", name: "hesitate" },
+	ShowOff: { id: "1560712193031413760", name: "show_off" },
+	ArmWrestle: { id: "1560712199297830993", name: "arm_wrestle" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS = {
@@ -656,6 +660,22 @@ const OUTFIT_EMOJIS = {
 	//  * Sunflower Dress.
 	//  */
 	// Outfit71: { id: "", name: "71_outfit" },
+	/**
+	 * Cuddly Rolling Child.
+	 */
+	Outfit72: { id: "1560712179433480417", name: "72_outfit" },
+	/**
+	 * Old Angler.
+	 */
+	Outfit73: { id: "1560712188811939891", name: "73_outfit" },
+	/**
+	 * Showy Merchant.
+	 */
+	Outfit74: { id: "1560712197812912198", name: "74_outfit" },
+	/**
+	 * Wrestling Sailor.
+	 */
+	Outfit75: { id: "1560712205668843680", name: "75_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -1425,6 +1445,14 @@ const MASK_EMOJIS = {
 	 * Moonlight Veil.
 	 */
 	Mask117: { id: "1552077095541412010", name: "117_mask" },
+	/**
+	 * Cuddly Rolling Child.
+	 */
+	Mask118: { id: "1560712178271657994", name: "118_mask" },
+	/**
+	 * Old Angler.
+	 */
+	Mask119: { id: "1560712187310379159", name: "119_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS = {
@@ -1803,6 +1831,10 @@ const NECKLACE_EMOJIS = {
 	//  * Sunflower Neck Tie.
 	//  */
 	// Necklace60: { id: "", name: "60_necklace" },
+	/**
+	 * Pearl Pendant.
+	 */
+	Necklace61: { id: "1560714438028558406", name: "61_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS = {
@@ -2554,6 +2586,18 @@ const HAIR_EMOJIS = {
 	 * Days of Sunlight 2026.
 	 */
 	Hair187: { id: "1532453836591988857", name: "187_hair" },
+	/**
+	 * Cuddly Rolling Child.
+	 */
+	Hair188: { id: "1560712181547278448", name: "188_hair" },
+	/**
+	 * Showy Merchant.
+	 */
+	Hair189: { id: "1560712194562326629", name: "189_hair" },
+	/**
+	 * Wrestling Sailor.
+	 */
+	Hair190: { id: "1560712207040516200", name: "190_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS = {
@@ -2909,6 +2953,14 @@ const HAIR_ACCESSORY_EMOJIS = {
 	//  * Sunflower Headband.
 	//  */
 	// HairAccessory88: { id: "", name: "88_hair_accessory" },
+	/**
+	 * Angler's Lantern (ultimate).
+	 */
+	HairAccessory89: { id: "1560712162287296543", name: "89_hair_accessory" },
+	/**
+	 * Old Angler.
+	 */
+	HairAccessory90: { id: "1560712190661623929", name: "90_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS = {
@@ -3787,6 +3839,22 @@ const CAPE_EMOJIS = {
 	 * Joyful Memory.
 	 */
 	Cape191: { id: "1529596985076613204", name: "191_cape" },
+	/**
+	 * Angler's Lantern (ultimate).
+	 */
+	Cape192: { id: "1560712172894683157", name: "192_cape" },
+	/**
+	 * Cuddly Rolling Child.
+	 */
+	Cape193: { id: "1560712183036248166", name: "193_cape" },
+	/**
+	 * Showy Merchant.
+	 */
+	Cape194: { id: "1560712195808174142", name: "194_cape" },
+	/**
+	 * Wrestling Sailor.
+	 */
+	Cape195: { id: "1560712203815092274", name: "195_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS = {
@@ -5133,6 +5201,14 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Days of Moonlight 2026.
 	 */
 	SmallPlaceableProp138: { id: "1552077097508413762", name: "138_small_placeable_prop" },
+	/**
+	 * Angler's Lantern (ultimate).
+	 */
+	SmallPlaceableProp139: { id: "1560712171200188526", name: "139_small_placeable_prop" },
+	/**
+	 * Angler's Lantern (non-ultimate).
+	 */
+	SmallPlaceableProp140: { id: "1560712174391795732", name: "140_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 /**
