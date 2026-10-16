@@ -7,7 +7,7 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.LightmendingLightCatcher,
 	seasonId: SeasonId.Lightmending,
-	action: FriendAction.Whisper,
+	action: FriendAction.SecretHandshake,
 	area: AreaName.FracturedLanternStorage,
 	offer: {
 		hasInfographic: false,
