@@ -17,6 +17,7 @@ import Moomin from "../source/kingdom/seasons/moomin/index.js";
 import Nesting from "../source/kingdom/seasons/nesting/index.js";
 import NineColouredDeer from "../source/kingdom/seasons/nine-coloured-deer/index.js";
 import Passage from "../source/kingdom/seasons/passage/index.js";
+import Pearl from "../source/kingdom/seasons/pearl/index.js";
 import Performance from "../source/kingdom/seasons/performance/index.js";
 import Prophecy from "../source/kingdom/seasons/prophecy/index.js";
 import Radiance from "../source/kingdom/seasons/radiance/index.js";
@@ -8182,6 +8183,16 @@ const SEASONAL_CANDLES_ROTATIONS = [
 				date: skyDate(2026, 10, 1),
 				expected:
 					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/3+4.webp",
+			},
+		],
+	},
+	{
+		season: Pearl,
+		rotations: [
+			{
+				date: skyDate(2026, 10, 16),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
 			},
 		],
 	},
