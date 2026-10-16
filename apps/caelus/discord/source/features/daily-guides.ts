@@ -124,11 +124,12 @@ const distributeQueue = new pQueue({ concurrency: MAXIMUM_CONCURRENCY_LIMIT });
 let distributionLock: Promise<unknown> | null = null;
 
 const NestingWorkshopRotationCategoryToLabel = {
-	[NestingWorkshopRotationCategory.Rugs]: "Rugs",
-	[NestingWorkshopRotationCategory.TablesAndDesks]: "Tables and desks",
-	[NestingWorkshopRotationCategory.Seating]: "Seating",
-	[NestingWorkshopRotationCategory.KitchenAndBathroom]: "Kitchen and bathroom",
-	[NestingWorkshopRotationCategory.StorageLightingAndDecor]: "Storage, lighting and decor",
+	[NestingWorkshopRotationCategory.RugsAndPillows]: "Rugs and pillows",
+	[NestingWorkshopRotationCategory.TablesFurnitureAndStorage]: "Tables, furniture and storage",
+	[NestingWorkshopRotationCategory.Chairs]: "Chairs",
+	[NestingWorkshopRotationCategory.CookingCountersAndBathing]: "Cooking, counters and bathing",
+	[NestingWorkshopRotationCategory.WallMountedLightsPlantsAndDecorations]:
+		"Wall mounted, lights, plants and decorations",
 } as const satisfies Readonly<Record<NestingWorkshopRotationCategories, string>>;
 
 export function questAutocomplete(focused: string, locale: Locale) {

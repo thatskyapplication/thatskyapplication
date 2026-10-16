@@ -169,11 +169,11 @@ export function resolveNestingWorkshopItems(cosmetics: readonly number[]) {
 }
 
 export const NestingWorkshopRotationCategory = {
-	Rugs: 0,
-	TablesAndDesks: 1,
-	Seating: 2,
-	KitchenAndBathroom: 3,
-	StorageLightingAndDecor: 4,
+	RugsAndPillows: 0,
+	TablesFurnitureAndStorage: 1,
+	Chairs: 2,
+	CookingCountersAndBathing: 3,
+	WallMountedLightsPlantsAndDecorations: 4,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES = Object.values(
@@ -184,7 +184,7 @@ export type NestingWorkshopRotationCategories =
 	(typeof NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES)[number];
 
 export const NestingWorkshopRotationCategoryToCosmetics = {
-	[NestingWorkshopRotationCategory.Rugs]: [
+	[NestingWorkshopRotationCategory.RugsAndPillows]: [
 		Cosmetic.SmallSolidRug,
 		Cosmetic.SmallStripesRug,
 		Cosmetic.SmallClassicRug,
@@ -195,8 +195,11 @@ export const NestingWorkshopRotationCategoryToCosmetics = {
 		Cosmetic.MediumCircleRug,
 		Cosmetic.LargeSolidRug,
 		Cosmetic.LargeCircleRug,
+		Cosmetic.DecorPillowOneColour,
+		Cosmetic.DecorPillowTwoColour,
+		Cosmetic.DecorFoldedCloth,
 	],
-	[NestingWorkshopRotationCategory.TablesAndDesks]: [
+	[NestingWorkshopRotationCategory.TablesFurnitureAndStorage]: [
 		Cosmetic.StoneSmallTable,
 		Cosmetic.StoneCoffeeTable,
 		Cosmetic.StoneConsoleTable,
@@ -205,8 +208,9 @@ export const NestingWorkshopRotationCategoryToCosmetics = {
 		Cosmetic.StoneLongDiningTable,
 		Cosmetic.StoneDesk,
 		Cosmetic.BedroomTallTable,
+		Cosmetic.StoneTallShelf,
 	],
-	[NestingWorkshopRotationCategory.Seating]: [
+	[NestingWorkshopRotationCategory.Chairs]: [
 		Cosmetic.StoneChair,
 		Cosmetic.StoneBench,
 		Cosmetic.StoneLoveseat,
@@ -214,31 +218,27 @@ export const NestingWorkshopRotationCategoryToCosmetics = {
 		Cosmetic.StoneSofaCorner,
 		Cosmetic.BedroomChair,
 	],
-	[NestingWorkshopRotationCategory.KitchenAndBathroom]: [
+	[NestingWorkshopRotationCategory.CookingCountersAndBathing]: [
 		Cosmetic.StoneWoodFiredOven,
 		Cosmetic.StoneKitchenStove,
 		Cosmetic.StoneKitchenCabinet,
 		Cosmetic.StoneKichenDrawers,
-		Cosmetic.StoneWallPotRack,
-		Cosmetic.StoneWallMugRack,
+		Cosmetic.StoneSmallCube,
+		Cosmetic.StoneTallCube,
 		Cosmetic.StoneSmallBathtub,
 		Cosmetic.LargeBathtub,
 		Cosmetic.StoneWashstand,
+	],
+	[NestingWorkshopRotationCategory.WallMountedLightsPlantsAndDecorations]: [
+		Cosmetic.StoneWallPotRack,
+		Cosmetic.StoneWallMugRack,
 		Cosmetic.StoneWallTowelRack,
 		Cosmetic.StoneWallMirror,
-	],
-	[NestingWorkshopRotationCategory.StorageLightingAndDecor]: [
-		Cosmetic.StoneSmallCube,
-		Cosmetic.StoneTallCube,
-		Cosmetic.StoneTallShelf,
-		Cosmetic.StoneClosedBox,
-		Cosmetic.StoneEmptyBox,
 		Cosmetic.StoneCandleLight,
 		Cosmetic.CandleStand,
 		Cosmetic.StoneWallSconce,
-		Cosmetic.DecorPillowOneColour,
-		Cosmetic.DecorPillowTwoColour,
-		Cosmetic.DecorFoldedCloth,
+		Cosmetic.StoneClosedBox,
+		Cosmetic.StoneEmptyBox,
 		Cosmetic.StonePlantStand,
 	],
 } as const satisfies Readonly<Record<NestingWorkshopRotationCategories, readonly Cosmetic[]>>;
