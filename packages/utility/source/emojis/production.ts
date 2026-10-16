@@ -4649,6 +4649,14 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Stone small cube.
 	 */
 	LargePlaceableProp132: { id: "1553338329611771924", name: "132_large_placeable_prop" },
+	/**
+	 * Bedroom chair.
+	 */
+	LargePlaceableProp133: { id: "1560719386057113761", name: "133_large_placeable_prop" },
+	/**
+	 * Bedroom tall table.
+	 */
+	LargePlaceableProp134: { id: "1560719388640944229", name: "134_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {

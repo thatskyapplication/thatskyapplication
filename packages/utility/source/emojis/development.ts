@@ -1469,6 +1469,8 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	LargePlaceableProp130: { id: "1542584848416374846", name: "130_large_placeable_prop" },
 	LargePlaceableProp131: { id: "1542584851499327599", name: "131_large_placeable_prop" },
 	LargePlaceableProp132: { id: "1553338349635244212", name: "132_large_placeable_prop" },
+	LargePlaceableProp133: { id: "1560719390565998632", name: "133_large_placeable_prop" },
+	LargePlaceableProp134: { id: "1560719393183498243", name: "134_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {

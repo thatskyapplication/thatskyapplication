@@ -1192,6 +1192,8 @@ const COSMETICS_ORDER = [
 			"LargePlaceableProp122",
 			"LargePlaceableProp123",
 			"LargePlaceableProp124",
+			"LargePlaceableProp133",
+			"LargePlaceableProp134",
 			"LargePlaceableProp116",
 			"LargePlaceableProp120",
 			"LargePlaceableProp121",

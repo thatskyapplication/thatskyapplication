@@ -3812,6 +3812,8 @@ export enum Cosmetic {
 	WrestlingSailorTrust = 3024,
 	WrestlingSailorBlessing4 = 3025,
 	WrestlingSailorSeasonalHeart = 3026,
+	BedroomChair = 3027,
+	BedroomTallTable = 3028,
 }
 
 export enum CosmeticCommon {

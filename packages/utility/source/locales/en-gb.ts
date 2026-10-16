@@ -2634,6 +2634,8 @@ export default {
 			[Cosmetic.EmoteShowOff3]: "Show off 3",
 			[Cosmetic.EmoteShowOff4]: "Show off 4",
 			[Cosmetic.EmoteArmWrestle]: "Arm wrestle",
+			[Cosmetic.BedroomChair]: "Bedroom chair",
+			[Cosmetic.BedroomTallTable]: "Bedroom tall table",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
