@@ -16,7 +16,6 @@ import {
 	type CostEntry,
 	resolveAllCosmeticsFromItems,
 	resolveOfferFromItems,
-	sumCosts,
 } from "./utility/functions.js";
 import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
@@ -671,19 +670,17 @@ export function nestingWorkshopPropsTextDisplay(
 ): APITextDisplayComponent {
 	const { CosmeticToEmoji, MISCELLANEOUS_EMOJIS } = emojis;
 
-	const lines = items.map(({ cosmeticDisplay, cosmetics, cost, translation }) => {
+	const props = items.map(({ cosmeticDisplay, cosmetics, translation }) => {
 		const emoji = CosmeticToEmoji[cosmeticDisplay];
 
 		const prop = emoji
 			? formatEmoji(emoji)
 			: t(translation.key, { lng: locale, ns: "general", number: translation.number });
 
-		const line = `${prop} ${resolveCostToString(sumCosts(cost ? [cost] : []), { emojis, locale }).join("")}`;
-
 		return cosmetics.every((cosmetic) => data?.has(cosmetic))
-			? `${line} ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
-			: line;
+			? `${prop}${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
+			: prop;
 	});
 
-	return { type: ComponentType.TextDisplay, content: `### ${heading}\n\n${lines.join("\n")}` };
+	return { type: ComponentType.TextDisplay, content: `### ${heading}\n\n${props.join(" ")}` };
 }
