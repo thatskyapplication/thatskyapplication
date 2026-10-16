@@ -74,6 +74,7 @@ export default new GuideSpirit({
 				{
 					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.AnglersLanternProp,
+					cost: { candles: 32 },
 				},
 			],
 		],
