@@ -3842,7 +3842,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Angler's Lantern (ultimate).
 	 */
-	Cape192: { id: "1560712172894683157", name: "192_cape" },
+	Cape192: { id: "1560795798399098961", name: "192_cape" },
 	/**
 	 * Cuddly Rolling Child.
 	 */
