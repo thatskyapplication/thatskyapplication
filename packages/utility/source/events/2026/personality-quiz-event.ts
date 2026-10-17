@@ -26,7 +26,7 @@ export default new Event({
 			cost: { candles: 35 },
 		},
 		{
-			translation: { key: CosmeticCommon.HairAccessoryMultiple, number: 1 },
+			translation: { key: CosmeticCommon.HairAccessoryMultiple, number: 2 },
 			cosmetic: Cosmetic.PersonalityQuizEventHairAccessory2,
 			cost: { candles: 35 },
 		},
