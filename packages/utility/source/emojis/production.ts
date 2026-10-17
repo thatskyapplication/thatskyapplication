@@ -1,7 +1,7 @@
 import type { Emoji } from "./emoji.js";
 
 const MISCELLANEOUS_EMOJIS = {
-	AscendedCandle: { id: "1313930716576485447", name: "ascended_candle" },
+	AscendedCandle: { id: "1561010118471196743", name: "ascended_candle" },
 	WingedLight: { id: "1313930689380487330", name: "winged_light" },
 	Yes: { id: "1543769936026009730", name: "yes" },
 	No: { id: "1543766229347606638", name: "no" },
@@ -10,14 +10,14 @@ const MISCELLANEOUS_EMOJIS = {
 	PlatformMac: { id: "1313930686276567111", name: "platform_mac" },
 	PlatformSwitch: { id: "1313930699195158558", name: "platform_switch" },
 	PlatformPlayStation: { id: "1313930695462354984", name: "platform_playstation" },
-	SeasonalCandle: { id: "1313930691074854924", name: "seasonal_candle" },
-	SeasonalHeart: { id: "1313930704198963282", name: "seasonal_heart" },
+	SeasonalCandle: { id: "1561010110141308978", name: "seasonal_candle" },
+	SeasonalHeart: { id: "1561010115413540954", name: "seasonal_heart" },
 	Candle: { id: "1313930712977637437", name: "candle" },
 	Heart: { id: "1313930706480791582", name: "heart" },
 	PlatformSteam: { id: "1406587258236043284", name: "platform_steam" },
 	Light: { id: "1313930707487428648", name: "light" },
-	ShardRegular: { id: "1543415384449875968", name: "shard_regular" },
-	ShardStrong: { id: "1543415386542968962", name: "shard_strong" },
+	ShardRegular: { id: "1561010101593178162", name: "shard_regular" },
+	ShardStrong: { id: "1561010105099620352", name: "shard_strong" },
 	Blessing1: { id: "1313930703108313208", name: "blessing_1" },
 	Blessing2: { id: "1313930720430919730", name: "blessing_2" },
 	Blessing3: { id: "1313930718019194981", name: "blessing_3" },
@@ -37,18 +37,18 @@ const MISCELLANEOUS_EMOJIS = {
 	DyeCyan: { id: "1512760342130856076", name: "dye_cyan" },
 	DyeBlue: { id: "1512760339698159737", name: "dye_blue" },
 	DyePurple: { id: "1512760355271741490", name: "dye_purple" },
-	DyeBlack: { id: "1512760729130893332", name: "dye_black" },
+	DyeBlack: { id: "1561010121734098994", name: "dye_black" },
 	DyeWhite: { id: "1512760358753009775", name: "dye_white" },
 	Dye: { id: "1365252158030745680", name: "dye" },
 	GiveawayTicket: { id: "1372542240563658782", name: "giveaway_ticket" },
 	Settings: { id: "1381212248856465428", name: "settings" },
 	Crowdin: { id: "1406562879351689317", name: "crowdin" },
-	Trash: { id: "1410256775961251990", name: "trash" },
-	Edit: { id: "1410257589840908318", name: "edit" },
+	Trash: { id: "1561010126784045227", name: "trash" },
+	Edit: { id: "1561010132014600242", name: "edit" },
 	DailyQuest: { id: "1415342214581850182", name: "daily_quest" },
 	DailyReset: { id: "1415788534908063784", animated: true, name: "daily_reset" },
 	Trust: { id: "1431662227202641930", name: "trust" },
-	CurrentPosition: { id: "1466208837492146299", name: "current_position" },
+	CurrentPosition: { id: "1561010135449739344", name: "current_position" },
 	Counsellor: { id: "1466368079058440255", name: "counsellor" },
 	Champion: { id: "1466368074201432104", name: "champion" },
 	Teacher: { id: "1466368110570508419", name: "teacher" },
@@ -67,7 +67,7 @@ const MISCELLANEOUS_EMOJIS = {
 	Provider: { id: "1466368104752873658", name: "provider" },
 	QuestionMark: { id: "1489893234116399114", name: "question_mark" },
 	TreasureCandle: { id: "1512540307886047303", name: "treasure_candle" },
-	MomentsCameraUpgrade: { id: "1542851961228107857", name: "moments_camera_upgrade" },
+	MomentsCameraUpgrade: { id: "1561009722398605363", name: "moments_camera_upgrade" },
 	Loyalty: { id: "1559958227045711872", name: "loyalty" },
 	CapeCategory: { id: "1559365009908432966", name: "cape_category" },
 	SmallPlaceablePropsCategory: {
@@ -125,8 +125,8 @@ const EMOTE_EMOJIS = {
 	Duck: { id: "1313931622017663016", name: "duck" },
 	Faint: { id: "1313931612395933746", name: "faint" },
 	Respect: { id: "1313931627256217621", name: "respect" },
-	LookAround: { id: "1313931599267631185", name: "look_around" },
-	Salute: { id: "1313931623720423514", name: "salute" },
+	LookAround: { id: "1561009844729942027", name: "look_around" },
+	Salute: { id: "1561009848014082108", name: "salute" },
 	Acknowledge: { id: "1313931793853845524", name: "acknowledge" },
 	KungFu: { id: "1313931758638727289", name: "kung_fu" },
 	DontGo: { id: "1313931797062488116", name: "dont_go" },
@@ -172,9 +172,9 @@ const EMOTE_EMOJIS = {
 	HackySack: { id: "1313931787449143460", name: "hacky_sack" },
 	Somersault: { id: "1313931806940205201", name: "somersault" },
 	Moping: { id: "1313931789290700840", name: "moping" },
-	PullUp: { id: "1313931801022173234", name: "pull_up" },
+	PullUp: { id: "1561010138784079893", name: "pull_up" },
 	JollyDance: { id: "1313931780998303855", name: "jolly_dance" },
-	BlindfoldBalancePose: { id: "1313931749298016418", name: "blindfold_balance_pose" },
+	BlindfoldBalancePose: { id: "1561010143737417818", name: "blindfold_balance_pose" },
 	CureForMeDance: { id: "1313931747385409618", name: "cure_for_me_dance" },
 	Whistle: { id: "1313931803597475943", name: "whistle" },
 	Flex: { id: "1313931946170253343", name: "flex" },
@@ -206,9 +206,9 @@ const EMOTE_EMOJIS = {
 
 const STANCE_EMOJIS = {
 	Base: { id: "1313932311712108544", name: "base_stance" },
-	Courageous: { id: "1313932313356275793", name: "courageous" },
+	Courageous: { id: "1561010148728774667", name: "courageous" },
 	Confident: { id: "1313932318909534239", name: "confident" },
-	Sneaky: { id: "1313932317475078167", name: "sneaky" },
+	Sneaky: { id: "1561010151794675892", name: "sneaky" },
 	Proud: { id: "1313932322130755698", name: "proud" },
 	Polite: { id: "1313932316086636606", name: "polite" },
 	Sassy: { id: "1313932314832535704", name: "sassy" },
@@ -258,96 +258,96 @@ const FRIEND_ACTION_EMOJIS = {
 
 const SEASON_EMOJIS = {
 	Gratitude: { id: "1400926220174098543", name: "gratitude" },
-	GratitudeCandle: { id: "1313933013586808832", name: "gratitude_candle" },
-	Lightseekers: { id: "1400927788596203651", name: "lightseekers" },
-	LightseekersCandle: { id: "1313932983845130240", name: "lightseekers_candle" },
+	GratitudeCandle: { id: "1561009869195321424", name: "gratitude_candle" },
+	Lightseekers: { id: "1561010156693618768", name: "lightseekers" },
+	LightseekersCandle: { id: "1561009871996977152", name: "lightseekers_candle" },
 	Belonging: { id: "1400928944210841672", name: "belonging" },
-	BelongingCandle: { id: "1313932982632972288", name: "belonging_candle" },
-	BelongingHeart: { id: "1313932990640033913", name: "belonging_heart" },
+	BelongingCandle: { id: "1561009875138519121", name: "belonging_candle" },
+	BelongingHeart: { id: "1561009879920148542", name: "belonging_heart" },
 	Rhythm: { id: "1400921906718314516", name: "rhythm" },
-	RhythmCandle: { id: "1313933020755005511", name: "rhythm_candle" },
-	RhythmHeart: { id: "1313933049754423336", name: "rhythm_heart" },
+	RhythmCandle: { id: "1561009883116081182", name: "rhythm_candle" },
+	RhythmHeart: { id: "1561009887025176596", name: "rhythm_heart" },
 	Enchantment: { id: "1400926943150608394", name: "enchantment" },
-	EnchantmentCandle: { id: "1313932998046912562", name: "enchantment_candle" },
-	EnchantmentHeart: { id: "1313933004611129445", name: "enchantment_heart" },
-	Sanctuary: { id: "1313932980686946315", name: "sanctuary" },
-	SanctuaryCandle: { id: "1313932992460357762", name: "sanctuary_candle" },
-	SanctuaryHeart: { id: "1313932987418804329", name: "sanctuary_heart" },
+	EnchantmentCandle: { id: "1561009892968505414", name: "enchantment_candle" },
+	EnchantmentHeart: { id: "1561009896676270090", name: "enchantment_heart" },
+	Sanctuary: { id: "1561009851725905960", name: "sanctuary" },
+	SanctuaryCandle: { id: "1561009899549491200", name: "sanctuary_candle" },
+	SanctuaryHeart: { id: "1561009904939171963", name: "sanctuary_heart" },
 	Prophecy: { id: "1400935411819217051", name: "prophecy" },
-	ProphecyCandle: { id: "1313933015730094080", name: "prophecy_candle" },
-	ProphecyHeart: { id: "1313933003331993691", name: "prophecy_heart" },
-	Dreams: { id: "1400928669656158339", name: "dreams" },
-	DreamsCandle: { id: "1313933052291977226", name: "dreams_candle" },
-	DreamsHeart: { id: "1313933029432889446", name: "dreams_heart" },
-	Assembly: { id: "1400924901447307375", name: "assembly" },
-	AssemblyCandle: { id: "1313933022005039237", name: "assembly_candle" },
-	AssemblyHeart: { id: "1400923991845245060", name: "assembly_heart" },
-	LittlePrince: { id: "1400928314251542528", name: "little_prince" },
-	LittlePrinceCandle: { id: "1313932996386226226", name: "little_prince_candle" },
-	LittlePrinceHeart: { id: "1313933014677590089", name: "little_prince_heart" },
-	Flight: { id: "1400927486333812736", name: "flight" },
-	FlightCandle: { id: "1313932985388761149", name: "flight_candle" },
-	FlightHeart: { id: "1313933001675116645", name: "flight_heart" },
+	ProphecyCandle: { id: "1561009908529238087", name: "prophecy_candle" },
+	ProphecyHeart: { id: "1561009912203579553", name: "prophecy_heart" },
+	Dreams: { id: "1561010159864774656", name: "dreams" },
+	DreamsCandle: { id: "1561009917601783928", name: "dreams_candle" },
+	DreamsHeart: { id: "1561009921326317679", name: "dreams_heart" },
+	Assembly: { id: "1561010164285579415", name: "assembly" },
+	AssemblyCandle: { id: "1561009924304019536", name: "assembly_candle" },
+	AssemblyHeart: { id: "1561009928871878777", name: "assembly_heart" },
+	LittlePrince: { id: "1561010169607880848", name: "little_prince" },
+	LittlePrinceCandle: { id: "1561009934362083328", name: "little_prince_candle" },
+	LittlePrinceHeart: { id: "1561009937684107398", name: "little_prince_heart" },
+	Flight: { id: "1561010172460146778", name: "flight" },
+	FlightCandle: { id: "1561009942821863464", name: "flight_candle" },
+	FlightHeart: { id: "1561009945548161024", name: "flight_heart" },
 	Abyss: { id: "1400936225598345216", name: "abyss" },
-	AbyssCandle: { id: "1313933055806804019", name: "abyss_candle" },
-	AbyssHeart: { id: "1313933024915882045", name: "abyss_heart" },
+	AbyssCandle: { id: "1561009949633544336", name: "abyss_candle" },
+	AbyssHeart: { id: "1561009955195199558", name: "abyss_heart" },
 	Performance: { id: "1400934915398303754", name: "performance" },
-	PerformanceCandle: { id: "1313932999443615754", name: "performance_candle" },
-	PerformanceHeart: { id: "1313933030884249600", name: "performance_heart" },
-	Shattering: { id: "1400932992515571782", name: "shattering" },
-	ShatteringCandle: { id: "1313933046604496977", name: "shattering_candle" },
-	ShatteringHeart: { id: "1313933048114446376", name: "shattering_heart" },
-	Aurora: { id: "1400935913709637683", name: "aurora" },
-	AuroraCandle: { id: "1313933037385551965", name: "aurora_candle" },
-	AuroraHeart: { id: "1313933043354042379", name: "aurora_heart" },
+	PerformanceCandle: { id: "1561009957732622397", name: "performance_candle" },
+	PerformanceHeart: { id: "1561009963013513246", name: "performance_heart" },
+	Shattering: { id: "1561010177099178085", name: "shattering" },
+	ShatteringCandle: { id: "1561009967912190052", name: "shattering_candle" },
+	ShatteringHeart: { id: "1561009772470472765", name: "shattering_heart" },
+	Aurora: { id: "1561010182274809936", name: "aurora" },
+	AuroraCandle: { id: "1561009971024367658", name: "aurora_candle" },
+	AuroraHeart: { id: "1561009985234665542", name: "aurora_heart" },
 	Remembrance: { id: "1400932490536812675", name: "remembrance" },
-	RemembranceCandle: { id: "1313933012227854346", name: "remembrance_candle" },
-	RemembranceHeart: { id: "1313933019844706304", name: "remembrance_heart" },
-	Passage: { id: "1313933026534883351", name: "passage" },
-	PassageCandle: { id: "1313933035942445207", name: "passage_candle" },
-	PassageHeart: { id: "1313933041491644508", name: "passage_heart" },
+	RemembranceCandle: { id: "1561009987717832725", name: "remembrance_candle" },
+	RemembranceHeart: { id: "1561009990217760848", name: "remembrance_heart" },
+	Passage: { id: "1561009729000575086", name: "passage" },
+	PassageCandle: { id: "1561009992923091045", name: "passage_candle" },
+	PassageHeart: { id: "1561009996479733862", name: "passage_heart" },
 	Moments: { id: "1400931523506475028", name: "moments" },
-	MomentsCandle: { id: "1313933180658778154", name: "moments_candle" },
-	MomentsHeart: { id: "1313933182378442812", name: "moments_heart" },
+	MomentsCandle: { id: "1561009998874677398", name: "moments_candle" },
+	MomentsHeart: { id: "1561010001592713266", name: "moments_heart" },
 	Revival: { id: "1313933185549336586", name: "revival" },
-	RevivalCandle: { id: "1313933177978617866", name: "revival_candle" },
-	RevivalHeart: { id: "1313933179803009114", name: "revival_heart" },
+	RevivalCandle: { id: "1561010004113236088", name: "revival_candle" },
+	RevivalHeart: { id: "1561010008810979479", name: "revival_heart" },
 	NineColouredDeer: { id: "1313933184299171891", name: "nine_coloured_deer" },
-	NineColouredDeerCandle: { id: "1313933196630429706", name: "nine_coloured_deer_candle" },
-	NineColouredDeerHeart: { id: "1313933188036431963", name: "nine_coloured_deer_heart" },
+	NineColouredDeerCandle: { id: "1561009775657885697", name: "nine_coloured_deer_candle" },
+	NineColouredDeerHeart: { id: "1561009768812781738", name: "nine_coloured_deer_heart" },
 	Nesting: { id: "1313933192218153040", name: "nesting" },
-	NestingCandle: { id: "1313933193434632244", name: "nesting_candle" },
-	NestingHeart: { id: "1313933186744451093", name: "nesting_heart" },
+	NestingCandle: { id: "1561010013944938586", name: "nesting_candle" },
+	NestingHeart: { id: "1561010017480482926", name: "nesting_heart" },
 	Duets: { id: "1313933189068357737", name: "duets" },
-	DuetsCandle: { id: "1313933195070279813", name: "duets_candle" },
-	DuetsHeart: { id: "1313933200246182040", name: "duets_heart" },
+	DuetsCandle: { id: "1561010022090145822", name: "duets_candle" },
+	DuetsHeart: { id: "1561010025869086892", name: "duets_heart" },
 	Moomin: { id: "1313933190699679753", name: "moomin" },
-	MoominCandle: { id: "1313933197456969731", name: "moomin_candle" },
-	MoominHeart: { id: "1313933199667367936", name: "moomin_heart" },
+	MoominCandle: { id: "1561010031770468463", name: "moomin_candle" },
+	MoominHeart: { id: "1561010034857611394", name: "moomin_heart" },
 	Radiance: { id: "1330471315458621490", name: "radiance" },
-	RadianceCandle: { id: "1330471900178153482", name: "radiance_candle" },
-	RadianceHeart: { id: "1330471918305939537", name: "radiance_heart" },
+	RadianceCandle: { id: "1561010037424390205", name: "radiance_candle" },
+	RadianceHeart: { id: "1561010042659143791", name: "radiance_heart" },
 	BlueBird: { id: "1363537580578050400", name: "blue_bird" },
-	BlueBirdCandle: { id: "1363538105067503846", name: "blue_bird_candle" },
-	BlueBirdHeart: { id: "1363538304288690226", name: "blue_bird_heart" },
+	BlueBirdCandle: { id: "1561010047809495141", name: "blue_bird_candle" },
+	BlueBirdHeart: { id: "1561010052628746392", name: "blue_bird_heart" },
 	TwoEmbersPart1: { id: "1392771944562163752", name: "two_embers_part_1" },
-	TwoEmbersPart1Candle: { id: "1396855475739558039", name: "two_embers_part_1_candle" },
-	TwoEmbersPart1Heart: { id: "1396855599152631839", name: "two_embers_part_1_heart" },
+	TwoEmbersPart1Candle: { id: "1561010064020471909", name: "two_embers_part_1_candle" },
+	TwoEmbersPart1Heart: { id: "1561010067028050081", name: "two_embers_part_1_heart" },
 	Migration: { id: "1536651408525492344", name: "migration" },
-	MigrationCandle: { id: "1429514486049542334", name: "migration_candle" },
-	MigrationHeart: { id: "1429514579863670784", name: "migration_heart" },
+	MigrationCandle: { id: "1561010070337355860", name: "migration_candle" },
+	MigrationHeart: { id: "1561010073449398393", name: "migration_heart" },
 	Lightmending: { id: "1461598394907758592", name: "lightmending" },
-	LightmendingCandle: { id: "1461598409705259029", name: "lightmending_candle" },
-	LightmendingHeart: { id: "1461598427505885317", name: "lightmending_heart" },
+	LightmendingCandle: { id: "1561010077027143800", name: "lightmending_candle" },
+	LightmendingHeart: { id: "1561010080504352838", name: "lightmending_heart" },
 	Carnival: { id: "1536652027059380295", name: "carnival" },
-	CarnivalCandle: { id: "1494462023965085846", name: "carnival_candle" },
-	CarnivalHeart: { id: "1494462025814773831", name: "carnival_heart" },
-	DearVanGogh: { id: "1514530654384164884", name: "dear_van_gogh" },
-	DearVanGoghCandle: { id: "1527600208177926224", name: "dear_van_gogh_candle" },
-	DearVanGoghHeart: { id: "1527600210325536879", name: "dear_van_gogh_heart" },
+	CarnivalCandle: { id: "1561010083813396580", name: "carnival_candle" },
+	CarnivalHeart: { id: "1561009765679890672", name: "carnival_heart" },
+	DearVanGogh: { id: "1561009787024703538", name: "dear_van_gogh" },
+	DearVanGoghCandle: { id: "1561010087382749184", name: "dear_van_gogh_candle" },
+	DearVanGoghHeart: { id: "1561010090650374215", name: "dear_van_gogh_heart" },
 	Pearl: { id: "1555728518870999280", name: "pearl" },
-	PearlCandle: { id: "1560564024108777612", name: "pearl_candle" },
-	PearlHeart: { id: "1560564026478436412", name: "pearl_heart" },
+	PearlCandle: { id: "1561010094039244861", name: "pearl_candle" },
+	PearlHeart: { id: "1561010098673946695", name: "pearl_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS = {
@@ -372,7 +372,7 @@ const EVENT_EMOJIS = {
 	TournamentOfTriumph: { id: "1313933385735082096", name: "tournament_of_triumph" },
 	Moonlight: { id: "1313933393368711248", name: "moonlight" },
 	Treasure: { id: "1345892771441147934", name: "treasure" },
-	SummerCamping: { id: "1544302529171431454", name: "summer_camping" },
+	SummerCamping: { id: "1561009864837308446", name: "summer_camping" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS = {
@@ -435,7 +435,7 @@ const OUTFIT_EMOJIS = {
 	/**
 	 * Ancient Light (manta).
 	 */
-	Outfit15: { id: "1313933865609334805", name: "15_outfit" },
+	Outfit15: { id: "1561010185781383228", name: "15_outfit" },
 	/**
 	 * Mindful Miner.
 	 */
@@ -491,7 +491,7 @@ const OUTFIT_EMOJIS = {
 	/**
 	 * Princess.
 	 */
-	Outfit29: { id: "1313934013228122235", name: "29_outfit" },
+	Outfit29: { id: "1561010189094887525", name: "29_outfit" },
 	/**
 	 * SkyFest 5th Anniversary T-shirt.
 	 */
@@ -527,7 +527,7 @@ const OUTFIT_EMOJIS = {
 	/**
 	 * Style Dazzling Dress.
 	 */
-	Outfit38: { id: "1313934031922008154", name: "38_outfit" },
+	Outfit38: { id: "1561010193830117496", name: "38_outfit" },
 	/**
 	 * Style Dapper Suit.
 	 */
@@ -547,7 +547,7 @@ const OUTFIT_EMOJIS = {
 	/**
 	 * Wonderland Primrose Pinafore Set.
 	 */
-	Outfit43: { id: "1320563769931468810", name: "43_outfit" },
+	Outfit43: { id: "1561009740988026930", name: "43_outfit" },
 	/**
 	 * Radiance Leaping Dancer.
 	 */
@@ -587,7 +587,7 @@ const OUTFIT_EMOJIS = {
 	/**
 	 * Resourceful Recluse.
 	 */
-	Outfit53: { id: "1396955999528685578", name: "53_outfit" },
+	Outfit53: { id: "1561010198712164523", name: "53_outfit" },
 	/**
 	 * Anniversary Gown Ensemble Gown.
 	 */
@@ -682,55 +682,55 @@ const SHOE_EMOJIS = {
 	/**
 	 * Chuckling Scout.
 	 */
-	Shoe01: { id: "1313934732756652142", name: "01_shoe" },
+	Shoe01: { id: "1561009796709224618", name: "01_shoe" },
 	/**
 	 * Mischief Witch Jumper shoes.
 	 */
-	Shoe02: { id: "1313934728906145852", name: "02_shoe" },
+	Shoe02: { id: "1561009800035176449", name: "02_shoe" },
 	/**
 	 * Pleading Child.
 	 */
-	Shoe03: { id: "1313934739475922945", name: "03_shoe" },
+	Shoe03: { id: "1561009803214585886", name: "03_shoe" },
 	/**
 	 * Nightbird Whisperer.
 	 */
-	Shoe04: { id: "1313934744110628885", name: "04_shoe" },
+	Shoe04: { id: "1561009805592760422", name: "04_shoe" },
 	/**
 	 * Peeking Postman.
 	 */
-	Shoe05: { id: "1439909617068015636", name: "05_shoe" },
+	Shoe05: { id: "1561010201799430155", name: "05_shoe" },
 	/**
 	 * Musical Voyage Sneakers.
 	 */
-	Shoe06: { id: "1313934741107376200", name: "06_shoe" },
+	Shoe06: { id: "1561009809439064214", name: "06_shoe" },
 	/**
 	 * Sunlight Chunky Sandals.
 	 */
-	Shoe07: { id: "1313934735218839563", name: "07_shoe" },
+	Shoe07: { id: "1561009813570457734", name: "07_shoe" },
 	/**
 	 * Style Silk Ballet Slippers.
 	 */
-	Shoe08: { id: "1313934748933947473", name: "08_shoe" },
+	Shoe08: { id: "1561009817571692644", name: "08_shoe" },
 	/**
 	 * Moonlight Bunny Slippers.
 	 */
-	Shoe09: { id: "1313934745662525580", name: "09_shoe" },
+	Shoe09: { id: "1561009820637859901", name: "09_shoe" },
 	/**
 	 * Vestige of a Deserted Oasis.
 	 */
-	Shoe10: { id: "1313934733821870100", name: "10_shoe" },
+	Shoe10: { id: "1561009823892643900", name: "10_shoe" },
 	/**
 	 * Echo of an Abandoned Refuge.
 	 */
-	Shoe11: { id: "1313934747155697756", name: "11_shoe" },
+	Shoe11: { id: "1561009826908078090", name: "11_shoe" },
 	/**
 	 * Remnant of a Forgotten Haven.
 	 */
-	Shoe12: { id: "1313934736577531957", name: "12_shoe" },
+	Shoe12: { id: "1561009829324267622", name: "12_shoe" },
 	/**
 	 * Mischief Goth Boots.
 	 */
-	Shoe13: { id: "1313934751836540979", name: "13_shoe" },
+	Shoe13: { id: "1561009832817860718", name: "13_shoe" },
 	/**
 	 * Cosy Hermit Boots.
 	 */
@@ -738,7 +738,7 @@ const SHOE_EMOJIS = {
 	/**
 	 * Dark Rainbow Loafers.
 	 */
-	Shoe15: { id: "1313934731120873522", name: "15_shoe" },
+	Shoe15: { id: "1561010206748577832", name: "15_shoe" },
 	/**
 	 * The Pianist's Flourishing.
 	 */
@@ -917,7 +917,7 @@ const FULL_OUTFIT_EMOJIS = {
 	/**
 	 * Nesting Guide (ultimate).
 	 */
-	FullOutfit29: { id: "1313934017166315612", name: "29_full_outfit" },
+	FullOutfit29: { id: "1561010210112405704", name: "29_full_outfit" },
 	/**
 	 * Roving Snufkin Robe.
 	 */
@@ -965,7 +965,7 @@ const FULL_OUTFIT_EMOJIS = {
 	/**
 	 * Fortune Pleated Dress.
 	 */
-	FullOutfit41: { id: "1471652521775861810", name: "41_full_outfit" },
+	FullOutfit41: { id: "1561009710554026137", name: "41_full_outfit" },
 	/**
 	 * Carnival Athletic Dancer.
 	 */
@@ -980,7 +980,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Base.
 	 */
-	Mask01: { id: "1313935107651801239", name: "01_mask" },
+	Mask01: { id: "1561010215082524723", name: "01_mask" },
 	/**
 	 * Waving Bellmaker.
 	 */
@@ -988,11 +988,11 @@ const MASK_EMOJIS = {
 	/**
 	 * Hide'n'Seek Pioneer.
 	 */
-	Mask03: { id: "1313935104988676279", name: "03_mask" },
+	Mask03: { id: "1561010219725885441", name: "03_mask" },
 	/**
 	 * Proud Victor.
 	 */
-	Mask04: { id: "1313935103524606075", name: "04_mask" },
+	Mask04: { id: "1561010222561234994", name: "04_mask" },
 	/**
 	 * Fainting Warrior.
 	 */
@@ -1056,7 +1056,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Pleaful Parent.
 	 */
-	Mask20: { id: "1313935126446608406", name: "20_mask" },
+	Mask20: { id: "1561010229523644446", name: "20_mask" },
 	/**
 	 * Sparkler Parent.
 	 */
@@ -1080,7 +1080,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Respectful Pianist.
 	 */
-	Mask26: { id: "1313935165793239070", name: "26_mask" },
+	Mask26: { id: "1561010232153346048", name: "26_mask" },
 	/**
 	 * Nodding Muralist.
 	 */
@@ -1128,7 +1128,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Dancing Performer.
 	 */
-	Mask38: { id: "1313935167391531078", name: "38_mask" },
+	Mask38: { id: "1561010235513114715", name: "38_mask" },
 	/**
 	 * Spinning Mentor.
 	 */
@@ -1136,7 +1136,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Dreams Guide (ultimate).
 	 */
-	Mask40: { id: "1313935158721908776", name: "40_mask" },
+	Mask40: { id: "1561010241179746385", name: "40_mask" },
 	/**
 	 * Fortune Blushing Mask.
 	 */
@@ -1160,7 +1160,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Chuckling Scout.
 	 */
-	Mask46: { id: "1313935170486927461", name: "46_mask" },
+	Mask46: { id: "1561010243973152839", name: "46_mask" },
 	/**
 	 * Daydream Forester.
 	 */
@@ -1192,7 +1192,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Cackling Cannoneer.
 	 */
-	Mask54: { id: "1313935259955494965", name: "54_mask" },
+	Mask54: { id: "1561010249127821404", name: "54_mask" },
 	/**
 	 * Abyss Guide (ultimate).
 	 */
@@ -1200,7 +1200,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Abyss Guide (non-ultimate).
 	 */
-	Mask56: { id: "1313935263147495466", name: "56_mask" },
+	Mask56: { id: "1561009861033070712", name: "56_mask" },
 	/**
 	 * Anxious Angler.
 	 */
@@ -1212,7 +1212,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Performance Guide (ultimate).
 	 */
-	Mask59: { id: "1313935257673793646", name: "59_mask" },
+	Mask59: { id: "1561010252009308254", name: "59_mask" },
 	/**
 	 * Modest Dancer.
 	 */
@@ -1228,15 +1228,15 @@ const MASK_EMOJIS = {
 	/**
 	 * Forgetful Storyteller.
 	 */
-	Mask63: { id: "1313935261448802345", name: "63_mask" },
+	Mask63: { id: "1561010265942794240", name: "63_mask" },
 	/**
 	 * Mellow Musician.
 	 */
-	Mask64: { id: "1313935273435856946", name: "64_mask" },
+	Mask64: { id: "1561010268585201704", name: "64_mask" },
 	/**
 	 * Ancient Darkness (plant).
 	 */
-	Mask65: { id: "1313935314774917182", name: "65_mask" },
+	Mask65: { id: "1561010278873956433", name: "65_mask" },
 	/**
 	 * Seed of Hope.
 	 */
@@ -1276,11 +1276,11 @@ const MASK_EMOJIS = {
 	/**
 	 * Days of Fortune Rabbit Mask.
 	 */
-	Mask75: { id: "1313935301474914445", name: "75_mask" },
+	Mask75: { id: "1561010281780617240", name: "75_mask" },
 	/**
 	 * Passage Guide (ultimate).
 	 */
-	Mask76: { id: "1313935268499292251", name: "76_mask" },
+	Mask76: { id: "1561010284619898890", name: "76_mask" },
 	/**
 	 * Passage Guide (non-ultimate 1).
 	 */
@@ -1316,15 +1316,15 @@ const MASK_EMOJIS = {
 	/**
 	 * Sparrow Appreciation.
 	 */
-	Mask85: { id: "1313935271934427206", name: "85_mask" },
+	Mask85: { id: "1561010286926893188", name: "85_mask" },
 	/**
 	 * Spirit of Mural (non-ultimate).
 	 */
-	Mask86: { id: "1313935285444149258", name: "86_mask" },
+	Mask86: { id: "1561010290508697690", name: "86_mask" },
 	/**
 	 * Feudal Lord.
 	 */
-	Mask87: { id: "1313935304566247434", name: "87_mask" },
+	Mask87: { id: "1561010293503565894", name: "87_mask" },
 	/**
 	 * Princess.
 	 */
@@ -1340,7 +1340,7 @@ const MASK_EMOJIS = {
 	/**
 	 * Ocean Mask.
 	 */
-	Mask91: { id: "1313935290095898635", name: "91_mask" },
+	Mask91: { id: "1561010297110659102", name: "91_mask" },
 	/**
 	 * Dark Rainbow Mask.
 	 */
@@ -1459,7 +1459,7 @@ const FACE_ACCESSORY_EMOJIS = {
 	/**
 	 * Rejecting Voyager.
 	 */
-	FaceAccessory01: { id: "1313935533063274557", name: "01_face_accessory" },
+	FaceAccessory01: { id: "1561010300033957978", name: "01_face_accessory" },
 	/**
 	 * Exhausted Dock Worker.
 	 */
@@ -1471,11 +1471,11 @@ const FACE_ACCESSORY_EMOJIS = {
 	/**
 	 * Backflipping Champion.
 	 */
-	FaceAccessory04: { id: "1313935538826252471", name: "04_face_accessory" },
+	FaceAccessory04: { id: "1561010302940749875", name: "04_face_accessory" },
 	/**
 	 * Bowing Medalist.
 	 */
-	FaceAccessory05: { id: "1313935566580088932", name: "05_face_accessory" },
+	FaceAccessory05: { id: "1561010306346651790", name: "05_face_accessory" },
 	/**
 	 * Lookout Scout.
 	 */
@@ -1519,7 +1519,7 @@ const FACE_ACCESSORY_EMOJIS = {
 	/**
 	 * Jolly Geologist.
 	 */
-	FaceAccessory16: { id: "1313935570820665407", name: "16_face_accessory" },
+	FaceAccessory16: { id: "1561010308766634116", name: "16_face_accessory" },
 	/**
 	 * Style Star Sunglasses.
 	 */
@@ -1587,7 +1587,7 @@ const FACE_ACCESSORY_EMOJIS = {
 	/**
 	 * Fortune Token Glasses.
 	 */
-	FaceAccessory33: { id: "1471652959086575636", name: "33_face_accessory" },
+	FaceAccessory33: { id: "1561010320322072698", name: "33_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS = {
@@ -1598,7 +1598,7 @@ const NECKLACE_EMOJIS = {
 	/**
 	 * Lightseekers Pendant.
 	 */
-	Necklace02: { id: "1313935760109600849", name: "02_necklace" },
+	Necklace02: { id: "1561010323094241290", name: "02_necklace" },
 	/**
 	 * Belonging Pendant.
 	 */
@@ -1614,7 +1614,7 @@ const NECKLACE_EMOJIS = {
 	/**
 	 * Sanctuary Pendant.
 	 */
-	Necklace06: { id: "1313935767575461919", name: "06_necklace" },
+	Necklace06: { id: "1561010333018103878", name: "06_necklace" },
 	/**
 	 * Hiking Grouch.
 	 */
@@ -1630,11 +1630,11 @@ const NECKLACE_EMOJIS = {
 	/**
 	 * Dreams Pendant.
 	 */
-	Necklace10: { id: "1313935780737060937", name: "10_necklace" },
+	Necklace10: { id: "1561010335576621257", name: "10_necklace" },
 	/**
 	 * Assembly Pendant.
 	 */
-	Necklace11: { id: "1313935776052023329", name: "11_necklace" },
+	Necklace11: { id: "1561010338483146976", name: "11_necklace" },
 	/**
 	 * Ocean Necklace.
 	 */
@@ -1642,7 +1642,7 @@ const NECKLACE_EMOJIS = {
 	/**
 	 * Little Prince Pendant.
 	 */
-	Necklace13: { id: "1313935826413158481", name: "13_necklace" },
+	Necklace13: { id: "1561010343357063268", name: "13_necklace" },
 	/**
 	 * Star Collector.
 	 */
@@ -1650,7 +1650,7 @@ const NECKLACE_EMOJIS = {
 	/**
 	 * Flight Pendant.
 	 */
-	Necklace15: { id: "1313935771849326703", name: "15_necklace" },
+	Necklace15: { id: "1561010346796523520", name: "15_necklace" },
 	/**
 	 * Talented Builder.
 	 */
@@ -1674,7 +1674,7 @@ const NECKLACE_EMOJIS = {
 	/**
 	 * Shattering Pendant.
 	 */
-	Necklace21: { id: "1313935792934096917", name: "21_necklace" },
+	Necklace21: { id: "1561010349501583511", name: "21_necklace" },
 	/**
 	 * Ancient Darkness (dragon).
 	 */
@@ -1706,7 +1706,7 @@ const NECKLACE_EMOJIS = {
 	/**
 	 * Passage Pendant.
 	 */
-	Necklace29: { id: "1313935804804108438", name: "29_necklace" },
+	Necklace29: { id: "1561009732091772928", name: "29_necklace" },
 	/**
 	 * Oddball Outcast.
 	 */
@@ -1826,7 +1826,7 @@ const NECKLACE_EMOJIS = {
 	/**
 	 * Dear Van Gogh pendant.
 	 */
-	Necklace59: { id: "1529583308285935836", name: "59_necklace" },
+	Necklace59: { id: "1561009784306667630", name: "59_necklace" },
 	/**
 	 * Sunflower Neck Tie.
 	 */
@@ -1853,7 +1853,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Rejecting Voyager.
 	 */
-	Hair04: { id: "1313936061914681424", name: "04_hair" },
+	Hair04: { id: "1561010352735395992", name: "04_hair" },
 	/**
 	 * Applauding Bellmaker.
 	 */
@@ -1861,19 +1861,19 @@ const HAIR_EMOJIS = {
 	/**
 	 * Waving Bellmaker.
 	 */
-	Hair06: { id: "1313936068210593893", name: "06_hair" },
+	Hair06: { id: "1561010356837417062", name: "06_hair" },
 	/**
 	 * Slumbering Shipwright.
 	 */
-	Hair07: { id: "1313936080717873203", name: "07_hair" },
+	Hair07: { id: "1561010359756652734", name: "07_hair" },
 	/**
 	 * Laughing Light Catcher.
 	 */
-	Hair08: { id: "1313936075827187782", name: "08_hair" },
+	Hair08: { id: "1561010362722164737", name: "08_hair" },
 	/**
 	 * Bird Whisperer.
 	 */
-	Hair09: { id: "1313936065093959802", name: "09_hair" },
+	Hair09: { id: "1561010365284876390", name: "09_hair" },
 	/**
 	 * Shivering Trailblazer.
 	 */
@@ -1889,15 +1889,15 @@ const HAIR_EMOJIS = {
 	/**
 	 * Pouty Porter.
 	 */
-	Hair13: { id: "1313936091778387990", name: "13_hair" },
+	Hair13: { id: "1561010368397053982", name: "13_hair" },
 	/**
 	 * Dismayed Hunter.
 	 */
-	Hair14: { id: "1313936111688482899", name: "14_hair" },
+	Hair14: { id: "1561010371358367804", name: "14_hair" },
 	/**
 	 * Apologetic Lumberjack.
 	 */
-	Hair15: { id: "1313936071343734887", name: "15_hair" },
+	Hair15: { id: "1561010374369742950", name: "15_hair" },
 	/**
 	 * Tearful Light Miner.
 	 */
@@ -1929,7 +1929,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Courageous Soldier.
 	 */
-	Hair23: { id: "1313936119297212506", name: "23_hair" },
+	Hair23: { id: "1561009738089766923", name: "23_hair" },
 	/**
 	 * Stealthy Survivor.
 	 */
@@ -1937,7 +1937,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Saluting Captain.
 	 */
-	Hair25: { id: "1313936108236701736", name: "25_hair" },
+	Hair25: { id: "1561010380103356429", name: "25_hair" },
 	/**
 	 * Praying Acolyte.
 	 */
@@ -1953,15 +1953,15 @@ const HAIR_EMOJIS = {
 	/**
 	 * Meditating Monastic.
 	 */
-	Hair29: { id: "1313936086703018036", name: "29_hair" },
+	Hair29: { id: "1561010383169527899", name: "29_hair" },
 	/**
 	 * Elder of the Isle.
 	 */
-	Hair30: { id: "1313936093711958086", name: "30_hair" },
+	Hair30: { id: "1561010386399002624", name: "30_hair" },
 	/**
 	 * Elder of the Prairie.
 	 */
-	Hair31: { id: "1313936114834477146", name: "31_hair" },
+	Hair31: { id: "1561010390626734271", name: "31_hair" },
 	/**
 	 * Elder of the Forest.
 	 */
@@ -1969,11 +1969,11 @@ const HAIR_EMOJIS = {
 	/**
 	 * Elder of the Valley 1.
 	 */
-	Hair33: { id: "1313936073600274452", name: "33_hair" },
+	Hair33: { id: "1561010395886526595", name: "33_hair" },
 	/**
 	 * Elder of the Valley 2.
 	 */
-	Hair34: { id: "1313936106827550861", name: "34_hair" },
+	Hair34: { id: "1561010398604427285", name: "34_hair" },
 	/**
 	 * Elder of the Wasteland.
 	 */
@@ -2057,7 +2057,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Snoozing Carpenter.
 	 */
-	Hair55: { id: "1313936284397338725", name: "55_hair" },
+	Hair55: { id: "1561010403805503538", name: "55_hair" },
 	/**
 	 * Crab Walker.
 	 */
@@ -2141,7 +2141,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Days of Bloom 2021.
 	 */
-	Hair76: { id: "1313936288956813362", name: "76_hair" },
+	Hair76: { id: "1561010406615683092", name: "76_hair" },
 	/**
 	 * Assembly Guide (ultimate).
 	 */
@@ -2221,11 +2221,11 @@ const HAIR_EMOJIS = {
 	/**
 	 * Mischief Spider Quiff.
 	 */
-	Hair96: { id: "1313936314189611109", name: "96_hair" },
+	Hair96: { id: "1561010412030398607", name: "96_hair" },
 	/**
 	 * Winter Feast Hat.
 	 */
-	Hair97: { id: "1313936319000481802", name: "97_hair" },
+	Hair97: { id: "1561010417113768036", name: "97_hair" },
 	/**
 	 * Cackling Cannoneer.
 	 */
@@ -2253,7 +2253,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Modest Dancer.
 	 */
-	Hair104: { id: "1313936441893584937", name: "104_hair" },
+	Hair104: { id: "1561010421153009755", name: "104_hair" },
 	/**
 	 * Frantic Stagehand.
 	 */
@@ -2273,7 +2273,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Ancient Light (manta).
 	 */
-	Hair109: { id: "1313936450525462569", name: "109_hair" },
+	Hair109: { id: "1561010424197947582", name: "109_hair" },
 	/**
 	 * Ancient Light (jellyfish).
 	 */
@@ -2345,7 +2345,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Nightbird Whisperer.
 	 */
-	Hair127: { id: "1313936463074820116", name: "127_hair" },
+	Hair127: { id: "1561010429273182219", name: "127_hair" },
 	/**
 	 * Ascetic Monk.
 	 */
@@ -2377,7 +2377,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Base 3.
 	 */
-	Hair135: { id: "1313936477616345118", name: "135_hair" },
+	Hair135: { id: "1561009734910484490", name: "135_hair" },
 	/**
 	 * Spirit of Mural (ultimate).
 	 */
@@ -2393,7 +2393,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Princess.
 	 */
-	Hair139: { id: "1313936496373534893", name: "139_hair" },
+	Hair139: { id: "1561010432330961028", name: "139_hair" },
 	/**
 	 * Bloom Spiky Sprig Hair.
 	 */
@@ -2401,7 +2401,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Bloom Arum Petal Hair.
 	 */
-	Hair141: { id: "1313936507999879179", name: "141_hair" },
+	Hair141: { id: "1561010438001532989", name: "141_hair" },
 	/**
 	 * Nesting Atrium.
 	 */
@@ -2429,19 +2429,19 @@ const HAIR_EMOJIS = {
 	/**
 	 * Tournament Curls.
 	 */
-	Hair148: { id: "1313936518313672766", name: "148_hair" },
+	Hair148: { id: "1561010440992067724", name: "148_hair" },
 	/**
 	 * Moonlight Updo.
 	 */
-	Hair149: { id: "1313936509530935387", name: "149_hair" },
+	Hair149: { id: "1561010446163509289", name: "149_hair" },
 	/**
 	 * Comfort of Kindness.
 	 */
-	Hair150: { id: "1313936510550147145", name: "150_hair" },
+	Hair150: { id: "1561010449909153903", name: "150_hair" },
 	/**
 	 * Spirit of Adventure.
 	 */
-	Hair151: { id: "1313936669644427365", name: "151_hair" },
+	Hair151: { id: "1561010453138636840", name: "151_hair" },
 	/**
 	 * Mischief Spider Bun.
 	 */
@@ -2453,7 +2453,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Wonderland Hare Hairstyle.
 	 */
-	Hair154: { id: "1320565117187784807", name: "154_hair" },
+	Hair154: { id: "1561010457605840942", name: "154_hair" },
 	/**
 	 * Radiance Leaping Dancer.
 	 */
@@ -2465,7 +2465,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Fortune Snake Coif.
 	 */
-	Hair157: { id: "1333207592440303657", name: "157_hair" },
+	Hair157: { id: "1561010464476106772", name: "157_hair" },
 	/**
 	 * Days of Love Braids.
 	 */
@@ -2541,11 +2541,11 @@ const HAIR_EMOJIS = {
 	/**
 	 * Fortune Ribboned Ponytail.
 	 */
-	Hair176: { id: "1471652711874298128", name: "176_hair" },
+	Hair176: { id: "1561010466959003801", name: "176_hair" },
 	/**
 	 * Days of Bloom 2026.
 	 */
-	Hair177: { id: "1482684921666600971", name: "177_hair" },
+	Hair177: { id: "1561010470276694197", name: "177_hair" },
 	/**
 	 * Days of Nature 2026.
 	 */
@@ -2573,7 +2573,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Vase with Fifteen Sunflowers (ultimate).
 	 */
-	Hair184: { id: "1529588116707348671", name: "184_hair" },
+	Hair184: { id: "1561010474609410089", name: "184_hair" },
 	/**
 	 * Dutch Memory.
 	 */
@@ -2612,15 +2612,15 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * First Sky Anniversary.
 	 */
-	HairAccessory03: { id: "1313936929779093535", name: "03_hair_accessory" },
+	HairAccessory03: { id: "1561010477956464671", name: "03_hair_accessory" },
 	/**
 	 * Days of Fortune Orange.
 	 */
-	HairAccessory04: { id: "1313936925387657260", name: "04_hair_accessory" },
+	HairAccessory04: { id: "1561010483417448469", name: "04_hair_accessory" },
 	/**
 	 * Days of Rainbow 2021.
 	 */
-	HairAccessory05: { id: "1313936962956165190", name: "05_hair_accessory" },
+	HairAccessory05: { id: "1561010487787913276", name: "05_hair_accessory" },
 	/**
 	 * Second Sky Anniversary.
 	 */
@@ -2632,7 +2632,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Summer Seashell Hairpin.
 	 */
-	HairAccessory08: { id: "1313936946892116028", name: "08_hair_accessory" },
+	HairAccessory08: { id: "1561010491013468160", name: "08_hair_accessory" },
 	/**
 	 * Moonlight Bunny Accessory.
 	 */
@@ -2640,23 +2640,23 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Light Whisperer.
 	 */
-	HairAccessory10: { id: "1313937000411168839", name: "10_hair_accessory" },
+	HairAccessory10: { id: "1561010495417487441", name: "10_hair_accessory" },
 	/**
 	 * Tinkering Chimesmith.
 	 */
-	HairAccessory11: { id: "1313936991460786196", name: "11_hair_accessory" },
+	HairAccessory11: { id: "1561010500366770176", name: "11_hair_accessory" },
 	/**
 	 * Lively Navigator.
 	 */
-	HairAccessory12: { id: "1313936956626833462", name: "12_hair_accessory" },
+	HairAccessory12: { id: "1561010503411568720", name: "12_hair_accessory" },
 	/**
 	 * Flight Guide (ultimate).
 	 */
-	HairAccessory13: { id: "1313936980454674504", name: "13_hair_accessory" },
+	HairAccessory13: { id: "1561010509849960458", name: "13_hair_accessory" },
 	/**
 	 * Snowflake Hair Accessory.
 	 */
-	HairAccessory14: { id: "1313936965804097588", name: "14_hair_accessory" },
+	HairAccessory14: { id: "1561010516242210950", name: "14_hair_accessory" },
 	/**
 	 * Bumbling Boatswain.
 	 */
@@ -2664,15 +2664,15 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Days of Fortune Fish Accessory.
 	 */
-	HairAccessory16: { id: "1313936935558844469", name: "16_hair_accessory" },
+	HairAccessory16: { id: "1561010519975006218", name: "16_hair_accessory" },
 	/**
 	 * Days of Love Flower Crown.
 	 */
-	HairAccessory17: { id: "1313936945163796550", name: "17_hair_accessory" },
+	HairAccessory17: { id: "1561010524731215923", name: "17_hair_accessory" },
 	/**
 	 * Kizuna AI.
 	 */
-	HairAccessory18: { id: "1313936957956685854", name: "18_hair_accessory" },
+	HairAccessory18: { id: "1561010527344529508", name: "18_hair_accessory" },
 	/**
 	 * Nature Coral Crown.
 	 */
@@ -2680,19 +2680,19 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Harmony Hall Grand Opening.
 	 */
-	HairAccessory20: { id: "1313936984263098439", name: "20_hair_accessory" },
+	HairAccessory20: { id: "1561010537243082882", name: "20_hair_accessory" },
 	/**
 	 * Days of Rainbow 2022.
 	 */
-	HairAccessory21: { id: "1313936976122216458", name: "21_hair_accessory" },
+	HairAccessory21: { id: "1561010540640210974", name: "21_hair_accessory" },
 	/**
 	 * Ancient Darkness (plant).
 	 */
-	HairAccessory22: { id: "1313936968031404032", name: "22_hair_accessory" },
+	HairAccessory22: { id: "1561010544863870986", name: "22_hair_accessory" },
 	/**
 	 * Ancient Light (jellyfish).
 	 */
-	HairAccessory23: { id: "1313936953099419688", name: "23_hair_accessory" },
+	HairAccessory23: { id: "1561010547946954802", name: "23_hair_accessory" },
 	/**
 	 * Third Sky Anniversary.
 	 */
@@ -2704,7 +2704,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Nightbird Whisperer.
 	 */
-	HairAccessory26: { id: "1313936973353713734", name: "26_hair_accessory" },
+	HairAccessory26: { id: "1561010550790561822", name: "26_hair_accessory" },
 	/**
 	 * Moments Guide (ultimate).
 	 */
@@ -2736,7 +2736,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Winter Pine Cone Hair Clip.
 	 */
-	HairAccessory34: { id: "1313936939811864586", name: "34_hair_accessory" },
+	HairAccessory34: { id: "1561010553806397450", name: "34_hair_accessory" },
 	/**
 	 * Spirit of Mural (non-ultimate).
 	 */
@@ -2744,11 +2744,11 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Feudal Lord.
 	 */
-	HairAccessory36: { id: "1313936942315864168", name: "36_hair_accessory" },
+	HairAccessory36: { id: "1561010556868231278", name: "36_hair_accessory" },
 	/**
 	 * Love Heart Beret.
 	 */
-	HairAccessory37: { id: "1313936994300330146", name: "37_hair_accessory" },
+	HairAccessory37: { id: "1561010560164954213", name: "37_hair_accessory" },
 	/**
 	 * Nesting Nook.
 	 */
@@ -2796,7 +2796,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Sense of Self.
 	 */
-	HairAccessory49: { id: "1313936961555267628", name: "49_hair_accessory" },
+	HairAccessory49: { id: "1561010562970951831", name: "49_hair_accessory" },
 	/**
 	 * Inspiration of Inclusion.
 	 */
@@ -2844,7 +2844,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Sunlight Bonnet Jellyfish Hat.
 	 */
-	HairAccessory61: { id: "1412360698922537072", name: "61_hair_accessory" },
+	HairAccessory61: { id: "1561010567861375146", name: "61_hair_accessory" },
 	/**
 	 * Migrating Butterfly Charmer.
 	 */
@@ -2856,7 +2856,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Mischief Feline Ears.
 	 */
-	HairAccessory64: { id: "1433197643969855568", name: "64_hair_accessory" },
+	HairAccessory64: { id: "1561010571531255899", name: "64_hair_accessory" },
 	/**
 	 * Mischief Leaf Hat.
 	 */
@@ -2892,7 +2892,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Lightmending Light Catcher.
 	 */
-	HairAccessory73: { id: "1464064960127697088", name: "73_hair_accessory" },
+	HairAccessory73: { id: "1561010575226707968", name: "73_hair_accessory" },
 	/**
 	 * Ocean Veil hair accessory.
 	 */
@@ -2924,11 +2924,11 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Sky Anniversary 2026.
 	 */
-	HairAccessory81: { id: "1522919380705480716", name: "81_hair_accessory" },
+	HairAccessory81: { id: "1561010580473511996", name: "81_hair_accessory" },
 	/**
 	 * Sky Creator Awards 2026.
 	 */
-	HairAccessory82: { id: "1527298595886465114", name: "82_hair_accessory" },
+	HairAccessory82: { id: "1561010583355265184", name: "82_hair_accessory" },
 	/**
 	 * Rustic Memory.
 	 */
@@ -2979,7 +2979,7 @@ const HEAD_ACCESSORY_EMOJIS = {
 	/**
 	 * Bearhug Hermit.
 	 */
-	HeadAccessory04: { id: "1313935534942457896", name: "04_head_accessory" },
+	HeadAccessory04: { id: "1561010588094566502", name: "04_head_accessory" },
 	/**
 	 * Rainbow braid.
 	 */
@@ -2991,11 +2991,11 @@ const HEAD_ACCESSORY_EMOJIS = {
 	/**
 	 * Abyss Guide (ultimate).
 	 */
-	HeadAccessory07: { id: "1313935592731443250", name: "07_head_accessory" },
+	HeadAccessory07: { id: "1561010592859422742", name: "07_head_accessory" },
 	/**
 	 * Rainbow Earring.
 	 */
-	HeadAccessory08: { id: "1313935547810578453", name: "08_head_accessory" },
+	HeadAccessory08: { id: "1561010596814651453", name: "08_head_accessory" },
 	/**
 	 * Rainbow Headphones.
 	 */
@@ -3003,7 +3003,7 @@ const HEAD_ACCESSORY_EMOJIS = {
 	/**
 	 * Tiara We Can Touch.
 	 */
-	HeadAccessory10: { id: "1313935588474228866", name: "10_head_accessory" },
+	HeadAccessory10: { id: "1561010599545147495", name: "10_head_accessory" },
 	/**
 	 * Melancholy Mope.
 	 */
@@ -3011,11 +3011,11 @@ const HEAD_ACCESSORY_EMOJIS = {
 	/**
 	 * Tumbling Troublemaker.
 	 */
-	HeadAccessory12: { id: "1313935543696097380", name: "12_head_accessory" },
+	HeadAccessory12: { id: "1561010604758536272", name: "12_head_accessory" },
 	/**
 	 * Dark Rainbow Earrings.
 	 */
-	HeadAccessory13: { id: "1313935565112217680", name: "13_head_accessory" },
+	HeadAccessory13: { id: "1561010609477390448", name: "13_head_accessory" },
 	/**
 	 * Festival Earrings.
 	 */
@@ -3023,23 +3023,23 @@ const HEAD_ACCESSORY_EMOJIS = {
 	/**
 	 * Gift of the Nine-Coloured Deer antlers.
 	 */
-	HeadAccessory15: { id: "1313935563610394624", name: "15_head_accessory" },
+	HeadAccessory15: { id: "1561010612249698314", name: "15_head_accessory" },
 	/**
 	 * Days of Fortune Dragon Bangles.
 	 */
-	HeadAccessory16: { id: "1313935589833179230", name: "16_head_accessory" },
+	HeadAccessory16: { id: "1561010616708366346", name: "16_head_accessory" },
 	/**
 	 * Sunlight Helios Hoops earrings.
 	 */
-	HeadAccessory17: { id: "1313935574088028160", name: "17_head_accessory" },
+	HeadAccessory17: { id: "1561009725942800417", name: "17_head_accessory" },
 	/**
 	 * Moonlight earrings.
 	 */
-	HeadAccessory18: { id: "1313935591502643200", name: "18_head_accessory" },
+	HeadAccessory18: { id: "1561009717273428128", name: "18_head_accessory" },
 	/**
 	 * Radiance Provoking Performer.
 	 */
-	HeadAccessory19: { id: "1330643945394278400", name: "19_head_accessory" },
+	HeadAccessory19: { id: "1561010622274211860", name: "19_head_accessory" },
 	/**
 	 * Royal Hairtousle Teen.
 	 */
@@ -3063,7 +3063,7 @@ const HEAD_ACCESSORY_EMOJIS = {
 	/**
 	 * Charming Creature head accessory.
 	 */
-	HeadAccessory25: { id: "1492226472071397517", name: "25_head_accessory" },
+	HeadAccessory25: { id: "1561009720087810059", name: "25_head_accessory" },
 	/**
 	 * Starry Night's Kiss.
 	 */
@@ -3078,51 +3078,51 @@ const CAPE_EMOJIS = {
 	/**
 	 * Base.
 	 */
-	Cape01: { id: "1313937172839010304", name: "01_cape" },
+	Cape01: { id: "1561010626531295232", name: "01_cape" },
 	/**
 	 * Beta.
 	 */
-	Cape02: { id: "1313937182641098754", name: "02_cape" },
+	Cape02: { id: "1561009790031888465", name: "02_cape" },
 	/**
 	 * Starter Pack.
 	 */
-	Cape03: { id: "1313937177411059863", name: "03_cape" },
+	Cape03: { id: "1561010629538746449", name: "03_cape" },
 	/**
 	 * Butterfly Charmer 1.
 	 */
-	Cape04: { id: "1313937180401467412", name: "04_cape" },
+	Cape04: { id: "1561010634529833030", name: "04_cape" },
 	/**
 	 * Pouty Porter 1.
 	 */
-	Cape05: { id: "1313937174382772244", name: "05_cape" },
+	Cape05: { id: "1561010637222580315", name: "05_cape" },
 	/**
 	 * Dismayed Hunter 1.
 	 */
-	Cape06: { id: "1313937175901110302", name: "06_cape" },
+	Cape06: { id: "1561010643367108669", name: "06_cape" },
 	/**
 	 * Proud Victor 1.
 	 */
-	Cape07: { id: "1313937179101237368", name: "07_cape" },
+	Cape07: { id: "1561010646789922946", name: "07_cape" },
 	/**
 	 * Handstanding Thrillseeker 1.
 	 */
-	Cape08: { id: "1313937190916591666", name: "08_cape" },
+	Cape08: { id: "1561010651911028878", name: "08_cape" },
 	/**
 	 * Courageous Soldier 1.
 	 */
-	Cape09: { id: "1313937193521250486", name: "09_cape" },
+	Cape09: { id: "1561010655442636881", name: "09_cape" },
 	/**
 	 * Stealthy Survivor 1.
 	 */
-	Cape10: { id: "1313937198927708271", name: "10_cape" },
+	Cape10: { id: "1561010658655600711", name: "10_cape" },
 	/**
 	 * Praying Acolyte 1.
 	 */
-	Cape11: { id: "1313937186671951872", name: "11_cape" },
+	Cape11: { id: "1561010663998881893", name: "11_cape" },
 	/**
 	 * Memory Whisperer 1.
 	 */
-	Cape12: { id: "1313937184566280203", name: "12_cape" },
+	Cape12: { id: "1561010667039887492", name: "12_cape" },
 	/**
 	 * Saluting Protector.
 	 */
@@ -3134,7 +3134,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Founder's Pack.
 	 */
-	Cape15: { id: "1313937225494560819", name: "15_cape" },
+	Cape15: { id: "1561010672043819099", name: "15_cape" },
 	/**
 	 * Crab Whisperer.
 	 */
@@ -3226,15 +3226,15 @@ const CAPE_EMOJIS = {
 	/**
 	 * Butterfly Charmer 2.
 	 */
-	Cape38: { id: "1313937245576892416", name: "38_cape" },
+	Cape38: { id: "1561010676560953414", name: "38_cape" },
 	/**
 	 * Pouty Porter 2.
 	 */
-	Cape39: { id: "1313937211166822491", name: "39_cape" },
+	Cape39: { id: "1561010679589109791", name: "39_cape" },
 	/**
 	 * Proud Victor 2.
 	 */
-	Cape40: { id: "1313937216916947065", name: "40_cape" },
+	Cape40: { id: "1561010684928721026", name: "40_cape" },
 	/**
 	 * Days of Feast 2020.
 	 */
@@ -3262,11 +3262,11 @@ const CAPE_EMOJIS = {
 	/**
 	 * Courageous Soldier 2.
 	 */
-	Cape47: { id: "1313937250530361374", name: "47_cape" },
+	Cape47: { id: "1561010693954863206", name: "47_cape" },
 	/**
 	 * Praying Acolyte 2.
 	 */
-	Cape48: { id: "1313937226719035422", name: "48_cape" },
+	Cape48: { id: "1561010697301663764", name: "48_cape" },
 	/**
 	 * Days of Fortune 2021.
 	 */
@@ -3274,7 +3274,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Dismayed Hunter 2.
 	 */
-	Cape50: { id: "1313937224177287270", name: "50_cape" },
+	Cape50: { id: "1561010700527206430", name: "50_cape" },
 	/**
 	 * Days of Bloom 2021.
 	 */
@@ -3382,7 +3382,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Memory Whisperer 2.
 	 */
-	Cape77: { id: "1313937430163882014", name: "77_cape" },
+	Cape77: { id: "1561010703375147039", name: "77_cape" },
 	/**
 	 * Performance Guide (ultimate).
 	 */
@@ -3402,7 +3402,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Stealthy Survivor 2.
 	 */
-	Cape82: { id: "1313937449533182033", name: "82_cape" },
+	Cape82: { id: "1561009793311707230", name: "82_cape" },
 	/**
 	 * Ancient Darkness (plant).
 	 */
@@ -3526,7 +3526,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Remnant of a Forgotten Haven.
 	 */
-	Cape113: { id: "1313937639791136882", name: "113_cape" },
+	Cape113: { id: "1561010706663481374", name: "113_cape" },
 	/**
 	 * Memory of a Lost Village.
 	 */
@@ -3554,15 +3554,15 @@ const CAPE_EMOJIS = {
 	/**
 	 * Winter Quilted Cape.
 	 */
-	Cape120: { id: "1313937634212712538", name: "120_cape" },
+	Cape120: { id: "1561010708899045551", name: "120_cape" },
 	/**
 	 * Spirit of Mural (ultimate).
 	 */
-	Cape121: { id: "1313937665443496046", name: "121_cape" },
+	Cape121: { id: "1561010714284654592", name: "121_cape" },
 	/**
 	 * Hunter.
 	 */
-	Cape122: { id: "1313937629074423848", name: "122_cape" },
+	Cape122: { id: "1561010717975384177", name: "122_cape" },
 	/**
 	 * Feudal Lord.
 	 */
@@ -3578,19 +3578,19 @@ const CAPE_EMOJIS = {
 	/**
 	 * Days of Fortune Dragon Stole.
 	 */
-	Cape126: { id: "1313937668991619093", name: "126_cape" },
+	Cape126: { id: "1561010722803032225", name: "126_cape" },
 	/**
 	 * Days of Love Meteor Mantle.
 	 */
-	Cape127: { id: "1313937673806680134", name: "127_cape" },
+	Cape127: { id: "1561010725697355878", name: "127_cape" },
 	/**
 	 * Bloom Arum Petal Cape.
 	 */
-	Cape128: { id: "1313937664143130688", name: "128_cape" },
+	Cape128: { id: "1561010730831183972", name: "128_cape" },
 	/**
 	 * Nesting Loft.
 	 */
-	Cape129: { id: "1313937662264217641", name: "129_cape" },
+	Cape129: { id: "1561010736904409119", name: "129_cape" },
 	/**
 	 * Cinnamoroll Pop-Up Cafe Cloud Cape.
 	 */
@@ -3598,7 +3598,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Nature Wave Pack.
 	 */
-	Cape131: { id: "1313937651283394612", name: "131_cape" },
+	Cape131: { id: "1561010740062715995", name: "131_cape" },
 	/**
 	 * SkyFest Wireframe Cape.
 	 */
@@ -3614,7 +3614,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Sunlight Woven Wrap cape.
 	 */
-	Cape135: { id: "1313937653359448075", name: "135_cape" },
+	Cape135: { id: "1561009778057281666", name: "135_cape" },
 	/**
 	 * Comfort of Kindness.
 	 */
@@ -3666,7 +3666,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Blue Bird Guide (ultimate).
 	 */
-	Cape148: { id: "1365253698946863104", name: "148_cape" },
+	Cape148: { id: "1561009781479833710", name: "148_cape" },
 	/**
 	 * Divining Wise Grandparent.
 	 */
@@ -3802,7 +3802,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * FlOw cape.
 	 */
-	Cape182: { id: "1506644767235244123", name: "182_cape" },
+	Cape182: { id: "1561009713741570141", name: "182_cape" },
 	/**
 	 * Days of Colour 2026.
 	 */
@@ -3861,7 +3861,7 @@ const HELD_PROPS_EMOJIS = {
 	/**
 	 * Laughing Light Catcher.
 	 */
-	HeldProp01: { id: "1313937992813117524", name: "01_held_prop" },
+	HeldProp01: { id: "1561010743355244604", name: "01_held_prop" },
 	/**
 	 * Blushing Prospector.
 	 */
@@ -3909,7 +3909,7 @@ const HELD_PROPS_EMOJIS = {
 	/**
 	 * Pleaful Parent.
 	 */
-	HeldProp13: { id: "1313938002476531823", name: "13_held_prop" },
+	HeldProp13: { id: "1561010747834892429", name: "13_held_prop" },
 	/**
 	 * Hairtousle Teen.
 	 */
@@ -3953,11 +3953,11 @@ const HELD_PROPS_EMOJIS = {
 	/**
 	 * Tinkering Chimesmith.
 	 */
-	HeldProp24: { id: "1313938040493703178", name: "24_held_prop" },
+	HeldProp24: { id: "1561010751458775070", name: "24_held_prop" },
 	/**
 	 * Mellow Musician.
 	 */
-	HeldProp25: { id: "1313938000891220028", name: "25_held_prop" },
+	HeldProp25: { id: "1561010757334863872", name: "25_held_prop" },
 	/**
 	 * Fledgling Harp.
 	 */
@@ -3973,11 +3973,11 @@ const HELD_PROPS_EMOJIS = {
 	/**
 	 * Ancient Darkness (dragon).
 	 */
-	HeldProp29: { id: "1313938020323295302", name: "29_held_prop" },
+	HeldProp29: { id: "1561010760572866701", name: "29_held_prop" },
 	/**
 	 * TGC Guitar.
 	 */
-	HeldProp30: { id: "1313938011473444936", name: "30_held_prop" },
+	HeldProp30: { id: "1561009749183696998", name: "30_held_prop" },
 	/**
 	 * Voice of AURORA.
 	 */
@@ -3997,11 +3997,11 @@ const HELD_PROPS_EMOJIS = {
 	/**
 	 * Triumph Violin.
 	 */
-	HeldProp35: { id: "1313938054922240122", name: "35_held_prop" },
+	HeldProp35: { id: "1561009752065048746", name: "35_held_prop" },
 	/**
 	 * Triumph Saxophone.
 	 */
-	HeldProp36: { id: "1313938023662223410", name: "36_held_prop" },
+	HeldProp36: { id: "1561009754829103115", name: "36_held_prop" },
 	/**
 	 * Moments Guide (ultimate).
 	 */
@@ -4021,7 +4021,7 @@ const HELD_PROPS_EMOJIS = {
 	/**
 	 * Fortune Drum.
 	 */
-	HeldProp41: { id: "1313938043647955078", name: "41_held_prop" },
+	HeldProp41: { id: "1561010763840098444", name: "41_held_prop" },
 	/**
 	 * Bloom Lilypad Umbrella.
 	 */
@@ -4033,7 +4033,7 @@ const HELD_PROPS_EMOJIS = {
 	/**
 	 * The Musicians' Legacy.
 	 */
-	HeldProp44: { id: "1313938039281680414", name: "44_held_prop" },
+	HeldProp44: { id: "1561009759404949526", name: "44_held_prop" },
 	/**
 	 * Tournament Torch.
 	 */
@@ -4093,7 +4093,7 @@ const HELD_PROPS_EMOJIS = {
 	/**
 	 * Lightmending Light Catcher.
 	 */
-	HeldProp59: { id: "1464065540283961476", name: "59_held_prop" },
+	HeldProp59: { id: "1561009762571911288", name: "59_held_prop" },
 	/**
 	 * Tournament of Triumph 2026.
 	 */
@@ -4124,7 +4124,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Meditating Monastic.
 	 */
-	LargePlaceableProp01: { id: "1313938252285345852", name: "01_large_placeable_prop" },
+	LargePlaceableProp01: { id: "1561010768822931626", name: "01_large_placeable_prop" },
 	/**
 	 * Belonging Guide (ultimate).
 	 */
@@ -4156,11 +4156,11 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Scaredy Cadet.
 	 */
-	LargePlaceableProp09: { id: "1313938271985729616", name: "09_large_placeable_prop" },
+	LargePlaceableProp09: { id: "1561010772874629140", name: "09_large_placeable_prop" },
 	/**
 	 * Marching Adventurer.
 	 */
-	LargePlaceableProp10: { id: "1313938241744932969", name: "10_large_placeable_prop" },
+	LargePlaceableProp10: { id: "1561010775924015334", name: "10_large_placeable_prop" },
 	/**
 	 * Assembly Guide (non-ultimate 5).
 	 */
@@ -4200,7 +4200,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Festival Spin Dancer.
 	 */
-	LargePlaceableProp20: { id: "1313938265262264411", name: "20_large_placeable_prop" },
+	LargePlaceableProp20: { id: "1561010780252540949", name: "20_large_placeable_prop" },
 	/**
 	 * Mischief Spooky Dining Set.
 	 */
@@ -4244,7 +4244,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Remembrance Guide (non-ultimate 2).
 	 */
-	LargePlaceableProp31: { id: "1313938319112933507", name: "31_large_placeable_prop" },
+	LargePlaceableProp31: { id: "1561010785684295761", name: "31_large_placeable_prop" },
 	/**
 	 * Remembrance Guide (non-ultimate 3).
 	 */
@@ -4296,11 +4296,11 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Nesting Nook.
 	 */
-	LargePlaceableProp44: { id: "1313938295255863326", name: "44_large_placeable_prop" },
+	LargePlaceableProp44: { id: "1561010788263792814", name: "44_large_placeable_prop" },
 	/**
 	 * Stone stool.
 	 */
-	LargePlaceableProp45: { id: "1313938297008951347", name: "45_large_placeable_prop" },
+	LargePlaceableProp45: { id: "1561009858130608198", name: "45_large_placeable_prop" },
 	/**
 	 * Stone single bench.
 	 */
@@ -4308,7 +4308,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Stone wood-fired oven.
 	 */
-	LargePlaceableProp47: { id: "1313938329636704276", name: "47_large_placeable_prop" },
+	LargePlaceableProp47: { id: "1561010801882439710", name: "47_large_placeable_prop" },
 	/**
 	 * Stone single bed.
 	 */
@@ -4320,7 +4320,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Stone chair.
 	 */
-	LargePlaceableProp50: { id: "1313938328231608340", name: "50_large_placeable_prop" },
+	LargePlaceableProp50: { id: "1561009854636888174", name: "50_large_placeable_prop" },
 	/**
 	 * Stone small table.
 	 */
@@ -4328,7 +4328,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Stone tall shelf.
 	 */
-	LargePlaceableProp52: { id: "1313938278109679677", name: "52_large_placeable_prop" },
+	LargePlaceableProp52: { id: "1561010805787463690", name: "52_large_placeable_prop" },
 	/**
 	 * Cosy Cafe Table.
 	 */
@@ -4340,7 +4340,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Stone desk.
 	 */
-	LargePlaceableProp55: { id: "1313938418107023410", name: "55_large_placeable_prop" },
+	LargePlaceableProp55: { id: "1561010808715223090", name: "55_large_placeable_prop" },
 	/**
 	 * Stone armchair.
 	 */
@@ -4388,7 +4388,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Stone coffee table.
 	 */
-	LargePlaceableProp67: { id: "1313938430182428835", name: "67_large_placeable_prop" },
+	LargePlaceableProp67: { id: "1561010811282128957", name: "67_large_placeable_prop" },
 	/**
 	 * Stone candle light.
 	 */
@@ -4400,11 +4400,11 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Stone kitchen cabinet.
 	 */
-	LargePlaceableProp70: { id: "1313938440320057384", name: "70_large_placeable_prop" },
+	LargePlaceableProp70: { id: "1561010814843097202", name: "70_large_placeable_prop" },
 	/**
 	 * Stone kitchen stove.
 	 */
-	LargePlaceableProp71: { id: "1313938446170980372", name: "71_large_placeable_prop" },
+	LargePlaceableProp71: { id: "1561010818106265663", name: "71_large_placeable_prop" },
 	/**
 	 * Stone wide cube.
 	 */
@@ -4536,7 +4536,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Migration Guide (non-ultimate).
 	 */
-	LargePlaceableProp104: { id: "1451111865974259794", name: "104_large_placeable_prop" },
+	LargePlaceableProp104: { id: "1561010820903866450", name: "104_large_placeable_prop" },
 	/**
 	 * Horizontal ice block.
 	 */
@@ -4592,7 +4592,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Days of Treasure 2026 1.
 	 */
-	LargePlaceableProp118: { id: "1559295436391719013", name: "118_large_placeable_prop" },
+	LargePlaceableProp118: { id: "1561009744830009415", name: "118_large_placeable_prop" },
 	/**
 	 * Days of Treasure 2026 2.
 	 */
@@ -4600,7 +4600,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Bounce pad 2.
 	 */
-	LargePlaceableProp120: { id: "1506377579098148984", name: "120_large_placeable_prop" },
+	LargePlaceableProp120: { id: "1561010824112382022", name: "120_large_placeable_prop" },
 	/**
 	 * Bounce pad 3.
 	 */
@@ -4620,7 +4620,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Vase with Fifteen Sunflowers (ultimate).
 	 */
-	LargePlaceableProp125: { id: "1529588114266390631", name: "125_large_placeable_prop" },
+	LargePlaceableProp125: { id: "1561010828449292309", name: "125_large_placeable_prop" },
 	/**
 	 * Sunlight Crab Float.
 	 */
@@ -4679,7 +4679,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Second Sky Anniversary.
 	 */
-	SmallPlaceableProp05: { id: "1313938674169413645", name: "05_small_placeable_prop" },
+	SmallPlaceableProp05: { id: "1561010831611797524", name: "05_small_placeable_prop" },
 	/**
 	 * Mischief Pumpkin Prop.
 	 */
@@ -4715,11 +4715,11 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Balloon.
 	 */
-	SmallPlaceableProp14: { id: "1313938749385867334", name: "14_small_placeable_prop" },
+	SmallPlaceableProp14: { id: "1561010836577722519", name: "14_small_placeable_prop" },
 	/**
 	 * Confetti launcher.
 	 */
-	SmallPlaceableProp15: { id: "1313938747477463092", name: "15_small_placeable_prop" },
+	SmallPlaceableProp15: { id: "1561010839060746293", name: "15_small_placeable_prop" },
 	/**
 	 * Sunlight Campfire Snack Kit.
 	 */
@@ -4735,7 +4735,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Remembrance Guide (non-ultimate 1).
 	 */
-	SmallPlaceableProp19: { id: "1313938758755946577", name: "19_small_placeable_prop" },
+	SmallPlaceableProp19: { id: "1561010844450684988", name: "19_small_placeable_prop" },
 	/**
 	 * Remembrance Guide (non-ultimate 4).
 	 */
@@ -4743,7 +4743,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Remembrance Guide (non-ultimate 5).
 	 */
-	SmallPlaceableProp21: { id: "1313938665478553630", name: "21_small_placeable_prop" },
+	SmallPlaceableProp21: { id: "1561010847516729454", name: "21_small_placeable_prop" },
 	/**
 	 * Bloom Butterfly Fountain.
 	 */
@@ -4755,7 +4755,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Nature Sonorous Seashell.
 	 */
-	SmallPlaceableProp24: { id: "1313938760521613373", name: "24_small_placeable_prop" },
+	SmallPlaceableProp24: { id: "1561010852314751037", name: "24_small_placeable_prop" },
 	/**
 	 * Jolly Geologist.
 	 */
@@ -4763,7 +4763,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Anniversary Sonorous Seashell.
 	 */
-	SmallPlaceableProp26: { id: "1313938679206645821", name: "26_small_placeable_prop" },
+	SmallPlaceableProp26: { id: "1561010856903573627", name: "26_small_placeable_prop" },
 	/**
 	 * Anniversary Plush.
 	 */
@@ -4779,7 +4779,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Days of Feast 2023.
 	 */
-	SmallPlaceableProp30: { id: "1313938684562899084", name: "30_small_placeable_prop" },
+	SmallPlaceableProp30: { id: "1561010860422332466", name: "30_small_placeable_prop" },
 	/**
 	 * Herb Gatherer.
 	 */
@@ -4903,7 +4903,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Stone wall mug rack.
 	 */
-	SmallPlaceableProp61: { id: "1313938883582623805", name: "61_small_placeable_prop" },
+	SmallPlaceableProp61: { id: "1561010866026061905", name: "61_small_placeable_prop" },
 	/**
 	 * Stone wall towel rack.
 	 */
@@ -5187,7 +5187,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Dutch Memory.
 	 */
-	SmallPlaceableProp132: { id: "1529590663081885847", name: "132_small_placeable_prop" },
+	SmallPlaceableProp132: { id: "1561010868752228553", name: "132_small_placeable_prop" },
 	/**
 	 * Rustic Memory.
 	 */
