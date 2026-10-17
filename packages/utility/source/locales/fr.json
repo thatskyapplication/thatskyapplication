@@ -105,6 +105,7 @@
 			"The Battlefield": "Le Champ de Bataille",
 			"Crab Fields": "Champs de crabes",
 			"Temple of the Wasteland": "Temple du Désert",
+			"Pearl Village": "Village des perles",
 			"Vault Rest": "Repos de la Chambre Forte",
 			"Vault Archive": "Archives de la Chambre Forte",
 			"Repository of Refuge": "Dépôt du refuge",
@@ -125,8 +126,7 @@
 			"The Void of Shattering": "Le Néant de l'Éclatement",
 			"Aviary Village": "Village volière",
 			"Wandering Carnival": "Carnaval itinérant",
-			"The Last City": "La Dernière Ville",
-			"Pearl Village": "Village des perles"
+			"The Last City": "La Dernière Ville"
 		},
 		"occurrences": {
 			"0": "Réinitialisation journalière",
@@ -475,7 +475,8 @@
 			"26": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_la_Migration",
 			"27": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_l'Éclairation",
 			"28": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_du_Carnaval",
-			"29": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Cher_Van_Gogh"
+			"29": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Cher_Van_Gogh",
+			"30": ""
 		},
 		"event": "Évènement",
 		"events": "Évènements",
@@ -617,7 +618,9 @@
 			"91": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Anniversaire_de_Sky/2026",
 			"92": "",
 			"93": "",
-			"94": ""
+			"94": "",
+			"95": "",
+			"96": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -1057,7 +1060,12 @@
 			"209": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_néerlandais",
 			"210": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_rustique",
 			"211": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_artistique",
-			"212": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_joyeux"
+			"212": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Souvenir_joyeux",
+			"213": "",
+			"214": "",
+			"215": "",
+			"216": "",
+			"217": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
@@ -2294,10 +2302,47 @@
 			"2960": "Nimbus du clair de lune",
 			"2961": "Voile du clair de lune",
 			"2962": "",
+			"2963": "",
+			"2964": "",
 			"2965": "Bandeau Tournesol",
 			"2966": "Cravate Tournesol",
 			"2967": "Robe Tournesol",
-			"2993": "Le vieux pêcheur"
+			"2978": "",
+			"2982": "",
+			"2983": "",
+			"2988": "",
+			"2991": "",
+			"2993": "Le vieux pêcheur",
+			"2995": "",
+			"2996": "",
+			"3001": "",
+			"3004": "",
+			"3008": "",
+			"3009": "",
+			"3014": "",
+			"3016": "",
+			"3027": "",
+			"3028": "",
+			"3029": "",
+			"3030": "",
+			"3031": "",
+			"3032": "",
+			"3033": "",
+			"3034": "",
+			"3035": "",
+			"3036": "",
+			"3037": "",
+			"3038": "",
+			"3039": "",
+			"3040": "",
+			"3041": "",
+			"3042": "",
+			"3043": "",
+			"3044": "",
+			"3045": "",
+			"3046": "",
+			"3047": "",
+			"3048": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",
@@ -2648,6 +2693,7 @@
 			"loyalty": "Boutique de fidélité",
 			"main-no-progress": "Aucun progrès",
 			"main-progress": "Progrès : {{number}}%",
+			"main-progress-label": "",
 			"search-placeholder": "",
 			"search-no-results": "",
 			"search-result-detail": "",
@@ -2731,6 +2777,28 @@
 			"do-not-disturb-blessing-message-incomplete": "",
 			"do-not-disturb-blessing-message-complete": "",
 			"nothing-to-do": ""
+		},
+		"cosmetics": {
+			"title": "",
+			"description-short": "",
+			"highlight-owned": "",
+			"no-source": "",
+			"search-placeholder": "",
+			"sections": {
+				"outfits": "",
+				"full-outfits": "",
+				"masks": "",
+				"face-accessories": "",
+				"necklaces": "",
+				"hair-accessories": "",
+				"head-accessories": "",
+				"capes": "",
+				"held-props": "",
+				"large-placeable-props": "",
+				"small-placeable-props": ""
+			},
+			"source_one": "",
+			"source_other": ""
 		},
 		"daily-guides": {
 			"name": "Guides journaliers",

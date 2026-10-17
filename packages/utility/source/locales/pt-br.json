@@ -105,6 +105,7 @@
 			"The Battlefield": "O Campo de Batalha",
 			"Crab Fields": "Campos de Caranguejo",
 			"Temple of the Wasteland": "Templo do Sertão",
+			"Pearl Village": "Aldeia das Pérolas",
 			"Vault Rest": "Descanso do Relicário",
 			"Vault Archive": "Arquivos do Relicário",
 			"Repository of Refuge": "Repositório do Refúgio",
@@ -125,8 +126,7 @@
 			"The Void of Shattering": "O Vazio Despedaçado",
 			"Aviary Village": "Aldeia Aviária",
 			"Wandering Carnival": "Circo Itinerante",
-			"The Last City": "A Última Cidade",
-			"Pearl Village": "Aldeia das Pérolas"
+			"The Last City": "A Última Cidade"
 		},
 		"occurrences": {
 			"0": "Reinicialização diária",
@@ -475,7 +475,8 @@
 			"26": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Migração",
 			"27": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Restauração_da_Luz",
 			"28": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_do_Circo",
-			"29": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Querido_Van_Gogh"
+			"29": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Querido_Van_Gogh",
+			"30": ""
 		},
 		"event": "Evento",
 		"events": "Eventos",
@@ -617,7 +618,9 @@
 			"91": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Aniversário_do_Sky/2026",
 			"92": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados/2026",
 			"93": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acampamento_de_Verão",
-			"94": ""
+			"94": "",
+			"95": "",
+			"96": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -1057,7 +1060,12 @@
 			"209": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Lembrança_Holandesa",
 			"210": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Lembrança_Rústica",
 			"211": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Lembrança_Artística",
-			"212": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Lembrança_de_Alegria"
+			"212": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Lembrança_de_Alegria",
+			"213": "",
+			"214": "",
+			"215": "",
+			"216": "",
+			"217": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
@@ -2294,10 +2302,47 @@
 			"2960": "Nuvem do Luar",
 			"2961": "Véu do Luar",
 			"2962": "",
+			"2963": "",
+			"2964": "",
 			"2965": "Tiara de Girassol",
 			"2966": "Gravata de Girassol",
 			"2967": "Vestido de Girassol",
-			"2993": "O Velho Pescador"
+			"2978": "",
+			"2982": "",
+			"2983": "",
+			"2988": "",
+			"2991": "",
+			"2993": "O Velho Pescador",
+			"2995": "",
+			"2996": "",
+			"3001": "",
+			"3004": "",
+			"3008": "",
+			"3009": "",
+			"3014": "",
+			"3016": "",
+			"3027": "",
+			"3028": "",
+			"3029": "",
+			"3030": "",
+			"3031": "",
+			"3032": "",
+			"3033": "",
+			"3034": "",
+			"3035": "",
+			"3036": "",
+			"3037": "",
+			"3038": "",
+			"3039": "",
+			"3040": "",
+			"3041": "",
+			"3042": "",
+			"3043": "",
+			"3044": "",
+			"3045": "",
+			"3046": "",
+			"3047": "",
+			"3048": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -2648,6 +2693,7 @@
 			"loyalty": "Loja de Fidelidade",
 			"main-no-progress": "Sem progresso",
 			"main-progress": "Progresso: {{number}}%",
+			"main-progress-label": "",
 			"search-placeholder": "Procure por temporadas, eventos, ou espíritos...",
 			"search-no-results": "Nada foi encontrado.",
 			"search-result-detail": "{{name}} ({{detail}})",
@@ -2731,6 +2777,28 @@
 			"do-not-disturb-blessing-message-incomplete": "Você já resgatou sua bênção diária ‘Não perturbe’?",
 			"do-not-disturb-blessing-message-complete": "Você obteve a bênção ‘Não perturbe’!",
 			"nothing-to-do": ""
+		},
+		"cosmetics": {
+			"title": "",
+			"description-short": "",
+			"highlight-owned": "",
+			"no-source": "",
+			"search-placeholder": "",
+			"sections": {
+				"outfits": "",
+				"full-outfits": "",
+				"masks": "",
+				"face-accessories": "",
+				"necklaces": "",
+				"hair-accessories": "",
+				"head-accessories": "",
+				"capes": "",
+				"held-props": "",
+				"large-placeable-props": "",
+				"small-placeable-props": ""
+			},
+			"source_one": "",
+			"source_other": ""
 		},
 		"daily-guides": {
 			"name": "Guias diários",

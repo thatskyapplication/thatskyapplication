@@ -105,6 +105,7 @@
 			"The Battlefield": "Campo di Battaglia",
 			"Crab Fields": "Campi del granchio",
 			"Temple of the Wasteland": "Tempio del Deserto",
+			"Pearl Village": "Villaggio Perla",
 			"Vault Rest": "Riposo della Cupola",
 			"Vault Archive": "Archivi della Cupola",
 			"Repository of Refuge": "Cripta di rifugio",
@@ -125,8 +126,7 @@
 			"The Void of Shattering": "Il Vuoto della Distruzione",
 			"Aviary Village": "Villaggio degli Uccelli",
 			"Wandering Carnival": "Carnevale itinerante",
-			"The Last City": "Ultima Città",
-			"Pearl Village": "Villaggio Perla"
+			"The Last City": "Ultima Città"
 		},
 		"occurrences": {
 			"0": "",
@@ -475,7 +475,8 @@
 			"26": "",
 			"27": "",
 			"28": "",
-			"29": ""
+			"29": "",
+			"30": ""
 		},
 		"event": "",
 		"events": "",
@@ -617,7 +618,9 @@
 			"91": "",
 			"92": "",
 			"93": "",
-			"94": ""
+			"94": "",
+			"95": "",
+			"96": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -1057,7 +1060,12 @@
 			"209": "",
 			"210": "",
 			"211": "",
-			"212": ""
+			"212": "",
+			"213": "",
+			"214": "",
+			"215": "",
+			"216": "",
+			"217": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -2294,10 +2302,47 @@
 			"2960": "Nembo del chiaro di luna",
 			"2961": "Velo del chiaro di luna",
 			"2962": "",
+			"2963": "",
+			"2964": "",
 			"2965": "Cerchietto Girasole",
 			"2966": "Cravatta Girasole",
 			"2967": "Vestito Girasole",
-			"2993": "Il Vecchio Pescatore"
+			"2978": "",
+			"2982": "",
+			"2983": "",
+			"2988": "",
+			"2991": "",
+			"2993": "Il Vecchio Pescatore",
+			"2995": "",
+			"2996": "",
+			"3001": "",
+			"3004": "",
+			"3008": "",
+			"3009": "",
+			"3014": "",
+			"3016": "",
+			"3027": "",
+			"3028": "",
+			"3029": "",
+			"3030": "",
+			"3031": "",
+			"3032": "",
+			"3033": "",
+			"3034": "",
+			"3035": "",
+			"3036": "",
+			"3037": "",
+			"3038": "",
+			"3039": "",
+			"3040": "",
+			"3041": "",
+			"3042": "",
+			"3043": "",
+			"3044": "",
+			"3045": "",
+			"3046": "",
+			"3047": "",
+			"3048": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2648,6 +2693,7 @@
 			"loyalty": "Negozio Fedeltà",
 			"main-no-progress": "",
 			"main-progress": "",
+			"main-progress-label": "",
 			"search-placeholder": "",
 			"search-no-results": "",
 			"search-result-detail": "",
@@ -2731,6 +2777,28 @@
 			"do-not-disturb-blessing-message-incomplete": "",
 			"do-not-disturb-blessing-message-complete": "",
 			"nothing-to-do": ""
+		},
+		"cosmetics": {
+			"title": "",
+			"description-short": "",
+			"highlight-owned": "",
+			"no-source": "",
+			"search-placeholder": "",
+			"sections": {
+				"outfits": "",
+				"full-outfits": "",
+				"masks": "",
+				"face-accessories": "",
+				"necklaces": "",
+				"hair-accessories": "",
+				"head-accessories": "",
+				"capes": "",
+				"held-props": "",
+				"large-placeable-props": "",
+				"small-placeable-props": ""
+			},
+			"source_one": "",
+			"source_other": ""
 		},
 		"daily-guides": {
 			"name": "",
