@@ -5,11 +5,10 @@ import { AreaName } from "../../../geography.js";
 
 export default new StandardSpirit({
 	id: SpiritId.WhaleWhisperer,
-	call: Cosmetic.CallWhale,
 	area: AreaName.Boneyard,
 	offer: {
 		current: [
-			[{ cosmetic: Cosmetic.CallWhale }],
+			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallWhale }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },

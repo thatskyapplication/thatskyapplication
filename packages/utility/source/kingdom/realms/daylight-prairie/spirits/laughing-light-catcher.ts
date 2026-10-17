@@ -1,13 +1,10 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { StandardSpirit } from "../../../../models/spirits.js";
-import { SpiritEmote, SpiritId } from "../../../../utility/spirits.js";
+import { SpiritId } from "../../../../utility/spirits.js";
 import { AreaName } from "../../../geography.js";
-
-const emote = SpiritEmote.Laugh;
 
 export default new StandardSpirit({
 	id: SpiritId.LaughingLightCatcher,
-	emote,
 	area: AreaName.PrairieVillage,
 	offer: {
 		current: [

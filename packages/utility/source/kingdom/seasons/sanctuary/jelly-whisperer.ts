@@ -8,11 +8,10 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.JellyWhisperer,
 	seasonId: SeasonId.Sanctuary,
-	call: Cosmetic.CallJellyfish,
 	area: AreaName.SanctuaryIslands,
 	offer: {
 		seasonal: [
-			[{ cosmetic: Cosmetic.CallJellyfish }],
+			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallJellyfish }],
 			[
 				{
 					cosmetic: Cosmetic.JellyWhispererMusicSheet,
@@ -58,7 +57,7 @@ export default new SeasonalSpirit({
 			],
 		],
 		current: [
-			[{ cosmetic: Cosmetic.CallJellyfish }],
+			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallJellyfish }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },

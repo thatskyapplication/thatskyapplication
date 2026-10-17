@@ -37,7 +37,11 @@ export function ItemRow({
 			/>
 			{emoji ? <EmojiIcon className="h-6 w-6" emoji={emoji} /> : null}
 			<span className="min-w-0 flex-1 text-sm text-gray-900 dark:text-gray-100">
-				{t(item.translation.key, { ns: "general", number: item.translation.number })}
+				{t(item.translation.key, {
+					ns: "general",
+					number: item.translation.number,
+					level: item.translation.level,
+				})}
 			</span>
 			<span className="text-sm text-gray-600 dark:text-gray-400">
 				<CostList costs={costs} locale={locale} />

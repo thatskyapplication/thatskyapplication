@@ -8,11 +8,10 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.SassyDrifter,
 	seasonId: SeasonId.Gratitude,
-	stance: Cosmetic.StanceSassy,
 	area: AreaName.DawnCircle,
 	offer: {
 		seasonal: [
-			[{ cosmetic: Cosmetic.StanceSassy }],
+			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSassy }],
 			[
 				{
 					translation: CosmeticCommon.Hair,
@@ -35,7 +34,7 @@ export default new SeasonalSpirit({
 			[{ cosmetic: Cosmetic.SassyDrifterMask, seasonPass: true }],
 		],
 		current: [
-			[{ cosmetic: Cosmetic.StanceSassy }],
+			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSassy }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },

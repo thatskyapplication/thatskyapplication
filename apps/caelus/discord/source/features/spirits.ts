@@ -43,23 +43,10 @@ export async function searchAutocomplete<
 						.filter((spirit) => {
 							const { id, keywords } = spirit;
 							const localisedName = t(`spirits.${id}`, { lng: locale, ns: "general" });
-							let emote = null;
-							let stance = null;
-							let call = null;
 							let action = null;
 							const isSeasonalSpirit = spirit.isSeasonalSpirit();
 
 							if (spirit.isStandardSpirit() || isSeasonalSpirit) {
-								emote = spirit.emote?.toUpperCase() ?? null;
-
-								stance = spirit.stance
-									? t(`cosmetic-names.${spirit.stance}`, { lng: locale, ns: "general" })
-									: null;
-
-								call = spirit.call
-									? t(`cosmetic-names.${spirit.call}`, { lng: locale, ns: "general" })
-									: null;
-
 								action = spirit.action?.toUpperCase() ?? null;
 							}
 
@@ -71,9 +58,6 @@ export async function searchAutocomplete<
 							return (
 								localisedName.toUpperCase().includes(value) ||
 								keywords.some((keyword) => keyword.toUpperCase().includes(value)) ||
-								emote?.toUpperCase().includes(value) ||
-								stance?.toUpperCase().includes(value) ||
-								call?.toUpperCase().includes(value) ||
 								action?.toUpperCase().includes(value) ||
 								seasonName?.includes(value)
 							);

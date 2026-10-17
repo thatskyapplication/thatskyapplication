@@ -5,12 +5,11 @@ import { AreaName } from "../../../geography.js";
 
 export default new StandardSpirit({
 	id: SpiritId.ProudVictor,
-	stance: Cosmetic.StanceProud,
 	area: AreaName.TempleOfTheValley,
 	offer: {
 		current: [
 			[
-				{ cosmetic: Cosmetic.StanceProud },
+				{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceProud },
 				{
 					translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
 					cosmetic: Cosmetic.ProudVictorCape1,

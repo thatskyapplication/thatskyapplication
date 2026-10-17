@@ -20,7 +20,6 @@ import {
 	type ItemRawWithoutChildren,
 	type ItemRawWithPossibleChildren,
 	type LegacyFriendshipTree,
-	type SpiritEmote,
 	type SpiritIds,
 	SpiritType,
 } from "../utility/spirits.js";
@@ -92,9 +91,6 @@ interface BaseSpiritData {
 		| ElderFriendshipTreeOfferData
 		| SeasonalFriendshipTreeOfferData
 		| GuideFriendshipTreeOfferData;
-	emote?: SpiritEmote;
-	stance?: Cosmetic;
-	call?: Cosmetic;
 	action?: FriendAction;
 }
 
@@ -198,12 +194,6 @@ abstract class BaseSpirit<Data extends BaseSpiritData> {
 
 	public readonly imageURL: string | null;
 
-	public readonly emote: SpiritEmote | null;
-
-	public readonly stance: Cosmetic | null;
-
-	public readonly call: Cosmetic | null;
-
 	public readonly action: FriendAction | null;
 
 	public constructor(data: Data) {
@@ -221,9 +211,6 @@ abstract class BaseSpirit<Data extends BaseSpiritData> {
 			? this.resolveImageURL()
 			: null;
 
-		this.emote = data.emote ?? null;
-		this.stance = data.stance ?? null;
-		this.call = data.call ?? null;
 		this.action = data.action ?? null;
 	}
 

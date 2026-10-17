@@ -8,11 +8,10 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.LightWhisperer,
 	seasonId: SeasonId.Flight,
-	call: Cosmetic.CallBabyManta,
 	area: AreaName.TheWindPaths,
 	offer: {
 		seasonal: [
-			[{ cosmetic: Cosmetic.CallBabyManta }],
+			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallBabyManta }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
@@ -71,7 +70,7 @@ export default new SeasonalSpirit({
 			],
 		],
 		current: [
-			[{ cosmetic: Cosmetic.CallBabyManta }],
+			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallBabyManta }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },

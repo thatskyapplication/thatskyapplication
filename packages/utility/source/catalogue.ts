@@ -458,18 +458,6 @@ export function catalogueSpiritSearchEntries(
 		const keywords = [...spirit.keywords, resolveName(spiritOriginTranslationKey(spirit))];
 
 		if (spirit.isStandardSpirit() || spirit.isSeasonalSpirit()) {
-			if (spirit.emote) {
-				keywords.push(spirit.emote);
-			}
-
-			if (spirit.stance) {
-				keywords.push(resolveName(`cosmetic-names.${spirit.stance}`));
-			}
-
-			if (spirit.call) {
-				keywords.push(resolveName(`cosmetic-names.${spirit.call}`));
-			}
-
 			if (spirit.action) {
 				keywords.push(spirit.action);
 			}

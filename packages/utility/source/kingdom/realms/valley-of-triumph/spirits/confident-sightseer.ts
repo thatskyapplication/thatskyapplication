@@ -5,12 +5,11 @@ import { AreaName } from "../../../geography.js";
 
 export default new StandardSpirit({
 	id: SpiritId.ConfidentSightseer,
-	stance: Cosmetic.StanceConfident,
 	area: AreaName.FrozenLake,
 	offer: {
 		current: [
 			[
-				{ cosmetic: Cosmetic.StanceConfident },
+				{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceConfident },
 				{
 					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.ConfidentSightseerHair,

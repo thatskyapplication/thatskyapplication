@@ -8,12 +8,11 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.LaidbackPioneer,
 	seasonId: SeasonId.Lightseekers,
-	stance: Cosmetic.StanceLaidback,
 	area: AreaName.ForestBrook,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			[{ cosmetic: Cosmetic.StanceLaidback }],
+			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceLaidback }],
 			[
 				{
 					translation: CosmeticCommon.Mask,
@@ -62,7 +61,7 @@ export default new SeasonalSpirit({
 			],
 		],
 		current: [
-			[{ cosmetic: Cosmetic.StanceLaidback }],
+			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceLaidback }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },

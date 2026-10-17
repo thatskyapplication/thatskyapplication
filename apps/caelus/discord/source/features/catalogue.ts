@@ -139,6 +139,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 								lng: locale,
 								ns: "general",
 								number: translation.number,
+								level: translation.level,
 							});
 				});
 

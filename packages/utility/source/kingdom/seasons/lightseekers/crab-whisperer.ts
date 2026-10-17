@@ -8,12 +8,11 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.CrabWhisperer,
 	seasonId: SeasonId.Lightseekers,
-	call: Cosmetic.CallCrab,
 	area: AreaName.CrabFields,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			[{ cosmetic: Cosmetic.CallCrab }],
+			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallCrab }],
 			[
 				{
 					translation: CosmeticCommon.Mask,
@@ -63,7 +62,7 @@ export default new SeasonalSpirit({
 		],
 		current: [
 			[
-				{ cosmetic: Cosmetic.CallCrab },
+				{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallCrab },
 				{
 					cosmetic: Cosmetic.CrabWhispererPipe,
 					cost: { candles: 20 },

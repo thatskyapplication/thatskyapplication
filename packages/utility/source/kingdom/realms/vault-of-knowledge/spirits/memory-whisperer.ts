@@ -5,12 +5,11 @@ import { AreaName } from "../../../geography.js";
 
 export default new StandardSpirit({
 	id: SpiritId.MemoryWhisperer,
-	call: Cosmetic.CallCosmicManta,
 	area: AreaName.UpperVault,
 	offer: {
 		current: [
 			[
-				{ cosmetic: Cosmetic.CallCosmicManta },
+				{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallCosmicManta },
 				{
 					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.MemoryWhispererOutfit,

@@ -8,11 +8,10 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.WoundedWarrior,
 	seasonId: SeasonId.Remembrance,
-	stance: Cosmetic.StanceInjured,
 	area: AreaName.RepositoryOfRefuge,
 	offer: {
 		seasonal: [
-			[{ cosmetic: Cosmetic.StanceInjured }],
+			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceInjured }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
@@ -59,7 +58,7 @@ export default new SeasonalSpirit({
 			],
 		],
 		current: [
-			[{ cosmetic: Cosmetic.StanceInjured }],
+			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceInjured }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },

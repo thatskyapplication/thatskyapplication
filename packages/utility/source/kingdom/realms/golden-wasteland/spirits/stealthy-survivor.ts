@@ -5,12 +5,11 @@ import { AreaName } from "../../../geography.js";
 
 export default new StandardSpirit({
 	id: SpiritId.StealthySurvivor,
-	stance: Cosmetic.StanceSneaky,
 	area: AreaName.TheGraveyard,
 	offer: {
 		current: [
 			[
-				{ cosmetic: Cosmetic.StanceSneaky },
+				{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSneaky },
 				{
 					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.StealthySurvivorHair,

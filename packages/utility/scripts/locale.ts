@@ -4044,16 +4044,6 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.WhaleWhispererMusicSheet",
 	},
 	{
-		upstreamKey: "consumable_name_shout_manta",
-		overrides: {
-			Base: {
-				upstreamValue: "Manta Call",
-				value: "Manta call",
-			},
-		},
-		tsKey: "Cosmetic.CallManta",
-	},
-	{
 		upstreamKey: "sheet_05",
 		tsKey: "Cosmetic.MantaWhispererMusicSheet",
 	},
@@ -4072,16 +4062,6 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "sheet_09",
 		tsKey: "Cosmetic.LaidbackPioneerMusicSheet",
-	},
-	{
-		upstreamKey: "consumable_name_shout_crab",
-		overrides: {
-			Base: {
-				upstreamValue: "Crab Call",
-				value: "Crab call",
-			},
-		},
-		tsKey: "Cosmetic.CallCrab",
 	},
 	{
 		upstreamKey: "sheet_10",
@@ -4134,16 +4114,6 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "commerce_item_name_covid_pack",
 		tsKey: "Cosmetic.HealingHairAccessory",
-	},
-	{
-		upstreamKey: "consumable_name_shout_jelly",
-		overrides: {
-			Base: {
-				upstreamValue: "Jellyfish Call",
-				value: "Jellyfish call",
-			},
-		},
-		tsKey: "Cosmetic.CallJellyfish",
 	},
 	{
 		upstreamKey: "sheet_14",

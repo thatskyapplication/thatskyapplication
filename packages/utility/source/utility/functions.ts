@@ -1,4 +1,4 @@
-import type { Cosmetic } from "../cosmetics.js";
+import { type Cosmetic, CosmeticCommon, EXPRESSION_LEVELS } from "../cosmetics.js";
 import type { FriendshipTreeRaw, LegacyFriendshipTreeRaw } from "../models/spirits.js";
 import type { SeasonIds } from "../season.js";
 import type { EventIds } from "./event.js";
@@ -71,6 +71,42 @@ interface ResolveOfferOptions {
 	eventId?: EventIds;
 }
 
+function resolveItemTranslation(item: ItemRaw): Item["translation"] {
+	if ("packName" in item) {
+		return { key: `cosmetic-pack-names.${item.packName}` };
+	}
+
+	const expressionLevel = EXPRESSION_LEVELS.get(item.cosmetic);
+
+	if (item.translation === undefined) {
+		if (expressionLevel === undefined) {
+			return { key: `cosmetic-names.${item.cosmetic}` };
+		}
+
+		return expressionLevel === 1
+			? { key: `cosmetic-common-names.${CosmeticCommon.Expression}` }
+			: { key: `cosmetic-common-names.${CosmeticCommon.ExpressionLevel}`, level: expressionLevel };
+	}
+
+	if (typeof item.translation === "number") {
+		return { key: `cosmetic-common-names.${item.translation}` };
+	}
+
+	if (
+		item.translation.key === CosmeticCommon.ExpressionMultiple &&
+		expressionLevel !== undefined &&
+		expressionLevel > 1
+	) {
+		return {
+			...item.translation,
+			key: `cosmetic-common-names.${CosmeticCommon.ExpressionMultipleLevel}`,
+			level: expressionLevel,
+		};
+	}
+
+	return { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` };
+}
+
 export function resolveOffer(
 	friendshipTree: FriendshipTreeRaw | LegacyFriendshipTreeRaw,
 	options?: ResolveOfferOptions,
@@ -108,14 +144,7 @@ export function resolveOfferFromItems(
 	return items.map((item) =>
 		item
 			? {
-					translation:
-						"packName" in item
-							? { key: `cosmetic-pack-names.${item.packName}` }
-							: !("translation" in item) || item.translation === undefined
-								? { key: `cosmetic-names.${item.cosmetic}` }
-								: typeof item.translation === "number"
-									? { key: `cosmetic-common-names.${item.translation}` }
-									: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
+					translation: resolveItemTranslation(item),
 					cosmetics: Array.isArray(item.cosmetic)
 						? // These assertions are necessary because the type is too complex to represent.
 							(item.cosmetic as readonly [Cosmetic, ...Cosmetic[]])

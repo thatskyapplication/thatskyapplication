@@ -5,12 +5,11 @@ import { AreaName } from "../../../geography.js";
 
 export default new StandardSpirit({
 	id: SpiritId.PoliteScholar,
-	stance: Cosmetic.StancePolite,
 	area: AreaName.LowerVault,
 	offer: {
 		current: [
 			[
-				{ cosmetic: Cosmetic.StancePolite },
+				{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StancePolite },
 				{
 					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.PoliteScholarOutfit,

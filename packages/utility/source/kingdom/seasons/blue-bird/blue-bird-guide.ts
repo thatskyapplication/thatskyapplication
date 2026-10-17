@@ -85,7 +85,7 @@ export default new GuideSpirit({
 					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 					cosmetic: Cosmetic.BlueBirdGuideQuest4,
 				},
-				{ cosmetic: Cosmetic.StanceSad, cost: { hearts: 3 } },
+				{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSad, cost: { hearts: 3 } },
 			],
 			[
 				{
@@ -102,7 +102,7 @@ export default new GuideSpirit({
 					translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
 					cosmetic: Cosmetic.BlueBirdGuideQuest6,
 				},
-				{ cosmetic: Cosmetic.CallBlueBird, cost: { hearts: 3 } },
+				{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallBlueBird, cost: { hearts: 3 } },
 			],
 			[
 				{

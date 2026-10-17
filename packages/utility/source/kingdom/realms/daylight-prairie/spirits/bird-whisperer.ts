@@ -5,12 +5,11 @@ import { AreaName } from "../../../geography.js";
 
 export default new StandardSpirit({
 	id: SpiritId.BirdWhisperer,
-	call: Cosmetic.CallBird,
 	area: AreaName.BirdNest,
 	offer: {
 		current: [
 			[
-				{ cosmetic: Cosmetic.CallBird },
+				{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallBird },
 				{
 					cosmetic: Cosmetic.BirdWhispererMusicSheet,
 					cost: { hearts: 1 },

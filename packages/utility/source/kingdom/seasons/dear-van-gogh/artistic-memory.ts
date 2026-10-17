@@ -1,7 +1,7 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit, SpiritKind } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
-import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
+import { SpiritId } from "../../../utility/spirits.js";
 import { AreaName } from "../../geography.js";
 
 export default new SeasonalSpirit({
@@ -9,7 +9,6 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Mannequin,
 	seasonId: SeasonId.DearVanGogh,
 	area: AreaName.StarryGallery,
-	emote: SpiritEmote.Draw,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

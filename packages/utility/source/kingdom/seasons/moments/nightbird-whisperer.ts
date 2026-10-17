@@ -8,11 +8,10 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.NightbirdWhisperer,
 	seasonId: SeasonId.Moments,
-	call: Cosmetic.CallNightbird,
 	area: AreaName.PrairiePeaks,
 	offer: {
 		seasonal: [
-			[{ cosmetic: Cosmetic.CallNightbird }],
+			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallNightbird }],
 			[
 				{
 					translation: CosmeticCommon.Hair,
@@ -71,7 +70,7 @@ export default new SeasonalSpirit({
 			],
 		],
 		current: [
-			[{ cosmetic: Cosmetic.CallNightbird }],
+			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallNightbird }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },

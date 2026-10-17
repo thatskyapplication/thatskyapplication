@@ -8,12 +8,11 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.TinkeringChimesmith,
 	seasonId: SeasonId.Flight,
-	stance: Cosmetic.StanceTinker,
 	area: AreaName.TheWindPaths,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			[{ cosmetic: Cosmetic.StanceTinker }],
+			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTinker }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
@@ -68,7 +67,7 @@ export default new SeasonalSpirit({
 			],
 		],
 		current: [
-			[{ cosmetic: Cosmetic.StanceTinker }],
+			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTinker }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },

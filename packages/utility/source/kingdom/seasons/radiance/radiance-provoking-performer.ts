@@ -1,22 +1,19 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
-import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
+import { SpiritId } from "../../../utility/spirits.js";
 import { AreaName } from "../../geography.js";
-
-const emote = SpiritEmote.HypeDance;
 
 export default new SeasonalSpirit({
 	id: SpiritId.RadianceProvokingPerformer,
 	seasonId: SeasonId.Radiance,
 	area: AreaName.AviaryVillage,
-	emote,
 	offer: {
 		hasInfographic: false,
 		seasonal: [
 			[
-				{ cosmetic: Cosmetic.HypeDance1 },
-				{ cosmetic: Cosmetic.HypeDance2, level: 2, seasonPass: true },
+				{ cosmetic: Cosmetic.EmoteHypeDance1 },
+				{ cosmetic: Cosmetic.EmoteHypeDance2, level: 2, seasonPass: true },
 			],
 			[
 				{
@@ -43,11 +40,11 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
-					cosmetic: Cosmetic.HypeDance3,
+					cosmetic: Cosmetic.EmoteHypeDance3,
 					cost: { seasonalCandles: 18 },
 					level: 3,
 				},
-				{ cosmetic: Cosmetic.HypeDance4, level: 4, seasonPass: true },
+				{ cosmetic: Cosmetic.EmoteHypeDance4, level: 4, seasonPass: true },
 			],
 			[
 				{

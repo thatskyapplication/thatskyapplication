@@ -4,19 +4,17 @@ import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
 import { AreaName } from "../../geography.js";
 
-const call = Cosmetic.CallLighthorn;
-
 export default new SeasonalSpirit({
 	id: SpiritId.MigratingBellmaker,
 	seasonId: SeasonId.Migration,
-	call,
 	area: AreaName.DawnCircle,
 	offer: {
 		hasInfographic: false,
 		seasonal: [
 			[
 				{
-					cosmetic: call,
+					translation: CosmeticCommon.Call,
+					cosmetic: Cosmetic.CallLighthorn,
 				},
 				{
 					cosmetic: Cosmetic.MusicSheetAncientEcho,

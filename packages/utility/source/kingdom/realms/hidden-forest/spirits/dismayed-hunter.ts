@@ -1,19 +1,16 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { StandardSpirit } from "../../../../models/spirits.js";
-import { SpiritEmote, SpiritId } from "../../../../utility/spirits.js";
+import { SpiritId } from "../../../../utility/spirits.js";
 import { AreaName } from "../../../geography.js";
-
-const emote = SpiritEmote.Shocked;
 
 export default new StandardSpirit({
 	id: SpiritId.DismayedHunter,
-	emote,
 	area: AreaName.Boneyard,
 	offer: {
 		current: [
 			[
-				{ cosmetic: Cosmetic.Shocked1 },
-				{ cosmetic: Cosmetic.Shocked2, cost: { candles: 3 }, level: 2 },
+				{ cosmetic: Cosmetic.EmoteShocked1 },
+				{ cosmetic: Cosmetic.EmoteShocked2, cost: { candles: 3 }, level: 2 },
 			],
 			[
 				{
@@ -40,8 +37,8 @@ export default new StandardSpirit({
 				},
 			],
 			[
-				{ cosmetic: Cosmetic.Shocked3, cost: { candles: 5 }, level: 3 },
-				{ cosmetic: Cosmetic.Shocked4, cost: { candles: 5 }, level: 4 },
+				{ cosmetic: Cosmetic.EmoteShocked3, cost: { candles: 5 }, level: 3 },
+				{ cosmetic: Cosmetic.EmoteShocked4, cost: { candles: 5 }, level: 4 },
 			],
 			[
 				{

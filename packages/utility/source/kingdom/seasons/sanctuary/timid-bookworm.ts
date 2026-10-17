@@ -8,12 +8,11 @@ import { AreaName } from "../../geography.js";
 export default new SeasonalSpirit({
 	id: SpiritId.TimidBookworm,
 	seasonId: SeasonId.Sanctuary,
-	stance: Cosmetic.StanceTimid,
 	area: AreaName.SanctuaryIslands,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			[{ cosmetic: Cosmetic.StanceTimid }],
+			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTimid }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
@@ -57,7 +56,7 @@ export default new SeasonalSpirit({
 		],
 		current: [
 			[
-				{ cosmetic: Cosmetic.StanceTimid },
+				{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTimid },
 				{
 					cosmetic: Cosmetic.TimidBookwormMusicSheet,
 					cost: { candles: 15 },

@@ -8,12 +8,12 @@ export default new SeasonalSpirit({
 	id: SpiritId.ScarredSentry,
 	seasonId: SeasonId.TwoEmbersPart1,
 	area: AreaName.TheLastCity,
-	stance: Cosmetic.StanceScarred,
 	offer: {
 		hasInfographic: false,
 		seasonal: [
 			[
 				{
+					translation: CosmeticCommon.Stance,
 					cosmetic: Cosmetic.StanceScarred,
 				},
 			],

@@ -5,11 +5,10 @@ import { AreaName } from "../../../geography.js";
 
 export default new StandardSpirit({
 	id: SpiritId.MantaWhisperer,
-	call: Cosmetic.CallManta,
 	area: AreaName.TheCitadel,
 	offer: {
 		current: [
-			[{ cosmetic: Cosmetic.CallManta }],
+			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallManta }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },

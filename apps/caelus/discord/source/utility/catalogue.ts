@@ -14,6 +14,7 @@ export function itemToSelectMenuOption(
 			lng: locale,
 			ns: "general",
 			number: translation.number,
+			level: translation.level,
 		}),
 		value: JSON.stringify(cosmetics),
 	};

@@ -172,7 +172,11 @@ function TreeNode({
 	const { t } = useTranslation();
 	const { item } = node;
 	const owned = interaction?.owned ?? true;
-	const name = t(item.translation.key, { ns: "general", number: item.translation.number });
+	const name = t(item.translation.key, {
+		ns: "general",
+		number: item.translation.number,
+		level: item.translation.level,
+	});
 	const cost = node.cost ? resolveNodeCost(item, locale) : null;
 	const accessibleDetails = [];
 

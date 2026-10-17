@@ -80,11 +80,8 @@ test("Spirits are searchable by their season and realm.", () => {
 	ok(byRealm.length > 0, "Expected spirits to match their realm name.");
 });
 
-test("Spirits are searchable by their expressions.", () => {
+test("Spirits are searchable by their friend actions.", () => {
 	for (const [query, expectedSpiritIds] of [
-		["Clap", [SpiritId.ApplaudingBellmaker]],
-		["Wise Stance", [SpiritId.WiseGrandparent]],
-		["Nightbird Call", [SpiritId.NightbirdWhisperer]],
 		["Whisper", [SpiritId.LightmendingLightScholar]],
 		["Secret Handshake", [SpiritId.LightmendingLightCatcher]],
 	] as const) {
