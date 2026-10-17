@@ -721,9 +721,6 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								>
 									{t("sky-profile.edit-winged-light-description", { ns: "features" })}
 								</p>
-								<p className="text-xs text-gray-500 dark:text-gray-500">
-									Note: Discord must be used to modify your catalogue.
-								</p>
 								<fieldset
 									aria-describedby={`winged-light-description${wingedLightError ? " winged-light-error" : ""}`}
 									aria-invalid={wingedLightError ? true : undefined}
