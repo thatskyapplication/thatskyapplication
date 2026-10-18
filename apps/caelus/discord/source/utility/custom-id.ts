@@ -47,7 +47,7 @@ export const enum CustomId {
 	DailyGuidesDistribute = "45",
 	DataDelete = "46",
 	/**
-	 * Discord Delivery creates a message that uses this.
+	 * Rubricator is the source of this.
 	 */
 	FriendshipActionsContribute = "47",
 	GuessSpiritOption1 = "48",
