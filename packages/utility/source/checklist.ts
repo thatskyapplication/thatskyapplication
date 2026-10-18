@@ -10,6 +10,7 @@ export const CHECKLIST_HIDDEN_COLUMNS = [
 	"eye_of_eden_hidden",
 	"shard_eruptions_hidden",
 	"dye_workshop_hidden",
+	"lightmending_hidden",
 	"do_not_disturb_hidden",
 	"event_tickets_hidden",
 ] as const satisfies readonly (keyof Packet<"checklist">)[];
@@ -22,6 +23,7 @@ export const ChecklistHiddenColumnToLocaleKey = {
 	eye_of_eden_hidden: `general:areas.${AreaName.EyeOfEden}`,
 	shard_eruptions_hidden: "features:shard-eruption.name-plural",
 	dye_workshop_hidden: "general:dye-workshop",
+	lightmending_hidden: "features:checklist.lightmending",
 	do_not_disturb_hidden: "features:checklist.do-not-disturb-blessing",
 	event_tickets_hidden: "general:event-tickets",
 } as const satisfies Readonly<Record<ChecklistHiddenColumn, string>>;
@@ -41,6 +43,7 @@ export function checklistResetPayload(lastUpdatedAt: Date, now: Date): Checklist
 	if (today.epochMilliseconds > lastUpdatedTimestamp) {
 		payload.daily_quests = false;
 		payload.do_not_disturb = false;
+		payload.lightmending = false;
 		payload.seasonal_candles = false;
 		payload.shard_eruptions = false;
 		payload.event_tickets = false;

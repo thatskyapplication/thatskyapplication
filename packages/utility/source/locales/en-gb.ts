@@ -2606,6 +2606,11 @@ export default {
 			"do-not-disturb-blessing": "Do not disturb blessing",
 			"do-not-disturb-blessing-message-incomplete": "Claimed your daily do not disturb blessing?",
 			"do-not-disturb-blessing-message-complete": "Do not disturb blessing obtained!",
+			lightmending: "Lightmending",
+			"lightmending-message-incomplete": "Have you lightmended today's lantern?",
+			"lightmending-message-complete": "You have lightmended today's lantern!",
+			"lightmending-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Fractured_Lantern_Storage#Lightmending_Lanterns",
 			"nothing-to-do": "Yo, check this Sky kid out. Nothing to do. 'Tis the life.",
 		},
 		cosmetics: {

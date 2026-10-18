@@ -15,6 +15,7 @@ test("Checklist daily tasks reset at midnight Pacific Time.", () => {
 		last_updated_at: now,
 		daily_quests: false,
 		do_not_disturb: false,
+		lightmending: false,
 		seasonal_candles: false,
 		shard_eruptions: false,
 		event_tickets: false,

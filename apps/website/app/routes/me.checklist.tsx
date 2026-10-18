@@ -26,6 +26,7 @@ import {
 	skyCurrentSeason,
 	skyNow,
 } from "@thatskyapplication/utility";
+import { ExternalLink } from "~/components/ExternalLink";
 import { SitePage } from "~/components/PageLayout";
 import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
@@ -105,6 +106,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	const eyeOfEden = formData.get("eye_of_eden");
 	const shardEruptions = formData.get("shard_eruptions");
 	const dyeWorkshop = formData.get("dye_workshop");
+	const lightmending = formData.get("lightmending");
 	const doNotDisturbBlessing = formData.get("do_not_disturb");
 	const eventTickets = formData.get("event_tickets");
 	const now = new Date();
@@ -143,6 +145,10 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 
 		if (dyeWorkshop !== null) {
 			payload.dye_workshop = dyeWorkshop === "0";
+		}
+
+		if (lightmending !== null) {
+			payload.lightmending = lightmending === "0";
 		}
 
 		if (doNotDisturbBlessing !== null) {
@@ -303,6 +309,10 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		"dye_workshop",
 		checklistPacket?.dye_workshop ?? false,
 	);
+	const [lightmendingFetcher, lightmendingComplete] = useChecklistToggle(
+		"lightmending",
+		checklistPacket?.lightmending ?? false,
+	);
 	const [doNotDisturbBlessingFetcher, doNotDisturbBlessingComplete] = useChecklistToggle(
 		"do_not_disturb",
 		checklistPacket?.do_not_disturb ?? false,
@@ -317,6 +327,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 	const eyeOfEdenVisible = !checklistPacket?.eye_of_eden_hidden;
 	const shardEruptionsVisible = !checklistPacket?.shard_eruptions_hidden;
 	const dyeWorkshopVisible = !checklistPacket?.dye_workshop_hidden;
+	const lightmendingVisible = !checklistPacket?.lightmending_hidden;
 	const doNotDisturbBlessingVisible = !checklistPacket?.do_not_disturb_hidden;
 	const eventTicketsVisible = isAnyEventWithEventTickets && !checklistPacket?.event_tickets_hidden;
 
@@ -326,6 +337,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		eyeOfEdenVisible ||
 		shardEruptionsVisible ||
 		dyeWorkshopVisible ||
+		lightmendingVisible ||
 		doNotDisturbBlessingVisible ||
 		eventTicketsVisible
 	);
@@ -630,6 +642,56 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 									</div>
 								</button>
 							</dyeWorkshopFetcher.Form>
+						</div>
+					)}
+
+					{lightmendingVisible && (
+						<div>
+							<lightmendingFetcher.Form className="flex h-full w-full" method="post">
+								<input name="lightmending" type="hidden" value={Number(lightmendingComplete)} />
+								<button
+									className={clsx(
+										CHECKLIST_INTERACTIVE_CARD_CLASS,
+										lightmendingComplete
+											? CHECKLIST_COMPLETE_CARD_CLASS
+											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+									)}
+									type="submit"
+								>
+									<div className="shrink-0">
+										{lightmendingComplete ? (
+											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+										) : (
+											<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
+										)}
+									</div>
+									<div className="min-w-0 flex-1 text-left">
+										<div
+											className={clsx(
+												CHECKLIST_LABEL_CLASS,
+												lightmendingComplete
+													? CHECKLIST_COMPLETE_LABEL_CLASS
+													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+											)}
+										>
+											{t("checklist.lightmending", { ns: "features" })}
+										</div>
+										<div className="text-xs text-gray-500 dark:text-gray-400">
+											{lightmendingComplete
+												? t("checklist.lightmending-message-complete", { ns: "features" })
+												: t("checklist.lightmending-message-incomplete", { ns: "features" })}
+										</div>
+									</div>
+									<ExternalLink
+										className={clsx(CHECKLIST_VIEW_LINK_CLASS, "inline-flex items-center gap-1.5")}
+										href={t("checklist.lightmending-wiki-button-url", { ns: "features" })}
+										icon
+										onClick={(event) => event.stopPropagation()}
+									>
+										{t("wiki", { ns: "general" })}
+									</ExternalLink>
+								</button>
+							</lightmendingFetcher.Form>
 						</div>
 					)}
 

@@ -41,6 +41,8 @@ export interface Checklist {
   eye_of_eden: Generated<boolean>;
   eye_of_eden_hidden: Generated<boolean>;
   last_updated_at: Timestamp;
+  lightmending: Generated<boolean>;
+  lightmending_hidden: Generated<boolean>;
   seasonal_candles: Generated<boolean>;
   seasonal_candles_hidden: Generated<boolean>;
   shard_eruptions: Generated<boolean>;

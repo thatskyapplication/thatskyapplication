@@ -636,6 +636,11 @@ export default {
 					return;
 				}
 
+				if (id === CustomId.ChecklistLightmendingComplete) {
+					await checklistToggle(data, "lightmending");
+					return;
+				}
+
 				if (id === CustomId.ChecklistSettings) {
 					await checklistSettings(data);
 					return;

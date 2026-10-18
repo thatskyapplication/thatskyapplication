@@ -94,15 +94,15 @@ export async function checklist({
 				},
 			],
 		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
 	];
 
 	if (!checklistPacket?.daily_quests_hidden) {
 		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
 			{
 				type: ComponentType.Section,
 				accessory: checklistPacket?.daily_quests
@@ -152,103 +152,84 @@ export async function checklist({
 	}
 
 	if (season && !checklistPacket?.seasonal_candles_hidden) {
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.Section,
-				accessory: checklistPacket?.seasonal_candles
-					? {
-							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: `${CustomId.ChecklistSeasonalCandlesComplete}§1`,
-							label: t("reset", {
-								lng: locale,
-								ns: "general",
-							}),
-						}
-					: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: `${CustomId.ChecklistSeasonalCandlesComplete}§0`,
-							label: t("checklist.complete", {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: checklistPacket?.seasonal_candles
+				? {
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistSeasonalCandlesComplete}§1`,
+						label: t("reset", {
+							lng: locale,
+							ns: "general",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistSeasonalCandlesComplete}§0`,
+						label: t("checklist.complete", {
+							lng: locale,
+							ns: "features",
+						}),
+					},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: checklistPacket?.seasonal_candles
+						? t("checklist.seasonal-candles-message-complete", {
 								lng: locale,
 								ns: "features",
-							}),
-						},
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: checklistPacket?.seasonal_candles
-							? t("checklist.seasonal-candles-message-complete", {
+							})
+						: season.isDuringDoubleSeasonalLightEvent(now)
+							? t("checklist.seasonal-candles-message-incomplete-double", {
 									lng: locale,
 									ns: "features",
 								})
-							: season.isDuringDoubleSeasonalLightEvent(now)
-								? t("checklist.seasonal-candles-message-incomplete-double", {
-										lng: locale,
-										ns: "features",
-									})
-								: t("checklist.seasonal-candles-message-incomplete", {
-										lng: locale,
-										ns: "features",
-									}),
-					},
-				],
-			},
-		);
+							: t("checklist.seasonal-candles-message-incomplete", {
+									lng: locale,
+									ns: "features",
+								}),
+				},
+			],
+		});
 	}
 
 	if (!checklistPacket?.eye_of_eden_hidden) {
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.Section,
-				accessory: checklistPacket?.eye_of_eden
-					? {
-							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: `${CustomId.ChecklistEyeOfEdenComplete}§1`,
-							label: t("reset", {
-								lng: locale,
-								ns: "general",
-							}),
-						}
-					: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: `${CustomId.ChecklistEyeOfEdenComplete}§0`,
-							label: t("checklist.complete", {
-								lng: locale,
-								ns: "features",
-							}),
-						},
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: checklistPacket?.eye_of_eden
-							? t("checklist.eye-of-eden-message-complete", { lng: locale, ns: "features" })
-							: t("checklist.eye-of-eden-message-incomplete", { lng: locale, ns: "features" }),
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: checklistPacket?.eye_of_eden
+				? {
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistEyeOfEdenComplete}§1`,
+						label: t("reset", {
+							lng: locale,
+							ns: "general",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistEyeOfEdenComplete}§0`,
+						label: t("checklist.complete", {
+							lng: locale,
+							ns: "features",
+						}),
 					},
-				],
-			},
-		);
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: checklistPacket?.eye_of_eden
+						? t("checklist.eye-of-eden-message-complete", { lng: locale, ns: "features" })
+						: t("checklist.eye-of-eden-message-incomplete", { lng: locale, ns: "features" }),
+				},
+			],
+		});
 	}
 
 	if (!checklistPacket?.shard_eruptions_hidden) {
 		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
 			{
 				type: ComponentType.Section,
 				accessory: checklistPacket?.shard_eruptions
@@ -297,19 +278,53 @@ export async function checklist({
 	}
 
 	if (!checklistPacket?.dye_workshop_hidden) {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: checklistPacket?.dye_workshop
+				? {
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistDyeWorkshopComplete}§1`,
+						label: t("reset", {
+							lng: locale,
+							ns: "general",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistDyeWorkshopComplete}§0`,
+						label: t("checklist.complete", {
+							lng: locale,
+							ns: "features",
+						}),
+					},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: checklistPacket?.dye_workshop
+						? t("checklist.dye-workshop-message-complete", {
+								lng: locale,
+								ns: "features",
+							})
+						: t("checklist.dye-workshop-message-incomplete", {
+								lng: locale,
+								ns: "features",
+							}),
+				},
+			],
+		});
+	}
+
+	if (!checklistPacket?.lightmending_hidden) {
 		containerComponents.push(
 			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
 				type: ComponentType.Section,
-				accessory: checklistPacket?.dye_workshop
+				accessory: checklistPacket?.lightmending
 					? {
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
-							custom_id: `${CustomId.ChecklistDyeWorkshopComplete}§1`,
+							custom_id: `${CustomId.ChecklistLightmendingComplete}§1`,
 							label: t("reset", {
 								lng: locale,
 								ns: "general",
@@ -318,7 +333,7 @@ export async function checklist({
 					: {
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
-							custom_id: `${CustomId.ChecklistDyeWorkshopComplete}§0`,
+							custom_id: `${CustomId.ChecklistLightmendingComplete}§0`,
 							label: t("checklist.complete", {
 								lng: locale,
 								ns: "features",
@@ -327,15 +342,29 @@ export async function checklist({
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: checklistPacket?.dye_workshop
-							? t("checklist.dye-workshop-message-complete", {
+						content: checklistPacket?.lightmending
+							? t("checklist.lightmending-message-complete", {
 									lng: locale,
 									ns: "features",
 								})
-							: t("checklist.dye-workshop-message-incomplete", {
+							: t("checklist.lightmending-message-incomplete", {
 									lng: locale,
 									ns: "features",
 								}),
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						style: ButtonStyle.Link,
+						url: t("checklist.lightmending-wiki-button-url", {
+							lng: locale,
+							ns: "features",
+						}),
+						label: t("wiki", { lng: locale, ns: "general" }),
 					},
 				],
 			},
@@ -343,109 +372,88 @@ export async function checklist({
 	}
 
 	if (!checklistPacket?.do_not_disturb_hidden) {
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.Section,
-				accessory: checklistPacket?.do_not_disturb
-					? {
-							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: `${CustomId.ChecklistDoNotDisturbBlessingComplete}§1`,
-							label: t("reset", {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: checklistPacket?.do_not_disturb
+				? {
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistDoNotDisturbBlessingComplete}§1`,
+						label: t("reset", {
+							lng: locale,
+							ns: "general",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistDoNotDisturbBlessingComplete}§0`,
+						label: t("checklist.complete", {
+							lng: locale,
+							ns: "features",
+						}),
+					},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: checklistPacket?.do_not_disturb
+						? t("checklist.do-not-disturb-blessing-message-complete", {
 								lng: locale,
-								ns: "general",
-							}),
-						}
-					: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: `${CustomId.ChecklistDoNotDisturbBlessingComplete}§0`,
-							label: t("checklist.complete", {
+								ns: "features",
+							})
+						: t("checklist.do-not-disturb-blessing-message-incomplete", {
 								lng: locale,
 								ns: "features",
 							}),
-						},
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: checklistPacket?.do_not_disturb
-							? t("checklist.do-not-disturb-blessing-message-complete", {
-									lng: locale,
-									ns: "features",
-								})
-							: t("checklist.do-not-disturb-blessing-message-incomplete", {
-									lng: locale,
-									ns: "features",
-								}),
-					},
-				],
-			},
-		);
+				},
+			],
+		});
 	}
 
 	if (isAnyEventWithEventTickets && !checklistPacket?.event_tickets_hidden) {
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.Section,
-				accessory: checklistPacket?.event_tickets
-					? {
-							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: `${CustomId.ChecklistEventTicketsComplete}§1`,
-							label: t("reset", {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: checklistPacket?.event_tickets
+				? {
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistEventTicketsComplete}§1`,
+						label: t("reset", {
+							lng: locale,
+							ns: "general",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistEventTicketsComplete}§0`,
+						label: t("checklist.complete", {
+							lng: locale,
+							ns: "features",
+						}),
+					},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: checklistPacket?.event_tickets
+						? t("checklist.event-tickets-message-complete", {
 								lng: locale,
-								ns: "general",
-							}),
-						}
-					: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: `${CustomId.ChecklistEventTicketsComplete}§0`,
-							label: t("checklist.complete", {
+								ns: "features",
+							})
+						: t("checklist.event-tickets-message-incomplete", {
 								lng: locale,
 								ns: "features",
 							}),
-						},
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: checklistPacket?.event_tickets
-							? t("checklist.event-tickets-message-complete", {
-									lng: locale,
-									ns: "features",
-								})
-							: t("checklist.event-tickets-message-incomplete", {
-									lng: locale,
-									ns: "features",
-								}),
-					},
-				],
-			},
-		);
+				},
+			],
+		});
 	}
 
-	if (containerComponents.length === 1) {
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content: t("checklist.nothing-to-do", { lng: locale, ns: "features" }),
-			},
-		);
+	if (containerComponents.length === 2) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: t("checklist.nothing-to-do", { lng: locale, ns: "features" }),
+		});
 	}
 
 	return [{ type: ComponentType.Container, components: containerComponents }];
@@ -534,6 +542,7 @@ export async function checklistToggle(
 		| "dye_workshop"
 		| "event_tickets"
 		| "eye_of_eden"
+		| "lightmending"
 		| "seasonal_candles"
 		| "shard_eruptions",
 ) {
