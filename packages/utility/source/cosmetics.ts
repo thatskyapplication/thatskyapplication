@@ -3955,6 +3955,12 @@ export const EXPRESSION_LEVELS: ReadonlyMap<Cosmetic, number> = new Map(
 	),
 );
 
+export const MUSIC_SHEETS: ReadonlySet<Cosmetic> = new Set(
+	Object.entries(Cosmetic).flatMap(([name, cosmetic]) =>
+		typeof cosmetic === "number" && name.includes("MusicSheet") ? [cosmetic] : [],
+	),
+);
+
 export const WING_BUFFS = [
 	Cosmetic.PointingCandlemakerWingBuff,
 	Cosmetic.UsheringStargazerWingBuff,

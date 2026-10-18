@@ -49,7 +49,10 @@ function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 			return {
 				to,
 				emoji: seasonal ? SeasonIdToSeasonalEmoji[spirit.seasonId] : null,
-				detail: t(spiritOriginTranslationKey(spirit), { ns: "general" }),
+				detail:
+					cosmeticDisplay === null
+						? t(spiritOriginTranslationKey(spirit), { ns: "general" })
+						: t(`spirits.${spirit.id}`, { ns: "general" }),
 			};
 		}
 		case CatalogueSearchType.Collection: {

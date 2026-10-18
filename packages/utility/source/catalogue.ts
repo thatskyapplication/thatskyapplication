@@ -1,5 +1,5 @@
 import { type APITextDisplayComponent, ComponentType } from "discord-api-types/v10";
-import { Cosmetic, CosmeticPackName } from "./cosmetics.js";
+import { Cosmetic, CosmeticPackName, MUSIC_SHEETS } from "./cosmetics.js";
 import { type Emoji, formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
 import { skyEventFamilies, skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
@@ -472,21 +472,27 @@ export function catalogueSpiritSearchEntries(
 	});
 }
 
-function inAppPurchaseEntries(
+function isIndexed({ cosmetics, cost }: Item) {
+	return cost?.money !== undefined || (cosmetics.length === 1 && MUSIC_SHEETS.has(cosmetics[0]));
+}
+
+function itemEntries(
 	items: Iterable<Item>,
 	target: CatalogueSearchTarget,
+	targetName: string | null,
 	resolveName: (key: string) => string,
 ): CatalogueSearchEntry[] {
 	const entries: CatalogueSearchEntry[] = [];
 
-	for (const { cost, cosmeticDisplay, translation } of items) {
-		if (cost?.money !== undefined) {
-			entries.push({
-				name: resolveName(translation.key),
-				keywords: [],
-				cosmeticDisplay,
-				target,
-			});
+	for (const item of items) {
+		if (!isIndexed(item)) {
+			continue;
+		}
+
+		const name = resolveName(item.translation.key);
+
+		if (name !== targetName) {
+			entries.push({ name, keywords: [], cosmeticDisplay: item.cosmeticDisplay, target });
 		}
 	}
 
@@ -514,14 +520,10 @@ export function catalogueSearchEntries(
 	const entries: CatalogueSearchEntry[] = [];
 
 	for (const season of skySeasons().toReversed().values()) {
+		const name = resolveName(`seasons.${season.id}`);
 		const target = { type: CatalogueSearchType.Season, season } as const;
-		entries.push({
-			name: resolveName(`seasons.${season.id}`),
-			keywords: [],
-			cosmeticDisplay: null,
-			target,
-		});
-		entries.push(...inAppPurchaseEntries(season.items, target, resolveName));
+		entries.push({ name, keywords: [], cosmeticDisplay: null, target });
+		entries.push(...itemEntries(season.items, target, name, resolveName));
 	}
 
 	if (groupEventFamilies) {
@@ -538,21 +540,29 @@ export function catalogueSearchEntries(
 	}
 
 	for (const event of skyEvents().toReversed().values()) {
+		const name = groupEventFamilies ? null : resolveName(event.name);
 		const target = { type: CatalogueSearchType.Event, event } as const;
 
-		if (!groupEventFamilies) {
-			entries.push({
-				name: resolveName(event.name),
-				keywords: [],
-				cosmeticDisplay: null,
-				target,
-			});
+		if (name !== null) {
+			entries.push({ name, keywords: [], cosmeticDisplay: null, target });
 		}
 
-		entries.push(...inAppPurchaseEntries(event.offer, target, resolveName));
+		entries.push(...itemEntries(event.offer, target, name, resolveName));
 	}
 
-	entries.push(...catalogueSpiritSearchEntries(resolveName));
+	const spiritEntries = catalogueSpiritSearchEntries(resolveName);
+	entries.push(...spiritEntries);
+
+	for (const { name, target } of spiritEntries) {
+		entries.push(
+			...itemEntries(
+				friendshipTreeToItems(target.spirit.displayFriendshipTree),
+				target,
+				name,
+				resolveName,
+			),
+		);
+	}
 
 	for (const [collection, { items }] of [
 		[CatalogueCollection.StarterPacks, STARTER_PACKS],
@@ -562,9 +572,10 @@ export function catalogueSearchEntries(
 		[CatalogueCollection.Loyalty, LOYALTY],
 	] as const) {
 		entries.push(
-			...inAppPurchaseEntries(
+			...itemEntries(
 				items,
 				{ type: CatalogueSearchType.Collection, collection },
+				null,
 				resolveName,
 			),
 		);

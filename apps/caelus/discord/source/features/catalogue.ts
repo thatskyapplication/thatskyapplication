@@ -31,6 +31,7 @@ import {
 	catalogueProgress,
 	CatalogueCollection,
 	catalogueSearch,
+	type CatalogueSearchEntry,
 	type CatalogueSearchTargetWithoutEventFamily,
 	catalogueSearchEntries,
 	CatalogueSearchType,
@@ -613,8 +614,7 @@ function searchEntries(locale: Locale) {
 }
 
 function searchResultName(
-	name: string,
-	target: CatalogueSearchTargetWithoutEventFamily,
+	{ cosmeticDisplay, name, target }: CatalogueSearchEntry<CatalogueSearchTargetWithoutEventFamily>,
 	locale: Locale,
 ) {
 	let detail: string | number | null;
@@ -627,7 +627,10 @@ function searchResultName(
 			detail = target.event.start.year;
 			break;
 		case CatalogueSearchType.Spirit:
-			detail = t(spiritOriginTranslationKey(target.spirit), { lng: locale, ns: "general" });
+			detail =
+				cosmeticDisplay === null
+					? t(spiritOriginTranslationKey(target.spirit), { lng: locale, ns: "general" })
+					: t(`spirits.${target.spirit.id}`, { lng: locale, ns: "general" });
 			break;
 		case CatalogueSearchType.Collection:
 			detail = t(CatalogueCollectionToLocaleKey[target.collection], { lng: locale });
@@ -656,8 +659,8 @@ export async function searchAutocomplete(
 			searchEntries(locale),
 			option.value,
 			MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
-		).map(({ name, target }) => {
-			const resultName = searchResultName(name, target, locale);
+		).map((entry) => {
+			const resultName = searchResultName(entry, locale);
 			return { name: resultName, value: resultName };
 		}),
 	});
@@ -670,9 +673,7 @@ export async function viewSearch(
 	const { locale } = interaction;
 	const entries = searchEntries(locale);
 
-	const target = entries.find(
-		(entry) => searchResultName(entry.name, entry.target, locale) === value,
-	)?.target;
+	const target = entries.find((entry) => searchResultName(entry, locale) === value)?.target;
 
 	if (!target) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {

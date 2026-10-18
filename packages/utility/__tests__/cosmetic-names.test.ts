@@ -1,6 +1,6 @@
 import { deepStrictEqual, equal, ok } from "node:assert/strict";
 import { test } from "node:test";
-import { Cosmetic, CosmeticCommon, EXPRESSION_LEVELS } from "../source/cosmetics.js";
+import { Cosmetic, CosmeticCommon, EXPRESSION_LEVELS, MUSIC_SHEETS } from "../source/cosmetics.js";
 import { type Emoji, productionEmojis } from "../source/emojis/index.js";
 import { skyEvents } from "../source/events/index.js";
 import { spirits } from "../source/kingdom/spirits.js";
@@ -23,7 +23,8 @@ const LEVEL_KEYS = new Set<string>([
 	`cosmetic-common-names.${CosmeticCommon.ExpressionMultipleLevel}`,
 ]);
 
-const { CALL_EMOJIS, CosmeticToEmoji, EMOTE_EMOJIS, STANCE_EMOJIS } = productionEmojis();
+const { CALL_EMOJIS, CosmeticToEmoji, EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS, STANCE_EMOJIS } =
+	productionEmojis();
 
 const OFFERED_ITEMS: readonly (readonly [string, ItemWithoutChildren])[] = [
 	...spirits()
@@ -56,12 +57,22 @@ test("Expression cosmetics are exactly those drawn with an expression emoji.", (
 	const expressionEmojis = new Set<Emoji>(Object.values(EMOTE_EMOJIS));
 
 	const drawnAsExpressions = new Set(
-		Object.entries(CosmeticToEmoji).flatMap(([cosmetic, emoji]) =>
-			emoji && expressionEmojis.has(emoji) ? [Number(cosmetic)] : [],
-		),
+		Object.entries(CosmeticToEmoji)
+			.filter(([, emoji]) => emoji && expressionEmojis.has(emoji))
+			.map(([cosmetic]) => Number(cosmetic)),
 	);
 
 	deepStrictEqual(drawnAsExpressions, new Set(EXPRESSION_LEVELS.keys()));
+});
+
+test("Music sheet cosmetics are exactly those drawn with the music sheet emoji.", () => {
+	const drawnAsMusicSheets = new Set(
+		Object.entries(CosmeticToEmoji)
+			.filter(([, emoji]) => emoji === MISCELLANEOUS_EMOJIS.MusicSheet)
+			.map(([cosmetic]) => Number(cosmetic)),
+	);
+
+	deepStrictEqual(drawnAsMusicSheets, MUSIC_SHEETS);
 });
 
 test("An expression's level comes from its cosmetic.", () => {

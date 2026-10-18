@@ -10,8 +10,12 @@ import {
 	NESTING_WORKSHOP_ROTATION_COSMETICS,
 	resolveNestingWorkshopItems,
 } from "../source/catalogue.js";
+import { Cosmetic } from "../source/cosmetics.js";
 import enGB from "../source/locales/en-gb.js";
+import { EventId } from "../source/utility/event.js";
 import { SpiritId } from "../source/utility/spirits.js";
+
+const unresolvedKeys: string[] = [];
 
 function resolveName(key: string) {
 	let current: unknown = enGB.general;
@@ -20,7 +24,12 @@ function resolveName(key: string) {
 		current = (current as Record<string, unknown>)[part];
 	}
 
-	return typeof current === "string" ? current : key;
+	if (typeof current === "string") {
+		return current;
+	}
+
+	unresolvedKeys.push(key);
+	return key;
 }
 
 const entries = catalogueSearchEntries(resolveName, { groupEventFamilies: true });
@@ -176,7 +185,18 @@ test("Individual purchases are indexed alongside packs.", () => {
 	equal(names("Little Prince Scarf", 1)[0], "Little Prince Scarf");
 });
 
-test("Items bought with in-game currency are not indexed.", () => {
+test("Music sheets are indexed and target where they are offered.", () => {
+	const [spiritSheet] = catalogueSearch(entries, "Bounding About", 1);
+	ok(spiritSheet?.target.type === CatalogueSearchType.Spirit);
+	equal(spiritSheet.target.spirit.id, SpiritId.BirdWhisperer);
+	equal(spiritSheet.cosmeticDisplay, Cosmetic.BirdWhispererMusicSheet);
+
+	const eventSheet = firstTarget("Etude No.1");
+	ok(eventSheet?.type === CatalogueSearchType.Event);
+	equal(eventSheet.event.id, EventId.HarmonyHallGrandOpening2022);
+});
+
+test("Other items bought with in-game currency are not indexed.", () => {
 	deepStrictEqual(names("Companion Cube"), []);
 	deepStrictEqual(names("Stone Single Bench"), []);
 });
@@ -184,11 +204,12 @@ test("Items bought with in-game currency are not indexed.", () => {
 test("Every entry resolves to a translated name.", () => {
 	for (const entry of entries) {
 		ok(entry.name.length > 0, "Expected a resolved name.");
-		ok(!entry.name.includes("."), `Expected a translation, got the key ${entry.name}.`);
 	}
+
+	deepStrictEqual(unresolvedKeys, []);
 });
 
-test("Only purchasable entries carry a cosmetic to display.", () => {
+test("Only item entries carry a cosmetic to display.", () => {
 	const [hat] = catalogueSearch(entries, "Pointed Snufkin Hat", 1);
 	ok(hat, "Expected the purchasable entry to be indexed.");
 	notEqual(hat.cosmeticDisplay, null);
@@ -201,13 +222,18 @@ test("Only purchasable entries carry a cosmetic to display.", () => {
 	ok(spirit, "Expected the spirit entry to be indexed.");
 	equal(spirit.cosmeticDisplay, null);
 
-	const purchasable = entries.filter(({ cosmeticDisplay }) => cosmeticDisplay !== null);
-	ok(purchasable.length > 100, "Expected the index to carry many purchasable entries.");
+	const items = entries.filter(({ cosmeticDisplay }) => cosmeticDisplay !== null);
+	ok(items.length > 100, "Expected the index to carry many item entries.");
 });
 
 test("Entries are uniquely addressable by target and name.", () => {
-	const keys = entries.map((entry) => `${JSON.stringify(entry.target)}${entry.name}`);
-	equal(keys.length, new Set(keys).size);
+	for (const index of [
+		entries,
+		catalogueSearchEntries(resolveName, { groupEventFamilies: false }),
+	]) {
+		const keys = index.map((entry) => `${JSON.stringify(entry.target)}${entry.name}`);
+		equal(keys.length, new Set(keys).size);
+	}
 });
 
 test("Entries sharing a bucket keep their index order.", () => {
