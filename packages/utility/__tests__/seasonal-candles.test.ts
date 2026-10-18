@@ -8194,6 +8194,16 @@ const SEASONAL_CANDLES_ROTATIONS = [
 				expected:
 					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/hidden_forest/1.webp",
 			},
+			{
+				date: skyDate(2026, 10, 17),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/valley_of_triumph/1.webp",
+			},
+			{
+				date: skyDate(2026, 10, 18),
+				expected:
+					"https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/golden_wasteland/2.webp",
+			},
 		],
 	},
 ] as const;
