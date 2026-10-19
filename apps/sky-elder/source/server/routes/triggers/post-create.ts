@@ -8,6 +8,7 @@ import {
 	SeparatorSpacingSize,
 } from "discord-api-types/v10";
 import type { Request } from "express";
+import { duplicateCheck } from "../../features/duplicate-check.js";
 import { userFlairsCheckFlair } from "../../features/user-flairs.js";
 import {
 	MAXIMUM_CHARACTER_LIMIT,
@@ -28,7 +29,13 @@ export async function postTriggersPostCreate(req: Request) {
 		return;
 	}
 
-	await userFlairsCheckFlair(author);
+	const settled = await Promise.allSettled([userFlairsCheckFlair(author), duplicateCheck(post)]);
+
+	for (const result of settled) {
+		if (result.status === "rejected") {
+			console.error(result.reason);
+		}
+	}
 
 	if (post.nsfw) {
 		return;
