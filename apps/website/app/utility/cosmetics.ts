@@ -1444,15 +1444,20 @@ function cosmeticAnchorTargets() {
 export const COSMETIC_ANCHOR_TARGETS: ReadonlyMap<string, CosmeticAnchorTarget> =
 	cosmeticAnchorTargets();
 
+interface CosmeticSource {
+	readonly item: Item;
+	readonly target: CatalogueSearchTargetWithoutEventFamily;
+}
+
 interface CosmeticCatalogueEntry {
 	nameKeys: string[] | null;
-	sources: CatalogueSearchTargetWithoutEventFamily[];
+	sources: CosmeticSource[];
 }
 
 function addCatalogueItems(
 	catalogue: Map<Cosmetic, CosmeticCatalogueEntry>,
 	items: Iterable<Item>,
-	source: CatalogueSearchTargetWithoutEventFamily,
+	target: CatalogueSearchTargetWithoutEventFamily,
 ) {
 	for (const item of items) {
 		for (const cosmetic of item.cosmetics) {
@@ -1472,8 +1477,8 @@ function addCatalogueItems(
 						: [cosmeticNameKey, item.translation.key];
 			}
 
-			if (!entry.sources.includes(source)) {
-				entry.sources.push(source);
+			if (!entry.sources.some((source) => source.target === target)) {
+				entry.sources.push({ item, target });
 			}
 		}
 	}

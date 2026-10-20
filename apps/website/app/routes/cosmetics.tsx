@@ -29,9 +29,11 @@ import {
 	type Emoji,
 	formatEmojiURL,
 	spiritOriginTranslationKey,
+	sumCosts,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { CatalogueSearchAutocomplete } from "~/components/catalogue/CatalogueSearchAutocomplete.js";
+import { CostList } from "~/components/catalogue/CostList.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
 import { Tooltip } from "~/components/Tooltip";
@@ -192,7 +194,13 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 	const { i18n, t } = useTranslation();
 	const entry = COSMETIC_CATALOGUE.get(tile.cosmetic);
-	const sources = entry?.sources.map((source) => catalogueLocation(source, t)) ?? [];
+
+	const sources =
+		entry?.sources.map(({ item, target }) => ({
+			...catalogueLocation(target, t),
+			costs: item.cost ? sumCosts([item.cost]) : [],
+		})) ?? [];
+
 	const reserveEmojiSpace = sources.some((source) => source.emoji);
 
 	return (
@@ -211,7 +219,7 @@ function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 				</p>
 			) : (
 				<ul className="flex flex-col">
-					{sources.map(({ detail, emoji: sourceEmoji, name, query }) => (
+					{sources.map(({ costs, detail, emoji: sourceEmoji, name, query }) => (
 						<li key={query}>
 							<Link
 								className="flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -222,7 +230,7 @@ function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 								) : (
 									reserveEmojiSpace && <span aria-hidden="true" className="size-5 shrink-0" />
 								)}
-								<span className="flex min-w-0 flex-col">
+								<span className="flex min-w-0 flex-1 flex-col">
 									<span className="truncate text-sm text-gray-900 dark:text-gray-100">{name}</span>
 									{detail && (
 										<span className="truncate text-xs text-gray-600 dark:text-gray-300">
@@ -230,6 +238,11 @@ function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 										</span>
 									)}
 								</span>
+								{costs.length > 0 && (
+									<span className="shrink-0 text-sm text-gray-600 dark:text-gray-400">
+										<CostList costs={costs} locale={i18n.language} />
+									</span>
+								)}
 							</Link>
 						</li>
 					))}
@@ -250,7 +263,8 @@ function CosmeticSearch() {
 
 			for (const { anchor, cosmetic, emoji } of section.tiles) {
 				const entry = COSMETIC_CATALOGUE.get(cosmetic);
-				const sourceNames = entry?.sources.map((source) => catalogueLocation(source, t).name) ?? [];
+				const sourceNames =
+					entry?.sources.map(({ target }) => catalogueLocation(target, t).name) ?? [];
 				const name = entry?.nameKeys ? cosmeticName(entry.nameKeys, i18n, t) : sourceNames[0];
 
 				if (name) {
