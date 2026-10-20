@@ -24,8 +24,16 @@ export default new Season({
 		ShushingLightScholar,
 	],
 	items: [
-		{ translation: CosmeticCommon.Pendant, cosmetic: Cosmetic.LightseekerPendant },
-		{ translation: CosmeticCommon.UltimateProp, cosmetic: Cosmetic.LightseekerUltimateProp },
+		{
+			translation: CosmeticCommon.Pendant,
+			cosmetic: Cosmetic.LightseekerPendant,
+			seasonPass: true,
+		},
+		{
+			translation: CosmeticCommon.UltimateProp,
+			cosmetic: Cosmetic.LightseekerUltimateProp,
+			seasonPass: true,
+		},
 	],
 	seasonalCandlesRotation: null,
 	doubleSeasonalLight: {

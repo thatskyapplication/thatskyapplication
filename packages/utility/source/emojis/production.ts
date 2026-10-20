@@ -74,6 +74,7 @@ const MISCELLANEOUS_EMOJIS = {
 		id: "1559365013771395082",
 		name: "small_placeable_props_category",
 	},
+	SeasonPass: { id: "1562111720732885135", name: "season_pass" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS = {

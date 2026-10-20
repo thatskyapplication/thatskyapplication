@@ -4,6 +4,7 @@ import { Switch } from "@base-ui/react/switch";
 import { clsx } from "clsx";
 import { parseCookie } from "cookie";
 import type { TFunction } from "i18next";
+import { ExternalLinkIcon } from "lucide-react";
 import {
 	memo,
 	useCallback,
@@ -14,13 +15,7 @@ import {
 	useSyncExternalStore,
 } from "react";
 import { useTranslation } from "react-i18next";
-import {
-	Link,
-	type Location,
-	type ShouldRevalidateFunctionArgs,
-	useLocation,
-	useNavigate,
-} from "react-router";
+import { Link, type Location, type ShouldRevalidateFunctionArgs, useLocation } from "react-router";
 import {
 	CatalogueCollectionToLocaleKey,
 	type CatalogueSearchTargetWithoutEventFamily,
@@ -53,7 +48,11 @@ import {
 	UNLOCKED_BY_DEFAULT_COSMETICS,
 } from "~/utility/cosmetics.js";
 import { cardContainer } from "~/utility/discord-component-embed.server.js";
-import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import {
+	EventIdToEventTicketEmoji,
+	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalEmoji,
+} from "~/utility/emojis.js";
 import { hexColour } from "~/utility/functions.js";
 import { PAGE_TITLE_CLASS, SWITCH_CLASS, SWITCH_THUMB_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/cosmetics.js";
@@ -162,6 +161,8 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 				emoji: SeasonIdToSeasonalEmoji[target.season.id],
 				name: t(`seasons.${target.season.id}`, { ns: "general" }),
 				detail: t("season", { ns: "general" }),
+				pageURL: null,
+				wikiURL: t(`season-wiki.${target.season.id}`, { ns: "general" }),
 			};
 		case CatalogueSearchType.Event:
 			return {
@@ -169,6 +170,8 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 				emoji: EventIdToEventTicketEmoji[target.event.id],
 				name: t(target.event.name, { ns: "general" }),
 				detail: String(target.event.start.year),
+				pageURL: null,
+				wikiURL: t(`event-wiki.${target.event.id}`, { ns: "general" }),
 			};
 		case CatalogueSearchType.Spirit: {
 			const { spirit } = target;
@@ -179,6 +182,8 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 				emoji: seasonal ? SeasonIdToSeasonalEmoji[spirit.seasonId] : null,
 				name: t(`spirits.${spirit.id}`, { ns: "general" }),
 				detail: t(spiritOriginTranslationKey(spirit), { ns: "general" }),
+				pageURL: `/spirits?spirit=${spirit.id}`,
+				wikiURL: t(`spirit-wiki.${spirit.id}`, { ns: "general" }),
 			};
 		}
 		case CatalogueSearchType.Collection:
@@ -187,6 +192,8 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 				emoji: null,
 				name: t(CatalogueCollectionToLocaleKey[target.collection]),
 				detail: null,
+				pageURL: null,
+				wikiURL: null,
 			};
 	}
 }
@@ -199,6 +206,7 @@ function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 		entry?.sources.map(({ item, target }) => ({
 			...catalogueLocation(target, t),
 			costs: item.cost ? sumCosts([item.cost]) : [],
+			seasonPass: item.seasonPass,
 		})) ?? [];
 
 	const reserveEmojiSpace = sources.some((source) => source.emoji);
@@ -219,33 +227,66 @@ function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 				</p>
 			) : (
 				<ul className="flex flex-col">
-					{sources.map(({ costs, detail, emoji: sourceEmoji, name, query }) => (
-						<li key={query}>
-							<Link
-								className="flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-								to={`/me/catalogue${query}`}
-							>
-								{sourceEmoji ? (
-									<EmojiIcon className="size-5 shrink-0" emoji={sourceEmoji} />
-								) : (
-									reserveEmojiSpace && <span aria-hidden="true" className="size-5 shrink-0" />
-								)}
-								<span className="flex min-w-0 flex-1 flex-col">
-									<span className="truncate text-sm text-gray-900 dark:text-gray-100">{name}</span>
-									{detail && (
-										<span className="truncate text-xs text-gray-600 dark:text-gray-300">
-											{detail}
+					{sources.map(
+						({ costs, detail, emoji: sourceEmoji, name, pageURL, query, seasonPass, wikiURL }) => (
+							<li className="px-2 py-1.5" key={query}>
+								<div className="flex items-center gap-2">
+									{sourceEmoji ? (
+										<EmojiIcon className="size-5 shrink-0" emoji={sourceEmoji} />
+									) : (
+										reserveEmojiSpace && <span aria-hidden="true" className="size-5 shrink-0" />
+									)}
+									<span className="flex min-w-0 flex-1 flex-col">
+										<span className="truncate text-sm text-gray-900 dark:text-gray-100">
+											{name}
+										</span>
+										{detail && (
+											<span className="truncate text-xs text-gray-600 dark:text-gray-300">
+												{detail}
+											</span>
+										)}
+									</span>
+									{costs.length > 0 && (
+										<span className="shrink-0 text-sm text-gray-600 dark:text-gray-400">
+											<CostList costs={costs} locale={i18n.language} />
 										</span>
 									)}
-								</span>
-								{costs.length > 0 && (
-									<span className="shrink-0 text-sm text-gray-600 dark:text-gray-400">
-										<CostList costs={costs} locale={i18n.language} />
-									</span>
-								)}
-							</Link>
-						</li>
-					))}
+									{seasonPass && !costs.some((cost) => cost.type === "seasonalHearts") && (
+										<EmojiIcon
+											className="size-4 shrink-0"
+											emoji={MISCELLANEOUS_EMOJIS.SeasonPass}
+										/>
+									)}
+								</div>
+								<div
+									className={clsx(
+										"mt-1 flex flex-wrap items-center gap-3 text-xs font-medium",
+										reserveEmojiSpace && "pl-7",
+									)}
+								>
+									{pageURL && (
+										<Link className="regular-link" to={pageURL}>
+											{t("view", { ns: "general" })}
+										</Link>
+									)}
+									<Link className="regular-link" to={`/me/catalogue${query}`}>
+										{t("catalogue.main-title", { ns: "features" })}
+									</Link>
+									{wikiURL && (
+										<a
+											className="regular-link inline-flex items-center gap-1"
+											href={wikiURL}
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											{t("wiki", { ns: "general" })}
+											<ExternalLinkIcon className="size-3" />
+										</a>
+									)}
+								</div>
+							</li>
+						),
+					)}
 				</ul>
 			)}
 		</>
@@ -437,7 +478,6 @@ function CosmeticGroup({
 export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	const { i18n, t } = useTranslation();
 	const location = useLocation();
-	const navigate = useNavigate();
 	const hydrated = useSyncExternalStore(
 		subscribeToNothing,
 		() => true,
@@ -507,44 +547,46 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 		}
 	}, [selection]);
 
+	useEffect(() => {
+		if (!selection) {
+			return;
+		}
+
+		const hash = selection.open ? `#${selection.tile.anchor}` : "";
+
+		if (window.location.hash !== hash) {
+			window.history.replaceState(
+				window.history.state,
+				"",
+				`${window.location.pathname}${window.location.search}${hash}`,
+			);
+		}
+	}, [selection]);
+
 	useLayoutEffect(() => {
 		const element = selection?.open ? selection.element() : null;
 		element?.setAttribute("aria-expanded", "true");
 		return () => element?.setAttribute("aria-expanded", "false");
 	}, [selection]);
 
-	const clearAnchor = useCallback(() => {
-		if (window.location.hash) {
-			void navigate(
-				{ pathname: window.location.pathname, search: window.location.search },
-				{ preventScrollReset: true, replace: true },
-			);
+	const selectTile = useCallback<CosmeticTileSelect>((tile, element, keyboard) => {
+		const target = COSMETIC_ANCHOR_TARGETS.get(tile.anchor);
+
+		setSelection((current) =>
+			current?.open && current.tile.cosmetic === tile.cosmetic
+				? { ...current, open: false }
+				: {
+						element: () => element,
+						open: true,
+						opener: keyboard ? "keyboard" : "pointer",
+						tile,
+					},
+		);
+
+		if (target) {
+			setActiveTables((previous) => withActiveTable(previous, target.groupIndex, target.table));
 		}
-	}, [navigate]);
-
-	const selectTile = useCallback<CosmeticTileSelect>(
-		(tile, element, keyboard) => {
-			const target = COSMETIC_ANCHOR_TARGETS.get(tile.anchor);
-
-			setSelection((current) =>
-				current?.open && current.tile.cosmetic === tile.cosmetic
-					? { ...current, open: false }
-					: {
-							element: () => element,
-							open: true,
-							opener: keyboard ? "keyboard" : "pointer",
-							tile,
-						},
-			);
-
-			if (target) {
-				setActiveTables((previous) => withActiveTable(previous, target.groupIndex, target.table));
-			}
-
-			clearAnchor();
-		},
-		[clearAnchor],
-	);
+	}, []);
 
 	const onOpenChange = (open: boolean, eventDetails: Popover.Root.ChangeEventDetails) => {
 		const { event, reason } = eventDetails;
@@ -559,7 +601,6 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 		}
 
 		setSelection((current) => current && { ...current, open: false });
-		clearAnchor();
 	};
 
 	const onHighlightOwnedChange = (checked: boolean) => {

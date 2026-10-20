@@ -14,6 +14,8 @@ export default new Season({
 	end: skyDate(2_021, 3, 15),
 	guide: DreamsGuide,
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
-	items: [{ translation: CosmeticCommon.Pendant, cosmetic: Cosmetic.DreamsPendant }],
+	items: [
+		{ translation: CosmeticCommon.Pendant, cosmetic: Cosmetic.DreamsPendant, seasonPass: true },
+	],
 	seasonalCandlesRotation: null,
 });

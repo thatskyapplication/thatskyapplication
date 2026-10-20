@@ -24,8 +24,12 @@ export default new Season({
 		GreetingShaman,
 	],
 	items: [
-		{ translation: CosmeticCommon.Pendant, cosmetic: Cosmetic.GratitudePendant },
-		{ translation: CosmeticCommon.UltimateMask, cosmetic: Cosmetic.GratitudeUltimateMask },
+		{ translation: CosmeticCommon.Pendant, cosmetic: Cosmetic.GratitudePendant, seasonPass: true },
+		{
+			translation: CosmeticCommon.UltimateMask,
+			cosmetic: Cosmetic.GratitudeUltimateMask,
+			seasonPass: true,
+		},
 	],
 	seasonalCandlesRotation: null,
 });
