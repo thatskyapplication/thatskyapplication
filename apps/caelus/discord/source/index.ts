@@ -1,7 +1,6 @@
 import "./i18next.js"; // Must be first.
 import "./api.js";
 import process from "node:process";
-import type { Snowflake } from "@discordjs/core";
 import { COMMAND_CACHE } from "./caches/commands.js";
 import database from "./database.js";
 import { client, gateway } from "./discord.js";
@@ -69,33 +68,10 @@ client.on("error", (error) => pino.error(error));
 // Populate the command cache.
 const applicationCommands = await client.api.applicationCommands.getGlobalCommands(APPLICATION_ID);
 
-const configureCommandName = "configure";
 const skyProfileCommandName = "sky-profile";
-let configureCommandId: Snowflake | undefined;
-let skyProfileCommandId: Snowflake | undefined;
-
-for (const applicationCommand of applicationCommands) {
-	switch (applicationCommand.name) {
-		case configureCommandName: {
-			configureCommandId = applicationCommand.id;
-			break;
-		}
-		case skyProfileCommandName: {
-			skyProfileCommandId = applicationCommand.id;
-			break;
-		}
-	}
-
-	if (configureCommandId && skyProfileCommandId) {
-		break;
-	}
-}
-
-if (configureCommandId) {
-	COMMAND_CACHE.set(configureCommandName, configureCommandId);
-} else {
-	pino.warn(`Command "${configureCommandName}" not found from the API.`);
-}
+const skyProfileCommandId = applicationCommands.find(
+	({ name }) => name === skyProfileCommandName,
+)?.id;
 
 if (skyProfileCommandId) {
 	COMMAND_CACHE.set(skyProfileCommandName, skyProfileCommandId);
