@@ -1387,9 +1387,13 @@ function emojiCosmetics() {
 
 const EMOJI_COSMETICS = emojiCosmetics();
 
+export function cosmeticAnchor(cosmetic: Cosmetic | string) {
+	return `${COSMETIC_ANCHOR_PREFIX}${cosmetic}`;
+}
+
 function cosmeticTiles(emoji: Emoji): CosmeticTile[] {
 	return (EMOJI_COSMETICS.get(emoji.id) ?? []).map((cosmetic) => ({
-		anchor: `${COSMETIC_ANCHOR_PREFIX}${cosmetic}`,
+		anchor: cosmeticAnchor(cosmetic),
 		cosmetic,
 		emoji,
 	}));

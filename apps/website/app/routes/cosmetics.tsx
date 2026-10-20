@@ -1,6 +1,12 @@
 import { Field } from "@base-ui/react/field";
 import { Popover } from "@base-ui/react/popover";
 import { Switch } from "@base-ui/react/switch";
+import {
+	type APIComponentInContainer,
+	type APIContainerComponent,
+	type APITextDisplayComponent,
+	ComponentType,
+} from "@discordjs/core/http-only";
 import { clsx } from "clsx";
 import { parseCookie } from "cookie";
 import type { TFunction } from "i18next";
@@ -15,14 +21,23 @@ import {
 	useSyncExternalStore,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, type Location, type ShouldRevalidateFunctionArgs, useLocation } from "react-router";
+import {
+	Link,
+	type Location,
+	redirect,
+	type ShouldRevalidateFunctionArgs,
+	useLocation,
+} from "react-router";
 import {
 	CatalogueCollectionToLocaleKey,
 	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
 	type Cosmetic,
 	type Emoji,
+	formatEmoji,
 	formatEmojiURL,
+	type Item,
+	resolveCostToString,
 	spiritOriginTranslationKey,
 	sumCosts,
 	WEBSITE_URL,
@@ -41,14 +56,20 @@ import { cookieStoreSet } from "~/utility/cookie-store.client";
 import {
 	COSMETIC_ANCHOR_TARGETS,
 	COSMETIC_CATALOGUE,
+	cosmeticAnchor,
 	cosmeticName,
 	type CosmeticTile as CosmeticTileData,
 	COSMETICS_GROUPS,
 	COSMETICS_SECTIONS,
 	UNLOCKED_BY_DEFAULT_COSMETICS,
 } from "~/utility/cosmetics.js";
-import { cardContainer } from "~/utility/discord-component-embed.server.js";
 import {
+	cardContainer,
+	fitsDiscordComponentEmbed,
+	linkButtonRows,
+} from "~/utility/discord-component-embed.server.js";
+import {
+	EMOJIS,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
@@ -59,6 +80,7 @@ import type { Route } from "./+types/cosmetics.js";
 
 const COSMETICS_TITLE = "Cosmetics" as const;
 const COSMETICS_DESCRIPTION = "View all cosmetics, find out where they're from, and more!" as const;
+const COSMETIC_SEARCH_PARAMETER = "cosmetic" as const;
 const COSMETIC_TILE_SELECTOR = "[data-cosmetic-tile]" as const;
 const COSMETIC_TILE_IMAGE_SIZE = 32 as const;
 const COSMETIC_TILE_PIXEL_DENSITIES = [1, 2, 3] as const;
@@ -67,17 +89,35 @@ const HIGHLIGHT_OWNED_COOKIE_MAX_AGE = 31536000 as const;
 
 const subscribeToNothing = () => () => {};
 
-export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
-	const t = getInstance(context).getFixedT(getLocale(context));
-	const pageTitle = t("cosmetics.title", { ns: "features" });
+function cosmeticParameterTarget(searchParams: URLSearchParams) {
+	const cosmetic = searchParams.get(COSMETIC_SEARCH_PARAMETER);
+	return cosmetic === null ? undefined : COSMETIC_ANCHOR_TARGETS.get(cosmeticAnchor(cosmetic));
+}
 
-	const discordComponentEmbed = cardContainer({
-		colour: WEBSITE_COLOUR,
-		description: COSMETICS_DESCRIPTION,
-		icon: WEBSITE_ICON_URL,
-		title: pageTitle,
-		url: new URL(url.pathname, WEBSITE_URL).href,
-	});
+export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+	const locale = getLocale(context);
+	const t = getInstance(context).getFixedT(locale);
+	const pageTitle = t("cosmetics.title", { ns: "features" });
+	const cosmeticTarget = cosmeticParameterTarget(url.searchParams);
+
+	if (url.searchParams.has(COSMETIC_SEARCH_PARAMETER) && !cosmeticTarget) {
+		throw redirect(url.pathname);
+	}
+
+	const cosmeticCard = cosmeticTarget
+		? cosmeticContainer({ locale, t, tile: cosmeticTarget.tile })
+		: null;
+
+	const discordComponentEmbed =
+		cosmeticCard && fitsDiscordComponentEmbed(cosmeticCard)
+			? cosmeticCard
+			: cardContainer({
+					colour: WEBSITE_COLOUR,
+					description: COSMETICS_DESCRIPTION,
+					icon: WEBSITE_ICON_URL,
+					title: pageTitle,
+					url: new URL(url.pathname, WEBSITE_URL).href,
+				});
 
 	const discordUser = getRequestSession(context).get("discord_user");
 
@@ -121,6 +161,12 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	];
 };
 
+function loaderSearchParameters(url: URL) {
+	const parameters = new URLSearchParams(url.search);
+	parameters.delete(COSMETIC_SEARCH_PARAMETER);
+	return parameters.toString();
+}
+
 export function shouldRevalidate({
 	currentUrl,
 	defaultShouldRevalidate,
@@ -128,7 +174,7 @@ export function shouldRevalidate({
 }: ShouldRevalidateFunctionArgs) {
 	return currentUrl.href !== nextUrl.href &&
 		currentUrl.pathname === nextUrl.pathname &&
-		currentUrl.search === nextUrl.search
+		loaderSearchParameters(currentUrl) === loaderSearchParameters(nextUrl)
 		? false
 		: defaultShouldRevalidate;
 }
@@ -157,6 +203,7 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 	switch (target.type) {
 		case CatalogueSearchType.Season:
 			return {
+				type: target.type,
 				query,
 				emoji: SeasonIdToSeasonalEmoji[target.season.id],
 				name: t(`seasons.${target.season.id}`, { ns: "general" }),
@@ -166,6 +213,7 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 			};
 		case CatalogueSearchType.Event:
 			return {
+				type: target.type,
 				query,
 				emoji: EventIdToEventTicketEmoji[target.event.id],
 				name: t(target.event.name, { ns: "general" }),
@@ -178,6 +226,7 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 			const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
 
 			return {
+				type: target.type,
 				query,
 				emoji: seasonal ? SeasonIdToSeasonalEmoji[spirit.seasonId] : null,
 				name: t(`spirits.${spirit.id}`, { ns: "general" }),
@@ -188,6 +237,7 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 		}
 		case CatalogueSearchType.Collection:
 			return {
+				type: target.type,
 				query,
 				emoji: null,
 				name: t(CatalogueCollectionToLocaleKey[target.collection]),
@@ -198,17 +248,101 @@ function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: T
 	}
 }
 
+function itemPricing(item: Item) {
+	const costs = item.cost ? sumCosts([item.cost]) : [];
+
+	return {
+		costs,
+		seasonPass: item.seasonPass && !costs.some((cost) => cost.type === "seasonalHearts"),
+	};
+}
+
+function cosmeticSources(cosmetic: Cosmetic, t: TFunction) {
+	return (
+		COSMETIC_CATALOGUE.get(cosmetic)?.sources.map(({ item, target }) =>
+			Object.assign(catalogueLocation(target, t), itemPricing(item)),
+		) ?? []
+	);
+}
+
+interface CosmeticContainerOptions {
+	locale: string;
+	t: TFunction;
+	tile: CosmeticTileData;
+}
+
+function cosmeticContainer({ locale, t, tile }: CosmeticContainerOptions): APIContainerComponent {
+	const sources = cosmeticSources(tile.cosmetic, t);
+	const thumbnail = {
+		type: ComponentType.Thumbnail,
+		media: { url: formatEmojiURL(tile.emoji.id) },
+	} as const;
+	const components: APIComponentInContainer[] = [];
+
+	if (sources.length === 0) {
+		components.push({
+			type: ComponentType.Section,
+			components: [
+				{ type: ComponentType.TextDisplay, content: t("cosmetics.no-source", { ns: "features" }) },
+			],
+			accessory: thumbnail,
+		});
+	}
+
+	for (const [index, source] of sources.entries()) {
+		const heading = source.type === CatalogueSearchType.Spirit ? source.detail : source.name;
+		const lines = [source.emoji ? `## ${formatEmoji(source.emoji)} ${heading}` : `## ${heading}`];
+
+		if (source.type === CatalogueSearchType.Spirit) {
+			lines.push(source.name);
+		} else if (source.type === CatalogueSearchType.Event) {
+			lines.push(source.detail);
+		}
+
+		const price = `${resolveCostToString(source.costs, { emojis: EMOJIS, locale }).join("")}${
+			source.seasonPass ? formatEmoji(MISCELLANEOUS_EMOJIS.SeasonPass) : ""
+		}`;
+
+		if (price.length > 0) {
+			lines.push(price);
+		}
+
+		const textDisplay: APITextDisplayComponent = {
+			type: ComponentType.TextDisplay,
+			content: lines.join("\n"),
+		};
+
+		components.push(
+			index === 0
+				? { type: ComponentType.Section, components: [textDisplay], accessory: thumbnail }
+				: textDisplay,
+		);
+
+		const links = [];
+
+		if (source.pageURL) {
+			links.push({ label: t("view", { ns: "general" }), to: source.pageURL });
+		}
+
+		links.push({
+			label: t("catalogue.main-title", { ns: "features" }),
+			to: `/me/catalogue${source.query}`,
+		});
+
+		if (source.wikiURL) {
+			links.push({ label: t("wiki", { ns: "general" }), to: source.wikiURL });
+		}
+
+		components.push(...linkButtonRows(links));
+	}
+
+	return { type: ComponentType.Container, accent_color: WEBSITE_COLOUR, components };
+}
+
 function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 	const { i18n, t } = useTranslation();
 	const entry = COSMETIC_CATALOGUE.get(tile.cosmetic);
-
-	const sources =
-		entry?.sources.map(({ item, target }) => ({
-			...catalogueLocation(target, t),
-			costs: item.cost ? sumCosts([item.cost]) : [],
-			seasonPass: item.seasonPass,
-		})) ?? [];
-
+	const sources = cosmeticSources(tile.cosmetic, t);
 	const reserveEmojiSpace = sources.some((source) => source.emoji);
 
 	return (
@@ -251,7 +385,7 @@ function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 											<CostList costs={costs} locale={i18n.language} />
 										</span>
 									)}
-									{seasonPass && !costs.some((cost) => cost.type === "seasonalHearts") && (
+									{seasonPass && (
 										<EmojiIcon
 											className="size-4 shrink-0"
 											emoji={MISCELLANEOUS_EMOJIS.SeasonPass}
@@ -342,7 +476,7 @@ type CosmeticTileSelect = (tile: CosmeticTileData, element: HTMLElement, keyboar
 interface CosmeticSelection {
 	readonly element: () => Element | null;
 	readonly open: boolean;
-	readonly opener: "hash" | "keyboard" | "pointer";
+	readonly opener: "keyboard" | "location" | "pointer";
 	readonly tile: CosmeticTileData;
 }
 
@@ -526,7 +660,10 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 		return dimmed;
 	}, [highlightOwned, loaderData.owned]);
 
-	const anchorTarget = hydrated ? COSMETIC_ANCHOR_TARGETS.get(location.hash.slice(1)) : undefined;
+	const anchorTarget = hydrated
+		? (COSMETIC_ANCHOR_TARGETS.get(location.hash.slice(1)) ??
+			cosmeticParameterTarget(new URLSearchParams(location.search)))
+		: undefined;
 
 	if (anchorTarget && adoptedLocation !== location) {
 		setAdoptedLocation(location);
@@ -536,13 +673,13 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 		setSelection({
 			element: () => document.getElementById(anchorTarget.tile.anchor),
 			open: true,
-			opener: "hash",
+			opener: "location",
 			tile: anchorTarget.tile,
 		});
 	}
 
 	useEffect(() => {
-		if (selection?.open && selection.opener === "hash") {
+		if (selection?.open && selection.opener === "location") {
 			selection.element()?.scrollIntoView({ block: "center" });
 		}
 	}, [selection]);
@@ -552,14 +689,17 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 			return;
 		}
 
-		const hash = selection.open ? `#${selection.tile.anchor}` : "";
+		const url = new URL(window.location.href);
+		url.hash = "";
 
-		if (window.location.hash !== hash) {
-			window.history.replaceState(
-				window.history.state,
-				"",
-				`${window.location.pathname}${window.location.search}${hash}`,
-			);
+		if (selection.open) {
+			url.searchParams.set(COSMETIC_SEARCH_PARAMETER, String(selection.tile.cosmetic));
+		} else {
+			url.searchParams.delete(COSMETIC_SEARCH_PARAMETER);
+		}
+
+		if (url.href !== window.location.href) {
+			window.history.replaceState(window.history.state, "", url);
 		}
 	}, [selection]);
 
