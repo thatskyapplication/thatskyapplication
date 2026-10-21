@@ -9,106 +9,108 @@ export default new GuideSpirit({
 	kind: SpiritKind.Entity,
 	seasonId: SeasonId.Moomin,
 	area: AreaName.Moominvalley,
-	offer: {
-		current: [
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
-					cosmetic: Cosmetic.TheMoominStorybookQuest1,
-				},
-				{
-					cosmetic: Cosmetic.EmoteRead1,
-					children: [
-						{
-							cosmetic: Cosmetic.EmoteRead2,
-							cost: { hearts: 3 },
-						},
-					],
-				},
-				{
-					translation: CosmeticCommon.Pendant,
-					cosmetic: Cosmetic.MoominPendant,
-					seasonPass: true,
-					children: [
-						{
-							cosmetic: Cosmetic.TheMoominStorybookUltimateUmbrella,
-							cost: { seasonalHearts: 1 },
-							seasonPass: true,
-						},
-						{
-							cosmetic: Cosmetic.TheMoominStorybookUltimatePlush,
-							cost: { seasonalHearts: 1 },
-							seasonPass: true,
-						},
-						{
-							translation: CosmeticCommon.UltimateOutfit,
-							cosmetic: Cosmetic.TheMoominStorybookUltimateOutfit,
-							cost: { seasonalHearts: 2 },
-							seasonPass: true,
-						},
-					],
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest1,
+					},
+					{
+						cosmetic: Cosmetic.EmoteRead1,
+						children: [
+							{
+								cosmetic: Cosmetic.EmoteRead2,
+								cost: { hearts: 3 },
+							},
+						],
+					},
+					{
+						translation: CosmeticCommon.Pendant,
+						cosmetic: Cosmetic.MoominPendant,
+						seasonPass: true,
+						children: [
+							{
+								cosmetic: Cosmetic.TheMoominStorybookUltimateUmbrella,
+								cost: { seasonalHearts: 1 },
+								seasonPass: true,
+							},
+							{
+								cosmetic: Cosmetic.TheMoominStorybookUltimatePlush,
+								cost: { seasonalHearts: 1 },
+								seasonPass: true,
+							},
+							{
+								translation: CosmeticCommon.UltimateOutfit,
+								cosmetic: Cosmetic.TheMoominStorybookUltimateOutfit,
+								cost: { seasonalHearts: 2 },
+								seasonPass: true,
+							},
+						],
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.TheMoominStorybookHeart1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest4,
+					},
+					{
+						cosmetic: Cosmetic.EmoteRead3,
+						cost: { candles: 5 },
+						children: [
+							{
+								cosmetic: Cosmetic.EmoteRead4,
+								cost: { hearts: 5 },
+							},
+						],
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest5,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest6,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.TheMoominStorybookHeart2,
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.TheMoominStorybookProp,
+						cost: { candles: 35 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.TheMoominStorybookOutfit,
+						cost: { candles: 190 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
-					cosmetic: Cosmetic.TheMoominStorybookQuest2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
-					cosmetic: Cosmetic.TheMoominStorybookQuest3,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
-					cosmetic: Cosmetic.TheMoominStorybookHeart1,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
-					cosmetic: Cosmetic.TheMoominStorybookQuest4,
-				},
-				{
-					cosmetic: Cosmetic.EmoteRead3,
-					cost: { candles: 5 },
-					children: [
-						{
-							cosmetic: Cosmetic.EmoteRead4,
-							cost: { hearts: 5 },
-						},
-					],
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
-					cosmetic: Cosmetic.TheMoominStorybookQuest5,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
-					cosmetic: Cosmetic.TheMoominStorybookQuest6,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
-					cosmetic: Cosmetic.TheMoominStorybookHeart2,
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.TheMoominStorybookProp,
-					cost: { candles: 35 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.TheMoominStorybookOutfit,
-					cost: { candles: 190 },
-				},
-			],
-		],
+		},
 	},
 });

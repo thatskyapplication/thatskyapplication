@@ -20,16 +20,18 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 		tree: Spirit["displayFriendshipTree"];
 	}[] = [];
 
-	if (spirit.isSeasonalSpirit()) {
-		if (spirit.seasonal.length > 0) {
-			friendshipTrees.push({ key: "seasonal", tree: spirit.seasonal });
+	if (seasonal) {
+		const { seasonal, postSeason } = spirit.friendshipTrees;
+
+		if (seasonal.friendshipTree.length > 0) {
+			friendshipTrees.push({ key: "seasonal", tree: seasonal.friendshipTree });
 		}
 
-		if (spirit.current.length > 0) {
-			friendshipTrees.push({ key: "current", tree: spirit.current });
+		if (postSeason) {
+			friendshipTrees.push({ key: "current", tree: postSeason.friendshipTree });
 		}
-	} else if (spirit.displayFriendshipTree.length > 0) {
-		friendshipTrees.push({ key: "current", tree: spirit.displayFriendshipTree });
+	} else if (spirit.friendshipTree.length > 0) {
+		friendshipTrees.push({ key: "current", tree: spirit.friendshipTree });
 	}
 
 	if (friendshipTrees.length > 1) {

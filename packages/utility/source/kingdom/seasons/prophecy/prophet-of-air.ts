@@ -9,133 +9,141 @@ export default new SeasonalSpirit({
 	id: SpiritId.ProphetOfAir,
 	seasonId: SeasonId.Prophecy,
 	area: AreaName.CaveOfProphecies,
-	offer: {
-		hasInfographicSeasonal: false,
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteBalance1 },
-				{ cosmetic: Cosmetic.EmoteBalance2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			hasInfographic: false,
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteBalance1 },
+					{ cosmetic: Cosmetic.EmoteBalance2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ProphetOfAirHair,
+						cost: { seasonalCandles: 13 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ProphetOfAirBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteBalance3,
+						cost: { seasonalCandles: 18 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteBalance4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ProphetOfAirBlessing2,
+						cost: { seasonalCandles: 23 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.ProphetOfAirMask,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.ProphetOfAirCape,
+						cost: { seasonalCandles: 29 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.ProphetOfAirBlessing3,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.ProphetOfAirSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ProphetOfAirHair,
-					cost: { seasonalCandles: 13 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ProphetOfAirBlessing1,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteBalance1 },
+					{
+						cosmetic: Cosmetic.EmoteBalance2,
+						cost: { hearts: 3 },
+						level: 2,
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.ProphetOfAirProp,
+						cost: { candles: 15 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ProphetOfAirBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ProphetOfAirHair,
+						cost: { candles: 44 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.ProphetOfAirSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.ProphetOfAirWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteBalance3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteBalance4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.ProphetOfAirMask,
+						cost: { candles: 54 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ProphetOfAirBlessing2,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.ProphetOfAirCape,
+						cost: { candles: 75 },
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteBalance3,
-					cost: { seasonalCandles: 18 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteBalance4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ProphetOfAirBlessing2,
-					cost: { seasonalCandles: 23 },
-				},
-				{ translation: CosmeticCommon.Mask, cosmetic: Cosmetic.ProphetOfAirMask, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.ProphetOfAirCape,
-					cost: { seasonalCandles: 29 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.ProphetOfAirBlessing3,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.ProphetOfAirSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteBalance1 },
-				{
-					cosmetic: Cosmetic.EmoteBalance2,
-					cost: { hearts: 3 },
-					level: 2,
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.ProphetOfAirProp,
-					cost: { candles: 15 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ProphetOfAirBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ProphetOfAirHair,
-					cost: { candles: 44 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.ProphetOfAirSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.ProphetOfAirWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteBalance3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteBalance4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.ProphetOfAirMask,
-					cost: { candles: 54 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ProphetOfAirBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.ProphetOfAirCape,
-					cost: { candles: 75 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

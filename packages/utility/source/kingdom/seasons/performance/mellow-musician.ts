@@ -9,143 +9,147 @@ export default new SeasonalSpirit({
 	id: SpiritId.MellowMusician,
 	seasonId: SeasonId.Performance,
 	area: AreaName.VillageTheatre,
-	offer: {
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteHeadbob1 },
-				{ cosmetic: Cosmetic.EmoteHeadbob2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteHeadbob1 },
+					{ cosmetic: Cosmetic.EmoteHeadbob2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.MellowMusicianMask,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.MellowMusicianBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.MellowMusicianBlessing2,
+						cost: { seasonalCandles: 14 },
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.MellowMusicianCape,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteHeadbob3,
+						cost: { seasonalCandles: 18 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteHeadbob4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.MellowMusicianBlessing3,
+						cost: { seasonalCandles: 22 },
+					},
+					{ cosmetic: Cosmetic.MellowMusicianElectricGuitar, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.MellowMusicianHair,
+						cost: { seasonalCandles: 36 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+						cosmetic: Cosmetic.MellowMusicianBlessing4,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.MellowMusicianSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.MellowMusicianMask,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.MellowMusicianBlessing1,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteHeadbob1 },
+					{
+						cosmetic: Cosmetic.EmoteHeadbob2,
+						cost: { hearts: 4 },
+						level: 2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.MellowMusicianBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.MellowMusicianMask,
+						cost: { candles: 32 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.MellowMusicianSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.MellowMusicianWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteHeadbob3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteHeadbob4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.MellowMusicianCape,
+						cost: { candles: 70 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.MellowMusicianBlessing2,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.MellowMusicianHair,
+						cost: { candles: 42 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.MellowMusicianElectricGuitar,
+						cost: { candles: 80 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.MellowMusicianBlessing2,
-					cost: { seasonalCandles: 14 },
-				},
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.MellowMusicianCape,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteHeadbob3,
-					cost: { seasonalCandles: 18 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteHeadbob4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.MellowMusicianBlessing3,
-					cost: { seasonalCandles: 22 },
-				},
-				{ cosmetic: Cosmetic.MellowMusicianElectricGuitar, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.MellowMusicianHair,
-					cost: { seasonalCandles: 36 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-					cosmetic: Cosmetic.MellowMusicianBlessing4,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.MellowMusicianSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteHeadbob1 },
-				{
-					cosmetic: Cosmetic.EmoteHeadbob2,
-					cost: { hearts: 4 },
-					level: 2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.MellowMusicianBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.MellowMusicianMask,
-					cost: { candles: 32 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.MellowMusicianSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.MellowMusicianWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteHeadbob3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteHeadbob4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.MellowMusicianCape,
-					cost: { candles: 70 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.MellowMusicianBlessing2,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.MellowMusicianHair,
-					cost: { candles: 42 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.MellowMusicianElectricGuitar,
-					cost: { candles: 80 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [{ start: skyDate(2024, 8, 1), end: skyDate(2024, 8, 5) }],

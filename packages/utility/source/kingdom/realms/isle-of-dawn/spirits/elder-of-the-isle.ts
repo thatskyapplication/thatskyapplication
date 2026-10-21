@@ -7,22 +7,20 @@ export default new ElderSpirit({
 	id: SpiritId.ElderOfTheIsle,
 	realm: RealmName.IsleOfDawn,
 	area: AreaName.ThePassage,
-	offer: {
-		current: [
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ElderOfTheIsleHair,
-					cost: { ascendedCandles: 4 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.FaceAccessory,
-					cosmetic: Cosmetic.ElderOfTheIsleFaceAccessory,
-					cost: { ascendedCandles: 125 },
-				},
-			],
+	friendshipTree: [
+		[
+			{
+				translation: CosmeticCommon.Hair,
+				cosmetic: Cosmetic.ElderOfTheIsleHair,
+				cost: { ascendedCandles: 4 },
+			},
 		],
-	},
+		[
+			{
+				translation: CosmeticCommon.FaceAccessory,
+				cosmetic: Cosmetic.ElderOfTheIsleFaceAccessory,
+				cost: { ascendedCandles: 125 },
+			},
+		],
+	],
 });

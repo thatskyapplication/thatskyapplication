@@ -108,16 +108,26 @@ export function spiritContainer({
 		}
 	}
 
-	const totalOffer = [];
+	const friendshipTrees = [];
 
-	if (isSeasonalSpirit) {
-		totalOffer.push(resolveCostToString(spirit.totalCostSeasonal, { emojis, locale }).join(""));
+	if (isSeasonalSpirit || isGuideSpirit) {
+		friendshipTrees.push(spirit.friendshipTrees.seasonal);
+
+		if (spirit.friendshipTrees.postSeason) {
+			friendshipTrees.push(spirit.friendshipTrees.postSeason);
+		}
+	} else {
+		friendshipTrees.push(spirit);
 	}
 
-	const totalCostString = resolveCostToString(spirit.totalCost, { emojis, locale }).join("");
+	const totalOffer = [];
 
-	if (totalCostString.length > 0) {
-		totalOffer.push(totalCostString);
+	for (const { totalCost } of friendshipTrees) {
+		const totalCostString = resolveCostToString(totalCost, { emojis, locale }).join("");
+
+		if (totalCostString.length > 0) {
+			totalOffer.push(totalCostString);
+		}
 	}
 
 	if (totalOffer.length > 0) {
@@ -152,7 +162,8 @@ export function spiritContainer({
 		});
 	}
 
-	const mediaItems = [isSeasonalSpirit && spirit.imageURLSeasonal, spirit.imageURL]
+	const mediaItems = friendshipTrees
+		.map(({ imageURL }) => imageURL)
 		.filter((url) => typeof url === "string")
 		.map((url) => ({ media: { url } }));
 
@@ -163,7 +174,7 @@ export function spiritContainer({
 		});
 	}
 
-	if (isGuideSpirit && spirit.inProgress) {
+	if (isGuideSpirit && spirit.friendshipTrees.seasonal.inProgress) {
 		components.push({
 			type: ComponentType.TextDisplay,
 			content: `-# ${t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { lng: locale, ns: "features" })}`,

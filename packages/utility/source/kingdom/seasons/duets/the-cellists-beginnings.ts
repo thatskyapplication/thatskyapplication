@@ -9,53 +9,54 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Mannequin,
 	seasonId: SeasonId.Duets,
 	area: AreaName.AviaryVillage,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.TheCellistsBeginningsHair,
-					cost: { seasonalCandles: 20 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.TheCellistsBeginningsBlessing1,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.TheCellistsBeginningsHair,
+						cost: { seasonalCandles: 20 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.TheCellistsBeginningsBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.TheCellistsBeginningsBlessing2,
+						cost: { seasonalCandles: 26 },
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.TheCellistsBeginningsProp,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.TheCellistsBeginningsOutfit,
+						cost: { seasonalCandles: 32 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+						cosmetic: Cosmetic.TheCellistsBeginningsBlessing4,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.TheCellistsBeginningsSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.TheCellistsBeginningsBlessing2,
-					cost: { seasonalCandles: 26 },
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.TheCellistsBeginningsProp,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.TheCellistsBeginningsOutfit,
-					cost: { seasonalCandles: 32 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-					cosmetic: Cosmetic.TheCellistsBeginningsBlessing4,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.TheCellistsBeginningsSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

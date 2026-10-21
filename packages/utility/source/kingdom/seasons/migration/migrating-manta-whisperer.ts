@@ -8,84 +8,85 @@ export default new SeasonalSpirit({
 	id: SpiritId.MigratingMantaWhisperer,
 	seasonId: SeasonId.Migration,
 	area: AreaName.TheWindPaths,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					cosmetic: Cosmetic.EmoteFlagSignal1,
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.MigratingMantaWhispererBlessing1,
-					cost: { seasonalCandles: 2 },
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						cosmetic: Cosmetic.EmoteFlagSignal1,
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.MigratingMantaWhispererBlessing1,
+						cost: { seasonalCandles: 2 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.MigratingMantaWhispererHair,
+						cost: { seasonalCandles: 23 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.MigratingMantaWhispererBlessing2,
+						cost: { seasonalCandles: 4 },
+					},
+					{
+						cosmetic: Cosmetic.EmoteFlagSignal2,
+						level: 2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteFlagSignal3,
+						cost: { seasonalCandles: 24 },
+						level: 3,
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.MigratingMantaWhispererBlessing3,
+						cost: { seasonalCandles: 6 },
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.MigratingMantaWhispererCape,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WhiteDye,
+						cosmetic: Cosmetic.MigratingMantaWhispererWhiteDye,
+						cost: { seasonalCandles: 12 },
+					},
+					{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.MigratingMantaWhispererTrust },
+					{
+						cosmetic: Cosmetic.EmoteFlagSignal4,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.MigratingMantaWhispererOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.MigratingMantaWhispererSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.MigratingMantaWhispererHair,
-					cost: { seasonalCandles: 23 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.MigratingMantaWhispererBlessing2,
-					cost: { seasonalCandles: 4 },
-				},
-				{
-					cosmetic: Cosmetic.EmoteFlagSignal2,
-					level: 2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteFlagSignal3,
-					cost: { seasonalCandles: 24 },
-					level: 3,
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.MigratingMantaWhispererBlessing3,
-					cost: { seasonalCandles: 6 },
-				},
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.MigratingMantaWhispererCape,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WhiteDye,
-					cosmetic: Cosmetic.MigratingMantaWhispererWhiteDye,
-					cost: { seasonalCandles: 12 },
-				},
-				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.MigratingMantaWhispererTrust },
-				{
-					cosmetic: Cosmetic.EmoteFlagSignal4,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.MigratingMantaWhispererOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.MigratingMantaWhispererSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

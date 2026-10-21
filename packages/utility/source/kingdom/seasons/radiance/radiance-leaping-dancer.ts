@@ -8,89 +8,90 @@ export default new SeasonalSpirit({
 	id: SpiritId.RadianceLeapingDancer,
 	seasonId: SeasonId.Radiance,
 	area: AreaName.AviaryVillage,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteCartwheel1 },
-				{ cosmetic: Cosmetic.EmoteCartwheel2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteCartwheel1 },
+					{ cosmetic: Cosmetic.EmoteCartwheel2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.RadianceLeapingDancerHair,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: { key: CosmeticCommon.RedDyeMultiple, number: 1 },
+						cosmetic: Cosmetic.RadianceLeapingDancerRedDye1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.RedDyeMultiple, number: 2 },
+						cosmetic: Cosmetic.RadianceLeapingDancerRedDye2,
+						cost: { seasonalCandles: 16 },
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.RadianceLeapingDancerProp,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteCartwheel3,
+						cost: { seasonalCandles: 20 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteCartwheel4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.RedDyeMultiple, number: 3 },
+						cosmetic: Cosmetic.RadianceLeapingDancerRedDye3,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.RadianceLeapingDancerOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.RadianceLeapingDancerCape,
+						cost: { seasonalCandles: 28 },
+					},
+					{
+						translation: { key: CosmeticCommon.YellowDyeMultiple, number: 1 },
+						cosmetic: Cosmetic.RadianceLeapingDancerYellowDye1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.YellowDyeMultiple, number: 2 },
+						cosmetic: Cosmetic.RadianceLeapingDancerYellowDye2,
+						cost: { seasonalCandles: 32 },
+					},
+					{
+						translation: CosmeticCommon.Shoes,
+						cosmetic: Cosmetic.RadianceLeapingDancerShoes,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.RadianceLeapingDancerSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.RadianceLeapingDancerHair,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: { key: CosmeticCommon.RedDyeMultiple, number: 1 },
-					cosmetic: Cosmetic.RadianceLeapingDancerRedDye1,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.RedDyeMultiple, number: 2 },
-					cosmetic: Cosmetic.RadianceLeapingDancerRedDye2,
-					cost: { seasonalCandles: 16 },
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.RadianceLeapingDancerProp,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteCartwheel3,
-					cost: { seasonalCandles: 20 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteCartwheel4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.RedDyeMultiple, number: 3 },
-					cosmetic: Cosmetic.RadianceLeapingDancerRedDye3,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.RadianceLeapingDancerOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.RadianceLeapingDancerCape,
-					cost: { seasonalCandles: 28 },
-				},
-				{
-					translation: { key: CosmeticCommon.YellowDyeMultiple, number: 1 },
-					cosmetic: Cosmetic.RadianceLeapingDancerYellowDye1,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.YellowDyeMultiple, number: 2 },
-					cosmetic: Cosmetic.RadianceLeapingDancerYellowDye2,
-					cost: { seasonalCandles: 32 },
-				},
-				{
-					translation: CosmeticCommon.Shoes,
-					cosmetic: Cosmetic.RadianceLeapingDancerShoes,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.RadianceLeapingDancerSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

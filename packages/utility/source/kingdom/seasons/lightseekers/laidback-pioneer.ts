@@ -9,107 +9,111 @@ export default new SeasonalSpirit({
 	id: SpiritId.LaidbackPioneer,
 	seasonId: SeasonId.Lightseekers,
 	area: AreaName.ForestBrook,
-	offer: {
-		hasInfographicSeasonal: false,
-		seasonal: [
-			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceLaidback }],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.LaidbackPioneerMask,
-					cost: { seasonalCandles: 6 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.LaidbackPioneerBlessing1,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			hasInfographic: false,
+			friendshipTree: [
+				[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceLaidback }],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.LaidbackPioneerMask,
+						cost: { seasonalCandles: 6 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.LaidbackPioneerBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.LaidbackPioneerBlessing2,
+						cost: { seasonalCandles: 8 },
+					},
+					{ cosmetic: Cosmetic.LaidbackPioneerMusicSheet, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.LaidbackPioneerHair,
+						cost: { seasonalCandles: 10 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.LaidbackPioneerBlessing3,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+						cosmetic: Cosmetic.LaidbackPioneerBlessing4,
+						cost: { seasonalCandles: 20 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Umbrella,
+						cosmetic: Cosmetic.LaidbackPioneerUmbrella,
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.LaidbackPioneerBlessing2,
-					cost: { seasonalCandles: 8 },
-				},
-				{ cosmetic: Cosmetic.LaidbackPioneerMusicSheet, seasonPass: true },
+		},
+		postSeason: {
+			friendshipTree: [
+				[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceLaidback }],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.LaidbackPioneerBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.LaidbackPioneerMask,
+						cost: { candles: 30 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.LaidbackPioneerHeart,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.LaidbackPioneerWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.LaidbackPioneerBlessing2,
+						cost: { candles: 5 },
+					},
+					{
+						cosmetic: Cosmetic.LaidbackPioneerMusicSheet,
+						cost: { candles: 15 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.LaidbackPioneerHair,
+						cost: { candles: 18 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Umbrella,
+						cosmetic: Cosmetic.LaidbackPioneerUmbrella,
+						cost: { candles: 75 },
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.LaidbackPioneerHair,
-					cost: { seasonalCandles: 10 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.LaidbackPioneerBlessing3,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-					cosmetic: Cosmetic.LaidbackPioneerBlessing4,
-					cost: { seasonalCandles: 20 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Umbrella,
-					cosmetic: Cosmetic.LaidbackPioneerUmbrella,
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceLaidback }],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.LaidbackPioneerBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.LaidbackPioneerMask,
-					cost: { candles: 30 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.LaidbackPioneerHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.LaidbackPioneerWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.LaidbackPioneerBlessing2,
-					cost: { candles: 5 },
-				},
-				{
-					cosmetic: Cosmetic.LaidbackPioneerMusicSheet,
-					cost: { candles: 15 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.LaidbackPioneerHair,
-					cost: { candles: 18 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Umbrella,
-					cosmetic: Cosmetic.LaidbackPioneerUmbrella,
-					cost: { candles: 75 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

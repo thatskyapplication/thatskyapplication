@@ -10,92 +10,96 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Mannequin,
 	seasonId: SeasonId.Revival,
 	area: AreaName.AviaryVillage,
-	offer: {
-		seasonal: [
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing1,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: CosmeticCommon.Shoes,
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing1,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: CosmeticCommon.Shoes,
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenCape,
+						cost: { seasonalCandles: 32 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing3,
+						cost: { seasonalCandles: 40 },
+					},
+					{
+						translation: CosmeticCommon.HairAccessory,
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenHairAccessory,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenCape,
-					cost: { seasonalCandles: 32 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing2,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Shoes,
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes,
+						cost: { candles: 29 },
+					},
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenCape,
+						cost: { candles: 63 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.HairAccessory,
+						cosmetic: Cosmetic.RemnantOfAForgottenHavenHairAccessory,
+						cost: { candles: 47 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing3,
-					cost: { seasonalCandles: 40 },
-				},
-				{
-					translation: CosmeticCommon.HairAccessory,
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenHairAccessory,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Shoes,
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes,
-					cost: { candles: 29 },
-				},
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenCape,
-					cost: { candles: 63 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.HairAccessory,
-					cosmetic: Cosmetic.RemnantOfAForgottenHavenHairAccessory,
-					cost: { candles: 47 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		returning: [{ start: skyDate(2026, 6, 19), end: skyDate(2026, 7, 3) }],

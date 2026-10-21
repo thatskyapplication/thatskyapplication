@@ -8,167 +8,169 @@ export default new GuideSpirit({
 	id: SpiritId.AURORA,
 	seasonId: SeasonId.AURORA,
 	area: AreaName.TempleOfTheValley,
-	offer: {
-		current: [
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
-					cosmetic: Cosmetic.AURORAQuest1,
-				},
-				{
-					translation: { key: CosmeticCommon.ExpressionMultiple, number: 1 },
-					cosmetic: Cosmetic.EmoteSilentClap2,
-					cost: { hearts: 3 },
-					level: 2,
-				},
-				{
-					translation: CosmeticCommon.Pendant,
-					cosmetic: Cosmetic.AURORAPendant,
-					seasonPass: true,
-					thirdHeight: true,
-					children: [
-						{
-							translation: CosmeticCommon.Hair,
-							cosmetic: Cosmetic.AURORAAuroraHair,
-							cost: { seasonalHearts: 1 },
-							seasonPass: true,
-						},
-						{
-							translation: CosmeticCommon.UltimateOutfit,
-							cosmetic: Cosmetic.AURORAUltimateOutfit,
-							cost: { seasonalHearts: 2 },
-							seasonPass: true,
-						},
-						{
-							translation: CosmeticCommon.UltimateCape,
-							cosmetic: Cosmetic.AURORAUltimateCape,
-							cost: { seasonalHearts: 1 },
-							seasonPass: true,
-						},
-					],
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.AURORAQuest1,
+					},
+					{
+						translation: { key: CosmeticCommon.ExpressionMultiple, number: 1 },
+						cosmetic: Cosmetic.EmoteSilentClap2,
+						cost: { hearts: 3 },
+						level: 2,
+					},
+					{
+						translation: CosmeticCommon.Pendant,
+						cosmetic: Cosmetic.AURORAPendant,
+						seasonPass: true,
+						thirdHeight: true,
+						children: [
+							{
+								translation: CosmeticCommon.Hair,
+								cosmetic: Cosmetic.AURORAAuroraHair,
+								cost: { seasonalHearts: 1 },
+								seasonPass: true,
+							},
+							{
+								translation: CosmeticCommon.UltimateOutfit,
+								cosmetic: Cosmetic.AURORAUltimateOutfit,
+								cost: { seasonalHearts: 2 },
+								seasonPass: true,
+							},
+							{
+								translation: CosmeticCommon.UltimateCape,
+								cosmetic: Cosmetic.AURORAUltimateCape,
+								cost: { seasonalHearts: 1 },
+								seasonPass: true,
+							},
+						],
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.ExpressionMultiple, number: 1 },
+						cosmetic: Cosmetic.EmoteSilentClap1,
+					},
+					{
+						translation: { key: CosmeticCommon.ExpressionMultiple, number: 1 },
+						cosmetic: Cosmetic.EmoteSilentClap3,
+						cost: { candles: 5 },
+						level: 3,
+						children: [
+							{
+								translation: { key: CosmeticCommon.ExpressionMultiple, number: 1 },
+								cosmetic: Cosmetic.EmoteSilentClap4,
+								cost: { hearts: 5 },
+								level: 4,
+							},
+						],
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.AURORAQuest2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.ExpressionMultiple, number: 2 },
+						cosmetic: Cosmetic.EmoteConduct1,
+					},
+					{
+						translation: { key: CosmeticCommon.ExpressionMultiple, number: 2 },
+						cosmetic: Cosmetic.EmoteConduct2,
+						cost: { hearts: 3 },
+						level: 2,
+					},
+					{
+						translation: { key: CosmeticCommon.ExpressionMultiple, number: 2 },
+						cosmetic: Cosmetic.EmoteConduct3,
+						cost: { candles: 5 },
+						level: 3,
+						children: [
+							{
+								translation: { key: CosmeticCommon.ExpressionMultiple, number: 2 },
+								cosmetic: Cosmetic.EmoteConduct4,
+								cost: { hearts: 5 },
+								level: 4,
+							},
+						],
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.AURORAQuest3,
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.AURORAHeart,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.ExpressionMultiple, number: 3 },
+						cosmetic: Cosmetic.EmoteSkipping1,
+					},
+					{
+						translation: { key: CosmeticCommon.ExpressionMultiple, number: 3 },
+						cosmetic: Cosmetic.EmoteSkipping2,
+						cost: { hearts: 3 },
+						level: 2,
+					},
+					{
+						translation: { key: CosmeticCommon.ExpressionMultiple, number: 3 },
+						cosmetic: Cosmetic.EmoteSkipping3,
+						cost: { candles: 5 },
+						level: 3,
+						children: [
+							{
+								translation: { key: CosmeticCommon.ExpressionMultiple, number: 3 },
+								cosmetic: Cosmetic.EmoteSkipping4,
+								cost: { hearts: 5 },
+								level: 4,
+							},
+						],
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.AURORAQuest4,
+					},
+					{
+						cosmetic: Cosmetic.AURORAMusicSheet1,
+						cost: { candles: 20 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.AURORAQuest5,
+					},
+					{
+						cosmetic: Cosmetic.AURORAMusicSheet2,
+						cost: { candles: 20 },
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.AURORAOutfit,
+						cost: { candles: 200 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.AURORAMask,
+						cost: { candles: 50 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.ExpressionMultiple, number: 1 },
-					cosmetic: Cosmetic.EmoteSilentClap1,
-				},
-				{
-					translation: { key: CosmeticCommon.ExpressionMultiple, number: 1 },
-					cosmetic: Cosmetic.EmoteSilentClap3,
-					cost: { candles: 5 },
-					level: 3,
-					children: [
-						{
-							translation: { key: CosmeticCommon.ExpressionMultiple, number: 1 },
-							cosmetic: Cosmetic.EmoteSilentClap4,
-							cost: { hearts: 5 },
-							level: 4,
-						},
-					],
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
-					cosmetic: Cosmetic.AURORAQuest2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.ExpressionMultiple, number: 2 },
-					cosmetic: Cosmetic.EmoteConduct1,
-				},
-				{
-					translation: { key: CosmeticCommon.ExpressionMultiple, number: 2 },
-					cosmetic: Cosmetic.EmoteConduct2,
-					cost: { hearts: 3 },
-					level: 2,
-				},
-				{
-					translation: { key: CosmeticCommon.ExpressionMultiple, number: 2 },
-					cosmetic: Cosmetic.EmoteConduct3,
-					cost: { candles: 5 },
-					level: 3,
-					children: [
-						{
-							translation: { key: CosmeticCommon.ExpressionMultiple, number: 2 },
-							cosmetic: Cosmetic.EmoteConduct4,
-							cost: { hearts: 5 },
-							level: 4,
-						},
-					],
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
-					cosmetic: Cosmetic.AURORAQuest3,
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.AURORAHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.ExpressionMultiple, number: 3 },
-					cosmetic: Cosmetic.EmoteSkipping1,
-				},
-				{
-					translation: { key: CosmeticCommon.ExpressionMultiple, number: 3 },
-					cosmetic: Cosmetic.EmoteSkipping2,
-					cost: { hearts: 3 },
-					level: 2,
-				},
-				{
-					translation: { key: CosmeticCommon.ExpressionMultiple, number: 3 },
-					cosmetic: Cosmetic.EmoteSkipping3,
-					cost: { candles: 5 },
-					level: 3,
-					children: [
-						{
-							translation: { key: CosmeticCommon.ExpressionMultiple, number: 3 },
-							cosmetic: Cosmetic.EmoteSkipping4,
-							cost: { hearts: 5 },
-							level: 4,
-						},
-					],
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
-					cosmetic: Cosmetic.AURORAQuest4,
-				},
-				{
-					cosmetic: Cosmetic.AURORAMusicSheet1,
-					cost: { candles: 20 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
-					cosmetic: Cosmetic.AURORAQuest5,
-				},
-				{
-					cosmetic: Cosmetic.AURORAMusicSheet2,
-					cost: { candles: 20 },
-				},
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.AURORAOutfit,
-					cost: { candles: 200 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.AURORAMask,
-					cost: { candles: 50 },
-				},
-			],
-		],
+		},
 	},
 });

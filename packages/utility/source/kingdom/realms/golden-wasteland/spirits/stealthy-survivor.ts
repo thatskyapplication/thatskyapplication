@@ -6,63 +6,61 @@ import { AreaName } from "../../../geography.js";
 export default new StandardSpirit({
 	id: SpiritId.StealthySurvivor,
 	area: AreaName.TheGraveyard,
-	offer: {
-		current: [
-			[
-				{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSneaky },
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.StealthySurvivorHair,
-					cost: { hearts: 5 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.StealthySurvivorBlessing1,
-					cost: { candles: 1 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.StealthySurvivorHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
-					cosmetic: Cosmetic.StealthySurvivorWingBuff1,
-					cost: { ascendedCandles: 4 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.StealthySurvivorBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
-					cosmetic: Cosmetic.StealthySurvivorCape1,
-					cost: { hearts: 50 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
-					cosmetic: Cosmetic.StealthySurvivorWingBuff2,
-					cost: { ascendedCandles: 12 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
-					cosmetic: Cosmetic.StealthySurvivorCape2,
-					cost: { hearts: 150 },
-				},
-			],
+	friendshipTree: [
+		[
+			{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSneaky },
+			{
+				translation: CosmeticCommon.Hair,
+				cosmetic: Cosmetic.StealthySurvivorHair,
+				cost: { hearts: 5 },
+			},
 		],
-	},
+		[
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.StealthySurvivorBlessing1,
+				cost: { candles: 1 },
+			},
+			{
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.StealthySurvivorHeart,
+				cost: { candles: 3 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
+				cosmetic: Cosmetic.StealthySurvivorWingBuff1,
+				cost: { ascendedCandles: 4 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.StealthySurvivorBlessing2,
+				cost: { candles: 5 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
+				cosmetic: Cosmetic.StealthySurvivorCape1,
+				cost: { hearts: 50 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
+				cosmetic: Cosmetic.StealthySurvivorWingBuff2,
+				cost: { ascendedCandles: 12 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
+				cosmetic: Cosmetic.StealthySurvivorCape2,
+				cost: { hearts: 150 },
+			},
+		],
+	],
 });

@@ -7,15 +7,13 @@ export default new ElderSpirit({
 	id: SpiritId.ElderOfTheVault,
 	realm: RealmName.VaultOfKnowledge,
 	area: AreaName.ThePassage,
-	offer: {
-		current: [
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ElderOfTheVaultHair,
-					cost: { ascendedCandles: 5 },
-				},
-			],
+	friendshipTree: [
+		[
+			{
+				translation: CosmeticCommon.Hair,
+				cosmetic: Cosmetic.ElderOfTheVaultHair,
+				cost: { ascendedCandles: 5 },
+			},
 		],
-	},
+	],
 });

@@ -9,70 +9,74 @@ export default new SeasonalSpirit({
 	id: SpiritId.SassyDrifter,
 	seasonId: SeasonId.Gratitude,
 	area: AreaName.DawnCircle,
-	offer: {
-		seasonal: [
-			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSassy }],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.SassyDrifterHair,
-					cost: { seasonalCandles: 6 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.SassyDrifterBlessing1,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSassy }],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.SassyDrifterHair,
+						cost: { seasonalCandles: 6 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.SassyDrifterBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.SassyDrifterBlessing2,
+						cost: { seasonalCandles: 8 },
+					},
+				],
+				[{ cosmetic: Cosmetic.SassyDrifterMask, seasonPass: true }],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.SassyDrifterBlessing2,
-					cost: { seasonalCandles: 8 },
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSassy }],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.SassyDrifterBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.SassyDrifterHair,
+						cost: { candles: 26 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.SassyDrifterHeart,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.SassyDrifterWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.SassyDrifterBlessing2,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.SassyDrifterMask,
+						cost: { candles: 48 },
+					},
+				],
 			],
-			[{ cosmetic: Cosmetic.SassyDrifterMask, seasonPass: true }],
-		],
-		current: [
-			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceSassy }],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.SassyDrifterBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.SassyDrifterHair,
-					cost: { candles: 26 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.SassyDrifterHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.SassyDrifterWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.SassyDrifterBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.SassyDrifterMask,
-					cost: { candles: 48 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

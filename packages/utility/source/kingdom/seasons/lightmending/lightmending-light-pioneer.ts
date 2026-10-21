@@ -8,81 +8,82 @@ export default new SeasonalSpirit({
 	id: SpiritId.LightmendingPioneer,
 	seasonId: SeasonId.Lightmending,
 	area: AreaName.FracturedLanternStorage,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					cosmetic: Cosmetic.EmoteCuteClap1,
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.LightmendingPioneerBlessing1,
-					cost: { seasonalCandles: 4 },
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						cosmetic: Cosmetic.EmoteCuteClap1,
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.LightmendingPioneerBlessing1,
+						cost: { seasonalCandles: 4 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.LightmendingPioneerBlessing2,
+						cost: { seasonalCandles: 6 },
+					},
+					null,
+					{
+						cosmetic: Cosmetic.EmoteCuteClap2,
+						level: 2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteCuteClap3,
+						cost: { seasonalCandles: 28 },
+						level: 3,
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.LightmendingPioneerHair,
+						cost: { seasonalCandles: 30 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.LightmendingPioneerMask,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.BlueDye,
+						cosmetic: Cosmetic.LightmendingPioneerBlueDye,
+						cost: { seasonalCandles: 15 },
+					},
+					{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.LightmendingPioneerTrust },
+					{
+						cosmetic: Cosmetic.EmoteCuteClap4,
+						level: 4,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.LightmendingPioneerOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.LightmendingPioneerSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.LightmendingPioneerBlessing2,
-					cost: { seasonalCandles: 6 },
-				},
-				null,
-				{
-					cosmetic: Cosmetic.EmoteCuteClap2,
-					level: 2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteCuteClap3,
-					cost: { seasonalCandles: 28 },
-					level: 3,
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.LightmendingPioneerHair,
-					cost: { seasonalCandles: 30 },
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.LightmendingPioneerMask,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.BlueDye,
-					cosmetic: Cosmetic.LightmendingPioneerBlueDye,
-					cost: { seasonalCandles: 15 },
-				},
-				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.LightmendingPioneerTrust },
-				{
-					cosmetic: Cosmetic.EmoteCuteClap4,
-					level: 4,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.LightmendingPioneerOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.LightmendingPioneerSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

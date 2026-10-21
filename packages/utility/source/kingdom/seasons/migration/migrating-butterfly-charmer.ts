@@ -8,81 +8,82 @@ export default new SeasonalSpirit({
 	id: SpiritId.MigratingButterflyCharmer,
 	seasonId: SeasonId.Migration,
 	area: AreaName.TheWindPaths,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					cosmetic: Cosmetic.EmoteDizzy1,
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.MigratingButterflyCharmerBlessing1,
-					cost: { seasonalCandles: 2 },
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						cosmetic: Cosmetic.EmoteDizzy1,
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.MigratingButterflyCharmerBlessing1,
+						cost: { seasonalCandles: 2 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.YellowDye,
+						cosmetic: Cosmetic.MigratingButterflyCharmerYellowDye,
+						cost: { seasonalCandles: 6 },
+					},
+					null,
+					{
+						cosmetic: Cosmetic.EmoteDizzy2,
+						level: 2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteDizzy3,
+						level: 3,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.MigratingButterflyCharmerCape,
+						cost: { seasonalCandles: 30 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.MigratingButterflyCharmerBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.MigratingButterflyCharmerBlessing3,
+						cost: { seasonalCandles: 8 },
+					},
+					{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.MigratingButterflyCharmerTrust },
+					{
+						cosmetic: Cosmetic.EmoteDizzy4,
+						level: 4,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.HairAccessory,
+						cosmetic: Cosmetic.MigratingButterflyCharmerHairAccessory,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.MigratingButterflyCharmerSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.YellowDye,
-					cosmetic: Cosmetic.MigratingButterflyCharmerYellowDye,
-					cost: { seasonalCandles: 6 },
-				},
-				null,
-				{
-					cosmetic: Cosmetic.EmoteDizzy2,
-					level: 2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteDizzy3,
-					level: 3,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.MigratingButterflyCharmerCape,
-					cost: { seasonalCandles: 30 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.MigratingButterflyCharmerBlessing2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.MigratingButterflyCharmerBlessing3,
-					cost: { seasonalCandles: 8 },
-				},
-				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.MigratingButterflyCharmerTrust },
-				{
-					cosmetic: Cosmetic.EmoteDizzy4,
-					level: 4,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.HairAccessory,
-					cosmetic: Cosmetic.MigratingButterflyCharmerHairAccessory,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.MigratingButterflyCharmerSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

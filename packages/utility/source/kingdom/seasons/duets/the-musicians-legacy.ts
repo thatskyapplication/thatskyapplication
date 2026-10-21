@@ -9,52 +9,53 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Entity,
 	seasonId: SeasonId.Duets,
 	area: AreaName.AviaryVillage,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					cosmetic: Cosmetic.TheMusiciansLegacyMusicSheet,
-					cost: { seasonalCandles: 14 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.TheMusiciansLegacyBlessing1,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						cosmetic: Cosmetic.TheMusiciansLegacyMusicSheet,
+						cost: { seasonalCandles: 14 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.TheMusiciansLegacyBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.TheMusiciansLegacyBlessing2,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 1 },
+						cosmetic: Cosmetic.TheMusiciansLegacyProp1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 2 },
+						cosmetic: Cosmetic.TheMusiciansLegacyProp2,
+						cost: { seasonalCandles: 34 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.TheMusiciansLegacyBlessing3,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.TheMusiciansLegacySeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.TheMusiciansLegacyBlessing2,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
-					cosmetic: Cosmetic.TheMusiciansLegacyProp1,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
-					cosmetic: Cosmetic.TheMusiciansLegacyProp2,
-					cost: { seasonalCandles: 34 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.TheMusiciansLegacyBlessing3,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.TheMusiciansLegacySeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

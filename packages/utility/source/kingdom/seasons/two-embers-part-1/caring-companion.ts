@@ -8,26 +8,27 @@ export default new SeasonalSpirit({
 	id: SpiritId.CaringCompanion,
 	seasonId: SeasonId.TwoEmbersPart1,
 	area: AreaName.TheLastCity,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					translation: CosmeticCommon.Quest,
-					cosmetic: Cosmetic.CaringCompanionQuest,
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.CaringCompanionHeart,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: CosmeticCommon.Quest,
+						cosmetic: Cosmetic.CaringCompanionQuest,
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.CaringCompanionHeart,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.CaringCompanionProp,
+						cost: { hearts: 12 },
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.CaringCompanionProp,
-					cost: { hearts: 12 },
-				},
-			],
-		],
+		},
 	},
 });

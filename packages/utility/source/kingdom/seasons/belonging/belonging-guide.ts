@@ -6,23 +6,25 @@ import { SpiritId } from "../../../utility/spirits.js";
 export default new GuideSpirit({
 	id: SpiritId.BelongingGuide,
 	seasonId: SeasonId.Belonging,
-	offer: {
-		current: [
-			[
-				{
-					translation: CosmeticCommon.Pendant,
-					cosmetic: Cosmetic.BelongingPendant,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: CosmeticCommon.Pendant,
+						cosmetic: Cosmetic.BelongingPendant,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.BelongingBonfire,
+						cost: { seasonalHearts: 6 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.BelongingBonfire,
-					cost: { seasonalHearts: 6 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 	keywords: ["bonfire"],
 });

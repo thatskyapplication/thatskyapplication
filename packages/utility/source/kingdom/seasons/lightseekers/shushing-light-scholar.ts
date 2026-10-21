@@ -9,107 +9,111 @@ export default new SeasonalSpirit({
 	id: SpiritId.ShushingLightScholar,
 	seasonId: SeasonId.Lightseekers,
 	area: AreaName.UpperVault,
-	offer: {
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteShush1 },
-				{ cosmetic: Cosmetic.EmoteShush2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteShush1 },
+					{ cosmetic: Cosmetic.EmoteShush2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ShushingLightScholarBlessing1,
+						cost: { seasonalCandles: 16 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.ShushingLightScholarMask,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteShush3,
+						cost: { seasonalCandles: 18 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteShush4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ShushingLightScholarBlessing2,
+						cost: { seasonalCandles: 20 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.ShushingLightScholarCape,
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ShushingLightScholarBlessing1,
-					cost: { seasonalCandles: 16 },
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.ShushingLightScholarMask,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteShush1 },
+					{
+						cosmetic: Cosmetic.EmoteShush2,
+						cost: { hearts: 4 },
+						level: 2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ShushingLightScholarBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.ShushingLightScholarMask,
+						cost: { candles: 30 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.ShushingLightScholarHeart,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.ShushingLightScholarWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteShush3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteShush4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ShushingLightScholarBlessing2,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.ShushingLightScholarCape,
+						cost: { candles: 65 },
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteShush3,
-					cost: { seasonalCandles: 18 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteShush4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ShushingLightScholarBlessing2,
-					cost: { seasonalCandles: 20 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.ShushingLightScholarCape,
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteShush1 },
-				{
-					cosmetic: Cosmetic.EmoteShush2,
-					cost: { hearts: 4 },
-					level: 2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ShushingLightScholarBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.ShushingLightScholarMask,
-					cost: { candles: 30 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.ShushingLightScholarHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.ShushingLightScholarWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteShush3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteShush4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ShushingLightScholarBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.ShushingLightScholarCape,
-					cost: { candles: 65 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

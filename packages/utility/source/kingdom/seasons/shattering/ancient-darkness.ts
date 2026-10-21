@@ -11,121 +11,125 @@ export default [
 		kind: SpiritKind.Entity,
 		seasonId: SeasonId.Shattering,
 		area: AreaName.TheVoidOfShattering,
-		offer: {
-			seasonal: [
-				[
-					{
-						translation: CosmeticCommon.HairAccessory,
-						cosmetic: Cosmetic.AncientDarknessPlantHairAccessory,
-						cost: { seasonalCandles: 27 },
-					},
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-						cosmetic: Cosmetic.AncientDarknessPlantBlessing1,
-						seasonPass: true,
-					},
+		friendshipTrees: {
+			seasonal: {
+				friendshipTree: [
+					[
+						{
+							translation: CosmeticCommon.HairAccessory,
+							cosmetic: Cosmetic.AncientDarknessPlantHairAccessory,
+							cost: { seasonalCandles: 27 },
+						},
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+							cosmetic: Cosmetic.AncientDarknessPlantBlessing1,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+							cosmetic: Cosmetic.AncientDarknessPlantBlessing2,
+							cost: { seasonalCandles: 16 },
+						},
+						{
+							translation: CosmeticCommon.Mask,
+							cosmetic: Cosmetic.AncientDarknessPlantMask,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							cosmetic: Cosmetic.AncientDarknessPlantMusicSheet,
+							cost: { seasonalCandles: 35 },
+						},
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+							cosmetic: Cosmetic.AncientDarknessPlantBlessing3,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+							cosmetic: Cosmetic.AncientDarknessPlantBlessing4,
+							cost: { seasonalCandles: 16 },
+						},
+						{
+							translation: CosmeticCommon.Cape,
+							cosmetic: Cosmetic.AncientDarknessPlantCape,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.SeasonalHeart,
+							cosmetic: Cosmetic.AncientDarknessPlantSeasonalHeart,
+							cost: { seasonalCandles: 3 },
+							seasonPass: true,
+						},
+					],
 				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-						cosmetic: Cosmetic.AncientDarknessPlantBlessing2,
-						cost: { seasonalCandles: 16 },
-					},
-					{
-						translation: CosmeticCommon.Mask,
-						cosmetic: Cosmetic.AncientDarknessPlantMask,
-						seasonPass: true,
-					},
+			},
+			postSeason: {
+				friendshipTree: [
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+							cosmetic: Cosmetic.AncientDarknessPlantBlessing1,
+							cost: { candles: 5 },
+						},
+						{
+							cosmetic: Cosmetic.AncientDarknessPlantMusicSheet,
+							cost: { candles: 15 },
+						},
+						{
+							translation: CosmeticCommon.Heart,
+							cosmetic: Cosmetic.AncientDarknessPlantSeasonalHeart,
+							cost: { candles: 3 },
+							regularHeart: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+							cosmetic: Cosmetic.AncientDarknessPlantBlessing2,
+							cost: { candles: 5 },
+						},
+						{
+							translation: CosmeticCommon.HairAccessory,
+							cosmetic: Cosmetic.AncientDarknessPlantHairAccessory,
+							cost: { candles: 45 },
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.WingBuff,
+							cosmetic: Cosmetic.AncientDarknessPlantWingBuff,
+							cost: { ascendedCandles: 2 },
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+							cosmetic: Cosmetic.AncientDarknessPlantBlessing3,
+							cost: { candles: 5 },
+						},
+						{
+							translation: CosmeticCommon.Mask,
+							cosmetic: Cosmetic.AncientDarknessPlantMask,
+							cost: { candles: 50 },
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.Cape,
+							cosmetic: Cosmetic.AncientDarknessPlantCape,
+							cost: { candles: 80 },
+						},
+					],
 				],
-				[
-					{
-						cosmetic: Cosmetic.AncientDarknessPlantMusicSheet,
-						cost: { seasonalCandles: 35 },
-					},
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-						cosmetic: Cosmetic.AncientDarknessPlantBlessing3,
-						seasonPass: true,
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-						cosmetic: Cosmetic.AncientDarknessPlantBlessing4,
-						cost: { seasonalCandles: 16 },
-					},
-					{
-						translation: CosmeticCommon.Cape,
-						cosmetic: Cosmetic.AncientDarknessPlantCape,
-						seasonPass: true,
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.SeasonalHeart,
-						cosmetic: Cosmetic.AncientDarknessPlantSeasonalHeart,
-						cost: { seasonalCandles: 3 },
-						seasonPass: true,
-					},
-				],
-			],
-			current: [
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-						cosmetic: Cosmetic.AncientDarknessPlantBlessing1,
-						cost: { candles: 5 },
-					},
-					{
-						cosmetic: Cosmetic.AncientDarknessPlantMusicSheet,
-						cost: { candles: 15 },
-					},
-					{
-						translation: CosmeticCommon.Heart,
-						cosmetic: Cosmetic.AncientDarknessPlantSeasonalHeart,
-						cost: { candles: 3 },
-						regularHeart: true,
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-						cosmetic: Cosmetic.AncientDarknessPlantBlessing2,
-						cost: { candles: 5 },
-					},
-					{
-						translation: CosmeticCommon.HairAccessory,
-						cosmetic: Cosmetic.AncientDarknessPlantHairAccessory,
-						cost: { candles: 45 },
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.WingBuff,
-						cosmetic: Cosmetic.AncientDarknessPlantWingBuff,
-						cost: { ascendedCandles: 2 },
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-						cosmetic: Cosmetic.AncientDarknessPlantBlessing3,
-						cost: { candles: 5 },
-					},
-					{
-						translation: CosmeticCommon.Mask,
-						cosmetic: Cosmetic.AncientDarknessPlantMask,
-						cost: { candles: 50 },
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.Cape,
-						cosmetic: Cosmetic.AncientDarknessPlantCape,
-						cost: { candles: 80 },
-					},
-				],
-			],
+			},
 		},
 		visits: {
 			returning: [{ start: skyDate(2024, 9, 16), end: skyDate(2024, 9, 30) }],
@@ -136,101 +140,105 @@ export default [
 		kind: SpiritKind.Entity,
 		seasonId: SeasonId.Shattering,
 		area: AreaName.TheVoidOfShattering,
-		offer: {
-			seasonal: [
-				[
-					{
-						translation: CosmeticCommon.NeckAccessory,
-						cosmetic: Cosmetic.AncientDarknessDragonNeckAccessory,
-						cost: { seasonalCandles: 35 },
-					},
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-						cosmetic: Cosmetic.AncientDarknessDragonBlessing1,
-						seasonPass: true,
-					},
+		friendshipTrees: {
+			seasonal: {
+				friendshipTree: [
+					[
+						{
+							translation: CosmeticCommon.NeckAccessory,
+							cosmetic: Cosmetic.AncientDarknessDragonNeckAccessory,
+							cost: { seasonalCandles: 35 },
+						},
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+							cosmetic: Cosmetic.AncientDarknessDragonBlessing1,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+							cosmetic: Cosmetic.AncientDarknessDragonBlessing2,
+							cost: { seasonalCandles: 16 },
+						},
+						{ cosmetic: Cosmetic.AncientDarknessDragonDarkHorn, seasonPass: true },
+					],
+					[
+						{
+							translation: CosmeticCommon.Hair,
+							cosmetic: Cosmetic.AncientDarknessDragonHair,
+							cost: { seasonalCandles: 42 },
+						},
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+							cosmetic: Cosmetic.AncientDarknessDragonBlessing3,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.SeasonalHeart,
+							cosmetic: Cosmetic.AncientDarknessDragonSeasonalHeart,
+							cost: { seasonalCandles: 3 },
+							seasonPass: true,
+						},
+					],
 				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-						cosmetic: Cosmetic.AncientDarknessDragonBlessing2,
-						cost: { seasonalCandles: 16 },
-					},
-					{ cosmetic: Cosmetic.AncientDarknessDragonDarkHorn, seasonPass: true },
+			},
+			postSeason: {
+				friendshipTree: [
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+							cosmetic: Cosmetic.AncientDarknessDragonBlessing1,
+							cost: { candles: 5 },
+						},
+						{
+							translation: CosmeticCommon.NeckAccessory,
+							cosmetic: Cosmetic.AncientDarknessDragonNeckAccessory,
+							cost: { candles: 70 },
+						},
+						{
+							translation: CosmeticCommon.Heart,
+							cosmetic: Cosmetic.AncientDarknessDragonSeasonalHeart,
+							cost: { candles: 3 },
+							regularHeart: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+							cosmetic: Cosmetic.AncientDarknessDragonBlessing2,
+							cost: { candles: 5 },
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.WingBuff,
+							cosmetic: Cosmetic.AncientDarknessDragonWingBuff,
+							cost: { ascendedCandles: 2 },
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+							cosmetic: Cosmetic.AncientDarknessDragonBlessing3,
+							cost: { candles: 5 },
+						},
+						{
+							translation: CosmeticCommon.Hair,
+							cosmetic: Cosmetic.AncientDarknessDragonHair,
+							cost: { candles: 70 },
+						},
+					],
+					[
+						{
+							cosmetic: Cosmetic.AncientDarknessDragonDarkHorn,
+							cost: { candles: 50 },
+						},
+					],
 				],
-				[
-					{
-						translation: CosmeticCommon.Hair,
-						cosmetic: Cosmetic.AncientDarknessDragonHair,
-						cost: { seasonalCandles: 42 },
-					},
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-						cosmetic: Cosmetic.AncientDarknessDragonBlessing3,
-						seasonPass: true,
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.SeasonalHeart,
-						cosmetic: Cosmetic.AncientDarknessDragonSeasonalHeart,
-						cost: { seasonalCandles: 3 },
-						seasonPass: true,
-					},
-				],
-			],
-			current: [
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-						cosmetic: Cosmetic.AncientDarknessDragonBlessing1,
-						cost: { candles: 5 },
-					},
-					{
-						translation: CosmeticCommon.NeckAccessory,
-						cosmetic: Cosmetic.AncientDarknessDragonNeckAccessory,
-						cost: { candles: 70 },
-					},
-					{
-						translation: CosmeticCommon.Heart,
-						cosmetic: Cosmetic.AncientDarknessDragonSeasonalHeart,
-						cost: { candles: 3 },
-						regularHeart: true,
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-						cosmetic: Cosmetic.AncientDarknessDragonBlessing2,
-						cost: { candles: 5 },
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.WingBuff,
-						cosmetic: Cosmetic.AncientDarknessDragonWingBuff,
-						cost: { ascendedCandles: 2 },
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-						cosmetic: Cosmetic.AncientDarknessDragonBlessing3,
-						cost: { candles: 5 },
-					},
-					{
-						translation: CosmeticCommon.Hair,
-						cosmetic: Cosmetic.AncientDarknessDragonHair,
-						cost: { candles: 70 },
-					},
-				],
-				[
-					{
-						cosmetic: Cosmetic.AncientDarknessDragonDarkHorn,
-						cost: { candles: 50 },
-					},
-				],
-			],
+			},
 		},
 		visits: {
 			returning: [{ start: skyDate(2024, 9, 16), end: skyDate(2024, 9, 30) }],

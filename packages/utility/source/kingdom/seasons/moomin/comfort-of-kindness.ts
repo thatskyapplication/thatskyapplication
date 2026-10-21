@@ -9,77 +9,78 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Mannequin,
 	seasonId: SeasonId.Moomin,
 	area: AreaName.Moominvalley,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ComfortOfKindnessBlessing1,
-					cost: { seasonalCandles: 6 },
-				},
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
-					cosmetic: Cosmetic.ComfortOfKindnessProp1,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ComfortOfKindnessBlessing1,
+						cost: { seasonalCandles: 6 },
+					},
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 1 },
+						cosmetic: Cosmetic.ComfortOfKindnessProp1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ComfortOfKindnessHair,
+						cost: { seasonalCandles: 16 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ComfortOfKindnessBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.ComfortOfKindnessBlessing3,
+						cost: { seasonalCandles: 20 },
+					},
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 2 },
+						cosmetic: Cosmetic.ComfortOfKindnessProp2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.NeckAccessory,
+						cosmetic: Cosmetic.ComfortOfKindnessNeckAccessory,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+						cosmetic: Cosmetic.ComfortOfKindnessBlessing4,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 5 },
+						cosmetic: Cosmetic.ComfortOfKindnessBlessing5,
+						cost: { seasonalCandles: 32 },
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.ComfortOfKindnessCape,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.ComfortOfKindnessSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ComfortOfKindnessHair,
-					cost: { seasonalCandles: 16 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ComfortOfKindnessBlessing2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.ComfortOfKindnessBlessing3,
-					cost: { seasonalCandles: 20 },
-				},
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
-					cosmetic: Cosmetic.ComfortOfKindnessProp2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.NeckAccessory,
-					cosmetic: Cosmetic.ComfortOfKindnessNeckAccessory,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-					cosmetic: Cosmetic.ComfortOfKindnessBlessing4,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 5 },
-					cosmetic: Cosmetic.ComfortOfKindnessBlessing5,
-					cost: { seasonalCandles: 32 },
-				},
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.ComfortOfKindnessCape,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.ComfortOfKindnessSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

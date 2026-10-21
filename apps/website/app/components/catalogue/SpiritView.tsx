@@ -62,7 +62,7 @@ export function SpiritView({
 				</ExternalLink>
 			</h1>
 
-			{isGuideSpirit && spirit.inProgress && (
+			{isGuideSpirit && spirit.friendshipTrees.seasonal.inProgress && (
 				<p className={NOTE_CLASS}>
 					{t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { ns: "features" })}
 				</p>

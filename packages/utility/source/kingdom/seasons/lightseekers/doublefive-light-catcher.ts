@@ -12,89 +12,93 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Lightseekers,
 	action,
 	area: AreaName.BirdNest,
-	offer: {
-		hasInfographicSeasonal: false,
-		seasonal: [
-			[{ cosmetic: Cosmetic.FriendActionDoubleFive1 }],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.DoublefiveLightCatcherBlessing1,
-					cost: { seasonalCandles: 4 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.DoublefiveLightCatcherHair,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			hasInfographic: false,
+			friendshipTree: [
+				[{ cosmetic: Cosmetic.FriendActionDoubleFive1 }],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.DoublefiveLightCatcherBlessing1,
+						cost: { seasonalCandles: 4 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.DoublefiveLightCatcherHair,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.DoublefiveLightCatcherMask,
+						cost: { seasonalCandles: 6 },
+					},
+					{ cosmetic: Cosmetic.FriendActionDoubleFive2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.DoublefiveLightCatcherBlessing2,
+						cost: { seasonalCandles: 8 },
+					},
+				],
+				[{ cosmetic: Cosmetic.DoublefiveLightCatcherFlute, seasonPass: true }],
 			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.DoublefiveLightCatcherMask,
-					cost: { seasonalCandles: 6 },
-				},
-				{ cosmetic: Cosmetic.FriendActionDoubleFive2, level: 2, seasonPass: true },
+		},
+		postSeason: {
+			friendshipTree: [
+				[{ cosmetic: Cosmetic.FriendActionDoubleFive1 }],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.DoublefiveLightCatcherBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.DoublefiveLightCatcherMask,
+						cost: { candles: 24 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.DoublefiveLightCatcherHeart,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.DoublefiveLightCatcherWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.DoublefiveLightCatcherBlessing2,
+						cost: { candles: 5 },
+					},
+					{
+						cosmetic: Cosmetic.FriendActionDoubleFive2,
+						cost: { hearts: 7 },
+						level: 2,
+					},
+					{
+						cosmetic: Cosmetic.DoublefiveLightCatcherFlute,
+						cost: { candles: 55 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.DoublefiveLightCatcherHair,
+						cost: { candles: 34 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.DoublefiveLightCatcherBlessing2,
-					cost: { seasonalCandles: 8 },
-				},
-			],
-			[{ cosmetic: Cosmetic.DoublefiveLightCatcherFlute, seasonPass: true }],
-		],
-		current: [
-			[{ cosmetic: Cosmetic.FriendActionDoubleFive1 }],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.DoublefiveLightCatcherBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.DoublefiveLightCatcherMask,
-					cost: { candles: 24 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.DoublefiveLightCatcherHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.DoublefiveLightCatcherWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.DoublefiveLightCatcherBlessing2,
-					cost: { candles: 5 },
-				},
-				{
-					cosmetic: Cosmetic.FriendActionDoubleFive2,
-					cost: { hearts: 7 },
-					level: 2,
-				},
-				{
-					cosmetic: Cosmetic.DoublefiveLightCatcherFlute,
-					cost: { candles: 55 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.DoublefiveLightCatcherHair,
-					cost: { candles: 34 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

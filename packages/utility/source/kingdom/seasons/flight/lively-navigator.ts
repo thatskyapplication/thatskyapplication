@@ -9,146 +9,150 @@ export default new SeasonalSpirit({
 	id: SpiritId.LivelyNavigator,
 	seasonId: SeasonId.Flight,
 	area: AreaName.TheWindPaths,
-	offer: {
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteNavigate1 },
-				{ cosmetic: Cosmetic.EmoteNavigate2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteNavigate1 },
+					{ cosmetic: Cosmetic.EmoteNavigate2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.LivelyNavigatorBlessing1,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.LivelyNavigatorHair,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.HairAccessory,
+						cosmetic: Cosmetic.LivelyNavigatorHairAccessory,
+						cost: { seasonalCandles: 16 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.LivelyNavigatorBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteNavigate3,
+						cost: { seasonalCandles: 18 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteNavigate4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.TrailSpellMultiple, number: 1 },
+						cosmetic: Cosmetic.LivelyNavigatorTrailSpell1,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.LivelyNavigatorCape,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.LivelyNavigatorMusicSheet,
+						cost: { seasonalCandles: 28 },
+					},
+					{
+						translation: { key: CosmeticCommon.TrailSpellMultiple, number: 2 },
+						cosmetic: Cosmetic.LivelyNavigatorTrailSpell2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.LivelyNavigatorSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.LivelyNavigatorBlessing1,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.LivelyNavigatorHair,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteNavigate1 },
+					{
+						cosmetic: Cosmetic.EmoteNavigate2,
+						cost: { hearts: 4 },
+						level: 2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.LivelyNavigatorBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.HairAccessory,
+						cosmetic: Cosmetic.LivelyNavigatorHairAccessory,
+						cost: { candles: 45 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.LivelyNavigatorSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.LivelyNavigatorWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteNavigate3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteNavigate4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+					{
+						cosmetic: Cosmetic.LivelyNavigatorMusicSheet,
+						cost: { candles: 15 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.LivelyNavigatorBlessing2,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.LivelyNavigatorHair,
+						cost: { candles: 55 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.LivelyNavigatorCape,
+						cost: { candles: 70 },
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.HairAccessory,
-					cosmetic: Cosmetic.LivelyNavigatorHairAccessory,
-					cost: { seasonalCandles: 16 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.LivelyNavigatorBlessing2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteNavigate3,
-					cost: { seasonalCandles: 18 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteNavigate4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 1 },
-					cosmetic: Cosmetic.LivelyNavigatorTrailSpell1,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.LivelyNavigatorCape,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.LivelyNavigatorMusicSheet,
-					cost: { seasonalCandles: 28 },
-				},
-				{
-					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 2 },
-					cosmetic: Cosmetic.LivelyNavigatorTrailSpell2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.LivelyNavigatorSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteNavigate1 },
-				{
-					cosmetic: Cosmetic.EmoteNavigate2,
-					cost: { hearts: 4 },
-					level: 2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.LivelyNavigatorBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.HairAccessory,
-					cosmetic: Cosmetic.LivelyNavigatorHairAccessory,
-					cost: { candles: 45 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.LivelyNavigatorSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.LivelyNavigatorWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteNavigate3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteNavigate4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-				{
-					cosmetic: Cosmetic.LivelyNavigatorMusicSheet,
-					cost: { candles: 15 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.LivelyNavigatorBlessing2,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.LivelyNavigatorHair,
-					cost: { candles: 55 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.LivelyNavigatorCape,
-					cost: { candles: 70 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

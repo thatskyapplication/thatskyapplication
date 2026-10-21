@@ -17,13 +17,13 @@ const ALL_SPIRITS = [
 
 test("displayFriendshipTree follows each spirit kind's rule.", () => {
 	for (const spirit of ALL_SPIRITS) {
-		if (spirit.isSeasonalSpirit()) {
+		if (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) {
 			equal(
 				spirit.displayFriendshipTree,
-				spirit.current.length > 0 ? spirit.current : spirit.seasonal,
+				(spirit.friendshipTrees.postSeason ?? spirit.friendshipTrees.seasonal).friendshipTree,
 			);
 		} else {
-			equal(spirit.displayFriendshipTree, spirit.current);
+			equal(spirit.displayFriendshipTree, spirit.friendshipTree);
 		}
 	}
 });

@@ -7,22 +7,20 @@ export default new ElderSpirit({
 	id: SpiritId.ElderOfThePrairie,
 	realm: RealmName.DaylightPrairie,
 	area: AreaName.ThePassage,
-	offer: {
-		current: [
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ElderOfThePrairieHair,
-					cost: { ascendedCandles: 3 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.FaceAccessory,
-					cosmetic: Cosmetic.ElderOfThePrairieFaceAccessory,
-					cost: { ascendedCandles: 75 },
-				},
-			],
+	friendshipTree: [
+		[
+			{
+				translation: CosmeticCommon.Hair,
+				cosmetic: Cosmetic.ElderOfThePrairieHair,
+				cost: { ascendedCandles: 3 },
+			},
 		],
-	},
+		[
+			{
+				translation: CosmeticCommon.FaceAccessory,
+				cosmetic: Cosmetic.ElderOfThePrairieFaceAccessory,
+				cost: { ascendedCandles: 75 },
+			},
+		],
+	],
 });

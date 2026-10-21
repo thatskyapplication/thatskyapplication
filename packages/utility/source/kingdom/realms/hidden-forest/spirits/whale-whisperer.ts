@@ -6,41 +6,39 @@ import { AreaName } from "../../../geography.js";
 export default new StandardSpirit({
 	id: SpiritId.WhaleWhisperer,
 	area: AreaName.Boneyard,
-	offer: {
-		current: [
-			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallWhale }],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.WhaleWhispererBlessing1,
-					cost: { candles: 1 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.WhaleWhispererHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.WhaleWhispererWingBuff,
-					cost: { ascendedCandles: 1 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.WhaleWhispererBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.WhaleWhispererMusicSheet,
-					cost: { hearts: 2 },
-				},
-			],
+	friendshipTree: [
+		[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallWhale }],
+		[
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.WhaleWhispererBlessing1,
+				cost: { candles: 1 },
+			},
+			{
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.WhaleWhispererHeart,
+				cost: { candles: 3 },
+			},
 		],
-	},
+		[
+			{
+				translation: CosmeticCommon.WingBuff,
+				cosmetic: Cosmetic.WhaleWhispererWingBuff,
+				cost: { ascendedCandles: 1 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.WhaleWhispererBlessing2,
+				cost: { candles: 5 },
+			},
+		],
+		[
+			{
+				cosmetic: Cosmetic.WhaleWhispererMusicSheet,
+				cost: { hearts: 2 },
+			},
+		],
+	],
 });

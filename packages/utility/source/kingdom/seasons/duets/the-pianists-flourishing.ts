@@ -9,53 +9,54 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Mannequin,
 	seasonId: SeasonId.Duets,
 	area: AreaName.AviaryVillage,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ThePianistsFlourishingBlessing1,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.ThePianistsFlourishingProp,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ThePianistsFlourishingBlessing1,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.ThePianistsFlourishingProp,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Shoes,
+						cosmetic: Cosmetic.ThePianistsFlourishingShoes,
+						cost: { seasonalCandles: 22 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ThePianistsFlourishingBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.ThePianistsFlourishingBlessing3,
+						cost: { seasonalCandles: 26 },
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.ThePianistsFlourishingOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.ThePianistsFlourishingSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Shoes,
-					cosmetic: Cosmetic.ThePianistsFlourishingShoes,
-					cost: { seasonalCandles: 22 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ThePianistsFlourishingBlessing2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.ThePianistsFlourishingBlessing3,
-					cost: { seasonalCandles: 26 },
-				},
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.ThePianistsFlourishingOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.ThePianistsFlourishingSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

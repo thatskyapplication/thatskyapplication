@@ -12,112 +12,120 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Performance,
 	action,
 	area: AreaName.VillageTheatre,
-	offer: {
-		seasonal: [
-			[{ cosmetic: Cosmetic.FriendActionDuetDance1 }],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ModestDancerBlessing1,
-					cost: { seasonalCandles: 8 },
-				},
-				{ cosmetic: Cosmetic.ModestDancerMusicSheet, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[{ cosmetic: Cosmetic.FriendActionDuetDance1 }],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ModestDancerBlessing1,
+						cost: { seasonalCandles: 8 },
+					},
+					{ cosmetic: Cosmetic.ModestDancerMusicSheet, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.ModestDancerMask,
+						cost: { seasonalCandles: 14 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ModestDancerBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.ModestDancerBlessing3,
+						cost: { seasonalCandles: 26 },
+					},
+					{ cosmetic: Cosmetic.FriendActionDuetDance2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.ModestDancerOutfit,
+						cost: { seasonalCandles: 30 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ModestDancerHair,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.ModestDancerSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.ModestDancerMask,
-					cost: { seasonalCandles: 14 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ModestDancerBlessing2,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.FriendActionDuetDance1 },
+					{
+						cosmetic: Cosmetic.ModestDancerMusicSheet,
+						cost: { candles: 15 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ModestDancerBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.ModestDancerMask,
+						cost: { candles: 30 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.ModestDancerSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.ModestDancerWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ModestDancerBlessing2,
+						cost: { candles: 5 },
+					},
+					{
+						cosmetic: Cosmetic.FriendActionDuetDance2,
+						cost: { hearts: 8 },
+						level: 2,
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ModestDancerHair,
+						cost: { candles: 40 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.ModestDancerOutfit,
+						cost: { candles: 70 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.ModestDancerBlessing3,
-					cost: { seasonalCandles: 26 },
-				},
-				{ cosmetic: Cosmetic.FriendActionDuetDance2, level: 2, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.ModestDancerOutfit,
-					cost: { seasonalCandles: 30 },
-				},
-				{ translation: CosmeticCommon.Hair, cosmetic: Cosmetic.ModestDancerHair, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.ModestDancerSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.FriendActionDuetDance1 },
-				{
-					cosmetic: Cosmetic.ModestDancerMusicSheet,
-					cost: { candles: 15 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ModestDancerBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.ModestDancerMask,
-					cost: { candles: 30 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.ModestDancerSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.ModestDancerWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ModestDancerBlessing2,
-					cost: { candles: 5 },
-				},
-				{
-					cosmetic: Cosmetic.FriendActionDuetDance2,
-					cost: { hearts: 8 },
-					level: 2,
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ModestDancerHair,
-					cost: { candles: 40 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.ModestDancerOutfit,
-					cost: { candles: 70 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		returning: [{ start: skyDate(2025, 1, 13), end: skyDate(2025, 1, 27) }],

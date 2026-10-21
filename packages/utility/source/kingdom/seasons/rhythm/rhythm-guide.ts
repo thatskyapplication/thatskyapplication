@@ -6,25 +6,33 @@ import { SpiritId } from "../../../utility/spirits.js";
 export default new GuideSpirit({
 	id: SpiritId.RhythmGuide,
 	seasonId: SeasonId.Rhythm,
-	offer: {
-		current: [
-			[{ translation: CosmeticCommon.Pendant, cosmetic: Cosmetic.RhythmPendant, seasonPass: true }],
-			[
-				{
-					translation: CosmeticCommon.UltimateMask,
-					cosmetic: Cosmetic.RhythmUltimateMask,
-					cost: { seasonalHearts: 2 },
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: CosmeticCommon.Pendant,
+						cosmetic: Cosmetic.RhythmPendant,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.UltimateMask,
+						cosmetic: Cosmetic.RhythmUltimateMask,
+						cost: { seasonalHearts: 2 },
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.UltimateHair,
+						cosmetic: Cosmetic.RhythmUltimateHair,
+						cost: { seasonalHearts: 4 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.UltimateHair,
-					cosmetic: Cosmetic.RhythmUltimateHair,
-					cost: { seasonalHearts: 4 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

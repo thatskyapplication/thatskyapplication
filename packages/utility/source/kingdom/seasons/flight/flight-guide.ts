@@ -8,85 +8,87 @@ export default new GuideSpirit({
 	id: SpiritId.FlightGuide,
 	seasonId: SeasonId.Flight,
 	area: AreaName.TheWindPaths,
-	offer: {
-		hasInfographic: false,
-		current: [
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
-					cosmetic: Cosmetic.FlightGuideQuest1,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
-					cosmetic: Cosmetic.FlightGuideHeart1,
-					cost: { candles: 3 },
-				},
-				{
-					translation: CosmeticCommon.Pendant,
-					cosmetic: Cosmetic.FlightPendant,
-					seasonPass: true,
-					children: [
-						{
-							translation: CosmeticCommon.UltimateHairAccessory,
-							cosmetic: Cosmetic.FlightGuideUltimateHairAccessory,
-							cost: { seasonalHearts: 2 },
-							seasonPass: true,
-						},
-						{
-							translation: CosmeticCommon.UltimateOutfit,
-							cosmetic: Cosmetic.FlightGuideUltimateOutfit,
-							cost: { seasonalHearts: 2 },
-							seasonPass: true,
-						},
-					],
-				},
+	friendshipTrees: {
+		seasonal: {
+			hasInfographic: false,
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.FlightGuideQuest1,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.FlightGuideHeart1,
+						cost: { candles: 3 },
+					},
+					{
+						translation: CosmeticCommon.Pendant,
+						cosmetic: Cosmetic.FlightPendant,
+						seasonPass: true,
+						children: [
+							{
+								translation: CosmeticCommon.UltimateHairAccessory,
+								cosmetic: Cosmetic.FlightGuideUltimateHairAccessory,
+								cost: { seasonalHearts: 2 },
+								seasonPass: true,
+							},
+							{
+								translation: CosmeticCommon.UltimateOutfit,
+								cosmetic: Cosmetic.FlightGuideUltimateOutfit,
+								cost: { seasonalHearts: 2 },
+								seasonPass: true,
+							},
+						],
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.FlightGuideQuest2,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.FlightGuideHeart2,
+						cost: { candles: 3 },
+					},
+				],
+				[{ translation: CosmeticCommon.HighFive, cosmetic: Cosmetic.FlightGuideHighFive }],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.FlightGuideQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.FlightGuideHeart3,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.FlightGuideQuest4,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.FlightGuideHeart4,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.FlightGuideQuest5,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+						cosmetic: Cosmetic.FlightGuideHeart5,
+						cost: { candles: 3 },
+					},
+				],
+				[{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.FlightGuideFriendActionHug }],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
-					cosmetic: Cosmetic.FlightGuideQuest2,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
-					cosmetic: Cosmetic.FlightGuideHeart2,
-					cost: { candles: 3 },
-				},
-			],
-			[{ translation: CosmeticCommon.HighFive, cosmetic: Cosmetic.FlightGuideHighFive }],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
-					cosmetic: Cosmetic.FlightGuideQuest3,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
-					cosmetic: Cosmetic.FlightGuideHeart3,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
-					cosmetic: Cosmetic.FlightGuideQuest4,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
-					cosmetic: Cosmetic.FlightGuideHeart4,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
-					cosmetic: Cosmetic.FlightGuideQuest5,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
-					cosmetic: Cosmetic.FlightGuideHeart5,
-					cost: { candles: 3 },
-				},
-			],
-			[{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.FlightGuideFriendActionHug }],
-		],
+		},
 	},
 });

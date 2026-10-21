@@ -12,114 +12,118 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Performance,
 	action,
 	area: AreaName.VillageTheatre,
-	offer: {
-		seasonal: [
-			[{ cosmetic: Cosmetic.FriendActionHandshake1 }],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.FranticStagehandBlessing1,
-					cost: { seasonalCandles: 10 },
-				},
-				{ cosmetic: Cosmetic.FranticStagehandHood, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[{ cosmetic: Cosmetic.FriendActionHandshake1 }],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.FranticStagehandBlessing1,
+						cost: { seasonalCandles: 10 },
+					},
+					{ cosmetic: Cosmetic.FranticStagehandHood, seasonPass: true },
+				],
+				[
+					{
+						cosmetic: Cosmetic.FranticStagehandMusicSheet,
+						cost: { seasonalCandles: 22 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.FranticStagehandBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.FranticStagehandBlessing3,
+						cost: { seasonalCandles: 26 },
+					},
+					{ cosmetic: Cosmetic.FriendActionHandshake2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.FranticStagehandMask,
+						cost: { seasonalCandles: 30 },
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.FranticStagehandOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.FranticStagehandSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.FranticStagehandMusicSheet,
-					cost: { seasonalCandles: 22 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.FranticStagehandBlessing2,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.FriendActionHandshake1 },
+					{
+						cosmetic: Cosmetic.FranticStagehandMusicSheet,
+						cost: { candles: 22 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.FranticStagehandBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						cosmetic: Cosmetic.FranticStagehandHood,
+						cost: { candles: 48 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.FranticStagehandSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.FranticStagehandWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.FranticStagehandBlessing2,
+						cost: { candles: 5 },
+					},
+					{
+						cosmetic: Cosmetic.FriendActionHandshake2,
+						cost: { hearts: 8 },
+						level: 2,
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.FranticStagehandOutfit,
+						cost: { candles: 70 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.FranticStagehandMask,
+						cost: { candles: 34 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.FranticStagehandBlessing3,
-					cost: { seasonalCandles: 26 },
-				},
-				{ cosmetic: Cosmetic.FriendActionHandshake2, level: 2, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.FranticStagehandMask,
-					cost: { seasonalCandles: 30 },
-				},
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.FranticStagehandOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.FranticStagehandSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.FriendActionHandshake1 },
-				{
-					cosmetic: Cosmetic.FranticStagehandMusicSheet,
-					cost: { candles: 22 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.FranticStagehandBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					cosmetic: Cosmetic.FranticStagehandHood,
-					cost: { candles: 48 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.FranticStagehandSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.FranticStagehandWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.FranticStagehandBlessing2,
-					cost: { candles: 5 },
-				},
-				{
-					cosmetic: Cosmetic.FriendActionHandshake2,
-					cost: { hearts: 8 },
-					level: 2,
-				},
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.FranticStagehandOutfit,
-					cost: { candles: 70 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.FranticStagehandMask,
-					cost: { candles: 34 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		returning: [

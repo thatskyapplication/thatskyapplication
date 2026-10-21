@@ -6,75 +6,73 @@ import { AreaName } from "../../../geography.js";
 export default new StandardSpirit({
 	id: SpiritId.HandstandingThrillseeker,
 	area: AreaName.TheCitadel,
-	offer: {
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteHandstand1 },
-				{
-					cosmetic: Cosmetic.EmoteHandstand2,
-					cost: { candles: 3 },
-					level: 2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.HandstandingThrillseekerBlessing1,
-					cost: { candles: 1 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.HandstandingThrillseekerHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
-					cosmetic: Cosmetic.HandstandingThrillseekerWingBuff1,
-					cost: { ascendedCandles: 3 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteHandstand3,
-					cost: { candles: 4 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteHandstand4,
-					cost: { candles: 4 },
-					level: 4,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.HandstandingThrillseekerBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
-					cosmetic: Cosmetic.HandstandingThrillseekerCape1,
-					cost: { hearts: 40 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
-					cosmetic: Cosmetic.HandstandingThrillseekerWingBuff2,
-					cost: { ascendedCandles: 9 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
-					cosmetic: Cosmetic.HandstandingThrillseekerCape2,
-					cost: { hearts: 120 },
-				},
-			],
+	friendshipTree: [
+		[
+			{ cosmetic: Cosmetic.EmoteHandstand1 },
+			{
+				cosmetic: Cosmetic.EmoteHandstand2,
+				cost: { candles: 3 },
+				level: 2,
+			},
 		],
-	},
+		[
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.HandstandingThrillseekerBlessing1,
+				cost: { candles: 1 },
+			},
+			{
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.HandstandingThrillseekerHeart,
+				cost: { candles: 3 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
+				cosmetic: Cosmetic.HandstandingThrillseekerWingBuff1,
+				cost: { ascendedCandles: 3 },
+			},
+		],
+		[
+			{
+				cosmetic: Cosmetic.EmoteHandstand3,
+				cost: { candles: 4 },
+				level: 3,
+			},
+			{
+				cosmetic: Cosmetic.EmoteHandstand4,
+				cost: { candles: 4 },
+				level: 4,
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.HandstandingThrillseekerBlessing2,
+				cost: { candles: 5 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
+				cosmetic: Cosmetic.HandstandingThrillseekerCape1,
+				cost: { hearts: 40 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
+				cosmetic: Cosmetic.HandstandingThrillseekerWingBuff2,
+				cost: { ascendedCandles: 9 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
+				cosmetic: Cosmetic.HandstandingThrillseekerCape2,
+				cost: { hearts: 120 },
+			},
+		],
+	],
 });

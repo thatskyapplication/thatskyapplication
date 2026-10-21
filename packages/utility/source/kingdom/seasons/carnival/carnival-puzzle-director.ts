@@ -8,84 +8,85 @@ export default new SeasonalSpirit({
 	id: SpiritId.CarnivalPuzzleDirector,
 	seasonId: SeasonId.Carnival,
 	area: AreaName.WanderingCarnival,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					cosmetic: Cosmetic.EmoteTakeNotes1,
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.CarnivalPuzzleDirectorBlessing1,
-					cost: { seasonalCandles: 4 },
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						cosmetic: Cosmetic.EmoteTakeNotes1,
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.CarnivalPuzzleDirectorBlessing1,
+						cost: { seasonalCandles: 4 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.MusicSheetAirship,
+						cost: { seasonalCandles: 19 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.CarnivalPuzzleDirectorBlessing2,
+						cost: { seasonalCandles: 7 },
+					},
+					{
+						cosmetic: Cosmetic.EmoteTakeNotes2,
+						level: 2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteTakeNotes3,
+						level: 3,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.CarnivalPuzzleDirectorBlessing3,
+						cost: { seasonalCandles: 10 },
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.CarnivalPuzzleDirectorOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.HairAccessory,
+						cosmetic: Cosmetic.CarnivalPuzzleDirectorHairAccessory,
+						cost: { seasonalCandles: 28 },
+					},
+					{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.CarnivalPuzzleDirectorTrust },
+					{
+						cosmetic: Cosmetic.EmoteTakeNotes4,
+						level: 4,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.CarnivalPuzzleDirectorHair,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.CarnivalPuzzleDirectorSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.MusicSheetAirship,
-					cost: { seasonalCandles: 19 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.CarnivalPuzzleDirectorBlessing2,
-					cost: { seasonalCandles: 7 },
-				},
-				{
-					cosmetic: Cosmetic.EmoteTakeNotes2,
-					level: 2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteTakeNotes3,
-					level: 3,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.CarnivalPuzzleDirectorBlessing3,
-					cost: { seasonalCandles: 10 },
-				},
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.CarnivalPuzzleDirectorOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.HairAccessory,
-					cosmetic: Cosmetic.CarnivalPuzzleDirectorHairAccessory,
-					cost: { seasonalCandles: 28 },
-				},
-				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.CarnivalPuzzleDirectorTrust },
-				{
-					cosmetic: Cosmetic.EmoteTakeNotes4,
-					level: 4,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.CarnivalPuzzleDirectorHair,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.CarnivalPuzzleDirectorSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

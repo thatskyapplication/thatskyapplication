@@ -9,115 +9,119 @@ export default new SeasonalSpirit({
 	id: SpiritId.RallyingThrillseeker,
 	seasonId: SeasonId.Sanctuary,
 	area: AreaName.SanctuaryIslands,
-	offer: {
-		hasInfographicSeasonal: false,
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteRallyCheer1 },
-				{ cosmetic: Cosmetic.EmoteRallyCheer2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			hasInfographic: false,
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteRallyCheer1 },
+					{ cosmetic: Cosmetic.EmoteRallyCheer2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.RallyingThrillseekerHair,
+						cost: { seasonalCandles: 10 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.RallyingThrillseekerBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteRallyCheer3,
+						cost: { seasonalCandles: 12 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteRallyCheer4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.RallyingThrillseekerOutfit,
+						cost: { seasonalCandles: 14 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.RallyingThrillseekerBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.RallyingThrillseekerSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.RallyingThrillseekerHair,
-					cost: { seasonalCandles: 10 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.RallyingThrillseekerBlessing1,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteRallyCheer1 },
+					{
+						cosmetic: Cosmetic.EmoteRallyCheer2,
+						cost: { hearts: 4 },
+						level: 2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.RallyingThrillseekerBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.RallyingThrillseekerHair,
+						cost: { candles: 42 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.RallyingThrillseekerSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.RallyingThrillseekerWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteRallyCheer3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteRallyCheer4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.RallyingThrillseekerBlessing2,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.RallyingThrillseekerOutfit,
+						cost: { candles: 70 },
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteRallyCheer3,
-					cost: { seasonalCandles: 12 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteRallyCheer4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.RallyingThrillseekerOutfit,
-					cost: { seasonalCandles: 14 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.RallyingThrillseekerBlessing2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.RallyingThrillseekerSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteRallyCheer1 },
-				{
-					cosmetic: Cosmetic.EmoteRallyCheer2,
-					cost: { hearts: 4 },
-					level: 2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.RallyingThrillseekerBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.RallyingThrillseekerHair,
-					cost: { candles: 42 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.RallyingThrillseekerSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.RallyingThrillseekerWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteRallyCheer3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteRallyCheer4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.RallyingThrillseekerBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.RallyingThrillseekerOutfit,
-					cost: { candles: 70 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

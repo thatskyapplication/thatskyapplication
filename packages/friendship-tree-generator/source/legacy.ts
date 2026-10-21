@@ -25,8 +25,8 @@ import {
 import { resolveCostEmojiId } from "./utility/functions.js";
 
 const spirit = spirits().get(SpiritId.MigratingBirdWhisperer) as SeasonalSpirit;
-const NODES = spirit.seasonal;
-// const NODES = spirit.current;
+const NODES = spirit.friendshipTrees.seasonal.friendshipTree;
+// const NODES = spirit.friendshipTrees.postSeason?.friendshipTree ?? [];
 const hind = GlobalFonts.registerFromPath("./assets/Hind-Regular.ttf");
 
 if (!hind) {

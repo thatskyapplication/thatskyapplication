@@ -8,76 +8,77 @@ export default new SeasonalSpirit({
 	id: SpiritId.CarnivalAthleticDancer,
 	seasonId: SeasonId.Carnival,
 	area: AreaName.WanderingCarnival,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					cosmetic: Cosmetic.EmoteBreakdance1,
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.CarnivalAthleticDancerBlessing1,
-					cost: { seasonalCandles: 4 },
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						cosmetic: Cosmetic.EmoteBreakdance1,
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.CarnivalAthleticDancerBlessing1,
+						cost: { seasonalCandles: 4 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.CarnivalAthleticDancerMask,
+						cost: { seasonalCandles: 19 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.CarnivalAthleticDancerBlessing2,
+						cost: { seasonalCandles: 7 },
+					},
+					{
+						cosmetic: Cosmetic.EmoteBreakdance2,
+						level: 2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteBreakdance3,
+						level: 3,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: CosmeticCommon.WhiteDye,
+						cosmetic: Cosmetic.CarnivalAthleticDancerWhiteDye,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.CarnivalAthleticDancerCape,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.CarnivalAthleticDancerOutfit,
+						cost: { seasonalCandles: 28 },
+					},
+					{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.CarnivalAthleticDancerTrust },
+					{
+						cosmetic: Cosmetic.EmoteBreakdance4,
+						level: 4,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.CarnivalAthleticDancerSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.CarnivalAthleticDancerMask,
-					cost: { seasonalCandles: 19 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.CarnivalAthleticDancerBlessing2,
-					cost: { seasonalCandles: 7 },
-				},
-				{
-					cosmetic: Cosmetic.EmoteBreakdance2,
-					level: 2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteBreakdance3,
-					level: 3,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: CosmeticCommon.WhiteDye,
-					cosmetic: Cosmetic.CarnivalAthleticDancerWhiteDye,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.CarnivalAthleticDancerCape,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.CarnivalAthleticDancerOutfit,
-					cost: { seasonalCandles: 28 },
-				},
-				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.CarnivalAthleticDancerTrust },
-				{
-					cosmetic: Cosmetic.EmoteBreakdance4,
-					level: 4,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.CarnivalAthleticDancerSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

@@ -9,111 +9,115 @@ export default new SeasonalSpirit({
 	id: SpiritId.CrabWalker,
 	seasonId: SeasonId.Enchantment,
 	area: AreaName.ForgottenArk,
-	offer: {
-		hasInfographicSeasonal: false,
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteCrabWalk1 },
-				{ cosmetic: Cosmetic.EmoteCrabWalk2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			hasInfographic: false,
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteCrabWalk1 },
+					{ cosmetic: Cosmetic.EmoteCrabWalk2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.CrabWalkerHair,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.CrabWalkerBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteCrabWalk3,
+						cost: { seasonalCandles: 14 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteCrabWalk4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.CrabWalkerBlessing2,
+						cost: { seasonalCandles: 16 },
+					},
+					{ translation: CosmeticCommon.Cape, cosmetic: Cosmetic.CrabWalkerCape, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.CrabWalkerSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.CrabWalkerHair,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.CrabWalkerBlessing1,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteCrabWalk1 },
+					{
+						cosmetic: Cosmetic.EmoteCrabWalk2,
+						cost: { hearts: 4 },
+						level: 2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.CrabWalkerBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.CrabWalkerHair,
+						cost: { candles: 42 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.CrabWalkerSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.CrabWalkerWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteCrabWalk3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteCrabWalk4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.CrabWalkerBlessing2,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.CrabWalkerCape,
+						cost: { candles: 60 },
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteCrabWalk3,
-					cost: { seasonalCandles: 14 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteCrabWalk4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.CrabWalkerBlessing2,
-					cost: { seasonalCandles: 16 },
-				},
-				{ translation: CosmeticCommon.Cape, cosmetic: Cosmetic.CrabWalkerCape, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.CrabWalkerSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteCrabWalk1 },
-				{
-					cosmetic: Cosmetic.EmoteCrabWalk2,
-					cost: { hearts: 4 },
-					level: 2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.CrabWalkerBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.CrabWalkerHair,
-					cost: { candles: 42 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.CrabWalkerSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.CrabWalkerWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteCrabWalk3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteCrabWalk4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.CrabWalkerBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.CrabWalkerCape,
-					cost: { candles: 60 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

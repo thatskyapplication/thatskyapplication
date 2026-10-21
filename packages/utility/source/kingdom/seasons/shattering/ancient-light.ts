@@ -11,106 +11,110 @@ export default [
 		kind: SpiritKind.Entity,
 		seasonId: SeasonId.Shattering,
 		area: AreaName.TheVoidOfShattering,
-		offer: {
-			seasonal: [
-				[
-					{
-						translation: CosmeticCommon.Hair,
-						cosmetic: Cosmetic.AncientLightJellyfishHair,
-						cost: { seasonalCandles: 35 },
-					},
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-						cosmetic: Cosmetic.AncientLightJellyfishBlessing1,
-						seasonPass: true,
-					},
+		friendshipTrees: {
+			seasonal: {
+				friendshipTree: [
+					[
+						{
+							translation: CosmeticCommon.Hair,
+							cosmetic: Cosmetic.AncientLightJellyfishHair,
+							cost: { seasonalCandles: 35 },
+						},
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+							cosmetic: Cosmetic.AncientLightJellyfishBlessing1,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+							cosmetic: Cosmetic.AncientLightJellyfishBlessing2,
+							cost: { seasonalCandles: 16 },
+						},
+						{
+							translation: CosmeticCommon.HairAccessory,
+							cosmetic: Cosmetic.AncientLightJellyfishHairAccessory,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.Cape,
+							cosmetic: Cosmetic.AncientLightJellyfishCape,
+							cost: { seasonalCandles: 42 },
+						},
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+							cosmetic: Cosmetic.AncientLightJellyfishBlessing3,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.SeasonalHeart,
+							cosmetic: Cosmetic.AncientLightJellyfishSeasonalHeart,
+							cost: { seasonalCandles: 3 },
+							seasonPass: true,
+						},
+					],
 				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-						cosmetic: Cosmetic.AncientLightJellyfishBlessing2,
-						cost: { seasonalCandles: 16 },
-					},
-					{
-						translation: CosmeticCommon.HairAccessory,
-						cosmetic: Cosmetic.AncientLightJellyfishHairAccessory,
-						seasonPass: true,
-					},
+			},
+			postSeason: {
+				friendshipTree: [
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+							cosmetic: Cosmetic.AncientLightJellyfishBlessing1,
+							cost: { candles: 5 },
+						},
+						{
+							translation: CosmeticCommon.Hair,
+							cosmetic: Cosmetic.AncientLightJellyfishHair,
+							cost: { candles: 45 },
+						},
+						{
+							translation: CosmeticCommon.Heart,
+							cosmetic: Cosmetic.AncientLightJellyfishSeasonalHeart,
+							cost: { candles: 3 },
+							regularHeart: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+							cosmetic: Cosmetic.AncientLightJellyfishBlessing2,
+							cost: { candles: 5 },
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.WingBuff,
+							cosmetic: Cosmetic.AncientLightJellyfishWingBuff,
+							cost: { ascendedCandles: 2 },
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+							cosmetic: Cosmetic.AncientLightJellyfishBlessing3,
+							cost: { candles: 5 },
+						},
+						{
+							translation: CosmeticCommon.HairAccessory,
+							cosmetic: Cosmetic.AncientLightJellyfishHairAccessory,
+							cost: { candles: 50 },
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.Cape,
+							cosmetic: Cosmetic.AncientLightJellyfishCape,
+							cost: { candles: 80 },
+						},
+					],
 				],
-				[
-					{
-						translation: CosmeticCommon.Cape,
-						cosmetic: Cosmetic.AncientLightJellyfishCape,
-						cost: { seasonalCandles: 42 },
-					},
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-						cosmetic: Cosmetic.AncientLightJellyfishBlessing3,
-						seasonPass: true,
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.SeasonalHeart,
-						cosmetic: Cosmetic.AncientLightJellyfishSeasonalHeart,
-						cost: { seasonalCandles: 3 },
-						seasonPass: true,
-					},
-				],
-			],
-			current: [
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-						cosmetic: Cosmetic.AncientLightJellyfishBlessing1,
-						cost: { candles: 5 },
-					},
-					{
-						translation: CosmeticCommon.Hair,
-						cosmetic: Cosmetic.AncientLightJellyfishHair,
-						cost: { candles: 45 },
-					},
-					{
-						translation: CosmeticCommon.Heart,
-						cosmetic: Cosmetic.AncientLightJellyfishSeasonalHeart,
-						cost: { candles: 3 },
-						regularHeart: true,
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-						cosmetic: Cosmetic.AncientLightJellyfishBlessing2,
-						cost: { candles: 5 },
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.WingBuff,
-						cosmetic: Cosmetic.AncientLightJellyfishWingBuff,
-						cost: { ascendedCandles: 2 },
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-						cosmetic: Cosmetic.AncientLightJellyfishBlessing3,
-						cost: { candles: 5 },
-					},
-					{
-						translation: CosmeticCommon.HairAccessory,
-						cosmetic: Cosmetic.AncientLightJellyfishHairAccessory,
-						cost: { candles: 50 },
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.Cape,
-						cosmetic: Cosmetic.AncientLightJellyfishCape,
-						cost: { candles: 80 },
-					},
-				],
-			],
+			},
 		},
 		visits: {
 			returning: [{ start: skyDate(2024, 9, 16), end: skyDate(2024, 9, 30) }],
@@ -121,121 +125,125 @@ export default [
 		kind: SpiritKind.Entity,
 		seasonId: SeasonId.Shattering,
 		area: AreaName.TheVoidOfShattering,
-		offer: {
-			seasonal: [
-				[
-					{
-						cosmetic: Cosmetic.AncientLightMantaMusicSheet,
-						cost: { seasonalCandles: 27 },
-					},
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-						cosmetic: Cosmetic.AncientLightMantaBlessing1,
-						seasonPass: true,
-					},
+		friendshipTrees: {
+			seasonal: {
+				friendshipTree: [
+					[
+						{
+							cosmetic: Cosmetic.AncientLightMantaMusicSheet,
+							cost: { seasonalCandles: 27 },
+						},
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+							cosmetic: Cosmetic.AncientLightMantaBlessing1,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+							cosmetic: Cosmetic.AncientLightMantaBlessing2,
+							cost: { seasonalCandles: 16 },
+						},
+						{
+							translation: CosmeticCommon.Hair,
+							cosmetic: Cosmetic.AncientLightMantaHair,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.Cape,
+							cosmetic: Cosmetic.AncientLightMantaCape,
+							cost: { seasonalCandles: 35 },
+						},
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+							cosmetic: Cosmetic.AncientLightMantaBlessing3,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+							cosmetic: Cosmetic.AncientLightMantaBlessing4,
+							cost: { seasonalCandles: 16 },
+						},
+						{
+							translation: CosmeticCommon.Outfit,
+							cosmetic: Cosmetic.AncientLightMantaOutfit,
+							seasonPass: true,
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.SeasonalHeart,
+							cosmetic: Cosmetic.AncientLightMantaSeasonalHeart,
+							cost: { seasonalCandles: 3 },
+							seasonPass: true,
+						},
+					],
 				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-						cosmetic: Cosmetic.AncientLightMantaBlessing2,
-						cost: { seasonalCandles: 16 },
-					},
-					{
-						translation: CosmeticCommon.Hair,
-						cosmetic: Cosmetic.AncientLightMantaHair,
-						seasonPass: true,
-					},
+			},
+			postSeason: {
+				friendshipTree: [
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+							cosmetic: Cosmetic.AncientLightMantaBlessing1,
+							cost: { candles: 5 },
+						},
+						{
+							cosmetic: Cosmetic.AncientLightMantaMusicSheet,
+							cost: { candles: 15 },
+						},
+						{
+							translation: CosmeticCommon.Heart,
+							cosmetic: Cosmetic.AncientLightMantaSeasonalHeart,
+							cost: { candles: 3 },
+							regularHeart: true,
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+							cosmetic: Cosmetic.AncientLightMantaBlessing2,
+							cost: { candles: 5 },
+						},
+						{
+							translation: CosmeticCommon.Hair,
+							cosmetic: Cosmetic.AncientLightMantaHair,
+							cost: { candles: 50 },
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.WingBuff,
+							cosmetic: Cosmetic.AncientLightMantaWingBuff,
+							cost: { ascendedCandles: 2 },
+						},
+					],
+					[
+						{
+							translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+							cosmetic: Cosmetic.AncientLightMantaBlessing3,
+							cost: { candles: 5 },
+						},
+						{
+							translation: CosmeticCommon.Outfit,
+							cosmetic: Cosmetic.AncientLightMantaOutfit,
+							cost: { candles: 75 },
+						},
+					],
+					[
+						{
+							translation: CosmeticCommon.Cape,
+							cosmetic: Cosmetic.AncientLightMantaCape,
+							cost: { candles: 80 },
+						},
+					],
 				],
-				[
-					{
-						translation: CosmeticCommon.Cape,
-						cosmetic: Cosmetic.AncientLightMantaCape,
-						cost: { seasonalCandles: 35 },
-					},
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-						cosmetic: Cosmetic.AncientLightMantaBlessing3,
-						seasonPass: true,
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-						cosmetic: Cosmetic.AncientLightMantaBlessing4,
-						cost: { seasonalCandles: 16 },
-					},
-					{
-						translation: CosmeticCommon.Outfit,
-						cosmetic: Cosmetic.AncientLightMantaOutfit,
-						seasonPass: true,
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.SeasonalHeart,
-						cosmetic: Cosmetic.AncientLightMantaSeasonalHeart,
-						cost: { seasonalCandles: 3 },
-						seasonPass: true,
-					},
-				],
-			],
-			current: [
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-						cosmetic: Cosmetic.AncientLightMantaBlessing1,
-						cost: { candles: 5 },
-					},
-					{
-						cosmetic: Cosmetic.AncientLightMantaMusicSheet,
-						cost: { candles: 15 },
-					},
-					{
-						translation: CosmeticCommon.Heart,
-						cosmetic: Cosmetic.AncientLightMantaSeasonalHeart,
-						cost: { candles: 3 },
-						regularHeart: true,
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-						cosmetic: Cosmetic.AncientLightMantaBlessing2,
-						cost: { candles: 5 },
-					},
-					{
-						translation: CosmeticCommon.Hair,
-						cosmetic: Cosmetic.AncientLightMantaHair,
-						cost: { candles: 50 },
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.WingBuff,
-						cosmetic: Cosmetic.AncientLightMantaWingBuff,
-						cost: { ascendedCandles: 2 },
-					},
-				],
-				[
-					{
-						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-						cosmetic: Cosmetic.AncientLightMantaBlessing3,
-						cost: { candles: 5 },
-					},
-					{
-						translation: CosmeticCommon.Outfit,
-						cosmetic: Cosmetic.AncientLightMantaOutfit,
-						cost: { candles: 75 },
-					},
-				],
-				[
-					{
-						translation: CosmeticCommon.Cape,
-						cosmetic: Cosmetic.AncientLightMantaCape,
-						cost: { candles: 80 },
-					},
-				],
-			],
+			},
 		},
 		visits: {
 			returning: [{ start: skyDate(2024, 9, 16), end: skyDate(2024, 9, 30) }],

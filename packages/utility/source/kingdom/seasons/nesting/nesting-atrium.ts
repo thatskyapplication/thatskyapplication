@@ -9,65 +9,66 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Entity,
 	seasonId: SeasonId.Nesting,
 	area: AreaName.AviaryVillage,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
-					cosmetic: Cosmetic.NestingAtriumProp1,
-					cost: { seasonalCandles: 16 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.NestingAtriumBlessing1,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 1 },
+						cosmetic: Cosmetic.NestingAtriumProp1,
+						cost: { seasonalCandles: 16 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.NestingAtriumBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.NestingAtriumBlessing2,
+						cost: { seasonalCandles: 20 },
+					},
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 2 },
+						cosmetic: Cosmetic.NestingAtriumProp2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.NestingAtriumHair,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.NestingAtriumBlessing3,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+						cosmetic: Cosmetic.NestingAtriumBlessing4,
+						cost: { seasonalCandles: 28 },
+					},
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 3 },
+						cosmetic: Cosmetic.NestingAtriumProp3,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.NestingAtriumSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.NestingAtriumBlessing2,
-					cost: { seasonalCandles: 20 },
-				},
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
-					cosmetic: Cosmetic.NestingAtriumProp2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.NestingAtriumHair,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.NestingAtriumBlessing3,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-					cosmetic: Cosmetic.NestingAtriumBlessing4,
-					cost: { seasonalCandles: 28 },
-				},
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 3 },
-					cosmetic: Cosmetic.NestingAtriumProp3,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.NestingAtriumSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

@@ -8,79 +8,81 @@ export default new GuideSpirit({
 	id: SpiritId.NestingGuide,
 	seasonId: SeasonId.Nesting,
 	area: AreaName.AviaryVillage,
-	offer: {
-		current: [
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
-					cosmetic: Cosmetic.NestingGuideQuest1,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
-					cosmetic: Cosmetic.NestingGuideHeart1,
-				},
-				{
-					translation: CosmeticCommon.Pendant,
-					cosmetic: Cosmetic.NestingPendant,
-					seasonPass: true,
-					children: [
-						{
-							translation: CosmeticCommon.UltimateOutfit,
-							cosmetic: Cosmetic.NestingGuideUltimateOutfit,
-							cost: { seasonalHearts: 2 },
-							seasonPass: true,
-						},
-						{
-							translation: CosmeticCommon.UltimateProp,
-							cosmetic: Cosmetic.NestingGuideUltimateProp,
-							cost: { seasonalHearts: 2 },
-							seasonPass: true,
-						},
-					],
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.NestingGuideQuest1,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.NestingGuideHeart1,
+					},
+					{
+						translation: CosmeticCommon.Pendant,
+						cosmetic: Cosmetic.NestingPendant,
+						seasonPass: true,
+						children: [
+							{
+								translation: CosmeticCommon.UltimateOutfit,
+								cosmetic: Cosmetic.NestingGuideUltimateOutfit,
+								cost: { seasonalHearts: 2 },
+								seasonPass: true,
+							},
+							{
+								translation: CosmeticCommon.UltimateProp,
+								cosmetic: Cosmetic.NestingGuideUltimateProp,
+								cost: { seasonalHearts: 2 },
+								seasonPass: true,
+							},
+						],
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.NestingGuideQuest2,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.NestingGuideHeart2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.NestingGuideQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.NestingGuideHeart3,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.NestingGuideQuest4,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.NestingGuideHeart4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.NestingGuideQuest5,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+						cosmetic: Cosmetic.NestingGuideHeart5,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
-					cosmetic: Cosmetic.NestingGuideQuest2,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
-					cosmetic: Cosmetic.NestingGuideHeart2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
-					cosmetic: Cosmetic.NestingGuideQuest3,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
-					cosmetic: Cosmetic.NestingGuideHeart3,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
-					cosmetic: Cosmetic.NestingGuideQuest4,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
-					cosmetic: Cosmetic.NestingGuideHeart4,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
-					cosmetic: Cosmetic.NestingGuideQuest5,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
-					cosmetic: Cosmetic.NestingGuideHeart5,
-				},
-			],
-		],
+		},
 	},
 });

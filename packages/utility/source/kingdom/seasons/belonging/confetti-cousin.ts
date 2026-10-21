@@ -9,114 +9,118 @@ export default new SeasonalSpirit({
 	id: SpiritId.ConfettiCousin,
 	seasonId: SeasonId.Belonging,
 	area: AreaName.ButterflyFields,
-	offer: {
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteConfetti1 },
-				{ cosmetic: Cosmetic.EmoteConfetti2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteConfetti1 },
+					{ cosmetic: Cosmetic.EmoteConfetti2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ConfettiCousinBlessing1,
+						cost: { seasonalCandles: 8 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ConfettiCousinBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteConfetti3,
+						cost: { seasonalCandles: 10 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteConfetti4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.ConfettiCousinCape,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ConfettiCousinHair,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ConfettiCousinBlessing1,
-					cost: { seasonalCandles: 8 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ConfettiCousinBlessing2,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteConfetti1 },
+					{
+						cosmetic: Cosmetic.EmoteConfetti2,
+						cost: { hearts: 4 },
+						level: 2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ConfettiCousinBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ConfettiCousinHair,
+						cost: { candles: 42 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.ConfettiCousinWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteConfetti3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteConfetti4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ConfettiCousinBlessing2,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.ConfettiCousinCape,
+						cost: { candles: 60 },
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteConfetti3,
-					cost: { seasonalCandles: 10 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteConfetti4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.ConfettiCousinCape,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ConfettiCousinHair,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteConfetti1 },
-				{
-					cosmetic: Cosmetic.EmoteConfetti2,
-					cost: { hearts: 4 },
-					level: 2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ConfettiCousinBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ConfettiCousinHair,
-					cost: { candles: 42 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.ConfettiCousinWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteConfetti3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteConfetti4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ConfettiCousinBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.ConfettiCousinCape,
-					cost: { candles: 60 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

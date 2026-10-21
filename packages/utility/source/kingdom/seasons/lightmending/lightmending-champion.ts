@@ -9,85 +9,86 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Lightmending,
 	action: FriendAction.RevolvingDance,
 	area: AreaName.FracturedLanternStorage,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					cosmetic: Cosmetic.FriendActionRevolvingDance1,
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.LightmendingChampionBlessing1,
-					cost: { seasonalCandles: 4 },
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						cosmetic: Cosmetic.FriendActionRevolvingDance1,
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.LightmendingChampionBlessing1,
+						cost: { seasonalCandles: 4 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.LightmendingChampionMask,
+						cost: { seasonalCandles: 25 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.LightmendingChampionBlessing2,
+						cost: { seasonalCandles: 6 },
+					},
+					{
+						cosmetic: Cosmetic.FriendActionRevolvingDance2,
+						level: 2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.FriendActionRevolvingDance3,
+						cost: { seasonalCandles: 28 },
+						level: 3,
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.LightmendingChampionBlessing3,
+						cost: { seasonalCandles: 9 },
+					},
+					{
+						translation: CosmeticCommon.HeadAccessory,
+						cosmetic: Cosmetic.LightmendingChampionHeadAccessory,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WhiteDye,
+						cosmetic: Cosmetic.LightmendingChampionWhiteDye,
+						cost: { seasonalCandles: 15 },
+					},
+					{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.LightmendingChampionTrust },
+					{
+						cosmetic: Cosmetic.FriendActionRevolvingDance4,
+						level: 4,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.LightmendingChampionOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.LightmendingChampionSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.LightmendingChampionMask,
-					cost: { seasonalCandles: 25 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.LightmendingChampionBlessing2,
-					cost: { seasonalCandles: 6 },
-				},
-				{
-					cosmetic: Cosmetic.FriendActionRevolvingDance2,
-					level: 2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.FriendActionRevolvingDance3,
-					cost: { seasonalCandles: 28 },
-					level: 3,
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.LightmendingChampionBlessing3,
-					cost: { seasonalCandles: 9 },
-				},
-				{
-					translation: CosmeticCommon.HeadAccessory,
-					cosmetic: Cosmetic.LightmendingChampionHeadAccessory,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WhiteDye,
-					cosmetic: Cosmetic.LightmendingChampionWhiteDye,
-					cost: { seasonalCandles: 15 },
-				},
-				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.LightmendingChampionTrust },
-				{
-					cosmetic: Cosmetic.FriendActionRevolvingDance4,
-					level: 4,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.LightmendingChampionOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				null,
-				null,
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.LightmendingChampionSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

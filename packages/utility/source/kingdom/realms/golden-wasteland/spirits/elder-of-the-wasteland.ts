@@ -7,15 +7,13 @@ export default new ElderSpirit({
 	id: SpiritId.ElderOfTheWasteland,
 	realm: RealmName.GoldenWasteland,
 	area: AreaName.ThePassage,
-	offer: {
-		current: [
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ElderOfTheWastelandHair,
-					cost: { ascendedCandles: 6 },
-				},
-			],
+	friendshipTree: [
+		[
+			{
+				translation: CosmeticCommon.Hair,
+				cosmetic: Cosmetic.ElderOfTheWastelandHair,
+				cost: { ascendedCandles: 6 },
+			},
 		],
-	},
+	],
 });

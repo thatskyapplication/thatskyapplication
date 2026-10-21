@@ -9,73 +9,75 @@ export default new GuideSpirit({
 	kind: SpiritKind.Entity,
 	seasonId: SeasonId.Pearl,
 	area: AreaName.PearlVillage,
-	offer: {
-		inProgress: true,
-		current: [
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
-					cosmetic: Cosmetic.AnglersLanternQuest1,
-				},
-				null,
-				{
-					translation: CosmeticCommon.Pendant,
-					cosmetic: Cosmetic.PearlPendant,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			inProgress: true,
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.AnglersLanternQuest1,
+					},
+					null,
+					{
+						translation: CosmeticCommon.Pendant,
+						cosmetic: Cosmetic.PearlPendant,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.AnglersLanternQuest2,
+					},
+					null,
+					{
+						translation: CosmeticCommon.UltimateHairAccessory,
+						cosmetic: Cosmetic.AnglersLanternUltimateHairAccessory,
+						cost: { seasonalHearts: 1 },
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.AnglersLanternQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.AnglersLanternHeart1,
+					},
+					{
+						translation: CosmeticCommon.UltimateProp,
+						cosmetic: Cosmetic.AnglersLanternUltimateProp,
+						cost: { seasonalHearts: 1 },
+						seasonPass: true,
+					},
+				],
+				[null],
+				[
+					null,
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.AnglersLanternHeart2,
+					},
+					{
+						translation: CosmeticCommon.UltimateCape,
+						cosmetic: Cosmetic.AnglersLanternUltimateCape,
+						cost: { seasonalHearts: 2 },
+						seasonPass: true,
+					},
+				],
+				[null],
+				[
+					null,
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.AnglersLanternProp,
+						cost: { candles: 32 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
-					cosmetic: Cosmetic.AnglersLanternQuest2,
-				},
-				null,
-				{
-					translation: CosmeticCommon.UltimateHairAccessory,
-					cosmetic: Cosmetic.AnglersLanternUltimateHairAccessory,
-					cost: { seasonalHearts: 1 },
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
-					cosmetic: Cosmetic.AnglersLanternQuest3,
-				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
-					cosmetic: Cosmetic.AnglersLanternHeart1,
-				},
-				{
-					translation: CosmeticCommon.UltimateProp,
-					cosmetic: Cosmetic.AnglersLanternUltimateProp,
-					cost: { seasonalHearts: 1 },
-					seasonPass: true,
-				},
-			],
-			[null],
-			[
-				null,
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
-					cosmetic: Cosmetic.AnglersLanternHeart2,
-				},
-				{
-					translation: CosmeticCommon.UltimateCape,
-					cosmetic: Cosmetic.AnglersLanternUltimateCape,
-					cost: { seasonalHearts: 2 },
-					seasonPass: true,
-				},
-			],
-			[null],
-			[
-				null,
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.AnglersLanternProp,
-					cost: { candles: 32 },
-				},
-			],
-		],
+		},
 	},
 });

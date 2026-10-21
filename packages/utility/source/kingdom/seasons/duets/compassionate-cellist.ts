@@ -8,31 +8,32 @@ export default new SeasonalSpirit({
 	id: SpiritId.CompassionateCellist,
 	seasonId: SeasonId.Duets,
 	area: AreaName.AviaryVillage,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					translation: CosmeticCommon.Blessing,
-					cosmetic: Cosmetic.CompassionateCellistBlessing,
-				},
-				{
-					translation: CosmeticCommon.FaceAccessory,
-					cosmetic: Cosmetic.CompassionateCellistFaceAccessory,
-					cost: { candles: 85 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.CompassionateCellistHeart,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: CosmeticCommon.Blessing,
+						cosmetic: Cosmetic.CompassionateCellistBlessing,
+					},
+					{
+						translation: CosmeticCommon.FaceAccessory,
+						cosmetic: Cosmetic.CompassionateCellistFaceAccessory,
+						cost: { candles: 85 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.CompassionateCellistHeart,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.CompassionateCellistProp,
+						cost: { candles: 200 },
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.CompassionateCellistProp,
-					cost: { candles: 200 },
-				},
-			],
-		],
+		},
 	},
 });

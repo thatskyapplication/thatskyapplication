@@ -6,49 +6,47 @@ import { AreaName } from "../../../geography.js";
 export default new StandardSpirit({
 	id: SpiritId.ConfidentSightseer,
 	area: AreaName.FrozenLake,
-	offer: {
-		current: [
-			[
-				{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceConfident },
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ConfidentSightseerHair,
-					cost: { hearts: 2 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ConfidentSightseerBlessing1,
-					cost: { candles: 1 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.ConfidentSightseerHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.ConfidentSightseerWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ConfidentSightseerBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.ConfidentSightseerOutfit,
-					cost: { hearts: 5 },
-				},
-			],
+	friendshipTree: [
+		[
+			{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceConfident },
+			{
+				translation: CosmeticCommon.Hair,
+				cosmetic: Cosmetic.ConfidentSightseerHair,
+				cost: { hearts: 2 },
+			},
 		],
-	},
+		[
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.ConfidentSightseerBlessing1,
+				cost: { candles: 1 },
+			},
+			{
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.ConfidentSightseerHeart,
+				cost: { candles: 3 },
+			},
+		],
+		[
+			{
+				translation: CosmeticCommon.WingBuff,
+				cosmetic: Cosmetic.ConfidentSightseerWingBuff,
+				cost: { ascendedCandles: 2 },
+			},
+		],
+		[
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ConfidentSightseerBlessing2,
+				cost: { candles: 5 },
+			},
+		],
+		[
+			{
+				translation: CosmeticCommon.Outfit,
+				cosmetic: Cosmetic.ConfidentSightseerOutfit,
+				cost: { hearts: 5 },
+			},
+		],
+	],
 });

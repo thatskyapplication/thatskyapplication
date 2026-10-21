@@ -9,65 +9,66 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Mannequin,
 	seasonId: SeasonId.Duets,
 	area: AreaName.AviaryVillage,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ThePianistsBeginningsBlessing1,
-					cost: { seasonalCandles: 14 },
-				},
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
-					cosmetic: Cosmetic.ThePianistsBeginningsProp1,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ThePianistsBeginningsBlessing1,
+						cost: { seasonalCandles: 14 },
+					},
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 1 },
+						cosmetic: Cosmetic.ThePianistsBeginningsProp1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ThePianistsBeginningsHair,
+						cost: { seasonalCandles: 20 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ThePianistsBeginningsBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.ThePianistsBeginningsBlessing3,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.ThePianistsBeginningsOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 2 },
+						cosmetic: Cosmetic.ThePianistsBeginningsProp2,
+						cost: { seasonalCandles: 30 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+						cosmetic: Cosmetic.ThePianistsBeginningsBlessing4,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.ThePianistsBeginningsSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ThePianistsBeginningsHair,
-					cost: { seasonalCandles: 20 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ThePianistsBeginningsBlessing2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.ThePianistsBeginningsBlessing3,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.ThePianistsBeginningsOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
-					cosmetic: Cosmetic.ThePianistsBeginningsProp2,
-					cost: { seasonalCandles: 30 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-					cosmetic: Cosmetic.ThePianistsBeginningsBlessing4,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.ThePianistsBeginningsSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

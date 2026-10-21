@@ -22,8 +22,8 @@ import {
 import { resolveCostEmojiId } from "./utility/functions.js";
 
 const spirit = spirits().get(SpiritId.MigrationGuide) as SeasonalSpirit;
-// const NODES = spirit.seasonal;
-const NODES = spirit.current as FriendshipTree;
+// const NODES = spirit.friendshipTrees.postSeason?.friendshipTree as FriendshipTree;
+const NODES = spirit.friendshipTrees.seasonal.friendshipTree as FriendshipTree;
 const hind = GlobalFonts.registerFromPath("./assets/Hind-Regular.ttf");
 
 if (!hind) {

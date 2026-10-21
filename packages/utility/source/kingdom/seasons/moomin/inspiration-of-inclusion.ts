@@ -9,77 +9,78 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Mannequin,
 	seasonId: SeasonId.Moomin,
 	area: AreaName.Moominvalley,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
-					cosmetic: Cosmetic.InspirationOfInclusionProp1,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.InspirationOfInclusionBlessing1,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 1 },
+						cosmetic: Cosmetic.InspirationOfInclusionProp1,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.InspirationOfInclusionBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.InspirationOfInclusionBlessing2,
+						cost: { seasonalCandles: 16 },
+					},
+					{
+						translation: CosmeticCommon.HairAccessory,
+						cosmetic: Cosmetic.InspirationOfInclusionHairAccessory,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.PropMultiple, number: 2 },
+						cosmetic: Cosmetic.InspirationOfInclusionProp2,
+						cost: { seasonalCandles: 20 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.InspirationOfInclusionBlessing3,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+						cosmetic: Cosmetic.InspirationOfInclusionBlessing4,
+						cost: { seasonalCandles: 26 },
+					},
+					{
+						translation: CosmeticCommon.NeckAccessory,
+						cosmetic: Cosmetic.InspirationOfInclusionNeckAccessory,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.InspirationOfInclusionOutfit,
+						cost: { seasonalCandles: 36 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 5 },
+						cosmetic: Cosmetic.InspirationOfInclusionBlessing5,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.InspirationOfInclusionSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.InspirationOfInclusionBlessing2,
-					cost: { seasonalCandles: 16 },
-				},
-				{
-					translation: CosmeticCommon.HairAccessory,
-					cosmetic: Cosmetic.InspirationOfInclusionHairAccessory,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
-					cosmetic: Cosmetic.InspirationOfInclusionProp2,
-					cost: { seasonalCandles: 20 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.InspirationOfInclusionBlessing3,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-					cosmetic: Cosmetic.InspirationOfInclusionBlessing4,
-					cost: { seasonalCandles: 26 },
-				},
-				{
-					translation: CosmeticCommon.NeckAccessory,
-					cosmetic: Cosmetic.InspirationOfInclusionNeckAccessory,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.InspirationOfInclusionOutfit,
-					cost: { seasonalCandles: 36 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 5 },
-					cosmetic: Cosmetic.InspirationOfInclusionBlessing5,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.InspirationOfInclusionSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

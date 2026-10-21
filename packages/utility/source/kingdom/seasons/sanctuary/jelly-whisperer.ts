@@ -9,104 +9,108 @@ export default new SeasonalSpirit({
 	id: SpiritId.JellyWhisperer,
 	seasonId: SeasonId.Sanctuary,
 	area: AreaName.SanctuaryIslands,
-	offer: {
-		seasonal: [
-			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallJellyfish }],
-			[
-				{
-					cosmetic: Cosmetic.JellyWhispererMusicSheet,
-					cost: { seasonalCandles: 6 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.JellyWhispererBlessing1,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallJellyfish }],
+				[
+					{
+						cosmetic: Cosmetic.JellyWhispererMusicSheet,
+						cost: { seasonalCandles: 6 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.JellyWhispererBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.JellyWhispererHair,
+						cost: { seasonalCandles: 8 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.JellyWhispererBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.JellyWhispererBlessing3,
+						cost: { seasonalCandles: 10 },
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.JellyWhispererOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.JellyWhispererSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.JellyWhispererHair,
-					cost: { seasonalCandles: 8 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.JellyWhispererBlessing2,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallJellyfish }],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.JellyWhispererBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						cosmetic: Cosmetic.JellyWhispererMusicSheet,
+						cost: { candles: 15 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.JellyWhispererSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.JellyWhispererWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.JellyWhispererBlessing2,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Umbrella,
+						cosmetic: Cosmetic.JellyWhispererUmbrella,
+						cost: { hearts: 15 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.JellyWhispererHair,
+						cost: { candles: 42 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.JellyWhispererOutfit,
+						cost: { candles: 65 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.JellyWhispererBlessing3,
-					cost: { seasonalCandles: 10 },
-				},
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.JellyWhispererOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.JellyWhispererSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallJellyfish }],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.JellyWhispererBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					cosmetic: Cosmetic.JellyWhispererMusicSheet,
-					cost: { candles: 15 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.JellyWhispererSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.JellyWhispererWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.JellyWhispererBlessing2,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Umbrella,
-					cosmetic: Cosmetic.JellyWhispererUmbrella,
-					cost: { hearts: 15 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.JellyWhispererHair,
-					cost: { candles: 42 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.JellyWhispererOutfit,
-					cost: { candles: 65 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

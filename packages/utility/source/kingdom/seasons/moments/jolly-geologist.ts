@@ -9,126 +9,130 @@ export default new SeasonalSpirit({
 	id: SpiritId.JollyGeologist,
 	seasonId: SeasonId.Moments,
 	area: AreaName.PrairiePeaks,
-	offer: {
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteJollyDance1 },
-				{ cosmetic: Cosmetic.EmoteJollyDance2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteJollyDance1 },
+					{ cosmetic: Cosmetic.EmoteJollyDance2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.FaceAccessory,
+						cosmetic: Cosmetic.JollyGeologistFaceAccessory,
+						cost: { seasonalCandles: 8 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.JollyGeologistHair,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteJollyDance3,
+						cost: { seasonalCandles: 20 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteJollyDance4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.JollyGeologistBlessing1,
+						cost: { seasonalCandles: 28 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.JollyGeologistBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.JollyGeologistMusicSheet,
+						cost: { seasonalCandles: 34 },
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.JollyGeologistProp,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.JollyGeologistSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.FaceAccessory,
-					cosmetic: Cosmetic.JollyGeologistFaceAccessory,
-					cost: { seasonalCandles: 8 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.JollyGeologistHair,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteJollyDance1 },
+					{ cosmetic: Cosmetic.EmoteJollyDance2, cost: { hearts: 4 }, level: 2 },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.JollyGeologistBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.JollyGeologistProp,
+						cost: { candles: 36 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.JollyGeologistSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.JollyGeologistWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteJollyDance3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteJollyDance4, cost: { hearts: 6 }, level: 4 },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.JollyGeologistBlessing2,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.FaceAccessory,
+						cosmetic: Cosmetic.JollyGeologistFaceAccessory,
+						cost: { candles: 42 },
+					},
+					{
+						cosmetic: Cosmetic.JollyGeologistMusicSheet,
+						cost: { candles: 15 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.JollyGeologistHair,
+						cost: { candles: 48 },
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteJollyDance3,
-					cost: { seasonalCandles: 20 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteJollyDance4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.JollyGeologistBlessing1,
-					cost: { seasonalCandles: 28 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.JollyGeologistBlessing2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.JollyGeologistMusicSheet,
-					cost: { seasonalCandles: 34 },
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.JollyGeologistProp,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.JollyGeologistSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteJollyDance1 },
-				{ cosmetic: Cosmetic.EmoteJollyDance2, cost: { hearts: 4 }, level: 2 },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.JollyGeologistBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.JollyGeologistProp,
-					cost: { candles: 36 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.JollyGeologistSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.JollyGeologistWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteJollyDance3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteJollyDance4, cost: { hearts: 6 }, level: 4 },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.JollyGeologistBlessing2,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.FaceAccessory,
-					cosmetic: Cosmetic.JollyGeologistFaceAccessory,
-					cost: { candles: 42 },
-				},
-				{
-					cosmetic: Cosmetic.JollyGeologistMusicSheet,
-					cost: { candles: 15 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.JollyGeologistHair,
-					cost: { candles: 48 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [{ start: skyDate(2025, 7, 17), end: skyDate(2025, 7, 21) }],

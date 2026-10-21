@@ -7,22 +7,20 @@ export default new ElderSpirit({
 	id: SpiritId.ElderOfTheForest,
 	realm: RealmName.HiddenForest,
 	area: AreaName.ThePassage,
-	offer: {
-		current: [
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ElderOfTheForestHair,
-					cost: { ascendedCandles: 6 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.FaceAccessory,
-					cosmetic: Cosmetic.ElderOfTheForestFaceAccessory,
-					cost: { ascendedCandles: 250 },
-				},
-			],
+	friendshipTree: [
+		[
+			{
+				translation: CosmeticCommon.Hair,
+				cosmetic: Cosmetic.ElderOfTheForestHair,
+				cost: { ascendedCandles: 6 },
+			},
 		],
-	},
+		[
+			{
+				translation: CosmeticCommon.FaceAccessory,
+				cosmetic: Cosmetic.ElderOfTheForestFaceAccessory,
+				cost: { ascendedCandles: 250 },
+			},
+		],
+	],
 });

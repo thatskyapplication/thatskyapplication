@@ -9,104 +9,108 @@ export default new SeasonalSpirit({
 	id: SpiritId.GreetingShaman,
 	seasonId: SeasonId.Gratitude,
 	area: AreaName.UpperVault,
-	offer: {
-		hasInfographicSeasonal: false,
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteKungFu1 },
-				{ cosmetic: Cosmetic.EmoteKungFu2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			hasInfographic: false,
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteKungFu1 },
+					{ cosmetic: Cosmetic.EmoteKungFu2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.GreetingShamanBlessing1,
+						cost: { seasonalCandles: 18 },
+					},
+					{ cosmetic: Cosmetic.GreetingShamanLargeBell, seasonPass: true },
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteKungFu3,
+						cost: { seasonalCandles: 20 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteKungFu4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.GreetingShamanBlessing2,
+						cost: { seasonalCandles: 22 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.GreetingShamanMask,
+						cost: { hearts: 5 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.GreetingShamanBlessing1,
-					cost: { seasonalCandles: 18 },
-				},
-				{ cosmetic: Cosmetic.GreetingShamanLargeBell, seasonPass: true },
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteKungFu1 },
+					{
+						cosmetic: Cosmetic.EmoteKungFu2,
+						cost: { hearts: 4 },
+						level: 2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.GreetingShamanBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						cosmetic: Cosmetic.GreetingShamanLargeBell,
+						cost: { candles: 45 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.GreetingShamanHeart,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.GreetingShamanWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteKungFu3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteKungFu4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.GreetingShamanBlessing2,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.GreetingShamanMask,
+						cost: { candles: 54 },
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteKungFu3,
-					cost: { seasonalCandles: 20 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteKungFu4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.GreetingShamanBlessing2,
-					cost: { seasonalCandles: 22 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.GreetingShamanMask,
-					cost: { hearts: 5 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteKungFu1 },
-				{
-					cosmetic: Cosmetic.EmoteKungFu2,
-					cost: { hearts: 4 },
-					level: 2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.GreetingShamanBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					cosmetic: Cosmetic.GreetingShamanLargeBell,
-					cost: { candles: 45 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.GreetingShamanHeart,
-					cost: { candles: 3 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.GreetingShamanWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteKungFu3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteKungFu4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.GreetingShamanBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.GreetingShamanMask,
-					cost: { candles: 54 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

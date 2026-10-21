@@ -9,99 +9,103 @@ export default new SeasonalSpirit({
 	id: SpiritId.TimidBookworm,
 	seasonId: SeasonId.Sanctuary,
 	area: AreaName.SanctuaryIslands,
-	offer: {
-		hasInfographicSeasonal: false,
-		seasonal: [
-			[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTimid }],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.TimidBookwormBlessing1,
-					cost: { seasonalCandles: 8 },
-				},
-				{ cosmetic: Cosmetic.TimidBookwormMusicSheet, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			hasInfographic: false,
+			friendshipTree: [
+				[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTimid }],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.TimidBookwormBlessing1,
+						cost: { seasonalCandles: 8 },
+					},
+					{ cosmetic: Cosmetic.TimidBookwormMusicSheet, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.TimidBookwormHair,
+						cost: { seasonalCandles: 10 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.TimidBookwormBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.TimidBookwormBlessing3,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.TimidBookwormCape,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.TimidBookwormSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.TimidBookwormHair,
-					cost: { seasonalCandles: 10 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.TimidBookwormBlessing2,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTimid },
+					{
+						cosmetic: Cosmetic.TimidBookwormMusicSheet,
+						cost: { candles: 15 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.TimidBookwormBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.TimidBookwormHair,
+						cost: { candles: 42 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.TimidBookwormSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.TimidBookwormWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.TimidBookwormBlessing2,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.TimidBookwormCape,
+						cost: { candles: 70 },
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.TimidBookwormBlessing3,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.TimidBookwormCape,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.TimidBookwormSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTimid },
-				{
-					cosmetic: Cosmetic.TimidBookwormMusicSheet,
-					cost: { candles: 15 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.TimidBookwormBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.TimidBookwormHair,
-					cost: { candles: 42 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.TimidBookwormSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.TimidBookwormWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.TimidBookwormBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.TimidBookwormCape,
-					cost: { candles: 70 },
-				},
-			],
-		],
+		},
 	},
 	keywords: ["butterfly", "butterfly cape"],
 	visits: {

@@ -9,140 +9,144 @@ export default new SeasonalSpirit({
 	id: SpiritId.ProphetOfFire,
 	seasonId: SeasonId.Prophecy,
 	area: AreaName.CaveOfProphecies,
-	offer: {
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteChestPound1 },
-				{ cosmetic: Cosmetic.EmoteChestPound2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteChestPound1 },
+					{ cosmetic: Cosmetic.EmoteChestPound2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ProphetOfFireBlessing1,
+						cost: { seasonalCandles: 13 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ProphetOfFireHair,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteChestPound3,
+						cost: { seasonalCandles: 18 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteChestPound4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ProphetOfFireBlessing2,
+						cost: { seasonalCandles: 23 },
+					},
+					{ cosmetic: Cosmetic.ProphetOfFireMusicSheet, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.ProphetOfFireMask,
+						cost: { seasonalCandles: 29 },
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.ProphetOfFireOutfit,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.ProphetOfFireSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ProphetOfFireBlessing1,
-					cost: { seasonalCandles: 13 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ProphetOfFireHair,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteChestPound1 },
+					{
+						cosmetic: Cosmetic.EmoteChestPound2,
+						cost: { hearts: 4 },
+						level: 2,
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.ProphetOfFireProp,
+						cost: { candles: 15 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.ProphetOfFireBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.ProphetOfFireHair,
+						cost: { candles: 44 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.ProphetOfFireSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.ProphetOfFireWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteChestPound3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteChestPound4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+					{
+						cosmetic: Cosmetic.ProphetOfFireMusicSheet,
+						cost: { candles: 15 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.ProphetOfFireBlessing2,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.ProphetOfFireMask,
+						cost: { candles: 54 },
+					},
+					{
+						cosmetic: Cosmetic.ProphetOfFireCauldron,
+						cost: { hearts: 13 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.ProphetOfFireOutfit,
+						cost: { candles: 75 },
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteChestPound3,
-					cost: { seasonalCandles: 18 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteChestPound4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ProphetOfFireBlessing2,
-					cost: { seasonalCandles: 23 },
-				},
-				{ cosmetic: Cosmetic.ProphetOfFireMusicSheet, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.ProphetOfFireMask,
-					cost: { seasonalCandles: 29 },
-				},
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.ProphetOfFireOutfit,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.ProphetOfFireSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteChestPound1 },
-				{
-					cosmetic: Cosmetic.EmoteChestPound2,
-					cost: { hearts: 4 },
-					level: 2,
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.ProphetOfFireProp,
-					cost: { candles: 15 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ProphetOfFireBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.ProphetOfFireHair,
-					cost: { candles: 44 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.ProphetOfFireSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.ProphetOfFireWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteChestPound3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteChestPound4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-				{
-					cosmetic: Cosmetic.ProphetOfFireMusicSheet,
-					cost: { candles: 15 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ProphetOfFireBlessing2,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.ProphetOfFireMask,
-					cost: { candles: 54 },
-				},
-				{
-					cosmetic: Cosmetic.ProphetOfFireCauldron,
-					cost: { hearts: 13 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.ProphetOfFireOutfit,
-					cost: { candles: 75 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

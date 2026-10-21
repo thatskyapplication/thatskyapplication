@@ -9,63 +9,64 @@ export default new SeasonalSpirit({
 	kind: SpiritKind.Mannequin,
 	seasonId: SeasonId.Moomin,
 	area: AreaName.Moominvalley,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					cosmetic: Cosmetic.SpiritOfAdventureMusicSheet,
-					cost: { seasonalCandles: 8 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.SpiritOfAdventureHair,
-					seasonPass: true,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						cosmetic: Cosmetic.SpiritOfAdventureMusicSheet,
+						cost: { seasonalCandles: 8 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.SpiritOfAdventureHair,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.SpiritOfAdventureHarmonica,
+						cost: { seasonalCandles: 20 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.SpiritOfAdventureBlessing1,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.SpiritOfAdventureBlessing2,
+						cost: { seasonalCandles: 26 },
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.SpiritOfAdventureProp,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.SpiritOfAdventureCape,
+						cost: { seasonalCandles: 38 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.SpiritOfAdventureBlessing3,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.SpiritOfAdventureSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.SpiritOfAdventureHarmonica,
-					cost: { seasonalCandles: 20 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.SpiritOfAdventureBlessing1,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.SpiritOfAdventureBlessing2,
-					cost: { seasonalCandles: 26 },
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.SpiritOfAdventureProp,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.SpiritOfAdventureCape,
-					cost: { seasonalCandles: 38 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.SpiritOfAdventureBlessing3,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.SpiritOfAdventureSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });

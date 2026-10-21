@@ -9,132 +9,136 @@ export default new SeasonalSpirit({
 	id: SpiritId.BaffledBotanist,
 	seasonId: SeasonId.Assembly,
 	area: AreaName.ForestCourtyard,
-	offer: {
-		hasInfographicSeasonal: false,
-		seasonal: [
-			[
-				{ cosmetic: Cosmetic.EmoteFacepalm1 },
-				{ cosmetic: Cosmetic.EmoteFacepalm2, level: 2, seasonPass: true },
+	friendshipTrees: {
+		seasonal: {
+			hasInfographic: false,
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteFacepalm1 },
+					{ cosmetic: Cosmetic.EmoteFacepalm2, level: 2, seasonPass: true },
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.BaffledBotanistBlessing1,
+						cost: { seasonalCandles: 10 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.BaffledBotanistHair,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteFacepalm3,
+						cost: { seasonalCandles: 12 },
+						level: 3,
+					},
+					{ cosmetic: Cosmetic.EmoteFacepalm4, level: 4, seasonPass: true },
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.BaffledBotanistMask,
+						cost: { seasonalCandles: 14 },
+					},
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.BaffledBotanistBlessing2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+						cosmetic: Cosmetic.BaffledBotanistBlessing3,
+						cost: { seasonalCandles: 16 },
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.BaffledBotanistProp,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.BaffledBotanistSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.BaffledBotanistBlessing1,
-					cost: { seasonalCandles: 10 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.BaffledBotanistHair,
-					seasonPass: true,
-				},
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{ cosmetic: Cosmetic.EmoteFacepalm1 },
+					{
+						cosmetic: Cosmetic.EmoteFacepalm2,
+						cost: { hearts: 4 },
+						level: 2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+						cosmetic: Cosmetic.BaffledBotanistBlessing1,
+						cost: { candles: 5 },
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.BaffledBotanistMask,
+						cost: { candles: 24 },
+					},
+					{
+						translation: CosmeticCommon.Heart,
+						cosmetic: Cosmetic.BaffledBotanistSeasonalHeart,
+						cost: { candles: 3 },
+						regularHeart: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.WingBuff,
+						cosmetic: Cosmetic.BaffledBotanistWingBuff,
+						cost: { ascendedCandles: 2 },
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.EmoteFacepalm3,
+						cost: { hearts: 3 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteFacepalm4,
+						cost: { hearts: 6 },
+						level: 4,
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.BaffledBotanistHair,
+						cost: { candles: 45 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+						cosmetic: Cosmetic.BaffledBotanistBlessing2,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.BaffledBotanistProp,
+						cost: { candles: 45 },
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteFacepalm3,
-					cost: { seasonalCandles: 12 },
-					level: 3,
-				},
-				{ cosmetic: Cosmetic.EmoteFacepalm4, level: 4, seasonPass: true },
-			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.BaffledBotanistMask,
-					cost: { seasonalCandles: 14 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.BaffledBotanistBlessing2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.BaffledBotanistBlessing3,
-					cost: { seasonalCandles: 16 },
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.BaffledBotanistProp,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.BaffledBotanistSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
-		current: [
-			[
-				{ cosmetic: Cosmetic.EmoteFacepalm1 },
-				{
-					cosmetic: Cosmetic.EmoteFacepalm2,
-					cost: { hearts: 4 },
-					level: 2,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.BaffledBotanistBlessing1,
-					cost: { candles: 5 },
-				},
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.BaffledBotanistMask,
-					cost: { candles: 24 },
-				},
-				{
-					translation: CosmeticCommon.Heart,
-					cosmetic: Cosmetic.BaffledBotanistSeasonalHeart,
-					cost: { candles: 3 },
-					regularHeart: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.WingBuff,
-					cosmetic: Cosmetic.BaffledBotanistWingBuff,
-					cost: { ascendedCandles: 2 },
-				},
-			],
-			[
-				{
-					cosmetic: Cosmetic.EmoteFacepalm3,
-					cost: { hearts: 3 },
-					level: 3,
-				},
-				{
-					cosmetic: Cosmetic.EmoteFacepalm4,
-					cost: { hearts: 6 },
-					level: 4,
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.BaffledBotanistHair,
-					cost: { candles: 45 },
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.BaffledBotanistBlessing2,
-					cost: { candles: 5 },
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.BaffledBotanistProp,
-					cost: { candles: 45 },
-				},
-			],
-		],
+		},
 	},
 	visits: {
 		travelling: [

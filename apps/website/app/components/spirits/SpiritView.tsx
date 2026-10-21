@@ -86,7 +86,7 @@ export function SpiritView({
 				timeZoneEstimated={timeZoneEstimated}
 			/>
 
-			{spirit.isGuideSpirit() && spirit.inProgress ? (
+			{spirit.isGuideSpirit() && spirit.friendshipTrees.seasonal.inProgress ? (
 				<p className={NOTE_CLASS}>
 					{t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { ns: "features" })}
 				</p>

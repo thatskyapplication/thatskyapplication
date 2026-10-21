@@ -30,7 +30,13 @@ const OFFERED_ITEMS: readonly (readonly [string, ItemWithoutChildren])[] = [
 	...spirits()
 		.values()
 		.flatMap((spirit) =>
-			(spirit.isSeasonalSpirit() ? [spirit.current, spirit.seasonal] : [spirit.current])
+			(spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
+				? [
+						spirit.friendshipTrees.seasonal.friendshipTree,
+						spirit.friendshipTrees.postSeason?.friendshipTree ?? [],
+					]
+				: [spirit.friendshipTree]
+			)
 				.flatMap((friendshipTree) => friendshipTreeToItems(friendshipTree))
 				.map((item) => [`Spirit ${spirit.id}`, item] as const),
 		),
@@ -110,7 +116,7 @@ test("AURORA numbers each of its expressions.", () => {
 	ok(aurora, "Expected AURORA.");
 	const numbersByExpression = new Map<Emoji | null, Set<number | undefined>>();
 
-	for (const item of friendshipTreeToItems(aurora.current).filter(isExpression)) {
+	for (const item of friendshipTreeToItems(aurora.displayFriendshipTree).filter(isExpression)) {
 		const emoji = CosmeticToEmoji[item.cosmetics[0]];
 		const numbers = numbersByExpression.get(emoji) ?? new Set();
 		numbers.add(item.translation.number);

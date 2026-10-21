@@ -1897,9 +1897,12 @@ async function viewSpirit(
 	const isElderSpirit = spirit.isElderSpirit();
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
-	const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 	const friendshipTree = spirit.displayFriendshipTree;
-	const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
+
+	const { imageURL } =
+		isSeasonalSpirit || isGuideSpirit
+			? (spirit.friendshipTrees.postSeason ?? spirit.friendshipTrees.seasonal)
+			: spirit;
 
 	const { hasEverything, offerProgress } = offerData({
 		data,
@@ -1960,7 +1963,7 @@ async function viewSpirit(
 		});
 	}
 
-	if (isGuideSpirit && spirit.inProgress) {
+	if (isGuideSpirit && spirit.friendshipTrees.seasonal.inProgress) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `-# ${t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { lng: locale, ns: "features" })}`,

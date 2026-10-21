@@ -8,69 +8,70 @@ export default new SeasonalSpirit({
 	id: SpiritId.SternShepherd,
 	seasonId: SeasonId.TwoEmbersPart1,
 	area: AreaName.TheLastCity,
-	offer: {
-		hasInfographic: false,
-		seasonal: [
-			[
-				{
-					translation: CosmeticCommon.Call,
-					cosmetic: Cosmetic.CallManatee,
-				},
+	friendshipTrees: {
+		seasonal: {
+			friendshipTree: [
+				[
+					{
+						translation: CosmeticCommon.Call,
+						cosmetic: Cosmetic.CallManatee,
+					},
+				],
+				[
+					{
+						cosmetic: Cosmetic.SternShepherdMusicSheet,
+						cost: { seasonalCandles: 12 },
+					},
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.SternShepherdHair,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.SternShepherdOutfit,
+						cost: { seasonalCandles: 18 },
+					},
+					{
+						cosmetic: Cosmetic.SternShepherdYellowDye,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.DyeMultiple, number: 1 },
+						cosmetic: Cosmetic.SternShepherdDye1,
+						cost: { seasonalCandles: 24 },
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.SternShepherdProp,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.SternShepherdMask,
+						cost: { seasonalCandles: 30 },
+					},
+					{
+						translation: { key: CosmeticCommon.DyeMultiple, number: 2 },
+						cosmetic: Cosmetic.SternShepherdDye2,
+						seasonPass: true,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.SeasonalHeart,
+						cosmetic: Cosmetic.SternShepherdSeasonalHeart,
+						cost: { seasonalCandles: 3 },
+						seasonPass: true,
+					},
+				],
 			],
-			[
-				{
-					cosmetic: Cosmetic.SternShepherdMusicSheet,
-					cost: { seasonalCandles: 12 },
-				},
-				{
-					translation: CosmeticCommon.Hair,
-					cosmetic: Cosmetic.SternShepherdHair,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Outfit,
-					cosmetic: Cosmetic.SternShepherdOutfit,
-					cost: { seasonalCandles: 18 },
-				},
-				{
-					cosmetic: Cosmetic.SternShepherdYellowDye,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.DyeMultiple, number: 1 },
-					cosmetic: Cosmetic.SternShepherdDye1,
-					cost: { seasonalCandles: 24 },
-				},
-				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.SternShepherdProp,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.SternShepherdMask,
-					cost: { seasonalCandles: 30 },
-				},
-				{
-					translation: { key: CosmeticCommon.DyeMultiple, number: 2 },
-					cosmetic: Cosmetic.SternShepherdDye2,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: CosmeticCommon.SeasonalHeart,
-					cosmetic: Cosmetic.SternShepherdSeasonalHeart,
-					cost: { seasonalCandles: 3 },
-					seasonPass: true,
-				},
-			],
-		],
+		},
 	},
 });
