@@ -130,5 +130,102 @@ export default new GuideSpirit({
 				],
 			],
 		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.MigrationGuideQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.MigrationGuideQuest2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.MigrationGuideQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.MigrationGuideHeart1,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.MigrationGuideHeart2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.MigrationGuideQuest4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.MigrationGuideQuest5,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.MigrationGuideHeart3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.MigrationGuideHeart4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+						cosmetic: Cosmetic.MigrationGuideQuest6,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 7 },
+						cosmetic: Cosmetic.MigrationGuideQuest7,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+						cosmetic: Cosmetic.MigrationGuideHeart5,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 6 },
+						cosmetic: Cosmetic.MigrationGuideHeart6,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 8 },
+						cosmetic: Cosmetic.MigrationGuideQuest8,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 9 },
+						cosmetic: Cosmetic.MigrationGuideQuest9,
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.MigrationGuideProp,
+						cost: { candles: 32 },
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 7 },
+						cosmetic: Cosmetic.MigrationGuideHeart7,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 10 },
+						cosmetic: Cosmetic.MigrationGuideQuest10,
+					},
+				],
+			],
+		},
 	},
 });

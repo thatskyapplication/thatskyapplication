@@ -12,11 +12,17 @@ import {
 	type SeasonIds,
 } from "../season.js";
 import {
+	resolveAllCosmetics,
 	resolveAllCosmeticsFromItems,
 	resolveOfferFromItems,
 	snakeCaseName,
 } from "../utility/functions.js";
-import type { ItemRawWithoutChildren, ItemWithoutChildren, SpiritIds } from "../utility/spirits.js";
+import {
+	friendshipTreeToItems,
+	type ItemRawWithoutChildren,
+	type ItemWithoutChildren,
+	type SpiritIds,
+} from "../utility/spirits.js";
 import type { GuideSpirit, SeasonalSpirit } from "./spirits.js";
 
 type SeasonalCandlesRotation = readonly {
@@ -137,7 +143,24 @@ export class Season {
 			[this.guide.id, this.guide],
 		]).concat(this.spirits);
 
-		this.items = data.items ? resolveOfferFromItems(data.items, { seasonId: data.id }) : [];
+		const items: ItemWithoutChildren[] = [];
+		const { seasonal, postSeason } = this.guide.friendshipTrees;
+
+		if (postSeason) {
+			const postSeasonCosmetics = new Set(resolveAllCosmetics(postSeason.friendshipTree));
+
+			for (const item of friendshipTreeToItems(seasonal.friendshipTree)) {
+				if (item.cosmetics.some((cosmetic) => !postSeasonCosmetics.has(cosmetic))) {
+					items.push(item);
+				}
+			}
+		}
+
+		if (data.items) {
+			items.push(...resolveOfferFromItems(data.items, { seasonId: data.id }));
+		}
+
+		this.items = items;
 		this.allCosmetics = resolveAllCosmeticsFromItems(this.items);
 
 		this.seasonalCandlesRotation =
