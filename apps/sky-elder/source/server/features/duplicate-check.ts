@@ -1,6 +1,6 @@
-import { reddit } from "@devvit/web/server";
+import { reddit, settings } from "@devvit/web/server";
 import { type PostV2, T3 } from "@devvit/web/shared";
-import { REDDIT_BASE_URL } from "../utility/constants.js";
+import { SETTINGS_DUPLICATE_REMOVAL_REASON_ID } from "../utility/constants.js";
 import { postIdWithoutPrefix } from "../utility/functions.js";
 
 const MINIMUM_ORIGINAL_POST_SCORE = 30 as const;
@@ -45,7 +45,16 @@ export async function duplicateCheck(post: PostV2) {
 		return;
 	}
 
-	await reddit.report(fetchedPost, {
-		reason: `Duplicate trigger. Original: ${REDDIT_BASE_URL}/comments/${postIdWithoutPrefix(originalPost.id)}`,
+	const originalPostLink = `https://redd.it/${postIdWithoutPrefix(originalPost.id)}`;
+	await fetchedPost.remove(true);
+	await fetchedPost.lock();
+	const removalReasonId = await settings.get(SETTINGS_DUPLICATE_REMOVAL_REASON_ID);
+
+	await fetchedPost.addRemovalNote({
+		reasonId: typeof removalReasonId === "string" ? removalReasonId : "",
+		modNote: `Duplicate trigger. Original: ${originalPostLink}`,
 	});
+
+	const comment = await fetchedPost.addComment({ text: `Duplicate: ${originalPostLink}` });
+	await comment.distinguish(true);
 }

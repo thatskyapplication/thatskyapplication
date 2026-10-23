@@ -6,6 +6,7 @@ import { postSettingsDiscordWebhookCommentsURL } from "./routes/settings/discord
 import { postSettingsDiscordWebhookPostLinkFlairsURL } from "./routes/settings/discord-webhook-post-link-flairs-url.js";
 import { postSettingsDiscordWebhookPostsURL } from "./routes/settings/discord-webhook-posts-url.js";
 import { postSettingsDiscordWebhookUserLinkFlairsURL } from "./routes/settings/discord-webhook-user-link-flairs-url.js";
+import { postSettingsDuplicateRemovalReasonId } from "./routes/settings/duplicate-removal-reason-id.js";
 import { postSettingsMegathreadFriendCodesPostFlairId } from "./routes/settings/megathread-friend-codes-post-flair-id.js";
 import { postSettingsMegathreadFriendCodesText } from "./routes/settings/megathread-friend-codes-text.js";
 import { postSettingsMegathreadFriendCodesTitle } from "./routes/settings/megathread-friend-codes-title.js";
@@ -35,6 +36,8 @@ app.post(
 	"/internal/settings/discord-webhook-user-link-flairs-url",
 	postSettingsDiscordWebhookUserLinkFlairsURL,
 );
+
+app.post("/internal/settings/duplicate-removal-reason-id", postSettingsDuplicateRemovalReasonId);
 
 app.post(
 	"/internal/settings/megathread-friend-codes-post-flair-id",

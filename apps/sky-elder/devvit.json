@@ -76,6 +76,12 @@
 				"helpText": "Detection of bad user flairs execute this webhook.",
 				"validationEndpoint": "/internal/settings/discord-webhook-user-link-flairs-url"
 			},
+			"DUPLICATE_REMOVAL_REASON_ID": {
+				"type": "string",
+				"label": "Duplicate removal reason id",
+				"helpText": "The removal reason id to use for duplicate posts.",
+				"validationEndpoint": "/internal/settings/duplicate-removal-reason-id"
+			},
 			"MEGATHREAD_FRIEND_CODES_TITLE": {
 				"type": "string",
 				"label": "Friend codes megathread title",
