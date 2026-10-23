@@ -2149,8 +2149,8 @@ export default {
 			[Cosmetic.MusicSheetTheOldAngler]: "The Old Angler",
 			[Cosmetic.BedroomChair]: "Bedroom chair",
 			[Cosmetic.BedroomTallTable]: "Bedroom tall table",
-			[Cosmetic.MischiefMagicalHat]: "Mischief Magical Hat",
 			[Cosmetic.MischiefImpishWings]: "Mischief Impish Wings",
+			[Cosmetic.MischiefMagicalHat]: "Mischief Magical Hat",
 			[Cosmetic.MischiefFelineFriend]: "Mischief Feline Friend",
 		},
 		"interaction-error":

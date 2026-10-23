@@ -1833,8 +1833,8 @@
 			"3046": "",
 			"3047": "",
 			"3048": "",
-			"3054": "Chapeau magique de la malice",
-			"3055": "Ailes espiègles de la malice",
+			"3054": "Ailes espiègles de la malice",
+			"3055": "Chapeau magique de la malice",
 			"3056": "Ami félin de la malice"
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
