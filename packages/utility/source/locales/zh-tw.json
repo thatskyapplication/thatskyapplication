@@ -2259,6 +2259,10 @@
 			"do-not-disturb-blessing": "",
 			"do-not-disturb-blessing-message-incomplete": "",
 			"do-not-disturb-blessing-message-complete": "",
+			"lightmending": "",
+			"lightmending-message-incomplete": "",
+			"lightmending-message-complete": "",
+			"lightmending-wiki-button-url": "",
 			"nothing-to-do": ""
 		},
 		"cosmetics": {

@@ -2269,6 +2269,10 @@
 			"do-not-disturb-blessing": "Bênção ‘Não perturbe’",
 			"do-not-disturb-blessing-message-incomplete": "Você já resgatou sua bênção diária ‘Não perturbe’?",
 			"do-not-disturb-blessing-message-complete": "Você obteve a bênção ‘Não perturbe’!",
+			"lightmending": "",
+			"lightmending-message-incomplete": "",
+			"lightmending-message-complete": "",
+			"lightmending-wiki-button-url": "",
 			"nothing-to-do": ""
 		},
 		"cosmetics": {
