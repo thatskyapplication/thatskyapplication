@@ -3126,6 +3126,8 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.MischiefImpishWings]: CAPE_EMOJIS.Cape196,
 		[Cosmetic.MischiefMagicalHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory91,
 		[Cosmetic.MischiefFelineFriend]: NECKLACE_EMOJIS.Necklace62,
+		[Cosmetic.Crate]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp141,
+		[Cosmetic.Bed]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp137,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

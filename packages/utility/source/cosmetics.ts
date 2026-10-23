@@ -3844,6 +3844,10 @@ export enum Cosmetic {
 	MischiefImpishWings = 3054,
 	MischiefMagicalHat = 3055,
 	MischiefFelineFriend = 3056,
+
+	// 23/10/2026 | Version 35.1.
+	Crate = 3057,
+	Bed = 3058,
 }
 
 export enum CosmeticCommon {

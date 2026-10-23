@@ -4690,6 +4690,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Days of Mischief 2026 2.
 	 */
 	LargePlaceableProp136: { id: "1562997586514673745", name: "136_large_placeable_prop" },
+	/**
+	 * Bed.
+	 */
+	LargePlaceableProp137: { id: "1563305838788218941", name: "137_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {
@@ -5253,6 +5257,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Angler's Lantern (non-ultimate).
 	 */
 	SmallPlaceableProp140: { id: "1560712174391795732", name: "140_small_placeable_prop" },
+	/**
+	 * Crate.
+	 */
+	SmallPlaceableProp141: { id: "1563305842307235992", name: "141_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 /**

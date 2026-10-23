@@ -126,7 +126,7 @@ let distributionLock: Promise<unknown> | null = null;
 const NestingWorkshopRotationCategoryToLabel = {
 	[NestingWorkshopRotationCategory.RugsAndPillows]: "Rugs and pillows",
 	[NestingWorkshopRotationCategory.TablesFurnitureAndStorage]: "Tables, furniture and storage",
-	[NestingWorkshopRotationCategory.Chairs]: "Chairs",
+	[NestingWorkshopRotationCategory.ChairsAndBeds]: "Chairs and beds",
 	[NestingWorkshopRotationCategory.CookingCountersAndBathing]: "Cooking, counters and bathing",
 	[NestingWorkshopRotationCategory.WallMountedLightsPlantsAndDecorations]:
 		"Wall mounted, lights, plants and decorations",

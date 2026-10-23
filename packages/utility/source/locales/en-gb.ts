@@ -2152,6 +2152,8 @@ export default {
 			[Cosmetic.MischiefImpishWings]: "Mischief Impish Wings",
 			[Cosmetic.MischiefMagicalHat]: "Mischief Magical Hat",
 			[Cosmetic.MischiefFelineFriend]: "Mischief Feline Friend",
+			[Cosmetic.Crate]: "Crate",
+			[Cosmetic.Bed]: "Bed",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

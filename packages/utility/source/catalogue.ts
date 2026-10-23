@@ -154,6 +154,8 @@ const nestingWorkshopItems = resolveOfferFromItems([
 	{ cosmetic: Cosmetic.StoneSmallCube, cost: { candles: 9 } },
 	{ cosmetic: Cosmetic.BedroomChair, cost: { candles: 13 } },
 	{ cosmetic: Cosmetic.BedroomTallTable, cost: { candles: 14 } },
+	{ cosmetic: Cosmetic.Crate, cost: { candles: 6 } },
+	{ cosmetic: Cosmetic.Bed, cost: { candles: 22 } },
 ]);
 
 export const NESTING_WORKSHOP = {
@@ -170,7 +172,7 @@ export function resolveNestingWorkshopItems(cosmetics: readonly number[]) {
 export const NestingWorkshopRotationCategory = {
 	RugsAndPillows: 0,
 	TablesFurnitureAndStorage: 1,
-	Chairs: 2,
+	ChairsAndBeds: 2,
 	CookingCountersAndBathing: 3,
 	WallMountedLightsPlantsAndDecorations: 4,
 } as const satisfies Readonly<Record<string, number>>;
@@ -209,13 +211,14 @@ export const NestingWorkshopRotationCategoryToCosmetics = {
 		Cosmetic.BedroomTallTable,
 		Cosmetic.StoneTallShelf,
 	],
-	[NestingWorkshopRotationCategory.Chairs]: [
+	[NestingWorkshopRotationCategory.ChairsAndBeds]: [
 		Cosmetic.StoneChair,
 		Cosmetic.StoneBench,
 		Cosmetic.StoneLoveseat,
 		Cosmetic.StoneSofaSide,
 		Cosmetic.StoneSofaCorner,
 		Cosmetic.BedroomChair,
+		Cosmetic.Bed,
 	],
 	[NestingWorkshopRotationCategory.CookingCountersAndBathing]: [
 		Cosmetic.StoneWoodFiredOven,
@@ -238,6 +241,7 @@ export const NestingWorkshopRotationCategoryToCosmetics = {
 		Cosmetic.StoneWallSconce,
 		Cosmetic.StoneClosedBox,
 		Cosmetic.StoneEmptyBox,
+		Cosmetic.Crate,
 		Cosmetic.StonePlantStand,
 	],
 } as const satisfies Readonly<Record<NestingWorkshopRotationCategories, readonly Cosmetic[]>>;
