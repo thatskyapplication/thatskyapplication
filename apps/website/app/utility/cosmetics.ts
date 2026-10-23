@@ -124,6 +124,7 @@ const COSMETICS_ORDER = [
 			"Outfit39",
 			"Outfit13",
 			"Outfit26",
+			"Outfit76",
 			"Outfit43",
 			"Outfit47",
 			"Outfit54",
@@ -444,6 +445,7 @@ const COSMETICS_ORDER = [
 			"Necklace20",
 			"Necklace36",
 			"Necklace23",
+			"Necklace62",
 			"Necklace38",
 			"Necklace09",
 			"Necklace17",
@@ -633,6 +635,7 @@ const COSMETICS_ORDER = [
 			"Hair96",
 			"Hair152",
 			"Hair171",
+			"Hair191",
 			"Hair48",
 			"Hair97",
 			"Hair153",
@@ -720,6 +723,7 @@ const COSMETICS_ORDER = [
 			"HairAccessory32",
 			"HairAccessory64",
 			"HairAccessory65",
+			"HairAccessory91",
 			"HairAccessory14",
 			"HairAccessory34",
 			"HairAccessory67",
@@ -960,6 +964,7 @@ const COSMETICS_ORDER = [
 			"Cape116",
 			"Cape117",
 			"Cape138",
+			"Cape196",
 			"Cape41",
 			"Cape42",
 			"Cape68",
@@ -1056,6 +1061,7 @@ const COSMETICS_ORDER = [
 			"HeldProp52",
 			"HeldProp61",
 			"HeldProp63",
+			"HeldProp66",
 			"HeldProp54",
 			"HeldProp40",
 		],
@@ -1194,6 +1200,8 @@ const COSMETICS_ORDER = [
 			"LargePlaceableProp124",
 			"LargePlaceableProp133",
 			"LargePlaceableProp134",
+			"LargePlaceableProp135",
+			"LargePlaceableProp136",
 			"LargePlaceableProp116",
 			"LargePlaceableProp120",
 			"LargePlaceableProp121",
@@ -1359,6 +1367,11 @@ export const UNLOCKED_BY_DEFAULT_COSMETICS: ReadonlySet<Cosmetic> = new Set([
 	Cosmetic.BaseCape,
 ]);
 
+const UNSOURCED_COSMETICS: ReadonlySet<Cosmetic> = new Set([
+	...UNLOCKED_BY_DEFAULT_COSMETICS,
+	Cosmetic.BetaCape,
+]);
+
 export interface CosmeticTile {
 	readonly anchor: string;
 	readonly cosmetic: Cosmetic;
@@ -1399,7 +1412,7 @@ function cosmeticTiles(emoji: Emoji): CosmeticTile[] {
 	}));
 }
 
-export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, table }) => {
+const ALL_COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, table }) => {
 	const emojis: Readonly<Record<string, Emoji>> = EMOJIS[table];
 	const listed = new Set<string>(order);
 	const ordered = order.map((key: string) => emojis[key]!);
@@ -1413,40 +1426,21 @@ export const COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, t
 	return { heading, icon, table, tiles: ordered.flatMap(cosmeticTiles) };
 });
 
-export const COSMETICS_GROUPS = (
-	[
-		["OUTFIT_EMOJIS", "SHOE_EMOJIS", "FULL_OUTFIT_EMOJIS"],
-		["MASK_EMOJIS", "FACE_ACCESSORY_EMOJIS", "NECKLACE_EMOJIS"],
-		["HAIR_EMOJIS", "HAIR_ACCESSORY_EMOJIS", "HEAD_ACCESSORY_EMOJIS"],
-		["CAPE_EMOJIS"],
-		["HELD_PROPS_EMOJIS", "LARGE_PLACEABLE_PROPS_EMOJIS", "SMALL_PLACEABLE_PROPS_EMOJIS"],
-	] as const satisfies readonly (readonly CosmeticsTable[])[]
-).map((tables) =>
-	tables.map((table) => COSMETICS_SECTIONS.find((section) => section.table === table)!),
-);
+export type CosmeticsSection = (typeof ALL_COSMETICS_SECTIONS)[number];
+
+const COSMETICS_GROUP_TABLES = [
+	["OUTFIT_EMOJIS", "SHOE_EMOJIS", "FULL_OUTFIT_EMOJIS"],
+	["MASK_EMOJIS", "FACE_ACCESSORY_EMOJIS", "NECKLACE_EMOJIS"],
+	["HAIR_EMOJIS", "HAIR_ACCESSORY_EMOJIS", "HEAD_ACCESSORY_EMOJIS"],
+	["CAPE_EMOJIS"],
+	["HELD_PROPS_EMOJIS", "LARGE_PLACEABLE_PROPS_EMOJIS", "SMALL_PLACEABLE_PROPS_EMOJIS"],
+] as const satisfies readonly (readonly CosmeticsTable[])[];
 
 interface CosmeticAnchorTarget {
 	readonly groupIndex: number;
 	readonly table: string;
 	readonly tile: CosmeticTile;
 }
-
-function cosmeticAnchorTargets() {
-	const targets = new Map<string, CosmeticAnchorTarget>();
-
-	for (const [groupIndex, sections] of COSMETICS_GROUPS.entries()) {
-		for (const section of sections) {
-			for (const tile of section.tiles) {
-				targets.set(tile.anchor, { groupIndex, table: section.table, tile });
-			}
-		}
-	}
-
-	return targets;
-}
-
-export const COSMETIC_ANCHOR_TARGETS: ReadonlyMap<string, CosmeticAnchorTarget> =
-	cosmeticAnchorTargets();
 
 interface CosmeticSource {
 	readonly item: Item;
@@ -1513,10 +1507,41 @@ function cosmeticCatalogue() {
 	return catalogue;
 }
 
-export const COSMETIC_CATALOGUE: ReadonlyMap<
-	Cosmetic,
-	Readonly<CosmeticCatalogueEntry>
-> = cosmeticCatalogue();
+interface ReleasedCosmetics {
+	readonly anchorTargets: ReadonlyMap<string, CosmeticAnchorTarget>;
+	readonly catalogue: ReadonlyMap<Cosmetic, Readonly<CosmeticCatalogueEntry>>;
+	readonly groups: readonly (readonly CosmeticsSection[])[];
+	readonly sections: readonly CosmeticsSection[];
+}
+
+export function releasedCosmetics(): ReleasedCosmetics {
+	const catalogue = cosmeticCatalogue();
+
+	const sections = ALL_COSMETICS_SECTIONS.map(({ heading, icon, table, tiles }) => ({
+		heading,
+		icon,
+		table,
+		tiles: tiles.filter(
+			({ cosmetic }) => catalogue.has(cosmetic) || UNSOURCED_COSMETICS.has(cosmetic),
+		),
+	}));
+
+	const groups = COSMETICS_GROUP_TABLES.map((tables) =>
+		tables.map((table) => sections.find((section) => section.table === table)!),
+	);
+
+	const anchorTargets = new Map<string, CosmeticAnchorTarget>();
+
+	for (const [groupIndex, groupSections] of groups.entries()) {
+		for (const section of groupSections) {
+			for (const tile of section.tiles) {
+				anchorTargets.set(tile.anchor, { groupIndex, table: section.table, tile });
+			}
+		}
+	}
+
+	return { anchorTargets, catalogue, groups, sections };
+}
 
 export function cosmeticName(nameKeys: string[], i18n: I18n, t: TFunction) {
 	const translatedNameKey = nameKeys.find((nameKey) =>

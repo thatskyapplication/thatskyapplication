@@ -452,6 +452,7 @@ const OUTFIT_EMOJIS = {
 	Outfit73: { id: "1560712239382532196", name: "73_outfit" },
 	Outfit74: { id: "1560712246974226523", name: "74_outfit" },
 	Outfit75: { id: "1560712251554668584", name: "75_outfit" },
+	Outfit76: { id: "1562997600645419110", name: "76_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -753,6 +754,7 @@ const NECKLACE_EMOJIS = {
 	Necklace59: { id: "1561010941510942771", name: "59_necklace" },
 	Necklace60: { id: "1560726013015756951", name: "60_necklace" },
 	Necklace61: { id: "1560714445326520370", name: "61_necklace" },
+	Necklace62: { id: "1562997595343683684", name: "62_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS = {
@@ -946,6 +948,7 @@ const HAIR_EMOJIS = {
 	Hair188: { id: "1560712224295747744", name: "188_hair" },
 	Hair189: { id: "1560712243606454443", name: "189_hair" },
 	Hair190: { id: "1560712252783460444", name: "190_hair" },
+	Hair191: { id: "1562997603275251742", name: "191_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS = {
@@ -1039,6 +1042,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	HairAccessory88: { id: "1560726011035787378", name: "88_hair_accessory" },
 	HairAccessory89: { id: "1560712209468752013", name: "89_hair_accessory" },
 	HairAccessory90: { id: "1560712240901005443", name: "90_hair_accessory" },
+	HairAccessory91: { id: "1562997589803012237", name: "91_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS = {
@@ -1267,6 +1271,7 @@ const CAPE_EMOJIS = {
 	Cape193: { id: "1560712225763762196", name: "193_cape" },
 	Cape194: { id: "1560712245476991027", name: "194_cape" },
 	Cape195: { id: "1560712249671417878", name: "195_cape" },
+	Cape196: { id: "1562997592596549722", name: "196_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS = {
@@ -1335,6 +1340,7 @@ const HELD_PROPS_EMOJIS = {
 	HeldProp63: { id: "1522919394957594684", name: "63_held_prop" },
 	HeldProp64: { id: "1548415599711883325", name: "64_held_prop" },
 	HeldProp65: { id: "1552077098158661682", name: "65_held_prop" },
+	HeldProp66: { id: "1562997597621452903", name: "66_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS = {
@@ -1472,6 +1478,8 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	LargePlaceableProp132: { id: "1553338349635244212", name: "132_large_placeable_prop" },
 	LargePlaceableProp133: { id: "1560719390565998632", name: "133_large_placeable_prop" },
 	LargePlaceableProp134: { id: "1560719393183498243", name: "134_large_placeable_prop" },
+	LargePlaceableProp135: { id: "1562997606186094713", name: "135_large_placeable_prop" },
+	LargePlaceableProp136: { id: "1562997609239543818", name: "136_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {

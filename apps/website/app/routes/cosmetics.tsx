@@ -54,13 +54,11 @@ import { catalogueTargetQuery } from "~/utility/catalogue.js";
 import { WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
 import {
-	COSMETIC_ANCHOR_TARGETS,
-	COSMETIC_CATALOGUE,
 	cosmeticAnchor,
 	cosmeticName,
+	type CosmeticsSection,
 	type CosmeticTile as CosmeticTileData,
-	COSMETICS_GROUPS,
-	COSMETICS_SECTIONS,
+	releasedCosmetics,
 	UNLOCKED_BY_DEFAULT_COSMETICS,
 } from "~/utility/cosmetics.js";
 import {
@@ -91,7 +89,9 @@ const subscribeToNothing = () => () => {};
 
 function cosmeticParameterTarget(searchParams: URLSearchParams) {
 	const cosmetic = searchParams.get(COSMETIC_SEARCH_PARAMETER);
-	return cosmetic === null ? undefined : COSMETIC_ANCHOR_TARGETS.get(cosmeticAnchor(cosmetic));
+	return cosmetic === null
+		? undefined
+		: releasedCosmetics().anchorTargets.get(cosmeticAnchor(cosmetic));
 }
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
@@ -259,9 +259,11 @@ function itemPricing(item: Item) {
 
 function cosmeticSources(cosmetic: Cosmetic, t: TFunction) {
 	return (
-		COSMETIC_CATALOGUE.get(cosmetic)?.sources.map(({ item, target }) =>
-			Object.assign(catalogueLocation(target, t), itemPricing(item)),
-		) ?? []
+		releasedCosmetics()
+			.catalogue.get(cosmetic)
+			?.sources.map(({ item, target }) =>
+				Object.assign(catalogueLocation(target, t), itemPricing(item)),
+			) ?? []
 	);
 }
 
@@ -341,7 +343,7 @@ function cosmeticContainer({ locale, t, tile }: CosmeticContainerOptions): APICo
 
 function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
 	const { i18n, t } = useTranslation();
-	const entry = COSMETIC_CATALOGUE.get(tile.cosmetic);
+	const entry = releasedCosmetics().catalogue.get(tile.cosmetic);
 	const sources = cosmeticSources(tile.cosmetic, t);
 	const reserveEmojiSpace = sources.some((source) => source.emoji);
 
@@ -431,13 +433,14 @@ function CosmeticSearch() {
 	const { i18n, t } = useTranslation();
 
 	const getEntries = useCallback(() => {
+		const { catalogue, sections } = releasedCosmetics();
 		const entries: CosmeticSearchEntry[] = [];
 
-		for (const section of COSMETICS_SECTIONS) {
+		for (const section of sections) {
 			const sectionName = t(section.heading, { ns: "features" });
 
 			for (const { anchor, cosmetic, emoji } of section.tiles) {
-				const entry = COSMETIC_CATALOGUE.get(cosmetic);
+				const entry = catalogue.get(cosmetic);
 				const sourceNames =
 					entry?.sources.map(({ target }) => catalogueLocation(target, t).name) ?? [];
 				const name = entry?.nameKeys ? cosmeticName(entry.nameKeys, i18n, t) : sourceNames[0];
@@ -520,9 +523,7 @@ const CosmeticTile = memo(function CosmeticTile({
 	return name ? <Tooltip content={name}>{button}</Tooltip> : button;
 });
 
-type CosmeticSection = (typeof COSMETICS_SECTIONS)[number];
-
-function CosmeticSectionLabel({ section }: { section: CosmeticSection }) {
+function CosmeticSectionLabel({ section }: { section: CosmeticsSection }) {
 	const { t } = useTranslation();
 
 	return (
@@ -552,7 +553,7 @@ function CosmeticGroup({
 	dimmedCosmetics: ReadonlySet<Cosmetic>;
 	onSelectTable: (table: string) => void;
 	onSelectTile: CosmeticTileSelect;
-	sections: readonly CosmeticSection[];
+	sections: readonly CosmeticsSection[];
 }) {
 	const tabbed = sections.length > 1;
 
@@ -612,6 +613,7 @@ function CosmeticGroup({
 export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	const { i18n, t } = useTranslation();
 	const location = useLocation();
+	const { groups } = releasedCosmetics();
 	const hydrated = useSyncExternalStore(
 		subscribeToNothing,
 		() => true,
@@ -619,17 +621,18 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	);
 	const [highlightOwned, setHighlightOwned] = useState(loaderData.highlightOwned);
 	const [activeTables, setActiveTables] = useState<readonly string[]>(() =>
-		COSMETICS_GROUPS.map((sections) => sections[0]!.table),
+		groups.map((groupSections) => groupSections[0]!.table),
 	);
 	const [selection, setSelection] = useState<CosmeticSelection | null>(null);
 	const [adoptedLocation, setAdoptedLocation] = useState<Location | null>(null);
 
 	const cosmeticNames = useMemo(() => {
+		const { catalogue, sections } = releasedCosmetics();
 		const names = new Map<Cosmetic, string>();
 
-		for (const section of COSMETICS_SECTIONS) {
+		for (const section of sections) {
 			for (const { cosmetic } of section.tiles) {
-				const nameKeys = COSMETIC_CATALOGUE.get(cosmetic)?.nameKeys;
+				const nameKeys = catalogue.get(cosmetic)?.nameKeys;
 
 				if (nameKeys) {
 					names.set(cosmetic, cosmeticName(nameKeys, i18n, t));
@@ -649,7 +652,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 
 		const owned = new Set([...loaderData.owned, ...UNLOCKED_BY_DEFAULT_COSMETICS]);
 
-		for (const section of COSMETICS_SECTIONS) {
+		for (const section of releasedCosmetics().sections) {
 			for (const { cosmetic } of section.tiles) {
 				if (!owned.has(cosmetic)) {
 					dimmed.add(cosmetic);
@@ -661,7 +664,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	}, [highlightOwned, loaderData.owned]);
 
 	const anchorTarget = hydrated
-		? (COSMETIC_ANCHOR_TARGETS.get(location.hash.slice(1)) ??
+		? (releasedCosmetics().anchorTargets.get(location.hash.slice(1)) ??
 			cosmeticParameterTarget(new URLSearchParams(location.search)))
 		: undefined;
 
@@ -710,7 +713,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	}, [selection]);
 
 	const selectTile = useCallback<CosmeticTileSelect>((tile, element, keyboard) => {
-		const target = COSMETIC_ANCHOR_TARGETS.get(tile.anchor);
+		const target = releasedCosmetics().anchorTargets.get(tile.anchor);
 
 		setSelection((current) =>
 			current?.open && current.tile.cosmetic === tile.cosmetic
@@ -781,17 +784,17 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 				</div>
 
 				<div className="cosmetic-grid columns-[26.75rem] gap-8">
-					{COSMETICS_GROUPS.map((sections, groupIndex) => (
+					{groups.map((groupSections, groupIndex) => (
 						<CosmeticGroup
 							activeTable={activeTables[groupIndex]!}
 							cosmeticNames={cosmeticNames}
 							dimmedCosmetics={dimmedCosmetics}
-							key={sections[0]!.table}
+							key={groupSections[0]!.table}
 							onSelectTable={(table) =>
 								setActiveTables((previous) => withActiveTable(previous, groupIndex, table))
 							}
 							onSelectTile={selectTile}
-							sections={sections}
+							sections={groupSections}
 						/>
 					))}
 					<span className="cosmetic-grid-end" hidden />

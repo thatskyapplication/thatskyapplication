@@ -677,6 +677,10 @@ const OUTFIT_EMOJIS = {
 	 * Wrestling Sailor.
 	 */
 	Outfit75: { id: "1560712205668843680", name: "75_outfit" },
+	/**
+	 * Days of Mischief 2026.
+	 */
+	Outfit76: { id: "1562997577367031808", name: "76_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -1836,6 +1840,10 @@ const NECKLACE_EMOJIS = {
 	 * Pearl Pendant.
 	 */
 	Necklace61: { id: "1560714438028558406", name: "61_necklace" },
+	/**
+	 * Mischief Feline Friend.
+	 */
+	Necklace62: { id: "1562997571402727515", name: "62_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS = {
@@ -2599,6 +2607,10 @@ const HAIR_EMOJIS = {
 	 * Wrestling Sailor.
 	 */
 	Hair190: { id: "1560712207040516200", name: "190_hair" },
+	/**
+	 * Days of Mischief 2026.
+	 */
+	Hair191: { id: "1562997580558897242", name: "191_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS = {
@@ -2962,6 +2974,10 @@ const HAIR_ACCESSORY_EMOJIS = {
 	 * Old Angler.
 	 */
 	HairAccessory90: { id: "1560712190661623929", name: "90_hair_accessory" },
+	/**
+	 * Mischief Magical Hat.
+	 */
+	HairAccessory91: { id: "1562997555229630514", name: "91_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS = {
@@ -3856,6 +3872,10 @@ const CAPE_EMOJIS = {
 	 * Wrestling Sailor.
 	 */
 	Cape195: { id: "1560712203815092274", name: "195_cape" },
+	/**
+	 * Mischief Impish Wings.
+	 */
+	Cape196: { id: "1562997568533827684", name: "196_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS = {
@@ -4119,6 +4139,10 @@ const HELD_PROPS_EMOJIS = {
 	 * Moonlight Lute.
 	 */
 	HeldProp65: { id: "1552077088733929542", name: "65_held_prop" },
+	/**
+	 * Days of Mischief 2026.
+	 */
+	HeldProp66: { id: "1562997574078701698", name: "66_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS = {
@@ -4658,6 +4682,14 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Bedroom tall table.
 	 */
 	LargePlaceableProp134: { id: "1560719388640944229", name: "134_large_placeable_prop" },
+	/**
+	 * Days of Mischief 2026 1.
+	 */
+	LargePlaceableProp135: { id: "1562997583927058483", name: "135_large_placeable_prop" },
+	/**
+	 * Days of Mischief 2026 2.
+	 */
+	LargePlaceableProp136: { id: "1562997586514673745", name: "136_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {

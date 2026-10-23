@@ -3834,6 +3834,16 @@ export enum Cosmetic {
 	WrestlingSailorSeasonalHeart = 3026,
 	BedroomChair = 3027,
 	BedroomTallTable = 3028,
+
+	// 23/10/2026 | Days of Mischief.
+	DaysOfMischief2026Prop1 = 3049,
+	DaysOfMischief2026Outfit = 3050,
+	DaysOfMischief2026Hair = 3051,
+	DaysOfMischief2026Prop2 = 3052,
+	DaysOfMischief2026Prop3 = 3053,
+	MischiefMagicalHat = 3054,
+	MischiefImpishWings = 3055,
+	MischiefFelineFriend = 3056,
 }
 
 export enum CosmeticCommon {
