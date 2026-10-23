@@ -2154,6 +2154,7 @@ export default {
 			[Cosmetic.MischiefFelineFriend]: "Mischief Feline Friend",
 			[Cosmetic.Crate]: "Crate",
 			[Cosmetic.Bed]: "Bed",
+			[Cosmetic.CommemorativeBoboCandle]: "Commemorative Bobo Candle",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
