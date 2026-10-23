@@ -48,19 +48,24 @@ export default new Event({
 		{
 			translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 			cosmetic: Cosmetic.DaysOfMischief2026Prop2,
+			cost: { candles: 20 },
 		},
 		{
 			translation: { key: CosmeticCommon.PropMultiple, number: 3 },
 			cosmetic: Cosmetic.DaysOfMischief2026Prop3,
-		},
-		{
-			cosmetic: Cosmetic.MischiefMagicalHat,
+			cost: { candles: 15 },
 		},
 		{
 			cosmetic: Cosmetic.MischiefImpishWings,
+			cost: { money: 14.99 },
+		},
+		{
+			cosmetic: Cosmetic.MischiefMagicalHat,
+			cost: { money: 9.99 },
 		},
 		{
 			cosmetic: Cosmetic.MischiefFelineFriend,
+			cost: { money: 2.99 },
 		},
 	],
 });

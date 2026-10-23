@@ -3123,8 +3123,8 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.DaysOfMischief2026Hair]: HAIR_EMOJIS.Hair191,
 		[Cosmetic.DaysOfMischief2026Prop2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp135,
 		[Cosmetic.DaysOfMischief2026Prop3]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp136,
-		[Cosmetic.MischiefMagicalHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory91,
 		[Cosmetic.MischiefImpishWings]: CAPE_EMOJIS.Cape196,
+		[Cosmetic.MischiefMagicalHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory91,
 		[Cosmetic.MischiefFelineFriend]: NECKLACE_EMOJIS.Necklace62,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 

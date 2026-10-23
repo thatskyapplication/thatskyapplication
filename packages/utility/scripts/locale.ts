@@ -4960,12 +4960,12 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.MusicSheetTheOldAngler",
 	},
 	{
-		upstreamKey: "commerce_item_name_mischief_magichat",
-		tsKey: "Cosmetic.MischiefMagicalHat",
-	},
-	{
 		upstreamKey: "commerce_item_name_mischief_batwingcape",
 		tsKey: "Cosmetic.MischiefImpishWings",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_magichat",
+		tsKey: "Cosmetic.MischiefMagicalHat",
 	},
 	{
 		upstreamKey: "commerce_item_name_mischief_catbuddy",

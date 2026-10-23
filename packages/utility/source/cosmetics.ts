@@ -3841,8 +3841,8 @@ export enum Cosmetic {
 	DaysOfMischief2026Hair = 3051,
 	DaysOfMischief2026Prop2 = 3052,
 	DaysOfMischief2026Prop3 = 3053,
-	MischiefMagicalHat = 3054,
-	MischiefImpishWings = 3055,
+	MischiefImpishWings = 3054,
+	MischiefMagicalHat = 3055,
 	MischiefFelineFriend = 3056,
 }
 
