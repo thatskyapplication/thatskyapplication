@@ -1835,7 +1835,9 @@
 			"3048": "",
 			"3054": "Ali da monello del misfatto",
 			"3055": "Cappello magico del misfatto",
-			"3056": "Amico felino del misfatto"
+			"3056": "Amico felino del misfatto",
+			"3057": "",
+			"3058": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
