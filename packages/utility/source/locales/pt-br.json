@@ -403,11 +403,11 @@
 			"311": "Acene para um jogador",
 			"312": "Sugira um modelo de pipa nas Colinas da Campina",
 			"313": "Medite no Vilarejo da Campina",
-			"314": "",
-			"315": "",
-			"316": "",
-			"317": "",
-			"318": ""
+			"314": "Encontre o espírito na Campina da Aurora",
+			"315": "Encontre o espírito na Floresta Oculta",
+			"316": "Encontre o espírito no Vale do Triunfo",
+			"317": "Encontre o espírito no Sertão Dourado",
+			"318": "Encontre o espírito no Relicário do Conhecimento"
 		},
 		"light": "Luz",
 		"season": "Temporada",
@@ -476,7 +476,7 @@
 			"27": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Restauração_da_Luz",
 			"28": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_do_Circo",
 			"29": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Querido_Van_Gogh",
-			"30": ""
+			"30": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_das_Pérolas"
 		},
 		"event": "Evento",
 		"events": "Eventos",
@@ -618,8 +618,8 @@
 			"91": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Aniversário_do_Sky/2026",
 			"92": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados/2026",
 			"93": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acampamento_de_Verão",
-			"94": "",
-			"95": "",
+			"94": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Luar/2026",
+			"95": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras/2026",
 			"96": ""
 		},
 		"sky-profile-winged-light-types": {
@@ -1061,11 +1061,11 @@
 			"210": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Lembrança_Rústica",
 			"211": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Lembrança_Artística",
 			"212": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Lembrança_de_Alegria",
-			"213": "",
-			"214": "",
-			"215": "",
-			"216": "",
-			"217": ""
+			"213": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Lanterna_de_Pescador",
+			"214": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Criança_Fofinha_Rolante",
+			"215": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Velho_Pescador",
+			"216": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Comerciante_Extravagante",
+			"217": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Marinheiro_Lutador"
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
@@ -1135,12 +1135,12 @@
 			"63": "Símbolo de travessura {{number}}",
 			"64": "Trampolim de Desafio",
 			"65": "Trampolim de Desafio {{number}}",
-			"66": "",
-			"67": "",
-			"68": "",
-			"69": "",
-			"70": "",
-			"71": ""
+			"66": "Expressão",
+			"67": "Expressão Lv{{level}}",
+			"68": "Expressão {{number}}",
+			"69": "Expressão {{number}} Lv{{level}}",
+			"70": "Postura",
+			"71": "Chamada"
 		},
 		"cosmetic-pack-names": {
 			"0": "Pacote dos Dias de Felicidade",
@@ -1805,8 +1805,8 @@
 			"2960": "Nuvem do Luar",
 			"2961": "Véu do Luar",
 			"2962": "",
-			"2963": "",
-			"2964": "",
+			"2963": "Calçados de Bruxa Traquina",
+			"2964": "Presente do Cervo de Nove Cores máscara",
 			"2965": "Tiara de Girassol",
 			"2966": "Gravata de Girassol",
 			"2967": "Vestido de Girassol",
@@ -1835,7 +1835,9 @@
 			"3048": "",
 			"3054": "Asas de Morcego Travessas",
 			"3055": "Chapéu de Bruxinha Travesso",
-			"3056": "Amigo Felino Travesso"
+			"3056": "Amigo Felino Travesso",
+			"3057": "",
+			"3058": "Cama"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -1859,11 +1861,11 @@
 		"navigation-next": "Avançar",
 		"close": "Fechado",
 		"today": "Hoje",
-		"this-week": "",
+		"this-week": "Esta semana",
 		"shard-eruption": "Erupções de fragmentos",
 		"donate": "Doar",
 		"wiki": "Wiki",
-		"web-store": ""
+		"web-store": "Loja virtual"
 	},
 	"commands": {
 		"common": {
@@ -1955,8 +1957,8 @@
 			}
 		},
 		"friendship-action": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "ação-de-amizade",
+			"command-description": "Compartilhe ações de amizade com alguém!",
 			"hair-tousle": {
 				"command-name": "cafuné",
 				"command-description": "Faça um cafuné em alguém!",
@@ -1973,7 +1975,7 @@
 				"command-option-user-description": "O indivíduo a ser abraçado."
 			},
 			"krill": {
-				"command-name": "",
+				"command-name": "krill",
 				"command-description": "Fazer alguém ser atacado por um krill!",
 				"command-option-user-description": "O indivíduo a ser atacado por um krill."
 			},
@@ -2186,7 +2188,7 @@
 			"loyalty": "Loja de Fidelidade",
 			"main-no-progress": "Sem progresso",
 			"main-progress": "Progresso: {{number}}%",
-			"main-progress-label": "",
+			"main-progress-label": "{{name}} ({{number}}%)",
 			"search-placeholder": "Procure por temporadas, eventos, ou espíritos...",
 			"search-no-results": "Nada foi encontrado.",
 			"search-result-detail": "{{name}} ({{detail}})",
@@ -2273,29 +2275,29 @@
 			"lightmending-message-incomplete": "",
 			"lightmending-message-complete": "",
 			"lightmending-wiki-button-url": "",
-			"nothing-to-do": ""
+			"nothing-to-do": "Ei, olhe só esse filho da Luz! Sem nada para fazer. Essa é a vida."
 		},
 		"cosmetics": {
-			"title": "",
-			"description-short": "",
-			"highlight-owned": "",
-			"no-source": "",
-			"search-placeholder": "",
+			"title": "Cosméticos",
+			"description-short": "Ver todos os cosméticos.",
+			"highlight-owned": "Destacar itens que possuo",
+			"no-source": "Sem resultados.",
+			"search-placeholder": "Buscar cosméticos...",
 			"sections": {
-				"outfits": "",
-				"full-outfits": "",
-				"masks": "",
-				"face-accessories": "",
-				"necklaces": "",
-				"hair-accessories": "",
-				"head-accessories": "",
-				"capes": "",
-				"held-props": "",
-				"large-placeable-props": "",
-				"small-placeable-props": ""
+				"outfits": "Trajes",
+				"full-outfits": "Trajes completos",
+				"masks": "Máscaras",
+				"face-accessories": "Acessórios faciais",
+				"necklaces": "Colares",
+				"hair-accessories": "Acessórios de cabelo",
+				"head-accessories": "Acessórios de cabeça",
+				"capes": "Capas",
+				"held-props": "Apetrechos de mão",
+				"large-placeable-props": "Apetrechos grandes",
+				"small-placeable-props": "Apetrechos pequenos"
 			},
 			"source_one": "",
-			"source_other": ""
+			"source_other": "Resultados"
 		},
 		"daily-guides": {
 			"name": "Guias diários",
@@ -2320,7 +2322,7 @@
 			"shard-eruption-data": "Dados",
 			"shard-eruption-timestamps": "Marcação de data/hora",
 			"travelling-rock": "Pedra viajante",
-			"nesting-workshop-prop-owned": "",
+			"nesting-workshop-prop-owned": "{{prop}} (adquirido)",
 			"infographic-acknowledgement-item": "Infográfico {{infographic}} por {{acknowledgement}}",
 			"returning-spirits-leave-today": "{{returningSpirits}} partirão hoje: {{spirits}}.",
 			"event-upcoming-time": "{{event}} começa às {{time}}.",
