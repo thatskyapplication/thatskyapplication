@@ -5261,6 +5261,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Crate.
 	 */
 	SmallPlaceableProp141: { id: "1563305842307235992", name: "141_small_placeable_prop" },
+	/**
+	 * Commemorative Bobo Candle.
+	 */
+	SmallPlaceableProp142: { id: "1563120611134283827", name: "142_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 /**

@@ -70,5 +70,8 @@ export default new Event({
 			cosmetic: Cosmetic.MischiefFelineFriend,
 			cost: { money: 2.99 },
 		},
+		{
+			cosmetic: Cosmetic.CommemorativeBoboCandle,
+		},
 	],
 });

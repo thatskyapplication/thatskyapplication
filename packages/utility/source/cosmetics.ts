@@ -3848,6 +3848,9 @@ export enum Cosmetic {
 	// 23/10/2026 | Version 35.1.
 	Crate = 3057,
 	Bed = 3058,
+
+	// 28/10/2026 | Days of Mischief.
+	CommemorativeBoboCandle = 3059,
 }
 
 export enum CosmeticCommon {
