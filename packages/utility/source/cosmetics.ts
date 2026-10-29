@@ -3849,7 +3849,7 @@ export enum Cosmetic {
 	Crate = 3057,
 	Bed = 3058,
 
-	// ??/??/2026 | Days of Mischief.
+	// 28/10/2026 | Days of Mischief.
 	CommemorativeBoboCandle = 3059,
 }
 
