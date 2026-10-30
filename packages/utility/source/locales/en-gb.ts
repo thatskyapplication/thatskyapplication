@@ -2155,6 +2155,8 @@ export default {
 			[Cosmetic.Crate]: "Crate",
 			[Cosmetic.Bed]: "Bed",
 			[Cosmetic.CommemorativeBoboCandle]: "Commemorative Bobo Candle",
+			[Cosmetic.ConsoleTable]: "Console table",
+			[Cosmetic.PaintingSet]: "Painting set",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

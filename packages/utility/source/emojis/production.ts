@@ -4694,6 +4694,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Bed.
 	 */
 	LargePlaceableProp137: { id: "1563305838788218941", name: "137_large_placeable_prop" },
+	/**
+	 * Console table.
+	 */
+	LargePlaceableProp138: { id: "1565744239545946122", name: "138_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {
@@ -5265,6 +5269,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Commemorative Bobo Candle.
 	 */
 	SmallPlaceableProp142: { id: "1563120611134283827", name: "142_small_placeable_prop" },
+	/**
+	 * Painting set.
+	 */
+	SmallPlaceableProp143: { id: "1565744250694410261", name: "143_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 /**

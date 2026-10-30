@@ -3851,6 +3851,10 @@ export enum Cosmetic {
 
 	// 28/10/2026 | Days of Mischief.
 	CommemorativeBoboCandle = 3059,
+
+	// 30/10/2026 | Version 35.1.
+	ConsoleTable = 3060,
+	PaintingSet = 3061,
 }
 
 export enum CosmeticCommon {

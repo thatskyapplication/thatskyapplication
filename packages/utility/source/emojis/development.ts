@@ -1481,6 +1481,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	LargePlaceableProp135: { id: "1562997606186094713", name: "135_large_placeable_prop" },
 	LargePlaceableProp136: { id: "1562997609239543818", name: "136_large_placeable_prop" },
 	LargePlaceableProp137: { id: "1563305845616418949", name: "137_large_placeable_prop" },
+	LargePlaceableProp138: { id: "1565744252938358935", name: "138_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {
@@ -1626,6 +1627,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	SmallPlaceableProp140: { id: "1560712217295331359", name: "140_small_placeable_prop" },
 	SmallPlaceableProp141: { id: "1563305848644706465", name: "141_small_placeable_prop" },
 	SmallPlaceableProp142: { id: "1563120615651541113", name: "142_small_placeable_prop" },
+	SmallPlaceableProp143: { id: "1565744255324917802", name: "143_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS = {

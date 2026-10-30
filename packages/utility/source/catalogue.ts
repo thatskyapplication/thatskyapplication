@@ -156,6 +156,8 @@ const nestingWorkshopItems = resolveOfferFromItems([
 	{ cosmetic: Cosmetic.BedroomTallTable, cost: { candles: 14 } },
 	{ cosmetic: Cosmetic.Crate, cost: { candles: 6 } },
 	{ cosmetic: Cosmetic.Bed, cost: { candles: 22 } },
+	{ cosmetic: Cosmetic.ConsoleTable, cost: { candles: 13 } },
+	{ cosmetic: Cosmetic.PaintingSet, cost: { candles: 8 } },
 ]);
 
 export const NESTING_WORKSHOP = {
@@ -209,6 +211,7 @@ export const NestingWorkshopRotationCategoryToCosmetics = {
 		Cosmetic.StoneLongDiningTable,
 		Cosmetic.StoneDesk,
 		Cosmetic.BedroomTallTable,
+		Cosmetic.ConsoleTable,
 		Cosmetic.StoneTallShelf,
 	],
 	[NestingWorkshopRotationCategory.ChairsAndBeds]: [
@@ -242,6 +245,7 @@ export const NestingWorkshopRotationCategoryToCosmetics = {
 		Cosmetic.StoneClosedBox,
 		Cosmetic.StoneEmptyBox,
 		Cosmetic.Crate,
+		Cosmetic.PaintingSet,
 		Cosmetic.StonePlantStand,
 	],
 } as const satisfies Readonly<Record<NestingWorkshopRotationCategories, readonly Cosmetic[]>>;
