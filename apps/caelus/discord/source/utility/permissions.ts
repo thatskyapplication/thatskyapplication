@@ -1,12 +1,14 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIGuildChannel,
+	type APIMessageComponentButtonInteraction,
 	type APIUserApplicationCommandInteraction,
 	ApplicationIntegrationType,
 	InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
+import { t } from "i18next";
 import { client } from "../discord.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
@@ -173,6 +175,24 @@ export async function cannotUseUserInstallable(
 	) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: message,
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return true;
+	}
+
+	return false;
+}
+
+export async function cannotUseActivities(
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+) {
+	if (
+		interaction.member &&
+		(BigInt(interaction.member.permissions) & PermissionFlagsBits.UseEmbeddedActivities) === 0n
+	) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("missing-use-activities-permission", { lng: interaction.locale, ns: "general" }),
 			flags: MessageFlags.Ephemeral,
 		});
 

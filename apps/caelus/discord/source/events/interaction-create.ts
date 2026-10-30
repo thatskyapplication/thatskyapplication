@@ -143,6 +143,7 @@ import {
 	SKY_PROFILE_EXPLORERS,
 } from "../utility/custom-id.js";
 import {
+	interactionInvoker,
 	isAutocomplete,
 	isButton,
 	isChatInputCommand,
@@ -158,6 +159,7 @@ import {
 	notInCachedGuildResponse,
 } from "../utility/functions.js";
 import { OptionResolver } from "../utility/option-resolver.js";
+import { cannotUseActivities } from "../utility/permissions.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
@@ -846,9 +848,13 @@ export default {
 				}
 
 				if (RETIRED_GUESS_CUSTOM_IDS.has(id)) {
+					if (await cannotUseActivities(data)) {
+						return;
+					}
+
 					await api.interactions.launchActivity(data.id, data.token);
 
-					if (data.message.interaction_metadata?.user.id === (data.member?.user ?? data.user)?.id) {
+					if (data.message.interaction_metadata?.user.id === interactionInvoker(data).id) {
 						void retireStaleMessage(data);
 					}
 

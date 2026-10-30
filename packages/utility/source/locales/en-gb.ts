@@ -2166,6 +2166,8 @@ export default {
 		"interaction-response-retired":
 			"This response is too old. [Join the support server]({{url}}) for more information!",
 		"cannot-view-thread": "I lack permissions to view this thread.",
+		"missing-use-activities-permission":
+			"You are missing the `Use Activities` permission. Someone needs to adjust the permissions!",
 		clear: "Clear",
 		"link-copied": "Link copied!",
 		"no-results": "No results.",
