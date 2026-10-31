@@ -1833,13 +1833,16 @@
 			"3056": "장난꾸러기 고양이 친구",
 			"3057": "",
 			"3058": "",
-			"3059": "보보 양초"
+			"3059": "보보 양초",
+			"3060": "",
+			"3061": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
 		"interaction-response-too-old": "",
 		"interaction-response-retired": "",
 		"cannot-view-thread": "",
+		"missing-use-activities-permission": "",
 		"clear": "",
 		"link-copied": "",
 		"no-results": "",

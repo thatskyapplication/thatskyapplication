@@ -1838,13 +1838,16 @@
 			"3056": "Acompañante felino travieso",
 			"3057": "",
 			"3058": "",
-			"3059": "Vela conmemorativa de Bobo"
+			"3059": "Vela conmemorativa de Bobo",
+			"3060": "",
+			"3061": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
 		"interaction-response-too-old": "",
 		"interaction-response-retired": "",
 		"cannot-view-thread": "",
+		"missing-use-activities-permission": "",
 		"clear": "",
 		"link-copied": "",
 		"no-results": "",
