@@ -334,7 +334,12 @@ export interface TreasureCandle {
 	unavailableAt?: Temporal.ZonedDateTime;
 }
 
-function treasureCandleURLs(date: Temporal.ZonedDateTime): [TreasureCandle, ...TreasureCandle[]] {
+function treasureCandleURLs(date: Temporal.ZonedDateTime): TreasureCandle[] {
+	if (date.year === 2026 && date.month === 11 && date.day === 1) {
+		// No treasure candles were available on 1 November 2026.
+		return [];
+	}
+
 	const rotation =
 		TREASURE_CANDLES_CONFIGURATIONS.findLast(({ start, end }) => isActive(start, end, date))
 			?.rotation ?? TREASURE_CANDLES_ROTATION;
@@ -379,12 +384,10 @@ function treasureCandleURLs(date: Temporal.ZonedDateTime): [TreasureCandle, ...T
  *
  * Independent of the supplied time of day.
  */
-export function treasureCandles(
-	today: Temporal.ZonedDateTime,
-): readonly [TreasureCandle, ...TreasureCandle[]] {
+export function treasureCandles(today: Temporal.ZonedDateTime): readonly TreasureCandle[] {
 	const date = today.withTimeZone(TIME_ZONE).startOfDay();
 	const previousDay = date.subtract({ days: 1 });
-	let result: [] | [TreasureCandle, ...TreasureCandle[]] = [];
+	let result: TreasureCandle[] = [];
 
 	if (date.year < 2025 && previousDay.hoursInDay === 23) {
 		// Before 2025, the previous day's layouts lingered until 01:00 after daylight saving time began in spring.

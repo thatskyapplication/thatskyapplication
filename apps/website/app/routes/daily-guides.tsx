@@ -898,42 +898,51 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
 								{t("daily-guides.treasure-candles", { ns: "features" })}
 							</h2>
-							<div className="flex flex-wrap items-baseline gap-1 text-sm">
-								{treasureCandleLinks.map(({ url, footnote }, index) => (
-									<span className="relative" key={url}>
-										<button
-											aria-describedby={footnote ? `treasure-candles-note-${footnote}` : undefined}
-											className={
-												treasureCandleLinks.length === 1
-													? "rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-													: "regular-link font-medium transition-colors"
-											}
-											onClick={() => handleImageClick(url)}
-											type="button"
-										>
-											{treasureCandleLinks.length === 1
-												? t("view", { ns: "general" })
-												: `${index * 4 + 1}–${index * 4 + 4}`}
-										</button>
-										{footnote !== null && footnote !== treasureCandleLinks[index + 1]?.footnote && (
-											<sup
-												className={clsx(
-													"text-[10px]",
-													treasureCandleLinks.length === 1 &&
-														"absolute top-0 left-full leading-none",
-												)}
+							{treasureCandleLinks.length > 0 ? (
+								<div className="flex flex-wrap items-baseline gap-1 text-sm">
+									{treasureCandleLinks.map(({ url, footnote }, index) => (
+										<span className="relative" key={url}>
+											<button
+												aria-describedby={
+													footnote ? `treasure-candles-note-${footnote}` : undefined
+												}
+												className={
+													treasureCandleLinks.length === 1
+														? "rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+														: "regular-link font-medium transition-colors"
+												}
+												onClick={() => handleImageClick(url)}
+												type="button"
 											>
-												<a className="regular-link" href={`#treasure-candles-note-${footnote}`}>
-													[{footnote}]
-												</a>
-											</sup>
-										)}
-										{index < treasureCandleLinks.length - 1 && (
-											<span className="mx-1 text-gray-600 dark:text-gray-300">|</span>
-										)}
-									</span>
-								))}
-							</div>
+												{treasureCandleLinks.length === 1
+													? t("view", { ns: "general" })
+													: `${index * 4 + 1}–${index * 4 + 4}`}
+											</button>
+											{footnote !== null &&
+												footnote !== treasureCandleLinks[index + 1]?.footnote && (
+													<sup
+														className={clsx(
+															"text-[10px]",
+															treasureCandleLinks.length === 1 &&
+																"absolute top-0 left-full leading-none",
+														)}
+													>
+														<a className="regular-link" href={`#treasure-candles-note-${footnote}`}>
+															[{footnote}]
+														</a>
+													</sup>
+												)}
+											{index < treasureCandleLinks.length - 1 && (
+												<span className="mx-1 text-gray-600 dark:text-gray-300">|</span>
+											)}
+										</span>
+									))}
+								</div>
+							) : (
+								<p className="my-4 text-sm text-gray-500 dark:text-gray-400">
+									{t("none", { ns: "general" })}
+								</p>
+							)}
 							{treasureCandleNotes.length > 0 && (
 								<ol className="mt-2 list-decimal space-y-1 ps-4 text-xs text-gray-500 dark:text-gray-400">
 									{treasureCandleNotes.map((description, index) => (

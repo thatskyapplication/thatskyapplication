@@ -428,7 +428,12 @@ export function dailyGuidesContainer(
 		}
 	}
 
-	if (type === DailyGuidesDistributionType.Compact) {
+	if (treasureCandleSchedule.length === 0) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: t("none", { lng: locale, ns: "general" }),
+		});
+	} else if (type === DailyGuidesDistributionType.Compact) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: [
