@@ -584,7 +584,7 @@ const OUTFIT_EMOJIS = {
 	/**
 	 * Scarred Sentry.
 	 */
-	Outfit52: { id: "1396917161343189012", name: "52_outfit" },
+	Outfit52: { id: "1566805789266550932", name: "52_outfit" },
 	/**
 	 * Resourceful Recluse.
 	 */
@@ -799,7 +799,7 @@ const SHOE_EMOJIS = {
 	/**
 	 * Rustic Memory.
 	 */
-	Shoe29: { id: "1529592858762285126", name: "29_shoe" },
+	Shoe29: { id: "1566805792571654265", name: "29_shoe" },
 	/**
 	 * Sunlight Diver Duo.
 	 */
@@ -1707,7 +1707,7 @@ const NECKLACE_EMOJIS = {
 	/**
 	 * Days of Love Classy Cravat.
 	 */
-	Necklace28: { id: "1392501503188533358", name: "28_necklace" },
+	Necklace28: { id: "1566805796988264678", name: "28_necklace" },
 	/**
 	 * Passage Pendant.
 	 */
@@ -2502,7 +2502,7 @@ const HAIR_EMOJIS = {
 	/**
 	 * Rainbow Head Wrap.
 	 */
-	Hair164: { id: "1376530842750419086", name: "164_hair" },
+	Hair164: { id: "1566805800163221584", name: "164_hair" },
 	/**
 	 * Tending Toymaker.
 	 */
@@ -2657,7 +2657,7 @@ const HAIR_ACCESSORY_EMOJIS = {
 	/**
 	 * Tinkering Chimesmith.
 	 */
-	HairAccessory11: { id: "1561010500366770176", name: "11_hair_accessory" },
+	HairAccessory11: { id: "1566805811802415145", name: "11_hair_accessory" },
 	/**
 	 * Lively Navigator.
 	 */
@@ -3000,7 +3000,7 @@ const HEAD_ACCESSORY_EMOJIS = {
 	/**
 	 * Rainbow braid.
 	 */
-	HeadAccessory05: { id: "1313935552944275488", name: "05_head_accessory" },
+	HeadAccessory05: { id: "1566805803976097892", name: "05_head_accessory" },
 	/**
 	 * Mischief Withered Antlers.
 	 */
@@ -3223,7 +3223,7 @@ const CAPE_EMOJIS = {
 	/**
 	 * Chill Sunbather.
 	 */
-	Cape33: { id: "1313937247309140048", name: "33_cape" },
+	Cape33: { id: "1566805815007117452", name: "33_cape" },
 	/**
 	 * Prophet of Air.
 	 */
@@ -4844,7 +4844,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Nesting Loft.
 	 */
-	SmallPlaceableProp36: { id: "1313938766099906590", name: "36_small_placeable_prop" },
+	SmallPlaceableProp36: { id: "1566805773617463436", name: "36_small_placeable_prop" },
 	/**
 	 * Nesting Atrium.
 	 */
@@ -5004,11 +5004,11 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Comfort of Kindness.
 	 */
-	SmallPlaceableProp76: { id: "1313938907049492491", name: "76_small_placeable_prop" },
+	SmallPlaceableProp76: { id: "1566805776620851200", name: "76_small_placeable_prop" },
 	/**
 	 * Inspiration of Inclusion.
 	 */
-	SmallPlaceableProp77: { id: "1313938900712030318", name: "77_small_placeable_prop" },
+	SmallPlaceableProp77: { id: "1566805779934351451", name: "77_small_placeable_prop" },
 	/**
 	 * Hanging mask.
 	 */
@@ -5016,7 +5016,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * The Moomin Storybook (non-ultimate).
 	 */
-	SmallPlaceableProp79: { id: "1315723498727145513", name: "79_small_placeable_prop" },
+	SmallPlaceableProp79: { id: "1566805782832349326", name: "79_small_placeable_prop" },
 	/**
 	 * Wonderland Cafe Corridor.
 	 */
@@ -5224,7 +5224,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Vase with Fifteen Sunflowers (non-ultimate) 6.
 	 */
-	SmallPlaceableProp131: { id: "1529585422622265464", name: "131_small_placeable_prop" },
+	SmallPlaceableProp131: { id: "1566805786179539114", name: "131_small_placeable_prop" },
 	/**
 	 * Dutch Memory.
 	 */
