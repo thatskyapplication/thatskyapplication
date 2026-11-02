@@ -1596,66 +1596,33 @@ const FACE_ACCESSORY_EMOJIS = {
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS = {
-	/**
-	 * Gratitude Pendant.
-	 */
-	Necklace01: { id: "1313935763599130694", name: "01_necklace" },
-	/**
-	 * Lightseekers Pendant.
-	 */
-	Necklace02: { id: "1561010323094241290", name: "02_necklace" },
-	/**
-	 * Belonging Pendant.
-	 */
-	Necklace03: { id: "1313935761518624899", name: "03_necklace" },
-	/**
-	 * Rhythm Pendant.
-	 */
-	Necklace04: { id: "1313935770482118676", name: "04_necklace" },
-	/**
-	 * Enchantment Pendant.
-	 */
-	Necklace05: { id: "1313935769190268979", name: "05_necklace" },
-	/**
-	 * Sanctuary Pendant.
-	 */
-	Necklace06: { id: "1561010333018103878", name: "06_necklace" },
+	// Necklace01 is the Season of Gratitude pendant, which uses SEASON_EMOJIS.Gratitude.
+	// Necklace02 is the Season of Lightseekers pendant, which uses SEASON_EMOJIS.Lightseekers.
+	// Necklace03 is the Season of Belonging pendant, which uses SEASON_EMOJIS.Belonging.
+	// Necklace04 is the Season of Rhythm pendant, which uses SEASON_EMOJIS.Rhythm.
+	// Necklace05 is the Season of Enchantment pendant, which uses SEASON_EMOJIS.Enchantment.
+	// Necklace06 is the Season of Sanctuary pendant, which uses SEASON_EMOJIS.Sanctuary.
 	/**
 	 * Hiking Grouch.
 	 */
 	Necklace07: { id: "1392498131358318693", name: "07_necklace" },
-	/**
-	 * Prophecy Pendant.
-	 */
-	Necklace08: { id: "1313935764676939777", name: "08_necklace" },
+	// Necklace08 is the Season of Prophecy pendant, which uses SEASON_EMOJIS.Prophecy.
 	/**
 	 * Days of Feast 2020.
 	 */
 	Necklace09: { id: "1392503728740765706", name: "09_necklace" },
-	/**
-	 * Dreams Pendant.
-	 */
-	Necklace10: { id: "1561010335576621257", name: "10_necklace" },
-	/**
-	 * Assembly Pendant.
-	 */
-	Necklace11: { id: "1561010338483146976", name: "11_necklace" },
+	// Necklace10 is the Season of Dreams pendant, which uses SEASON_EMOJIS.Dreams.
+	// Necklace11 is the Season of Assembly pendant, which uses SEASON_EMOJIS.Assembly.
 	/**
 	 * Ocean Necklace.
 	 */
 	Necklace12: { id: "1392502063568785508", name: "12_necklace" },
-	/**
-	 * Little Prince Pendant.
-	 */
-	Necklace13: { id: "1561010343357063268", name: "13_necklace" },
+	// Necklace13 is the Season of the Little Prince pendant, which uses SEASON_EMOJIS.LittlePrince.
 	/**
 	 * Star Collector.
 	 */
 	Necklace14: { id: "1392499089148739765", name: "14_necklace" },
-	/**
-	 * Flight Pendant.
-	 */
-	Necklace15: { id: "1561010346796523520", name: "15_necklace" },
+	// Necklace15 is the Season of Flight pendant, which uses SEASON_EMOJIS.Flight.
 	/**
 	 * Talented Builder.
 	 */
@@ -1664,22 +1631,13 @@ const NECKLACE_EMOJIS = {
 	 * Winter Feast Scarf.
 	 */
 	Necklace17: { id: "1392503992365613166", name: "17_necklace" },
-	/**
-	 * Abyss Pendant.
-	 */
-	Necklace18: { id: "1313935794746167366", name: "18_necklace" },
-	/**
-	 * Performance Pendant.
-	 */
-	Necklace19: { id: "1313935773883568179", name: "19_necklace" },
+	// Necklace18 is the Season of Abyss pendant, which uses SEASON_EMOJIS.Abyss.
+	// Necklace19 is the Season of Performance pendant, which uses SEASON_EMOJIS.Performance.
 	/**
 	 * Days of Nature 2022.
 	 */
 	Necklace20: { id: "1392502492218265704", name: "20_necklace" },
-	/**
-	 * Shattering Pendant.
-	 */
-	Necklace21: { id: "1561010349501583511", name: "21_necklace" },
+	// Necklace21 is the Season of Shattering pendant, which uses SEASON_EMOJIS.Shattering.
 	/**
 	 * Ancient Darkness (dragon).
 	 */
@@ -1688,14 +1646,8 @@ const NECKLACE_EMOJIS = {
 	 * Sunlight Jelly Shoulder Buddy.
 	 */
 	Necklace23: { id: "1392503199893688331", name: "23_necklace" },
-	/**
-	 * AURORA Pendant.
-	 */
-	Necklace24: { id: "1313935803348549642", name: "24_necklace" },
-	/**
-	 * Remembrance Pendant.
-	 */
-	Necklace25: { id: "1313935799116370001", name: "25_necklace" },
+	// Necklace24 is the Season of AURORA pendant, which uses SEASON_EMOJIS.Aurora.
+	// Necklace25 is the Season of Remembrance pendant, which uses SEASON_EMOJIS.Remembrance.
 	/**
 	 * Pleading Child.
 	 */
@@ -1708,30 +1660,15 @@ const NECKLACE_EMOJIS = {
 	 * Days of Love Classy Cravat.
 	 */
 	Necklace28: { id: "1566805796988264678", name: "28_necklace" },
-	/**
-	 * Passage Pendant.
-	 */
-	Necklace29: { id: "1561009732091772928", name: "29_necklace" },
+	// Necklace29 is the Season of Passage pendant, which uses SEASON_EMOJIS.Passage.
 	/**
 	 * Oddball Outcast.
 	 */
 	Necklace30: { id: "1392501024987811861", name: "30_necklace" },
-	/**
-	 * Moments Pendant.
-	 */
-	Necklace31: { id: "1313935800731172864", name: "31_necklace" },
-	/**
-	 * Revival Pendant.
-	 */
-	Necklace32: { id: "1313935808079724575", name: "32_necklace" },
-	/**
-	 * Nine-Coloured Deer Pendant.
-	 */
-	Necklace33: { id: "1313935809547862049", name: "33_necklace" },
-	/**
-	 * Nesting Pendant.
-	 */
-	Necklace34: { id: "1313935832687579146", name: "34_necklace" },
+	// Necklace31 is the Season of Moments pendant, which uses SEASON_EMOJIS.Moments.
+	// Necklace32 is the Season of Revival pendant, which uses SEASON_EMOJIS.Revival.
+	// Necklace33 is the Season of the Nine-Coloured Deer pendant, which uses SEASON_EMOJIS.NineColouredDeer.
+	// Necklace34 is the Season of Nesting pendant, which uses SEASON_EMOJIS.Nesting.
 	/**
 	 * Cinnamoroll Pop-Up Cafe Bowtie.
 	 */
@@ -1740,10 +1677,7 @@ const NECKLACE_EMOJIS = {
 	 * Ocean Blue Scarf.
 	 */
 	Necklace36: { id: "1392502866803032145", name: "36_necklace" },
-	/**
-	 * Duets Pendant.
-	 */
-	Necklace37: { id: "1313935815881134122", name: "37_necklace" },
+	// Necklace37 is the Season of Duets pendant, which uses SEASON_EMOJIS.Duets.
 	/**
 	 * Style Dapper Necktie.
 	 */
@@ -1760,10 +1694,7 @@ const NECKLACE_EMOJIS = {
 	 * Moomintroll Tail.
 	 */
 	Necklace41: { id: "1313935817600667668", name: "41_necklace" },
-	/**
-	 * Moomin Pendant.
-	 */
-	Necklace42: { id: "1313935823015776267", name: "42_necklace" },
+	// Necklace42 is the Season of Moomin pendant, which uses SEASON_EMOJIS.Moomin.
 	/**
 	 * Comfort of Kindness.
 	 */
@@ -1776,18 +1707,9 @@ const NECKLACE_EMOJIS = {
 	 * Inspiration of Inclusion.
 	 */
 	Necklace45: { id: "1313935812668424214", name: "45_necklace" },
-	/**
-	 * Radiance Pendant.
-	 */
-	Necklace46: { id: "1330482500056911944", name: "46_necklace" },
-	/**
-	 * Blue Bird Pendant.
-	 */
-	Necklace47: { id: "1363811108015706123", name: "47_necklace" },
-	/**
-	 * The Two Embers - Part 1 Pendant.
-	 */
-	Necklace48: { id: "1396895194703466698", name: "48_necklace" },
+	// Necklace46 is the Season of Radiance pendant, which uses SEASON_EMOJIS.Radiance.
+	// Necklace47 is the Season of the Blue Bird pendant, which uses SEASON_EMOJIS.BlueBird.
+	// Necklace48 is the Season of The Two Embers - Part 1 pendant, which uses SEASON_EMOJIS.TwoEmbersPart1.
 	/**
 	 * Spirited Manatee Tail.
 	 */
@@ -1800,22 +1722,13 @@ const NECKLACE_EMOJIS = {
 	 * Moonlight Tufted Tail.
 	 */
 	Necklace51: { id: "1422146168137191435", name: "51_necklace" },
-	/**
-	 * Migration Pendant.
-	 */
-	Necklace52: { id: "1536651647885778974", name: "52_necklace" },
+	// Necklace52 is the Season of Migration pendant, which uses SEASON_EMOJIS.Migration.
 	/**
 	 * Mischief Feline Tail.
 	 */
 	Necklace53: { id: "1433197642007183430", name: "53_necklace" },
-	/**
-	 * Lightmending Pendant.
-	 */
-	Necklace54: { id: "1458424276267958325", name: "54_necklace" },
-	/**
-	 * Carnival Pendant.
-	 */
-	Necklace55: { id: "1536651900454178926", name: "55_necklace" },
+	// Necklace54 is the Season of Lightmending pendant, which uses SEASON_EMOJIS.Lightmending.
+	// Necklace55 is the Season of Carnival pendant, which uses SEASON_EMOJIS.Carnival.
 	/**
 	 * Carnival Juggler.
 	 */
@@ -1828,18 +1741,12 @@ const NECKLACE_EMOJIS = {
 	 * Starry Night's Mantle necklace.
 	 */
 	Necklace58: { id: "1529496729525686373", name: "58_necklace" },
-	/**
-	 * Dear Van Gogh pendant.
-	 */
-	Necklace59: { id: "1561009784306667630", name: "59_necklace" },
+	// Necklace59 is the Dear Van Gogh pendant, which uses SEASON_EMOJIS.DearVanGogh.
 	/**
 	 * Sunflower Neck Tie.
 	 */
 	Necklace60: { id: "1560726007638659123", name: "60_necklace" },
-	/**
-	 * Pearl Pendant.
-	 */
-	Necklace61: { id: "1560714438028558406", name: "61_necklace" },
+	// Necklace61 is the Season of Pearl pendant, which uses SEASON_EMOJIS.Pearl.
 	/**
 	 * Mischief Feline Friend.
 	 */
