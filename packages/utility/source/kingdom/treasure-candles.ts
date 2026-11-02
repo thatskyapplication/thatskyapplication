@@ -335,8 +335,8 @@ export interface TreasureCandle {
 }
 
 function treasureCandleURLs(date: Temporal.ZonedDateTime): TreasureCandle[] {
-	if (date.year === 2026 && date.month === 11 && date.day === 1) {
-		// No treasure candles were available on 1 November 2026.
+	if (date.year === 2026 && date.month === 11 && date.day < 3) {
+		// No treasure candles were available from 1 to 2 November 2026.
 		return [];
 	}
 
