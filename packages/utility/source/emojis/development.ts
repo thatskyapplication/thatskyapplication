@@ -1519,7 +1519,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	SmallPlaceableProp32: { id: "1313924397806911510", name: "32_small_placeable_prop" },
 	SmallPlaceableProp33: { id: "1313924427666165812", name: "33_small_placeable_prop" },
 	SmallPlaceableProp34: { id: "1313924448654590077", name: "34_small_placeable_prop" },
-	SmallPlaceableProp35: { id: "1313924442933428304", name: "35_small_placeable_prop" },
+	SmallPlaceableProp35: { id: "1566781124326199336", name: "35_small_placeable_prop" },
 	SmallPlaceableProp36: { id: "1313924385790365787", name: "36_small_placeable_prop" },
 	SmallPlaceableProp37: { id: "1313924418677772300", name: "37_small_placeable_prop" },
 	SmallPlaceableProp38: { id: "1313924410671108097", name: "38_small_placeable_prop" },

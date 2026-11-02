@@ -4840,7 +4840,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Nesting Solarium.
 	 */
-	SmallPlaceableProp35: { id: "1313938741840318535", name: "35_small_placeable_prop" },
+	SmallPlaceableProp35: { id: "1566781121449037934", name: "35_small_placeable_prop" },
 	/**
 	 * Nesting Loft.
 	 */
