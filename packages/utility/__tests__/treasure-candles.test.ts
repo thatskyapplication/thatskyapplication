@@ -6308,7 +6308,9 @@ const EXPECTED_ROTATIONS = [
 	},
 	{
 		date: skyDate(2026, 11, 2),
-		expected: [],
+		// Came back at around 11:32 PT.
+		// https://canary.discord.com/channels/575762611111592007/575827782144098304/1566897886887944323
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
 	},
 ] as const;
 

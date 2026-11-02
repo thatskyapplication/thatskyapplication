@@ -51,6 +51,11 @@ const TREASURE_CANDLES_REALM_ANCHORS = [
 		start: skyDate(2026, 10, 13).toPlainDate(),
 		realm: RealmName.DaylightPrairie,
 	},
+	{
+		// Vault of Knowledge was due on 1 November 2026, which had no treasure candles, and appeared on 2 November 2026 instead.
+		start: skyDate(2026, 11, 2).toPlainDate(),
+		realm: RealmName.VaultOfKnowledge,
+	},
 ] as const;
 
 interface TreasureCandlesConfiguration {
@@ -335,8 +340,8 @@ export interface TreasureCandle {
 }
 
 function treasureCandleURLs(date: Temporal.ZonedDateTime): TreasureCandle[] {
-	if (date.year === 2026 && date.month === 11 && date.day < 3) {
-		// No treasure candles were available from 1 to 2 November 2026.
+	if (date.year === 2026 && date.month === 11 && date.day === 1) {
+		// No treasure candles were available on 1 November 2026.
 		return [];
 	}
 
