@@ -1838,13 +1838,16 @@
 			"3056": "Unfug-Katzenfreund",
 			"3057": "",
 			"3058": "",
-			"3059": "Bobo-Erinnerungskerze"
+			"3059": "Bobo-Erinnerungskerze",
+			"3060": "",
+			"3061": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
 		"interaction-response-too-old": "",
 		"interaction-response-retired": "",
 		"cannot-view-thread": "",
+		"missing-use-activities-permission": "",
 		"clear": "",
 		"link-copied": "",
 		"no-results": "",

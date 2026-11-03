@@ -1838,13 +1838,16 @@
 			"3056": "Amigo Felino Travesso",
 			"3057": "",
 			"3058": "Cama",
-			"3059": "Vela Comemorativa do Bobo"
+			"3059": "Vela Comemorativa do Bobo",
+			"3060": "",
+			"3061": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
 		"interaction-response-too-old": "Esta resposta já expirou. Use o comando novamente!",
 		"interaction-response-retired": "Esta resposta está desatualizada. [Entre no servidor de suporte]({{url}}) para mais informações!",
 		"cannot-view-thread": "Não tenho permissões para visualizar este tópico.",
+		"missing-use-activities-permission": "",
 		"clear": "Apagar",
 		"link-copied": "Link copiado!",
 		"no-results": "Sem resultados.",
