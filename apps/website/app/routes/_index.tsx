@@ -11,6 +11,7 @@ import {
 	Clock,
 	HandHeart,
 	History,
+	Hourglass,
 	Users,
 	Zap,
 } from "lucide-react";
@@ -46,6 +47,7 @@ const NODE_POSITIONS = {
 	shardEruption: { x: 28, y: 90 },
 	skyProfile: { x: 70, y: 66 },
 	spirits: { x: 83, y: 60 },
+	whatsHappeningInSky: { x: 50, y: 13 },
 } as const;
 
 const PLACEHOLDER_RINGS = [{ x: 92, y: 52 }] as const;
@@ -80,6 +82,10 @@ const CONSTELLATION_SEGMENTS: {
 	{ from: NODE_POSITIONS.skyProfile, to: NODE_POSITIONS.spirits },
 	{ from: NODE_POSITIONS.skyProfile, to: NODE_POSITIONS.cosmetics },
 	{ from: NODE_POSITIONS.spirits, to: PLACEHOLDER_RINGS[0], faint: true },
+	{
+		from: { x: NODE_POSITIONS.whatsHappeningInSky.x, y: 22 },
+		to: hubEdge(NODE_POSITIONS.whatsHappeningInSky),
+	},
 ];
 
 const LINE_LAYERS = [
@@ -248,6 +254,14 @@ function constellationNodes(t: TFunction) {
 			label: t("spirit-plural", { ns: "general" }),
 			description: t("spirits.description-short", { ns: "features" }),
 			Icon: History,
+		},
+		{
+			...NODE_POSITIONS.whatsHappeningInSky,
+			key: "whatsHappeningInSky",
+			to: "/whats-happening-in-sky",
+			label: t("whats-happening-in-sky.name", { ns: "features" }),
+			description: t("whats-happening-in-sky.description-short", { ns: "features" }),
+			Icon: Hourglass,
 		},
 	];
 }

@@ -47,7 +47,9 @@ import {
 	friendshipTreeToItems,
 	type Item,
 	isRealm,
+	itemName,
 	KINGDOM,
+	spiritWikiMarkdownLink,
 	LOYALTY,
 	NESTING_WORKSHOP,
 	nestingWorkshopPropsTextDisplay,
@@ -128,20 +130,14 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	const owned = [];
 	const unowned = [];
 
-	for (const { translation, cosmetics, regularHeart } of offer) {
+	for (const item of offer) {
+		const { cosmetics, regularHeart } = item;
+
 		const emojis = regularHeart
 			? [formatEmoji(MISCELLANEOUS_EMOJIS.Heart)]
 			: cosmetics.map((cosmetic) => {
 					const emoji = CosmeticToEmoji[cosmetic];
-
-					return emoji
-						? formatEmoji(emoji)
-						: t(translation.key, {
-								lng: locale,
-								ns: "general",
-								number: translation.number,
-								level: translation.level,
-							});
+					return emoji ? formatEmoji(emoji) : itemName(item, t, locale);
 				});
 
 		if (cosmetics.every((cosmetic) => data.has(cosmetic))) {
@@ -440,17 +436,14 @@ async function start({
 		style: currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 
-	if (
-		currentReturningSpirits?.every(
-			(returningSpirit) => returningSpirit.seasonId === currentReturningSpirits.first()!.seasonId,
-		)
-	) {
-		const returningSpiritSeasonEmoji =
-			SeasonIdToSeasonalEmoji[currentReturningSpirits.first()!.seasonId];
+	const returningSpiritsSeason =
+		currentReturningSpirits && KINGDOM.commonSeasonOf(currentReturningSpirits.keys());
 
-		if (returningSpiritSeasonEmoji) {
-			currentReturningSpiritsButton.emoji = returningSpiritSeasonEmoji;
-		}
+	const returningSpiritSeasonEmoji =
+		returningSpiritsSeason && SeasonIdToSeasonalEmoji[returningSpiritsSeason.id];
+
+	if (returningSpiritSeasonEmoji) {
+		currentReturningSpiritsButton.emoji = returningSpiritSeasonEmoji;
 	}
 
 	const sectionButtons = [
@@ -1913,7 +1906,6 @@ async function viewSpirit(
 	});
 
 	const spiritName = t(`spirits.${spirit.id}`, { lng: locale, ns: "general" });
-	const titleSpirit = `[${spiritName}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})`;
 	let trail: readonly string[];
 
 	if (isStandardSpirit) {
@@ -1933,7 +1925,7 @@ async function viewSpirit(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${titleSpirit}\n\n${breadcrumb(locale, spiritName, trail)}`,
+			content: `## ${spiritWikiMarkdownLink(spirit.id, { locale, t })}\n\n${breadcrumb(locale, spiritName, trail)}`,
 		},
 		{
 			type: ComponentType.Separator,

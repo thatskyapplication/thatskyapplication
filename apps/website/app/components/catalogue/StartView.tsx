@@ -139,13 +139,10 @@ export function StartView({
 	}
 
 	if (returningSpirits) {
-		const seasonId = returningSpirits.first()?.seasonId;
-		const sharedSeason =
-			seasonId !== undefined &&
-			returningSpirits.every((returningSpirit) => returningSpirit.seasonId === seasonId);
+		const sharedSeason = KINGDOM.commonSeasonOf(returningSpirits.keys());
 
 		quickAccess.push({
-			emoji: sharedSeason ? SeasonIdToSeasonalEmoji[seasonId] : undefined,
+			emoji: sharedSeason ? SeasonIdToSeasonalEmoji[sharedSeason.id] : undefined,
 			label: t("returning-spirits", { ns: "general" }),
 			to: "?view=returning-spirits",
 		});

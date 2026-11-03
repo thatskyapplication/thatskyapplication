@@ -8,9 +8,12 @@ import {
 	CatalogueSearchType,
 	type CatalogueSpiritSearchEntry,
 	NESTING_WORKSHOP_ROTATION_COSMETICS,
+	nestingWorkshopPropsLine,
 	resolveNestingWorkshopItems,
 } from "../source/catalogue.js";
 import { Cosmetic } from "../source/cosmetics.js";
+import { formatEmoji } from "../source/emojis/emoji.js";
+import { productionEmojis } from "../source/emojis/index.js";
 import enGB from "../source/locales/en-gb.js";
 import { EventId } from "../source/utility/event.js";
 import { SpiritId } from "../source/utility/spirits.js";
@@ -261,6 +264,18 @@ test("An exact match outranks a keyword match on a caller-supplied list.", () =>
 		catalogueSearch(custom, "alpha").map(({ name }) => name),
 		["Alpha", "Beta"],
 	);
+});
+
+test("Nesting Workshop props share one line and tick the owned ones.", () => {
+	const emojis = productionEmojis();
+	const formatting = { emojis, locale: "en-GB", t: (key: string) => key };
+	const items = resolveNestingWorkshopItems(NESTING_WORKSHOP_ROTATION_COSMETICS.slice(0, 2));
+	const tick = formatEmoji(emojis.MISCELLANEOUS_EMOJIS.Yes);
+	const line = nestingWorkshopPropsLine(items, formatting);
+
+	equal(line.split(" ").length, items.length);
+	ok(!line.includes(tick));
+	ok(nestingWorkshopPropsLine(items, formatting, new Set(items[0]!.cosmetics)).includes(tick));
 });
 
 test("Every Nesting Workshop rotation cosmetic is a unique Nesting Workshop item.", () => {

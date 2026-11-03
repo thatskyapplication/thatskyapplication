@@ -59,12 +59,7 @@ function InfographicPreviewContent({
 			{acknowledgement && (
 				<p className="mt-3 shrink-0 text-center text-xs font-medium text-gray-500 dark:text-gray-400">
 					{t("infographic-by", { ns: "general", acknowledgement })}{" "}
-					<ExternalLink
-						className="regular-link inline-flex items-center gap-1"
-						href={SKY_COTL_INFOGRAPHICS_DATABASE_URL}
-						icon
-						iconClassName="h-3 w-3"
-					>
+					<ExternalLink href={SKY_COTL_INFOGRAPHICS_DATABASE_URL} icon iconClassName="h-3 w-3">
 						Sky:CoTL Infographics Database
 					</ExternalLink>
 				</p>

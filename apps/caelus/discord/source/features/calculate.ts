@@ -13,10 +13,10 @@ import {
 	type DoubleSeasonalLightDate,
 	type Event,
 	epochSeconds,
+	daysLeftText,
 	formatEmoji,
 	formatEmojiURL,
 	isActive,
-	isDuring,
 	resolveCurrencyEmoji,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
@@ -35,8 +35,8 @@ import { ASCENDED_CANDLES_PER_WEEK, DEFAULT_EMBED_COLOUR } from "../utility/cons
 import {
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
-	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
+	seasonalCandleEmoji,
 } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 
@@ -213,42 +213,26 @@ export async function eventTickets(
 	const startEmojis = `${start} ${suffix}`;
 	const goalEmojis = `${goal} ${suffix}`;
 	const amountRequiredEmojis = `${amountRequired} ${suffix}`;
-	const today = now.startOfDay();
 
 	const result = events.map((event) => {
-		// Collect daily event tickets.
-		const dailyRemaining = event.eventTickets.amount.reduce(
-			(remaining, eventTickets) =>
-				Temporal.ZonedDateTime.compare(eventTickets.date, today) >= 0
-					? remaining + eventTickets.amount
-					: remaining,
-			0,
-		);
-
-		// Collect pools, if any.
+		const { dailyEventTicketsLeft, poolEventTicketsLeft } = event.remainingEventTickets(now);
 		const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
-
-		const pool =
-			event.eventTickets.pool?.reduce(
-				(total, pool) => (isDuring(pool.start, pool.end, today) ? total + pool.amount : total),
-				0,
-			) ?? null;
 
 		const result = eventTicketEmoji
 			? t("calculate.event-tickets.result-emoji", {
 					lng: locale,
 					ns: "features",
 					emoji: formatEmoji(eventTicketEmoji),
-					total: dailyRemaining,
+					total: dailyEventTicketsLeft,
 				})
 			: t("calculate.event-tickets.result-event", {
 					lng: locale,
 					ns: "features",
 					event: t(event.name, { lng: locale, ns: "general" }),
-					total: dailyRemaining,
+					total: dailyEventTicketsLeft,
 				});
 
-		return `${result}${pool === null ? "" : ` ${t("calculate.event-tickets.result-pool", { lng: locale, ns: "features", pool })}`}`;
+		return `${result}${poolEventTicketsLeft === null ? "" : ` ${t("calculate.event-tickets.result-pool", { lng: locale, ns: "features", pool: poolEventTicketsLeft })}`}`;
 	});
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -281,17 +265,15 @@ export async function eventTickets(
 					{
 						type: ComponentType.TextDisplay,
 						content: events
-							.map(({ name, end }) => {
-								const daysLeft =
-									Math.ceil(end.since(now).total({ unit: "days", relativeTo: now })) - 1;
-
-								return t(daysLeft === 0 ? "days-left.event-ends-today" : "days-left.event", {
-									lng: locale,
-									ns: "general",
-									count: daysLeft,
-									name: t(name, { lng: locale, ns: "general" }),
-								});
-							})
+							.map(({ name, end }) =>
+								daysLeftText(
+									"event",
+									end,
+									now,
+									{ locale, t },
+									t(name, { lng: locale, ns: "general" }),
+								),
+							)
 							.join("\n"),
 					},
 				],
@@ -330,7 +312,7 @@ export async function seasonalCandles(
 		return;
 	}
 
-	const emoji = SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
+	const emoji = seasonalCandleEmoji(season.id);
 	const amountRequired = goal - start;
 	let result = 0;
 	let days = 0;
@@ -447,15 +429,9 @@ export async function seasonalCandles(
 		});
 	}
 
-	const seasonDaysLeft = season.end.since(today).total({ unit: "days", relativeTo: today }) - 1;
-
 	containerComponents.push({
 		type: ComponentType.TextDisplay,
-		content: t(seasonDaysLeft === 0 ? "days-left.season-ends-today" : "days-left.season", {
-			lng: locale,
-			ns: "general",
-			count: seasonDaysLeft,
-		}),
+		content: daysLeftText("season", season.end, today, { locale, t }),
 	});
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {

@@ -1,6 +1,8 @@
+import { clsx } from "clsx";
 import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { SUCCESS_BANNER_CLASS } from "~/utility/styles.js";
 
 const SAVE_CONFIRMATION_DURATION = 3000 as const;
 
@@ -39,10 +41,7 @@ export function SaveConfirmation({ isSaving, showSuccess }: SaveStatusProps) {
 	const { t } = useTranslation();
 
 	return showSuccess && !isSaving ? (
-		<div
-			aria-hidden="true"
-			className="mt-3 flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800 dark:border-green-700 dark:bg-green-900/20 dark:text-green-200"
-		>
+		<div aria-hidden="true" className={clsx(SUCCESS_BANNER_CLASS, "mt-3")}>
 			<Check className="h-5 w-5" />
 			<span>{t("saved", { ns: "general" })}</span>
 		</div>

@@ -20,11 +20,11 @@ import { InfographicPreview, type SelectedInfographic } from "~/components/Infog
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
+import { ShardRewardIcon } from "~/components/ShardRewardIcon.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import {
-	PIECE_OF_LIGHT_PATH,
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_MAXIMUM_PAGE,
 	WEBSITE_COLOUR,
@@ -34,6 +34,7 @@ import { EMOJIS, MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { hexColour } from "~/utility/functions.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
 import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
+import { shardEruptionTimestampLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/shard-eruption.js";
 
@@ -155,28 +156,11 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 			shard: shard
 				? {
 						...shard,
-						timestamps: shard.timestamps.map(({ start, end }) => ({
-							start: {
-								unix: epochSeconds(start),
-								format: new Intl.DateTimeFormat(locale, {
-									timeZone,
-									hour: "2-digit",
-									minute: "2-digit",
-									second: "2-digit",
-									hour12,
-								}).format(start.epochMilliseconds),
-							},
-							end: {
-								unix: epochSeconds(end),
-								format: new Intl.DateTimeFormat(locale, {
-									timeZone,
-									hour: "2-digit",
-									minute: "2-digit",
-									second: "2-digit",
-									hour12,
-								}).format(end.epochMilliseconds),
-							},
-						})),
+						timestamps: shardEruptionTimestampLabels(shard.timestamps, {
+							locale,
+							timeZone,
+							hour12,
+						}),
 					}
 				: null,
 			todayFormat,
@@ -276,25 +260,7 @@ function ShardEruptionCard({
 					</button>
 					<div className="inline-flex items-center">
 						<span className="text-sm">{shard.reward}</span>
-						{shard.strong ? (
-							<div
-								aria-label={t("ascended-candles", { ns: "general" })}
-								className="discord-emoji ml-1 h-4 w-4"
-								role="img"
-								style={{
-									backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
-								}}
-							/>
-						) : (
-							<div
-								aria-label="Piece of light."
-								className="ml-1 h-4 w-4 bg-cover bg-center"
-								role="img"
-								style={{
-									backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
-								}}
-							/>
-						)}
+						<ShardRewardIcon className="ml-1" strong={shard.strong} />
 					</div>
 					{shard.timestamps.map(({ start, end }) => (
 						<ShardEruptionTimestamp
@@ -333,8 +299,9 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 	const { key: locationKey } = useLocation();
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const selectedCardRef = useRef<HTMLDivElement>(null);
-	const currentTimestamp = useCurrentTimestamp(initialUnix * 1000);
-	useSkyDailyResetRevalidator(currentTimestamp);
+	const initialTimestamp = initialUnix * 1000;
+	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
+	useSkyDailyResetRevalidator(currentTimestamp, initialTimestamp);
 	const currentUnix = Math.floor(currentTimestamp / 1000);
 
 	useEffect(() => {

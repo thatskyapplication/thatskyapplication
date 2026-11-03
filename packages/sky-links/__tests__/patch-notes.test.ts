@@ -2,6 +2,8 @@ import { strictEqual } from "node:assert";
 import test from "node:test";
 import { URL } from "node:url";
 import {
+	LATEST_MAJOR_PATCH_NOTES,
+	LATEST_PATCH_NOTE,
 	PATCH_NOTES,
 	isPublishedPatchNote,
 	patchNoteVersion,
@@ -13,6 +15,14 @@ function dayAfter(date: string) {
 	instant.setUTCDate(instant.getUTCDate() + 1);
 	return instant.toISOString().slice(0, 10);
 }
+
+test("The latest major patch notes run from the latest .0 to the latest published note.", () => {
+	const versions = LATEST_MAJOR_PATCH_NOTES.map(({ identifier }) => patchNoteVersion(identifier));
+
+	strictEqual(versions[0]!.endsWith(".0"), true);
+	strictEqual(versions.filter((version) => version.endsWith(".0")).length, 1);
+	strictEqual(LATEST_MAJOR_PATCH_NOTES.at(-1), LATEST_PATCH_NOTE);
+});
 
 test("Definitions are valid and chronological.", () => {
 	let previousDate = "";

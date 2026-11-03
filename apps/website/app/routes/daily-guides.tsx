@@ -1,6 +1,6 @@
 import { ButtonStyle, ComponentType } from "@discordjs/core/http-only";
 import { clsx } from "clsx";
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { HeadersArgs } from "react-router";
@@ -10,20 +10,21 @@ import {
 	communityUpcomingEvents,
 	dailyGuidesContainer,
 	type DailyGuidesDaysCountItem,
+	daysLeftText,
+	daysUntil,
+	doublePeriodCountdown,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
-	DOUBLE_HEART_EVENTS,
-	epochSeconds,
 	fetchDailyGuides,
 	fetchFirstDailyGuidesDate,
 	formatEmojiURL,
 	isDailyQuest,
 	KINGDOM,
-	MAINTENANCE_PERIODS,
 	nestingWorkshopDate,
 	nextDailyReset,
 	parsePlainDate,
 	RADIANCE_EVENTS,
+	returningSpiritsCountdown,
 	returningSpiritsSchedule,
 	ScheduleType,
 	ScheduleTypeToLocaleKey,
@@ -34,8 +35,10 @@ import {
 	skyUpcomingSeason,
 	SHARD_ERUPTION_START_DATE,
 	TIME_ZONE,
-	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
+	upcomingEventCountdown,
+	upcomingMaintenanceCountdown,
+	upcomingMaintenancePeriods,
 	visibleDaysCountItems,
 	WEBSITE_URL,
 	dailyQuestLabel,
@@ -44,10 +47,12 @@ import { DatePicker } from "~/components/DatePicker";
 import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
+import { MaintenanceBanner } from "~/components/MaintenanceBanner.js";
 import { NestingWorkshopProps } from "~/components/NestingWorkshopProps.js";
 import { CentredSitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
+import { ShardRewardIcon } from "~/components/ShardRewardIcon.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { CDN_URL } from "~/config.server";
 import database from "~/database.server";
@@ -56,21 +61,34 @@ import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-cu
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
-import { PIECE_OF_LIGHT_PATH, WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
+import { WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
 import { fitsDiscordComponentEmbed } from "~/utility/discord-component-embed.server.js";
 import {
 	DyeTypeToEmoji,
 	EMOJIS,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
-	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
+	seasonalCandleEmoji,
 } from "~/utility/emojis.js";
 import { hexColour } from "~/utility/functions.js";
 import { firstDayOfWeek } from "~/utility/locale.js";
 import { fetchNestingWorkshopProps } from "~/utility/nesting-workshop.server.js";
-import { NESTING_WORKSHOP_CATALOGUE_URL } from "~/utility/schedule.js";
-import { DATE_NAVIGATION_CLASS } from "~/utility/styles.js";
+import {
+	DOUBLE_HEART_PERIODS,
+	DOUBLE_TREASURE_CANDLE_PERIODS,
+	type DoublePeriodGroup,
+	doubleSeasonalLightPeriods,
+	NESTING_WORKSHOP_CATALOGUE_URL,
+} from "~/utility/schedule.js";
+import { spiritWikiLink } from "~/utility/spirits.js";
+import {
+	DATE_NAVIGATION_CLASS,
+	ICON_LINK_CLASS,
+	NOTE_CLASS,
+	VIEW_LINK_CLASS,
+} from "~/utility/styles.js";
+import { maintenanceBannerLabels, shardEruptionTimestampLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/daily-guides.js";
 
@@ -83,6 +101,7 @@ interface DaysCountItem extends DailyGuidesDaysCountItem {
 const DAILY_GUIDES_DESCRIPTION =
 	"Today's quests, treasure candles, seasonal candles, returning spirits, shard eruption, travelling rock, Nesting Workshop, maintenance, and countdowns for Sky: Children of the Light." as const;
 const RETURNING_SPIRITS_LIST_PLACEHOLDER = "__RETURNING_SPIRITS_LIST__" as const;
+const SECTION_LINK_CLASS = clsx(ICON_LINK_CLASS, "text-xs font-medium");
 
 function dailyGuidesCacheMaxAge(now: Temporal.ZonedDateTime, maximum: number) {
 	const secondsUntilDailyReset = Math.floor(nextDailyReset(now).since(now).total("seconds"));
@@ -262,28 +281,11 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			shard: shard
 				? {
 						...shard,
-						timestamps: shard.timestamps.map(({ start, end }) => ({
-							start: {
-								unix: epochSeconds(start),
-								format: new Intl.DateTimeFormat(locale, {
-									timeZone,
-									hour: "2-digit",
-									minute: "2-digit",
-									second: "2-digit",
-									hour12,
-								}).format(start.epochMilliseconds),
-							},
-							end: {
-								unix: epochSeconds(end),
-								format: new Intl.DateTimeFormat(locale, {
-									timeZone,
-									hour: "2-digit",
-									minute: "2-digit",
-									second: "2-digit",
-									hour12,
-								}).format(end.epochMilliseconds),
-							},
-						})),
+						timestamps: shardEruptionTimestampLabels(shard.timestamps, {
+							locale,
+							timeZone,
+							hour12,
+						}),
 					}
 				: null,
 		},
@@ -329,7 +331,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
-	useSkyDailyResetRevalidator(currentTimestamp);
+	useSkyDailyResetRevalidator(currentTimestamp, initialTimestamp);
 
 	if (selectedInfographicDate !== date) {
 		setSelectedInfographicDate(date);
@@ -364,21 +366,26 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 
 	let seasonalCandles = null;
 	const daysCount: DaysCountItem[] = [];
-	const seasonalCandleEmoji = season ? SeasonIdToSeasonalCandleEmoji[season.id] : null;
+
+	const addDoublePeriods = ({ emoji, name, source }: DoublePeriodGroup) => {
+		for (const period of source) {
+			if (Temporal.ZonedDateTime.compare(period.end, today) > 0) {
+				daysCount.push({
+					content: doublePeriodCountdown(name, period, today, { locale, t }),
+					end: period.end,
+					iconURL: formatEmojiURL(emoji.id),
+					key: `${name}-${period.start.epochMilliseconds}`,
+					start: period.start,
+				});
+			}
+		}
+	};
 
 	if (season) {
-		const seasonDaysLeft =
-			Math.ceil(season.end.since(now).total({ unit: "days", relativeTo: now })) - 1;
-
-		const daysLeftText = t(
-			seasonDaysLeft === 0 ? "days-left.season-ends-today" : "days-left.season",
-			{ ns: "general", count: seasonDaysLeft },
-		);
-
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
 		daysCount.push({
-			content: daysLeftText,
+			content: daysLeftText("season", season.end, now, { locale, t }),
 			end: season.end,
 			iconURL: seasonEmoji ? formatEmojiURL(seasonEmoji.id) : undefined,
 			key: `season-current-${season.id}`,
@@ -389,52 +396,24 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			season.remainingSeasonalCandles(today);
 
 		seasonalCandles = {
+			iconURL: formatEmojiURL(seasonalCandleEmoji(season.id).id),
 			remaining: seasonalCandlesLeft,
 			remainingWithPass: seasonalCandlesLeftWithSeasonPass,
 			url: season.seasonalCandles(today),
 		};
 
-		for (const doubleSeasonalLight of season.doubleSeasonalLight?.dates.filter(
-			({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
-		) ?? []) {
-			const daysUntilStart = doubleSeasonalLight.start
-				.since(today)
-				.total({ unit: "days", relativeTo: today });
-			const daysLeft =
-				Math.ceil(doubleSeasonalLight.end.since(today).total({ unit: "days", relativeTo: today })) -
-				1;
-
-			daysCount.push({
-				content:
-					Temporal.ZonedDateTime.compare(today, doubleSeasonalLight.start) >= 0
-						? t(
-								daysLeft === 0
-									? "days-left.double-seasonal-light-ends-today"
-									: "days-left.double-seasonal-light",
-								{ ns: "general", count: daysLeft },
-							)
-						: t("daily-guides.double-seasonal-light-upcoming", {
-								ns: "features",
-								count: Math.floor(daysUntilStart),
-							}),
-				end: doubleSeasonalLight.end,
-				iconURL: seasonalCandleEmoji ? formatEmojiURL(seasonalCandleEmoji.id) : undefined,
-				key: `double-seasonal-light-${season.id}-${doubleSeasonalLight.start.epochMilliseconds}`,
-				start: doubleSeasonalLight.start,
-			});
-		}
+		addDoublePeriods(doubleSeasonalLightPeriods(season));
 	}
 
 	const next = skyUpcomingSeason(today);
 
 	if (next) {
-		const daysUntilStart = next.start.since(today).total({ unit: "days", relativeTo: today });
 		const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
 
 		daysCount.push({
 			content: t("daily-guides.season-upcoming", {
 				ns: "features",
-				count: Math.floor(daysUntilStart),
+				count: Math.floor(daysUntil(next.start, today)),
 			}),
 			end: next.end,
 			iconURL: nextSeasonEmoji ? formatEmojiURL(nextSeasonEmoji.id) : undefined,
@@ -443,45 +422,23 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		});
 	}
 
-	const returningSpiritsName = t("returning-spirits", { ns: "general" });
 	const returningSpirits = returningSpiritsSchedule(today);
 
 	if (returningSpirits) {
-		const { active, start, end, spiritIds } = returningSpirits;
+		const { start, end, spiritIds } = returningSpirits;
 
-		const seasonIds = new Set(spiritIds.map((spiritId) => KINGDOM.seasonOf(spiritId)?.id));
-		const [seasonId] = seasonIds;
+		const commonSeason = KINGDOM.commonSeasonOf(spiritIds);
+		const returningSpiritsSeasonEmoji = commonSeason && SeasonIdToSeasonalEmoji[commonSeason.id];
 
-		const returningSpiritsSeasonEmoji =
-			seasonIds.size === 1 && seasonId !== undefined ? SeasonIdToSeasonalEmoji[seasonId] : null;
+		const countdown = returningSpiritsCountdown(
+			returningSpirits,
+			RETURNING_SPIRITS_LIST_PLACEHOLDER,
+			today,
+			{ locale, t },
+		);
 
-		const returningSpiritsDaysLeft =
-			Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1;
-
-		const countdown = active
-			? t(
-					returningSpiritsDaysLeft === 0
-						? "daily-guides.returning-spirits-leave-today"
-						: "daily-guides.returning-spirits-active-list",
-					{
-						ns: "features",
-						count: returningSpiritsDaysLeft,
-						returningSpirits: returningSpiritsName,
-						spirits: RETURNING_SPIRITS_LIST_PLACEHOLDER,
-					},
-				)
-			: t("daily-guides.returning-spirits-upcoming-list", {
-					ns: "features",
-					count: start.since(today).total({ unit: "days", relativeTo: today }),
-					returningSpirits: returningSpiritsName,
-					spirits: RETURNING_SPIRITS_LIST_PLACEHOLDER,
-				});
 		const [beforeSpiritList, afterSpiritList] = countdown.split(RETURNING_SPIRITS_LIST_PLACEHOLDER);
-		const spiritLinks = spiritIds.map((spiritId) => ({
-			id: spiritId,
-			label: t(`spirits.${spiritId}`, { ns: "general" }),
-			href: t(`spirit-wiki.${spiritId}`, { ns: "general" }),
-		}));
+		const spiritLinks = spiritIds.map((spiritId) => spiritWikiLink(spiritId, t));
 
 		daysCount.push({
 			content: (
@@ -501,30 +458,29 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	}
 
 	for (const { id, name, start, end } of skyNotEndedEvents(today).values()) {
-		const daysUntilStart = start.since(today).total({ unit: "days", relativeTo: today });
+		const daysUntilStart = daysUntil(start, today);
 		const eventName = t(name, { ns: "general" });
 		const eventEmoji = EventIdToEventTicketEmoji[id];
+		const iconURL = eventEmoji ? formatEmojiURL(eventEmoji.id) : undefined;
 
 		if (daysUntilStart > 0) {
-			const showsStartTime = daysUntilStart < 1;
-
-			const upcoming = showsStartTime
-				? t("daily-guides.event-upcoming-time", {
-						ns: "features",
-						event: eventName,
-						time: timeFormat.format(start.epochMilliseconds),
-					})
-				: t("daily-guides.event-upcoming", {
-						ns: "features",
-						event: eventName,
-						count: Math.floor(daysUntilStart),
-					});
+			const upcoming = upcomingEventCountdown(
+				eventName,
+				start,
+				timeFormat.format(start.epochMilliseconds),
+				today,
+				{ locale, t },
+			);
 
 			daysCount.push({
 				content:
-					showsStartTime && timeZoneEstimated ? <SkeletonText>{upcoming}</SkeletonText> : upcoming,
+					daysUntilStart < 1 && timeZoneEstimated ? (
+						<SkeletonText>{upcoming}</SkeletonText>
+					) : (
+						upcoming
+					),
 				end,
-				iconURL: eventEmoji ? formatEmojiURL(eventEmoji.id) : undefined,
+				iconURL,
 				key: `event-upcoming-${name}`,
 				start,
 			});
@@ -532,95 +488,70 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			continue;
 		}
 
-		const eventDaysLeft =
-			Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1;
-
 		daysCount.push({
-			content: t(eventDaysLeft === 0 ? "days-left.event-ends-today" : "days-left.event", {
-				ns: "general",
-				count: eventDaysLeft,
-				name: eventName,
-			}),
+			content: daysLeftText("event", end, today, { locale, t }, eventName),
 			end,
-			iconURL: eventEmoji ? formatEmojiURL(eventEmoji.id) : undefined,
+			iconURL,
 			key: `event-ending-${name}`,
 			start,
 		});
 	}
 
-	const communityEvents = communityUpcomingEvents(today);
+	for (const { start, name, marketingURL } of communityUpcomingEvents(today)) {
+		const translatedText = upcomingEventCountdown(
+			name,
+			start,
+			timeFormat.format(start.epochMilliseconds),
+			today,
+			{ locale, t },
+		);
 
-	if (communityEvents.length > 0) {
-		for (const { start, name, marketingURL } of communityEvents) {
-			const daysUntilStart = start.since(today).total({ unit: "days", relativeTo: today });
+		let content: DaysCountItem["content"] = translatedText;
 
-			const showsStartTime = daysUntilStart < 1;
+		if (marketingURL) {
+			const parts = translatedText.split(name);
 
-			const translatedText = showsStartTime
-				? t("daily-guides.event-upcoming-time", {
-						ns: "features",
-						event: name,
-						time: timeFormat.format(start.epochMilliseconds),
-					})
-				: t("daily-guides.event-upcoming", {
-						ns: "features",
-						event: name,
-						count: Math.floor(daysUntilStart),
-					});
-
-			let content: DaysCountItem["content"] = translatedText;
-
-			if (marketingURL) {
-				const parts = translatedText.split(name);
-
-				content = (
-					<span>
-						{parts[0]}
-						<ExternalLink
-							className="regular-link inline-flex items-center gap-1"
-							href={marketingURL}
-							icon
-							iconClassName="h-3 w-3"
-						>
-							{name}
-						</ExternalLink>
-						{parts[1]}
-					</span>
-				);
-			}
-
-			daysCount.push({
-				content:
-					showsStartTime && timeZoneEstimated ? <SkeletonText>{content}</SkeletonText> : content,
-				key: `community-event-${name}-${start.epochMilliseconds}`,
-				start,
-			});
+			content = (
+				<span>
+					{parts[0]}
+					<ExternalLink href={marketingURL} icon iconClassName="h-3 w-3">
+						{name}
+					</ExternalLink>
+					{parts[1]}
+				</span>
+			);
 		}
+
+		daysCount.push({
+			content:
+				daysUntil(start, today) < 1 && timeZoneEstimated ? (
+					<SkeletonText>{content}</SkeletonText>
+				) : (
+					content
+				),
+			key: `community-event-${name}-${start.epochMilliseconds}`,
+			start,
+		});
 	}
 
 	for (const radianceEvent of RADIANCE_EVENTS.filter(
 		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
 	)) {
-		const daysUntilStart = radianceEvent.start
-			.since(today)
-			.total({ unit: "days", relativeTo: today });
+		const daysUntilStart = daysUntil(radianceEvent.start, today);
+		const radianceName = t("event-names.radiance-event", { ns: "general" });
 		const radianceEmojiURL = formatEmojiURL(MISCELLANEOUS_EMOJIS.Dye.id);
 		const dyeEmojiURLs = radianceEvent.dyes.map((dye) => formatEmojiURL(DyeTypeToEmoji[dye].id));
-		const radianceDaysLeft =
-			Math.ceil(radianceEvent.end.since(today).total({ unit: "days", relativeTo: today })) - 1;
 
 		const radianceText =
-			daysUntilStart >= 1
-				? t("daily-guides.event-upcoming", {
-						ns: "features",
-						count: Math.floor(daysUntilStart),
-						event: t("event-names.radiance-event", { ns: "general" }),
-					})
-				: t(radianceDaysLeft === 0 ? "days-left.event-ends-today" : "days-left.event", {
-						ns: "general",
-						count: radianceDaysLeft,
-						name: t("event-names.radiance-event", { ns: "general" }),
-					});
+			daysUntilStart > 0
+				? upcomingEventCountdown(
+						radianceName,
+						radianceEvent.start,
+						timeFormat.format(radianceEvent.start.epochMilliseconds),
+						today,
+						{ locale, t },
+					)
+				: daysLeftText("event", radianceEvent.end, today, { locale, t }, radianceName);
 
 		daysCount.push({
 			content: (
@@ -644,120 +575,28 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		});
 	}
 
-	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
-		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
-	)) {
-		const daysUntilStart = doubleTreasureCandleEvent.start
-			.since(today)
-			.total({ unit: "days", relativeTo: today });
-		const daysLeft =
-			Math.ceil(
-				doubleTreasureCandleEvent.end.since(today).total({ unit: "days", relativeTo: today }),
-			) - 1;
+	addDoublePeriods(DOUBLE_TREASURE_CANDLE_PERIODS);
+	addDoublePeriods(DOUBLE_HEART_PERIODS);
+
+	const maintenances = maintenanceBannerLabels(now, { locale, timeZone, hour12 });
+
+	for (const {
+		days,
+		period: { end, start },
+	} of upcomingMaintenancePeriods(now)) {
+		const upcoming = upcomingMaintenanceCountdown(
+			days,
+			timeFormat.format(start.epochMilliseconds),
+			{ locale, t },
+		);
 
 		daysCount.push({
-			content:
-				Temporal.ZonedDateTime.compare(today, doubleTreasureCandleEvent.start) >= 0
-					? t(
-							daysLeft === 0
-								? "days-left.double-treasure-candles-ends-today"
-								: "days-left.double-treasure-candles",
-							{ ns: "general", count: daysLeft },
-						)
-					: t("daily-guides.double-treasure-candles-upcoming", {
-							ns: "features",
-							count: Math.floor(daysUntilStart),
-						}),
-			end: doubleTreasureCandleEvent.end,
-			iconURL: formatEmojiURL(MISCELLANEOUS_EMOJIS.TreasureCandle.id),
-			key: `double-treasure-candle-${doubleTreasureCandleEvent.start.epochMilliseconds}`,
-			start: doubleTreasureCandleEvent.start,
+			content: days === 1 && timeZoneEstimated ? <SkeletonText>{upcoming}</SkeletonText> : upcoming,
+			end,
+			key: `maintenance-upcoming-${start.epochMilliseconds}`,
+			start,
 		});
 	}
-
-	for (const doubleHeartEvent of DOUBLE_HEART_EVENTS.filter(
-		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
-	)) {
-		const daysUntilStart = doubleHeartEvent.start
-			.since(today)
-			.total({ unit: "days", relativeTo: today });
-		const daysLeft =
-			Math.ceil(doubleHeartEvent.end.since(today).total({ unit: "days", relativeTo: today })) - 1;
-
-		daysCount.push({
-			content:
-				Temporal.ZonedDateTime.compare(today, doubleHeartEvent.start) >= 0
-					? t(daysLeft === 0 ? "days-left.double-hearts-ends-today" : "days-left.double-hearts", {
-							ns: "general",
-							count: daysLeft,
-						})
-					: t("daily-guides.double-hearts-upcoming", {
-							ns: "features",
-							count: Math.floor(daysUntilStart),
-						}),
-			end: doubleHeartEvent.end,
-			iconURL: formatEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
-			key: `double-heart-${doubleHeartEvent.start.epochMilliseconds}`,
-			start: doubleHeartEvent.start,
-		});
-	}
-
-	const todayMaintenance = [];
-	const seenMaintenanceDays = new Set<number>();
-	const tomorrow = today.add({ days: 1 });
-
-	for (const maintenance of MAINTENANCE_PERIODS) {
-		if (Temporal.ZonedDateTime.compare(maintenance.end, now) <= 0) {
-			continue;
-		}
-
-		if (Temporal.ZonedDateTime.compare(maintenance.start, tomorrow) < 0) {
-			todayMaintenance.push(maintenance);
-			continue;
-		}
-
-		const daysUntilStart = maintenance.start
-			.since(today)
-			.total({ unit: "days", relativeTo: today });
-		const floorDays = Math.floor(daysUntilStart);
-
-		if (floorDays >= 2) {
-			if (!seenMaintenanceDays.has(floorDays)) {
-				seenMaintenanceDays.add(floorDays);
-
-				daysCount.push({
-					content: t("daily-guides.maintenance-upcoming", {
-						ns: "features",
-						count: floorDays,
-					}),
-					end: maintenance.end,
-					key: `maintenance-upcoming-${floorDays}`,
-					start: maintenance.start,
-				});
-			}
-		} else {
-			const upcoming = t("daily-guides.maintenance-tomorrow", {
-				ns: "features",
-				time: timeFormat.format(maintenance.start.epochMilliseconds),
-			});
-
-			daysCount.push({
-				content: timeZoneEstimated ? <SkeletonText>{upcoming}</SkeletonText> : upcoming,
-				end: maintenance.end,
-				key: `maintenance-upcoming-${maintenance.start.epochMilliseconds}`,
-				start: maintenance.start,
-			});
-		}
-	}
-
-	const maintenanceDescription =
-		todayMaintenance.length === 1
-			? t("maintenance-description-singular", {
-					ns: "general",
-					start: timeFormat.format(todayMaintenance[0]!.start.epochMilliseconds),
-					end: timeFormat.format(todayMaintenance[0]!.end.epochMilliseconds),
-				})
-			: null;
 
 	const upcomingUpdate = upcomingPatchNote(today.toPlainDate().toString());
 
@@ -825,45 +664,12 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 						<div className="mb-6 border-b-2 border-gray-200 pb-4 dark:border-gray-700">
 							<h1 className="text-lg font-bold text-gray-900 dark:text-white">{dateString}</h1>
 						</div>
-						{todayMaintenance.length > 0 && (
-							<div className="mb-5 flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800 dark:bg-amber-950/40">
-								<AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
-								<div>
-									<p className="text-sm font-medium text-amber-800 dark:text-amber-200">
-										{t("maintenance", { ns: "general" })}
-									</p>
-									{todayMaintenance.length === 1 ? (
-										<p className="text-xs text-amber-700 dark:text-amber-300">
-											{timeZoneEstimated ? (
-												<SkeletonText>{maintenanceDescription}</SkeletonText>
-											) : (
-												maintenanceDescription
-											)}
-										</p>
-									) : (
-										<>
-											<p className="text-xs text-amber-700 dark:text-amber-300">
-												{t("maintenance-description-many", { ns: "general" })}
-											</p>
-											<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">
-												{todayMaintenance.map((maintenance) => {
-													const range = t("time-range", {
-														ns: "general",
-														start: timeFormat.format(maintenance.start.epochMilliseconds),
-														end: timeFormat.format(maintenance.end.epochMilliseconds),
-													});
-
-													return (
-														<li key={maintenance.start.epochMilliseconds}>
-															{timeZoneEstimated ? <SkeletonText>{range}</SkeletonText> : range}
-														</li>
-													);
-												})}
-											</ul>
-										</>
-									)}
-								</div>
-							</div>
+						{maintenances.length > 0 && (
+							<MaintenanceBanner
+								className="mb-5"
+								maintenances={maintenances}
+								timeZoneEstimated={timeZoneEstimated}
+							/>
 						)}
 						{quests.length > 0 && (
 							<div className="mb-5">
@@ -908,7 +714,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 												}
 												className={
 													treasureCandleLinks.length === 1
-														? "rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+														? VIEW_LINK_CLASS
 														: "regular-link font-medium transition-colors"
 												}
 												onClick={() => handleImageClick(url)}
@@ -961,7 +767,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								<div className="space-y-2">
 									{seasonalCandles.url && (
 										<button
-											className="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+											className={VIEW_LINK_CLASS}
 											onClick={() => handleImageClick(seasonalCandles.url)}
 											type="button"
 										>
@@ -973,11 +779,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 											aria-label={t("seasonal-candles", { ns: "general" })}
 											className="discord-emoji h-4 w-4"
 											role="img"
-											style={{
-												backgroundImage: seasonalCandleEmoji
-													? `url(${formatEmojiURL(seasonalCandleEmoji.id)})`
-													: undefined,
-											}}
+											style={{ backgroundImage: `url(${seasonalCandles.iconURL})` }}
 										/>
 										<span>
 											{t("daily-guides.seasonal-candles-remain-with-season-pass", {
@@ -997,7 +799,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										{t("shard-eruption", { ns: "general" })}
 									</h2>
 									<Link
-										className="regular-link inline-flex items-center gap-1 text-xs font-medium"
+										className={SECTION_LINK_CLASS}
 										to={isToday ? "/shard-eruption" : `/shard-eruption?date=${date}`}
 									>
 										{t("more", { ns: "general" })}
@@ -1031,25 +833,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 													<span className="text-sm text-gray-700 dark:text-gray-300">
 														{shard.reward}
 													</span>
-													{shard.strong ? (
-														<div
-															aria-label={t("ascended-candles", { ns: "general" })}
-															className="discord-emoji h-4 w-4"
-															role="img"
-															style={{
-																backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
-															}}
-														/>
-													) : (
-														<div
-															aria-label="Piece of light"
-															className="h-4 w-4 bg-cover bg-center"
-															role="img"
-															style={{
-																backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
-															}}
-														/>
-													)}
+													<ShardRewardIcon strong={shard.strong} />
 												</div>
 											</div>
 											<div className="text-right">
@@ -1088,25 +872,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 												<span className="text-sm text-gray-700 dark:text-gray-300">
 													{shard.reward}
 												</span>
-												{shard.strong ? (
-													<div
-														aria-label={t("ascended-candles", { ns: "general" })}
-														className="discord-emoji h-4 w-4"
-														role="img"
-														style={{
-															backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
-														}}
-													/>
-												) : (
-													<div
-														aria-label="Piece of light"
-														className="h-4 w-4 bg-cover bg-center"
-														role="img"
-														style={{
-															backgroundImage: `url(${PIECE_OF_LIGHT_PATH})`,
-														}}
-													/>
-												)}
+												<ShardRewardIcon strong={shard.strong} />
 											</div>
 											<div className="space-y-1">
 												{shard.timestamps.map(({ start, end }) => (
@@ -1136,7 +902,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								</h2>
 								{travellingRock ? (
 									<button
-										className="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+										className={VIEW_LINK_CLASS}
 										onClick={() =>
 											handleImageClick(
 												cdnAssetURL(cdnURL, `daily_guides/travelling_rocks/${travellingRock}.webp`),
@@ -1159,10 +925,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 									<h2 className="text-sm font-semibold text-gray-900 dark:text-white">
 										{t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop])}
 									</h2>
-									<Link
-										className="regular-link inline-flex items-center gap-1 text-xs font-medium"
-										to={NESTING_WORKSHOP_CATALOGUE_URL}
-									>
+									<Link className={SECTION_LINK_CLASS} to={NESTING_WORKSHOP_CATALOGUE_URL}>
 										{t("catalogue.main-title", { ns: "features" })}
 										<ArrowRight className="h-3 w-3" />
 									</Link>
@@ -1181,7 +944,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 												style={{ backgroundImage: `url(${iconURL})` }}
 											/>
 										) : null}
-										<p className="text-xs text-gray-500 dark:text-gray-400">{content}</p>
+										<p className={NOTE_CLASS}>{content}</p>
 									</div>
 								))}
 							</div>

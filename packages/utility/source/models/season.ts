@@ -1,6 +1,6 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { Cosmetic } from "../cosmetics.js";
-import { isActive } from "../dates.js";
+import { daysUntil, isActive } from "../dates.js";
 import type { RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import {
@@ -174,7 +174,7 @@ export class Season {
 	}
 
 	public remainingSeasonalCandles(date: Temporal.ZonedDateTime) {
-		const remainingDays = Math.ceil(this.end.since(date).total({ unit: "days", relativeTo: date }));
+		const remainingDays = Math.ceil(daysUntil(this.end, date));
 
 		const remainingDoubleSeasonalLightDays =
 			this.doubleSeasonalLight?.dates.reduce((total, { start, end }) => {
@@ -184,10 +184,7 @@ export class Season {
 
 				const remainingStart = Temporal.ZonedDateTime.compare(date, start) > 0 ? date : start;
 
-				return (
-					total +
-					Math.ceil(end.since(remainingStart).total({ unit: "days", relativeTo: remainingStart }))
-				);
+				return total + Math.ceil(daysUntil(end, remainingStart));
 			}, 0) ?? 0;
 
 		return {
@@ -212,8 +209,7 @@ export class Season {
 			return null;
 		}
 
-		const { rotation, realm } =
-			rotations[date.since(this.start).total({ unit: "days", relativeTo: this.start }) % 10]!;
+		const { rotation, realm } = rotations[daysUntil(date, this.start) % 10]!;
 
 		if (this.doubleSeasonalLight && this.isDuringDoubleSeasonalLightEvent(date)) {
 			return this.seasonalCandlesRotationURL(realm, this.doubleSeasonalLight.identifier);

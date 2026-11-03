@@ -206,8 +206,8 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 	} = loaderData;
 
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
-	useDailyRevalidator(currentTimestamp, timeZone);
-	useSkyDailyResetRevalidator(currentTimestamp);
+	useDailyRevalidator(currentTimestamp, initialTimestamp, timeZone);
+	useSkyDailyResetRevalidator(currentTimestamp, initialTimestamp);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const hiddenKinds = useMemo(() => parseHiddenCalendarKinds(searchParams), [searchParams]);
 	const isDay = view === CalendarView.Day;

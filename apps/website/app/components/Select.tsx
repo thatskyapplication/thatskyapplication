@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 import { ChevronDown, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
+import { FIELD_ERROR_CLASS } from "~/utility/styles.js";
 
 interface SelectOption {
 	value: string;
@@ -167,7 +168,7 @@ export default function Select({
 				</Combobox.Root>
 			</div>
 			{error && (
-				<Field.Error className="text-sm text-red-600 dark:text-red-400" match>
+				<Field.Error className={FIELD_ERROR_CLASS} match>
 					{error}
 				</Field.Error>
 			)}

@@ -16,6 +16,7 @@ import {
 	SKELETON_CLASS,
 	SWITCH_CLASS,
 	SWITCH_THUMB_CLASS,
+	ICON_LINK_CLASS,
 } from "~/utility/styles.js";
 
 export interface FriendshipAction {
@@ -107,7 +108,7 @@ export function FriendshipActionCard({ friendshipAction }: { friendshipAction: F
 							<span>No reference.</span>
 						) : (
 							<ExternalLink
-								className="regular-link inline-flex items-center gap-1 text-xs"
+								className={clsx(ICON_LINK_CLASS, "text-xs")}
 								href={reference}
 								icon
 								iconClassName="h-3 w-3"

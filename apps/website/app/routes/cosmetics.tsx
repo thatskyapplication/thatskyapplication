@@ -1,5 +1,4 @@
 import { Field } from "@base-ui/react/field";
-import { Popover } from "@base-ui/react/popover";
 import { Switch } from "@base-ui/react/switch";
 import {
 	type APIComponentInContainer,
@@ -10,54 +9,41 @@ import {
 import { clsx } from "clsx";
 import { parseCookie } from "cookie";
 import type { TFunction } from "i18next";
-import { ExternalLinkIcon } from "lucide-react";
-import {
-	memo,
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useMemo,
-	useState,
-	useSyncExternalStore,
-} from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
 import {
-	Link,
 	type Location,
 	redirect,
 	type ShouldRevalidateFunctionArgs,
 	useLocation,
 } from "react-router";
 import {
-	CatalogueCollectionToLocaleKey,
-	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
 	type Cosmetic,
 	type Emoji,
 	formatEmoji,
 	formatEmojiURL,
-	type Item,
 	resolveCostToString,
-	spiritOriginTranslationKey,
-	sumCosts,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { CatalogueSearchAutocomplete } from "~/components/catalogue/CatalogueSearchAutocomplete.js";
-import { CostList } from "~/components/catalogue/CostList.js";
+import { CosmeticPopover } from "~/components/cosmetics/CosmeticPopover.js";
+import { CosmeticTile, type CosmeticTileSelect } from "~/components/cosmetics/CosmeticTile.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
-import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
+import { useCosmeticSelection } from "~/hooks/use-cosmetic-selection.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session";
-import { catalogueTargetQuery } from "~/utility/catalogue.js";
 import { WEBSITE_COLOUR, WEBSITE_ICON_URL } from "~/utility/constants.js";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
 import {
+	catalogueLocation,
 	cosmeticAnchor,
 	cosmeticName,
+	cosmeticSources,
 	type CosmeticsSection,
-	type CosmeticTile as CosmeticTileData,
+	type CosmeticTileData,
 	releasedCosmetics,
 	UNLOCKED_BY_DEFAULT_COSMETICS,
 } from "~/utility/cosmetics.js";
@@ -66,12 +52,7 @@ import {
 	fitsDiscordComponentEmbed,
 	linkButtonRows,
 } from "~/utility/discord-component-embed.server.js";
-import {
-	EMOJIS,
-	EventIdToEventTicketEmoji,
-	MISCELLANEOUS_EMOJIS,
-	SeasonIdToSeasonalEmoji,
-} from "~/utility/emojis.js";
+import { EMOJIS, MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { hexColour } from "~/utility/functions.js";
 import { PAGE_TITLE_CLASS, SWITCH_CLASS, SWITCH_THUMB_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/cosmetics.js";
@@ -79,9 +60,6 @@ import type { Route } from "./+types/cosmetics.js";
 const COSMETICS_TITLE = "Cosmetics" as const;
 const COSMETICS_DESCRIPTION = "View all cosmetics, find out where they're from, and more!" as const;
 const COSMETIC_SEARCH_PARAMETER = "cosmetic" as const;
-const COSMETIC_TILE_SELECTOR = "[data-cosmetic-tile]" as const;
-const COSMETIC_TILE_IMAGE_SIZE = 32 as const;
-const COSMETIC_TILE_PIXEL_DENSITIES = [1, 2, 3] as const;
 const HIGHLIGHT_OWNED_COOKIE_NAME = "cosmetics_highlight_owned" as const;
 const HIGHLIGHT_OWNED_COOKIE_MAX_AGE = 31536000 as const;
 
@@ -179,12 +157,6 @@ export function shouldRevalidate({
 		: defaultShouldRevalidate;
 }
 
-function cosmeticTileImageSourceSet(imageURL: string) {
-	return COSMETIC_TILE_PIXEL_DENSITIES.map(
-		(density) => `${imageURL}?size=${COSMETIC_TILE_IMAGE_SIZE * density} ${density}x`,
-	).join(", ");
-}
-
 function withActiveTable(activeTables: readonly string[], groupIndex: number, table: string) {
 	return activeTables[groupIndex] === table ? activeTables : activeTables.with(groupIndex, table);
 }
@@ -197,76 +169,6 @@ interface CosmeticSearchEntry {
 	readonly section: string;
 }
 
-function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: TFunction) {
-	const query = catalogueTargetQuery(target);
-
-	switch (target.type) {
-		case CatalogueSearchType.Season:
-			return {
-				type: target.type,
-				query,
-				emoji: SeasonIdToSeasonalEmoji[target.season.id],
-				name: t(`seasons.${target.season.id}`, { ns: "general" }),
-				detail: t("season", { ns: "general" }),
-				pageURL: null,
-				wikiURL: t(`season-wiki.${target.season.id}`, { ns: "general" }),
-			};
-		case CatalogueSearchType.Event:
-			return {
-				type: target.type,
-				query,
-				emoji: EventIdToEventTicketEmoji[target.event.id],
-				name: t(target.event.name, { ns: "general" }),
-				detail: String(target.event.start.year),
-				pageURL: null,
-				wikiURL: t(`event-wiki.${target.event.id}`, { ns: "general" }),
-			};
-		case CatalogueSearchType.Spirit: {
-			const { spirit } = target;
-			const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
-
-			return {
-				type: target.type,
-				query,
-				emoji: seasonal ? SeasonIdToSeasonalEmoji[spirit.seasonId] : null,
-				name: t(`spirits.${spirit.id}`, { ns: "general" }),
-				detail: t(spiritOriginTranslationKey(spirit), { ns: "general" }),
-				pageURL: `/spirits?spirit=${spirit.id}`,
-				wikiURL: t(`spirit-wiki.${spirit.id}`, { ns: "general" }),
-			};
-		}
-		case CatalogueSearchType.Collection:
-			return {
-				type: target.type,
-				query,
-				emoji: null,
-				name: t(CatalogueCollectionToLocaleKey[target.collection]),
-				detail: null,
-				pageURL: null,
-				wikiURL: null,
-			};
-	}
-}
-
-function itemPricing(item: Item) {
-	const costs = item.cost ? sumCosts([item.cost]) : [];
-
-	return {
-		costs,
-		seasonPass: item.seasonPass && !costs.some((cost) => cost.type === "seasonalHearts"),
-	};
-}
-
-function cosmeticSources(cosmetic: Cosmetic, t: TFunction) {
-	return (
-		releasedCosmetics()
-			.catalogue.get(cosmetic)
-			?.sources.map(({ item, target }) =>
-				Object.assign(catalogueLocation(target, t), itemPricing(item)),
-			) ?? []
-	);
-}
-
 interface CosmeticContainerOptions {
 	locale: string;
 	t: TFunction;
@@ -274,7 +176,7 @@ interface CosmeticContainerOptions {
 }
 
 function cosmeticContainer({ locale, t, tile }: CosmeticContainerOptions): APIContainerComponent {
-	const sources = cosmeticSources(tile.cosmetic, t);
+	const sources = cosmeticSources(releasedCosmetics().catalogue.get(tile.cosmetic), t);
 	const thumbnail = {
 		type: ComponentType.Thumbnail,
 		media: { url: formatEmojiURL(tile.emoji.id) },
@@ -341,94 +243,6 @@ function cosmeticContainer({ locale, t, tile }: CosmeticContainerOptions): APICo
 	return { type: ComponentType.Container, accent_color: WEBSITE_COLOUR, components };
 }
 
-function CosmeticDetails({ tile }: { tile: CosmeticTileData }) {
-	const { i18n, t } = useTranslation();
-	const entry = releasedCosmetics().catalogue.get(tile.cosmetic);
-	const sources = cosmeticSources(tile.cosmetic, t);
-	const reserveEmojiSpace = sources.some((source) => source.emoji);
-
-	return (
-		<>
-			{entry?.nameKeys && (
-				<Popover.Title className="px-2 pt-1 text-base font-semibold text-gray-900 dark:text-gray-100">
-					{cosmeticName(entry.nameKeys, i18n, t)}
-				</Popover.Title>
-			)}
-			<h3 className="mt-1 px-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-				{t("cosmetics.source", { ns: "features", count: sources.length })}
-			</h3>
-			{sources.length === 0 ? (
-				<p className="px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400">
-					{t("cosmetics.no-source", { ns: "features" })}
-				</p>
-			) : (
-				<ul className="flex flex-col">
-					{sources.map(
-						({ costs, detail, emoji: sourceEmoji, name, pageURL, query, seasonPass, wikiURL }) => (
-							<li className="px-2 py-1.5" key={query}>
-								<div className="flex items-center gap-2">
-									{sourceEmoji ? (
-										<EmojiIcon className="size-5 shrink-0" emoji={sourceEmoji} />
-									) : (
-										reserveEmojiSpace && <span aria-hidden="true" className="size-5 shrink-0" />
-									)}
-									<span className="flex min-w-0 flex-1 flex-col">
-										<span className="truncate text-sm text-gray-900 dark:text-gray-100">
-											{name}
-										</span>
-										{detail && (
-											<span className="truncate text-xs text-gray-600 dark:text-gray-300">
-												{detail}
-											</span>
-										)}
-									</span>
-									{costs.length > 0 && (
-										<span className="shrink-0 text-sm text-gray-600 dark:text-gray-400">
-											<CostList costs={costs} locale={i18n.language} />
-										</span>
-									)}
-									{seasonPass && (
-										<EmojiIcon
-											className="size-4 shrink-0"
-											emoji={MISCELLANEOUS_EMOJIS.SeasonPass}
-										/>
-									)}
-								</div>
-								<div
-									className={clsx(
-										"mt-1 flex flex-wrap items-center gap-3 text-xs font-medium",
-										reserveEmojiSpace && "pl-7",
-									)}
-								>
-									{pageURL && (
-										<Link className="regular-link" to={pageURL}>
-											{t("view", { ns: "general" })}
-										</Link>
-									)}
-									<Link className="regular-link" to={`/me/catalogue${query}`}>
-										{t("catalogue.main-title", { ns: "features" })}
-									</Link>
-									{wikiURL && (
-										<a
-											className="regular-link inline-flex items-center gap-1"
-											href={wikiURL}
-											rel="noopener noreferrer"
-											target="_blank"
-										>
-											{t("wiki", { ns: "general" })}
-											<ExternalLinkIcon className="size-3" />
-										</a>
-									)}
-								</div>
-							</li>
-						),
-					)}
-				</ul>
-			)}
-		</>
-	);
-}
-
 function CosmeticSearch() {
 	const { i18n, t } = useTranslation();
 
@@ -473,55 +287,6 @@ function CosmeticSearch() {
 		/>
 	);
 }
-
-type CosmeticTileSelect = (tile: CosmeticTileData, element: HTMLElement, keyboard: boolean) => void;
-
-interface CosmeticSelection {
-	readonly element: () => Element | null;
-	readonly open: boolean;
-	readonly opener: "keyboard" | "location" | "pointer";
-	readonly tile: CosmeticTileData;
-}
-
-const CosmeticTile = memo(function CosmeticTile({
-	dimmed,
-	name,
-	onSelect,
-	tile,
-}: {
-	dimmed: boolean;
-	name: string | null;
-	onSelect: CosmeticTileSelect;
-	tile: CosmeticTileData;
-}) {
-	const imageURL = formatEmojiURL(tile.emoji.id);
-
-	const button = (
-		<button
-			aria-expanded={false}
-			aria-haspopup="dialog"
-			aria-label={name ?? tile.emoji.name}
-			className={clsx("cosmetic-tile", dimmed && "opacity-30")}
-			data-cosmetic-tile=""
-			id={tile.anchor}
-			onClick={(event) => onSelect(tile, event.currentTarget, event.detail === 0)}
-			type="button"
-		>
-			<img
-				alt=""
-				decoding="async"
-				draggable={false}
-				fetchPriority="low"
-				height={COSMETIC_TILE_IMAGE_SIZE}
-				src={`${imageURL}?size=${COSMETIC_TILE_IMAGE_SIZE}`}
-				srcSet={cosmeticTileImageSourceSet(imageURL)}
-				width={COSMETIC_TILE_IMAGE_SIZE}
-			/>
-		</button>
-	);
-
-	return name ? <Tooltip content={name}>{button}</Tooltip> : button;
-});
 
 function CosmeticSectionLabel({ section }: { section: CosmeticsSection }) {
 	const { t } = useTranslation();
@@ -623,7 +388,12 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 	const [activeTables, setActiveTables] = useState<readonly string[]>(() =>
 		groups.map((groupSections) => groupSections[0]!.table),
 	);
-	const [selection, setSelection] = useState<CosmeticSelection | null>(null);
+	const {
+		onOpenChange,
+		selectTile: selectCosmetic,
+		selection,
+		setSelection,
+	} = useCosmeticSelection();
 	const [adoptedLocation, setAdoptedLocation] = useState<Location | null>(null);
 
 	const cosmeticNames = useMemo(() => {
@@ -706,45 +476,18 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 		}
 	}, [selection]);
 
-	useLayoutEffect(() => {
-		const element = selection?.open ? selection.element() : null;
-		element?.setAttribute("aria-expanded", "true");
-		return () => element?.setAttribute("aria-expanded", "false");
-	}, [selection]);
+	const selectTile = useCallback<CosmeticTileSelect>(
+		(tile, element, keyboard) => {
+			const target = releasedCosmetics().anchorTargets.get(tile.anchor);
 
-	const selectTile = useCallback<CosmeticTileSelect>((tile, element, keyboard) => {
-		const target = releasedCosmetics().anchorTargets.get(tile.anchor);
+			selectCosmetic(tile, element, keyboard);
 
-		setSelection((current) =>
-			current?.open && current.tile.cosmetic === tile.cosmetic
-				? { ...current, open: false }
-				: {
-						element: () => element,
-						open: true,
-						opener: keyboard ? "keyboard" : "pointer",
-						tile,
-					},
-		);
-
-		if (target) {
-			setActiveTables((previous) => withActiveTable(previous, target.groupIndex, target.table));
-		}
-	}, []);
-
-	const onOpenChange = (open: boolean, eventDetails: Popover.Root.ChangeEventDetails) => {
-		const { event, reason } = eventDetails;
-
-		if (
-			open ||
-			(reason === "outside-press" &&
-				event.target instanceof Element &&
-				event.target.closest(COSMETIC_TILE_SELECTOR))
-		) {
-			return;
-		}
-
-		setSelection((current) => current && { ...current, open: false });
-	};
+			if (target) {
+				setActiveTables((previous) => withActiveTable(previous, target.groupIndex, target.table));
+			}
+		},
+		[selectCosmetic],
+	);
 
 	const onHighlightOwnedChange = (checked: boolean) => {
 		setHighlightOwned(checked);
@@ -801,27 +544,7 @@ export default function Cosmetics({ loaderData }: Route.ComponentProps) {
 				</div>
 			</div>
 
-			<Popover.Root onOpenChange={onOpenChange} open={selection?.open ?? false}>
-				<Popover.Portal>
-					<Popover.Positioner
-						align="center"
-						anchor={selection?.element}
-						className="z-50"
-						collisionPadding={8}
-						key={selection?.tile.anchor}
-						side="bottom"
-						sideOffset={6}
-					>
-						<Popover.Popup
-							className="max-h-(--available-height) w-72 max-w-[calc(100vw-1rem)] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-900"
-							finalFocus={selection?.opener === "keyboard"}
-							initialFocus={selection?.opener === "keyboard"}
-						>
-							{selection && <CosmeticDetails tile={selection.tile} />}
-						</Popover.Popup>
-					</Popover.Positioner>
-				</Popover.Portal>
-			</Popover.Root>
+			<CosmeticPopover onOpenChange={onOpenChange} selection={selection} />
 		</SitePage>
 	);
 }

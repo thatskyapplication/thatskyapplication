@@ -11,8 +11,8 @@ import {
 	sumCosts,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
-import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { EMOJIS, MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import { NOTE_CLASS } from "~/utility/styles.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 

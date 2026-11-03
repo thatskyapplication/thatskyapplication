@@ -19,7 +19,7 @@ import {
 	checklistRefresh,
 	checklistResetPayload,
 	shardEruption,
-	skyCurrentEvents,
+	skyCurrentEventsWithEventTickets,
 	skyCurrentSeason,
 	skyNow,
 	TIME_ZONE,
@@ -74,9 +74,7 @@ export async function checklist({
 
 	const season = skyCurrentSeason(now);
 
-	const isAnyEventWithEventTickets = skyCurrentEvents(now).some(
-		({ eventTickets }) => eventTickets && Temporal.ZonedDateTime.compare(now, eventTickets.end) < 0,
-	);
+	const eventsWithEventTickets = skyCurrentEventsWithEventTickets(now).size;
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -181,15 +179,10 @@ export async function checklist({
 								lng: locale,
 								ns: "features",
 							})
-						: season.isDuringDoubleSeasonalLightEvent(now)
-							? t("checklist.seasonal-candles-message-incomplete-double", {
-									lng: locale,
-									ns: "features",
-								})
-							: t("checklist.seasonal-candles-message-incomplete", {
-									lng: locale,
-									ns: "features",
-								}),
+						: t("checklist.seasonal-candles-message-incomplete", {
+								lng: locale,
+								ns: "features",
+							}),
 				},
 			],
 		});
@@ -410,7 +403,7 @@ export async function checklist({
 		});
 	}
 
-	if (isAnyEventWithEventTickets && !checklistPacket?.event_tickets_hidden) {
+	if (eventsWithEventTickets > 0 && !checklistPacket?.event_tickets_hidden) {
 		containerComponents.push({
 			type: ComponentType.Section,
 			accessory: checklistPacket?.event_tickets
@@ -440,10 +433,15 @@ export async function checklist({
 								lng: locale,
 								ns: "features",
 							})
-						: t("checklist.event-tickets-message-incomplete", {
-								lng: locale,
-								ns: "features",
-							}),
+						: t(
+								eventsWithEventTickets > 1
+									? "checklist.event-tickets-message-incomplete-all-events"
+									: "checklist.event-tickets-message-incomplete",
+								{
+									lng: locale,
+									ns: "features",
+								},
+							),
 				},
 			],
 		});

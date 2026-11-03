@@ -3,7 +3,7 @@ import { Flag, Ticket, Upload } from "lucide-react";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { requireAdminAccess } from "~/utility/functions.server.js";
-import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
+import { PAGE_TITLE_CLASS, SECTION_HEADING_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/admin._index.js";
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
@@ -28,9 +28,7 @@ export default function Admin() {
 							<Upload className="h-5 w-5" />
 						</div>
 						<div>
-							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-								Friendship actions
-							</h2>
+							<h2 className={SECTION_HEADING_CLASS}>Friendship actions</h2>
 						</div>
 					</Link>
 
@@ -42,9 +40,7 @@ export default function Admin() {
 							<Flag className="h-5 w-5" />
 						</div>
 						<div>
-							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-								Sky profile reports
-							</h2>
+							<h2 className={SECTION_HEADING_CLASS}>Sky profile reports</h2>
 						</div>
 					</Link>
 
@@ -56,9 +52,7 @@ export default function Admin() {
 							<Ticket className="h-5 w-5" />
 						</div>
 						<div>
-							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-								Support server invites
-							</h2>
+							<h2 className={SECTION_HEADING_CLASS}>Support server invites</h2>
 						</div>
 					</Link>
 				</div>

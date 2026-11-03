@@ -1,9 +1,15 @@
-import { ok } from "node:assert/strict";
+import { deepStrictEqual, ok, strictEqual } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
-import { skyEventFamilies, skyEvents, skyEventsBetween } from "../source/events/index.js";
+import {
+	skyCurrentEventsWithEventTickets,
+	skyEventFamilies,
+	skyEvents,
+	skyEventsBetween,
+} from "../source/events/index.js";
 import { DOUBLE_HEART_EVENTS, RADIANCE_EVENTS } from "../source/events/miscellaneous.js";
-import { EventId } from "../source/utility/event.js";
+import { Event } from "../source/models/event.js";
+import { EventFamilyId, EventId } from "../source/utility/event.js";
 
 test("Events are indexed chronologically.", () => {
 	const events = [...skyEvents().values()];
@@ -95,6 +101,55 @@ test("skyEventsBetween treats the range as half-open.", () => {
 		skyEventsBetween(end.subtract({ days: 1 }), end).has(EventId.DaysOfLove2026),
 		"Expected an event ending at the range end to fall inside the range.",
 	);
+});
+
+test("skyCurrentEventsWithEventTickets leaves out events without event tickets.", () => {
+	strictEqual(skyCurrentEventsWithEventTickets(skyDate(2024, 2, 12)).size, 2);
+	strictEqual(skyCurrentEventsWithEventTickets(skyDate(2026, 2, 7)).size, 1);
+});
+
+test("Remaining event tickets count today onwards and the pools running today.", () => {
+	const start = skyDate(2030, 1, 1);
+	const end = start.add({ days: 3 });
+
+	const data = {
+		id: EventId.DaysOfLove2026,
+		name: "days-of-love",
+		family: EventFamilyId.DaysOfLove,
+		start,
+		end,
+	};
+
+	const amount = [
+		{ date: start, amount: 5 },
+		{ date: start.add({ days: 1 }), amount: 7 },
+		{ date: start.add({ days: 2 }), amount: 11 },
+	];
+
+	const event = new Event({
+		...data,
+		eventTickets: { amount, pool: [{ start, end: start.add({ days: 1 }), amount: 3 }] },
+	});
+
+	deepStrictEqual(event.remainingEventTickets(start.add({ days: 1, hours: 6 })), {
+		dailyEventTicketsLeft: 18,
+		poolEventTicketsLeft: 3,
+	});
+
+	deepStrictEqual(event.remainingEventTickets(start.add({ days: 2 })), {
+		dailyEventTicketsLeft: 11,
+		poolEventTicketsLeft: 0,
+	});
+
+	deepStrictEqual(
+		new Event({ ...data, eventTickets: { amount } }).remainingEventTickets(start.add({ days: 2 })),
+		{ dailyEventTicketsLeft: 11, poolEventTicketsLeft: null },
+	);
+
+	deepStrictEqual(new Event(data).remainingEventTickets(start), {
+		dailyEventTicketsLeft: 0,
+		poolEventTicketsLeft: null,
+	});
 });
 
 test("Double heart events are positive and chronological.", () => {

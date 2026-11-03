@@ -1,4 +1,5 @@
 import type { Cosmetic } from "../cosmetics.js";
+import { isDuring } from "../dates.js";
 import { CDN_URL } from "../routes.js";
 import type { EventFamilyIds, EventIds } from "../utility/event.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "../utility/functions.js";
@@ -124,6 +125,24 @@ export class Event {
 		this.offerInfographicURL = data.offerInfographicURL
 			? String(new URL(`events/${data.id}/offer.webp`, CDN_URL))
 			: null;
+	}
+
+	public remainingEventTickets(date: Temporal.ZonedDateTime) {
+		const today = date.startOfDay();
+
+		return {
+			dailyEventTicketsLeft:
+				this.eventTickets?.amount.reduce(
+					(total, { amount, date: eventTicketsDate }) =>
+						Temporal.ZonedDateTime.compare(eventTicketsDate, today) >= 0 ? total + amount : total,
+					0,
+				) ?? 0,
+			poolEventTicketsLeft:
+				this.eventTickets?.pool?.reduce(
+					(total, { amount, end, start }) => (isDuring(start, end, today) ? total + amount : total),
+					0,
+				) ?? null,
+		};
 	}
 
 	public resolveInfographicURL(date: Temporal.ZonedDateTime): string | null {

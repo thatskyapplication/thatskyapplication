@@ -53,6 +53,14 @@ export function epochSeconds(date: Temporal.ZonedDateTime) {
 	return Math.floor(date.epochMilliseconds / 1_000);
 }
 
+export function daysUntil(date: Temporal.ZonedDateTime, from: Temporal.ZonedDateTime) {
+	return date.toPlainDateTime().since(from.toPlainDateTime(), { largestUnit: "day" }).total("days");
+}
+
+export function daysLeftUntil(end: Temporal.ZonedDateTime, from: Temporal.ZonedDateTime) {
+	return Math.ceil(daysUntil(end, from)) - 1;
+}
+
 export function parsePlainDate(value: string | null | undefined) {
 	if (value == null || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
 		return null;

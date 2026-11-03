@@ -38,6 +38,7 @@ import {
 	skyNow,
 	skyUpcomingEvents,
 	skyUpcomingSeason,
+	spiritWikiMarkdownLink,
 	TIME_ZONE,
 	TRAVELLING_DATES,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
@@ -50,11 +51,7 @@ import database from "./database.js";
 import { NotificationError } from "./models/notification-error.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
-import {
-	DyeTypeToEmoji,
-	MISCELLANEOUS_EMOJIS,
-	SeasonIdToSeasonalCandleEmoji,
-} from "./utility/emojis.js";
+import { DyeTypeToEmoji, MISCELLANEOUS_EMOJIS, seasonalCandleEmoji } from "./utility/emojis.js";
 import { notificationNonce } from "./utility/functions.js";
 
 void init({
@@ -356,9 +353,7 @@ const cron = new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 			continue;
 		}
 
-		const seasonalCandleEmoji = formatEmoji(
-			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
-		);
+		const candleEmoji = formatEmoji(seasonalCandleEmoji(season.id));
 
 		for (const doubleSeasonalLight of season.doubleSeasonalLight?.dates ?? []) {
 			const timeUntilStart = Math.floor(doubleSeasonalLight.start.since(date).total("minutes"));
@@ -370,7 +365,7 @@ const cron = new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 				notifications.push({
 					type: NotificationType.DoubleSeasonalLight,
 					timeUntilStart,
-					seasonalCandleEmoji,
+					seasonalCandleEmoji: candleEmoji,
 					timestamp: `<t:${epochSeconds(doubleSeasonalLight.start)}:R>`,
 				});
 			}
@@ -575,15 +570,11 @@ const cron = new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 																style: "long",
 																type: "conjunction",
 															}).format(
-																notification.spiritIds.map(
-																	(spiritId) =>
-																		`[${t(`spirits.${spiritId}`, {
-																			lng: notificationPacket.locale,
-																			ns: "general",
-																		})}](${t(`spirit-wiki.${spiritId}`, {
-																			lng: notificationPacket.locale,
-																			ns: "general",
-																		})})`,
+																notification.spiritIds.map((spiritId) =>
+																	spiritWikiMarkdownLink(spiritId, {
+																		locale: notificationPacket.locale,
+																		t,
+																	}),
 																),
 															),
 															timestamp: notification.timestamp,
@@ -592,13 +583,10 @@ const cron = new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 															lng: notificationPacket.locale,
 															ns: "features",
 															timestamp: notification.timestamp,
-															spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
-																lng: notificationPacket.locale,
-																ns: "general",
-															})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
-																lng: notificationPacket.locale,
-																ns: "general",
-															})})`,
+															spirit: spiritWikiMarkdownLink(travellingSpirit!.spiritId, {
+																locale: notificationPacket.locale,
+																t,
+															}),
 														});
 
 				try {

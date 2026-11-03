@@ -3,12 +3,10 @@ import { isPublishedPatchNote, PATCH_NOTES, patchNoteVersion } from "@thatskyapp
 import {
 	aviarysFireworkFestivalSchedule,
 	communityEventsBetween,
-	DOUBLE_HEART_EVENTS,
 	isInternationalSpaceStationDate,
 	nextNestingWorkshop,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
-	RADIANCE_EVENTS,
 	RETURNING_DATES,
 	ScheduleType,
 	type SeasonIds,
@@ -22,7 +20,6 @@ import {
 	spirits,
 	TIME_ZONE,
 	TRAVELLING_DATES,
-	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import type { ExternalLinkListItem } from "~/components/ExternalLinkList";
@@ -36,14 +33,20 @@ import {
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
-	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 import {
+	DOUBLE_HEART_PERIODS,
+	DOUBLE_TREASURE_CANDLE_PERIODS,
 	dailyGuidesURL,
+	doubleSeasonalLightPeriods,
+	type LimitedPeriodGroup,
 	NESTING_WORKSHOP_CATALOGUE_URL,
+	RADIANCE_PERIODS,
+	RETURNING_SPIRITS_CATALOGUE_URL,
 	SCHEDULE_TYPE_TO_WIKI_KEY,
 } from "~/utility/schedule.js";
+import { spiritWikiLink } from "~/utility/spirits.js";
 
 interface CalendarEntryInput {
 	key: string;
@@ -195,6 +198,26 @@ export function calendarEntriesBetween({
 	const catalogueEventFamilies = skyEventFamilies();
 	const catalogueSpirits = spirits();
 
+	const addLimitedPeriods = (
+		{ emoji, name, source }: LimitedPeriodGroup,
+		kind: CalendarEntryKinds,
+	) => {
+		for (const { dyes, end, start } of source) {
+			if (overlapsRange(start, end)) {
+				entries.push(
+					createCalendarEntry({
+						key: `${name}-${start.epochMilliseconds}`,
+						kind,
+						label: t(`event-names.${name}`, { ns: "general" }),
+						start,
+						end,
+						iconEmojiIds: dyes?.map((dye) => DyeTypeToEmoji[dye].id) ?? [emoji.id],
+					}),
+				);
+			}
+		}
+	};
+
 	for (const season of skySeasonsBetween(rangeStart, rangeEnd).values()) {
 		const emojiId = seasonEmojiId(season.id);
 
@@ -213,24 +236,7 @@ export function calendarEntriesBetween({
 			}),
 		);
 
-		for (const doubleSeasonalLight of season.doubleSeasonalLight?.dates ?? []) {
-			if (!overlapsRange(doubleSeasonalLight.start, doubleSeasonalLight.end)) {
-				continue;
-			}
-
-			entries.push(
-				createCalendarEntry({
-					key: `double-seasonal-light-${season.id}-${doubleSeasonalLight.start.epochMilliseconds}`,
-					kind: CalendarEntryKind.DoubleSeasonalLight,
-					label: t("event-names.double-seasonal-light", { ns: "general" }),
-					start: doubleSeasonalLight.start,
-					end: doubleSeasonalLight.end,
-					iconEmojiIds: [
-						(SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle).id,
-					],
-				}),
-			);
-		}
+		addLimitedPeriods(doubleSeasonalLightPeriods(season), CalendarEntryKind.DoubleSeasonalLight);
 	}
 
 	for (const event of skyEventsBetween(rangeStart, rangeEnd).values()) {
@@ -282,12 +288,8 @@ export function calendarEntriesBetween({
 			continue;
 		}
 
-		const seasonIds = new Set(
-			spiritIds.map((spiritId) => KINGDOM.seasonOf(spiritId)?.id).filter((id) => id !== undefined),
-		);
-
-		const [seasonId] = seasonIds;
-		const emojiId = seasonIds.size === 1 && seasonId !== undefined ? seasonEmojiId(seasonId) : null;
+		const commonSeason = KINGDOM.commonSeasonOf(spiritIds);
+		const emojiId = commonSeason && seasonEmojiId(commonSeason.id);
 
 		entries.push(
 			createCalendarEntry({
@@ -298,66 +300,15 @@ export function calendarEntriesBetween({
 				end,
 				iconEmojiIds: emojiId ? [emojiId] : [],
 				wikiURL: t(SCHEDULE_TYPE_TO_WIKI_KEY[ScheduleType.ReturningSpirits]!),
-				catalogueURL: "/me/catalogue?view=returning-spirits",
-				spiritLinks: spiritIds.map((spiritId) => ({
-					id: spiritId,
-					label: t(`spirits.${spiritId}`, { ns: "general" }),
-					href: t(`spirit-wiki.${spiritId}`, { ns: "general" }),
-				})),
+				catalogueURL: RETURNING_SPIRITS_CATALOGUE_URL,
+				spiritLinks: spiritIds.map((spiritId) => spiritWikiLink(spiritId, t)),
 			}),
 		);
 	}
 
-	for (const { start, end } of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS) {
-		if (!overlapsRange(start, end)) {
-			continue;
-		}
-
-		entries.push(
-			createCalendarEntry({
-				key: `double-treasure-candles-${start.epochMilliseconds}`,
-				kind: CalendarEntryKind.DoubleTreasureCandles,
-				label: t("event-names.double-treasure-candles", { ns: "general" }),
-				start,
-				end,
-				iconEmojiIds: [MISCELLANEOUS_EMOJIS.TreasureCandle.id],
-			}),
-		);
-	}
-
-	for (const { start, end } of DOUBLE_HEART_EVENTS) {
-		if (!overlapsRange(start, end)) {
-			continue;
-		}
-
-		entries.push(
-			createCalendarEntry({
-				key: `double-hearts-${start.epochMilliseconds}`,
-				kind: CalendarEntryKind.DoubleHearts,
-				label: t("event-names.double-hearts", { ns: "general" }),
-				start,
-				end,
-				iconEmojiIds: [MISCELLANEOUS_EMOJIS.Heart.id],
-			}),
-		);
-	}
-
-	for (const { start, end, dyes } of RADIANCE_EVENTS) {
-		if (!overlapsRange(start, end)) {
-			continue;
-		}
-
-		entries.push(
-			createCalendarEntry({
-				key: `radiance-event-${start.epochMilliseconds}`,
-				kind: CalendarEntryKind.RadianceEvent,
-				label: t("event-names.radiance-event", { ns: "general" }),
-				start,
-				end,
-				iconEmojiIds: dyes.map((dye) => DyeTypeToEmoji[dye].id),
-			}),
-		);
-	}
+	addLimitedPeriods(DOUBLE_TREASURE_CANDLE_PERIODS, CalendarEntryKind.DoubleTreasureCandles);
+	addLimitedPeriods(DOUBLE_HEART_PERIODS, CalendarEntryKind.DoubleHearts);
+	addLimitedPeriods(RADIANCE_PERIODS, CalendarEntryKind.RadianceEvent);
 
 	for (const { name, start, marketingURL } of communityEventsBetween(rangeStart, rangeEnd)) {
 		entries.push(

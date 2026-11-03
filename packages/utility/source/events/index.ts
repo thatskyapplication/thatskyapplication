@@ -79,6 +79,15 @@ export function skyCurrentEvents(
 	return EVENTS.filter(({ start, end }) => isActive(start, end, date));
 }
 
+export function skyCurrentEventsWithEventTickets(
+	date: Temporal.ZonedDateTime,
+): ReadonlyCollection<EventIds, Event> {
+	return skyCurrentEvents(date).filter(
+		({ eventTickets }) =>
+			eventTickets !== null && Temporal.ZonedDateTime.compare(date, eventTickets.end) < 0,
+	);
+}
+
 export function skyUpcomingEvents(
 	date: Temporal.ZonedDateTime,
 ): ReadonlyCollection<EventIds, Event> {

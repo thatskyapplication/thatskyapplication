@@ -4,6 +4,7 @@ import { PlatformId, type PlatformIds } from "../platforms.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import { SkyProfilePersonalityType, type SkyProfilePersonalityTypes } from "../sky-profile.js";
 import { EventId, type EventIds } from "../utility/event.js";
+import type { Item } from "../utility/spirits.js";
 import type { Emoji } from "./emoji.js";
 import type { PRODUCTION_TABLES } from "./production.js";
 
@@ -16,13 +17,9 @@ export type EmojiTables = {
 export interface DerivedEmojis {
 	CosmeticToEmoji: Readonly<Record<Cosmetic, Emoji | null>>;
 	SeasonIdToSeasonalEmoji: Readonly<Record<SeasonIds, Emoji | null>>;
-	SeasonIdToSeasonalCandleEmoji: Readonly<Record<SeasonIds, Emoji | null>>;
-	SeasonIdToSeasonalHeartEmoji: Readonly<
-		Record<
-			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,
-			Emoji | null
-		>
-	>;
+	itemEmoji: (item: Pick<Item, "cosmeticDisplay" | "regularHeart">) => Emoji | null;
+	seasonalCandleEmoji: (seasonId: SeasonIds) => Emoji;
+	seasonalHeartEmoji: (seasonId: SeasonIds) => Emoji;
 	EventIdToEventTicketEmoji: Readonly<Record<EventIds, Emoji | null>>;
 	SkyProfilePersonalityToEmoji: Readonly<Record<SkyProfilePersonalityTypes, Emoji>>;
 	DyeTypeToEmoji: Readonly<Record<DyeTypes, Emoji>>;
@@ -3202,6 +3199,8 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalHeartEmoji = {
+		[SeasonId.Gratitude]: null,
+		[SeasonId.Lightseekers]: null,
 		[SeasonId.Belonging]: SEASON_EMOJIS.BelongingHeart,
 		[SeasonId.Rhythm]: SEASON_EMOJIS.RhythmHeart,
 		[SeasonId.Enchantment]: SEASON_EMOJIS.EnchantmentHeart,
@@ -3231,12 +3230,7 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[SeasonId.Carnival]: SEASON_EMOJIS.CarnivalHeart,
 		[SeasonId.DearVanGogh]: SEASON_EMOJIS.DearVanGoghHeart,
 		[SeasonId.Pearl]: SEASON_EMOJIS.PearlHeart,
-	} as const satisfies Readonly<
-		Record<
-			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,
-			Emoji | null
-		>
-	>;
+	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const EventIdToEventTicketEmoji = {
 		// 2019.
@@ -3392,12 +3386,28 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[PlatformId.Steam]: MISCELLANEOUS_EMOJIS.PlatformSteam,
 	} as const satisfies Readonly<Record<PlatformIds, Emoji>>;
 
+	function itemEmoji({
+		cosmeticDisplay,
+		regularHeart,
+	}: Pick<Item, "cosmeticDisplay" | "regularHeart">): Emoji | null {
+		return regularHeart ? MISCELLANEOUS_EMOJIS.Heart : CosmeticToEmoji[cosmeticDisplay];
+	}
+
+	function seasonalCandleEmoji(seasonId: SeasonIds): Emoji {
+		return SeasonIdToSeasonalCandleEmoji[seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
+	}
+
+	function seasonalHeartEmoji(seasonId: SeasonIds): Emoji {
+		return SeasonIdToSeasonalHeartEmoji[seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalHeart;
+	}
+
 	return {
 		...tables,
 		CosmeticToEmoji,
 		SeasonIdToSeasonalEmoji,
-		SeasonIdToSeasonalCandleEmoji,
-		SeasonIdToSeasonalHeartEmoji,
+		itemEmoji,
+		seasonalCandleEmoji,
+		seasonalHeartEmoji,
 		EventIdToEventTicketEmoji,
 		SkyProfilePersonalityToEmoji,
 		DyeTypeToEmoji,

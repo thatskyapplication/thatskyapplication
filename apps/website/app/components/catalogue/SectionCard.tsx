@@ -2,7 +2,8 @@ import { clsx } from "clsx";
 import { Link } from "react-router";
 import type { Emoji } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
-import { LINK_CARD_CLASS, NOTE_CLASS } from "~/utility/catalogue.js";
+import { LINK_CARD_CLASS } from "~/utility/catalogue.js";
+import { SUBSECTION_HEADING_CLASS, NOTE_CLASS } from "~/utility/styles.js";
 import { ProgressBar } from "./ProgressBar";
 
 export function SectionCard({
@@ -26,7 +27,7 @@ export function SectionCard({
 				<div className="flex items-center justify-between gap-2">
 					<span className="inline-flex items-center gap-2">
 						{emoji ? <EmojiIcon className="h-5 w-5" emoji={emoji} /> : null}
-						<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">{title}</h2>
+						<h2 className={SUBSECTION_HEADING_CLASS}>{title}</h2>
 					</span>
 					{percentage !== null && (
 						<span className="text-sm text-gray-600 dark:text-gray-400">{percentage}%</span>

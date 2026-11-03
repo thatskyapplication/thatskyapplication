@@ -12,7 +12,7 @@ import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import database from "~/database.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
-import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
+import { PAGE_TITLE_CLASS, SECTION_HEADING_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/me._index.js";
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
@@ -50,9 +50,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<Users className="h-5 w-5" />
 						</div>
-						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-							{t("sky-profile.name", { ns: "features" })}
-						</h2>
+						<h2 className={SECTION_HEADING_CLASS}>{t("sky-profile.name", { ns: "features" })}</h2>
 					</Link>
 
 					<Link
@@ -62,9 +60,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<CheckSquare className="h-5 w-5" />
 						</div>
-						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-							{t("checklist.title", { ns: "features" })}
-						</h2>
+						<h2 className={SECTION_HEADING_CLASS}>{t("checklist.title", { ns: "features" })}</h2>
 					</Link>
 
 					<Link
@@ -74,7 +70,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<Heart className="h-5 w-5" />
 						</div>
-						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+						<h2 className={SECTION_HEADING_CLASS}>
 							{t("heart.history-title", { ns: "features" })}
 						</h2>
 					</Link>
@@ -86,7 +82,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<BookOpenCheck className="h-5 w-5" />
 						</div>
-						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+						<h2 className={SECTION_HEADING_CLASS}>
 							{t("catalogue.main-title", { ns: "features" })}
 						</h2>
 					</Link>
@@ -98,18 +94,14 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
 							<SettingsIcon className="h-5 w-5" />
 						</div>
-						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-							{t("settings.name", { ns: "features" })}
-						</h2>
+						<h2 className={SECTION_HEADING_CLASS}>{t("settings.name", { ns: "features" })}</h2>
 					</Link>
 
 					<div className="flex w-full items-center gap-4 rounded-lg bg-gray-100 p-4 text-gray-600 shadow-md dark:bg-gray-900 dark:text-gray-400">
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-700 dark:bg-gray-800">
 							<Ellipsis className="h-5 w-5" />
 						</div>
-						<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-							More coming soon
-						</h2>
+						<h2 className={SECTION_HEADING_CLASS}>More coming soon</h2>
 					</div>
 				</div>
 			</div>

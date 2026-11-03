@@ -1,9 +1,10 @@
 import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
-import { type Item, sumCosts } from "@thatskyapplication/utility";
+import { type Item, itemName, sumCosts } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { useItemOwnership } from "~/hooks/use-item-ownership.js";
-import { itemEmoji } from "~/utility/catalogue.js";
+import { itemEmoji } from "~/utility/emojis.js";
+import { COMPLETE_CARD_CLASS } from "~/utility/styles.js";
 import { CostList } from "./CostList";
 
 export function ItemRow({
@@ -25,7 +26,7 @@ export function ItemRow({
 			className={clsx(
 				"flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors",
 				owned
-					? "border-green-200 bg-green-50 hover:bg-green-100 dark:border-green-700 dark:bg-green-900/20 dark:hover:bg-green-900/30"
+					? COMPLETE_CARD_CLASS
 					: "border-gray-200 bg-gray-100 hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50",
 			)}
 		>
@@ -37,11 +38,7 @@ export function ItemRow({
 			/>
 			{emoji ? <EmojiIcon className="h-6 w-6" emoji={emoji} /> : null}
 			<span className="min-w-0 flex-1 text-sm text-gray-900 dark:text-gray-100">
-				{t(item.translation.key, {
-					ns: "general",
-					number: item.translation.number,
-					level: item.translation.level,
-				})}
+				{itemName(item, t)}
 			</span>
 			<span className="text-sm text-gray-600 dark:text-gray-400">
 				<CostList costs={costs} locale={locale} />

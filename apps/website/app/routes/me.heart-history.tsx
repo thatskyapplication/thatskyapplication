@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import {
 	DELETED_USER_TEXT,
 	DOUBLE_HEART_EVENTS,
+	doublePeriodCountdown,
 	formatEmojiURL,
 	heartHistory,
 	heartHistoryTotal,
@@ -17,9 +18,11 @@ import Pagination from "~/components/Pagination";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { NOTE_CLASS } from "~/utility/styles.js";
 import { dateTimeLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/me.heart-history.js";
@@ -50,23 +53,14 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const currentPage = Math.min(requestedPage, maximumPage);
 	const offset = (currentPage - 1) * HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
 
-	const doubleHearts = [];
+	const t = getInstance(context).getFixedT(getLocale(context));
 
-	for (const { start, end } of DOUBLE_HEART_EVENTS) {
-		if (Temporal.ZonedDateTime.compare(end, today) <= 0) {
-			continue;
-		}
-
-		const active = Temporal.ZonedDateTime.compare(today, start) >= 0;
-
-		doubleHearts.push({
-			active,
-			days: active
-				? Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1
-				: Math.floor(start.since(today).total({ unit: "days", relativeTo: today })),
-			start: start.epochMilliseconds,
-		});
-	}
+	const doubleHearts = DOUBLE_HEART_EVENTS.filter(
+		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
+	).map((period) => ({
+		label: doublePeriodCountdown("double-hearts", period, today, { locale, t }),
+		start: period.start.epochMilliseconds,
+	}));
 
 	const heartPackets = await heartHistory(
 		database,
@@ -220,17 +214,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 									role="img"
 									style={{ backgroundImage: `url(${heartEmojiURL})` }}
 								/>
-								{doubleHeart.active
-									? t(
-											doubleHeart.days === 0
-												? "days-left.double-hearts-ends-today"
-												: "days-left.double-hearts",
-											{ ns: "general", count: doubleHeart.days },
-										)
-									: t("daily-guides.double-hearts-upcoming", {
-											ns: "features",
-											count: doubleHeart.days,
-										})}
+								{doubleHeart.label}
 							</p>
 						))}
 					</div>
@@ -284,7 +268,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 												<ProfileName profileName={relatedProfileName} userId={relatedUserId} />
 											</p>
 										</div>
-										<time className="text-xs text-gray-500 dark:text-gray-400" dateTime={timestamp}>
+										<time className={NOTE_CLASS} dateTime={timestamp}>
 											{timeZoneEstimated ? <SkeletonText>{formatted}</SkeletonText> : formatted}
 										</time>
 									</div>

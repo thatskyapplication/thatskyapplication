@@ -2,8 +2,8 @@ import { useTranslation } from "react-i18next";
 import type { EventFamily } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { ExternalLink } from "~/components/ExternalLink";
-import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { EventIdToEventTicketEmoji } from "~/utility/emojis.js";
+import { NOTE_CLASS } from "~/utility/styles.js";
 
 export function EventFamilyHeader({ family, locale }: { family: EventFamily; locale: string }) {
 	const { t } = useTranslation();

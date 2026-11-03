@@ -23,6 +23,7 @@ import {
 	LINE_WIDTH,
 	legacyFriendshipTreeLayout,
 	modernFriendshipTreeLayout,
+	itemName,
 	partitionItemCosts,
 	type PlacedFriendshipTreeNode,
 	SeasonId,
@@ -32,12 +33,7 @@ import {
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { useItemOwnership } from "~/hooks/use-item-ownership.js";
 import { parseCosmetics } from "~/utility/catalogue.js";
-import {
-	CosmeticToEmoji,
-	EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	SeasonIdToSeasonalEmoji,
-} from "~/utility/emojis.js";
+import { EMOJIS, itemEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { Tooltip } from "../Tooltip";
 import { COST_ENTRY_NAME_KEYS, CostList } from "./CostList";
 
@@ -172,11 +168,7 @@ function TreeNode({
 	const { t } = useTranslation();
 	const { item } = node;
 	const owned = interaction?.owned ?? true;
-	const name = t(item.translation.key, {
-		ns: "general",
-		number: item.translation.number,
-		level: item.translation.level,
-	});
+	const name = itemName(item, t);
 	const cost = node.cost ? resolveNodeCost(item, locale) : null;
 	const accessibleDetails = [];
 
@@ -204,9 +196,7 @@ function TreeNode({
 	const seasonEmoji =
 		node.seasonEmoji && seasonId !== undefined ? SeasonIdToSeasonalEmoji[seasonId] : null;
 
-	const emoji = item.regularHeart
-		? MISCELLANEOUS_EMOJIS.Heart
-		: CosmeticToEmoji[item.cosmeticDisplay];
+	const emoji = itemEmoji(item);
 
 	return (
 		<>

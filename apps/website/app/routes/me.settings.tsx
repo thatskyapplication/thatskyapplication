@@ -17,7 +17,11 @@ import {
 	HOUR_CYCLE_TWENTY_FOUR,
 	isHourCycleValue,
 } from "~/utility/hour-cycle";
-import { PAGE_TITLE_CLASS, SELECTABLE_OPTION_CARD_CLASS } from "~/utility/styles.js";
+import {
+	PAGE_TITLE_CLASS,
+	SELECTABLE_OPTION_CARD_CLASS,
+	SECTION_HEADING_CLASS,
+} from "~/utility/styles.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/me.settings.js";
 
@@ -91,7 +95,7 @@ export default function Settings({ loaderData }: Route.ComponentProps) {
 				<div className={SECTION_CLASS}>
 					<Form method="post">
 						<fieldset className="m-0 border-0 p-0">
-							<legend className="mb-3 p-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							<legend className={clsx(SECTION_HEADING_CLASS, "mb-3 p-0")}>
 								{t("settings.time-format", { ns: "features" })}
 							</legend>
 							<div className="grid gap-2 sm:grid-cols-3">

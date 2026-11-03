@@ -1,7 +1,6 @@
 import { ExternalLinkIcon } from "lucide-react";
 import type { ComponentPropsWithRef } from "react";
-
-const ICON_LINK_CLASS = "regular-link inline-flex items-center gap-1" as const;
+import { ICON_LINK_CLASS } from "~/utility/styles.js";
 
 export function ExternalLink({
 	children,

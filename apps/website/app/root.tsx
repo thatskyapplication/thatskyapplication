@@ -26,6 +26,7 @@ import ConditionalLayout from "~/components/ConditionalLayout";
 import { CentredSitePage } from "~/components/PageLayout";
 import { CDN_URL } from "~/config.server";
 import database from "~/database.server";
+import { useFailureRecovery } from "~/hooks/use-failure-recovery.js";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
 import { getRequestSession, sessionMiddleware } from "~/middleware/session";
 import {
@@ -92,6 +93,7 @@ export const meta: Route.MetaFunction = ({ location }) => [
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 	const { t } = useTranslation();
+	useFailureRecovery(error);
 	const status = isRouteErrorResponse(error) ? error.status : undefined;
 	const title = t("pity-room", { ns: "general" });
 

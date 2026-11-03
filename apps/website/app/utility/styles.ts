@@ -35,6 +35,16 @@ export const DIALOGUE_TITLE_CLASS =
 
 export const SKELETON_CLASS = "bg-current/25 motion-safe:animate-pulse" as const;
 
+export const ICON_LINK_CLASS = "regular-link inline-flex items-center gap-1" as const;
+
+export const NOTE_CLASS = "text-xs text-gray-500 dark:text-gray-400" as const;
+
+export const VIEW_LINK_CLASS =
+	"shrink-0 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" as const;
+
+export const COMPLETE_CARD_CLASS =
+	"border-green-200 bg-green-50 hover:bg-green-100 dark:border-green-700 dark:bg-green-900/20 dark:hover:bg-green-900/30" as const;
+
 export const SECTION_CARD_CLASS =
 	"flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900" as const;
 

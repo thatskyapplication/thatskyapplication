@@ -17,7 +17,7 @@ import { getRequestSession } from "~/middleware/session";
 import pino from "~/pino.js";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
 import { generateState, requireDiscordAuthentication } from "~/utility/functions.server";
-import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
+import { PAGE_TITLE_CLASS, FORM_ERROR_BANNER_CLASS } from "~/utility/styles.js";
 import type { CrowdinUser } from "~/utility/types.js";
 import type { Route } from "./+types/discord-crowdin.js";
 
@@ -306,11 +306,7 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 		<CentredSitePage>
 			<div className="w-full max-w-md rounded-lg border border-gray-200 bg-gray-100 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
 				<h1 className={clsx(PAGE_TITLE_CLASS, "mb-6 text-center")}>Crowdin authorisation</h1>
-				{error && (
-					<div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-300">
-						{error}
-					</div>
-				)}
+				{error && <div className={clsx(FORM_ERROR_BANNER_CLASS, "mt-4")}>{error}</div>}
 				{linked ? (
 					<div className="mt-6 space-y-4">
 						{justLinked && (
