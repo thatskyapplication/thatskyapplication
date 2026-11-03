@@ -815,3 +815,11 @@ if (latestPatchNote === undefined) {
 }
 
 export const LATEST_PATCH_NOTE = latestPatchNote;
+
+const publishedPatchNotes = PATCH_NOTES.filter(isPublishedPatchNote);
+
+export const LATEST_MAJOR_PATCH_NOTES = publishedPatchNotes.slice(
+	publishedPatchNotes.findLastIndex(({ identifier }) =>
+		patchNoteVersion(identifier).endsWith(".0"),
+	),
+);

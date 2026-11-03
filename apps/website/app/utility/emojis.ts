@@ -6,8 +6,9 @@ export const {
 	CosmeticToEmoji,
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
+	itemEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 	SkyProfilePersonalityToEmoji,
-	SeasonIdToSeasonalCandleEmoji,
+	seasonalCandleEmoji,
 } = EMOJIS;

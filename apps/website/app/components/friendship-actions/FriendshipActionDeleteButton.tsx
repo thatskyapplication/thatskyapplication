@@ -9,6 +9,7 @@ import {
 	DIALOGUE_BACKDROP_CLASS,
 	DIALOGUE_POPUP_CLASS,
 	DIALOGUE_TITLE_CLASS,
+	FIELD_ERROR_CLASS,
 } from "~/utility/styles.js";
 
 export function FriendshipActionDeleteButton({
@@ -42,7 +43,7 @@ export function FriendshipActionDeleteButton({
 					<AlertDialog.Description className="text-sm text-gray-600 dark:text-gray-400">
 						Are you sure?
 					</AlertDialog.Description>
-					{error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+					{error && <p className={FIELD_ERROR_CLASS}>{error}</p>}
 					<div className="mt-1 flex justify-end gap-2">
 						<AlertDialog.Close render={<ActionButton variant="secondary" />}>
 							Cancel

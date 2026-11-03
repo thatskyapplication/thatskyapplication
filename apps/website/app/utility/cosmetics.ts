@@ -1,8 +1,10 @@
 import type { i18n as I18n, TFunction } from "i18next";
 import {
 	CatalogueCollection,
+	CatalogueCollectionToLocaleKey,
 	Cosmetic,
 	CosmeticCommon,
+	type CostEntry,
 	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
 	CLOTHING_SHOP,
@@ -15,9 +17,18 @@ import {
 	STARTER_PACKS,
 	skyEvents,
 	skySeasons,
+	spiritOriginTranslationKey,
 	spirits,
+	sumCosts,
 } from "@thatskyapplication/utility";
-import { CosmeticToEmoji, EMOJIS } from "~/utility/emojis.js";
+import { catalogueTargetQuery } from "~/utility/catalogue.js";
+import {
+	CosmeticToEmoji,
+	EMOJIS,
+	EventIdToEventTicketEmoji,
+	itemEmoji,
+	SeasonIdToSeasonalEmoji,
+} from "~/utility/emojis.js";
 
 const UNNAMED_TRANSLATION_PREFIX = "cosmetic-common-names." as const;
 const COSMETIC_ANCHOR_PREFIX = "cosmetic-" as const;
@@ -1388,10 +1399,18 @@ const UNSOURCED_COSMETICS: ReadonlySet<Cosmetic> = new Set([
 	Cosmetic.BetaCape,
 ]);
 
-export interface CosmeticTile {
+export interface CosmeticTileData {
 	readonly anchor: string;
 	readonly cosmetic: Cosmetic;
 	readonly emoji: Emoji;
+}
+
+export interface OfferTile {
+	costs: readonly CostEntry[];
+	name: string;
+	owned: boolean;
+	seasonPassEmoji: Emoji | null;
+	tile: CosmeticTileData;
 }
 
 function emojiCosmetics() {
@@ -1420,7 +1439,7 @@ export function cosmeticAnchor(cosmetic: Cosmetic | string) {
 	return `${COSMETIC_ANCHOR_PREFIX}${cosmetic}`;
 }
 
-function addCosmeticTiles(tiles: CosmeticTile[], emoji: Emoji) {
+function addCosmeticTiles(tiles: CosmeticTileData[], emoji: Emoji) {
 	for (const cosmetic of EMOJI_COSMETICS.get(emoji.id) ?? []) {
 		tiles.push({ anchor: cosmeticAnchor(cosmetic), cosmetic, emoji });
 	}
@@ -1429,7 +1448,7 @@ function addCosmeticTiles(tiles: CosmeticTile[], emoji: Emoji) {
 const ALL_COSMETICS_SECTIONS = COSMETICS_ORDER.map(({ heading, icon, order, table }) => {
 	const emojis: Readonly<Record<string, Emoji>> = EMOJIS[table];
 	const listed = new Set<string>();
-	const tiles: CosmeticTile[] = [];
+	const tiles: CosmeticTileData[] = [];
 
 	for (const emoji of order) {
 		listed.add(emoji.id);
@@ -1450,7 +1469,7 @@ export type CosmeticsSection = (typeof ALL_COSMETICS_SECTIONS)[number];
 interface CosmeticAnchorTarget {
 	readonly groupIndex: number;
 	readonly table: string;
-	readonly tile: CosmeticTile;
+	readonly tile: CosmeticTileData;
 }
 
 interface CosmeticSource {
@@ -1560,4 +1579,89 @@ export function cosmeticName(nameKeys: string[], i18n: I18n, t: TFunction) {
 	);
 
 	return t(translatedNameKey ?? nameKeys, { ns: "general" });
+}
+
+export function catalogueLocation(target: CatalogueSearchTargetWithoutEventFamily, t: TFunction) {
+	const query = catalogueTargetQuery(target);
+
+	switch (target.type) {
+		case CatalogueSearchType.Season:
+			return {
+				type: target.type,
+				query,
+				emoji: SeasonIdToSeasonalEmoji[target.season.id],
+				name: t(`seasons.${target.season.id}`, { ns: "general" }),
+				detail: t("season", { ns: "general" }),
+				pageURL: null,
+				wikiURL: t(`season-wiki.${target.season.id}`, { ns: "general" }),
+			};
+		case CatalogueSearchType.Event:
+			return {
+				type: target.type,
+				query,
+				emoji: EventIdToEventTicketEmoji[target.event.id],
+				name: t(target.event.name, { ns: "general" }),
+				detail: String(target.event.start.year),
+				pageURL: null,
+				wikiURL: t(`event-wiki.${target.event.id}`, { ns: "general" }),
+			};
+		case CatalogueSearchType.Spirit: {
+			const { spirit } = target;
+			const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
+
+			return {
+				type: target.type,
+				query,
+				emoji: seasonal ? SeasonIdToSeasonalEmoji[spirit.seasonId] : null,
+				name: t(`spirits.${spirit.id}`, { ns: "general" }),
+				detail: t(spiritOriginTranslationKey(spirit), { ns: "general" }),
+				pageURL: `/spirits?spirit=${spirit.id}`,
+				wikiURL: t(`spirit-wiki.${spirit.id}`, { ns: "general" }),
+			};
+		}
+		case CatalogueSearchType.Collection:
+			return {
+				type: target.type,
+				query,
+				emoji: null,
+				name: t(CatalogueCollectionToLocaleKey[target.collection]),
+				detail: null,
+				pageURL: null,
+				wikiURL: null,
+			};
+	}
+}
+
+function itemPricing(item: Item) {
+	const costs = item.cost ? sumCosts([item.cost]) : [];
+
+	return {
+		costs,
+		seasonPass: item.seasonPass && !costs.some((cost) => cost.type === "seasonalHearts"),
+	};
+}
+
+export function itemOfferTile(
+	item: Item,
+	{ name, owned, seasonPassEmoji }: Pick<OfferTile, "name" | "owned" | "seasonPassEmoji">,
+): OfferTile {
+	return {
+		costs: itemPricing(item).costs,
+		name,
+		owned,
+		seasonPassEmoji,
+		tile: {
+			anchor: cosmeticAnchor(item.cosmeticDisplay),
+			cosmetic: item.cosmeticDisplay,
+			emoji: itemEmoji(item) ?? MISCELLANEOUS_EMOJIS.QuestionMark,
+		},
+	};
+}
+
+export function cosmeticSources(entry: CosmeticCatalogueEntry | undefined, t: TFunction) {
+	return (
+		entry?.sources.map(({ item, target }) =>
+			Object.assign(catalogueLocation(target, t), itemPricing(item)),
+		) ?? []
+	);
 }

@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRevalidator } from "react-router";
 import { TIME_ZONE } from "@thatskyapplication/utility";
+
+const DAILY_REVALIDATION_DELAY = 2_000 as const;
 
 function dayTimestamp(timestamp: number, timeZone: string) {
 	return Temporal.Instant.fromEpochMilliseconds(timestamp).toZonedDateTimeISO(timeZone).startOfDay()
@@ -33,6 +35,7 @@ export function useCurrentTimestamp(initialTimestamp: number) {
 
 		scheduleNextUpdate();
 		window.addEventListener("focus", updateTimestamp);
+		window.addEventListener("online", updateTimestamp);
 		document.addEventListener("visibilitychange", handleVisibilityChange);
 
 		return () => {
@@ -41,6 +44,7 @@ export function useCurrentTimestamp(initialTimestamp: number) {
 			}
 
 			window.removeEventListener("focus", updateTimestamp);
+			window.removeEventListener("online", updateTimestamp);
 			document.removeEventListener("visibilitychange", handleVisibilityChange);
 		};
 	}, []);
@@ -48,21 +52,30 @@ export function useCurrentTimestamp(initialTimestamp: number) {
 	return Math.max(currentTimestamp, initialTimestamp);
 }
 
-export function useDailyRevalidator(currentTimestamp: number, timeZone: string) {
+export function useDailyRevalidator(
+	currentTimestamp: number,
+	loaderTimestamp: number,
+	timeZone: string,
+) {
 	const { revalidate } = useRevalidator();
-	const lastDayTimestamp = useRef(dayTimestamp(currentTimestamp, timeZone));
-	const currentDayTimestamp = dayTimestamp(currentTimestamp, timeZone);
+	const isStale =
+		dayTimestamp(currentTimestamp, timeZone) > dayTimestamp(loaderTimestamp, timeZone);
 
 	useEffect(() => {
-		if (currentDayTimestamp <= lastDayTimestamp.current) {
+		if (!isStale) {
 			return;
 		}
 
-		lastDayTimestamp.current = currentDayTimestamp;
-		void revalidate();
-	}, [currentDayTimestamp, revalidate]);
+		const timeout = setTimeout(() => {
+			if (navigator.onLine) {
+				void revalidate();
+			}
+		}, DAILY_REVALIDATION_DELAY);
+
+		return () => clearTimeout(timeout);
+	}, [currentTimestamp, isStale, revalidate]);
 }
 
-export function useSkyDailyResetRevalidator(currentTimestamp: number) {
-	useDailyRevalidator(currentTimestamp, TIME_ZONE);
+export function useSkyDailyResetRevalidator(currentTimestamp: number, loaderTimestamp: number) {
+	useDailyRevalidator(currentTimestamp, loaderTimestamp, TIME_ZONE);
 }

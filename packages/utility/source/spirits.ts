@@ -26,6 +26,13 @@ import {
 
 export const SPIRITS_HISTORY_PAGE_SIZE = 10 as const;
 
+export function spiritWikiMarkdownLink(
+	spiritId: SpiritIds,
+	{ locale, t }: Pick<MessageFormatting, "locale" | "t">,
+) {
+	return `[${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spiritId}`, { lng: locale, ns: "general" })})`;
+}
+
 export function spiritsHistoryData(type: SpiritsHistoryOrderTypes) {
 	const visits = type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
 	return { maximumPage: Math.max(1, Math.ceil(visits.size / SPIRITS_HISTORY_PAGE_SIZE)), visits };
@@ -139,7 +146,7 @@ export function spiritContainer({
 	const components: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `##${seasonEmoji ? ` ${formatEmoji(seasonEmoji)}` : ""} [${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})`,
+			content: `##${seasonEmoji ? ` ${formatEmoji(seasonEmoji)}` : ""} ${spiritWikiMarkdownLink(spirit.id, { locale, t })}`,
 		},
 		{
 			type: ComponentType.Separator,

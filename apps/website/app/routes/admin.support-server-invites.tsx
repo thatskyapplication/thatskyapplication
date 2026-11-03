@@ -33,6 +33,10 @@ import {
 	FIELD_FOOTER_CLASS,
 	textFieldClass,
 	WARNING_BANNER_CLASS,
+	FORM_ERROR_BANNER_CLASS,
+	SECTION_CARD_CLASS,
+	SECTION_HEADING_CLASS,
+	SUCCESS_BANNER_CLASS,
 } from "~/utility/styles.js";
 import { dateTimeFormatter } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
@@ -507,9 +511,7 @@ export default function AdminSupportServerInvites({
 				) : (
 					<>
 						<div className="flex flex-col gap-3">
-							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-								Tracked ({trackedInvites.length})
-							</h2>
+							<h2 className={SECTION_HEADING_CLASS}>Tracked ({trackedInvites.length})</h2>
 
 							{trackedInvites.length === 0 ? (
 								<p className="text-sm text-gray-600 dark:text-gray-400">No invites.</p>
@@ -520,9 +522,7 @@ export default function AdminSupportServerInvites({
 
 						{untrackedInvites.length > 0 && (
 							<div className="flex flex-col gap-3">
-								<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-									Untracked ({untrackedInvites.length})
-								</h2>
+								<h2 className={SECTION_HEADING_CLASS}>Untracked ({untrackedInvites.length})</h2>
 
 								<InviteTable invites={untrackedInvites} timeZoneEstimated={timeZoneEstimated} />
 							</div>
@@ -531,7 +531,7 @@ export default function AdminSupportServerInvites({
 						{expiredInvites.length > 0 && (
 							<div className="flex flex-col gap-3">
 								<h2
-									className="text-lg font-medium text-gray-900 outline-none dark:text-gray-100"
+									className={clsx(SECTION_HEADING_CLASS, "outline-none")}
 									ref={expiredHeadingRef}
 									tabIndex={-1}
 								>
@@ -547,20 +547,14 @@ export default function AdminSupportServerInvites({
 							</div>
 						)}
 						<div className="flex flex-col gap-3">
-							<h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-								Create an invite
-							</h2>
+							<h2 className={SECTION_HEADING_CLASS}>Create an invite</h2>
 
 							<Form className="flex flex-col gap-4" method="post">
 								<input name="intent" type="hidden" value="create" />
 
-								{errors.form ? (
-									<div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-300">
-										{errors.form}
-									</div>
-								) : null}
+								{errors.form ? <div className={FORM_ERROR_BANNER_CLASS}>{errors.form}</div> : null}
 
-								<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+								<div className={SECTION_CARD_CLASS}>
 									<div className="flex flex-col gap-2">
 										<label className="text-sm text-gray-600 dark:text-gray-400" htmlFor="name">
 											Name
@@ -671,7 +665,7 @@ export default function AdminSupportServerInvites({
 									</ActionButton>
 
 									{createResult?.ok === true ? (
-										<div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800 dark:border-green-700 dark:bg-green-900/20 dark:text-green-200">
+										<div className={SUCCESS_BANNER_CLASS}>
 											<Check className="h-5 w-5 shrink-0 self-start" />
 											<div className="flex flex-col leading-tight">
 												<p>

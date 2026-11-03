@@ -4,11 +4,9 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
-	DOUBLE_HEART_EVENTS,
 	formatEmojiURL,
-	isActive,
-	MAINTENANCE_PERIODS,
-	RADIANCE_EVENTS,
+	daysUntil,
+	upcomingMaintenancePeriods,
 	SCHEDULES,
 	ScheduleType,
 	type ScheduleTypes,
@@ -17,12 +15,12 @@ import {
 	skyNotEndedEvents,
 	skyUpcomingSeason,
 	TIME_ZONE,
-	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	WEBSITE_URL,
 	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
 import { ExternalLinkList, type ExternalLinkListItem } from "~/components/ExternalLinkList";
+import { MaintenanceBanner } from "~/components/MaintenanceBanner.js";
 import {
 	type NestingWorkshopProp,
 	NestingWorkshopProps,
@@ -39,8 +37,16 @@ import { cardContainer } from "~/utility/discord-component-embed.server.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { hexColour } from "~/utility/functions.js";
 import { fetchNestingWorkshopProps } from "~/utility/nesting-workshop.server.js";
-import { SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
-import { formatClockTimes, type TimePreferences } from "~/utility/time.js";
+import {
+	DOUBLE_HEART_PERIODS,
+	DOUBLE_TREASURE_CANDLE_PERIODS,
+	doubleSeasonalLightPeriods,
+	type LimitedPeriodGroup,
+	RADIANCE_PERIODS,
+	SCHEDULE_TYPE_TO_WIKI_KEY,
+} from "~/utility/schedule.js";
+import { spiritWikiLink } from "~/utility/spirits.js";
+import { formatClockTimes, maintenanceBannerLabels, type TimePreferences } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/schedule.js";
 
@@ -68,10 +74,6 @@ export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 		{ tagName: "link", rel: "canonical", href: url },
 	];
 };
-
-function daysUntil(date: Temporal.ZonedDateTime, now: Temporal.ZonedDateTime) {
-	return date.toPlainDateTime().since(now.toPlainDateTime(), { largestUnit: "day" }).total("days");
-}
 
 function isDistant(date: Temporal.ZonedDateTime, now: Temporal.ZonedDateTime) {
 	return daysUntil(date, now) > 1;
@@ -181,16 +183,6 @@ interface DisplayCard {
 	endUnix?: number | null | undefined;
 }
 
-interface RecurringEventGroup {
-	source: readonly {
-		start: Temporal.ZonedDateTime;
-		end: Temporal.ZonedDateTime;
-		dyes?: readonly (keyof typeof DyeTypeToEmoji)[] | undefined;
-	}[];
-	key: string;
-	labelKey: string;
-}
-
 function periodTiming(
 	start: Temporal.ZonedDateTime,
 	end: Temporal.ZonedDateTime,
@@ -239,11 +231,7 @@ function buildScheduleView(
 			key: `${type}`,
 			label: t(spiritId ? `general:spirits.${spiritId}` : ScheduleTypeToLocaleKey[type]),
 			wikiURL: wikiKey ? t(wikiKey) : undefined,
-			spiritLinks: spiritIds?.map((occurrenceSpiritId) => ({
-				id: occurrenceSpiritId,
-				label: t(`general:spirits.${occurrenceSpiritId}`),
-				href: t(`general:spirit-wiki.${occurrenceSpiritId}`),
-			})),
+			spiritLinks: spiritIds?.map((occurrenceSpiritId) => spiritWikiLink(occurrenceSpiritId, t)),
 			pageHref: type === ScheduleType.ShardEruption ? SHARD_ERUPTION_PAGE_HREF : undefined,
 			nestingWorkshop:
 				type === ScheduleType.NestingWorkshop && nestingWorkshop.length > 0
@@ -293,32 +281,16 @@ function buildScheduleView(
 		});
 	}
 
-	const recurringEvents: readonly RecurringEventGroup[] = [
-		{
-			source: RADIANCE_EVENTS,
-			key: "radiance",
-			labelKey: "general:event-names.radiance-event",
-		},
+	const recurringEvents: readonly LimitedPeriodGroup[] = [
+		RADIANCE_PERIODS,
 		...[season, nextSeason]
 			.filter((displayedSeason) => displayedSeason !== null)
-			.map((displayedSeason) => ({
-				source: displayedSeason.doubleSeasonalLight?.dates ?? [],
-				key: `double-seasonal-light-${displayedSeason.id}`,
-				labelKey: "general:event-names.double-seasonal-light",
-			})),
-		{
-			source: TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
-			key: "double-treasure-candle",
-			labelKey: "general:event-names.double-treasure-candles",
-		},
-		{
-			source: DOUBLE_HEART_EVENTS,
-			key: "double-heart",
-			labelKey: "general:event-names.double-hearts",
-		},
+			.map((displayedSeason) => doubleSeasonalLightPeriods(displayedSeason)),
+		DOUBLE_TREASURE_CANDLE_PERIODS,
+		DOUBLE_HEART_PERIODS,
 	];
 
-	for (const { source, key, labelKey } of recurringEvents) {
+	for (const { name, source } of recurringEvents) {
 		for (const { start, end, dyes } of source) {
 			if (Temporal.ZonedDateTime.compare(end, now) <= 0) {
 				continue;
@@ -327,8 +299,8 @@ function buildScheduleView(
 			cards.push({
 				type: DisplayCardType.Event,
 				badge: DisplayCardBadge.Event,
-				key: `${key}-${start.epochMilliseconds}`,
-				label: t(labelKey),
+				key: `${name}-${start.epochMilliseconds}`,
+				label: t(`general:event-names.${name}`),
 				dyeIcons: dyes?.map((dye) => {
 					const emoji = DyeTypeToEmoji[dye];
 					return { label: emoji.name.replace("_", " "), url: formatEmojiURL(emoji.id) };
@@ -338,23 +310,19 @@ function buildScheduleView(
 		}
 	}
 
-	const upcomingMaintenance = MAINTENANCE_PERIODS.find(
-		(period) => Temporal.ZonedDateTime.compare(now, period.start) < 0,
-	);
+	const [upcomingMaintenance] = upcomingMaintenancePeriods(now);
 
 	if (upcomingMaintenance) {
+		const { start } = upcomingMaintenance.period;
+
 		cards.push({
 			type: DisplayCardType.Maintenance,
 			key: "maintenance",
 			label: t("general:maintenance"),
 			active: false,
-			next: formatTimestamp(
-				upcomingMaintenance.start,
-				preferences,
-				isDistant(upcomingMaintenance.start, now),
-			),
-			nextUnix: upcomingMaintenance.start.epochMilliseconds,
-			relative: formatRelativeTime(upcomingMaintenance.start, now, preferences),
+			next: formatTimestamp(start, preferences, isDistant(start, now)),
+			nextUnix: start.epochMilliseconds,
+			relative: formatRelativeTime(start, now, preferences),
 		});
 	}
 
@@ -401,15 +369,12 @@ function buildScheduleView(
 
 	upcoming.sort((a, b) => a.nextUnix - b.nextUnix);
 
-	const maintenances = MAINTENANCE_PERIODS.filter((period) =>
-		isActive(period.start, period.end, now),
-	).map((period) => ({
-		key: period.start.epochMilliseconds,
-		start: formatTimestamp(period.start, preferences, false),
-		end: formatTimestamp(period.end, preferences, false),
-	}));
-
-	return { active, upcoming, maintenances, ...formatClockTimes(timestamp, preferences) };
+	return {
+		active,
+		upcoming,
+		maintenances: maintenanceBannerLabels(now, preferences),
+		...formatClockTimes(timestamp, preferences),
+	};
 }
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
@@ -513,12 +478,7 @@ function DisplayCardRow({
 				</span>
 				<span className="w-15 shrink-0 text-sm font-medium">
 					{item.wikiURL && (
-						<ExternalLink
-							className="regular-link inline-flex items-center gap-1"
-							href={item.wikiURL}
-							icon
-							iconClassName="h-3.5 w-3.5"
-						>
+						<ExternalLink href={item.wikiURL} icon iconClassName="h-3.5 w-3.5">
 							{t("wiki", { ns: "general" })}
 						</ExternalLink>
 					)}
@@ -549,21 +509,12 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	} = loaderData;
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
-	useSkyDailyResetRevalidator(currentTimestamp);
+	useSkyDailyResetRevalidator(currentTimestamp, initialTimestamp);
 
 	const { active, upcoming, maintenances, localTime, skyTime } =
 		currentTimestamp === initialTimestamp
 			? initialView
 			: buildScheduleView(currentTimestamp, { locale, timeZone, hour12 }, t, nestingWorkshop);
-
-	const maintenanceDescription =
-		maintenances.length === 1
-			? t("maintenance-description-singular", {
-					ns: "general",
-					start: maintenances[0]!.start,
-					end: maintenances[0]!.end,
-				})
-			: null;
 
 	return (
 		<CentredSitePage>
@@ -573,44 +524,11 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 					skyTime={skyTime}
 				/>
 				{maintenances.length > 0 && (
-					<div className="flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 shadow-xl dark:border-amber-800 dark:bg-amber-950/40">
-						<AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
-						<div>
-							<p className="text-sm font-medium text-amber-800 dark:text-amber-200">
-								{t("maintenance", { ns: "general" })}
-							</p>
-							{maintenances.length === 1 ? (
-								<p className="text-xs text-amber-700 dark:text-amber-300">
-									{timeZoneEstimated ? (
-										<SkeletonText>{maintenanceDescription}</SkeletonText>
-									) : (
-										maintenanceDescription
-									)}
-								</p>
-							) : (
-								<>
-									<p className="text-xs text-amber-700 dark:text-amber-300">
-										{t("maintenance-description-many", { ns: "general" })}
-									</p>
-									<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">
-										{maintenances.map((maintenance) => {
-											const range = t("time-range", {
-												ns: "general",
-												start: maintenance.start,
-												end: maintenance.end,
-											});
-
-											return (
-												<li key={maintenance.key}>
-													{timeZoneEstimated ? <SkeletonText>{range}</SkeletonText> : range}
-												</li>
-											);
-										})}
-									</ul>
-								</>
-							)}
-						</div>
-					</div>
+					<MaintenanceBanner
+						className="shadow-xl"
+						maintenances={maintenances}
+						timeZoneEstimated={timeZoneEstimated}
+					/>
 				)}
 				<div className="grid grid-cols-[minmax(0,1fr)_auto_auto_0px] gap-y-4 md:grid-cols-[minmax(0,1fr)_5rem_3.75rem_auto]">
 					{/* Active. */}

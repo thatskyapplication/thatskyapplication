@@ -69,6 +69,10 @@ export function thisMonthInSkyRedirect(pathname: string): HTTPSURL | null {
 		: `https://www.thatskygame.com/news/this-month-in-sky-${monthName}-${year}-edition`;
 }
 
+export function thisMonthInSkyURL({ month, year }: { month: number; year: number }): HTTPSURL {
+	return `${THATSKYLINK_URL}/tmis${year}${String(month).padStart(2, "0")}`;
+}
+
 export const REDIRECTS: readonly Redirect[] = [
 	{
 		identifiers: ["creator-troupe", "cretro", "ct"],

@@ -29,7 +29,7 @@ import {
 } from "~/hooks/navigation-groups";
 import { APPLICATION_NAME, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL } from "~/utility/functions";
-import { MAJOR_HEADING_CLASS } from "~/utility/styles.js";
+import { MAJOR_HEADING_CLASS, NOTE_CLASS } from "~/utility/styles.js";
 import type { DiscordUser } from "~/utility/types";
 import { DesktopUserContextMenuItem } from "./DesktopUserContextMenuItem";
 import { MobileUserContextMenuItem } from "./MobileUserContextMenuItem";
@@ -150,7 +150,7 @@ function DesktopNavigationLink({ item }: { item: NavigationItem }) {
 			<span className="flex h-5 w-5 shrink-0 items-center justify-center">{item.icon}</span>
 			<div className="min-w-0">
 				<div className="text-sm font-medium">{item.label}</div>
-				<div className="text-xs text-gray-500 dark:text-gray-400">{item.description}</div>
+				<div className={NOTE_CLASS}>{item.description}</div>
 			</div>
 		</>
 	);

@@ -177,9 +177,7 @@ export function FriendshipActionUploadForm({
 									) : (
 										<>
 											<Upload className="h-8 w-8 shrink-0 text-gray-500 dark:text-gray-400" />
-											<span className="px-6 text-base font-medium text-gray-900 dark:text-gray-100">
-												Choose a GIF
-											</span>
+											<span className={clsx(SUBSECTION_HEADING_CLASS, "px-6")}>Choose a GIF</span>
 										</>
 									)}
 								</button>
@@ -269,11 +267,7 @@ export function FriendshipActionUploadForm({
 								</p>
 								<p>Users: {upload.users.join(", ")}</p>
 								<p>
-									<ExternalLink
-										className="regular-link inline-flex items-center gap-1"
-										href={upload.assetURL}
-										icon
-									>
+									<ExternalLink href={upload.assetURL} icon>
 										Open uploaded asset
 									</ExternalLink>
 								</p>

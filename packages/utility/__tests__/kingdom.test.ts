@@ -108,6 +108,18 @@ test("seasonOf resolves seasonal and guide spirits to their season, others to nu
 	equal(KINGDOM.seasonOf(UNKNOWN_SPIRIT_ID), null);
 });
 
+test("commonSeasonOf resolves spirits sharing a season, and null otherwise.", () => {
+	const [season, otherSeason] = SEASONS.values();
+	const spiritIds = [...season!.spirits.keys()];
+
+	equal(KINGDOM.commonSeasonOf(spiritIds), season);
+	equal(KINGDOM.commonSeasonOf(new Set(spiritIds)), season);
+	equal(KINGDOM.commonSeasonOf([spiritIds[0]!, otherSeason!.guide.id]), null);
+	equal(KINGDOM.commonSeasonOf([spiritIds[0]!, UNKNOWN_SPIRIT_ID]), null);
+	equal(KINGDOM.commonSeasonOf([UNKNOWN_SPIRIT_ID]), null);
+	equal(KINGDOM.commonSeasonOf([]), null);
+});
+
 test("Seasons are indexed chronologically.", () => {
 	const seasons = [...SEASONS.values()];
 	ok(seasons.length > 1, "Expected several seasons to be indexed.");

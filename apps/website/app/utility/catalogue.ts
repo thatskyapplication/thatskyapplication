@@ -9,7 +9,6 @@ import {
 	collectSpiritCosmetics,
 	type EventFamilyOccurrences,
 	type EventIds,
-	type Item,
 	isRealm,
 	KINGDOM,
 	LOYALTY,
@@ -23,7 +22,6 @@ import {
 	skySeasons,
 	spirits,
 } from "@thatskyapplication/utility";
-import { CosmeticToEmoji, MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 
 const VALID_COSMETICS = new Set(
 	Object.values(Cosmetic).filter((value): value is number => typeof value === "number"),
@@ -43,9 +41,6 @@ export const LINK_CARD_CLASS = clsx(
 	CARD_CLASS,
 	"transition-colors hover:bg-gray-100/50 dark:hover:bg-gray-900/50",
 );
-export const VIEW_LINK_CLASS =
-	"shrink-0 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" as const;
-export const NOTE_CLASS = "text-xs text-gray-500 dark:text-gray-400" as const;
 export const TREE_COLUMN_CLASS = "flex w-60 shrink-0 flex-col justify-end gap-2 sm:w-64" as const;
 export const TREE_COLUMN_LABEL_CLASS =
 	"line-clamp-2 min-h-10 text-sm font-medium text-gray-900 transition-colors hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300" as const;
@@ -80,10 +75,6 @@ export function eventFamilyYears(occurrences: EventFamilyOccurrences, t: TFuncti
 				start: String(firstYear),
 				end: String(latest.start.year),
 			});
-}
-
-export function itemEmoji(item: Item) {
-	return item.regularHeart ? MISCELLANEOUS_EMOJIS.Heart : CosmeticToEmoji[item.cosmeticDisplay];
 }
 
 export function realmAnchor(realm: RealmName) {

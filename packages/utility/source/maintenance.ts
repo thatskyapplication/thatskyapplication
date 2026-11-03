@@ -221,3 +221,33 @@ export const MAINTENANCE_PERIODS = [
 		end: skyDate(2026, 4, 8, 14),
 	},
 ] as const;
+
+export function maintenancePeriodsOn(date: Temporal.ZonedDateTime) {
+	const dayStart = date.startOfDay();
+	const nextDayStart = dayStart.add({ days: 1 });
+
+	return MAINTENANCE_PERIODS.filter(
+		({ end, start }) =>
+			Temporal.ZonedDateTime.compare(start, nextDayStart) < 0 &&
+			Temporal.ZonedDateTime.compare(end, dayStart) > 0,
+	);
+}
+
+export function upcomingMaintenancePeriods(date: Temporal.ZonedDateTime) {
+	const today = date.toPlainDate();
+	const seenDays = new Set<number>();
+	const upcoming = [];
+
+	for (const period of MAINTENANCE_PERIODS) {
+		const days = today.until(period.start.toPlainDate()).days;
+
+		if (days < 1 || (days > 1 && seenDays.has(days))) {
+			continue;
+		}
+
+		seenDays.add(days);
+		upcoming.push({ days, period });
+	}
+
+	return upcoming;
+}

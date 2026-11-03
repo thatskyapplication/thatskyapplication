@@ -52,10 +52,12 @@ export {
 	catalogueSpiritItems,
 	collectSpiritCosmetics,
 	costEntryEmoji,
+	itemName,
 	LOYALTY,
 	NESTING_WORKSHOP,
 	NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES,
 	NESTING_WORKSHOP_ROTATION_COSMETICS,
+	nestingWorkshopPropsLine,
 	nestingWorkshopPropsTextDisplay,
 	type NestingWorkshopRotationCategories,
 	NestingWorkshopRotationCategory,
@@ -97,10 +99,20 @@ export {
 	visibleDaysCountItems,
 } from "./daily-guides.js";
 export { dailyGuidesContainer } from "./daily-guides-distribution.js";
+export {
+	daysLeftText,
+	type DoublePeriodName,
+	doublePeriodCountdown,
+	returningSpiritsCountdown,
+	upcomingEventCountdown,
+	upcomingMaintenanceCountdown,
+} from "./countdowns.js";
 export type { Packet } from "./database/index.js";
 export type { DB } from "./database/schema.js";
 export {
 	clampPlainDate,
+	daysLeftUntil,
+	daysUntil,
 	epochSeconds,
 	isActive,
 	isDuring,
@@ -123,6 +135,7 @@ export {
 	communityEventsBetween,
 	communityUpcomingEvents,
 	skyCurrentEvents,
+	skyCurrentEventsWithEventTickets,
 	skyEventFamilies,
 	skyEvents,
 	skyEventsBetween,
@@ -197,7 +210,11 @@ export {
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "./kingdom/winged-light.js";
-export { MAINTENANCE_PERIODS } from "./maintenance.js";
+export {
+	MAINTENANCE_PERIODS,
+	maintenancePeriodsOn,
+	upcomingMaintenancePeriods,
+} from "./maintenance.js";
 export const de = deLocale;
 export { default as enGB } from "./locales/en-gb.js";
 export const es419 = es419Locale;
@@ -335,6 +352,7 @@ export {
 	spiritContainer,
 	spiritsHistoryContainer,
 	spiritsHistoryData,
+	spiritWikiMarkdownLink,
 } from "./spirits.js";
 export {
 	type BaseVisit,

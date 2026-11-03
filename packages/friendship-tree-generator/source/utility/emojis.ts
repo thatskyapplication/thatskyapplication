@@ -1,9 +1,5 @@
 import { productionEmojis } from "@thatskyapplication/utility";
 
-export const {
-	MISCELLANEOUS_EMOJIS,
-	CosmeticToEmoji,
-	SeasonIdToSeasonalEmoji,
-	SeasonIdToSeasonalCandleEmoji,
-	SeasonIdToSeasonalHeartEmoji,
-} = productionEmojis();
+export const EMOJIS = productionEmojis();
+
+export const { itemEmoji, SeasonIdToSeasonalEmoji } = EMOJIS;

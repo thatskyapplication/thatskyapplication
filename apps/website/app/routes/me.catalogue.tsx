@@ -194,7 +194,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
 	const currentTimestamp = useCurrentTimestamp(nowMillis);
-	useSkyDailyResetRevalidator(currentTimestamp);
+	useSkyDailyResetRevalidator(currentTimestamp, nowMillis);
 	const data = useMemo(() => new Set(dataArray), [dataArray]);
 	const now = useMemo(
 		() => Temporal.Instant.fromEpochMilliseconds(nowMillis).toZonedDateTimeISO(TIME_ZONE),

@@ -47,6 +47,8 @@ import {
 	PAGE_TITLE_CLASS,
 	SELECTABLE_OPTION_CARD_CLASS,
 	textFieldClass,
+	SECTION_CARD_CLASS,
+	SUBSECTION_HEADING_CLASS,
 } from "~/utility/styles.js";
 import type { Route } from "./+types/me.sky-profile.js";
 
@@ -244,9 +246,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 				>
 					<input name="profile" type="hidden" value={JSON.stringify(profileFormValue)} />
 					<div className="mb-4 flex flex-col gap-3">
-						<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
-							Public preview
-						</h2>
+						<h2 className={SUBSECTION_HEADING_CLASS}>Public preview</h2>
 						<SkyProfileHeaderCard
 							bannerURL={displayedBannerURL}
 							disabled={isSaving}
@@ -267,12 +267,12 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 						</SkyProfileHeaderCard>
 						{bannerError ? (
-							<p className="text-sm text-red-600 dark:text-red-400" id="banner-error">
+							<p className={FIELD_ERROR_CLASS} id="banner-error">
 								{bannerError}
 							</p>
 						) : null}
 						{iconError ? (
-							<p className="text-sm text-red-600 dark:text-red-400" id="icon-error">
+							<p className={FIELD_ERROR_CLASS} id="icon-error">
 								{iconError}
 							</p>
 						) : null}
@@ -304,8 +304,8 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 					/>
 
 					<div className="flex flex-col gap-4">
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
+						<div className={SECTION_CARD_CLASS}>
+							<h2 className={SUBSECTION_HEADING_CLASS}>
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Name])}
 							</h2>
 							<div className="flex flex-col gap-2">
@@ -345,8 +345,8 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
+						<div className={SECTION_CARD_CLASS}>
+							<h2 className={SUBSECTION_HEADING_CLASS}>
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Description])}
 							</h2>
 							<div className="flex flex-col gap-2">
@@ -381,11 +381,8 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2
-								className="text-base font-medium text-gray-900 dark:text-gray-100"
-								id="country-heading"
-							>
+						<div className={SECTION_CARD_CLASS}>
+							<h2 className={SUBSECTION_HEADING_CLASS} id="country-heading">
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Country])}
 							</h2>
 							<div className="flex flex-col gap-2">
@@ -409,8 +406,8 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
+						<div className={SECTION_CARD_CLASS}>
+							<h2 className={SUBSECTION_HEADING_CLASS}>
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Platforms])}
 							</h2>
 							<div className="flex flex-col gap-3">
@@ -469,9 +466,9 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+						<div className={SECTION_CARD_CLASS}>
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className={SUBSECTION_HEADING_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Personality])}
 								</h2>
 								<button
@@ -538,16 +535,16 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									</div>
 								</fieldset>
 								{personalityError ? (
-									<p className="text-sm text-red-600 dark:text-red-400" id="personality-error">
+									<p className={FIELD_ERROR_CLASS} id="personality-error">
 										{personalityError}
 									</p>
 								) : null}
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+						<div className={SECTION_CARD_CLASS}>
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className={SUBSECTION_HEADING_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Seasons])}
 								</h2>
 								<button
@@ -635,11 +632,8 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2
-								className="text-base font-medium text-gray-900 dark:text-gray-100"
-								id="spirit-heading"
-							>
+						<div className={SECTION_CARD_CLASS}>
+							<h2 className={SUBSECTION_HEADING_CLASS} id="spirit-heading">
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Spirit])}
 							</h2>
 							<div className="flex flex-col gap-2">
@@ -663,8 +657,8 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
+						<div className={SECTION_CARD_CLASS}>
+							<h2 className={SUBSECTION_HEADING_CLASS}>
 								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Hangout])}
 							</h2>
 							<div className="flex flex-col gap-2">
@@ -700,9 +694,9 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+						<div className={SECTION_CARD_CLASS}>
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className={SUBSECTION_HEADING_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.WingedLight])}
 								</h2>
 								<button
@@ -756,16 +750,16 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									</div>
 								</fieldset>
 								{wingedLightError ? (
-									<p className="text-sm text-red-600 dark:text-red-400" id="winged-light-error">
+									<p className={FIELD_ERROR_CLASS} id="winged-light-error">
 										{wingedLightError}
 									</p>
 								) : null}
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+						<div className={SECTION_CARD_CLASS}>
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className={SUBSECTION_HEADING_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.CatalogueProgression])}
 								</h2>
 								<button
@@ -820,19 +814,16 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									</div>
 								</fieldset>
 								{catalogueProgressionError ? (
-									<p
-										className="text-sm text-red-600 dark:text-red-400"
-										id="catalogue-progression-error"
-									>
+									<p className={FIELD_ERROR_CLASS} id="catalogue-progression-error">
 										{catalogueProgressionError}
 									</p>
 								) : null}
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+						<div className={SECTION_CARD_CLASS}>
 							<div className="flex items-center justify-between gap-3">
-								<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
+								<h2 className={SUBSECTION_HEADING_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.GuessRank])}
 								</h2>
 								<button
@@ -883,7 +874,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									</div>
 								</fieldset>
 								{guessRankError ? (
-									<p className="text-sm text-red-600 dark:text-red-400" id="guess-rank-error">
+									<p className={FIELD_ERROR_CLASS} id="guess-rank-error">
 										{guessRankError}
 									</p>
 								) : null}

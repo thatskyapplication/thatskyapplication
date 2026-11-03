@@ -19,6 +19,7 @@ import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-lin
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
+	spiritWikiMarkdownLink,
 	DOUBLE_HEART_EVENTS,
 	dreamsSkaterSchedule,
 	EventId,
@@ -73,8 +74,8 @@ import {
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
-	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
+	seasonalCandleEmoji,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
@@ -342,9 +343,7 @@ function doubleSeasonalLightOverview(date: Temporal.ZonedDateTime) {
 			continue;
 		}
 
-		const seasonalCandleEmoji = formatEmoji(
-			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
-		);
+		const candleEmoji = formatEmoji(seasonalCandleEmoji(season.id));
 
 		for (const doubleSeasonalLight of season.doubleSeasonalLight?.dates ?? []) {
 			if (Temporal.ZonedDateTime.compare(doubleSeasonalLight.end, date) <= 0) {
@@ -355,7 +354,7 @@ function doubleSeasonalLightOverview(date: Temporal.ZonedDateTime) {
 				now: Temporal.ZonedDateTime.compare(date, doubleSeasonalLight.start) >= 0,
 				next: `<t:${epochSeconds(doubleSeasonalLight.start)}:R>`,
 				end: `<t:${epochSeconds(doubleSeasonalLight.end)}:R>`,
-				seasonalCandleEmoji,
+				seasonalCandleEmoji: candleEmoji,
 			});
 		}
 	}
@@ -533,10 +532,7 @@ function returningSpiritsDetailedBreakdown(
 
 	if (schedule) {
 		const spirits = schedule.spiritIds
-			.map(
-				(spiritId) =>
-					`- [${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spiritId}`, { lng: locale, ns: "general" })})`,
-			)
+			.map((spiritId) => `- ${spiritWikiMarkdownLink(spiritId, { locale, t })}`)
 			.join("\n");
 
 		content = schedule.active

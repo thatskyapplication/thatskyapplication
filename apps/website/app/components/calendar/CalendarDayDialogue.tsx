@@ -11,6 +11,11 @@ import {
 	calendarPath,
 	type CalendarViews,
 } from "~/utility/calendar";
+import {
+	DIALOGUE_BACKDROP_CLASS,
+	DIALOGUE_POPUP_CLASS,
+	DIALOGUE_TITLE_CLASS,
+} from "~/utility/styles.js";
 
 const DIALOGUE_ICON_BUTTON_CLASS =
 	"inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800" as const;
@@ -53,12 +58,15 @@ export function CalendarDayDialogue({
 			open
 		>
 			<Dialog.Portal>
-				<Dialog.Backdrop className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm" />
-				<Dialog.Popup className="fixed top-1/2 left-1/2 z-50 flex max-h-[min(44rem,calc(100dvh-2rem))] w-[min(36rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+				<Dialog.Backdrop className={DIALOGUE_BACKDROP_CLASS} />
+				<Dialog.Popup
+					className={clsx(
+						DIALOGUE_POPUP_CLASS,
+						"max-h-[min(44rem,calc(100dvh-2rem))] w-[min(36rem,calc(100vw-2rem))]",
+					)}
+				>
 					<div className="flex items-start justify-between gap-3 border-b border-gray-200 px-4 py-3 dark:border-gray-700">
-						<Dialog.Title className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-							{detail.heading}
-						</Dialog.Title>
+						<Dialog.Title className={DIALOGUE_TITLE_CLASS}>{detail.heading}</Dialog.Title>
 						<div className="flex shrink-0 items-center gap-1">
 							<Link
 								aria-label={t("calendar.previous-day", { ns: "features" })}

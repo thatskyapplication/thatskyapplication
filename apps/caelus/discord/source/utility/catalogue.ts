@@ -1,25 +1,20 @@
 import type { APISelectMenuOption, Locale } from "@discordjs/core";
 import { t } from "i18next";
-import type { Item } from "@thatskyapplication/utility";
-import { CosmeticToEmoji, MISCELLANEOUS_EMOJIS } from "./emojis.js";
+import { type Item, itemName } from "@thatskyapplication/utility";
+import { itemEmoji } from "./emojis.js";
 
 export function itemToSelectMenuOption(
-	{ translation, cosmetics, cosmeticDisplay, regularHeart }: Item,
+	item: Item,
 	data: ReadonlySet<number> | undefined,
 	locale: Locale,
 ) {
 	const option: APISelectMenuOption = {
-		default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-		label: t(translation.key, {
-			lng: locale,
-			ns: "general",
-			number: translation.number,
-			level: translation.level,
-		}),
-		value: JSON.stringify(cosmetics),
+		default: item.cosmetics.every((cosmetic) => data?.has(cosmetic)),
+		label: itemName(item, t, locale),
+		value: JSON.stringify(item.cosmetics),
 	};
 
-	const emoji = regularHeart ? MISCELLANEOUS_EMOJIS.Heart : CosmeticToEmoji[cosmeticDisplay];
+	const emoji = itemEmoji(item);
 
 	if (emoji) {
 		option.emoji = emoji;

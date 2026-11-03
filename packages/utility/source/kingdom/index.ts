@@ -14,6 +14,7 @@ interface Kingdom {
 	readonly standardSpirits: ReadonlyCollection<SpiritIds, StandardSpirit>;
 	readonly elderSpirits: ReadonlyCollection<SpiritIds, ElderSpirit>;
 	seasonOf(spiritId: SpiritIds): Season | null;
+	commonSeasonOf(spiritIds: Iterable<SpiritIds>): Season | null;
 	groupFor(spiritId: SpiritIds): ReadonlyCollection<SpiritIds, Spirit> | null;
 	adjacentSpirits(spiritId: SpiritIds): {
 		readonly previous: Spirit | null;
@@ -120,6 +121,11 @@ export const KINGDOM: Kingdom = {
 		}
 
 		return null;
+	},
+	commonSeasonOf(spiritIds) {
+		const seasons = new Set(Array.from(spiritIds, (spiritId) => KINGDOM.seasonOf(spiritId)));
+		const [season] = seasons;
+		return seasons.size === 1 && season ? season : null;
 	},
 	groupFor(spiritId) {
 		const spirit = spirits.get(spiritId);

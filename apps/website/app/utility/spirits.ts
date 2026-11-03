@@ -1,4 +1,10 @@
-import { SpiritsHistoryOrderType, spiritsHistoryData } from "@thatskyapplication/utility";
+import type { TFunction } from "i18next";
+import {
+	type SpiritIds,
+	SpiritsHistoryOrderType,
+	spiritsHistoryData,
+} from "@thatskyapplication/utility";
+import type { ExternalLinkListItem } from "~/components/ExternalLinkList";
 import { parsePage } from "~/utility/functions.js";
 
 export const SPIRIT_HISTORY_LOCATION_STATE = { fromSpiritHistory: true } as const;
@@ -10,6 +16,14 @@ export function fromSpiritHistory(state: unknown): boolean {
 		"fromSpiritHistory" in state &&
 		state.fromSpiritHistory === true
 	);
+}
+
+export function spiritWikiLink(spiritId: SpiritIds, t: TFunction): ExternalLinkListItem {
+	return {
+		id: spiritId,
+		label: t(`spirits.${spiritId}`, { ns: "general" }),
+		href: t(`spirit-wiki.${spiritId}`, { ns: "general" }),
+	};
 }
 
 export function spiritURL(searchParams: URLSearchParams, spiritId: number) {

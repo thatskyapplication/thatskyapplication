@@ -17,6 +17,7 @@ import {
 	type CalendarEntry,
 	CalendarEntryKindPresentations,
 } from "~/utility/calendar";
+import { ICON_LINK_CLASS, NOTE_CLASS } from "~/utility/styles.js";
 
 const ENTRY_LINK_CLASS = "underline underline-offset-2 hover:no-underline" as const;
 
@@ -98,7 +99,7 @@ function DayOccurrence({
 								{detail}
 							</button>
 						) : (
-							<span className="text-xs text-gray-500 dark:text-gray-400">{detail}</span>
+							<span className={NOTE_CLASS}>{detail}</span>
 						))}
 					{occurrence.pageURL && (
 						<Link className="regular-link text-xs" to={occurrence.pageURL}>
@@ -119,7 +120,7 @@ function DayOccurrence({
 					)}
 					{occurrence.wikiURL && (
 						<ExternalLink
-							className="regular-link inline-flex items-center gap-1 text-xs"
+							className={clsx(ICON_LINK_CLASS, "text-xs")}
 							href={occurrence.wikiURL}
 							icon
 							iconClassName="h-3 w-3"

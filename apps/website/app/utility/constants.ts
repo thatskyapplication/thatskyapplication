@@ -44,6 +44,8 @@ export const SCHEDULE_DESCRIPTION =
 export const SHARD_ERUPTION_DESCRIPTION =
 	"See today's shard eruption, and view a schedule of future shard eruptions." as const;
 
+export const WHATS_HAPPENING_IN_SKY_DESCRIPTION = "Find what to do in Sky right now!" as const;
+
 export const SPIRITS_TITLE = "Spirits" as const;
 
 export const SPIRITS_DESCRIPTION =

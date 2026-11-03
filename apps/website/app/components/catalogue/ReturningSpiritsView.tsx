@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { resolveReturningSpirits, returningSpiritsSchedule } from "@thatskyapplication/utility";
 import { SkeletonText } from "~/components/SkeletonText.js";
-import { NOTE_CLASS } from "~/utility/catalogue.js";
+import { NOTE_CLASS } from "~/utility/styles.js";
 import type { DateTimeLabels } from "~/utility/time.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";

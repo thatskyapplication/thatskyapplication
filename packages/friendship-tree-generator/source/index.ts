@@ -14,11 +14,7 @@ import {
 	spirits,
 	TEXT_COLOUR,
 } from "@thatskyapplication/utility";
-import {
-	CosmeticToEmoji,
-	MISCELLANEOUS_EMOJIS,
-	SeasonIdToSeasonalEmoji,
-} from "./utility/emojis.js";
+import { itemEmoji, SeasonIdToSeasonalEmoji } from "./utility/emojis.js";
 import { resolveCostEmojiId } from "./utility/functions.js";
 
 const spirit = spirits().get(SpiritId.MigrationGuide) as SeasonalSpirit;
@@ -51,9 +47,7 @@ context.font = `${FONT_SIZE}px Hind`;
 for (const node of layout.nodes) {
 	const { item } = node;
 
-	const emojiId = item.regularHeart
-		? MISCELLANEOUS_EMOJIS.Heart.id
-		: CosmeticToEmoji[item.cosmeticDisplay]?.id;
+	const emojiId = itemEmoji(item)?.id;
 
 	if (!emojiId) {
 		throw new Error(`No emoji found for cosmetic ${item.cosmeticDisplay}.`);
@@ -70,7 +64,7 @@ for (const node of layout.nodes) {
 	if (node.cost && item.cost) {
 		context.drawImage(
 			await loadImage(
-				await (await fetch(formatEmojiURL(resolveCostEmojiId(item.cost, seasonId)))).arrayBuffer(),
+				await (await fetch(formatEmojiURL(resolveCostEmojiId(item.cost)))).arrayBuffer(),
 			),
 			node.cost.iconX,
 			node.cost.iconY,

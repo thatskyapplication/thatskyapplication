@@ -2,6 +2,7 @@ export {
 	type HTTPSURL,
 	type ISODate,
 	isPublishedPatchNote,
+	LATEST_MAJOR_PATCH_NOTES,
 	LATEST_PATCH_NOTE,
 	type PatchNote,
 	type PatchNoteIdentifier,
@@ -21,4 +22,5 @@ export {
 	type ResolvedRedirect,
 	THATSKYLINK_PAGE_URL,
 	THATSKYLINK_URL,
+	thisMonthInSkyURL,
 } from "./redirects.js";

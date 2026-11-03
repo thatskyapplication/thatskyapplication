@@ -4,8 +4,8 @@ import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplic
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { ExternalLink } from "~/components/ExternalLink";
 import { SkeletonText } from "~/components/SkeletonText.js";
-import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import { SUBSECTION_HEADING_CLASS, NOTE_CLASS } from "~/utility/styles.js";
 import type { DateTimeLabels } from "~/utility/time.js";
 import { Tooltip } from "../Tooltip";
 import { BackButton } from "./BackButton";
@@ -121,9 +121,7 @@ export function SeasonView({
 
 			{season.items.length > 0 && (
 				<div className="flex flex-col gap-2">
-					<h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
-						{t("catalogue.items", { ns: "features" })}
-					</h2>
+					<h2 className={SUBSECTION_HEADING_CLASS}>{t("catalogue.items", { ns: "features" })}</h2>
 					<ItemChecklist data={data} items={season.items} locale={locale} />
 				</div>
 			)}

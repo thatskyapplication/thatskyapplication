@@ -64,7 +64,7 @@ import { fitsDiscordComponentEmbed } from "~/utility/discord-component-embed.ser
 import { EMOJIS, MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { hexColour } from "~/utility/functions.js";
 import { snapshotSkyProfileReportAssets } from "~/utility/sky-profile-reports.server.js";
-import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
+import { PAGE_TITLE_CLASS, NOTE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/sky-profiles.$userId.js";
 
 const BADGES_CLASS_NAME =
@@ -465,7 +465,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								{countryToEmoji(data.country)}
 							</span>
 							<div className="flex-1">
-								<p className="text-xs text-gray-500 dark:text-gray-400">
+								<p className={NOTE_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Country])}
 								</p>
 								<p>{displayNames.of(data.country)}</p>
@@ -480,7 +480,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								label="Winged light icon."
 							/>
 							<div className="flex-1">
-								<p className="text-xs text-gray-500 dark:text-gray-400">
+								<p className={NOTE_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.WingedLight])}
 								</p>
 								<p>
@@ -503,7 +503,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								label="Favourite spirit icon."
 							/>
 							<div className="flex-1">
-								<p className="text-xs text-gray-500 dark:text-gray-400">
+								<p className={NOTE_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Spirit])}
 								</p>
 								<p>{t(`spirits.${data.spirit}`, { ns: "general" })}</p>
@@ -518,7 +518,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								label="Personality icon."
 							/>
 							<div className="flex-1">
-								<p className="text-xs text-gray-500 dark:text-gray-400">
+								<p className={NOTE_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Personality])}
 								</p>
 								<p>
@@ -535,7 +535,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<MapPinIcon className="mr-2 h-6 w-6" />
 							<div className="flex-1">
-								<p className="text-xs text-gray-500 dark:text-gray-400">
+								<p className={NOTE_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Hangout])}
 								</p>
 								<p>{data.hangout}</p>
@@ -546,7 +546,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<BookOpenCheck className="mr-2 h-6 w-6" />
 							<div className="flex-1">
-								<p className="text-xs text-gray-500 dark:text-gray-400">
+								<p className={NOTE_CLASS}>
 									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.CatalogueProgression])}
 								</p>
 								<p>{catalogueProgression}%</p>

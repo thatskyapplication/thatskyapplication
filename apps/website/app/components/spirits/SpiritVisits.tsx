@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
@@ -8,6 +9,7 @@ import {
 } from "@thatskyapplication/utility";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { formatRelativeTime } from "~/utility/relative-time.js";
+import { WARNING_BANNER_CLASS } from "~/utility/styles.js";
 import type { DateTimeLabels } from "~/utility/time.js";
 import { VisitNumber } from "./VisitNumber.js";
 
@@ -152,7 +154,7 @@ export function SpiritVisits({
 	return (
 		<>
 			{notYetReturnedKey ? (
-				<div className="flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800 dark:bg-amber-950/40">
+				<div className={clsx(WARNING_BANNER_CLASS, "flex items-center gap-3")}>
 					<AlertTriangle
 						aria-hidden="true"
 						className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400"

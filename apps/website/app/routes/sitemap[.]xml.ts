@@ -14,6 +14,7 @@ const PUBLIC_PATHS = [
 	"/sky-profiles",
 	"/spirits",
 	"/thatskylink",
+	"/whats-happening-in-sky",
 ] as const;
 
 function sitemapEntry(path: string) {

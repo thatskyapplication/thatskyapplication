@@ -1,4 +1,4 @@
-import { TIME_ZONE } from "@thatskyapplication/utility";
+import { epochSeconds, maintenancePeriodsOn, TIME_ZONE } from "@thatskyapplication/utility";
 
 export interface TimePreferences {
 	locale: string;
@@ -25,6 +25,39 @@ export function formatClockTimes(timestamp: number, { locale, timeZone, hour12 }
 			hour12,
 		}).format(timestamp),
 	};
+}
+
+export function maintenanceBannerLabels(
+	date: Temporal.ZonedDateTime,
+	{ locale, timeZone, hour12 }: TimePreferences,
+) {
+	const timeFormat = new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 });
+
+	return maintenancePeriodsOn(date).map(({ end, start }) => ({
+		end: timeFormat.format(end.epochMilliseconds),
+		key: start.epochMilliseconds,
+		start: timeFormat.format(start.epochMilliseconds),
+	}));
+}
+
+export function shardEruptionTimestampLabels(
+	timestamps: readonly { end: Temporal.ZonedDateTime; start: Temporal.ZonedDateTime }[],
+	{ locale, timeZone, hour12 }: TimePreferences,
+) {
+	const timeFormat = new Intl.DateTimeFormat(locale, {
+		timeZone,
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+		hour12,
+	});
+
+	const label = (date: Temporal.ZonedDateTime) => ({
+		format: timeFormat.format(date.epochMilliseconds),
+		unix: epochSeconds(date),
+	});
+
+	return timestamps.map(({ end, start }) => ({ end: label(end), start: label(start) }));
 }
 
 export function dateTimeFormatter({ locale, timeZone, hour12 }: TimePreferences) {

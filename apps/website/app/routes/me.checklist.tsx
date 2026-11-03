@@ -10,11 +10,10 @@ import {
 } from "lucide-react";
 import { useId } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useFetcher } from "react-router";
+import { data, Link } from "react-router";
 import {
 	AreaName,
 	CHECKLIST_HIDDEN_COLUMNS,
-	type ChecklistColumn,
 	type ChecklistHiddenColumn,
 	ChecklistHiddenColumnToLocaleKey,
 	type ChecklistSetData,
@@ -22,7 +21,7 @@ import {
 	checklistResetPayload,
 	type Packet,
 	shardEruption,
-	skyCurrentEvents,
+	skyCurrentEventsWithEventTickets,
 	skyCurrentSeason,
 	skyNow,
 } from "@thatskyapplication/utility";
@@ -31,8 +30,10 @@ import { SitePage } from "~/components/PageLayout";
 import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import database from "~/database.server";
+import { useChecklistToggle } from "~/hooks/use-checklist-toggle.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { COMPLETE_CARD_CLASS, NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/styles.js";
 import { formatClockTimes } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/me.checklist.js";
@@ -43,14 +44,10 @@ const CHECKLIST_INTERACTIVE_CARD_CLASS = clsx(
 	CHECKLIST_CARD_BASE_CLASS,
 	"cursor-pointer hover:shadow-md",
 );
-const CHECKLIST_COMPLETE_CARD_CLASS =
-	"border-green-200 bg-green-50 hover:bg-green-100 dark:border-green-700 dark:bg-green-900/20 dark:hover:bg-green-900/30" as const;
 const CHECKLIST_INCOMPLETE_CARD_CLASS =
 	"border-gray-200 bg-gray-100 hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50" as const;
 const CHECKLIST_UNAVAILABLE_CARD_CLASS =
 	"border-gray-300 bg-gray-100 dark:border-gray-700 dark:bg-gray-900" as const;
-const CHECKLIST_VIEW_LINK_CLASS =
-	"shrink-0 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" as const;
 const CHECKLIST_LABEL_CLASS = "font-medium transition-colors" as const;
 const CHECKLIST_COMPLETE_LABEL_CLASS = "text-green-800 line-through dark:text-green-200" as const;
 const CHECKLIST_INCOMPLETE_LABEL_CLASS = "text-gray-900 dark:text-gray-100" as const;
@@ -81,9 +78,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const shard = shardEruption(now);
 	const season = skyCurrentSeason(now);
 
-	const isAnyEventWithEventTickets = skyCurrentEvents(now).some(
-		({ eventTickets }) => eventTickets && Temporal.ZonedDateTime.compare(now, eventTickets.end) < 0,
-	);
+	const eventsWithEventTickets = skyCurrentEventsWithEventTickets(now).size;
 
 	return {
 		checklistPacket,
@@ -93,7 +88,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		season,
 		...preferences,
 		initialClockTimes: formatClockTimes(initialTimestamp, preferences),
-		isAnyEventWithEventTickets,
+		eventsWithEventTickets,
 		isDoubleSeasonalLight: season?.isDuringDoubleSeasonalLightEvent(now) ?? false,
 	};
 };
@@ -177,10 +172,17 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	return;
 };
 
-function useChecklistToggle(column: ChecklistColumn, value: boolean) {
-	const fetcher = useFetcher({ key: `checklist:${column}` });
-	return [fetcher, fetcher.formData ? fetcher.formData.get(column) === "0" : value] as const;
-}
+export const clientAction = async ({ serverAction }: Route.ClientActionArgs) => {
+	try {
+		return await serverAction();
+	} catch (error) {
+		if (error instanceof Response) {
+			throw error;
+		}
+
+		return data(null, { status: 500 });
+	}
+};
 
 function ChecklistVisibilitySetting({
 	column,
@@ -209,10 +211,7 @@ function ChecklistVisibilitySetting({
 			<input name={column} type="hidden" value={Number(optimisticHidden)} />
 			<button
 				aria-describedby={labelId}
-				className={clsx(
-					CHECKLIST_VIEW_LINK_CLASS,
-					"inline-flex cursor-pointer items-center gap-1.5",
-				)}
+				className={clsx(VIEW_LINK_CLASS, "inline-flex cursor-pointer items-center gap-1.5")}
 				type="submit"
 			>
 				{optimisticHidden ? (
@@ -276,13 +275,13 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		timeZoneEstimated,
 		hour12,
 		initialClockTimes,
-		isAnyEventWithEventTickets,
+		eventsWithEventTickets,
 		isDoubleSeasonalLight,
 	} = loaderData;
 
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
-	useSkyDailyResetRevalidator(currentTimestamp);
+	useSkyDailyResetRevalidator(currentTimestamp, initialTimestamp);
 
 	const { localTime, skyTime } =
 		currentTimestamp === initialTimestamp
@@ -329,7 +328,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 	const dyeWorkshopVisible = !checklistPacket?.dye_workshop_hidden;
 	const lightmendingVisible = !checklistPacket?.lightmending_hidden;
 	const doNotDisturbBlessingVisible = !checklistPacket?.do_not_disturb_hidden;
-	const eventTicketsVisible = isAnyEventWithEventTickets && !checklistPacket?.event_tickets_hidden;
+	const eventTicketsVisible = eventsWithEventTickets > 0 && !checklistPacket?.event_tickets_hidden;
 
 	const nothingVisible = !(
 		dailyQuestsVisible ||
@@ -384,9 +383,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 								<button
 									className={clsx(
 										CHECKLIST_INTERACTIVE_CARD_CLASS,
-										dailyQuestsComplete
-											? CHECKLIST_COMPLETE_CARD_CLASS
-											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+										dailyQuestsComplete ? COMPLETE_CARD_CLASS : CHECKLIST_INCOMPLETE_CARD_CLASS,
 									)}
 									type="submit"
 								>
@@ -408,14 +405,14 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 										>
 											{t("daily-quests", { ns: "general" })}
 										</div>
-										<div className="text-xs text-gray-500 dark:text-gray-400">
+										<div className={NOTE_CLASS}>
 											{dailyQuestsComplete
 												? t("checklist.daily-quests-message-complete", { ns: "features" })
 												: t("checklist.daily-quests-message-incomplete", { ns: "features" })}
 										</div>
 									</div>
 									<Link
-										className={CHECKLIST_VIEW_LINK_CLASS}
+										className={VIEW_LINK_CLASS}
 										onClick={(event) => event.stopPropagation()}
 										to="/daily-guides"
 									>
@@ -437,9 +434,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 								<button
 									className={clsx(
 										CHECKLIST_INTERACTIVE_CARD_CLASS,
-										seasonalCandlesComplete
-											? CHECKLIST_COMPLETE_CARD_CLASS
-											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+										seasonalCandlesComplete ? COMPLETE_CARD_CLASS : CHECKLIST_INCOMPLETE_CARD_CLASS,
 									)}
 									type="submit"
 								>
@@ -459,18 +454,14 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
 											)}
 										>
-											{t("seasonal-candles", { ns: "general" })}
+											{t(isDoubleSeasonalLight ? "double-seasonal-candles" : "seasonal-candles", {
+												ns: "general",
+											})}
 										</div>
-										<div className="text-xs text-gray-500 dark:text-gray-400">
+										<div className={NOTE_CLASS}>
 											{seasonalCandlesComplete
 												? t("checklist.seasonal-candles-message-complete", { ns: "features" })
-												: isDoubleSeasonalLight
-													? t("checklist.seasonal-candles-message-incomplete-double", {
-															ns: "features",
-														})
-													: t("checklist.seasonal-candles-message-incomplete", {
-															ns: "features",
-														})}
+												: t("checklist.seasonal-candles-message-incomplete", { ns: "features" })}
 										</div>
 									</div>
 								</button>
@@ -485,9 +476,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 								<button
 									className={clsx(
 										CHECKLIST_INTERACTIVE_CARD_CLASS,
-										eyeOfEdenComplete
-											? CHECKLIST_COMPLETE_CARD_CLASS
-											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+										eyeOfEdenComplete ? COMPLETE_CARD_CLASS : CHECKLIST_INCOMPLETE_CARD_CLASS,
 									)}
 									type="submit"
 								>
@@ -509,7 +498,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 										>
 											{t(`areas.${AreaName.EyeOfEden}`, { ns: "general" })}
 										</div>
-										<div className="text-xs text-gray-500 dark:text-gray-400">
+										<div className={NOTE_CLASS}>
 											{eyeOfEdenComplete
 												? t("checklist.eye-of-eden-message-complete", { ns: "features" })
 												: t("checklist.eye-of-eden-message-incomplete", { ns: "features" })}
@@ -536,7 +525,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 											: [
 													"cursor-pointer hover:shadow-md",
 													shardEruptionsComplete
-														? CHECKLIST_COMPLETE_CARD_CLASS
+														? COMPLETE_CARD_CLASS
 														: CHECKLIST_INCOMPLETE_CARD_CLASS,
 												],
 									)}
@@ -595,7 +584,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 											</div>
 										</div>
 									</button>
-									<Link className={CHECKLIST_VIEW_LINK_CLASS} to="/shard-eruption">
+									<Link className={VIEW_LINK_CLASS} to="/shard-eruption">
 										{t("view", { ns: "general" })}
 									</Link>
 								</div>
@@ -610,9 +599,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 								<button
 									className={clsx(
 										CHECKLIST_INTERACTIVE_CARD_CLASS,
-										dyeWorkshopComplete
-											? CHECKLIST_COMPLETE_CARD_CLASS
-											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+										dyeWorkshopComplete ? COMPLETE_CARD_CLASS : CHECKLIST_INCOMPLETE_CARD_CLASS,
 									)}
 									type="submit"
 								>
@@ -634,7 +621,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 										>
 											{t("dye-workshop", { ns: "general" })}
 										</div>
-										<div className="text-xs text-gray-500 dark:text-gray-400">
+										<div className={NOTE_CLASS}>
 											{dyeWorkshopComplete
 												? t("checklist.dye-workshop-message-complete", { ns: "features" })
 												: t("checklist.dye-workshop-message-incomplete", { ns: "features" })}
@@ -652,9 +639,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 								<button
 									className={clsx(
 										CHECKLIST_INTERACTIVE_CARD_CLASS,
-										lightmendingComplete
-											? CHECKLIST_COMPLETE_CARD_CLASS
-											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+										lightmendingComplete ? COMPLETE_CARD_CLASS : CHECKLIST_INCOMPLETE_CARD_CLASS,
 									)}
 									type="submit"
 								>
@@ -676,14 +661,14 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 										>
 											{t("checklist.lightmending", { ns: "features" })}
 										</div>
-										<div className="text-xs text-gray-500 dark:text-gray-400">
+										<div className={NOTE_CLASS}>
 											{lightmendingComplete
 												? t("checklist.lightmending-message-complete", { ns: "features" })
 												: t("checklist.lightmending-message-incomplete", { ns: "features" })}
 										</div>
 									</div>
 									<ExternalLink
-										className={clsx(CHECKLIST_VIEW_LINK_CLASS, "inline-flex items-center gap-1.5")}
+										className={clsx(VIEW_LINK_CLASS, "inline-flex items-center gap-1.5")}
 										href={t("checklist.lightmending-wiki-button-url", { ns: "features" })}
 										icon
 										onClick={(event) => event.stopPropagation()}
@@ -707,7 +692,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 									className={clsx(
 										CHECKLIST_INTERACTIVE_CARD_CLASS,
 										doNotDisturbBlessingComplete
-											? CHECKLIST_COMPLETE_CARD_CLASS
+											? COMPLETE_CARD_CLASS
 											: CHECKLIST_INCOMPLETE_CARD_CLASS,
 									)}
 									type="submit"
@@ -730,7 +715,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 										>
 											{t("checklist.do-not-disturb-blessing", { ns: "features" })}
 										</div>
-										<div className="text-xs text-gray-500 dark:text-gray-400">
+										<div className={NOTE_CLASS}>
 											{doNotDisturbBlessingComplete
 												? t("checklist.do-not-disturb-blessing-message-complete", {
 														ns: "features",
@@ -752,9 +737,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 								<button
 									className={clsx(
 										CHECKLIST_INTERACTIVE_CARD_CLASS,
-										eventTicketsComplete
-											? CHECKLIST_COMPLETE_CARD_CLASS
-											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+										eventTicketsComplete ? COMPLETE_CARD_CLASS : CHECKLIST_INCOMPLETE_CARD_CLASS,
 									)}
 									type="submit"
 								>
@@ -776,10 +759,15 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 										>
 											{t("event-tickets", { ns: "general" })}
 										</div>
-										<div className="text-xs text-gray-500 dark:text-gray-400">
+										<div className={NOTE_CLASS}>
 											{eventTicketsComplete
 												? t("checklist.event-tickets-message-complete", { ns: "features" })
-												: t("checklist.event-tickets-message-incomplete", { ns: "features" })}
+												: t(
+														eventsWithEventTickets > 1
+															? "checklist.event-tickets-message-incomplete-all-events"
+															: "checklist.event-tickets-message-incomplete",
+														{ ns: "features" },
+													)}
 										</div>
 									</div>
 								</button>

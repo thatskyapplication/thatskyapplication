@@ -2,7 +2,8 @@ import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import type { Item } from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
-import { CARD_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
+import { CARD_CLASS } from "~/utility/catalogue.js";
+import { SUBSECTION_HEADING_CLASS, VIEW_LINK_CLASS } from "~/utility/styles.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EverythingButton } from "./EverythingButton";
@@ -52,9 +53,7 @@ export function CollectionView({
 
 			{featured && featured.items.length > 0 && (
 				<div className={CARD_CLASS}>
-					<h2 className="mb-2 text-base font-medium text-gray-900 dark:text-gray-100">
-						{featured.title}
-					</h2>
+					<h2 className={clsx(SUBSECTION_HEADING_CLASS, "mb-2")}>{featured.title}</h2>
 					<ItemChecklist data={data} items={featured.items} locale={locale} />
 				</div>
 			)}

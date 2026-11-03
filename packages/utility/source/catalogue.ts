@@ -10,7 +10,6 @@ import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
 import { NotificationType } from "./notifications.js";
-import { SeasonId } from "./season.js";
 import type { MessageFormatting } from "./types/index.js";
 import {
 	type CostEntry,
@@ -630,8 +629,8 @@ export function costEntryEmoji(
 	{
 		EventIdToEventTicketEmoji,
 		MISCELLANEOUS_EMOJIS,
-		SeasonIdToSeasonalCandleEmoji,
-		SeasonIdToSeasonalHeartEmoji,
+		seasonalCandleEmoji,
+		seasonalHeartEmoji,
 	}: MessageFormatting["emojis"],
 ): Emoji | null {
 	switch (entry.type) {
@@ -646,11 +645,9 @@ export function costEntryEmoji(
 		case "loyalty":
 			return MISCELLANEOUS_EMOJIS.Loyalty;
 		case "seasonalCandles":
-			return SeasonIdToSeasonalCandleEmoji[entry.seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
+			return seasonalCandleEmoji(entry.seasonId);
 		case "seasonalHearts":
-			return entry.seasonId === SeasonId.Gratitude || entry.seasonId === SeasonId.Lightseekers
-				? MISCELLANEOUS_EMOJIS.SeasonalHeart
-				: (SeasonIdToSeasonalHeartEmoji[entry.seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalHeart);
+			return seasonalHeartEmoji(entry.seasonId);
 		case "eventTickets":
 			return EventIdToEventTicketEmoji[entry.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket;
 	}
@@ -669,25 +666,41 @@ export function resolveCostToString(
 	});
 }
 
-export function nestingWorkshopPropsTextDisplay(
-	heading: string,
+export function itemName(
+	{ translation: { key, level, number } }: Pick<Item, "translation">,
+	t: MessageFormatting["t"],
+	locale?: string,
+) {
+	return t(key, { lng: locale, ns: "general", number, level });
+}
+
+export function nestingWorkshopPropsLine(
 	items: readonly Item[],
 	{ emojis, locale, t }: MessageFormatting,
 	data?: ReadonlySet<number>,
+) {
+	const { itemEmoji, MISCELLANEOUS_EMOJIS } = emojis;
+
+	return items
+		.map((item) => {
+			const emoji = itemEmoji(item);
+			const prop = emoji ? formatEmoji(emoji) : itemName(item, t, locale);
+
+			return item.cosmetics.every((cosmetic) => data?.has(cosmetic))
+				? `${prop}${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
+				: prop;
+		})
+		.join(" ");
+}
+
+export function nestingWorkshopPropsTextDisplay(
+	heading: string,
+	items: readonly Item[],
+	formatting: MessageFormatting,
+	data?: ReadonlySet<number>,
 ): APITextDisplayComponent {
-	const { CosmeticToEmoji, MISCELLANEOUS_EMOJIS } = emojis;
-
-	const props = items.map(({ cosmeticDisplay, cosmetics, translation }) => {
-		const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-		const prop = emoji
-			? formatEmoji(emoji)
-			: t(translation.key, { lng: locale, ns: "general", number: translation.number });
-
-		return cosmetics.every((cosmetic) => data?.has(cosmetic))
-			? `${prop}${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
-			: prop;
-	});
-
-	return { type: ComponentType.TextDisplay, content: `### ${heading}\n\n${props.join(" ")}` };
+	return {
+		type: ComponentType.TextDisplay,
+		content: `### ${heading}\n\n${nestingWorkshopPropsLine(items, formatting, data)}`,
+	};
 }

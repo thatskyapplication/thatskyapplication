@@ -1,4 +1,4 @@
-import { deepStrictEqual, strictEqual } from "node:assert";
+import { deepStrictEqual, notStrictEqual, strictEqual } from "node:assert";
 import test from "node:test";
 import { isPublishedPatchNote, LATEST_PATCH_NOTE, PATCH_NOTES } from "../source/patch-notes.js";
 import {
@@ -10,6 +10,7 @@ import {
 	resolveRedirect,
 	skyProfileRedirect,
 	thisMonthInSkyRedirect,
+	thisMonthInSkyURL,
 } from "../source/redirects.js";
 
 function assertResolvable(redirects: readonly Redirect[], identifiers: Set<string>) {
@@ -116,6 +117,16 @@ test("This Month in Sky resolves only with a real month.", () => {
 	strictEqual(thisMonthInSkyRedirect("tmis202613"), null);
 	strictEqual(thisMonthInSkyRedirect("tmis2026"), null);
 	strictEqual(thisMonthInSkyRedirect("wiki"), null);
+});
+
+test("This Month in Sky links are padded and always resolve.", () => {
+	strictEqual(thisMonthInSkyURL({ month: 11, year: 2026 }), "https://thatsky.link/tmis202611");
+	strictEqual(thisMonthInSkyURL({ month: 1, year: 2027 }), "https://thatsky.link/tmis202701");
+
+	for (let month = 1; month <= 12; month++) {
+		const { pathname } = new URL(thisMonthInSkyURL({ month, year: 2026 }));
+		notStrictEqual(thisMonthInSkyRedirect(pathname.slice(1)), null);
+	}
 });
 
 test("Every published patch note is redirected to.", () => {

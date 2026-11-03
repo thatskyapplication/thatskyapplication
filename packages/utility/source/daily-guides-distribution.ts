@@ -9,6 +9,14 @@ import {
 } from "discord-api-types/v10";
 import { nestingWorkshopPropsTextDisplay } from "./catalogue.js";
 import {
+	daysLeftText,
+	type DoublePeriodName,
+	doublePeriodCountdown,
+	returningSpiritsCountdown,
+	upcomingEventCountdown,
+	upcomingMaintenanceCountdown,
+} from "./countdowns.js";
+import {
 	type DailyGuidesDaysCountItem,
 	DailyGuidesDistributionType,
 	type DailyGuidesDistributionTypes,
@@ -20,9 +28,13 @@ import {
 	isDailyQuest,
 	visibleDaysCountItems,
 } from "./daily-guides.js";
-import { epochSeconds, TIME_ZONE } from "./dates.js";
+import { daysUntil, epochSeconds, TIME_ZONE } from "./dates.js";
 import { formatEmoji, resolveCurrencyEmoji } from "./emojis/emoji.js";
-import { communityUpcomingEvents, skyCurrentEvents, skyNotEndedEvents } from "./events/index.js";
+import {
+	communityUpcomingEvents,
+	skyCurrentEventsWithEventTickets,
+	skyNotEndedEvents,
+} from "./events/index.js";
 import { DOUBLE_HEART_EVENTS, RADIANCE_EVENTS } from "./events/miscellaneous.js";
 import { KINGDOM } from "./kingdom/index.js";
 import { skyCurrentSeason, skyUpcomingSeason } from "./kingdom/seasons/index.js";
@@ -30,7 +42,7 @@ import {
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
 } from "./kingdom/treasure-candles.js";
-import { MAINTENANCE_PERIODS } from "./maintenance.js";
+import { maintenancePeriodsOn, upcomingMaintenancePeriods } from "./maintenance.js";
 import { returningSpiritsSchedule, ScheduleType, ScheduleTypeToLocaleKey } from "./schedule.js";
 import {
 	SHARD_ERUPTION_START_DATE,
@@ -38,6 +50,7 @@ import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "./shard-eruption.js";
+import { spiritWikiMarkdownLink } from "./spirits.js";
 import type { MessageFormatting } from "./types/index.js";
 import type { Item } from "./utility/spirits.js";
 
@@ -82,57 +95,28 @@ function dailyGuidesEventData(
 	{ emojis, locale, t }: MessageFormatting,
 ) {
 	const { EventIdToEventTicketEmoji } = emojis;
-	const events = skyCurrentEvents(date);
 
 	const eventEndText = skyNotEndedEvents(date).map(({ id, name, start, end }) => {
-		const daysUntilStart = start.since(date).total({ unit: "days", relativeTo: date });
 		const eventName = t(name, { lng: locale, ns: "general" });
 		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
 
-		if (daysUntilStart > 0) {
-			return {
-				end,
-				start,
-				text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${
-					daysUntilStart < 1
-						? t("daily-guides.event-upcoming-time", {
-								lng: locale,
-								ns: "features",
-								event: eventName,
-								time: `<t:${epochSeconds(start)}:t>`,
-							})
-						: t("daily-guides.event-upcoming", {
-								lng: locale,
-								ns: "features",
-								event: eventName,
-								count: Math.floor(daysUntilStart),
-							})
-				}`,
-			};
-		}
-
-		const eventDaysLeft = Math.ceil(end.since(date).total({ unit: "days", relativeTo: date })) - 1;
+		const countdown =
+			daysUntil(start, date) > 0
+				? upcomingEventCountdown(eventName, start, `<t:${epochSeconds(start)}:t>`, date, {
+						locale,
+						t,
+					})
+				: daysLeftText("event", end, date, { locale, t }, eventName);
 
 		return {
 			end,
 			start,
-			text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t(
-				eventDaysLeft === 0 ? "days-left.event-ends-today" : "days-left.event",
-				{
-					lng: locale,
-					ns: "general",
-					count: eventDaysLeft,
-					name: eventName,
-				},
-			)}`,
+			text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${countdown}`,
 		};
 	});
 
-	const currentEventsWithEventTickets = events.filter(
-		(event) =>
-			event.eventTickets &&
-			Temporal.ZonedDateTime.compare(date, event.eventTickets.end) < 0 &&
-			event.resolveInfographicURL(date) !== null,
+	const currentEventsWithEventTickets = skyCurrentEventsWithEventTickets(date).filter(
+		(event) => event.resolveInfographicURL(date) !== null,
 	);
 
 	const eventTickets =
@@ -173,12 +157,8 @@ export function dailyGuidesContainer(
 		type = DailyGuidesDistributionType.Compact,
 	}: DailyGuidesContainerOptions = {},
 ): DailyGuidesContainer {
-	const {
-		DyeTypeToEmoji,
-		MISCELLANEOUS_EMOJIS,
-		SeasonIdToSeasonalCandleEmoji,
-		SeasonIdToSeasonalEmoji,
-	} = emojis;
+	const { DyeTypeToEmoji, MISCELLANEOUS_EMOJIS, seasonalCandleEmoji, SeasonIdToSeasonalEmoji } =
+		emojis;
 
 	const isToday = date.equals(currentTime.toPlainDate());
 	const now = isToday ? currentTime : date.toZonedDateTime(TIME_ZONE);
@@ -196,52 +176,15 @@ export function dailyGuidesContainer(
 		},
 	];
 
-	const todayMaintenance = [];
-	const upcomingMaintenance: DailyGuidesFooterItem[] = [];
-	const seenMaintenanceDays = new Set<number>();
+	const todayMaintenance = maintenancePeriodsOn(now);
 
-	for (const maintenance of MAINTENANCE_PERIODS) {
-		if (Temporal.ZonedDateTime.compare(maintenance.end, now) <= 0) {
-			continue;
-		}
-
-		const daysUntilStart = maintenance.start
-			.since(today)
-			.total({ unit: "days", relativeTo: today });
-
-		if (daysUntilStart < 1) {
-			todayMaintenance.push(maintenance);
-			continue;
-		}
-
-		const floorDays = Math.floor(daysUntilStart);
-
-		if (floorDays >= 2) {
-			if (!seenMaintenanceDays.has(floorDays)) {
-				seenMaintenanceDays.add(floorDays);
-
-				upcomingMaintenance.push({
-					end: maintenance.end,
-					start: maintenance.start,
-					text: t("daily-guides.maintenance-upcoming", {
-						ns: "features",
-						lng: locale,
-						count: floorDays,
-					}),
-				});
-			}
-		} else {
-			upcomingMaintenance.push({
-				end: maintenance.end,
-				start: maintenance.start,
-				text: t("daily-guides.maintenance-tomorrow", {
-					ns: "features",
-					lng: locale,
-					time: `<t:${epochSeconds(maintenance.start)}:t>`,
-				}),
-			});
-		}
-	}
+	const upcomingMaintenance = upcomingMaintenancePeriods(now).map(
+		({ days, period: { end, start } }): DailyGuidesFooterItem => ({
+			end,
+			start,
+			text: upcomingMaintenanceCountdown(days, `<t:${epochSeconds(start)}:t>`, { locale, t }),
+		}),
+	);
 
 	if (todayMaintenance.length > 0) {
 		let maintenanceString: string;
@@ -445,62 +388,42 @@ export function dailyGuidesContainer(
 
 	const season = skyCurrentSeason(today);
 	const footerItems: DailyGuidesFooterItem[] = [];
-	const doubleTreasureCandlePrefix = formatEmoji(MISCELLANEOUS_EMOJIS.TreasureCandle);
+
+	const addDoublePeriods = (
+		name: DoublePeriodName,
+		periods: readonly { end: Temporal.ZonedDateTime; start: Temporal.ZonedDateTime }[],
+		prefix: string,
+	) => {
+		for (const period of periods) {
+			if (Temporal.ZonedDateTime.compare(period.end, today) > 0) {
+				footerItems.push({
+					end: period.end,
+					start: period.start,
+					text: `${prefix} ${doublePeriodCountdown(name, period, today, { locale, t })}`,
+				});
+			}
+		}
+	};
 
 	if (season) {
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
-		const seasonDaysLeft =
-			Math.ceil(season.end.since(now).total({ unit: "days", relativeTo: now })) - 1;
-
 		footerItems.push({
 			end: season.end,
 			start: season.start,
-			text: `${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}${t(
-				seasonDaysLeft === 0 ? "days-left.season-ends-today" : "days-left.season",
-				{
-					lng: locale,
-					ns: "general",
-					count: seasonDaysLeft,
-				},
-			)}`,
+			text: `${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}${daysLeftText("season", season.end, now, { locale, t })}`,
 		});
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
-		const candleEmoji =
-			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
+		const candleEmoji = seasonalCandleEmoji(season.id);
 
-		for (const doubleSeasonalLight of season.doubleSeasonalLight?.dates.filter(
-			({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
-		) ?? []) {
-			const candlePrefix = formatEmoji(candleEmoji);
-
-			const doubleSeasonalLightDaysLeft =
-				Math.ceil(doubleSeasonalLight.end.since(today).total({ unit: "days", relativeTo: today })) -
-				1;
-
-			footerItems.push({
-				end: doubleSeasonalLight.end,
-				start: doubleSeasonalLight.start,
-				text:
-					Temporal.ZonedDateTime.compare(today, doubleSeasonalLight.start) >= 0
-						? `${candlePrefix} ${t(
-								doubleSeasonalLightDaysLeft === 0
-									? "days-left.double-seasonal-light-ends-today"
-									: "days-left.double-seasonal-light",
-								{ lng: locale, ns: "general", count: doubleSeasonalLightDaysLeft },
-							)}`
-						: `${candlePrefix} ${t("daily-guides.double-seasonal-light-upcoming", {
-								lng: locale,
-								ns: "features",
-								count: Math.floor(
-									doubleSeasonalLight.start.since(today).total({ unit: "days", relativeTo: today }),
-								),
-							})}`,
-			});
-		}
+		addDoublePeriods(
+			"double-seasonal-light",
+			season.doubleSeasonalLight?.dates ?? [],
+			formatEmoji(candleEmoji),
+		);
 
 		const seasonalCandlesRotation = season.seasonalCandles(today);
 
@@ -541,64 +464,34 @@ export function dailyGuidesContainer(
 	const next = skyUpcomingSeason(today);
 
 	if (next) {
-		const daysUntilStart = next.start.since(today).total({ unit: "days", relativeTo: today });
 		const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
 
 		footerItems.push({
 			end: next.end,
 			start: next.start,
-			text: `${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${t("daily-guides.season-upcoming", { lng: locale, ns: "features", count: Math.floor(daysUntilStart) })}`,
+			text: `${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${t("daily-guides.season-upcoming", { lng: locale, ns: "features", count: Math.floor(daysUntil(next.start, today)) })}`,
 		});
 	}
 
 	const eventData = dailyGuidesEventData(today, { emojis, locale, t });
 	footerItems.push(...eventData.eventEndText);
 
-	const returningSpiritsName = t("returning-spirits", {
-		lng: locale,
-		ns: "general",
-	});
 	const returningSpirits = returningSpiritsSchedule(today);
 
 	if (returningSpirits) {
-		const { active, start, end, spiritIds } = returningSpirits;
+		const { start, end, spiritIds } = returningSpirits;
 
-		const seasonIds = new Set(spiritIds.map((spiritId) => KINGDOM.seasonOf(spiritId)?.id));
-		const [seasonId] = seasonIds;
-
-		const returningSpiritsSeasonEmoji =
-			seasonIds.size === 1 && seasonId !== undefined ? SeasonIdToSeasonalEmoji[seasonId] : null;
+		const commonSeason = KINGDOM.commonSeasonOf(spiritIds);
+		const returningSpiritsSeasonEmoji = commonSeason && SeasonIdToSeasonalEmoji[commonSeason.id];
 
 		const spiritLinks = new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(
-			spiritIds.map(
-				(spiritId) =>
-					`[${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spiritId}`, { lng: locale, ns: "general" })})`,
-			),
+			spiritIds.map((spiritId) => spiritWikiMarkdownLink(spiritId, { locale, t })),
 		);
 
-		const returningSpiritsDaysLeft =
-			Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1;
-
-		const countdown = active
-			? t(
-					returningSpiritsDaysLeft === 0
-						? "daily-guides.returning-spirits-leave-today"
-						: "daily-guides.returning-spirits-active-list",
-					{
-						lng: locale,
-						ns: "features",
-						count: returningSpiritsDaysLeft,
-						returningSpirits: returningSpiritsName,
-						spirits: spiritLinks,
-					},
-				)
-			: t("daily-guides.returning-spirits-upcoming-list", {
-					lng: locale,
-					ns: "features",
-					count: start.since(today).total({ unit: "days", relativeTo: today }),
-					returningSpirits: returningSpiritsName,
-					spirits: spiritLinks,
-				});
+		const countdown = returningSpiritsCountdown(returningSpirits, spiritLinks, today, {
+			locale,
+			t,
+		});
 
 		footerItems.push({
 			end,
@@ -704,31 +597,17 @@ export function dailyGuidesContainer(
 		);
 	}
 
-	const communityEvents = communityUpcomingEvents(today);
-
-	if (communityEvents.length > 0) {
-		for (const { start, name, marketingURL } of communityEvents) {
-			const untilStart = start.since(today).total({ unit: "days", relativeTo: today });
-			const formattedName = marketingURL ? `[${name}](${marketingURL})` : name;
-
-			footerItems.push({
+	for (const { start, name, marketingURL } of communityUpcomingEvents(today)) {
+		footerItems.push({
+			start,
+			text: upcomingEventCountdown(
+				marketingURL ? `[${name}](${marketingURL})` : name,
 				start,
-				text:
-					untilStart >= 1
-						? t("daily-guides.event-upcoming", {
-								lng: locale,
-								ns: "features",
-								event: formattedName,
-								count: Math.floor(untilStart),
-							})
-						: t("daily-guides.event-upcoming-time", {
-								lng: locale,
-								ns: "features",
-								event: formattedName,
-								time: `<t:${epochSeconds(start)}:t>`,
-							}),
-			});
-		}
+				`<t:${epochSeconds(start)}:t>`,
+				today,
+				{ locale, t },
+			),
+		});
 	}
 
 	const radianceEvents = RADIANCE_EVENTS.filter(
@@ -742,113 +621,31 @@ export function dailyGuidesContainer(
 		for (const radianceEvent of radianceEvents) {
 			const dyeEmojis = radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join("");
 
-			if (Temporal.ZonedDateTime.compare(today, radianceEvent.start) >= 0) {
-				const radianceDaysLeft =
-					Math.ceil(radianceEvent.end.since(today).total({ unit: "days", relativeTo: today })) - 1;
-
-				footerItems.push({
-					end: radianceEvent.end,
-					start: radianceEvent.start,
-					text: `${dyePrefix} ${t(
-						radianceDaysLeft === 0 ? "days-left.event-ends-today" : "days-left.event",
-						{
-							lng: locale,
-							ns: "general",
-							count: radianceDaysLeft,
-							name: radianceName,
-						},
-					)} ${dyeEmojis}`,
-				});
-			} else {
-				footerItems.push({
-					end: radianceEvent.end,
-					start: radianceEvent.start,
-					text: `${t("daily-guides.event-upcoming", {
-						lng: locale,
-						ns: "features",
-						event: `${dyePrefix} ${radianceName}`,
-						count: Math.floor(
-							radianceEvent.start.since(today).total({ unit: "days", relativeTo: today }),
-						),
-					})} ${dyeEmojis}`,
-				});
-			}
+			footerItems.push({
+				end: radianceEvent.end,
+				start: radianceEvent.start,
+				text: `${
+					Temporal.ZonedDateTime.compare(today, radianceEvent.start) >= 0
+						? `${dyePrefix} ${daysLeftText("event", radianceEvent.end, today, { locale, t }, radianceName)}`
+						: upcomingEventCountdown(
+								`${dyePrefix} ${radianceName}`,
+								radianceEvent.start,
+								`<t:${epochSeconds(radianceEvent.start)}:t>`,
+								today,
+								{ locale, t },
+							)
+				} ${dyeEmojis}`,
+			});
 		}
 	}
 
-	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
-		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
-	)) {
-		const doubleTreasureCandlesDaysLeft =
-			Math.ceil(
-				doubleTreasureCandleEvent.end.since(today).total({ unit: "days", relativeTo: today }),
-			) - 1;
-
-		footerItems.push({
-			end: doubleTreasureCandleEvent.end,
-			start: doubleTreasureCandleEvent.start,
-			text:
-				Temporal.ZonedDateTime.compare(today, doubleTreasureCandleEvent.start) >= 0
-					? `${doubleTreasureCandlePrefix} ${t(
-							doubleTreasureCandlesDaysLeft === 0
-								? "days-left.double-treasure-candles-ends-today"
-								: "days-left.double-treasure-candles",
-							{ lng: locale, ns: "general", count: doubleTreasureCandlesDaysLeft },
-						)}`
-					: `${doubleTreasureCandlePrefix} ${t("daily-guides.double-treasure-candles-upcoming", {
-							lng: locale,
-							ns: "features",
-							count: Math.floor(
-								doubleTreasureCandleEvent.start
-									.since(today)
-									.total({ unit: "days", relativeTo: today }),
-							),
-						})}`,
-		});
-	}
-
-	const doubleHeartEvents = DOUBLE_HEART_EVENTS.filter(
-		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
+	addDoublePeriods(
+		"double-treasure-candles",
+		TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
+		formatEmoji(MISCELLANEOUS_EMOJIS.TreasureCandle),
 	);
 
-	if (doubleHeartEvents.length > 0) {
-		const heartPrefix = formatEmoji(MISCELLANEOUS_EMOJIS.Heart);
-
-		for (const doubleHeartEvent of doubleHeartEvents) {
-			if (Temporal.ZonedDateTime.compare(today, doubleHeartEvent.start) >= 0) {
-				const doubleHeartsDaysLeft =
-					Math.ceil(doubleHeartEvent.end.since(today).total({ unit: "days", relativeTo: today })) -
-					1;
-
-				footerItems.push({
-					end: doubleHeartEvent.end,
-					start: doubleHeartEvent.start,
-					text: `${heartPrefix} ${t(
-						doubleHeartsDaysLeft === 0
-							? "days-left.double-hearts-ends-today"
-							: "days-left.double-hearts",
-						{
-							lng: locale,
-							ns: "general",
-							count: doubleHeartsDaysLeft,
-						},
-					)}`,
-				});
-			} else {
-				footerItems.push({
-					end: doubleHeartEvent.end,
-					start: doubleHeartEvent.start,
-					text: `${heartPrefix} ${t("daily-guides.double-hearts-upcoming", {
-						lng: locale,
-						ns: "features",
-						count: Math.floor(
-							doubleHeartEvent.start.since(today).total({ unit: "days", relativeTo: today }),
-						),
-					})}`,
-				});
-			}
-		}
-	}
+	addDoublePeriods("double-hearts", DOUBLE_HEART_EVENTS, formatEmoji(MISCELLANEOUS_EMOJIS.Heart));
 
 	footerItems.push(...upcomingMaintenance);
 
