@@ -1,4 +1,4 @@
-import { deepStrictEqual, equal, ok } from "node:assert/strict";
+import { deepEqual, equal, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { Cosmetic, CosmeticCommon, EXPRESSION_LEVELS, MUSIC_SHEETS } from "../source/cosmetics.js";
 import { type Emoji, productionEmojis } from "../source/emojis/index.js";
@@ -68,7 +68,7 @@ test("Expression cosmetics are exactly those drawn with an expression emoji.", (
 			.map(([cosmetic]) => Number(cosmetic)),
 	);
 
-	deepStrictEqual(drawnAsExpressions, new Set(EXPRESSION_LEVELS.keys()));
+	deepEqual(drawnAsExpressions, new Set(EXPRESSION_LEVELS.keys()));
 });
 
 test("Music sheet cosmetics are exactly those drawn with the music sheet emoji.", () => {
@@ -78,7 +78,7 @@ test("Music sheet cosmetics are exactly those drawn with the music sheet emoji."
 			.map(([cosmetic]) => Number(cosmetic)),
 	);
 
-	deepStrictEqual(drawnAsMusicSheets, MUSIC_SHEETS);
+	deepEqual(drawnAsMusicSheets, MUSIC_SHEETS);
 });
 
 test("An expression's level comes from its cosmetic.", () => {
@@ -123,7 +123,7 @@ test("AURORA numbers each of its expressions.", () => {
 		numbersByExpression.set(emoji, numbers);
 	}
 
-	deepStrictEqual(
+	deepEqual(
 		Array.from(numbersByExpression.values(), (numbers) => Array.from(numbers)),
 		[[1], [2], [3]],
 	);

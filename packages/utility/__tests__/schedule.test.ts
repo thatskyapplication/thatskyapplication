@@ -1,4 +1,4 @@
-import { deepStrictEqual, equal, ok } from "node:assert/strict";
+import { deepEqual, equal, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import { RETURNING_DATES } from "../source/kingdom/seasons/index.js";
@@ -38,7 +38,7 @@ function assertReturningSpiritsSchedule(
 	equal(Temporal.ZonedDateTime.compare(actual.start, expected.start), 0);
 	equal(Temporal.ZonedDateTime.compare(actual.end, expected.end), 0);
 	equal(actual.type, expected.type);
-	deepStrictEqual(actual.spiritIds, expected.spiritIds);
+	deepEqual(actual.spiritIds, expected.spiritIds);
 	equal(actual.active, active);
 }
 
@@ -104,7 +104,7 @@ test("International Space Station dates follow the historical rotations.", async
 
 	for (const { label, input, expected } of cases) {
 		await t.test(label, () => {
-			deepStrictEqual(
+			deepEqual(
 				internationalSpaceStationDates(input).map((date) => date.toPlainDate().toString()),
 				expected,
 			);
@@ -937,7 +937,7 @@ for (const [dayLabel, day] of DAY_LABELS) {
 			const occurrences = occurrencesForDay(resolve, day);
 			const expected = walkEveryMinute(resolve, day);
 
-			deepStrictEqual(
+			deepEqual(
 				occurrences.map(({ start }) => start.toString()),
 				expected.map((start) => start.toString()),
 				`${scheduleLabel} must list exactly the occurrences its own schedule produces.`,
@@ -1005,7 +1005,7 @@ test("Two-hourly events keep their wall clock minute across both transitions.", 
 test("Aviary's Firework Festival shows are four wall clock hours apart across a transition.", () => {
 	const shows = occurrencesForDay(aviarysFireworkFestivalSchedule, FALL_BACK);
 
-	deepStrictEqual(
+	deepEqual(
 		shows.map(({ start }) => start.hour),
 		[0, 4, 8, 12, 16, 20],
 		"The festival must run every four wall clock hours up to the finale.",
@@ -1039,7 +1039,7 @@ test("Projector of memories repeats the ambiguous hour and realigns the next day
 
 	equal(fallBack.length, 19, "The repeated hour must hold a show in each of its two passes.");
 
-	deepStrictEqual(
+	deepEqual(
 		fallBack
 			.slice(0, 4)
 			.map(({ start }) => `${start.hour}:${String(start.minute).padStart(2, "0")} ${start.offset}`),

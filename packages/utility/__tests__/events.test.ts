@@ -1,4 +1,4 @@
-import { deepStrictEqual, ok, strictEqual } from "node:assert/strict";
+import { deepEqual, equal, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import {
@@ -104,8 +104,8 @@ test("skyEventsBetween treats the range as half-open.", () => {
 });
 
 test("skyCurrentEventsWithEventTickets leaves out events without event tickets.", () => {
-	strictEqual(skyCurrentEventsWithEventTickets(skyDate(2024, 2, 12)).size, 2);
-	strictEqual(skyCurrentEventsWithEventTickets(skyDate(2026, 2, 7)).size, 1);
+	equal(skyCurrentEventsWithEventTickets(skyDate(2024, 2, 12)).size, 2);
+	equal(skyCurrentEventsWithEventTickets(skyDate(2026, 2, 7)).size, 1);
 });
 
 test("Remaining event tickets count today onwards and the pools running today.", () => {
@@ -131,22 +131,22 @@ test("Remaining event tickets count today onwards and the pools running today.",
 		eventTickets: { amount, pool: [{ start, end: start.add({ days: 1 }), amount: 3 }] },
 	});
 
-	deepStrictEqual(event.remainingEventTickets(start.add({ days: 1, hours: 6 })), {
+	deepEqual(event.remainingEventTickets(start.add({ days: 1, hours: 6 })), {
 		dailyEventTicketsLeft: 18,
 		poolEventTicketsLeft: 3,
 	});
 
-	deepStrictEqual(event.remainingEventTickets(start.add({ days: 2 })), {
+	deepEqual(event.remainingEventTickets(start.add({ days: 2 })), {
 		dailyEventTicketsLeft: 11,
 		poolEventTicketsLeft: 0,
 	});
 
-	deepStrictEqual(
+	deepEqual(
 		new Event({ ...data, eventTickets: { amount } }).remainingEventTickets(start.add({ days: 2 })),
 		{ dailyEventTicketsLeft: 11, poolEventTicketsLeft: null },
 	);
 
-	deepStrictEqual(new Event(data).remainingEventTickets(start), {
+	deepEqual(new Event(data).remainingEventTickets(start), {
 		dailyEventTicketsLeft: 0,
 		poolEventTicketsLeft: null,
 	});

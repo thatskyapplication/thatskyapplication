@@ -1,4 +1,4 @@
-import { deepStrictEqual, ok } from "node:assert/strict";
+import { deepEqual, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import Abyss from "../source/kingdom/seasons/abyss/index.js";
@@ -8222,18 +8222,18 @@ for (const { season, rotations } of SEASONAL_CANDLES_ROTATIONS) {
 	test(`Season ${season.id} seasonal candles rotations.`, async (t) => {
 		for (const { date, expected } of rotations) {
 			await t.test(date.toPlainDate().toString(), () =>
-				deepStrictEqual(season.seasonalCandles(date), expected),
+				deepEqual(season.seasonalCandles(date), expected),
 			);
 		}
 	});
 }
 
 test("Remaining seasonal candles include all future double seasonal light windows.", () => {
-	deepStrictEqual(Nesting.remainingSeasonalCandles(skyDate(2024, 4, 15)), {
+	deepEqual(Nesting.remainingSeasonalCandles(skyDate(2024, 4, 15)), {
 		seasonalCandlesLeft: 397,
 		seasonalCandlesLeftWithSeasonPass: 474,
 	});
-	deepStrictEqual(Nesting.remainingSeasonalCandles(skyDate(2024, 5, 1)), {
+	deepEqual(Nesting.remainingSeasonalCandles(skyDate(2024, 5, 1)), {
 		seasonalCandlesLeft: 312,
 		seasonalCandlesLeftWithSeasonPass: 373,
 	});
@@ -8241,50 +8241,50 @@ test("Remaining seasonal candles include all future double seasonal light window
 
 test("Seasons without double seasonal light have no bonus candles or active event.", () => {
 	const date = skyDate(2020, 10, 5);
-	deepStrictEqual(Prophecy.isDuringDoubleSeasonalLightEvent(date), false);
-	deepStrictEqual(Prophecy.remainingSeasonalCandles(date), {
+	deepEqual(Prophecy.isDuringDoubleSeasonalLightEvent(date), false);
+	deepEqual(Prophecy.remainingSeasonalCandles(date), {
 		seasonalCandlesLeft: 350,
 		seasonalCandlesLeftWithSeasonPass: 420,
 	});
 });
 
 test("Remaining seasonal candles on the first day of the season.", () => {
-	deepStrictEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 1, 16)), {
+	deepEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 1, 16)), {
 		seasonalCandlesLeft: 399,
 		seasonalCandlesLeftWithSeasonPass: 476,
 	});
 });
 
 test("Remaining seasonal candles on the day before double seasonal light.", () => {
-	deepStrictEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 2, 26)), {
+	deepEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 2, 26)), {
 		seasonalCandlesLeft: 194,
 		seasonalCandlesLeftWithSeasonPass: 230,
 	});
 });
 
 test("Remaining seasonal candles on the first day of double seasonal.", () => {
-	deepStrictEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 2, 27)), {
+	deepEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 2, 27)), {
 		seasonalCandlesLeft: 189,
 		seasonalCandlesLeftWithSeasonPass: 224,
 	});
 });
 
 test("Remaining seasonal candles on the last day of double seasonal light.", () => {
-	deepStrictEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 3, 12)), {
+	deepEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 3, 12)), {
 		seasonalCandlesLeft: 111,
 		seasonalCandlesLeftWithSeasonPass: 133,
 	});
 });
 
 test("Remaining seasonal candles on the day after double seasonal light.", () => {
-	deepStrictEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 3, 13)), {
+	deepEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 3, 13)), {
 		seasonalCandlesLeft: 105,
 		seasonalCandlesLeftWithSeasonPass: 126,
 	});
 });
 
 test("Remaining seasonal candles on the last day of the season.", () => {
-	deepStrictEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 4, 2)), {
+	deepEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 4, 2)), {
 		seasonalCandlesLeft: 5,
 		seasonalCandlesLeftWithSeasonPass: 6,
 	});

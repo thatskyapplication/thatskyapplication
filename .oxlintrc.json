@@ -51,6 +51,35 @@
 		"no-promise-executor-return": "error",
 		"no-proto": "error",
 		"no-prototype-builtins": "error",
+		"no-restricted-imports": [
+			"error",
+			{
+				"paths": [
+					{
+						"name": "assert",
+						"message": "Import from node:assert/strict instead."
+					},
+					{
+						"name": "assert/strict",
+						"message": "Import from node:assert/strict instead."
+					},
+					{
+						"name": "node:assert",
+						"message": "Import from node:assert/strict instead."
+					},
+					{
+						"name": "node:assert/strict",
+						"importNames": [
+							"deepStrictEqual",
+							"notDeepStrictEqual",
+							"notStrictEqual",
+							"strictEqual"
+						],
+						"message": "Use deepEqual, notDeepEqual, notEqual or equal. Everything from node:assert/strict is already strict."
+					}
+				]
+			}
+		],
 		"no-return-assign": "error",
 		"no-script-url": "error",
 		"no-self-compare": "error",

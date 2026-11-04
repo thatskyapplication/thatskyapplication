@@ -1,4 +1,4 @@
-import { deepStrictEqual, equal, notEqual, ok } from "node:assert/strict";
+import { deepEqual, equal, notEqual, ok } from "node:assert/strict";
 import { test } from "node:test";
 import {
 	CatalogueCollection,
@@ -46,17 +46,17 @@ function firstTarget(query: string) {
 }
 
 test("An empty query yields nothing.", () => {
-	deepStrictEqual(names(""), []);
-	deepStrictEqual(names("   "), []);
+	deepEqual(names(""), []);
+	deepEqual(names("   "), []);
 });
 
 test("A query with no matches yields nothing.", () => {
-	deepStrictEqual(names("zzzzzzzz"), []);
+	deepEqual(names("zzzzzzzz"), []);
 });
 
 test("Queries are trimmed and case-insensitive.", () => {
-	deepStrictEqual(names("  season of prophecy  ", 1), ["Season of Prophecy"]);
-	deepStrictEqual(names("SEASON OF PROPHECY", 1), ["Season of Prophecy"]);
+	deepEqual(names("  season of prophecy  ", 1), ["Season of Prophecy"]);
+	deepEqual(names("SEASON OF PROPHECY", 1), ["Season of Prophecy"]);
 });
 
 test("An exact name outranks a longer prefix.", () => {
@@ -145,7 +145,7 @@ test("Events are indexed newest first.", () => {
 });
 
 test("An event name yields one entry for all of its years.", () => {
-	deepStrictEqual(names("Days of Sunlight"), ["Days of Sunlight"]);
+	deepEqual(names("Days of Sunlight"), ["Days of Sunlight"]);
 });
 
 test("A renamed event surfaces each of its names against the same family.", () => {
@@ -200,8 +200,8 @@ test("Music sheets are indexed and target where they are offered.", () => {
 });
 
 test("Other items bought with in-game currency are not indexed.", () => {
-	deepStrictEqual(names("Companion Cube"), []);
-	deepStrictEqual(names("Stone Single Bench"), []);
+	deepEqual(names("Companion Cube"), []);
+	deepEqual(names("Stone Single Bench"), []);
 });
 
 test("Every entry resolves to a translated name.", () => {
@@ -209,7 +209,7 @@ test("Every entry resolves to a translated name.", () => {
 		ok(entry.name.length > 0, "Expected a resolved name.");
 	}
 
-	deepStrictEqual(unresolvedKeys, []);
+	deepEqual(unresolvedKeys, []);
 });
 
 test("Only item entries carry a cosmetic to display.", () => {
@@ -251,7 +251,7 @@ test("Entries sharing a bucket keep their index order.", () => {
 	);
 
 	ok(prefixMatches.length > 1, "Expected several prefix matches.");
-	deepStrictEqual(ranked, prefixMatches);
+	deepEqual(ranked, prefixMatches);
 });
 
 test("An exact match outranks a keyword match on a caller-supplied list.", () => {
@@ -260,7 +260,7 @@ test("An exact match outranks a keyword match on a caller-supplied list.", () =>
 		{ name: "Beta", keywords: ["alpha"], cosmeticDisplay: null, target: entries[0]!.target },
 	];
 
-	deepStrictEqual(
+	deepEqual(
 		catalogueSearch(custom, "alpha").map(({ name }) => name),
 		["Alpha", "Beta"],
 	);
