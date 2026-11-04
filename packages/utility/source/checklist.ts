@@ -3,6 +3,7 @@ import type { Packet } from "./database/index.js";
 import type { DB } from "./database/schema.js";
 import { TIME_ZONE } from "./dates.js";
 import { AreaName } from "./kingdom/geography.js";
+import { ScheduleType, ScheduleTypeToLocaleKey } from "./schedule.js";
 
 export const CHECKLIST_HIDDEN_COLUMNS = [
 	"daily_quests_hidden",
@@ -10,6 +11,7 @@ export const CHECKLIST_HIDDEN_COLUMNS = [
 	"eye_of_eden_hidden",
 	"shard_eruptions_hidden",
 	"dye_workshop_hidden",
+	"nesting_workshop_hidden",
 	"lightmending_hidden",
 	"do_not_disturb_hidden",
 	"event_tickets_hidden",
@@ -23,6 +25,7 @@ export const ChecklistHiddenColumnToLocaleKey = {
 	eye_of_eden_hidden: `general:areas.${AreaName.EyeOfEden}`,
 	shard_eruptions_hidden: "features:shard-eruption.name-plural",
 	dye_workshop_hidden: "general:dye-workshop",
+	nesting_workshop_hidden: ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop],
 	lightmending_hidden: "features:checklist.lightmending",
 	do_not_disturb_hidden: "features:checklist.do-not-disturb-blessing",
 	event_tickets_hidden: "general:event-tickets",
@@ -53,6 +56,7 @@ export function checklistResetPayload(lastUpdatedAt: Date, now: Date): Checklist
 		today.subtract({ days: (today.dayOfWeek - 5 + 7) % 7 }).epochMilliseconds > lastUpdatedTimestamp
 	) {
 		payload.dye_workshop = false;
+		payload.nesting_workshop = false;
 	}
 
 	if (today.subtract({ days: today.dayOfWeek % 7 }).epochMilliseconds > lastUpdatedTimestamp) {

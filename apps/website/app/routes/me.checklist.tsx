@@ -20,6 +20,8 @@ import {
 	checklistRefresh,
 	checklistResetPayload,
 	type Packet,
+	ScheduleType,
+	ScheduleTypeToLocaleKey,
 	shardEruption,
 	skyCurrentEventsWithEventTickets,
 	skyCurrentSeason,
@@ -101,6 +103,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	const eyeOfEden = formData.get("eye_of_eden");
 	const shardEruptions = formData.get("shard_eruptions");
 	const dyeWorkshop = formData.get("dye_workshop");
+	const nestingWorkshop = formData.get("nesting_workshop");
 	const lightmending = formData.get("lightmending");
 	const doNotDisturbBlessing = formData.get("do_not_disturb");
 	const eventTickets = formData.get("event_tickets");
@@ -140,6 +143,10 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 
 		if (dyeWorkshop !== null) {
 			payload.dye_workshop = dyeWorkshop === "0";
+		}
+
+		if (nestingWorkshop !== null) {
+			payload.nesting_workshop = nestingWorkshop === "0";
 		}
 
 		if (lightmending !== null) {
@@ -308,6 +315,10 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		"dye_workshop",
 		checklistPacket?.dye_workshop ?? false,
 	);
+	const [nestingWorkshopFetcher, nestingWorkshopComplete] = useChecklistToggle(
+		"nesting_workshop",
+		checklistPacket?.nesting_workshop ?? false,
+	);
 	const [lightmendingFetcher, lightmendingComplete] = useChecklistToggle(
 		"lightmending",
 		checklistPacket?.lightmending ?? false,
@@ -326,6 +337,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 	const eyeOfEdenVisible = !checklistPacket?.eye_of_eden_hidden;
 	const shardEruptionsVisible = !checklistPacket?.shard_eruptions_hidden;
 	const dyeWorkshopVisible = !checklistPacket?.dye_workshop_hidden;
+	const nestingWorkshopVisible = !checklistPacket?.nesting_workshop_hidden;
 	const lightmendingVisible = !checklistPacket?.lightmending_hidden;
 	const doNotDisturbBlessingVisible = !checklistPacket?.do_not_disturb_hidden;
 	const eventTicketsVisible = eventsWithEventTickets > 0 && !checklistPacket?.event_tickets_hidden;
@@ -336,6 +348,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		eyeOfEdenVisible ||
 		shardEruptionsVisible ||
 		dyeWorkshopVisible ||
+		nestingWorkshopVisible ||
 		lightmendingVisible ||
 		doNotDisturbBlessingVisible ||
 		eventTicketsVisible
@@ -629,6 +642,50 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 									</div>
 								</button>
 							</dyeWorkshopFetcher.Form>
+						</div>
+					)}
+
+					{nestingWorkshopVisible && (
+						<div>
+							<nestingWorkshopFetcher.Form className="flex h-full w-full" method="post">
+								<input
+									name="nesting_workshop"
+									type="hidden"
+									value={Number(nestingWorkshopComplete)}
+								/>
+								<button
+									className={clsx(
+										CHECKLIST_INTERACTIVE_CARD_CLASS,
+										nestingWorkshopComplete ? COMPLETE_CARD_CLASS : CHECKLIST_INCOMPLETE_CARD_CLASS,
+									)}
+									type="submit"
+								>
+									<div className="shrink-0">
+										{nestingWorkshopComplete ? (
+											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+										) : (
+											<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
+										)}
+									</div>
+									<div className="min-w-0 flex-1 text-left">
+										<div
+											className={clsx(
+												CHECKLIST_LABEL_CLASS,
+												nestingWorkshopComplete
+													? CHECKLIST_COMPLETE_LABEL_CLASS
+													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+											)}
+										>
+											{t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop])}
+										</div>
+										<div className={NOTE_CLASS}>
+											{nestingWorkshopComplete
+												? t("checklist.nesting-workshop-message-complete", { ns: "features" })
+												: t("checklist.nesting-workshop-message-incomplete", { ns: "features" })}
+										</div>
+									</div>
+								</button>
+							</nestingWorkshopFetcher.Form>
 						</div>
 					)}
 

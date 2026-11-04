@@ -309,6 +309,45 @@ export async function checklist({
 		});
 	}
 
+	if (!checklistPacket?.nesting_workshop_hidden) {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: checklistPacket?.nesting_workshop
+				? {
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistNestingWorkshopComplete}§1`,
+						label: t("reset", {
+							lng: locale,
+							ns: "general",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistNestingWorkshopComplete}§0`,
+						label: t("checklist.complete", {
+							lng: locale,
+							ns: "features",
+						}),
+					},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: checklistPacket?.nesting_workshop
+						? t("checklist.nesting-workshop-message-complete", {
+								lng: locale,
+								ns: "features",
+							})
+						: t("checklist.nesting-workshop-message-incomplete", {
+								lng: locale,
+								ns: "features",
+							}),
+				},
+			],
+		});
+	}
+
 	if (!checklistPacket?.lightmending_hidden) {
 		containerComponents.push(
 			{
@@ -541,6 +580,7 @@ export async function checklistToggle(
 		| "event_tickets"
 		| "eye_of_eden"
 		| "lightmending"
+		| "nesting_workshop"
 		| "seasonal_candles"
 		| "shard_eruptions",
 ) {

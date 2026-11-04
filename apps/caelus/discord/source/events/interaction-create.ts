@@ -633,6 +633,11 @@ export default {
 					return;
 				}
 
+				if (id === CustomId.ChecklistNestingWorkshopComplete) {
+					await checklistToggle(data, "nesting_workshop");
+					return;
+				}
+
 				if (id === CustomId.ChecklistDoNotDisturbBlessingComplete) {
 					await checklistToggle(data, "do_not_disturb");
 					return;

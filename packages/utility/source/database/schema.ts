@@ -43,6 +43,8 @@ export interface Checklist {
   last_updated_at: Timestamp;
   lightmending: Generated<boolean>;
   lightmending_hidden: Generated<boolean>;
+  nesting_workshop: Generated<boolean>;
+  nesting_workshop_hidden: Generated<boolean>;
   seasonal_candles: Generated<boolean>;
   seasonal_candles_hidden: Generated<boolean>;
   shard_eruptions: Generated<boolean>;

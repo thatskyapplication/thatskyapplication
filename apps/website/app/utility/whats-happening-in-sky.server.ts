@@ -84,6 +84,7 @@ import type {
 type ContextualChecklistColumn =
 	| "daily_quests"
 	| "event_tickets"
+	| "nesting_workshop"
 	| "seasonal_candles"
 	| "shard_eruptions";
 
@@ -535,7 +536,7 @@ function limitedPeriods(nextSeason: Season | null, context: ViewContext) {
 }
 
 function nestingWorkshopCard(items: readonly Item[], context: ViewContext): ActiveCard | null {
-	const { now, t } = context;
+	const { checklist, now, t } = context;
 	const start = currentNestingWorkshop(now);
 	const end = nextNestingWorkshop(now);
 
@@ -547,6 +548,12 @@ function nestingWorkshopCard(items: readonly Item[], context: ViewContext): Acti
 				key: "nesting-workshop",
 				label: t(ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop]),
 				offer: resolveOffer(items, context),
+				toggle: checklistToggle(
+					checklist,
+					"nesting_workshop",
+					t("checklist.nesting-workshop-message-complete", { ns: "features" }),
+					t("checklist.nesting-workshop-message-incomplete", { ns: "features" }),
+				),
 				wikiURL: t(SCHEDULE_TYPE_TO_WIKI_KEY[ScheduleType.NestingWorkshop]!),
 			}
 		: null;

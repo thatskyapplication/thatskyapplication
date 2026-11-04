@@ -2613,6 +2613,9 @@ export default {
 			"event-tickets-message-complete": "You've collected all event tickets! Great!",
 			"dye-workshop-message-incomplete": "Visited the Dye Workshop this week?",
 			"dye-workshop-message-complete": "You have visited the Dye Workshop this week!",
+			"nesting-workshop-message-incomplete": "Observed the Nesting Workshop's stock this week?",
+			"nesting-workshop-message-complete":
+				"You have observed the Nesting Workshop's stock this week!",
 			"do-not-disturb-blessing": "Do not disturb blessing",
 			"do-not-disturb-blessing-message-incomplete": "Claimed the daily do not disturb blessing?",
 			"do-not-disturb-blessing-message-complete": "Do not disturb blessing obtained!",
