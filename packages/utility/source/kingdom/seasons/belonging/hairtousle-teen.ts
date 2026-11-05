@@ -98,19 +98,14 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.FriendActionHairTousle2,
-						cost: { hearts: 9 },
-						level: 2,
-					},
-					{
-						cosmetic: Cosmetic.HairtousleTeenUkulele,
-						cost: { candles: 70 },
+						cosmetic: Cosmetic.HairtousleTeenEarmuffs,
+						cost: { candles: 50 },
 					},
 				],
 				[
 					{
-						cosmetic: Cosmetic.HairtousleTeenEarmuffs,
-						cost: { candles: 50 },
+						cosmetic: Cosmetic.HairtousleTeenUkulele,
+						cost: { candles: 70 },
 					},
 				],
 			],
