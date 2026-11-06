@@ -4605,6 +4605,14 @@ const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Console table.
 	 */
 	LargePlaceableProp138: { id: "1565744239545946122", name: "138_large_placeable_prop" },
+	/**
+	 * Rocking chair.
+	 */
+	LargePlaceableProp139: { id: "1568195645247062097", name: "139_large_placeable_prop" },
+	/**
+	 * Desk.
+	 */
+	LargePlaceableProp140: { id: "1568195648421892126", name: "140_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS = {

@@ -3128,6 +3128,8 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.CommemorativeBoboCandle]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp142,
 		[Cosmetic.ConsoleTable]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp138,
 		[Cosmetic.PaintingSet]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp143,
+		[Cosmetic.RockingChair]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp139,
+		[Cosmetic.Desk]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp140,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
