@@ -5,6 +5,7 @@ import daysOfLove from "./days-of-love.js";
 import daysOfMischief from "./days-of-mischief.js";
 import daysOfMoonlight from "./days-of-moonlight.js";
 import daysOfNature from "./days-of-nature.js";
+import daysOfStyle from "./days-of-style.js";
 import daysOfSunlight from "./days-of-sunlight.js";
 import daysOfTreasure from "./days-of-treasure.js";
 import personalityQuizEvent from "./personality-quiz-event.js";
@@ -28,4 +29,5 @@ export default [
 	daysOfMoonlight,
 	daysOfMischief,
 	skyXCinnamorollPopUpCafe,
+	daysOfStyle,
 ] as const;
