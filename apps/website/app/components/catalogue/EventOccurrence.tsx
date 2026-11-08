@@ -3,6 +3,7 @@ import { ExternalLinkIcon, Link2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import type { Event } from "@thatskyapplication/utility";
+import { InfoBox } from "~/components/InfoBox";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { CARD_CLASS, eventAnchor } from "~/utility/catalogue.js";
 import { NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/styles.js";
@@ -30,7 +31,7 @@ export function EventOccurrence({
 }) {
 	const { t } = useTranslation();
 
-	const timeRange = t("time-range", {
+	const timeRange = t(event.endUnconfirmed ? "time-range-end-unconfirmed" : "time-range", {
 		ns: "general",
 		start: dateTimeLabels[event.start.epochMilliseconds],
 		end: dateTimeLabels[event.end.epochMilliseconds],
@@ -78,6 +79,8 @@ export function EventOccurrence({
 					<ExternalLinkIcon className="h-3 w-3" />
 				</a>
 			</div>
+
+			{event.endUnconfirmed && <InfoBox>{t("end-unconfirmed", { ns: "general" })}</InfoBox>}
 
 			<RemainingCostList data={data} items={event.offer} locale={locale} />
 

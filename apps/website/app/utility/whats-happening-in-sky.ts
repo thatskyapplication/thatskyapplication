@@ -56,6 +56,7 @@ export interface ActiveCard {
 	earn?: CardEarn | undefined;
 	emoji: Emoji | null;
 	ends: string;
+	endUnconfirmed?: boolean | undefined;
 	key: string;
 	label: string;
 	notes?: readonly CardNote[] | undefined;

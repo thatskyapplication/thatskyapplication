@@ -11,12 +11,12 @@ import {
 	partitionItemCosts,
 	sumCosts,
 } from "@thatskyapplication/utility";
+import { InfoBox } from "~/components/InfoBox";
 import { realmAnchor } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EverythingButton } from "./EverythingButton";
 import { FriendshipTreeCarousel } from "./FriendshipTreeCarousel";
-import { InfoBox } from "./InfoBox";
 import { RemainingCostList } from "./RemainingCostList";
 import { RemainingCurrency } from "./RemainingCurrency";
 import { SpiritTreeColumn } from "./SpiritTreeColumn";

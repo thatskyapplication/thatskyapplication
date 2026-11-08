@@ -19,7 +19,7 @@ import { ChecklistToggle } from "./ChecklistToggle.js";
 import { SpiritOffers, SpiritTrees } from "./SpiritOffers.js";
 
 function CardHeader({
-	card: { dayOf, daysLeft, emoji, ends, label, offer, spiritLinks },
+	card: { dayOf, daysLeft, emoji, ends, endUnconfirmed, label, offer, spiritLinks },
 	locale,
 	timeZoneEstimated,
 }: {
@@ -27,6 +27,8 @@ function CardHeader({
 	locale: string;
 	timeZoneEstimated: boolean;
 }) {
+	const { t } = useTranslation();
+
 	return (
 		<div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-x-2 gap-y-0.5 sm:gap-x-3">
 			{emoji && (
@@ -37,17 +39,25 @@ function CardHeader({
 			<h2 className="col-start-2 min-w-0 text-base font-semibold text-gray-900 dark:text-gray-100">
 				{label}
 			</h2>
-			<div className="col-start-3 row-span-2 flex flex-col items-center rounded-lg bg-gray-100 px-2 py-1 leading-4 whitespace-nowrap text-gray-800 dark:bg-gray-800 dark:text-gray-200">
-				<span className="text-[0.6875rem] font-medium opacity-75">{dayOf}</span>
-				<span className="text-xs font-semibold">{daysLeft}</span>
-			</div>
+			{!endUnconfirmed && (
+				<div className="col-start-3 row-span-2 flex flex-col items-center rounded-lg bg-gray-100 px-2 py-1 leading-4 whitespace-nowrap text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+					<span className="text-[0.6875rem] font-medium opacity-75">{dayOf}</span>
+					<span className="text-xs font-semibold">{daysLeft}</span>
+				</div>
+			)}
 			{spiritLinks && (
 				<p className="col-start-2 min-w-0 text-sm text-gray-600 dark:text-gray-300">
 					<ExternalLinkList items={spiritLinks} locale={locale} />
 				</p>
 			)}
 			<p className={clsx(NOTE_CLASS, "col-start-2 min-w-0", spiritLinks && "col-span-2")}>
-				{timeZoneEstimated ? <SkeletonText>{ends}</SkeletonText> : ends}
+				{endUnconfirmed ? (
+					t("end-unconfirmed", { ns: "general" })
+				) : timeZoneEstimated ? (
+					<SkeletonText>{ends}</SkeletonText>
+				) : (
+					ends
+				)}
 			</p>
 			{offer && offer.total.length > 0 && (
 				<span className="col-span-2 col-start-2 flex min-w-0 items-center text-sm text-gray-900 dark:text-gray-100">

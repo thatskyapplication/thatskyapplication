@@ -12,6 +12,7 @@ import {
 	daysLeftText,
 	type DoublePeriodName,
 	doublePeriodCountdown,
+	eventDaysLeftText,
 	returningSpiritsCountdown,
 	upcomingEventCountdown,
 	upcomingMaintenanceCountdown,
@@ -96,7 +97,7 @@ function dailyGuidesEventData(
 ) {
 	const { EventIdToEventTicketEmoji } = emojis;
 
-	const eventEndText = skyNotEndedEvents(date).map(({ id, name, start, end }) => {
+	const eventEndText = skyNotEndedEvents(date).map(({ id, name, start, end, endUnconfirmed }) => {
 		const eventName = t(name, { lng: locale, ns: "general" });
 		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
 
@@ -106,7 +107,7 @@ function dailyGuidesEventData(
 						locale,
 						t,
 					})
-				: daysLeftText("event", end, date, { locale, t }, eventName);
+				: eventDaysLeftText({ end, endUnconfirmed }, date, { locale, t }, eventName);
 
 		return {
 			end,

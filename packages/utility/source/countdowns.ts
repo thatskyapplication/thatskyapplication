@@ -1,4 +1,5 @@
 import { daysLeftUntil, daysUntil } from "./dates.js";
+import type { Event } from "./models/event.js";
 import type { MessageFormatting } from "./types/index.js";
 
 type CountdownFormatting = Pick<MessageFormatting, "locale" | "t">;
@@ -23,6 +24,21 @@ export function daysLeftText(
 		count: daysLeft,
 		name,
 	});
+}
+
+export function eventDaysLeftText(
+	{ end, endUnconfirmed }: Pick<Event, "end" | "endUnconfirmed">,
+	from: Temporal.ZonedDateTime,
+	formatting: CountdownFormatting,
+	name: string,
+) {
+	return endUnconfirmed
+		? formatting.t("days-left.event-end-unconfirmed", {
+				lng: formatting.locale,
+				ns: "general",
+				name,
+			})
+		: daysLeftText("event", end, from, formatting, name);
 }
 
 export function doublePeriodCountdown(

@@ -73,6 +73,7 @@ export default {
 			"event-ends-today": "{{name}} ends today.",
 			event_one: "{{count}} day left in {{name}}.",
 			event_other: "{{count}} days left in {{name}}.",
+			"event-end-unconfirmed": "{{name}}: end date unconfirmed.",
 			"double-hearts-ends-today": "Double hearts ends today.",
 			"double-hearts_one": "{{count}} day left of double hearts.",
 			"double-hearts_other": "{{count}} days left of double hearts.",
@@ -1382,6 +1383,8 @@ export default {
 			[SpiritId.WrestlingSailor]: "https://sky-children-of-the-light.fandom.com/Wrestling_Sailor",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
+		"time-range-end-unconfirmed": "From {{start}}",
+		"end-unconfirmed": "End date unconfirmed.",
 		"cosmetic-common-names": {
 			[CosmeticCommon.WingBuff]: "Wing buff",
 			[CosmeticCommon.WingBuffMultiple]: "Wing buff {{number}}",

@@ -8,6 +8,7 @@ import {
 	CalendarTimeChips,
 } from "~/components/calendar/CalendarEntryDetails";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
+import { InfoBox } from "~/components/InfoBox";
 import { InfographicPreview } from "~/components/InfographicPreview";
 import {
 	CalendarEntryKindPresentations,
@@ -88,6 +89,9 @@ export function CalendarEntryBar({
 							<Popover.Description className="mt-1 text-sm text-gray-600 dark:text-gray-400">
 								{entry.range}
 							</Popover.Description>
+							{entry.endUnconfirmed && (
+								<InfoBox className="mt-2">{t("end-unconfirmed", { ns: "general" })}</InfoBox>
+							)}
 							{entry.duration > 0 && (
 								<p className="mt-0.5 text-xs text-gray-500 dark:text-gray-500">
 									{t("calendar.duration", { ns: "features", count: entry.duration })}

@@ -416,7 +416,7 @@ function radianceEventDetailedBreakdown(
 }
 
 function eventOverview(date: Temporal.ZonedDateTime, locale: Locale) {
-	return skyNotEndedEvents(date).map(({ id, name, start, end }) => {
+	return skyNotEndedEvents(date).map(({ id, name, start, end, endUnconfirmed }) => {
 		const eventName = t(name, { lng: locale, ns: "general" });
 		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
 
@@ -425,6 +425,7 @@ function eventOverview(date: Temporal.ZonedDateTime, locale: Locale) {
 			event: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}[${eventName}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`,
 			start: `<t:${epochSeconds(start)}:R>`,
 			end: `<t:${epochSeconds(end)}:R>`,
+			endUnconfirmed,
 		};
 	});
 }
@@ -1345,11 +1346,13 @@ export async function scheduleOverview(
 						type: t(ScheduleTypeToLocaleKey[ScheduleType.Events], { lng: locale }),
 						details: `${event.event}: ${
 							event.now
-								? t("schedule.overview-ends-timestamp", {
-										lng: locale,
-										ns: "features",
-										timestamp: event.end,
-									})
+								? event.endUnconfirmed
+									? t("end-unconfirmed", { lng: locale, ns: "general" })
+									: t("schedule.overview-ends-timestamp", {
+											lng: locale,
+											ns: "features",
+											timestamp: event.end,
+										})
 								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",

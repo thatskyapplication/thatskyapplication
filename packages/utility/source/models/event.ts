@@ -32,6 +32,10 @@ interface EventData {
 	 */
 	end: Temporal.ZonedDateTime;
 	/**
+	 * Whether the end date is unconfirmed.
+	 */
+	endUnconfirmed?: boolean;
+	/**
 	 * Data related to event tickets.
 	 */
 	eventTickets?: EventTicketsData;
@@ -92,6 +96,8 @@ export class Event {
 
 	public readonly end: Temporal.ZonedDateTime;
 
+	public readonly endUnconfirmed: boolean;
+
 	public readonly eventTickets: EventTickets | null;
 
 	public readonly offer: readonly ItemWithoutChildren[];
@@ -106,6 +112,7 @@ export class Event {
 		this.family = data.family;
 		this.start = data.start;
 		this.end = data.end;
+		this.endUnconfirmed = data.endUnconfirmed ?? false;
 
 		this.eventTickets = data.eventTickets
 			? {

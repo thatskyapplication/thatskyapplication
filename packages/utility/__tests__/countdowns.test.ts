@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
 	daysLeftText,
 	doublePeriodCountdown,
+	eventDaysLeftText,
 	returningSpiritsCountdown,
 	upcomingEventCountdown,
 	upcomingMaintenanceCountdown,
@@ -25,6 +26,28 @@ test("Days left text says the period ends today on its last day.", () => {
 
 	equal(
 		daysLeftText("event", period.end, skyDate(2026, 11, 7), formatting, "Event"),
+		"days-left.event:general:2:Event",
+	);
+});
+
+test("Event days left text gives no count while the end date is unconfirmed.", () => {
+	equal(
+		eventDaysLeftText(
+			{ end: period.end, endUnconfirmed: true },
+			skyDate(2026, 11, 7),
+			formatting,
+			"Event",
+		),
+		"days-left.event-end-unconfirmed:general:undefined:Event",
+	);
+
+	equal(
+		eventDaysLeftText(
+			{ end: period.end, endUnconfirmed: false },
+			skyDate(2026, 11, 7),
+			formatting,
+			"Event",
+		),
 		"days-left.event:general:2:Event",
 	);
 });

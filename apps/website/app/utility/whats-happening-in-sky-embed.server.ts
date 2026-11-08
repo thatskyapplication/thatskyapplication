@@ -57,12 +57,18 @@ export function whatsHappeningInSkyDiscordEmbed({
 	const row = (emoji: Emoji | null, type: string, details: string) =>
 		`${emoji ? `${formatEmoji(emoji)} ` : ""}${t("schedule.overview", { ns: "features", type, details })}`;
 
-	const timing = (start: Temporal.ZonedDateTime, end: Temporal.ZonedDateTime) =>
+	const timing = (
+		start: Temporal.ZonedDateTime,
+		end: Temporal.ZonedDateTime,
+		endUnconfirmed = false,
+	) =>
 		Temporal.ZonedDateTime.compare(now, start) >= 0
-			? t("schedule.overview-ends-timestamp", {
-					ns: "features",
-					timestamp: `<t:${epochSeconds(end)}:f>`,
-				})
+			? endUnconfirmed
+				? t("end-unconfirmed", { ns: "general" })
+				: t("schedule.overview-ends-timestamp", {
+						ns: "features",
+						timestamp: `<t:${epochSeconds(end)}:f>`,
+					})
 			: t("schedule.overview-next-timestamp", {
 					ns: "features",
 					timestamp: `<t:${epochSeconds(start)}:f>`,
@@ -95,9 +101,13 @@ export function whatsHappeningInSkyDiscordEmbed({
 		events.push(nextEvent);
 	}
 
-	for (const { end, id, name, start } of events) {
+	for (const { end, endUnconfirmed, id, name, start } of events) {
 		seasonAndEvents.push(
-			row(EventIdToEventTicketEmoji[id], t(name, { ns: "general" }), timing(start, end)),
+			row(
+				EventIdToEventTicketEmoji[id],
+				t(name, { ns: "general" }),
+				timing(start, end, endUnconfirmed),
+			),
 		);
 	}
 

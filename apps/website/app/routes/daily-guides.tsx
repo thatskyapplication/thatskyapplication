@@ -15,6 +15,7 @@ import {
 	doublePeriodCountdown,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
+	eventDaysLeftText,
 	fetchDailyGuides,
 	fetchFirstDailyGuidesDate,
 	formatEmojiURL,
@@ -457,7 +458,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		});
 	}
 
-	for (const { id, name, start, end } of skyNotEndedEvents(today).values()) {
+	for (const { id, name, start, end, endUnconfirmed } of skyNotEndedEvents(today).values()) {
 		const daysUntilStart = daysUntil(start, today);
 		const eventName = t(name, { ns: "general" });
 		const eventEmoji = EventIdToEventTicketEmoji[id];
@@ -489,7 +490,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		}
 
 		daysCount.push({
-			content: daysLeftText("event", end, today, { locale, t }, eventName),
+			content: eventDaysLeftText({ end, endUnconfirmed }, today, { locale, t }, eventName),
 			end,
 			iconURL,
 			key: `event-ending-${name}`,

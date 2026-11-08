@@ -14,6 +14,7 @@ import {
 	type Event,
 	epochSeconds,
 	daysLeftText,
+	eventDaysLeftText,
 	formatEmoji,
 	formatEmojiURL,
 	isActive,
@@ -265,13 +266,12 @@ export async function eventTickets(
 					{
 						type: ComponentType.TextDisplay,
 						content: events
-							.map(({ name, end }) =>
-								daysLeftText(
-									"event",
-									end,
+							.map((event) =>
+								eventDaysLeftText(
+									event,
 									now,
 									{ locale, t },
-									t(name, { lng: locale, ns: "general" }),
+									t(event.name, { lng: locale, ns: "general" }),
 								),
 							)
 							.join("\n"),

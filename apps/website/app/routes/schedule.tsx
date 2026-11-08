@@ -181,6 +181,7 @@ interface DisplayCard {
 	end?: string | null | undefined;
 	endRelative?: string | null | undefined;
 	endUnix?: number | null | undefined;
+	endUnconfirmed?: boolean | undefined;
 }
 
 function periodTiming(
@@ -270,7 +271,7 @@ function buildScheduleView(
 		});
 	}
 
-	for (const { id, name, start, end } of skyNotEndedEvents(now).values()) {
+	for (const { id, name, start, end, endUnconfirmed } of skyNotEndedEvents(now).values()) {
 		cards.push({
 			type: DisplayCardType.Event,
 			badge: DisplayCardBadge.Event,
@@ -278,6 +279,7 @@ function buildScheduleView(
 			label: t(`general:${name}`),
 			wikiURL: t(`general:event-wiki.${id}`),
 			...periodTiming(start, end, now, preferences),
+			endUnconfirmed,
 		});
 	}
 
@@ -422,6 +424,8 @@ function DisplayCardRow({
 }) {
 	const { t } = useTranslation();
 
+	const endUnconfirmed = item.active && item.endUnconfirmed;
+
 	const timestamp = item.active
 		? t("schedule.overview-ends-timestamp", {
 				ns: "features",
@@ -485,8 +489,14 @@ function DisplayCardRow({
 				</span>
 			</div>
 			<span className="col-span-2 text-sm text-gray-500 md:col-span-1 md:text-right md:whitespace-nowrap dark:text-gray-400">
-				{timeZoneEstimated ? <SkeletonText>{timestamp}</SkeletonText> : timestamp}{" "}
-				{relative && <span className="text-gray-400 dark:text-gray-500">({relative})</span>}
+				{endUnconfirmed ? (
+					t("end-unconfirmed", { ns: "general" })
+				) : (
+					<>
+						{timeZoneEstimated ? <SkeletonText>{timestamp}</SkeletonText> : timestamp}{" "}
+						{relative && <span className="text-gray-400 dark:text-gray-500">({relative})</span>}
+					</>
+				)}
 			</span>
 			{item.nestingWorkshop && (
 				<div className="col-span-2 mt-1 md:col-span-4">

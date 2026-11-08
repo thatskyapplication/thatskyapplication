@@ -7,6 +7,6 @@ export default new Event({
 	name: "days-of-style",
 	family: EventFamilyId.DaysOfStyle,
 	start: skyDate(2026, 11, 27),
-	// End date not yet revealed.
 	end: skyDate(2026, 12, 11),
+	endUnconfirmed: true,
 });

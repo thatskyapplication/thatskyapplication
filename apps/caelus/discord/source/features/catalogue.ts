@@ -114,6 +114,24 @@ function breadcrumb(locale: Locale, current: string, trail: readonly string[] = 
 	)}`;
 }
 
+function eventTimeRangeLines(event: Event, locale: Locale) {
+	const start = `<t:${epochSeconds(event.start)}:s>`;
+
+	return event.endUnconfirmed
+		? [
+				t("time-range-end-unconfirmed", { lng: locale, ns: "general", start }),
+				t("end-unconfirmed", { lng: locale, ns: "general" }),
+			]
+		: [
+				t("time-range", {
+					lng: locale,
+					ns: "general",
+					start,
+					end: `<t:${epochSeconds(event.end)}:s>`,
+				}),
+			];
+}
+
 function backToStartButton(locale: Locale): APIButtonComponentWithCustomId {
 	return {
 		type: ComponentType.Button,
@@ -251,7 +269,9 @@ function offerData({
 				content += percentage === null ? "" : ` (${percentage}%)`;
 			}
 
-			content += `\n\n-# ${t("time-range", { lng: locale, ns: "general", start: `<t:${epochSeconds(event.start)}:s>`, end: `<t:${epochSeconds(event.end)}:s>` })}`;
+			content += `\n\n${eventTimeRangeLines(event, locale)
+				.map((line) => `-# ${line}`)
+				.join("\n")}`;
 			content += `\n${offerDescription.length > 0 ? offerDescription.join("\n") : `-# ${t("catalogue.event-no-cosmetics", { lng: locale, ns: "features" })}`}`;
 		}
 
@@ -2124,12 +2144,7 @@ async function viewEvent(
 	const heading = `[${eventName}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`;
 	const title = `## ${heading}\n\n${breadcrumb(locale, eventName, [
 		t("events", { lng: locale, ns: "general" }),
-	])}\n\n${t("time-range", {
-		lng: locale,
-		ns: "general",
-		start: `<t:${epochSeconds(event.start)}:s>`,
-		end: `<t:${epochSeconds(event.end)}:s>`,
-	})}`;
+	])}\n\n${eventTimeRangeLines(event, locale).join("\n")}`;
 
 	const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
 

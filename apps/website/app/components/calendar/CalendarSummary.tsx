@@ -40,10 +40,17 @@ function SummarySection({
 			{entries.length > 0 ? (
 				<ul className="m-0 -mx-2 list-none p-0">
 					{entries.map((entry) => {
-						const timestamp = t(
-							active ? "schedule.overview-ends-timestamp" : "schedule.overview-next-timestamp",
-							{ ns: "features", timestamp: active ? entry.endLabel : entry.startLabel },
-						);
+						const endUnconfirmed = active && entry.endUnconfirmed;
+
+						const timestamp = endUnconfirmed
+							? t("end-unconfirmed", { ns: "general" })
+							: t(
+									active ? "schedule.overview-ends-timestamp" : "schedule.overview-next-timestamp",
+									{
+										ns: "features",
+										timestamp: active ? entry.endLabel : entry.startLabel,
+									},
+								);
 
 						return (
 							<li key={entry.key}>
@@ -69,7 +76,11 @@ function SummarySection({
 										{entry.label}
 									</span>
 									<span className="ms-auto shrink-0 text-xs whitespace-nowrap text-gray-500 dark:text-gray-400">
-										{zoneEstimated ? <SkeletonText>{timestamp}</SkeletonText> : timestamp}
+										{zoneEstimated && !endUnconfirmed ? (
+											<SkeletonText>{timestamp}</SkeletonText>
+										) : (
+											timestamp
+										)}
 									</span>
 								</Link>
 							</li>

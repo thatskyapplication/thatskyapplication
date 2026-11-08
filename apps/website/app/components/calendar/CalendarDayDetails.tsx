@@ -48,6 +48,9 @@ function AllDayEntry({
 			<p className="mt-0.5 text-xs opacity-90">
 				{zoneEstimated ? <SkeletonText>{entry.range}</SkeletonText> : entry.range}
 			</p>
+			{entry.endUnconfirmed && (
+				<p className="mt-0.5 text-xs opacity-90">{t("end-unconfirmed", { ns: "general" })}</p>
+			)}
 			{entry.spiritLinks && (
 				<p className="mt-1 text-xs">
 					<ExternalLinkList

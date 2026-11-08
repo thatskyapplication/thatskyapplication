@@ -139,6 +139,7 @@ interface CalendarEntryBase {
 	lastDate: string;
 	startsAt: number;
 	endsAt: number;
+	endUnconfirmed: boolean;
 	iconEmojiIds: readonly Snowflake[];
 	duration: number;
 	wikiURL: string | null;

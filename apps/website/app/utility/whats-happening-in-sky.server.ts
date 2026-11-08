@@ -425,6 +425,7 @@ function eventEntries(context: ViewContext) {
 						}
 					: undefined,
 			emoji,
+			endUnconfirmed: event.endUnconfirmed,
 			key: `event-${event.id}`,
 			label: name,
 			offer,

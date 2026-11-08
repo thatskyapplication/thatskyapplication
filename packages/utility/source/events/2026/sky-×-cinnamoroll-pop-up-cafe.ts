@@ -7,6 +7,6 @@ export default new Event({
 	name: "sky-x-cinnamoroll-pop-up-cafe",
 	family: EventFamilyId.SkyXCinnamorollPopUpCafe,
 	start: skyDate(2026, 11, 13),
-	// End date not yet revealed.
 	end: skyDate(2026, 12, 4),
+	endUnconfirmed: true,
 });

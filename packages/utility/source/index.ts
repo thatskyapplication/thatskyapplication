@@ -103,6 +103,7 @@ export {
 	daysLeftText,
 	type DoublePeriodName,
 	doublePeriodCountdown,
+	eventDaysLeftText,
 	returningSpiritsCountdown,
 	upcomingEventCountdown,
 	upcomingMaintenanceCountdown,

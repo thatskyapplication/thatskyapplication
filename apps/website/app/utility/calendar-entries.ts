@@ -54,6 +54,7 @@ interface CalendarEntryInput {
 	label: string;
 	start: Temporal.ZonedDateTime;
 	end?: Temporal.ZonedDateTime;
+	endUnconfirmed?: boolean;
 	dateOnly?: boolean;
 	iconEmojiIds?: readonly Snowflake[];
 	detail?: string;
@@ -151,6 +152,7 @@ export function calendarEntriesBetween({
 		const end = input.end ?? input.start;
 		const { firstDate, lastDate } = inclusiveDates(input.start, end, timeZone);
 		const dateOnly = input.dateOnly ?? false;
+		const endUnconfirmed = input.endUnconfirmed ?? false;
 
 		const base = {
 			key: input.key,
@@ -160,9 +162,11 @@ export function calendarEntriesBetween({
 			lastDate: lastDate.toString(),
 			startsAt: input.start.epochMilliseconds,
 			endsAt: end.epochMilliseconds,
+			endUnconfirmed,
 			iconEmojiIds: input.iconEmojiIds ?? [],
 			detail: input.detail ?? null,
-			duration: dateOnly ? 0 : input.start.until(end, { largestUnit: "day" }).days,
+			duration:
+				dateOnly || endUnconfirmed ? 0 : input.start.until(end, { largestUnit: "day" }).days,
 			wikiURL: input.wikiURL ?? null,
 			pageURL: input.pageURL ?? null,
 			catalogueURL: input.catalogueURL ?? null,
@@ -189,7 +193,12 @@ export function calendarEntriesBetween({
 						? formatDateRange(firstDate, lastDate)
 						: input.end === undefined
 							? rangeFormat.format(input.start.epochMilliseconds)
-							: rangeFormat.formatRange(input.start.epochMilliseconds, end.epochMilliseconds),
+							: endUnconfirmed
+								? t("time-range-end-unconfirmed", {
+										ns: "general",
+										start: rangeFormat.format(input.start.epochMilliseconds),
+									})
+								: rangeFormat.formatRange(input.start.epochMilliseconds, end.epochMilliseconds),
 				};
 	};
 
@@ -249,6 +258,7 @@ export function calendarEntriesBetween({
 				label: t(event.name, { ns: "general" }),
 				start: event.start,
 				end: event.end,
+				endUnconfirmed: event.endUnconfirmed,
 				iconEmojiIds: eventTicketEmoji ? [eventTicketEmoji.id] : [],
 				wikiURL: t(`event-wiki.${event.id}`, { ns: "general" }),
 				...(catalogueEventFamilies.has(event.family)
