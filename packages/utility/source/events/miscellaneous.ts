@@ -139,6 +139,10 @@ export const DOUBLE_HEART_EVENTS = [
 		start: skyDate(2025, 12, 31),
 		end: skyDate(2026, 1, 16),
 	},
+	{
+		start: skyDate(2026, 11, 13),
+		end: skyDate(2026, 11, 27),
+	},
 ] as const satisfies readonly DoubleHeartEvent[];
 
 export const COMMUNITY_EVENTS = [
