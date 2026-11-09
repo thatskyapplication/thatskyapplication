@@ -844,8 +844,6 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Moonlight/2026",
 			[EventId.DaysOfMischief2026]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2026",
-			[EventId.SkyXCinnamorollPopUpCafe2026]:
-				"https://sky-children-of-the-light.fandom.com/wiki/Sky_%C3%97_Cinnamoroll_Pop-Up_Cafe/2026",
 			[EventId.DaysOfStyle2026]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Style/2026",
 		} satisfies Record<EventIds, `https://${string}`>,
