@@ -231,19 +231,15 @@ export async function renderFriendshipTree({
 		return canvas.encode("webp");
 	}
 
+	if (photo.width !== photo.height) {
+		throw new Error(
+			`Friendship tree backgrounds must be square, but this one is ${photo.width}x${photo.height}.`,
+		);
+	}
+
 	const canvas = createCanvas(IMAGE_DIMENSION, IMAGE_DIMENSION);
 	const context = canvas.getContext("2d");
-	const cover = Math.max(IMAGE_DIMENSION / photo.width, IMAGE_DIMENSION / photo.height);
-	const photoWidth = photo.width * cover;
-	const photoHeight = photo.height * cover;
-
-	context.drawImage(
-		photo,
-		(IMAGE_DIMENSION - photoWidth) / 2,
-		(IMAGE_DIMENSION - photoHeight) / 2,
-		photoWidth,
-		photoHeight,
-	);
+	context.drawImage(photo, 0, 0, IMAGE_DIMENSION, IMAGE_DIMENSION);
 
 	const scale = Math.min(1, IMAGE_DIMENSION / layout.height);
 
