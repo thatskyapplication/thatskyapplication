@@ -12,6 +12,9 @@ export default defineConfig((config) => ({
 	resolve: {
 		tsconfigPaths: true,
 	},
+	ssr: {
+		external: ["@thatskyapplication/friendship-tree-generator"],
+	},
 	plugins: [
 		babel({
 			babelConfig: {

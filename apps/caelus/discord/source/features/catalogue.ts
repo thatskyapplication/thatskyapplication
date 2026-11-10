@@ -22,6 +22,10 @@ import {
 } from "@discordjs/core";
 import { getFixedT, t } from "i18next";
 import {
+	displayFriendshipTreeVariant,
+	isFriendshipTreeImageCached,
+} from "@thatskyapplication/friendship-tree-generator";
+import {
 	CLOTHING_SHOP,
 	type CostEntry,
 	catalogueComplete,
@@ -99,12 +103,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import {
-	displayFriendshipTreeVariant,
-	friendshipTreeFileName,
-	friendshipTreeImage,
-	isFriendshipTreeImageCached,
-} from "../utility/friendship-tree.js";
+import { friendshipTreeFileName, friendshipTreeImage } from "../utility/friendship-tree.js";
 import {
 	interactionInvoker,
 	isButton,

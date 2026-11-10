@@ -21,6 +21,7 @@
 		"@react-router/node": "^8.3.0",
 		"@sentry/profiling-node": "catalog:",
 		"@sentry/react-router": "^10.70.0",
+		"@thatskyapplication/friendship-tree-generator": "workspace:^",
 		"@thatskyapplication/sky-links": "workspace:^",
 		"@thatskyapplication/utility": "workspace:^",
 		"clsx": "catalog:",

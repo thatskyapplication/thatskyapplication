@@ -28,22 +28,34 @@ import {
 	productionEmojis,
 	type SeasonIds,
 	type Snowflake,
+	type Spirit,
+	type SpiritIds,
 	sumCosts,
 	TEXT_COLOUR,
 } from "@thatskyapplication/utility";
 
 const FONT_PATH = fileURLToPath(new URL("../assets/Hind-Regular.ttf", import.meta.url));
 const EMOJI_FETCH_TIMEOUT_MILLISECONDS = 10_000 as const;
+const BACKGROUND_FETCH_TIMEOUT_MILLISECONDS = 10_000 as const;
 const IMAGE_DIMENSION = 1750 as const;
 const PANEL_COLOUR = "rgba(0, 0, 0, 0.6)" as const;
 const PANEL_RADIUS = 50 as const;
+const FRIENDSHIP_TREE_VARIANTS = ["seasonal", "current"] as const;
 const EMOJIS = productionEmojis();
 const { itemEmoji, SeasonIdToSeasonalEmoji } = EMOJIS;
+
+export type FriendshipTreeVariant = (typeof FRIENDSHIP_TREE_VARIANTS)[number];
+type FriendshipTreeImageKey = `${SpiritIds}-${FriendshipTreeVariant}`;
 
 interface FriendshipTreeRenderOptions {
 	tree: FriendshipTree | LegacyFriendshipTree;
 	seasonId?: SeasonIds | undefined;
 	background?: Uint8Array | Promise<Uint8Array | undefined> | undefined;
+}
+
+interface FriendshipTreeImageOptions {
+	cdnURL: string;
+	logger?: { warn(object: unknown, message: string): void } | undefined;
 }
 
 if (!GlobalFonts.registerFromPath(FONT_PATH)) {
@@ -243,4 +255,105 @@ export async function renderFriendshipTree({
 	context.scale(scale, scale);
 	drawPanel(context, layout, images, seasonId);
 	return canvas.encode("webp");
+}
+
+const friendshipTreeImages = new Map<FriendshipTreeImageKey, Promise<Buffer>>();
+const cachedFriendshipTreeImages = new Set<FriendshipTreeImageKey>();
+
+function friendshipTreeFor(
+	spirit: Spirit,
+	variant: FriendshipTreeVariant,
+): FriendshipTree | LegacyFriendshipTree | undefined {
+	if (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) {
+		return variant === "seasonal"
+			? spirit.friendshipTrees.seasonal.friendshipTree
+			: spirit.friendshipTrees.postSeason?.friendshipTree;
+	}
+
+	return variant === "current" ? spirit.displayFriendshipTree : undefined;
+}
+
+export function friendshipTreeVariants(spirit: Spirit) {
+	return FRIENDSHIP_TREE_VARIANTS.filter(
+		(variant) => (friendshipTreeFor(spirit, variant)?.length ?? 0) > 0,
+	);
+}
+
+export function displayFriendshipTreeVariant(spirit: Spirit): FriendshipTreeVariant {
+	return (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) && !spirit.friendshipTrees.postSeason
+		? "seasonal"
+		: "current";
+}
+
+async function friendshipTreeBackground(
+	spiritId: SpiritIds,
+	{ cdnURL, logger }: FriendshipTreeImageOptions,
+) {
+	try {
+		const response = await fetch(`${cdnURL}/spirits/${spiritId}/friendship_tree/background.webp`, {
+			signal: AbortSignal.timeout(BACKGROUND_FETCH_TIMEOUT_MILLISECONDS),
+		});
+
+		if (response.ok) {
+			return { background: new Uint8Array(await response.arrayBuffer()), cacheable: true };
+		}
+
+		if (response.status === 404) {
+			return { background: undefined, cacheable: true };
+		}
+
+		logger?.warn(
+			{ spiritId, status: response.status },
+			"Unexpected response fetching a friendship tree background.",
+		);
+	} catch (error) {
+		logger?.warn(error, "Failed to fetch a friendship tree background.");
+	}
+
+	return { background: undefined, cacheable: false };
+}
+
+export function isFriendshipTreeImageCached(spiritId: SpiritIds, variant: FriendshipTreeVariant) {
+	return cachedFriendshipTreeImages.has(`${spiritId}-${variant}`);
+}
+
+export function friendshipTreeImage(
+	spirit: Spirit,
+	variant: FriendshipTreeVariant,
+	options: FriendshipTreeImageOptions,
+) {
+	const key: FriendshipTreeImageKey = `${spirit.id}-${variant}`;
+	const cached = friendshipTreeImages.get(key);
+
+	if (cached) {
+		return cached;
+	}
+
+	const image = (async () => {
+		const tree = friendshipTreeFor(spirit, variant);
+
+		if (!tree || tree.length === 0) {
+			throw new Error(`Spirit ${spirit.id} has no ${variant} friendship tree.`);
+		}
+
+		const backgroundResult = friendshipTreeBackground(spirit.id, options);
+
+		const buffer = await renderFriendshipTree({
+			tree,
+			seasonId: spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit.seasonId : undefined,
+			background: backgroundResult.then(({ background }) => background),
+		});
+
+		if ((await backgroundResult).cacheable) {
+			cachedFriendshipTreeImages.add(key);
+		} else {
+			friendshipTreeImages.delete(key);
+		}
+
+		return buffer;
+	})();
+
+	friendshipTreeImages.set(key, image);
+	image.catch(() => friendshipTreeImages.delete(key));
+	return image;
 }

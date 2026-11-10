@@ -49,3 +49,4 @@ export const R2_BUCKET_REPORTS = process.env.R2_BUCKET_REPORTS;
 export const S3_ACCESS_KEY_ID = process.env.S3_ACCESS_KEY_ID;
 export const S3_ACCOUNT_ID = process.env.S3_ACCOUNT_ID;
 export const S3_SECRET_ACCESS_KEY = process.env.S3_SECRET_ACCESS_KEY;
+export const SENTRY_RELEASE = process.env.SENTRY_RELEASE;

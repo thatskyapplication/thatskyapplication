@@ -10,6 +10,10 @@ import {
 } from "@discordjs/core";
 import { getFixedT, t } from "i18next";
 import {
+	friendshipTreeVariants,
+	isFriendshipTreeImageCached,
+} from "@thatskyapplication/friendship-tree-generator";
+import {
 	isSpiritsHistoryOrderType,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
@@ -23,12 +27,7 @@ import pino from "../pino.js";
 import { MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { EMOJIS } from "../utility/emojis.js";
-import {
-	friendshipTreeFileName,
-	friendshipTreeImage,
-	friendshipTreeVariants,
-	isFriendshipTreeImageCached,
-} from "../utility/friendship-tree.js";
+import { friendshipTreeFileName, friendshipTreeImage } from "../utility/friendship-tree.js";
 
 export async function searchAutocomplete<
 	Interaction extends APIApplicationCommandAutocompleteInteraction,

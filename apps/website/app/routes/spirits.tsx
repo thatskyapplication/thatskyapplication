@@ -30,6 +30,7 @@ import {
 	fitsDiscordComponentEmbed,
 } from "~/utility/discord-component-embed.server.js";
 import { EMOJIS } from "~/utility/emojis.js";
+import { friendshipTreeImageURLs } from "~/utility/friendship-tree.server.js";
 import { hexColour } from "~/utility/functions.js";
 import { spiritHistoryURL, spiritsHistoryPagination } from "~/utility/spirits.js";
 import { dateTimeLabels } from "~/utility/time.js";
@@ -146,7 +147,13 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 	let container: APIContainerComponent;
 
 	if (spirit) {
-		container = spiritContainer({ emojis: EMOJIS, locale, spirit, t });
+		container = spiritContainer({
+			emojis: EMOJIS,
+			locale,
+			spirit,
+			t,
+			friendshipTreeImageURLs: friendshipTreeImageURLs(spirit),
+		});
 	} else if (url.searchParams.has("order") || url.searchParams.has("page")) {
 		const { order, page } = spiritsHistoryPagination(url.searchParams);
 

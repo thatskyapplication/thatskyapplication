@@ -795,6 +795,9 @@ importers:
       '@sentry/react-router':
         specifier: ^10.70.0
         version: 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(@react-router/node@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@7.0.2))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(rollup@4.59.0)(supports-color@10.2.2)
+      '@thatskyapplication/friendship-tree-generator':
+        specifier: workspace:^
+        version: link:../../packages/friendship-tree-generator
       '@thatskyapplication/sky-links':
         specifier: workspace:^
         version: link:../../packages/sky-links
