@@ -10,7 +10,6 @@ export default new GuideSpirit({
 	area: AreaName.SanctuaryIslands,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[
 					{

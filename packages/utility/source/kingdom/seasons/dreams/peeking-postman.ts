@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	area: AreaName.VillageOfDreams,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[
 					{ cosmetic: Cosmetic.EmotePeek1 },

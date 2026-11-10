@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	area: AreaName.CaveOfProphecies,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[
 					{ cosmetic: Cosmetic.EmoteDeepBreath1 },

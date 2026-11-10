@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	area: AreaName.TheGraveyard,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[
 					{ cosmetic: Cosmetic.EmoteRespect1 },

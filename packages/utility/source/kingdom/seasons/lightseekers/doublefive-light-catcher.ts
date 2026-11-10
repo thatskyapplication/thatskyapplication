@@ -14,7 +14,6 @@ export default new SeasonalSpirit({
 	area: AreaName.BirdNest,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[{ cosmetic: Cosmetic.FriendActionDoubleFive1 }],
 				[

@@ -14,7 +14,6 @@ export default new SeasonalSpirit({
 	area: AreaName.PassageRock,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[{ cosmetic: Cosmetic.FriendActionCarry1 }],
 				[

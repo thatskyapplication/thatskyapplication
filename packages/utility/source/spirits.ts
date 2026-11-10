@@ -69,7 +69,7 @@ function visitErrorField(
 
 interface SpiritContainerData extends MessageFormatting {
 	spirit: Spirit;
-	friendshipTreeImageURLs?: readonly string[] | undefined;
+	friendshipTreeImageURLs: readonly string[];
 }
 
 export function spiritContainer({
@@ -171,15 +171,10 @@ export function spiritContainer({
 		});
 	}
 
-	const mediaItems = (
-		friendshipTreeImageURLs ??
-		friendshipTrees.map(({ imageURL }) => imageURL).filter((url) => typeof url === "string")
-	).map((url) => ({ media: { url } }));
-
-	if (mediaItems.length > 0) {
+	if (friendshipTreeImageURLs.length > 0) {
 		components.push({
 			type: ComponentType.MediaGallery,
-			items: mediaItems,
+			items: friendshipTreeImageURLs.map((url) => ({ media: { url } })),
 		});
 	}
 

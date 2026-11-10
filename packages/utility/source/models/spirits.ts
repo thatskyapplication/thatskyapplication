@@ -3,7 +3,6 @@ import type { Cosmetic } from "../cosmetics.js";
 import { isActive, skyDate } from "../dates.js";
 import { realmForArea } from "../kingdom/areas/index.js";
 import type { AreaName, RealmName } from "../kingdom/geography.js";
-import { CDN_URL } from "../routes.js";
 import type { SeasonIds } from "../season.js";
 import type { VisitPeriod } from "../types/index.js";
 import {
@@ -53,7 +52,6 @@ export type FriendshipTreeRaw = readonly (readonly [
 ])[];
 
 interface FriendshipTreeData {
-	hasInfographic?: boolean;
 	friendshipTree: FriendshipTreeRaw | LegacyFriendshipTreeRaw;
 }
 
@@ -124,7 +122,6 @@ interface GuideSpiritData extends Omit<BaseSpiritData, "realm"> {
 
 interface SpiritFriendshipTree {
 	readonly friendshipTree: FriendshipTree | LegacyFriendshipTree;
-	readonly imageURL: string | null;
 	readonly totalCost: readonly CostEntry[];
 }
 
@@ -198,17 +195,13 @@ abstract class BaseSpirit<Data extends BaseSpiritData> {
 	}
 
 	protected resolveFriendshipTree(
-		{ hasInfographic = true, friendshipTree }: FriendshipTreeData,
-		infographic: "current" | "seasonal",
+		{ friendshipTree }: FriendshipTreeData,
 		options?: { seasonId: SeasonIds },
 	): SpiritFriendshipTree {
 		const resolvedFriendshipTree = resolveOffer(friendshipTree, options);
 
 		return {
 			friendshipTree: resolvedFriendshipTree,
-			imageURL: hasInfographic
-				? String(new URL(`spirits/${this.id}/friendship_tree/${infographic}.webp`, CDN_URL))
-				: null,
 			totalCost: sumCosts(friendshipTreeCosts(resolvedFriendshipTree)),
 		};
 	}
@@ -239,8 +232,6 @@ abstract class RealmSpirit<
 
 	public readonly friendshipTree: FriendshipTree | LegacyFriendshipTree;
 
-	public readonly imageURL: string | null;
-
 	public readonly totalCost: readonly CostEntry[];
 
 	public override readonly displayFriendshipTree: FriendshipTree | LegacyFriendshipTree;
@@ -249,9 +240,8 @@ abstract class RealmSpirit<
 
 	public constructor(spirit: Data) {
 		super(spirit);
-		const { friendshipTree, imageURL, totalCost } = this.resolveFriendshipTree(spirit, "current");
+		const { friendshipTree, totalCost } = this.resolveFriendshipTree(spirit);
 		this.friendshipTree = friendshipTree;
-		this.imageURL = imageURL;
 		this.totalCost = totalCost;
 		this.displayFriendshipTree = friendshipTree;
 		this.allCosmetics = resolveAllCosmetics(friendshipTree);
@@ -289,8 +279,8 @@ export class SeasonalSpirit extends BaseSpirit<SeasonalSpiritData> {
 		const { seasonal, postSeason } = spirit.friendshipTrees;
 
 		this.friendshipTrees = {
-			seasonal: this.resolveFriendshipTree(seasonal, "seasonal", { seasonId: spirit.seasonId }),
-			postSeason: postSeason ? this.resolveFriendshipTree(postSeason, "current") : null,
+			seasonal: this.resolveFriendshipTree(seasonal, { seasonId: spirit.seasonId }),
+			postSeason: postSeason ? this.resolveFriendshipTree(postSeason) : null,
 		};
 
 		this.displayFriendshipTree = (
@@ -352,11 +342,11 @@ export class GuideSpirit extends BaseSpirit<GuideSpiritData> {
 		this.friendshipTrees = {
 			seasonal: seasonal
 				? {
-						...this.resolveFriendshipTree(seasonal, "seasonal", { seasonId: spirit.seasonId }),
+						...this.resolveFriendshipTree(seasonal, { seasonId: spirit.seasonId }),
 						inProgress: seasonal.inProgress ?? false,
 					}
-				: { friendshipTree: [], imageURL: null, totalCost: [], inProgress: false },
-			postSeason: postSeason ? this.resolveFriendshipTree(postSeason, "current") : null,
+				: { friendshipTree: [], totalCost: [], inProgress: false },
+			postSeason: postSeason ? this.resolveFriendshipTree(postSeason) : null,
 		};
 
 		this.displayFriendshipTree = (

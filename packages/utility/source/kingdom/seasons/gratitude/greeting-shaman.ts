@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	area: AreaName.UpperVault,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[
 					{ cosmetic: Cosmetic.EmoteKungFu1 },

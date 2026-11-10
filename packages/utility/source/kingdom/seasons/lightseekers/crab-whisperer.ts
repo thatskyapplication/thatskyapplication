@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	area: AreaName.CrabFields,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallCrab }],
 				[

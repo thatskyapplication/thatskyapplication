@@ -11,7 +11,6 @@ export default new GuideSpirit({
 	area: AreaName.StarlightDesert,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[
 					{

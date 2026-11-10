@@ -10,7 +10,6 @@ export default new GuideSpirit({
 	area: AreaName.TheTreehouse,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[
 					{

@@ -10,7 +10,6 @@ export default new GuideSpirit({
 	area: AreaName.ForgottenArk,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[
 					{

@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	area: AreaName.SanctuaryIslands,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTimid }],
 				[

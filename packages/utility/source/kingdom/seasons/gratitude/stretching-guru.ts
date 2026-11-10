@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	area: AreaName.PrairieCave,
 	friendshipTrees: {
 		seasonal: {
-			hasInfographic: false,
 			friendshipTree: [
 				[
 					{ cosmetic: Cosmetic.EmoteYoga1 },
