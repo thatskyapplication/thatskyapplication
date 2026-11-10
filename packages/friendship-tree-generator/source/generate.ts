@@ -9,7 +9,7 @@ import {
 } from "@thatskyapplication/utility";
 import { renderFriendshipTree } from "./index.js";
 
-const USAGE = "Usage: pnpm start <spirit ID> [--post-season] [--background <file>]" as const;
+const USAGE = "Usage: pnpm start <spirit id> [--post-season] [--background <file>]" as const;
 const OUTPUT_DIRECTORY = new URL("../output/", import.meta.url);
 
 const { positionals, values } = parseArgs({
@@ -28,7 +28,7 @@ const spirit =
 		: undefined;
 
 if (!spirit) {
-	console.error(argument === undefined ? USAGE : `${argument} is not a spirit ID. ${USAGE}`);
+	console.error(argument === undefined ? USAGE : `${argument} is not a spirit id. ${USAGE}`);
 	process.exit(1);
 }
 
