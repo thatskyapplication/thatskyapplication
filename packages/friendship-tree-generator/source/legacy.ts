@@ -6,6 +6,7 @@ import {
 	ASSET_TEXT_DOUBLE_OFFSET,
 	ASSET_TEXT_SINGLE_OFFSET,
 	ASSET_TEXT_TRIPLE_OFFSET,
+	BACKGROUND_PADDING,
 	FONT_SIZE,
 	formatEmojiURL,
 	IMAGE_SIZE,
@@ -34,6 +35,16 @@ const layout = legacyFriendshipTreeLayout(NODES);
 const canvas = createCanvas(layout.width, layout.height);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
+context.fillStyle = "rgba(0, 0, 0, 0.6)";
+context.beginPath();
+context.roundRect(
+	BACKGROUND_PADDING,
+	BACKGROUND_PADDING,
+	canvas.width - BACKGROUND_PADDING * 2,
+	canvas.height - BACKGROUND_PADDING * 2,
+	50,
+);
+context.fill();
 context.lineWidth = LINE_WIDTH;
 context.strokeStyle = TEXT_COLOUR;
 context.fillStyle = LINE_COLOUR;
