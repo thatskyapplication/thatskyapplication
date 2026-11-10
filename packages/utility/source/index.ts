@@ -165,7 +165,6 @@ export {
 	type FriendshipTreeLayout,
 	type FriendshipTreeLine,
 	type FriendshipTreeNodeCost,
-	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
 	LINE_COLOUR,
 	LINE_WIDTH,

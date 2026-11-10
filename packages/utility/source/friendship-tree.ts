@@ -7,7 +7,7 @@ export const TEXT_COLOUR = "#FFFFFF" as const;
 export const LINE_COLOUR = "#FFFFFF" as const;
 export const IMAGE_SIZE = 100 as const;
 const WIDTH_MODIFIER = 200 as const;
-export const HEIGHT_START_OFFSET = 25 as const;
+const HEIGHT_START_OFFSET = 25 as const;
 const LINE_OFFSET = 10 as const;
 export const ASSET_SIZE = 55 as const;
 const ASSET_OFFSET = 5 as const;
@@ -80,6 +80,56 @@ function modernAssetShift(amount: number): number {
 	}
 
 	return 0;
+}
+
+function normaliseTop(layout: FriendshipTreeLayout): FriendshipTreeLayout {
+	let minY = 0;
+
+	for (const node of layout.nodes) {
+		minY = Math.min(minY, node.y);
+
+		if (node.seasonEmoji) {
+			minY = Math.min(minY, node.seasonEmoji.y);
+		}
+
+		if (node.level) {
+			minY = Math.min(minY, node.level.baselineY - FONT_SIZE);
+		}
+	}
+
+	for (const line of layout.lines) {
+		minY = Math.min(minY, line.y1, line.y2);
+	}
+
+	if (minY >= 0) {
+		return layout;
+	}
+
+	const shift = HEIGHT_START_OFFSET - minY;
+
+	for (const node of layout.nodes) {
+		node.y += shift;
+
+		if (node.cost) {
+			node.cost.iconY += shift;
+			node.cost.textBaselineY += shift;
+		}
+
+		if (node.seasonEmoji) {
+			node.seasonEmoji.y += shift;
+		}
+
+		if (node.level) {
+			node.level.baselineY += shift;
+		}
+	}
+
+	for (const line of layout.lines) {
+		line.y1 += shift;
+		line.y2 += shift;
+	}
+
+	return { ...layout, height: layout.height + shift };
 }
 
 export function legacyFriendshipTreeLayout(
@@ -262,7 +312,7 @@ export function legacyFriendshipTreeLayout(
 		}
 	}
 
-	return { width, height, lines, nodes };
+	return normaliseTop({ width, height, lines, nodes });
 }
 
 export function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTreeLayout {
@@ -353,5 +403,5 @@ export function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTree
 		}
 	}
 
-	return { width, height, lines: [], nodes };
+	return normaliseTop({ width, height, lines: [], nodes });
 }

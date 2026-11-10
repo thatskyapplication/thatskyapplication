@@ -13,9 +13,7 @@ import {
 	FONT_SIZE,
 	FRIENDSHIP_TREE_WIDTH,
 	type FriendshipTree as FriendshipTreeData,
-	type FriendshipTreeLayout,
 	friendshipTreeToItems,
-	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
 	type Item,
 	type ItemCost,
@@ -72,56 +70,6 @@ function resolveNodeCost(
 		nameKey: COST_ENTRY_NAME_KEYS[entry.type],
 		text: entry.amount.toLocaleString(locale),
 	};
-}
-
-function normaliseTop(layout: FriendshipTreeLayout): FriendshipTreeLayout {
-	let minY = 0;
-
-	for (const node of layout.nodes) {
-		minY = Math.min(minY, node.y);
-
-		if (node.seasonEmoji) {
-			minY = Math.min(minY, node.seasonEmoji.y);
-		}
-
-		if (node.level) {
-			minY = Math.min(minY, node.level.baselineY - FONT_SIZE);
-		}
-	}
-
-	for (const line of layout.lines) {
-		minY = Math.min(minY, line.y1, line.y2);
-	}
-
-	if (minY >= 0) {
-		return layout;
-	}
-
-	const shift = HEIGHT_START_OFFSET - minY;
-
-	for (const node of layout.nodes) {
-		node.y += shift;
-
-		if (node.cost) {
-			node.cost.iconY += shift;
-			node.cost.textBaselineY += shift;
-		}
-
-		if (node.seasonEmoji) {
-			node.seasonEmoji.y += shift;
-		}
-
-		if (node.level) {
-			node.level.baselineY += shift;
-		}
-	}
-
-	for (const line of layout.lines) {
-		line.y1 += shift;
-		line.y2 += shift;
-	}
-
-	return { ...layout, height: layout.height + shift };
 }
 
 function boxStyle(x: number, y: number, w: number, h: number, height: number): CSSProperties {
@@ -304,11 +252,9 @@ export function FriendshipTree(props: FriendshipTreeProps) {
 	const layout = useMemo(() => {
 		const modern = seasonId !== undefined && seasonId >= SeasonId.Migration;
 
-		return normaliseTop(
-			modern
-				? modernFriendshipTreeLayout(tree as FriendshipTreeData)
-				: legacyFriendshipTreeLayout(tree),
-		);
+		return modern
+			? modernFriendshipTreeLayout(tree as FriendshipTreeData)
+			: legacyFriendshipTreeLayout(tree);
 	}, [seasonId, tree]);
 	const optimisticData = useMemo(() => {
 		if (data === null) {
