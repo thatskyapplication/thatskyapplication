@@ -47,7 +47,7 @@ const MISCELLANEOUS_EMOJIS = {
 	Edit: { id: "1561011292989554708", name: "edit" },
 	DailyQuest: { id: "1415342223272185938", name: "daily_quest" },
 	DailyReset: { id: "1415788543141347458", animated: true, name: "daily_reset" },
-	Trust: { id: "1431662235343651089", name: "trust" },
+	Trust: { id: "1569653582473461760", name: "trust" },
 	CurrentPosition: { id: "1561011296030425178", name: "current_position" },
 	Counsellor: { id: "1466368095546507380", name: "counsellor" },
 	Champion: { id: "1466368091981353003", name: "champion" },
