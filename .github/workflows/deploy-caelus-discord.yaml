@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - apps/caelus/discord/**/*
+      - packages/friendship-tree-generator/**/*
       - packages/sky-links/**/*
       - packages/utility/**/*
       - "!**/__tests__/**"
