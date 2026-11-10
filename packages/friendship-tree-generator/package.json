@@ -1,8 +1,15 @@
 {
 	"name": "@thatskyapplication/friendship-tree-generator",
 	"private": true,
+	"files": [
+		"assets",
+		"distribution"
+	],
 	"type": "module",
+	"types": "./distribution/index.d.ts",
+	"exports": "./distribution/index.js",
 	"scripts": {
+		"build": "tsdown",
 		"format": "oxlint --fix . && oxfmt .",
 		"lint": "oxfmt --check . && oxlint .",
 		"start": "tsx --watch source/generate.ts",
@@ -18,6 +25,7 @@
 		"oxfmt": "catalog:",
 		"oxlint": "catalog:",
 		"oxlint-tsgolint": "catalog:",
+		"tsdown": "catalog:",
 		"tsx": "catalog:",
 		"typescript": "catalog:"
 	}

@@ -4,16 +4,13 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionResponseCallbackData,
 	type APIMessageComponentButtonInteraction,
-	type APIMessageTopLevelComponent,
 	ButtonStyle,
 	ComponentType,
-	type Locale,
 	MessageFlags,
 } from "@discordjs/core";
 import { getFixedT, t } from "i18next";
 import {
 	isSpiritsHistoryOrderType,
-	type Spirit,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
@@ -22,9 +19,16 @@ import {
 	spiritsHistoryContainer,
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
+import pino from "../pino.js";
 import { MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { EMOJIS } from "../utility/emojis.js";
+import {
+	friendshipTreeFileName,
+	friendshipTreeImage,
+	friendshipTreeVariants,
+	isFriendshipTreeImageCached,
+} from "../utility/friendship-tree.js";
 
 export async function searchAutocomplete<
 	Interaction extends APIApplicationCommandAutocompleteInteraction,
@@ -70,21 +74,12 @@ export async function searchAutocomplete<
 	});
 }
 
-interface SpiritSearchOptions {
-	spirit: Spirit;
-	locale: Locale;
-}
-
-export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopLevelComponent] {
-	return [spiritContainer({ emojis: EMOJIS, locale, spirit, t: getFixedT(locale) })];
-}
-
 interface SpiritsViewSpiritOptions {
 	flags?: MessageFlags;
 }
 
 export async function spiritsViewSpirit(
-	interaction: APIMessageComponentButtonInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	spiritId: SpiritIds,
 	{ flags }: SpiritsViewSpiritOptions = {},
 ) {
@@ -106,10 +101,51 @@ export async function spiritsViewSpirit(
 		resolvedFlags |= flags;
 	}
 
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		components: search({ spirit, locale }),
+	const variants = friendshipTreeVariants(spirit);
+	const deferred = variants.some((variant) => !isFriendshipTreeImageCached(spirit.id, variant));
+
+	if (deferred) {
+		await client.api.interactions.defer(interaction.id, interaction.token, {
+			flags: resolvedFlags & MessageFlags.Ephemeral,
+		});
+	}
+
+	const images = await Promise.all(
+		variants.map(async (variant) => {
+			const data = await friendshipTreeImage(spirit, variant).catch((error: unknown) => {
+				pino.error(error, "Failed to render a friendship tree.");
+				return null;
+			});
+
+			return data ? { name: friendshipTreeFileName(variant), data } : null;
+		}),
+	);
+
+	const files = images.filter((image) => image !== null);
+
+	const response = {
+		components: [
+			spiritContainer({
+				emojis: EMOJIS,
+				locale,
+				spirit,
+				t: getFixedT(locale),
+				friendshipTreeImageURLs: files.map(({ name }) => `attachment://${name}`),
+			}),
+		],
 		flags: resolvedFlags,
-	});
+		files,
+	};
+
+	if (deferred) {
+		await client.api.interactions.editReply(
+			interaction.application_id,
+			interaction.token,
+			response,
+		);
+	} else {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	}
 }
 
 interface SpiritsGenerateSpiritsHistoryCustomIdOptions {

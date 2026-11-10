@@ -6,12 +6,14 @@ WORKDIR /thatskyapplication
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 RUN npm install --global "pnpm@$(node --print 'require("./package.json").devEngines.packageManager.version')"
 
+COPY packages/friendship-tree-generator/package.json packages/friendship-tree-generator/
 COPY packages/sky-links/package.json packages/sky-links/
 COPY packages/utility/package.json packages/utility/
 COPY apps/caelus/discord/package.json apps/caelus/discord/
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 	pnpm install --frozen-lockfile
 
+COPY packages/friendship-tree-generator packages/friendship-tree-generator
 COPY packages/sky-links packages/sky-links
 COPY packages/utility packages/utility
 COPY apps/caelus/discord apps/caelus/discord

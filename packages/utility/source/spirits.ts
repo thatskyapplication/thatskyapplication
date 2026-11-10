@@ -69,6 +69,7 @@ function visitErrorField(
 
 interface SpiritContainerData extends MessageFormatting {
 	spirit: Spirit;
+	friendshipTreeImageURLs?: readonly string[] | undefined;
 }
 
 export function spiritContainer({
@@ -76,6 +77,7 @@ export function spiritContainer({
 	locale,
 	spirit,
 	t,
+	friendshipTreeImageURLs,
 }: SpiritContainerData): APIContainerComponent {
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
@@ -169,10 +171,10 @@ export function spiritContainer({
 		});
 	}
 
-	const mediaItems = friendshipTrees
-		.map(({ imageURL }) => imageURL)
-		.filter((url) => typeof url === "string")
-		.map((url) => ({ media: { url } }));
+	const mediaItems = (
+		friendshipTreeImageURLs ??
+		friendshipTrees.map(({ imageURL }) => imageURL).filter((url) => typeof url === "string")
+	).map((url) => ({ media: { url } }));
 
 	if (mediaItems.length > 0) {
 		components.push({

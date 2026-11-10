@@ -80,6 +80,7 @@ import {
 } from "@thatskyapplication/utility";
 import database from "../database.js";
 import { client } from "../discord.js";
+import pino from "../pino.js";
 import { CatalogueType, itemToSelectMenuOption } from "../utility/catalogue.js";
 import {
 	CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT,
@@ -98,6 +99,12 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
+import {
+	displayFriendshipTreeVariant,
+	friendshipTreeFileName,
+	friendshipTreeImage,
+	isFriendshipTreeImageCached,
+} from "../utility/friendship-tree.js";
 import {
 	interactionInvoker,
 	isButton,
@@ -1911,11 +1918,29 @@ async function viewSpirit(
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
 	const friendshipTree = spirit.displayFriendshipTree;
+	const friendshipTreeVariant = displayFriendshipTreeVariant(spirit);
+	const friendshipTreeImageName = friendshipTreeFileName(friendshipTreeVariant);
 
-	const { imageURL } =
-		isSeasonalSpirit || isGuideSpirit
-			? (spirit.friendshipTrees.postSeason ?? spirit.friendshipTrees.seasonal)
-			: spirit;
+	const deferred =
+		friendshipTree.length > 0 && !isFriendshipTreeImageCached(spirit.id, friendshipTreeVariant);
+
+	if (deferred) {
+		if (isChatInputCommand(interaction)) {
+			await client.api.interactions.defer(interaction.id, interaction.token, {
+				flags: MessageFlags.Ephemeral,
+			});
+		} else {
+			await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+		}
+	}
+
+	const friendshipTreeImageData =
+		friendshipTree.length > 0
+			? await friendshipTreeImage(spirit, friendshipTreeVariant).catch((error: unknown) => {
+					pino.error(error, "Failed to render a friendship tree.");
+					return null;
+				})
+			: null;
 
 	const { hasEverything, offerProgress } = offerData({
 		data,
@@ -1963,15 +1988,10 @@ async function viewSpirit(
 		},
 	];
 
-	if (imageURL) {
+	if (friendshipTreeImageData) {
 		containerComponents.push({
 			type: ComponentType.MediaGallery,
-			items: [{ media: { url: imageURL } }],
-		});
-	} else if (friendshipTree.length > 0) {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: `-# ${t(`catalogue.spirit-kind-no-infographic-yet.${spirit.kind}`, { lng: locale, ns: "features" })}`,
+			items: [{ media: { url: `attachment://${friendshipTreeImageName}` } }],
 		});
 	}
 
@@ -2094,10 +2114,26 @@ async function viewSpirit(
 		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	} satisfies APIInteractionResponseCallbackData;
 
-	if (isChatInputCommand(interaction)) {
-		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	const files = friendshipTreeImageData
+		? [{ name: friendshipTreeImageName, data: friendshipTreeImageData }]
+		: [];
+
+	const attachments = files.map(({ name }, index) => ({ id: index, filename: name }));
+
+	if (deferred) {
+		await client.api.interactions.editReply(interaction.application_id, interaction.token, {
+			...response,
+			attachments,
+			files,
+		});
+	} else if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, { ...response, files });
 	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			...response,
+			attachments,
+			files,
+		});
 	}
 }
 

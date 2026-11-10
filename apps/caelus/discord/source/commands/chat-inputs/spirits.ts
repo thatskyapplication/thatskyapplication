@@ -2,17 +2,14 @@ import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandInteraction,
 	ApplicationCommandOptionType,
-	MessageFlags,
 } from "@discordjs/core";
 import { t } from "i18next";
 import {
 	type SpiritIds,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
-	spirits,
 } from "@thatskyapplication/utility";
-import { client } from "../../discord.js";
-import { search, searchAutocomplete, spiritsHistory } from "../../features/spirits.js";
+import { searchAutocomplete, spiritsHistory, spiritsViewSpirit } from "../../features/spirits.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -34,25 +31,7 @@ export default {
 				return;
 			}
 			case "search": {
-				const spirit = spirits().get(options.requireInteger("query") as SpiritIds);
-
-				if (!spirit) {
-					await client.api.interactions.reply(interaction.id, interaction.token, {
-						content: t("spirits.not-encountered-spirit", {
-							lng: interaction.locale,
-							ns: "features",
-						}),
-						flags: MessageFlags.Ephemeral,
-					});
-
-					return;
-				}
-
-				await client.api.interactions.reply(interaction.id, interaction.token, {
-					components: search({ spirit, locale: interaction.locale }),
-					flags: MessageFlags.IsComponentsV2,
-				});
-
+				await spiritsViewSpirit(interaction, options.requireInteger("query") as SpiritIds);
 				return;
 			}
 		}

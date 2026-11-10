@@ -28,6 +28,7 @@
 		"@sentry/node": "catalog:",
 		"@sentry/node-native": "catalog:",
 		"@sentry/profiling-node": "catalog:",
+		"@thatskyapplication/friendship-tree-generator": "workspace:^",
 		"@thatskyapplication/sky-links": "workspace:^",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "catalog:",

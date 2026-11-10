@@ -13,6 +13,7 @@ import {
 	ASSET_TEXT_SINGLE_OFFSET,
 	ASSET_TEXT_TRIPLE_OFFSET,
 	BACKGROUND_PADDING,
+	costEntryEmoji,
 	FONT_SIZE,
 	type FriendshipTree,
 	type FriendshipTreeLayout,
@@ -20,25 +21,29 @@ import {
 	friendshipTreeLayout,
 	IMAGE_SIZE,
 	type Item,
+	type ItemCost,
 	type LegacyFriendshipTree,
 	LINE_COLOUR,
 	LINE_WIDTH,
+	productionEmojis,
 	type SeasonIds,
 	type Snowflake,
+	sumCosts,
 	TEXT_COLOUR,
 } from "@thatskyapplication/utility";
-import { itemEmoji, SeasonIdToSeasonalEmoji } from "./utility/emojis.js";
-import { resolveCostEmojiId } from "./utility/functions.js";
 
 const FONT_PATH = fileURLToPath(new URL("../assets/Hind-Regular.ttf", import.meta.url));
+const EMOJI_FETCH_TIMEOUT_MILLISECONDS = 10_000 as const;
 const IMAGE_DIMENSION = 1750 as const;
 const PANEL_COLOUR = "rgba(0, 0, 0, 0.6)" as const;
 const PANEL_RADIUS = 50 as const;
+const EMOJIS = productionEmojis();
+const { itemEmoji, SeasonIdToSeasonalEmoji } = EMOJIS;
 
 interface FriendshipTreeRenderOptions {
 	tree: FriendshipTree | LegacyFriendshipTree;
 	seasonId?: SeasonIds | undefined;
-	background?: Uint8Array | undefined;
+	background?: Uint8Array | Promise<Uint8Array | undefined> | undefined;
 }
 
 if (!GlobalFonts.registerFromPath(FONT_PATH)) {
@@ -54,7 +59,9 @@ function emojiImage(id: Snowflake) {
 		return cached;
 	}
 
-	const image = fetch(formatEmojiURL(id)).then(async (response) => {
+	const image = fetch(formatEmojiURL(id), {
+		signal: AbortSignal.timeout(EMOJI_FETCH_TIMEOUT_MILLISECONDS),
+	}).then(async (response) => {
 		if (!response.ok) {
 			throw new Error(`The CDN returned ${response.status} for emoji ${id}.`);
 		}
@@ -79,6 +86,17 @@ function itemEmojiId(item: Item) {
 	}
 
 	return id;
+}
+
+function resolveCostEmojiId(cost: ItemCost) {
+	const [entry] = sumCosts([cost]);
+	const emoji = entry && costEntryEmoji(entry, EMOJIS);
+
+	if (!emoji) {
+		throw new Error("A cost was specified with no currency.");
+	}
+
+	return emoji.id;
 }
 
 async function emojiImagesFor(layout: FriendshipTreeLayout, seasonId: SeasonIds | undefined) {
@@ -192,7 +210,7 @@ export async function renderFriendshipTree({
 
 	const [images, photo] = await Promise.all([
 		emojiImagesFor(layout, seasonId),
-		background ? loadImage(background) : null,
+		Promise.resolve(background).then((bytes) => (bytes ? loadImage(bytes) : null)),
 	]);
 
 	if (!photo) {
@@ -216,10 +234,12 @@ export async function renderFriendshipTree({
 	);
 
 	const scale = Math.min(1, IMAGE_DIMENSION / layout.height);
+
 	context.translate(
 		IMAGE_DIMENSION - layout.width * scale,
 		(IMAGE_DIMENSION - layout.height * scale) / 2,
 	);
+
 	context.scale(scale, scale);
 	drawPanel(context, layout, images, seasonId);
 	return canvas.encode("webp");

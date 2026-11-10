@@ -2560,11 +2560,6 @@ export default {
 				[SpiritKind.Entity]: "This entity does not have a friendship tree.",
 				[SpiritKind.Mannequin]: "This mannequin does not have a friendship tree.",
 			} satisfies Record<SpiritKind, string>,
-			"spirit-kind-no-infographic-yet": {
-				[SpiritKind.Spirit]: "This spirit does not yet have an infographic.",
-				[SpiritKind.Entity]: "This entity does not yet have an infographic.",
-				[SpiritKind.Mannequin]: "This mannequin does not yet have an infographic.",
-			} satisfies Record<SpiritKind, string>,
 			"spirit-kind-not-fully-revealed": {
 				[SpiritKind.Spirit]: "This spirit's friendship tree has not been fully revealed.",
 				[SpiritKind.Entity]: "This entity's friendship tree has not been fully revealed.",
