@@ -22,5 +22,5 @@ packages/utility/locales
 .react-router
 build
 distribution/
-friendship-tree.webp
+packages/friendship-tree-generator/output/
 packages/utility/en-gb.json

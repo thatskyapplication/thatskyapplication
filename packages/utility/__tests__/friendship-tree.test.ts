@@ -4,12 +4,10 @@ import {
 	ASSET_SIZE,
 	FONT_SIZE,
 	type FriendshipTreeLayout,
+	friendshipTreeLayout,
 	IMAGE_SIZE,
-	legacyFriendshipTreeLayout,
-	modernFriendshipTreeLayout,
 } from "../source/friendship-tree.js";
 import { spirits } from "../source/kingdom/spirits.js";
-import { SeasonId } from "../source/season.js";
 import type { FriendshipTree, LegacyFriendshipTree } from "../source/utility/spirits.js";
 
 function verticalBounds(layout: FriendshipTreeLayout) {
@@ -44,7 +42,6 @@ function verticalBounds(layout: FriendshipTreeLayout) {
 test("Friendship tree layouts keep everything inside their height.", () => {
 	for (const spirit of spirits().values()) {
 		const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit : null;
-		const modern = seasonal !== null && seasonal.seasonId >= SeasonId.Migration;
 
 		const trees: (FriendshipTree | LegacyFriendshipTree | undefined)[] = seasonal
 			? [
@@ -58,12 +55,10 @@ test("Friendship tree layouts keep everything inside their height.", () => {
 				continue;
 			}
 
-			const layout = modern
-				? modernFriendshipTreeLayout(tree as FriendshipTree)
-				: legacyFriendshipTreeLayout(tree);
-
+			const layout = friendshipTreeLayout(tree, seasonal?.seasonId);
 			const { top, bottom } = verticalBounds(layout);
 			ok(top >= 0, `Spirit ${spirit.id} starts ${-top} px above its layout.`);
+
 			ok(
 				bottom <= layout.height,
 				`Spirit ${spirit.id} ends ${bottom - layout.height} px below its layout.`,

@@ -1,3 +1,4 @@
+import { SeasonId, type SeasonIds } from "./season.js";
 import { sumCosts } from "./utility/functions.js";
 import type { FriendshipTree, Item, LegacyFriendshipTree } from "./utility/spirits.js";
 
@@ -132,7 +133,7 @@ function normaliseTop(layout: FriendshipTreeLayout): FriendshipTreeLayout {
 	return { ...layout, height: layout.height + shift };
 }
 
-export function legacyFriendshipTreeLayout(
+function legacyFriendshipTreeLayout(
 	tree: FriendshipTree | LegacyFriendshipTree,
 ): FriendshipTreeLayout {
 	const width = FRIENDSHIP_TREE_WIDTH;
@@ -315,7 +316,7 @@ export function legacyFriendshipTreeLayout(
 	return normaliseTop({ width, height, lines, nodes });
 }
 
-export function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTreeLayout {
+function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTreeLayout {
 	const width = FRIENDSHIP_TREE_WIDTH;
 	let height = IMAGE_SIZE + HEIGHT_START_OFFSET + NEXT_HEIGHT_LEVEL * tree.length;
 	const firstLevelHasNode = tree[0]?.some((node) => node) ?? false;
@@ -404,4 +405,13 @@ export function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTree
 	}
 
 	return normaliseTop({ width, height, lines: [], nodes });
+}
+
+export function friendshipTreeLayout(
+	tree: FriendshipTree | LegacyFriendshipTree,
+	seasonId: SeasonIds | undefined,
+): FriendshipTreeLayout {
+	return seasonId !== undefined && seasonId >= SeasonId.Migration
+		? modernFriendshipTreeLayout(tree as FriendshipTree)
+		: legacyFriendshipTreeLayout(tree);
 }

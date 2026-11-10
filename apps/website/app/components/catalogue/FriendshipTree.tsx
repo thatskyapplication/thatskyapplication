@@ -13,18 +13,16 @@ import {
 	FONT_SIZE,
 	FRIENDSHIP_TREE_WIDTH,
 	type FriendshipTree as FriendshipTreeData,
+	friendshipTreeLayout,
 	friendshipTreeToItems,
 	IMAGE_SIZE,
 	type Item,
 	type ItemCost,
 	type LegacyFriendshipTree,
 	LINE_WIDTH,
-	legacyFriendshipTreeLayout,
-	modernFriendshipTreeLayout,
 	itemName,
 	partitionItemCosts,
 	type PlacedFriendshipTreeNode,
-	SeasonId,
 	type SeasonIds,
 	sumCosts,
 } from "@thatskyapplication/utility";
@@ -249,13 +247,7 @@ export function FriendshipTree(props: FriendshipTreeProps) {
 	const readOnly = data === null;
 	const fetchers = useFetchers();
 	const { t } = useTranslation();
-	const layout = useMemo(() => {
-		const modern = seasonId !== undefined && seasonId >= SeasonId.Migration;
-
-		return modern
-			? modernFriendshipTreeLayout(tree as FriendshipTreeData)
-			: legacyFriendshipTreeLayout(tree);
-	}, [seasonId, tree]);
+	const layout = useMemo(() => friendshipTreeLayout(tree, seasonId), [seasonId, tree]);
 	const optimisticData = useMemo(() => {
 		if (data === null) {
 			return null;

@@ -1,97 +1,226 @@
-import { writeFile } from "node:fs/promises";
-import { createCanvas, GlobalFonts, loadImage } from "@napi-rs/canvas";
+import { fileURLToPath } from "node:url";
+import {
+	createCanvas,
+	GlobalFonts,
+	type Image,
+	loadImage,
+	type SKRSContext2D,
+} from "@napi-rs/canvas";
 import { fetch } from "undici";
 import {
 	ASSET_SIZE,
+	ASSET_TEXT_DOUBLE_OFFSET,
+	ASSET_TEXT_SINGLE_OFFSET,
+	ASSET_TEXT_TRIPLE_OFFSET,
 	BACKGROUND_PADDING,
 	FONT_SIZE,
 	type FriendshipTree,
+	type FriendshipTreeLayout,
 	formatEmojiURL,
+	friendshipTreeLayout,
 	IMAGE_SIZE,
-	modernFriendshipTreeLayout,
-	type SeasonalSpirit,
-	SpiritId,
-	spirits,
+	type Item,
+	type LegacyFriendshipTree,
+	LINE_COLOUR,
+	LINE_WIDTH,
+	type SeasonIds,
+	type Snowflake,
 	TEXT_COLOUR,
 } from "@thatskyapplication/utility";
 import { itemEmoji, SeasonIdToSeasonalEmoji } from "./utility/emojis.js";
 import { resolveCostEmojiId } from "./utility/functions.js";
 
-const spirit = spirits().get(SpiritId.MigrationGuide) as SeasonalSpirit;
-// const NODES = spirit.friendshipTrees.postSeason?.friendshipTree as FriendshipTree;
-const NODES = spirit.friendshipTrees.seasonal.friendshipTree as FriendshipTree;
-const hind = GlobalFonts.registerFromPath("./assets/Hind-Regular.ttf");
+const FONT_PATH = fileURLToPath(new URL("../assets/Hind-Regular.ttf", import.meta.url));
+const IMAGE_DIMENSION = 1750 as const;
+const PANEL_COLOUR = "rgba(0, 0, 0, 0.6)" as const;
+const PANEL_RADIUS = 50 as const;
 
-if (!hind) {
+interface FriendshipTreeRenderOptions {
+	tree: FriendshipTree | LegacyFriendshipTree;
+	seasonId?: SeasonIds | undefined;
+	background?: Uint8Array | undefined;
+}
+
+if (!GlobalFonts.registerFromPath(FONT_PATH)) {
 	throw new Error("Failed to load the Hind font.");
 }
 
-const { seasonId } = spirit;
-const layout = modernFriendshipTreeLayout(NODES);
-const canvas = createCanvas(layout.width, layout.height);
-const context = canvas.getContext("2d");
-context.translate(0.5, 0.5);
-context.fillStyle = "rgba(0, 0, 0, 0.6)";
-context.beginPath();
-context.roundRect(
-	BACKGROUND_PADDING,
-	BACKGROUND_PADDING,
-	canvas.width - BACKGROUND_PADDING * 2,
-	canvas.height - BACKGROUND_PADDING * 2,
-	50,
-);
-context.fill();
-context.fillStyle = TEXT_COLOUR;
-context.font = `${FONT_SIZE}px Hind`;
+const emojiImages = new Map<Snowflake, Promise<Image>>();
 
-for (const node of layout.nodes) {
-	const { item } = node;
+function emojiImage(id: Snowflake) {
+	const cached = emojiImages.get(id);
 
-	const emojiId = itemEmoji(item)?.id;
+	if (cached) {
+		return cached;
+	}
 
-	if (!emojiId) {
+	const image = fetch(formatEmojiURL(id)).then(async (response) => {
+		if (!response.ok) {
+			throw new Error(`The CDN returned ${response.status} for emoji ${id}.`);
+		}
+
+		return loadImage(await response.arrayBuffer());
+	});
+
+	emojiImages.set(id, image);
+	image.catch(() => emojiImages.delete(id));
+	return image;
+}
+
+function seasonEmojiId(seasonId: SeasonIds | undefined) {
+	return seasonId === undefined ? undefined : SeasonIdToSeasonalEmoji[seasonId]?.id;
+}
+
+function itemEmojiId(item: Item) {
+	const id = itemEmoji(item)?.id;
+
+	if (!id) {
 		throw new Error(`No emoji found for cosmetic ${item.cosmeticDisplay}.`);
 	}
 
-	context.drawImage(
-		await loadImage(await (await fetch(formatEmojiURL(emojiId))).arrayBuffer()),
-		node.x,
-		node.y,
-		IMAGE_SIZE,
-		IMAGE_SIZE,
-	);
+	return id;
+}
 
-	if (node.cost && item.cost) {
-		context.drawImage(
-			await loadImage(
-				await (await fetch(formatEmojiURL(resolveCostEmojiId(item.cost)))).arrayBuffer(),
-			),
-			node.cost.iconX,
-			node.cost.iconY,
-			ASSET_SIZE,
-			ASSET_SIZE,
-		);
+async function emojiImagesFor(layout: FriendshipTreeLayout, seasonId: SeasonIds | undefined) {
+	const ids = new Set<Snowflake>();
+	const seasonalEmojiId = seasonEmojiId(seasonId);
 
-		context.fillText(String(node.cost.amount), node.cost.textX, node.cost.textBaselineY);
+	for (const { item, cost, seasonEmoji } of layout.nodes) {
+		ids.add(itemEmojiId(item));
+
+		if (cost && item.cost) {
+			ids.add(resolveCostEmojiId(item.cost));
+		}
+
+		if (seasonEmoji && seasonalEmojiId) {
+			ids.add(seasonalEmojiId);
+		}
 	}
 
-	if (node.seasonEmoji && seasonId !== undefined) {
-		const seasonEmojiId = SeasonIdToSeasonalEmoji[seasonId]?.id;
+	return new Map(
+		await Promise.all(Array.from(ids, async (id) => [id, await emojiImage(id)] as const)),
+	);
+}
 
-		if (seasonEmojiId) {
+function legacyCurrencyShift(amount: number) {
+	if (amount >= 100) {
+		return ASSET_TEXT_TRIPLE_OFFSET;
+	}
+
+	if (amount >= 10) {
+		return ASSET_TEXT_DOUBLE_OFFSET;
+	}
+
+	return ASSET_TEXT_SINGLE_OFFSET;
+}
+
+function drawPanel(
+	context: SKRSContext2D,
+	layout: FriendshipTreeLayout,
+	images: ReadonlyMap<Snowflake, Image>,
+	seasonId: SeasonIds | undefined,
+) {
+	const image = (id: Snowflake) => images.get(id)!;
+	const seasonalEmojiId = seasonEmojiId(seasonId);
+	context.translate(0.5, 0.5);
+	context.fillStyle = PANEL_COLOUR;
+	context.beginPath();
+
+	context.roundRect(
+		BACKGROUND_PADDING,
+		BACKGROUND_PADDING,
+		layout.width - BACKGROUND_PADDING * 2,
+		layout.height - BACKGROUND_PADDING * 2,
+		PANEL_RADIUS,
+	);
+
+	context.fill();
+	context.lineWidth = LINE_WIDTH;
+	context.strokeStyle = LINE_COLOUR;
+	context.fillStyle = TEXT_COLOUR;
+	context.font = `${FONT_SIZE}px Hind`;
+
+	for (const line of layout.lines) {
+		context.beginPath();
+		context.moveTo(line.x1, line.y1);
+		context.lineTo(line.x2, line.y2);
+		context.stroke();
+	}
+
+	for (const node of layout.nodes) {
+		const { item } = node;
+		context.drawImage(image(itemEmojiId(item)), node.x, node.y, IMAGE_SIZE, IMAGE_SIZE);
+
+		if (node.cost && item.cost) {
 			context.drawImage(
-				await loadImage(await (await fetch(formatEmojiURL(seasonEmojiId))).arrayBuffer()),
+				image(resolveCostEmojiId(item.cost)),
+				node.cost.iconX,
+				node.cost.iconY,
+				ASSET_SIZE,
+				ASSET_SIZE,
+			);
+
+			const textX = node.cost.leftNode
+				? node.cost.textX - legacyCurrencyShift(node.cost.amount)
+				: node.cost.textX;
+
+			context.fillText(String(node.cost.amount), textX, node.cost.textBaselineY);
+		}
+
+		if (node.seasonEmoji && seasonalEmojiId) {
+			context.drawImage(
+				image(seasonalEmojiId),
 				node.seasonEmoji.x,
 				node.seasonEmoji.y,
 				ASSET_SIZE,
 				ASSET_SIZE,
 			);
 		}
-	}
 
-	if (node.level) {
-		context.fillText(`Lv${node.level.value}`, node.level.x, node.level.baselineY);
+		if (node.level) {
+			context.fillText(`Lv${node.level.value}`, node.level.x, node.level.baselineY);
+		}
 	}
 }
 
-await writeFile("./friendship-tree.webp", await canvas.encode("webp"));
+export async function renderFriendshipTree({
+	tree,
+	seasonId,
+	background,
+}: FriendshipTreeRenderOptions) {
+	const layout = friendshipTreeLayout(tree, seasonId);
+
+	const [images, photo] = await Promise.all([
+		emojiImagesFor(layout, seasonId),
+		background ? loadImage(background) : null,
+	]);
+
+	if (!photo) {
+		const canvas = createCanvas(layout.width, layout.height);
+		drawPanel(canvas.getContext("2d"), layout, images, seasonId);
+		return canvas.encode("webp");
+	}
+
+	const canvas = createCanvas(IMAGE_DIMENSION, IMAGE_DIMENSION);
+	const context = canvas.getContext("2d");
+	const cover = Math.max(IMAGE_DIMENSION / photo.width, IMAGE_DIMENSION / photo.height);
+	const photoWidth = photo.width * cover;
+	const photoHeight = photo.height * cover;
+
+	context.drawImage(
+		photo,
+		(IMAGE_DIMENSION - photoWidth) / 2,
+		(IMAGE_DIMENSION - photoHeight) / 2,
+		photoWidth,
+		photoHeight,
+	);
+
+	const scale = Math.min(1, IMAGE_DIMENSION / layout.height);
+	context.translate(
+		IMAGE_DIMENSION - layout.width * scale,
+		(IMAGE_DIMENSION - layout.height * scale) / 2,
+	);
+	context.scale(scale, scale);
+	drawPanel(context, layout, images, seasonId);
+	return canvas.encode("webp");
+}

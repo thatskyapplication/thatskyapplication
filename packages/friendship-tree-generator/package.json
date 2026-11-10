@@ -5,8 +5,7 @@
 	"scripts": {
 		"format": "oxlint --fix . && oxfmt .",
 		"lint": "oxfmt --check . && oxlint .",
-		"start": "tsx --watch source/index.ts",
-		"start-legacy": "tsx --watch source/legacy.ts",
+		"start": "tsx --watch source/generate.ts",
 		"test": "tsc --noEmit"
 	},
 	"dependencies": {
