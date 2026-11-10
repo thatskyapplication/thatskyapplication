@@ -2421,8 +2421,7 @@ export default {
 			search: {
 				"command-description": "Reveal information about a spirit.",
 				"command-option-query-name": "query",
-				"command-option-query-description":
-					"The name, season, expression, stance, or call of the spirit.",
+				"command-option-query-description": "The name, season, or friendship action of the spirit.",
 			},
 		},
 	},
