@@ -54,7 +54,7 @@ function* spiritLayouts() {
 
 		for (const tree of trees) {
 			if (tree && tree.length > 0) {
-				yield { spirit, layout: friendshipTreeLayout(tree, seasonal?.seasonId) };
+				yield { spirit, layout: friendshipTreeLayout(tree, spirit) };
 			}
 		}
 	}

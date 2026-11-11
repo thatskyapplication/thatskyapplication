@@ -10,8 +10,6 @@ import { TREE_COLUMN_CLASS } from "~/utility/catalogue.js";
 
 export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spirit: Spirit }) {
 	const { t } = useTranslation();
-	const seasonId =
-		spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit.seasonId : undefined;
 
 	const friendshipTrees = friendshipTreeVariants(spirit).map((variant) => ({
 		variant,
@@ -30,7 +28,7 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 							label={t(`spirits.friendship-tree-${variant}`, { ns: "features" })}
 							locale={locale}
 							readOnly
-							seasonId={seasonId}
+							spirit={spirit}
 							tree={tree}
 						/>
 					</div>
@@ -48,7 +46,7 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 					label={t(`spirits.friendship-tree-${friendshipTree.variant}`, { ns: "features" })}
 					locale={locale}
 					readOnly
-					seasonId={seasonId}
+					spirit={spirit}
 					tree={friendshipTree.tree}
 				/>
 			</div>
