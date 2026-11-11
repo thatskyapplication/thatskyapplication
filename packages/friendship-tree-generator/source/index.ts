@@ -71,7 +71,7 @@ type FriendshipTreeLocalisation = Pick<MessageFormatting, "locale" | "t">;
 
 interface FriendshipTreeRenderOptions extends FriendshipTreeLocalisation {
 	tree: FriendshipTree | LegacyFriendshipTree;
-	seasonId?: SeasonIds | undefined;
+	spirit: Spirit;
 	background?: Uint8Array | Promise<Uint8Array | undefined> | undefined;
 }
 
@@ -333,11 +333,14 @@ async function drawFriendshipTree(
 
 export async function renderFriendshipTree({
 	tree,
-	seasonId,
+	spirit,
 	background,
 	...localisation
 }: FriendshipTreeRenderOptions) {
-	const layout = friendshipTreeLayout(tree, seasonId);
+	const layout = friendshipTreeLayout(tree, spirit);
+	const seasonId =
+		spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit.seasonId : undefined;
+
 	return drawFriendshipTree(layout, seasonId, background, friendshipTreeText(layout, localisation));
 }
 
@@ -383,7 +386,7 @@ function friendshipTreeDrawing(
 	const seasonId =
 		spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit.seasonId : undefined;
 
-	const layout = friendshipTreeLayout(tree, seasonId);
+	const layout = friendshipTreeLayout(tree, spirit);
 	const treeText = friendshipTreeText(layout, localisation);
 
 	const key =
