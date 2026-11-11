@@ -22,8 +22,6 @@ export function SpiritTreeColumn({
 	tree?: Spirit["displayFriendshipTree"];
 }) {
 	const { t } = useTranslation();
-	const seasonId =
-		spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit.seasonId : undefined;
 	const percentage = useMemo(
 		() => cataloguePercentage(catalogueProgress(friendshipTreeToItems(tree), data)),
 		[tree, data],
@@ -31,7 +29,7 @@ export function SpiritTreeColumn({
 
 	return (
 		<div className={TREE_COLUMN_CLASS}>
-			<FriendshipTree data={data} locale={locale} seasonId={seasonId} tree={tree} />
+			<FriendshipTree data={data} locale={locale} spirit={spirit} tree={tree} />
 			<Link className={TREE_COLUMN_LABEL_CLASS} to={`?view=spirit&spirit=${spirit.id}`}>
 				{t(`spirits.${spirit.id}`, { ns: "general" })}
 				{percentage !== null && (

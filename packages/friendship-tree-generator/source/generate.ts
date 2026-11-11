@@ -106,7 +106,7 @@ await mkdir(OUTPUT_DIRECTORY, { recursive: true });
 
 await writeFile(
 	new URL(fileName, OUTPUT_DIRECTORY),
-	await renderFriendshipTree({ tree, seasonId, background, locale, t: i18next.t }),
+	await renderFriendshipTree({ tree, spirit, background, locale, t: i18next.t }),
 );
 
 console.log(`Wrote output/${fileName}.`);
