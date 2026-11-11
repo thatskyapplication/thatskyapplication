@@ -49,7 +49,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 						cosmetic: Cosmetic.MomentsGuideHeart1,
-						cost: { candles: 3 },
 					},
 				],
 				[
@@ -60,7 +59,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.MomentsGuideHeart2,
-						cost: { candles: 3 },
 					},
 				],
 				[{ translation: CosmeticCommon.DoubleFive, cosmetic: Cosmetic.MomentsGuideDoubleFive }],
@@ -72,6 +70,66 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 						cosmetic: Cosmetic.MomentsGuideHeart3,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.MomentsGuideQuest4,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.MomentsGuideHeart4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.MomentsGuideQuest5,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+						cosmetic: Cosmetic.MomentsGuideHeart5,
+					},
+				],
+			],
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.MomentsGuideQuest1,
+					},
+					{
+						cosmetic: Cosmetic.MomentsGuideCamera,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.MomentsGuideQuest2,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.MomentsGuideHeart1,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.MomentsGuideQuest3,
+					},
+					{
+						translation: CosmeticCommon.DoubleFive,
+						cosmetic: Cosmetic.MomentsGuideDoubleFive,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.MomentsGuideHeart2,
 						cost: { candles: 3 },
 					},
 				],
@@ -79,6 +137,11 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 						cosmetic: Cosmetic.MomentsGuideQuest4,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.MomentsGuideHeart3,
+						cost: { candles: 3 },
 					},
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
@@ -92,15 +155,13 @@ export default new GuideSpirit({
 						cosmetic: Cosmetic.MomentsGuideQuest5,
 					},
 					{
+						cosmetic: Cosmetic.MomentsCameraUpgrade,
+						cost: { candles: 25 },
+					},
+					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
 						cosmetic: Cosmetic.MomentsGuideHeart5,
 						cost: { candles: 3 },
-					},
-				],
-				[
-					{
-						cosmetic: Cosmetic.MomentsCameraUpgrade,
-						cost: { candles: 25 },
 					},
 				],
 			],
