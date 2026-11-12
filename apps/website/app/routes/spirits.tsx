@@ -152,7 +152,7 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 			locale,
 			spirit,
 			t,
-			friendshipTreeImageURLs: friendshipTreeImageURLs(spirit),
+			friendshipTreeImageURLs: friendshipTreeImageURLs(spirit, locale),
 		});
 	} else if (url.searchParams.has("order") || url.searchParams.has("page")) {
 		const { order, page } = spiritsHistoryPagination(url.searchParams);

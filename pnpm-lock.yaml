@@ -920,6 +920,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.2.0
+      i18next:
+        specifier: 'catalog:'
+        version: 26.4.0(typescript@7.0.2)
       oxfmt:
         specifier: 'catalog:'
         version: 0.64.0

@@ -205,6 +205,10 @@ const MAPPINGS: LocaleMapping[] = [
 		jsonPath: "general.event-names.personality-quiz-event",
 	},
 	{
+		upstreamKey: "button_level_badge",
+		jsonPath: "features.catalogue.friendship-tree-node-level-badge",
+	},
+	{
 		upstreamKey: "title_dawn_01",
 		tsKey: "AreaName.DawnCircle",
 	},

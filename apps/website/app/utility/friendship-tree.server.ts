@@ -4,7 +4,12 @@ import {
 	friendshipTreeVariants,
 	isFriendshipTreeImageCached,
 } from "@thatskyapplication/friendship-tree-generator";
-import { type Spirit, spirits, WEBSITE_URL } from "@thatskyapplication/utility";
+import {
+	type MessageFormatting,
+	type Spirit,
+	spirits,
+	WEBSITE_URL,
+} from "@thatskyapplication/utility";
 import { CDN_URL, SENTRY_RELEASE } from "~/config.server.js";
 import pino from "~/pino.js";
 
@@ -18,9 +23,10 @@ for (const spirit of spirits().values()) {
 	}
 }
 
-export function friendshipTreeImageURLs(spirit: Spirit) {
+export function friendshipTreeImageURLs(spirit: Spirit, locale: string) {
 	return friendshipTreeVariants(spirit).map((variant) => {
 		const imageURL = new URL(`/spirits/friendship-trees/${spirit.id}-${variant}.webp`, WEBSITE_URL);
+		imageURL.searchParams.set("lng", locale);
 
 		if (SENTRY_RELEASE) {
 			imageURL.searchParams.set("v", SENTRY_RELEASE);
@@ -30,7 +36,11 @@ export function friendshipTreeImageURLs(spirit: Spirit) {
 	});
 }
 
-export async function friendshipTreeImageResponse(fileName: string, version: string | null) {
+export async function friendshipTreeImageResponse(
+	fileName: string,
+	version: string | null,
+	localisation: Pick<MessageFormatting, "locale" | "t">,
+) {
 	const file = FRIENDSHIP_TREE_FILES.get(fileName);
 
 	if (!file) {
@@ -38,12 +48,17 @@ export async function friendshipTreeImageResponse(fileName: string, version: str
 	}
 
 	const { spirit, variant } = file;
-	const image = await friendshipTreeImage(spirit, variant, { cdnURL: CDN_URL, logger: pino });
+
+	const image = await friendshipTreeImage(spirit, variant, {
+		cdnURL: CDN_URL,
+		logger: pino,
+		...localisation,
+	});
 
 	const immutable =
 		SENTRY_RELEASE !== undefined &&
 		version === SENTRY_RELEASE &&
-		isFriendshipTreeImageCached(spirit.id, variant);
+		isFriendshipTreeImageCached(spirit, variant, localisation);
 
 	return new Response(new Uint8Array(image), {
 		headers: {

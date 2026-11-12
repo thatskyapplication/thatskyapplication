@@ -9,9 +9,6 @@ import {
 import { fetch } from "undici";
 import {
 	ASSET_SIZE,
-	ASSET_TEXT_DOUBLE_OFFSET,
-	ASSET_TEXT_SINGLE_OFFSET,
-	ASSET_TEXT_TRIPLE_OFFSET,
 	BACKGROUND_PADDING,
 	costEntryEmoji,
 	FONT_SIZE,
@@ -19,12 +16,17 @@ import {
 	type FriendshipTreeLayout,
 	formatEmojiURL,
 	friendshipTreeLayout,
+	friendshipTreeLevelBadge,
+	friendshipTreeTextScale,
 	IMAGE_SIZE,
 	type Item,
 	type ItemCost,
 	type LegacyFriendshipTree,
+	LEVEL_BADGE_FONT_SIZE,
 	LINE_COLOUR,
 	LINE_WIDTH,
+	measureFriendshipTreeText,
+	type MessageFormatting,
 	productionEmojis,
 	type SeasonIds,
 	type Snowflake,
@@ -34,34 +36,69 @@ import {
 	TEXT_COLOUR,
 } from "@thatskyapplication/utility";
 
-const FONT_PATH = fileURLToPath(new URL("../assets/Hind-Regular.ttf", import.meta.url));
+const FONTS = [
+	{ file: "Lato-Light.ttf", family: "Lato" },
+	{ file: "Lato-Regular.ttf", family: "Lato" },
+	{ file: "GenJyuuGothic-Normal.subset.ttf", family: "Gen Jyuu Gothic" },
+	{ file: "NotoSansKR-Regular.subset.otf", family: "Noto Sans KR" },
+	{ file: "NotoSansSC-Regular.subset.otf", family: "Noto Sans SC" },
+] as const;
+
+const TEXT_FONT_FAMILY = "Lato" as const;
+
+const LEVEL_BADGE_FONT_FAMILIES: Readonly<
+	Partial<Record<string, (typeof FONTS)[number]["family"]>>
+> = {
+	ja: "Gen Jyuu Gothic",
+	ko: "Noto Sans KR",
+	"zh-CN": "Noto Sans SC",
+	"zh-TW": "Noto Sans SC",
+};
+
 const EMOJI_FETCH_TIMEOUT_MILLISECONDS = 10_000 as const;
 const BACKGROUND_FETCH_TIMEOUT_MILLISECONDS = 10_000 as const;
 const IMAGE_DIMENSION = 1750 as const;
 const PANEL_COLOUR = "rgba(0, 0, 0, 0.6)" as const;
 const PANEL_RADIUS = 50 as const;
+const TEXT_OUTLINE_COLOUR = "rgba(0, 0, 0, 0.8)" as const;
+const TEXT_OUTLINE_WIDTH = 6 as const;
 const FRIENDSHIP_TREE_VARIANTS = ["seasonal", "current"] as const;
 const EMOJIS = productionEmojis();
 const { itemEmoji, SeasonIdToSeasonalEmoji } = EMOJIS;
 
 export type FriendshipTreeVariant = (typeof FRIENDSHIP_TREE_VARIANTS)[number];
-type FriendshipTreeImageKey = `${SpiritIds}-${FriendshipTreeVariant}`;
+type FriendshipTreeLocalisation = Pick<MessageFormatting, "locale" | "t">;
 
-interface FriendshipTreeRenderOptions {
+interface FriendshipTreeRenderOptions extends FriendshipTreeLocalisation {
 	tree: FriendshipTree | LegacyFriendshipTree;
 	seasonId?: SeasonIds | undefined;
 	background?: Uint8Array | Promise<Uint8Array | undefined> | undefined;
 }
 
-interface FriendshipTreeImageOptions {
+interface FriendshipTreeImageOptions extends FriendshipTreeLocalisation {
 	cdnURL: string;
 	logger?: { warn(object: unknown, message: string): void } | undefined;
 }
 
-if (!GlobalFonts.registerFromPath(FONT_PATH)) {
-	throw new Error("Failed to load the Hind font.");
+interface FriendshipTreeText {
+	badgeFont: string;
+	badges: ReadonlyMap<number, string>;
+	costFont: string;
+	outlineWidth: number;
 }
 
+for (const { file, family } of FONTS) {
+	if (
+		!GlobalFonts.registerFromPath(
+			fileURLToPath(new URL(`../assets/${file}`, import.meta.url)),
+			family,
+		)
+	) {
+		throw new Error(`Failed to load ${file}.`);
+	}
+}
+
+const measuringContext = createCanvas(1, 1).getContext("2d");
 const emojiImages = new Map<Snowflake, Promise<Image>>();
 
 function emojiImage(id: Snowflake) {
@@ -132,16 +169,49 @@ async function emojiImagesFor(layout: FriendshipTreeLayout, seasonId: SeasonIds 
 	);
 }
 
-function legacyCurrencyShift(amount: number) {
-	if (amount >= 100) {
-		return ASSET_TEXT_TRIPLE_OFFSET;
+function friendshipTreeText(
+	layout: FriendshipTreeLayout,
+	{ locale, t }: FriendshipTreeLocalisation,
+): FriendshipTreeText {
+	const badges = new Map<number, string>();
+
+	for (const { level } of layout.nodes) {
+		if (level) {
+			badges.set(level.value, friendshipTreeLevelBadge(level.value, t, locale));
+		}
 	}
 
-	if (amount >= 10) {
-		return ASSET_TEXT_DOUBLE_OFFSET;
-	}
+	const family = LEVEL_BADGE_FONT_FAMILIES[locale];
+	const badgeFamilies = family ? `${TEXT_FONT_FAMILY}, "${family}"` : TEXT_FONT_FAMILY;
 
-	return ASSET_TEXT_SINGLE_OFFSET;
+	const scale = friendshipTreeTextScale(layout, {
+		cost: (amount, anchorRight) =>
+			measureFriendshipTreeText(
+				measuringContext,
+				`${FONT_SIZE}px ${TEXT_FONT_FAMILY}`,
+				String(amount),
+				anchorRight ? "right" : "left",
+			),
+		level: (value) =>
+			measureFriendshipTreeText(
+				measuringContext,
+				`300 ${LEVEL_BADGE_FONT_SIZE}px ${badgeFamilies}`,
+				badges.get(value)!,
+				"right",
+			),
+	});
+
+	return {
+		badgeFont: `300 ${LEVEL_BADGE_FONT_SIZE * scale}px ${badgeFamilies}`,
+		badges,
+		costFont: `${FONT_SIZE * scale}px ${TEXT_FONT_FAMILY}`,
+		outlineWidth: TEXT_OUTLINE_WIDTH * scale,
+	};
+}
+
+function outlinedText(context: SKRSContext2D, text: string, x: number, y: number) {
+	context.strokeText(text, x, y);
+	context.fillText(text, x, y);
 }
 
 function drawPanel(
@@ -149,6 +219,7 @@ function drawPanel(
 	layout: FriendshipTreeLayout,
 	images: ReadonlyMap<Snowflake, Image>,
 	seasonId: SeasonIds | undefined,
+	treeText: FriendshipTreeText,
 ) {
 	const image = (id: Snowflake) => images.get(id)!;
 	const seasonalEmojiId = seasonEmojiId(seasonId);
@@ -168,7 +239,6 @@ function drawPanel(
 	context.lineWidth = LINE_WIDTH;
 	context.strokeStyle = LINE_COLOUR;
 	context.fillStyle = TEXT_COLOUR;
-	context.font = `${FONT_SIZE}px Hind`;
 
 	for (const line of layout.lines) {
 		context.beginPath();
@@ -176,6 +246,10 @@ function drawPanel(
 		context.lineTo(line.x2, line.y2);
 		context.stroke();
 	}
+
+	context.lineJoin = "round";
+	context.lineWidth = treeText.outlineWidth;
+	context.strokeStyle = TEXT_OUTLINE_COLOUR;
 
 	for (const node of layout.nodes) {
 		const { item } = node;
@@ -190,11 +264,9 @@ function drawPanel(
 				ASSET_SIZE,
 			);
 
-			const textX = node.cost.leftNode
-				? node.cost.textX - legacyCurrencyShift(node.cost.amount)
-				: node.cost.textX;
-
-			context.fillText(String(node.cost.amount), textX, node.cost.textBaselineY);
+			context.font = treeText.costFont;
+			context.textAlign = node.cost.leftNode ? "right" : "left";
+			outlinedText(context, String(node.cost.amount), node.cost.textX, node.cost.textBaselineY);
 		}
 
 		if (node.seasonEmoji && seasonalEmojiId) {
@@ -208,18 +280,24 @@ function drawPanel(
 		}
 
 		if (node.level) {
-			context.fillText(`Lv${node.level.value}`, node.level.x, node.level.baselineY);
+			context.font = treeText.badgeFont;
+			context.textAlign = "right";
+			outlinedText(
+				context,
+				treeText.badges.get(node.level.value)!,
+				node.level.rightX,
+				node.level.baselineY,
+			);
 		}
 	}
 }
 
-export async function renderFriendshipTree({
-	tree,
-	seasonId,
-	background,
-}: FriendshipTreeRenderOptions) {
-	const layout = friendshipTreeLayout(tree, seasonId);
-
+async function drawFriendshipTree(
+	layout: FriendshipTreeLayout,
+	seasonId: SeasonIds | undefined,
+	background: FriendshipTreeRenderOptions["background"],
+	treeText: FriendshipTreeText,
+) {
 	const [images, photo] = await Promise.all([
 		emojiImagesFor(layout, seasonId),
 		Promise.resolve(background).then((bytes) => (bytes ? loadImage(bytes) : null)),
@@ -227,7 +305,7 @@ export async function renderFriendshipTree({
 
 	if (!photo) {
 		const canvas = createCanvas(layout.width, layout.height);
-		drawPanel(canvas.getContext("2d"), layout, images, seasonId);
+		drawPanel(canvas.getContext("2d"), layout, images, seasonId, treeText);
 		return canvas.encode("webp");
 	}
 
@@ -249,12 +327,22 @@ export async function renderFriendshipTree({
 	);
 
 	context.scale(scale, scale);
-	drawPanel(context, layout, images, seasonId);
+	drawPanel(context, layout, images, seasonId, treeText);
 	return canvas.encode("webp");
 }
 
-const friendshipTreeImages = new Map<FriendshipTreeImageKey, Promise<Buffer>>();
-const cachedFriendshipTreeImages = new Set<FriendshipTreeImageKey>();
+export async function renderFriendshipTree({
+	tree,
+	seasonId,
+	background,
+	...localisation
+}: FriendshipTreeRenderOptions) {
+	const layout = friendshipTreeLayout(tree, seasonId);
+	return drawFriendshipTree(layout, seasonId, background, friendshipTreeText(layout, localisation));
+}
+
+const friendshipTreeImages = new Map<string, Promise<Buffer>>();
+const cachedFriendshipTreeImages = new Set<string>();
 
 function friendshipTreeFor(
 	spirit: Spirit,
@@ -279,6 +367,31 @@ export function displayFriendshipTreeVariant(spirit: Spirit): FriendshipTreeVari
 	return (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) && !spirit.friendshipTrees.postSeason
 		? "seasonal"
 		: "current";
+}
+
+function friendshipTreeDrawing(
+	spirit: Spirit,
+	variant: FriendshipTreeVariant,
+	localisation: FriendshipTreeLocalisation,
+) {
+	const tree = friendshipTreeFor(spirit, variant);
+
+	if (!tree || tree.length === 0) {
+		return null;
+	}
+
+	const seasonId =
+		spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit.seasonId : undefined;
+
+	const layout = friendshipTreeLayout(tree, seasonId);
+	const treeText = friendshipTreeText(layout, localisation);
+
+	const key =
+		treeText.badges.size === 0
+			? `${spirit.id}-${variant}`
+			: `${spirit.id}-${variant}-${treeText.badgeFont}-${[...treeText.badges.values()].join("|")}`;
+
+	return { key, layout, seasonId, treeText };
 }
 
 async function friendshipTreeBackground(
@@ -309,8 +422,13 @@ async function friendshipTreeBackground(
 	return { background: undefined, cacheable: false };
 }
 
-export function isFriendshipTreeImageCached(spiritId: SpiritIds, variant: FriendshipTreeVariant) {
-	return cachedFriendshipTreeImages.has(`${spiritId}-${variant}`);
+export function isFriendshipTreeImageCached(
+	spirit: Spirit,
+	variant: FriendshipTreeVariant,
+	localisation: FriendshipTreeLocalisation,
+) {
+	const drawing = friendshipTreeDrawing(spirit, variant, localisation);
+	return drawing !== null && cachedFriendshipTreeImages.has(drawing.key);
 }
 
 export function friendshipTreeImage(
@@ -318,7 +436,13 @@ export function friendshipTreeImage(
 	variant: FriendshipTreeVariant,
 	options: FriendshipTreeImageOptions,
 ) {
-	const key: FriendshipTreeImageKey = `${spirit.id}-${variant}`;
+	const drawing = friendshipTreeDrawing(spirit, variant, options);
+
+	if (!drawing) {
+		return Promise.reject(new Error(`Spirit ${spirit.id} has no ${variant} friendship tree.`));
+	}
+
+	const { key, layout, seasonId, treeText } = drawing;
 	const cached = friendshipTreeImages.get(key);
 
 	if (cached) {
@@ -326,19 +450,14 @@ export function friendshipTreeImage(
 	}
 
 	const image = (async () => {
-		const tree = friendshipTreeFor(spirit, variant);
-
-		if (!tree || tree.length === 0) {
-			throw new Error(`Spirit ${spirit.id} has no ${variant} friendship tree.`);
-		}
-
 		const backgroundResult = friendshipTreeBackground(spirit.id, options);
 
-		const buffer = await renderFriendshipTree({
-			tree,
-			seasonId: spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit.seasonId : undefined,
-			background: backgroundResult.then(({ background }) => background),
-		});
+		const buffer = await drawFriendshipTree(
+			layout,
+			seasonId,
+			backgroundResult.then(({ background }) => background),
+			treeText,
+		);
 
 		if ((await backgroundResult).cacheable) {
 			cachedFriendshipTreeImages.add(key);

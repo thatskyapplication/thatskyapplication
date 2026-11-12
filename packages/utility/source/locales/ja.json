@@ -2223,6 +2223,7 @@
 			"friendship-tree-no-remaining-cost": "",
 			"friendship-tree-node-cost": "",
 			"friendship-tree-node-level": "",
+			"friendship-tree-node-level-badge": "レベル{{1}}",
 			"friendship-tree-remaining-cost": "",
 			"friendship-tree-total-cost": "",
 			"select-cosmetics-string-select-menu-placeholder": "",

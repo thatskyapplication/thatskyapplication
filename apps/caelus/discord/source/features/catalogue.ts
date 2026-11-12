@@ -21,10 +21,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { getFixedT, t } from "i18next";
-import {
-	displayFriendshipTreeVariant,
-	isFriendshipTreeImageCached,
-} from "@thatskyapplication/friendship-tree-generator";
+import { displayFriendshipTreeVariant } from "@thatskyapplication/friendship-tree-generator";
 import {
 	CLOTHING_SHOP,
 	type CostEntry,
@@ -103,7 +100,11 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { friendshipTreeFileName, friendshipTreeImage } from "../utility/friendship-tree.js";
+import {
+	friendshipTreeFileName,
+	friendshipTreeImage,
+	isFriendshipTreeImageCached,
+} from "../utility/friendship-tree.js";
 import {
 	interactionInvoker,
 	isButton,
@@ -1921,7 +1922,8 @@ async function viewSpirit(
 	const friendshipTreeImageName = friendshipTreeFileName(friendshipTreeVariant);
 
 	const deferred =
-		friendshipTree.length > 0 && !isFriendshipTreeImageCached(spirit.id, friendshipTreeVariant);
+		friendshipTree.length > 0 &&
+		!isFriendshipTreeImageCached(spirit, friendshipTreeVariant, locale);
 
 	if (deferred) {
 		if (isChatInputCommand(interaction)) {
@@ -1935,7 +1937,7 @@ async function viewSpirit(
 
 	const friendshipTreeImageData =
 		friendshipTree.length > 0
-			? await friendshipTreeImage(spirit, friendshipTreeVariant).catch((error: unknown) => {
+			? await friendshipTreeImage(spirit, friendshipTreeVariant, locale).catch((error: unknown) => {
 					pino.error(error, "Failed to render a friendship tree.");
 					return null;
 				})

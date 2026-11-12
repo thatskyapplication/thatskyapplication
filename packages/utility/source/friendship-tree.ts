@@ -1,4 +1,5 @@
 import { SeasonId, type SeasonIds } from "./season.js";
+import type { MessageFormatting } from "./types/index.js";
 import { sumCosts } from "./utility/functions.js";
 import type { FriendshipTree, Item, LegacyFriendshipTree } from "./utility/spirits.js";
 
@@ -12,20 +13,21 @@ const HEIGHT_START_OFFSET = 25 as const;
 const LINE_OFFSET = 10 as const;
 export const ASSET_SIZE = 55 as const;
 const ASSET_OFFSET = 5 as const;
-export const ASSET_TEXT_SINGLE_OFFSET = 15 as const;
-export const ASSET_TEXT_DOUBLE_OFFSET = 31 as const;
-export const ASSET_TEXT_TRIPLE_OFFSET = 47 as const;
 const SEASON_ICON_MIDDLE_OFFSET_X = 18 as const;
 const SEASON_ICON_MIDDLE_OFFSET_Y = 42 as const;
 const SEASON_ICON_SIDES_OFFSET_X = 35 as const;
 const SEASON_ICON_SIDES_OFFSET_Y = 35 as const;
-const LEVEL_OFFSET_X = 35 as const;
+const LEVEL_OFFSET_X = 17 as const;
 const LEVEL_OFFSET_Y = 2 as const;
 const CURRENCY_TEXT_OFFSET = 10 as const;
 const MODERN_CURRENCY_TEXT_OFFSET_Y = 45 as const;
 const NEXT_HEIGHT_LEVEL = 240 as const;
 const NEXT_HEIGHT_LEVEL_SIDES_OFFSET = 60 as const;
+const TEXT_CLEARANCE = 4 as const;
+const TEXT_SCALE_PRECISION = 0.01 as const;
+const LEVEL_BADGE_KEY = "catalogue.friendship-tree-node-level-badge" as const;
 export const FONT_SIZE = 35 as const;
+export const LEVEL_BADGE_FONT_SIZE = 30 as const;
 export const FRIENDSHIP_TREE_WIDTH = WIDTH_MODIFIER * 3.5;
 
 export interface FriendshipTreeNodeCost {
@@ -43,7 +45,7 @@ export interface PlacedFriendshipTreeNode {
 	y: number;
 	cost: FriendshipTreeNodeCost | null;
 	seasonEmoji: { x: number; y: number } | null;
-	level: { value: number; x: number; baselineY: number } | null;
+	level: { value: number; rightX: number; baselineY: number } | null;
 }
 
 export interface FriendshipTreeLine {
@@ -51,6 +53,36 @@ export interface FriendshipTreeLine {
 	y1: number;
 	x2: number;
 	y2: number;
+}
+
+interface FriendshipTreeTextExtent {
+	ascent: number;
+	left: number;
+	right: number;
+}
+
+export interface FriendshipTreeTextMeasurer {
+	cost(amount: number, anchorRight: boolean): FriendshipTreeTextExtent;
+	level(value: number): FriendshipTreeTextExtent;
+}
+
+interface TextMeasuringContext {
+	font: string;
+	textAlign: string;
+	measureText(text: string): {
+		actualBoundingBoxAscent: number;
+		actualBoundingBoxLeft: number;
+		actualBoundingBoxRight: number;
+	};
+}
+
+type Box = readonly [left: number, top: number, right: number, bottom: number];
+
+interface PlacedText {
+	extent: FriendshipTreeTextExtent;
+	ignored?: Box;
+	x: number;
+	y: number;
 }
 
 export interface FriendshipTreeLayout {
@@ -94,7 +126,7 @@ function normaliseTop(layout: FriendshipTreeLayout): FriendshipTreeLayout {
 		}
 
 		if (node.level) {
-			minY = Math.min(minY, node.level.baselineY - FONT_SIZE);
+			minY = Math.min(minY, node.level.baselineY - LEVEL_BADGE_FONT_SIZE);
 		}
 	}
 
@@ -258,7 +290,7 @@ function legacyFriendshipTreeLayout(
 		if (node.level) {
 			placed.level = {
 				value: node.level,
-				x: dx + IMAGE_SIZE - LEVEL_OFFSET_X,
+				rightX: dx + IMAGE_SIZE + LEVEL_OFFSET_X,
 				baselineY: dy - LEVEL_OFFSET_Y,
 			};
 		}
@@ -391,7 +423,7 @@ function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTreeLayout 
 			if (node.level) {
 				placed.level = {
 					value: node.level,
-					x: dx + IMAGE_SIZE - LEVEL_OFFSET_X,
+					rightX: dx + IMAGE_SIZE + LEVEL_OFFSET_X,
 					baselineY: dy - LEVEL_OFFSET_Y,
 				};
 			}
@@ -414,4 +446,144 @@ export function friendshipTreeLayout(
 	return seasonId !== undefined && seasonId >= SeasonId.Migration
 		? modernFriendshipTreeLayout(tree as FriendshipTree)
 		: legacyFriendshipTreeLayout(tree);
+}
+
+function overlaps(a: Box, b: Box) {
+	return a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
+}
+
+function crosses({ x1, y1, x2, y2 }: FriendshipTreeLine, [left, top, right, bottom]: Box) {
+	const deltaX = x2 - x1;
+	const deltaY = y2 - y1;
+	let start = 0;
+	let end = 1;
+
+	for (const [direction, distance] of [
+		[-deltaX, x1 - left],
+		[deltaX, right - x1],
+		[-deltaY, y1 - top],
+		[deltaY, bottom - y1],
+	] as const) {
+		if (direction === 0) {
+			if (distance < 0) {
+				return false;
+			}
+
+			continue;
+		}
+
+		const ratio = distance / direction;
+
+		if (direction < 0) {
+			start = Math.max(start, ratio);
+		} else {
+			end = Math.min(end, ratio);
+		}
+
+		if (start > end) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+export function friendshipTreeTextScale(
+	layout: FriendshipTreeLayout,
+	measure: FriendshipTreeTextMeasurer,
+) {
+	const obstacles: Box[] = [];
+	const texts: PlacedText[] = [];
+
+	for (const node of layout.nodes) {
+		obstacles.push([node.x, node.y, node.x + IMAGE_SIZE, node.y + IMAGE_SIZE]);
+
+		if (node.seasonEmoji) {
+			const { x, y } = node.seasonEmoji;
+			obstacles.push([x, y, x + ASSET_SIZE, y + ASSET_SIZE]);
+		}
+
+		if (node.cost) {
+			const { amount, iconX, iconY, leftNode, textBaselineY, textX } = node.cost;
+			const costIcon: Box = [iconX, iconY, iconX + ASSET_SIZE, iconY + ASSET_SIZE];
+			obstacles.push(costIcon);
+
+			texts.push({
+				extent: measure.cost(amount, leftNode),
+				ignored: costIcon,
+				x: textX,
+				y: textBaselineY,
+			});
+		}
+
+		if (node.level) {
+			texts.push({
+				extent: measure.level(node.level.value),
+				x: node.level.rightX,
+				y: node.level.baselineY,
+			});
+		}
+	}
+
+	const fits = (scale: number) => {
+		const boxes = texts.map(({ extent, x, y }): Box => [
+			x - extent.left * scale - TEXT_CLEARANCE,
+			y - extent.ascent * scale - TEXT_CLEARANCE,
+			x + extent.right * scale + TEXT_CLEARANCE,
+			y,
+		]);
+
+		return boxes.every(
+			(box, index) =>
+				layout.lines.every((line) => !crosses(line, box)) &&
+				obstacles.every(
+					(obstacle) => obstacle === texts[index]!.ignored || !overlaps(box, obstacle),
+				) &&
+				boxes.every((other, otherIndex) => otherIndex <= index || !overlaps(box, other)),
+		);
+	};
+
+	if (fits(1)) {
+		return 1;
+	}
+
+	let low = 0;
+	let high = 1;
+
+	while (high - low > TEXT_SCALE_PRECISION) {
+		const middle = (low + high) / 2;
+
+		if (fits(middle)) {
+			low = middle;
+		} else {
+			high = middle;
+		}
+	}
+
+	return low;
+}
+
+export function friendshipTreeLevelBadge(
+	level: number,
+	t: MessageFormatting["t"],
+	locale?: string,
+) {
+	return t(LEVEL_BADGE_KEY, { lng: locale, ns: "features", 1: level });
+}
+
+export function measureFriendshipTreeText(
+	context: TextMeasuringContext,
+	font: string,
+	text: string,
+	textAlign: "left" | "right",
+): FriendshipTreeTextExtent {
+	context.font = font;
+	context.textAlign = textAlign;
+	const metrics = context.measureText(text);
+
+	return {
+		ascent: metrics.actualBoundingBoxAscent,
+		left: metrics.actualBoundingBoxLeft,
+		right: metrics.actualBoundingBoxRight,
+	};
 }

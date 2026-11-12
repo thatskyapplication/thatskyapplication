@@ -156,19 +156,20 @@ export {
 } from "./friendship-actions.js";
 export {
 	ASSET_SIZE,
-	ASSET_TEXT_DOUBLE_OFFSET,
-	ASSET_TEXT_SINGLE_OFFSET,
-	ASSET_TEXT_TRIPLE_OFFSET,
 	BACKGROUND_PADDING,
 	FONT_SIZE,
 	FRIENDSHIP_TREE_WIDTH,
 	friendshipTreeLayout,
+	friendshipTreeLevelBadge,
+	friendshipTreeTextScale,
 	type FriendshipTreeLayout,
 	type FriendshipTreeLine,
 	type FriendshipTreeNodeCost,
 	IMAGE_SIZE,
+	LEVEL_BADGE_FONT_SIZE,
 	LINE_COLOUR,
 	LINE_WIDTH,
+	measureFriendshipTreeText,
 	type PlacedFriendshipTreeNode,
 	TEXT_COLOUR,
 } from "./friendship-tree.js";
@@ -356,6 +357,7 @@ export {
 export {
 	type BaseVisit,
 	type IndividualSpiritVisit,
+	type MessageFormatting,
 	type ReturningIndividualSpiritVisit,
 	type ReturningSpiritVisit,
 	type Snowflake,

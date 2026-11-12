@@ -2233,6 +2233,7 @@
 			"friendship-tree-no-remaining-cost": "Sem custo restante",
 			"friendship-tree-node-cost": "{{currency}}: {{amount}}",
 			"friendship-tree-node-level": "Nível {{level}}",
+			"friendship-tree-node-level-badge": "Nv {{1}}",
 			"friendship-tree-remaining-cost": "Custo restante",
 			"friendship-tree-total-cost": "Custo total",
 			"select-cosmetics-string-select-menu-placeholder": "Selecione o que você possui!",

@@ -2568,6 +2568,7 @@ export default {
 			"friendship-tree-no-remaining-cost": "No remaining cost",
 			"friendship-tree-node-cost": "{{currency}}: {{amount}}",
 			"friendship-tree-node-level": "Level {{level}}",
+			"friendship-tree-node-level-badge": "Lv{{1}}",
 			"friendship-tree-remaining-cost": "Remaining cost",
 			"friendship-tree-total-cost": "Total cost",
 			"select-cosmetics-string-select-menu-placeholder": "Select what you have!",

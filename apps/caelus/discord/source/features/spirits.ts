@@ -9,10 +9,7 @@ import {
 	MessageFlags,
 } from "@discordjs/core";
 import { getFixedT, t } from "i18next";
-import {
-	friendshipTreeVariants,
-	isFriendshipTreeImageCached,
-} from "@thatskyapplication/friendship-tree-generator";
+import { friendshipTreeVariants } from "@thatskyapplication/friendship-tree-generator";
 import {
 	isSpiritsHistoryOrderType,
 	type SpiritIds,
@@ -27,7 +24,11 @@ import pino from "../pino.js";
 import { MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { EMOJIS } from "../utility/emojis.js";
-import { friendshipTreeFileName, friendshipTreeImage } from "../utility/friendship-tree.js";
+import {
+	friendshipTreeFileName,
+	friendshipTreeImage,
+	isFriendshipTreeImageCached,
+} from "../utility/friendship-tree.js";
 
 export async function searchAutocomplete<
 	Interaction extends APIApplicationCommandAutocompleteInteraction,
@@ -101,7 +102,9 @@ export async function spiritsViewSpirit(
 	}
 
 	const variants = friendshipTreeVariants(spirit);
-	const deferred = variants.some((variant) => !isFriendshipTreeImageCached(spirit.id, variant));
+	const deferred = variants.some(
+		(variant) => !isFriendshipTreeImageCached(spirit, variant, locale),
+	);
 
 	if (deferred) {
 		await client.api.interactions.defer(interaction.id, interaction.token, {
@@ -111,7 +114,7 @@ export async function spiritsViewSpirit(
 
 	const images = await Promise.all(
 		variants.map(async (variant) => {
-			const data = await friendshipTreeImage(spirit, variant).catch((error: unknown) => {
+			const data = await friendshipTreeImage(spirit, variant, locale).catch((error: unknown) => {
 				pino.error(error, "Failed to render a friendship tree.");
 				return null;
 			});

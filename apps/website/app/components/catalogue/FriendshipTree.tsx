@@ -1,7 +1,7 @@
 /* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Read-only tooltip triggers must remain keyboard-focusable without becoming controls. */
 import { clsx } from "clsx";
 import { CheckCircle } from "lucide-react";
-import { type CSSProperties, useMemo } from "react";
+import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useFetchers } from "react-router";
 import {
@@ -14,13 +14,17 @@ import {
 	FRIENDSHIP_TREE_WIDTH,
 	type FriendshipTree as FriendshipTreeData,
 	friendshipTreeLayout,
+	friendshipTreeLevelBadge,
+	friendshipTreeTextScale,
 	friendshipTreeToItems,
 	IMAGE_SIZE,
 	type Item,
 	type ItemCost,
 	type LegacyFriendshipTree,
+	LEVEL_BADGE_FONT_SIZE,
 	LINE_WIDTH,
 	itemName,
+	measureFriendshipTreeText,
 	partitionItemCosts,
 	type PlacedFriendshipTreeNode,
 	type SeasonIds,
@@ -83,14 +87,15 @@ function textStyle(
 	x: number,
 	baselineY: number,
 	height: number,
-	anchorRight = false,
+	anchorRight: boolean,
+	fontSize: number,
 ): CSSProperties {
 	return {
 		...(anchorRight
 			? { right: `${((WIDTH - x) / WIDTH) * 100}%` }
 			: { left: `${(x / WIDTH) * 100}%` }),
 		top: `${(baselineY / height) * 100}%`,
-		fontSize: `${(FONT_SIZE / WIDTH) * 100}cqw`,
+		fontSize: `${(fontSize / WIDTH) * 100}cqw`,
 		transform: "translateY(-100%)",
 	};
 }
@@ -100,6 +105,7 @@ interface TreeNodeProps {
 	locale: string;
 	node: PlacedFriendshipTreeNode;
 	seasonId: SeasonIds | undefined;
+	textScale: number;
 }
 
 function TreeNode({
@@ -108,6 +114,7 @@ function TreeNode({
 	locale,
 	node,
 	seasonId,
+	textScale,
 }: TreeNodeProps & {
 	interaction?: { owned: boolean; toggle: () => void };
 }) {
@@ -214,8 +221,14 @@ function TreeNode({
 					) : null}
 					<span
 						aria-hidden="true"
-						className="absolute leading-none font-medium whitespace-nowrap text-white"
-						style={textStyle(node.cost.textX, node.cost.textBaselineY, height, node.cost.leftNode)}
+						className="absolute font-lato leading-none font-normal whitespace-nowrap text-white"
+						style={textStyle(
+							node.cost.textX,
+							node.cost.textBaselineY,
+							height,
+							node.cost.leftNode,
+							FONT_SIZE * textScale,
+						)}
 					>
 						{cost.text}
 					</span>
@@ -225,10 +238,16 @@ function TreeNode({
 			{node.level ? (
 				<span
 					aria-hidden="true"
-					className="absolute leading-none font-medium whitespace-nowrap text-white/80"
-					style={textStyle(node.level.x, node.level.baselineY, height)}
+					className="absolute font-lato leading-none font-light whitespace-nowrap text-white/80"
+					style={textStyle(
+						node.level.rightX,
+						node.level.baselineY,
+						height,
+						true,
+						LEVEL_BADGE_FONT_SIZE * textScale,
+					)}
 				>
-					Lv{node.level.value}
+					{friendshipTreeLevelBadge(node.level.value, t)}
 				</span>
 			) : null}
 		</>
@@ -248,6 +267,55 @@ export function FriendshipTree(props: FriendshipTreeProps) {
 	const fetchers = useFetchers();
 	const { t } = useTranslation();
 	const layout = useMemo(() => friendshipTreeLayout(tree, seasonId), [seasonId, tree]);
+	const [textScale, setTextScale] = useState(1);
+
+	useEffect(() => {
+		const fontFamily = getComputedStyle(document.documentElement)
+			.getPropertyValue("--font-lato")
+			.trim();
+
+		const context = document.createElement("canvas").getContext("2d");
+
+		if (!fontFamily || !context) {
+			return;
+		}
+
+		const badgeFont = `300 ${LEVEL_BADGE_FONT_SIZE}px ${fontFamily}`;
+		const costFont = `${FONT_SIZE}px ${fontFamily}`;
+		let cancelled = false;
+
+		Promise.all([document.fonts.load(badgeFont), document.fonts.load(costFont)]).then(
+			() => {
+				if (cancelled) {
+					return;
+				}
+
+				setTextScale(
+					friendshipTreeTextScale(layout, {
+						cost: (amount, anchorRight) =>
+							measureFriendshipTreeText(
+								context,
+								costFont,
+								amount.toLocaleString(locale),
+								anchorRight ? "right" : "left",
+							),
+						level: (value) =>
+							measureFriendshipTreeText(
+								context,
+								badgeFont,
+								friendshipTreeLevelBadge(value, t),
+								"right",
+							),
+					}),
+				);
+			},
+			() => {},
+		);
+
+		return () => {
+			cancelled = true;
+		};
+	}, [layout, locale, t]);
 	const optimisticData = useMemo(() => {
 		if (data === null) {
 			return null;
@@ -334,6 +402,7 @@ export function FriendshipTree(props: FriendshipTreeProps) {
 						locale,
 						node,
 						seasonId,
+						textScale,
 					};
 
 					return data === null ? (
