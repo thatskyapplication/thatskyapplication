@@ -7,15 +7,13 @@ export default new StandardSpirit({
 	id: SpiritId.ConfidentSightseer,
 	area: AreaName.FrozenLake,
 	friendshipTree: [
+		[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceConfident }],
 		[
-			{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceConfident },
 			{
 				translation: CosmeticCommon.Hair,
 				cosmetic: Cosmetic.ConfidentSightseerHair,
 				cost: { hearts: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ConfidentSightseerBlessing1,
@@ -33,8 +31,6 @@ export default new StandardSpirit({
 				cosmetic: Cosmetic.ConfidentSightseerWingBuff,
 				cost: { ascendedCandles: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ConfidentSightseerBlessing2,
