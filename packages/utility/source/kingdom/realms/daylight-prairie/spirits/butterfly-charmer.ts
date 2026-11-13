@@ -7,25 +7,27 @@ export default new StandardSpirit({
 	id: SpiritId.ButterflyCharmer,
 	area: AreaName.ButterflyFields,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteButterfly1 }],
 		[
-			{ cosmetic: Cosmetic.EmoteButterfly1 },
 			{
 				cosmetic: Cosmetic.EmoteButterfly2,
 				cost: { candles: 1 },
 				level: 2,
-			},
-		],
-		[
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ButterflyCharmerBlessing1,
-				cost: { candles: 1 },
 			},
 			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
 				cosmetic: Cosmetic.ButterflyCharmerCape1,
 				cost: { hearts: 3 },
 			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.ButterflyCharmerBlessing1,
+				cost: { candles: 1 },
+			},
+		],
+		[
+			null,
+			null,
 			{
 				translation: CosmeticCommon.Heart,
 				cosmetic: Cosmetic.ButterflyCharmerHeart,
@@ -34,17 +36,17 @@ export default new StandardSpirit({
 		],
 		[
 			{
+				cosmetic: Cosmetic.EmoteButterfly3,
+				cost: { candles: 2 },
+				level: 3,
+			},
+			{
 				translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
 				cosmetic: Cosmetic.ButterflyCharmerWingBuff1,
 				cost: { ascendedCandles: 1 },
 			},
 		],
 		[
-			{
-				cosmetic: Cosmetic.EmoteButterfly3,
-				cost: { candles: 2 },
-				level: 3,
-			},
 			{
 				cosmetic: Cosmetic.EmoteButterfly4,
 				cost: { candles: 2 },
@@ -55,8 +57,6 @@ export default new StandardSpirit({
 				cosmetic: Cosmetic.ButterflyCharmerOutfit,
 				cost: { hearts: 4 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ButterflyCharmerBlessing2,
@@ -65,16 +65,14 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
-				cosmetic: Cosmetic.ButterflyCharmerWingBuff2,
-				cost: { ascendedCandles: 3 },
-			},
-		],
-		[
-			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 				cosmetic: Cosmetic.ButterflyCharmerCape2,
 				cost: { hearts: 9 },
+			},
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
+				cosmetic: Cosmetic.ButterflyCharmerWingBuff2,
+				cost: { ascendedCandles: 3 },
 			},
 		],
 	],
