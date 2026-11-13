@@ -412,7 +412,7 @@ function isModernFriendshipTree(
 	tree: FriendshipTree | LegacyFriendshipTree,
 	spirit: Spirit,
 ): boolean {
-	if (spirit.isStandardSpirit()) {
+	if (spirit.isStandardSpirit() || spirit.isElderSpirit()) {
 		return true;
 	}
 
