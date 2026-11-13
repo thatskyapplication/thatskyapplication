@@ -7,19 +7,12 @@ export default new StandardSpirit({
 	id: SpiritId.SalutingCaptain,
 	area: AreaName.CrabFields,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteSalute1 }],
 		[
-			{ cosmetic: Cosmetic.EmoteSalute1 },
 			{
 				cosmetic: Cosmetic.EmoteSalute2,
 				cost: { candles: 4 },
 				level: 2,
-			},
-		],
-		[
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SalutingCaptainBlessing1,
-				cost: { candles: 1 },
 			},
 			{
 				translation: CosmeticCommon.Hair,
@@ -27,16 +20,18 @@ export default new StandardSpirit({
 				cost: { hearts: 5 },
 			},
 			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.SalutingCaptainHeart,
-				cost: { candles: 3 },
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.SalutingCaptainBlessing1,
+				cost: { candles: 1 },
 			},
 		],
 		[
+			null,
+			null,
 			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.SalutingCaptainWingBuff,
-				cost: { ascendedCandles: 3 },
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.SalutingCaptainHeart,
+				cost: { candles: 3 },
 			},
 		],
 		[
@@ -46,12 +41,10 @@ export default new StandardSpirit({
 				level: 3,
 			},
 			{
-				cosmetic: Cosmetic.EmoteSalute4,
-				cost: { candles: 5 },
-				level: 4,
+				translation: CosmeticCommon.WingBuff,
+				cosmetic: Cosmetic.SalutingCaptainWingBuff,
+				cost: { ascendedCandles: 3 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SalutingCaptainBlessing2,
@@ -59,6 +52,11 @@ export default new StandardSpirit({
 			},
 		],
 		[
+			{
+				cosmetic: Cosmetic.EmoteSalute4,
+				cost: { candles: 5 },
+				level: 4,
+			},
 			{
 				cosmetic: Cosmetic.SalutingCaptainFireworksStaff,
 				cost: { hearts: 20 },
