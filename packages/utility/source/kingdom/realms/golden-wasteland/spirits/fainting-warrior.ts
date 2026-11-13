@@ -7,19 +7,12 @@ export default new StandardSpirit({
 	id: SpiritId.FaintingWarrior,
 	area: AreaName.TheOuterBailey,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteFaint1 }],
 		[
-			{ cosmetic: Cosmetic.EmoteFaint1 },
 			{
 				cosmetic: Cosmetic.EmoteFaint2,
 				cost: { candles: 4 },
 				level: 2,
-			},
-		],
-		[
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.FaintingWarriorBlessing1,
-				cost: { candles: 1 },
 			},
 			{
 				translation: CosmeticCommon.Hair,
@@ -27,16 +20,18 @@ export default new StandardSpirit({
 				cost: { hearts: 5 },
 			},
 			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.FaintingWarriorHeart,
-				cost: { candles: 3 },
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.FaintingWarriorBlessing1,
+				cost: { candles: 1 },
 			},
 		],
 		[
+			null,
+			null,
 			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.FaintingWarriorWingBuff,
-				cost: { ascendedCandles: 2 },
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.FaintingWarriorHeart,
+				cost: { candles: 3 },
 			},
 		],
 		[
@@ -46,12 +41,10 @@ export default new StandardSpirit({
 				level: 3,
 			},
 			{
-				cosmetic: Cosmetic.EmoteFaint4,
-				cost: { candles: 5 },
-				level: 4,
+				translation: CosmeticCommon.WingBuff,
+				cosmetic: Cosmetic.FaintingWarriorWingBuff,
+				cost: { ascendedCandles: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.FaintingWarriorBlessing2,
@@ -59,6 +52,11 @@ export default new StandardSpirit({
 			},
 		],
 		[
+			{
+				cosmetic: Cosmetic.EmoteFaint4,
+				cost: { candles: 5 },
+				level: 4,
+			},
 			{
 				translation: CosmeticCommon.Mask,
 				cosmetic: Cosmetic.FaintingWarriorMask,

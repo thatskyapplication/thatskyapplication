@@ -7,15 +7,13 @@ export default new StandardSpirit({
 	id: SpiritId.CourageousSoldier,
 	area: AreaName.TheGraveyard,
 	friendshipTree: [
+		[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceCourageous }],
 		[
-			{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceCourageous },
 			{
 				translation: CosmeticCommon.Hair,
 				cosmetic: Cosmetic.CourageousSoldierHair,
 				cost: { hearts: 4 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.CourageousSoldierBlessing1,
@@ -33,8 +31,6 @@ export default new StandardSpirit({
 				cosmetic: Cosmetic.CourageousSoldierWingBuff1,
 				cost: { ascendedCandles: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CourageousSoldierBlessing2,
@@ -50,16 +46,14 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
-				cosmetic: Cosmetic.CourageousSoldierWingBuff2,
-				cost: { ascendedCandles: 6 },
-			},
-		],
-		[
-			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 				cosmetic: Cosmetic.CourageousSoldierCape2,
 				cost: { hearts: 45 },
+			},
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
+				cosmetic: Cosmetic.CourageousSoldierWingBuff2,
+				cost: { ascendedCandles: 6 },
 			},
 		],
 	],
