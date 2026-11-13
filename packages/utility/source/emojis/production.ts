@@ -5188,6 +5188,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Painting set.
 	 */
 	SmallPlaceableProp143: { id: "1565744250694410261", name: "143_small_placeable_prop" },
+	/**
+	 * Oil lamp.
+	 */
+	SmallPlaceableProp144: { id: "1570738769374744626", name: "144_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 /**

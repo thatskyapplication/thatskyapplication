@@ -1599,6 +1599,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	SmallPlaceableProp141: { id: "1563305848644706465", name: "141_small_placeable_prop" },
 	SmallPlaceableProp142: { id: "1563120615651541113", name: "142_small_placeable_prop" },
 	SmallPlaceableProp143: { id: "1565744255324917802", name: "143_small_placeable_prop" },
+	SmallPlaceableProp144: { id: "1570738773350686730", name: "144_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS = {

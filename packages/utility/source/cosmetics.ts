@@ -3859,6 +3859,9 @@ export enum Cosmetic {
 	// 06/11/2026 | Version 35.2.
 	RockingChair = 3062,
 	Desk = 3063,
+
+	// 13/11/2026 | Version 35.2.
+	OilLamp = 3064,
 }
 
 export enum CosmeticCommon {

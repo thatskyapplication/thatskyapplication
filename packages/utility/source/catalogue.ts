@@ -159,6 +159,7 @@ const nestingWorkshopItems = resolveOfferFromItems([
 	{ cosmetic: Cosmetic.PaintingSet, cost: { candles: 8 } },
 	{ cosmetic: Cosmetic.RockingChair, cost: { candles: 11 } },
 	{ cosmetic: Cosmetic.Desk, cost: { candles: 12 } },
+	{ cosmetic: Cosmetic.OilLamp, cost: { candles: 14 } },
 ]);
 
 export const NESTING_WORKSHOP = {
@@ -245,6 +246,7 @@ export const NestingWorkshopRotationCategoryToCosmetics = {
 		Cosmetic.StoneCandleLight,
 		Cosmetic.CandleStand,
 		Cosmetic.StoneWallSconce,
+		Cosmetic.OilLamp,
 		Cosmetic.StoneClosedBox,
 		Cosmetic.StoneEmptyBox,
 		Cosmetic.Crate,
