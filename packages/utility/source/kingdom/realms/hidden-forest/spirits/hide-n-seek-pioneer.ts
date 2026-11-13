@@ -7,15 +7,13 @@ export default new StandardSpirit({
 	id: SpiritId.HideNSeekPioneer,
 	area: AreaName.ForestBrook,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteHideAndSeek }],
 		[
-			{ cosmetic: Cosmetic.EmoteHideAndSeek },
 			{
 				translation: CosmeticCommon.Hair,
 				cosmetic: Cosmetic.HideAndSeekPioneerHair,
 				cost: { hearts: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.HideAndSeekPioneerBlessing1,
@@ -33,8 +31,6 @@ export default new StandardSpirit({
 				cosmetic: Cosmetic.HideAndSeekPioneerWingBuff1,
 				cost: { ascendedCandles: 3 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.HideAndSeekPioneerBlessing2,
@@ -50,16 +46,14 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
-				cosmetic: Cosmetic.HideAndSeekPioneerWingBuff2,
-				cost: { ascendedCandles: 6 },
-			},
-		],
-		[
-			{
 				translation: CosmeticCommon.Outfit,
 				cosmetic: Cosmetic.HideAndSeekPioneerOutfit,
 				cost: { hearts: 15 },
+			},
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
+				cosmetic: Cosmetic.HideAndSeekPioneerWingBuff2,
+				cost: { ascendedCandles: 6 },
 			},
 		],
 	],
