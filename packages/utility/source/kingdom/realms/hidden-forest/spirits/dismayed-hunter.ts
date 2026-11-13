@@ -7,21 +7,23 @@ export default new StandardSpirit({
 	id: SpiritId.DismayedHunter,
 	area: AreaName.Boneyard,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteShocked1 }],
 		[
-			{ cosmetic: Cosmetic.EmoteShocked1 },
 			{ cosmetic: Cosmetic.EmoteShocked2, cost: { candles: 3 }, level: 2 },
-		],
-		[
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.DismayedHunterBlessing1,
-				cost: { candles: 1 },
-			},
 			{
 				translation: CosmeticCommon.Hair,
 				cosmetic: Cosmetic.DismayedHunterHair,
 				cost: { hearts: 5 },
 			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.DismayedHunterBlessing1,
+				cost: { candles: 1 },
+			},
+		],
+		[
+			null,
+			null,
 			{
 				translation: CosmeticCommon.Heart,
 				cosmetic: Cosmetic.DismayedHunterHeart,
@@ -29,17 +31,12 @@ export default new StandardSpirit({
 			},
 		],
 		[
+			{ cosmetic: Cosmetic.EmoteShocked3, cost: { candles: 5 }, level: 3 },
 			{
 				translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
 				cosmetic: Cosmetic.DismayedHunterWingBuff1,
 				cost: { ascendedCandles: 3 },
 			},
-		],
-		[
-			{ cosmetic: Cosmetic.EmoteShocked3, cost: { candles: 5 }, level: 3 },
-			{ cosmetic: Cosmetic.EmoteShocked4, cost: { candles: 5 }, level: 4 },
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.DismayedHunterBlessing2,
@@ -47,6 +44,7 @@ export default new StandardSpirit({
 			},
 		],
 		[
+			{ cosmetic: Cosmetic.EmoteShocked4, cost: { candles: 5 }, level: 4 },
 			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
 				cosmetic: Cosmetic.DismayedHunterCape1,
@@ -55,16 +53,14 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
-				cosmetic: Cosmetic.DismayedHunterWingBuff2,
-				cost: { ascendedCandles: 9 },
-			},
-		],
-		[
-			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 				cosmetic: Cosmetic.DismayedHunterCape2,
 				cost: { hearts: 90 },
+			},
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
+				cosmetic: Cosmetic.DismayedHunterWingBuff2,
+				cost: { ascendedCandles: 9 },
 			},
 		],
 	],
