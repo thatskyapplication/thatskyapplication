@@ -102,21 +102,16 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.FriendActionBearhug2,
-						cost: { hearts: 8 },
-						level: 2,
-					},
-					{
-						translation: CosmeticCommon.Hair,
-						cosmetic: Cosmetic.BearhugHermitHair,
-						cost: { candles: 50 },
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.BearhugHermitOutfit,
+						cost: { candles: 70 },
 					},
 				],
 				[
 					{
-						translation: CosmeticCommon.Outfit,
-						cosmetic: Cosmetic.BearhugHermitOutfit,
-						cost: { candles: 70 },
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.BearhugHermitHair,
+						cost: { candles: 50 },
 					},
 				],
 			],
