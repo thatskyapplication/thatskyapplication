@@ -57,7 +57,7 @@ test("Friendship tree layouts keep everything inside their height.", () => {
 				continue;
 			}
 
-			const layout = friendshipTreeLayout(tree, seasonal?.seasonId);
+			const layout = friendshipTreeLayout(tree, spirit);
 			const { top, bottom } = verticalBounds(layout);
 			ok(top >= 0, `Spirit ${spirit.id} starts ${-top} px above its layout.`);
 

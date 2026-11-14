@@ -1,4 +1,5 @@
-import { SeasonId, type SeasonIds } from "./season.js";
+import type { Spirit } from "./models/spirits.js";
+import { SeasonId } from "./season.js";
 import type { MessageFormatting } from "./types/index.js";
 import { sumCosts } from "./utility/functions.js";
 import type { FriendshipTree, Item, LegacyFriendshipTree } from "./utility/spirits.js";
@@ -439,11 +440,32 @@ function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTreeLayout 
 	return normaliseTop({ width, height, lines: [], nodes });
 }
 
+function isModernFriendshipTree(
+	tree: FriendshipTree | LegacyFriendshipTree,
+	spirit: Spirit,
+): boolean {
+	if (spirit.isStandardSpirit() || spirit.isElderSpirit()) {
+		return true;
+	}
+
+	if (
+		spirit.isGuideSpirit() &&
+		spirit.seasonId >= SeasonId.Enchantment &&
+		tree === spirit.friendshipTrees.postSeason?.friendshipTree
+	) {
+		return true;
+	}
+
+	return (
+		(spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) && spirit.seasonId >= SeasonId.Migration
+	);
+}
+
 export function friendshipTreeLayout(
 	tree: FriendshipTree | LegacyFriendshipTree,
-	seasonId: SeasonIds | undefined,
+	spirit: Spirit,
 ): FriendshipTreeLayout {
-	return seasonId !== undefined && seasonId >= SeasonId.Migration
+	return isModernFriendshipTree(tree, spirit)
 		? modernFriendshipTreeLayout(tree as FriendshipTree)
 		: legacyFriendshipTreeLayout(tree);
 }

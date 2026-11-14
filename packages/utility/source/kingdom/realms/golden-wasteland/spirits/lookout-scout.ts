@@ -7,35 +7,30 @@ export default new StandardSpirit({
 	id: SpiritId.LookoutScout,
 	area: AreaName.TheBattlefield,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteLookAround1 }],
 		[
-			{ cosmetic: Cosmetic.EmoteLookAround1 },
 			{
 				cosmetic: Cosmetic.EmoteLookAround2,
 				cost: { candles: 5 },
 				level: 2,
-			},
-		],
-		[
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.LookoutScoutBlessing1,
-				cost: { candles: 1 },
 			},
 			{
 				cosmetic: Cosmetic.LookoutScoutHorn,
 				cost: { hearts: 5 },
 			},
 			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.LookoutScoutHeart,
-				cost: { candles: 3 },
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.LookoutScoutBlessing1,
+				cost: { candles: 1 },
 			},
 		],
 		[
+			null,
+			null,
 			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.LookoutScoutWingBuff,
-				cost: { ascendedCandles: 2 },
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.LookoutScoutHeart,
+				cost: { candles: 3 },
 			},
 		],
 		[
@@ -45,12 +40,10 @@ export default new StandardSpirit({
 				level: 3,
 			},
 			{
-				cosmetic: Cosmetic.EmoteLookAround4,
-				cost: { candles: 5 },
-				level: 4,
+				translation: CosmeticCommon.WingBuff,
+				cosmetic: Cosmetic.LookoutScoutWingBuff,
+				cost: { ascendedCandles: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.LookoutScoutBlessing2,
@@ -58,6 +51,11 @@ export default new StandardSpirit({
 			},
 		],
 		[
+			{
+				cosmetic: Cosmetic.EmoteLookAround4,
+				cost: { candles: 5 },
+				level: 4,
+			},
 			{
 				translation: CosmeticCommon.FaceAccessory,
 				cosmetic: Cosmetic.LookoutScoutFaceAccessory,

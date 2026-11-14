@@ -76,7 +76,7 @@ interface BaseSpiritData {
 
 interface StandardSpiritData extends Omit<BaseSpiritData, "realm">, FriendshipTreeData {
 	area: AreaName;
-	friendshipTree: LegacyFriendshipTreeRaw;
+	friendshipTree: FriendshipTreeRaw;
 }
 
 interface ElderSpiritData extends BaseSpiritData, FriendshipTreeData {

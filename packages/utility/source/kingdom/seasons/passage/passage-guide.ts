@@ -19,7 +19,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 						cosmetic: Cosmetic.PassageGuideHeart1,
-						cost: { candles: 3 },
 					},
 					{
 						translation: CosmeticCommon.Pendant,
@@ -60,7 +59,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.PassageGuideHeart2,
-						cost: { candles: 3 },
 					},
 					{
 						cosmetic: Cosmetic.PassageGuideBoarMask,
@@ -75,7 +73,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 						cosmetic: Cosmetic.PassageGuideHeart3,
-						cost: { candles: 3 },
 					},
 					{
 						cosmetic: Cosmetic.PassageGuideMonkeyMask,
@@ -90,7 +87,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
 						cosmetic: Cosmetic.PassageGuideHeart4,
-						cost: { candles: 3 },
 					},
 					{
 						cosmetic: Cosmetic.PassageGuideHackySack,
@@ -101,6 +97,83 @@ export default new GuideSpirit({
 					{
 						cosmetic: Cosmetic.PassageGuideRacoonMask,
 						cost: { candles: 52 },
+					},
+				],
+			],
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.PassageGuideQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.PassageGuideQuest2,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.PassageGuideHeart1,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.PassageGuideQuest3,
+					},
+					{
+						cosmetic: Cosmetic.PassageGuideSerowMask,
+						cost: { candles: 48 },
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.PassageGuideHeart2,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.PassageGuideQuest4,
+					},
+					{
+						cosmetic: Cosmetic.PassageGuideBoarMask,
+						cost: { candles: 44 },
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.PassageGuideHeart3,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.PassageGuideQuest5,
+					},
+					{
+						cosmetic: Cosmetic.PassageGuideMonkeyMask,
+						cost: { candles: 46 },
+					},
+					{
+						cosmetic: Cosmetic.PassageGuideRacoonMask,
+						cost: { candles: 52 },
+					},
+				],
+				[
+					null,
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.PassageGuideHeart4,
+						cost: { candles: 3 },
+					},
+					{
+						cosmetic: Cosmetic.PassageGuideHackySack,
+						cost: { hearts: 39 },
 					},
 				],
 			],

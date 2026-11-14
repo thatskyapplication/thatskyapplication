@@ -14,7 +14,6 @@ type FriendshipTreeType = keyof typeof FRIENDSHIP_TREE_LABEL_KEYS;
 export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spirit: Spirit }) {
 	const { t } = useTranslation();
 	const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
-	const seasonId = seasonal ? spirit.seasonId : undefined;
 	const friendshipTrees: {
 		key: FriendshipTreeType;
 		tree: Spirit["displayFriendshipTree"];
@@ -46,7 +45,7 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 							label={t(FRIENDSHIP_TREE_LABEL_KEYS[key], { ns: "features" })}
 							locale={locale}
 							readOnly
-							seasonId={seasonId}
+							spirit={spirit}
 							tree={tree}
 						/>
 					</div>
@@ -64,7 +63,7 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 					label={t(FRIENDSHIP_TREE_LABEL_KEYS[friendshipTree.key], { ns: "features" })}
 					locale={locale}
 					readOnly
-					seasonId={seasonId}
+					spirit={spirit}
 					tree={friendshipTree.tree}
 				/>
 			</div>

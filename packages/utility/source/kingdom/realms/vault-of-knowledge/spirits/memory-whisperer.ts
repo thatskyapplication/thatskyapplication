@@ -7,15 +7,13 @@ export default new StandardSpirit({
 	id: SpiritId.MemoryWhisperer,
 	area: AreaName.UpperVault,
 	friendshipTree: [
+		[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallCosmicManta }],
 		[
-			{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallCosmicManta },
 			{
 				translation: CosmeticCommon.Outfit,
 				cosmetic: Cosmetic.MemoryWhispererOutfit,
 				cost: { hearts: 3 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.MemoryWhispererBlessing1,
@@ -33,8 +31,6 @@ export default new StandardSpirit({
 				cosmetic: Cosmetic.MemoryWhispererWingBuff1,
 				cost: { ascendedCandles: 4 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.MemoryWhispererBlessing2,
@@ -50,16 +46,14 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
-				cosmetic: Cosmetic.MemoryWhispererWingBuff2,
-				cost: { ascendedCandles: 12 },
-			},
-		],
-		[
-			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 				cosmetic: Cosmetic.MemoryWhispererCape2,
 				cost: { hearts: 150 },
+			},
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
+				cosmetic: Cosmetic.MemoryWhispererWingBuff2,
+				cost: { ascendedCandles: 12 },
 			},
 		],
 	],

@@ -7,19 +7,12 @@ export default new StandardSpirit({
 	id: SpiritId.MeditatingMonastic,
 	area: AreaName.UpperVault,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteFloat1 }],
 		[
-			{ cosmetic: Cosmetic.EmoteFloat1 },
 			{
 				cosmetic: Cosmetic.EmoteFloat2,
 				cost: { candles: 10 },
 				level: 2,
-			},
-		],
-		[
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.MeditatingMonasticBlessing1,
-				cost: { candles: 1 },
 			},
 			{
 				translation: CosmeticCommon.Hair,
@@ -27,16 +20,18 @@ export default new StandardSpirit({
 				cost: { hearts: 10 },
 			},
 			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.MeditatingMonasticHeart,
-				cost: { candles: 3 },
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.MeditatingMonasticBlessing1,
+				cost: { candles: 1 },
 			},
 		],
 		[
+			null,
+			null,
 			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.MeditatingMonasticWingBuff,
-				cost: { ascendedCandles: 3 },
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.MeditatingMonasticHeart,
+				cost: { candles: 3 },
 			},
 		],
 		[
@@ -46,12 +41,10 @@ export default new StandardSpirit({
 				level: 3,
 			},
 			{
-				cosmetic: Cosmetic.EmoteFloat4,
-				cost: { candles: 10 },
-				level: 4,
+				translation: CosmeticCommon.WingBuff,
+				cosmetic: Cosmetic.MeditatingMonasticWingBuff,
+				cost: { ascendedCandles: 3 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.MeditatingMonasticBlessing2,
@@ -59,6 +52,11 @@ export default new StandardSpirit({
 			},
 		],
 		[
+			{
+				cosmetic: Cosmetic.EmoteFloat4,
+				cost: { candles: 10 },
+				level: 4,
+			},
 			{
 				cosmetic: Cosmetic.MeditatingMonasticTable,
 				cost: { hearts: 30 },

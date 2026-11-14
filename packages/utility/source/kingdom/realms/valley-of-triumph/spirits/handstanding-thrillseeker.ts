@@ -7,15 +7,13 @@ export default new StandardSpirit({
 	id: SpiritId.HandstandingThrillseeker,
 	area: AreaName.TheCitadel,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteHandstand1 }],
 		[
-			{ cosmetic: Cosmetic.EmoteHandstand1 },
 			{
 				cosmetic: Cosmetic.EmoteHandstand2,
 				cost: { candles: 3 },
 				level: 2,
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.HandstandingThrillseekerBlessing1,
@@ -29,24 +27,15 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
-				cosmetic: Cosmetic.HandstandingThrillseekerWingBuff1,
-				cost: { ascendedCandles: 3 },
-			},
-		],
-		[
-			{
 				cosmetic: Cosmetic.EmoteHandstand3,
 				cost: { candles: 4 },
 				level: 3,
 			},
 			{
-				cosmetic: Cosmetic.EmoteHandstand4,
-				cost: { candles: 4 },
-				level: 4,
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
+				cosmetic: Cosmetic.HandstandingThrillseekerWingBuff1,
+				cost: { ascendedCandles: 3 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.HandstandingThrillseekerBlessing2,
@@ -55,6 +44,11 @@ export default new StandardSpirit({
 		],
 		[
 			{
+				cosmetic: Cosmetic.EmoteHandstand4,
+				cost: { candles: 4 },
+				level: 4,
+			},
+			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
 				cosmetic: Cosmetic.HandstandingThrillseekerCape1,
 				cost: { hearts: 40 },
@@ -62,16 +56,14 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
-				cosmetic: Cosmetic.HandstandingThrillseekerWingBuff2,
-				cost: { ascendedCandles: 9 },
-			},
-		],
-		[
-			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 				cosmetic: Cosmetic.HandstandingThrillseekerCape2,
 				cost: { hearts: 120 },
+			},
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
+				cosmetic: Cosmetic.HandstandingThrillseekerWingBuff2,
+				cost: { ascendedCandles: 9 },
 			},
 		],
 	],

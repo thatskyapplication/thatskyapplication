@@ -22,22 +22,18 @@ export default new StandardSpirit({
 		],
 		[
 			{
+				cosmetic: Cosmetic.WhaleWhispererMusicSheet,
+				cost: { hearts: 2 },
+			},
+			{
 				translation: CosmeticCommon.WingBuff,
 				cosmetic: Cosmetic.WhaleWhispererWingBuff,
 				cost: { ascendedCandles: 1 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.WhaleWhispererBlessing2,
 				cost: { candles: 5 },
-			},
-		],
-		[
-			{
-				cosmetic: Cosmetic.WhaleWhispererMusicSheet,
-				cost: { hearts: 2 },
 			},
 		],
 	],
