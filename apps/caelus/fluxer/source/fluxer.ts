@@ -4,7 +4,7 @@ import { WebSocketManager } from "@discordjs/ws";
 import { FLUXER_TOKEN } from "./utility/configuration.js";
 
 const rest = new REST({
-	api: "https://api.fluxer.app",
+	api: "https://fluxer.com/api",
 	version: "1",
 }).setToken(FLUXER_TOKEN);
 
