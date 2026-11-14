@@ -36,6 +36,7 @@
 		"days-left": {
 			"season-ends-today": "La saison finit aujourd'hui.",
 			"event-ends-today": "{{name}} finit aujourd'hui.",
+			"event-end-unconfirmed": "",
 			"double-hearts-ends-today": "Les cœurs doubles finissent aujourd'hui.",
 			"double-seasonal-light-ends-today": "La double lumière saisonnière finit aujourd'hui.",
 			"double-treasure-candles-ends-today": "Les doubles bouquets de bougies finissent aujourd'hui.",
@@ -1069,6 +1070,8 @@
 			"217": ""
 		},
 		"time-range": "{{start}}–{{end}}",
+		"time-range-end-unconfirmed": "",
+		"end-unconfirmed": "",
 		"cosmetic-common-names": {
 			"0": "Quartier d'Ailes",
 			"1": "Quartier d'Ailes {{number}}",
@@ -1843,7 +1846,8 @@
 			"3060": "",
 			"3061": "",
 			"3062": "",
-			"3063": ""
+			"3063": "",
+			"3064": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",
@@ -2088,7 +2092,7 @@
 			"search": {
 				"command-description": "Révèle les informations d'un esprit.",
 				"command-option-query-name": "requête",
-				"command-option-query-description": "Le nom, la saison, l'expression, la posture ou l'appel de l'esprit."
+				"command-option-query-description": ""
 			}
 		}
 	},
@@ -2219,11 +2223,6 @@
 				"1": "",
 				"2": ""
 			},
-			"spirit-kind-no-infographic-yet": {
-				"0": "Cet esprit n'a pas encore d'infographie.",
-				"1": "",
-				"2": ""
-			},
 			"spirit-kind-not-fully-revealed": {
 				"0": "L'arbre d'amitié de cet esprit n'as pas encore été complètement révélé.",
 				"1": "",
@@ -2233,7 +2232,7 @@
 			"friendship-tree-no-remaining-cost": "",
 			"friendship-tree-node-cost": "",
 			"friendship-tree-node-level": "",
-			"friendship-tree-node-level-badge": "Niv. {{1}}",
+			"friendship-tree-node-level-badge": "",
 			"friendship-tree-remaining-cost": "",
 			"friendship-tree-total-cost": "",
 			"select-cosmetics-string-select-menu-placeholder": "Sélectionnez ce que vous avez !",

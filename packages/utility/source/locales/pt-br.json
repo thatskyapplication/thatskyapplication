@@ -36,6 +36,7 @@
 		"days-left": {
 			"season-ends-today": "A temporada termina hoje.",
 			"event-ends-today": "{{name}} termina hoje.",
+			"event-end-unconfirmed": "",
 			"double-hearts-ends-today": "Corações em dobro termina hoje.",
 			"double-seasonal-light-ends-today": "As luzes sazonais em dobro terminam amanhã.",
 			"double-treasure-candles-ends-today": "As velas do tesouro em dobro terminam hoje.",
@@ -1069,6 +1070,8 @@
 			"217": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Marinheiro_Lutador"
 		},
 		"time-range": "{{start}}–{{end}}",
+		"time-range-end-unconfirmed": "",
+		"end-unconfirmed": "",
 		"cosmetic-common-names": {
 			"0": "Bônus de Asa",
 			"1": "Bônus de Asa {{number}}",
@@ -1843,7 +1846,8 @@
 			"3060": "",
 			"3061": "",
 			"3062": "",
-			"3063": ""
+			"3063": "",
+			"3064": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -2088,7 +2092,7 @@
 			"search": {
 				"command-description": "Revela uma informação sobre um espírito.",
 				"command-option-query-name": "consulta",
-				"command-option-query-description": "O nome, temporada, expressão, pose ou chamado do espírito."
+				"command-option-query-description": ""
 			}
 		}
 	},
@@ -2219,11 +2223,6 @@
 				"1": "Esta entidade não possui uma árvore de amizade.",
 				"2": "Este manequim não possui uma árvore de amizade."
 			},
-			"spirit-kind-no-infographic-yet": {
-				"0": "Este espírito ainda não tem um infográfico.",
-				"1": "Esta entidade ainda não tem um infográfico.",
-				"2": "Este manequim ainda não tem um infográfico."
-			},
 			"spirit-kind-not-fully-revealed": {
 				"0": "A árvore de amizade deste espírito não foi totalmente revelada.",
 				"1": "A árvore de amizade desta entidade ainda não foi totalmente revelada.",
@@ -2233,7 +2232,7 @@
 			"friendship-tree-no-remaining-cost": "Sem custo restante",
 			"friendship-tree-node-cost": "{{currency}}: {{amount}}",
 			"friendship-tree-node-level": "Nível {{level}}",
-			"friendship-tree-node-level-badge": "Nv {{1}}",
+			"friendship-tree-node-level-badge": "",
 			"friendship-tree-remaining-cost": "Custo restante",
 			"friendship-tree-total-cost": "Custo total",
 			"select-cosmetics-string-select-menu-placeholder": "Selecione o que você possui!",
