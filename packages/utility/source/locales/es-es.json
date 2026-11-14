@@ -36,6 +36,7 @@
 		"days-left": {
 			"season-ends-today": "La temporada termina hoy.",
 			"event-ends-today": "{{name}} termina hoy.",
+			"event-end-unconfirmed": "",
 			"double-hearts-ends-today": "La promoción de corazones dobles termina hoy.",
 			"double-seasonal-light-ends-today": "El horario de doble luz estacional termina hoy.",
 			"double-treasure-candles-ends-today": "",
@@ -1069,6 +1070,8 @@
 			"217": ""
 		},
 		"time-range": "",
+		"time-range-end-unconfirmed": "",
+		"end-unconfirmed": "",
 		"cosmetic-common-names": {
 			"0": "",
 			"1": "",
@@ -1843,7 +1846,8 @@
 			"3060": "",
 			"3061": "",
 			"3062": "",
-			"3063": ""
+			"3063": "",
+			"3064": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2088,7 +2092,7 @@
 			"search": {
 				"command-description": "Revelar información sobre un espíritu.",
 				"command-option-query-name": "consulta",
-				"command-option-query-description": "El nombre, temporada, expresión, postura o llamada del espíritu."
+				"command-option-query-description": ""
 			}
 		}
 	},
@@ -2219,11 +2223,6 @@
 				"1": "",
 				"2": ""
 			},
-			"spirit-kind-no-infographic-yet": {
-				"0": "",
-				"1": "",
-				"2": ""
-			},
 			"spirit-kind-not-fully-revealed": {
 				"0": "",
 				"1": "",
@@ -2233,7 +2232,7 @@
 			"friendship-tree-no-remaining-cost": "",
 			"friendship-tree-node-cost": "",
 			"friendship-tree-node-level": "",
-			"friendship-tree-node-level-badge": "Niv. {{1}}",
+			"friendship-tree-node-level-badge": "",
 			"friendship-tree-remaining-cost": "",
 			"friendship-tree-total-cost": "",
 			"select-cosmetics-string-select-menu-placeholder": "",
