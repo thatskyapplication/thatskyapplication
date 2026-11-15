@@ -407,10 +407,6 @@ export type ItemRawWithoutChildren =
 	| ItemRawMultipleCosmeticsWithoutChildren;
 
 export type ItemRawWithPossibleChildren = ItemRawWithoutChildren & {
-	/**
-	 * Rarely, ultimates shrink to fit in the friendship tree.
-	 */
-	thirdHeight?: boolean;
 	children?: readonly ItemRawWithoutChildren[];
 };
 
@@ -457,10 +453,6 @@ export interface ItemWithoutChildren {
 }
 
 export interface ItemWithPossibleChildren extends ItemWithoutChildren {
-	/**
-	 * Rarely, ultimates shrink to fit in the friendship tree.
-	 */
-	thirdHeight: boolean;
 	children: readonly ItemWithoutChildren[];
 }
 

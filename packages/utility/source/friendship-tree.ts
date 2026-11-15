@@ -22,13 +22,14 @@ const LEVEL_OFFSET_Y = 2 as const;
 const CURRENCY_TEXT_OFFSET = 10 as const;
 const MODERN_CURRENCY_TEXT_OFFSET_Y = 45 as const;
 const NEXT_HEIGHT_LEVEL = 240 as const;
-const NEXT_HEIGHT_LEVEL_SIDES_OFFSET = 60 as const;
 const TEXT_CLEARANCE = 4 as const;
 const TEXT_SCALE_PRECISION = 0.01 as const;
 const LEVEL_BADGE_KEY = "catalogue.friendship-tree-node-level-badge" as const;
 export const FONT_SIZE = 35 as const;
 export const LEVEL_BADGE_FONT_SIZE = 30 as const;
 export const FRIENDSHIP_TREE_WIDTH = WIDTH_MODIFIER * 3.5;
+const LEGACY_NODE_SPACING = WIDTH_MODIFIER;
+const LEGACY_BRANCHED_NODE_SPACING = Math.round(LEGACY_NODE_SPACING * Math.SQRT2);
 
 export interface FriendshipTreeNodeCost {
 	amount: number;
@@ -165,47 +166,48 @@ function normaliseTop(layout: FriendshipTreeLayout): FriendshipTreeLayout {
 	return { ...layout, height: layout.height + shift };
 }
 
+function legacyLevelHasSides(level: readonly (Item | null | undefined)[]) {
+	return level.some((node, index) => index > 0 && Boolean(node));
+}
+
+function legacyLevelSpacing(level: readonly (Item | null | undefined)[]) {
+	return legacyLevelHasSides(level) ? LEGACY_BRANCHED_NODE_SPACING : LEGACY_NODE_SPACING;
+}
+
 function legacyFriendshipTreeLayout(
 	tree: FriendshipTree | LegacyFriendshipTree,
 ): FriendshipTreeLayout {
 	const width = FRIENDSHIP_TREE_WIDTH;
-	let height = IMAGE_SIZE + HEIGHT_START_OFFSET + NEXT_HEIGHT_LEVEL * tree.length;
 	const firstNodeHasCostAtStart = tree[0]?.[0]?.cost !== null;
+	const lastLevel = tree.at(-1);
+	let heightStartMiddle = HEIGHT_START_OFFSET;
 
-	if (firstNodeHasCostAtStart) {
-		height += IMAGE_SIZE;
+	if (lastLevel && legacyLevelHasSides(lastLevel)) {
+		heightStartMiddle += SEASON_ICON_SIDES_OFFSET_Y + LEGACY_NODE_SPACING;
+	} else if (lastLevel?.[0]?.seasonPass) {
+		heightStartMiddle += SEASON_ICON_MIDDLE_OFFSET_Y;
 	}
 
-	const lastNode = tree.at(-1);
-
-	if (lastNode && lastNode.length === 1) {
-		if (lastNode[0]?.seasonPass) {
-			height += SEASON_ICON_MIDDLE_OFFSET_Y;
-		}
-
-		height -= NEXT_HEIGHT_LEVEL - HEIGHT_START_OFFSET;
+	for (const level of tree.slice(0, -1)) {
+		heightStartMiddle += legacyLevelSpacing(level);
 	}
+
+	const height =
+		heightStartMiddle + IMAGE_SIZE * (firstNodeHasCostAtStart ? 2 : 1) + HEIGHT_START_OFFSET;
 
 	const imageSizeHalf = IMAGE_SIZE / 2;
 	const widthMiddle = width / 2;
 	const widthStartMiddle = widthMiddle - imageSizeHalf;
 	const widthStartLeft = widthStartMiddle - WIDTH_MODIFIER;
 	const widthStartRight = widthStartMiddle + WIDTH_MODIFIER;
-
-	let heightStartMiddle =
-		height - IMAGE_SIZE * (firstNodeHasCostAtStart ? 2 : 1) - HEIGHT_START_OFFSET;
-
-	let heightStartSides = heightStartMiddle - NEXT_HEIGHT_LEVEL + NEXT_HEIGHT_LEVEL_SIDES_OFFSET;
 	const nodes: PlacedFriendshipTreeNode[] = [];
 	const lines: FriendshipTreeLine[] = [];
 
 	const place = (
 		node: Item,
 		nodeIndex: number,
-		sideLineUpX?: number,
-		sideLineUpY?: number,
-		customY?: number,
-	) => {
+		below?: PlacedFriendshipTreeNode,
+	): PlacedFriendshipTreeNode => {
 		let dx: number;
 		let dy: number;
 		let assetXOffset: number;
@@ -225,7 +227,7 @@ function legacyFriendshipTreeLayout(
 			}
 			case 1: {
 				dx = widthStartLeft;
-				dy = customY ?? heightStartSides;
+				dy = (below?.y ?? heightStartMiddle) - LEGACY_NODE_SPACING;
 				assetXOffset = -(LINE_OFFSET + ASSET_OFFSET);
 				currencyTextXOffset = 0;
 				seasonOffsetX = SEASON_ICON_SIDES_OFFSET_X;
@@ -234,7 +236,7 @@ function legacyFriendshipTreeLayout(
 			}
 			default: {
 				dx = widthStartRight;
-				dy = customY ?? heightStartSides;
+				dy = (below?.y ?? heightStartMiddle) - LEGACY_NODE_SPACING;
 				assetXOffset = imageSizeHalf + LINE_OFFSET + ASSET_OFFSET;
 				currencyTextXOffset = ASSET_SIZE;
 				seasonOffsetX = SEASON_ICON_SIDES_OFFSET_X;
@@ -243,18 +245,20 @@ function legacyFriendshipTreeLayout(
 			}
 		}
 
-		if (nodeIndex === 1) {
+		if (below) {
 			lines.push({
-				x1: sideLineUpX ?? widthMiddle - (imageSizeHalf + LINE_OFFSET),
-				y1: sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
-				x2: sideLineUpX ?? widthStartLeft + IMAGE_SIZE + LINE_OFFSET,
+				x1: dx + imageSizeHalf,
+				y1: below.y - LINE_OFFSET,
+				x2: dx + imageSizeHalf,
 				y2: dy + IMAGE_SIZE + LINE_OFFSET,
 			});
-		} else if (nodeIndex === 2) {
+		} else if (nodeIndex !== 0) {
+			const direction = nodeIndex === 1 ? -1 : 1;
+
 			lines.push({
-				x1: sideLineUpX ?? widthMiddle + (imageSizeHalf + LINE_OFFSET),
-				y1: sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
-				x2: sideLineUpX ?? widthStartRight - LINE_OFFSET,
+				x1: widthMiddle + direction * (imageSizeHalf + LINE_OFFSET),
+				y1: heightStartMiddle + LINE_OFFSET,
+				x2: dx + imageSizeHalf - direction * (imageSizeHalf - LINE_OFFSET),
 				y2: dy + IMAGE_SIZE + LINE_OFFSET,
 			});
 		}
@@ -297,27 +301,15 @@ function legacyFriendshipTreeLayout(
 
 		nodes.push(placed);
 
-		if ("children" in node && node.children.length > 0) {
-			let sideLineUpYCalculation: number;
-			let customHeightLevel: number;
-			let heightIteration: number;
-
-			if (node.thirdHeight) {
-				sideLineUpYCalculation = dy - LINE_OFFSET / 1.5;
-				customHeightLevel = dy - NEXT_HEIGHT_LEVEL / 1.5;
-				heightIteration = NEXT_HEIGHT_LEVEL / 1.5;
-			} else {
-				sideLineUpYCalculation = dy - LINE_OFFSET;
-				customHeightLevel = dy - NEXT_HEIGHT_LEVEL;
-				heightIteration = NEXT_HEIGHT_LEVEL;
-			}
+		if ("children" in node) {
+			let previous = placed;
 
 			for (const child of node.children) {
-				place(child, nodeIndex, dx + imageSizeHalf, sideLineUpYCalculation, customHeightLevel);
-				sideLineUpYCalculation -= heightIteration;
-				customHeightLevel -= heightIteration;
+				previous = place(child, nodeIndex, previous);
 			}
 		}
+
+		return placed;
 	};
 
 	for (let levelIndex = 0; levelIndex < tree.length; levelIndex++) {
@@ -333,15 +325,16 @@ function legacyFriendshipTreeLayout(
 		}
 
 		if (levelIndex !== tree.length - 1) {
+			const spacing = legacyLevelSpacing(level);
+
 			lines.push({
 				x1: widthMiddle,
 				y1: heightStartMiddle - LINE_OFFSET,
 				x2: widthMiddle,
-				y2: heightStartMiddle - (NEXT_HEIGHT_LEVEL - IMAGE_SIZE - LINE_OFFSET),
+				y2: heightStartMiddle - spacing + IMAGE_SIZE + LINE_OFFSET,
 			});
 
-			heightStartMiddle -= NEXT_HEIGHT_LEVEL;
-			heightStartSides -= NEXT_HEIGHT_LEVEL;
+			heightStartMiddle -= spacing;
 		}
 	}
 

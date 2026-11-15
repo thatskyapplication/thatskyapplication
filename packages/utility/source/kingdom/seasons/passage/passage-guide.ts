@@ -25,7 +25,6 @@ export default new GuideSpirit({
 						translation: CosmeticCommon.Pendant,
 						cosmetic: Cosmetic.PassagePendant,
 						seasonPass: true,
-						thirdHeight: true,
 						children: [
 							{
 								translation: CosmeticCommon.UltimateMask,

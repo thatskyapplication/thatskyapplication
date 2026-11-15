@@ -26,7 +26,6 @@ export default new GuideSpirit({
 						translation: CosmeticCommon.Pendant,
 						cosmetic: Cosmetic.AURORAPendant,
 						seasonPass: true,
-						thirdHeight: true,
 						children: [
 							{
 								translation: CosmeticCommon.Hair,
