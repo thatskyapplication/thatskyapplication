@@ -36,6 +36,7 @@
 		"days-left": {
 			"season-ends-today": "このシーズンは本日で終了します。",
 			"event-ends-today": "{{name}} は本日で終了します。",
+			"event-end-unconfirmed": "",
 			"double-hearts-ends-today": "ハート2倍期間は今日で終了します。",
 			"double-seasonal-light-ends-today": "シーズンキャンドル２倍期間は今日で終了します。",
 			"double-treasure-candles-ends-today": "大キャンドル２倍期間は今日で終了します。",
@@ -1064,6 +1065,8 @@
 			"217": ""
 		},
 		"time-range": "",
+		"time-range-end-unconfirmed": "",
+		"end-unconfirmed": "",
 		"cosmetic-common-names": {
 			"0": "",
 			"1": "",
@@ -1838,7 +1841,8 @@
 			"3060": "",
 			"3061": "",
 			"3062": "",
-			"3063": ""
+			"3063": "",
+			"3064": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2205,11 +2209,6 @@
 			"events-previous-events": "",
 			"events-next-events": "",
 			"spirit-kind-no-friendship-tree": {
-				"0": "",
-				"1": "",
-				"2": ""
-			},
-			"spirit-kind-no-infographic-yet": {
 				"0": "",
 				"1": "",
 				"2": ""
