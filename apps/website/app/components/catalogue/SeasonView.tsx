@@ -2,8 +2,10 @@ import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router";
 import {
 	catalogueSeasonItems,
+	type Cosmetic,
 	displayFriendshipTreeVariant,
 	friendshipTreeFor,
+	friendshipTreeToItems,
 	friendshipTreeVariants,
 	type SeasonIds,
 	skySeasons,
@@ -50,6 +52,7 @@ export function SeasonView({
 	const items = catalogueSeasonItems([season]);
 	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 	const spiritTreeColumns = [];
+	const treeCosmetics = new Set<Cosmetic>();
 
 	const timeRange = t("time-range", {
 		ns: "general",
@@ -67,10 +70,20 @@ export function SeasonView({
 			continue;
 		}
 
+		for (const item of friendshipTreeToItems(tree)) {
+			for (const cosmetic of item.cosmetics) {
+				treeCosmetics.add(cosmetic);
+			}
+		}
+
 		spiritTreeColumns.push(
 			<SpiritTreeColumn data={data} key={spirit.id} locale={locale} spirit={spirit} tree={tree} />,
 		);
 	}
+
+	const itemsOutsideTrees = season.items.filter((item) =>
+		item.cosmetics.some((cosmetic) => !treeCosmetics.has(cosmetic)),
+	);
 
 	return (
 		<>
@@ -141,10 +154,10 @@ export function SeasonView({
 
 			<FriendshipTreeCarousel key={season.id}>{spiritTreeColumns}</FriendshipTreeCarousel>
 
-			{season.items.length > 0 && (
+			{itemsOutsideTrees.length > 0 && (
 				<div className="flex flex-col gap-2">
 					<h2 className={SUBSECTION_HEADING_CLASS}>{t("catalogue.items", { ns: "features" })}</h2>
-					<ItemChecklist data={data} items={season.items} locale={locale} />
+					<ItemChecklist data={data} items={itemsOutsideTrees} locale={locale} />
 				</div>
 			)}
 
