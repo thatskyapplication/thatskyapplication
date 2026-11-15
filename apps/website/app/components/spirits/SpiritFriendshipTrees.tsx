@@ -1,38 +1,22 @@
 import { useTranslation } from "react-i18next";
-import type { Spirit } from "@thatskyapplication/utility";
+import {
+	friendshipTreeFor,
+	friendshipTreeVariants,
+	type Spirit,
+} from "@thatskyapplication/utility";
 import { FriendshipTree } from "~/components/catalogue/FriendshipTree.js";
 import { FriendshipTreeCarousel } from "~/components/catalogue/FriendshipTreeCarousel.js";
 import { TREE_COLUMN_CLASS } from "~/utility/catalogue.js";
 
-const FRIENDSHIP_TREE_LABEL_KEYS = {
-	current: "spirits.friendship-tree-current",
-	seasonal: "spirits.friendship-tree-seasonal",
-} as const;
-
-type FriendshipTreeType = keyof typeof FRIENDSHIP_TREE_LABEL_KEYS;
-
 export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spirit: Spirit }) {
 	const { t } = useTranslation();
-	const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
-	const seasonId = seasonal ? spirit.seasonId : undefined;
-	const friendshipTrees: {
-		key: FriendshipTreeType;
-		tree: Spirit["displayFriendshipTree"];
-	}[] = [];
+	const seasonId =
+		spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit.seasonId : undefined;
 
-	if (seasonal) {
-		const { seasonal, postSeason } = spirit.friendshipTrees;
-
-		if (seasonal.friendshipTree.length > 0) {
-			friendshipTrees.push({ key: "seasonal", tree: seasonal.friendshipTree });
-		}
-
-		if (postSeason) {
-			friendshipTrees.push({ key: "current", tree: postSeason.friendshipTree });
-		}
-	} else if (spirit.friendshipTree.length > 0) {
-		friendshipTrees.push({ key: "current", tree: spirit.friendshipTree });
-	}
+	const friendshipTrees = friendshipTreeVariants(spirit).map((variant) => ({
+		variant,
+		tree: friendshipTreeFor(spirit, variant)!,
+	}));
 
 	if (friendshipTrees.length > 1) {
 		return (
@@ -40,10 +24,10 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 				accessibleLabel={t("spirits.friendship-trees", { ns: "features" })}
 				key={spirit.id}
 			>
-				{friendshipTrees.map(({ key, tree }) => (
-					<div className={TREE_COLUMN_CLASS} key={key}>
+				{friendshipTrees.map(({ variant, tree }) => (
+					<div className={TREE_COLUMN_CLASS} key={variant}>
 						<FriendshipTree
-							label={t(FRIENDSHIP_TREE_LABEL_KEYS[key], { ns: "features" })}
+							label={t(`spirits.friendship-tree-${variant}`, { ns: "features" })}
 							locale={locale}
 							readOnly
 							seasonId={seasonId}
@@ -61,7 +45,7 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 		return (
 			<div className="flex justify-center">
 				<FriendshipTree
-					label={t(FRIENDSHIP_TREE_LABEL_KEYS[friendshipTree.key], { ns: "features" })}
+					label={t(`spirits.friendship-tree-${friendshipTree.variant}`, { ns: "features" })}
 					locale={locale}
 					readOnly
 					seasonId={seasonId}

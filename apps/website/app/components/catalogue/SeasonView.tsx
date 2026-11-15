@@ -1,6 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
-import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplication/utility";
+import { Link, useSearchParams } from "react-router";
+import {
+	catalogueSeasonItems,
+	displayFriendshipTreeVariant,
+	friendshipTreeFor,
+	friendshipTreeVariants,
+	type SeasonIds,
+	skySeasons,
+} from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { ExternalLink } from "~/components/ExternalLink";
 import { SkeletonText } from "~/components/SkeletonText.js";
@@ -12,6 +19,7 @@ import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EverythingButton } from "./EverythingButton";
 import { FriendshipTreeCarousel } from "./FriendshipTreeCarousel";
+import { FriendshipTreeToggle } from "./FriendshipTreeToggle";
 import { ItemChecklist } from "./ItemChecklist";
 import { RemainingCostList } from "./RemainingCostList";
 import { SpiritTreeColumn } from "./SpiritTreeColumn";
@@ -32,8 +40,13 @@ export function SeasonView({
 	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
+	const [searchParams] = useSearchParams();
 	const seasons = skySeasons();
 	const season = seasons.get(seasonId)!;
+	const hasFriendshipTreeToggle = season.spiritsWithGuide.some(
+		(spirit) => friendshipTreeVariants(spirit).length > 1,
+	);
+	const seasonal = hasFriendshipTreeToggle && searchParams.get("tree") === "seasonal";
 	const items = catalogueSeasonItems([season]);
 	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 	const spiritTreeColumns = [];
@@ -45,12 +58,17 @@ export function SeasonView({
 	});
 
 	for (const spirit of season.spiritsWithGuide.values()) {
-		if (spirit.displayFriendshipTree.length === 0) {
+		const tree = friendshipTreeFor(
+			spirit,
+			seasonal ? "seasonal" : displayFriendshipTreeVariant(spirit),
+		);
+
+		if (!tree || tree.length === 0) {
 			continue;
 		}
 
 		spiritTreeColumns.push(
-			<SpiritTreeColumn data={data} key={spirit.id} locale={locale} spirit={spirit} />,
+			<SpiritTreeColumn data={data} key={spirit.id} locale={locale} spirit={spirit} tree={tree} />,
 		);
 	}
 
@@ -114,6 +132,10 @@ export function SeasonView({
 					{timeZoneEstimated ? <SkeletonText>{timeRange}</SkeletonText> : timeRange}
 				</p>
 			</div>
+
+			{hasFriendshipTreeToggle && (
+				<FriendshipTreeToggle search={`?view=season&season=${season.id}`} seasonal={seasonal} />
+			)}
 
 			<RemainingCostList data={data} items={items} locale={locale} />
 

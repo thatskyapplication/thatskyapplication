@@ -14,7 +14,9 @@ import {
 	FONT_SIZE,
 	type FriendshipTree,
 	type FriendshipTreeLayout,
+	type FriendshipTreeVariant,
 	formatEmojiURL,
+	friendshipTreeFor,
 	friendshipTreeLayout,
 	friendshipTreeLevelBadge,
 	friendshipTreeTextScale,
@@ -62,11 +64,9 @@ const PANEL_COLOUR = "rgba(0, 0, 0, 0.6)" as const;
 const PANEL_RADIUS = 50 as const;
 const TEXT_OUTLINE_COLOUR = "rgba(0, 0, 0, 0.8)" as const;
 const TEXT_OUTLINE_WIDTH = 6 as const;
-const FRIENDSHIP_TREE_VARIANTS = ["seasonal", "current"] as const;
 const EMOJIS = productionEmojis();
 const { itemEmoji, SeasonIdToSeasonalEmoji } = EMOJIS;
 
-export type FriendshipTreeVariant = (typeof FRIENDSHIP_TREE_VARIANTS)[number];
 type FriendshipTreeLocalisation = Pick<MessageFormatting, "locale" | "t">;
 
 interface FriendshipTreeRenderOptions extends FriendshipTreeLocalisation {
@@ -343,31 +343,6 @@ export async function renderFriendshipTree({
 
 const friendshipTreeImages = new Map<string, Promise<Buffer>>();
 const cachedFriendshipTreeImages = new Set<string>();
-
-function friendshipTreeFor(
-	spirit: Spirit,
-	variant: FriendshipTreeVariant,
-): FriendshipTree | LegacyFriendshipTree | undefined {
-	if (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) {
-		return variant === "seasonal"
-			? spirit.friendshipTrees.seasonal.friendshipTree
-			: spirit.friendshipTrees.postSeason?.friendshipTree;
-	}
-
-	return variant === "current" ? spirit.displayFriendshipTree : undefined;
-}
-
-export function friendshipTreeVariants(spirit: Spirit) {
-	return FRIENDSHIP_TREE_VARIANTS.filter(
-		(variant) => (friendshipTreeFor(spirit, variant)?.length ?? 0) > 0,
-	);
-}
-
-export function displayFriendshipTreeVariant(spirit: Spirit): FriendshipTreeVariant {
-	return (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) && !spirit.friendshipTrees.postSeason
-		? "seasonal"
-		: "current";
-}
 
 function friendshipTreeDrawing(
 	spirit: Spirit,

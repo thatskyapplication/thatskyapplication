@@ -16,7 +16,14 @@ import {
 } from "./kingdom/seasons/index.js";
 import type { SeasonalSpiritVisitTravellingErrorData, Spirit } from "./models/spirits.js";
 import type { MessageFormatting } from "./types/index.js";
+import { sumCosts } from "./utility/functions.js";
 import {
+	type FriendshipTree,
+	friendshipTreeFor,
+	friendshipTreeToItems,
+	friendshipTreeVariants,
+	type ItemCost,
+	type LegacyFriendshipTree,
 	SPIRITS_HISTORY_TITLE_KEYS,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
@@ -65,6 +72,20 @@ function visitErrorField(
 			return visits;
 		}, [])
 		.join("\n");
+}
+
+function friendshipTreeCosts(
+	friendshipTree: FriendshipTree | LegacyFriendshipTree,
+): readonly ItemCost[] {
+	const costs: ItemCost[] = [];
+
+	for (const { cost } of friendshipTreeToItems(friendshipTree)) {
+		if (cost !== null) {
+			costs.push(cost);
+		}
+	}
+
+	return costs;
 }
 
 interface SpiritContainerData extends MessageFormatting {
@@ -117,21 +138,10 @@ export function spiritContainer({
 		}
 	}
 
-	const friendshipTrees = [];
-
-	if (isSeasonalSpirit || isGuideSpirit) {
-		friendshipTrees.push(spirit.friendshipTrees.seasonal);
-
-		if (spirit.friendshipTrees.postSeason) {
-			friendshipTrees.push(spirit.friendshipTrees.postSeason);
-		}
-	} else {
-		friendshipTrees.push(spirit);
-	}
-
 	const totalOffer = [];
 
-	for (const { totalCost } of friendshipTrees) {
+	for (const variant of friendshipTreeVariants(spirit)) {
+		const totalCost = sumCosts(friendshipTreeCosts(friendshipTreeFor(spirit, variant)!));
 		const totalCostString = resolveCostToString(totalCost, { emojis, locale }).join("");
 
 		if (totalCostString.length > 0) {

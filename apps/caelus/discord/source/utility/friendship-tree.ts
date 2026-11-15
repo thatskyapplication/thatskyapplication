@@ -1,11 +1,10 @@
 import type { Locale } from "@discordjs/core";
 import { t } from "i18next";
 import {
-	type FriendshipTreeVariant,
 	friendshipTreeImage as renderSpiritFriendshipTree,
 	isFriendshipTreeImageCached as isSpiritFriendshipTreeImageCached,
 } from "@thatskyapplication/friendship-tree-generator";
-import type { Spirit } from "@thatskyapplication/utility";
+import type { FriendshipTreeVariant, Spirit } from "@thatskyapplication/utility";
 import pino from "../pino.js";
 import { CDN_URL } from "./configuration.js";
 

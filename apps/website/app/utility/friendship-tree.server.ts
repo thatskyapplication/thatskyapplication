@@ -1,10 +1,10 @@
 import {
 	friendshipTreeImage,
-	type FriendshipTreeVariant,
-	friendshipTreeVariants,
 	isFriendshipTreeImageCached,
 } from "@thatskyapplication/friendship-tree-generator";
 import {
+	type FriendshipTreeVariant,
+	friendshipTreeVariants,
 	type MessageFormatting,
 	type Spirit,
 	spirits,

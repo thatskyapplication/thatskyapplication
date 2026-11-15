@@ -1,13 +1,21 @@
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { friendshipTreeToItems, KINGDOM, type Spirit } from "@thatskyapplication/utility";
+import {
+	friendshipTreeFor,
+	friendshipTreeToItems,
+	friendshipTreeVariants,
+	KINGDOM,
+	type Spirit,
+} from "@thatskyapplication/utility";
 import { ExternalLink } from "~/components/ExternalLink";
-import { realmAnchor } from "~/utility/catalogue.js";
+import { realmAnchor, TREE_COLUMN_CLASS } from "~/utility/catalogue.js";
 import { NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/styles.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EverythingButton } from "./EverythingButton";
 import { FriendshipTree } from "./FriendshipTree";
+import { FriendshipTreeCarousel } from "./FriendshipTreeCarousel";
 
 export function SpiritView({
 	data,
@@ -25,8 +33,14 @@ export function SpiritView({
 	const isElderSpirit = spirit.isElderSpirit();
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
-	const friendshipTree = spirit.displayFriendshipTree;
-	const items = friendshipTree.length > 0 ? friendshipTreeToItems(friendshipTree) : [];
+	const seasonId = isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : undefined;
+
+	const friendshipTrees = friendshipTreeVariants(spirit).map((variant) => ({
+		variant,
+		tree: friendshipTreeFor(spirit, variant)!,
+	}));
+
+	const items = friendshipTrees.flatMap(({ tree }) => friendshipTreeToItems(tree));
 	const spiritName = t(`spirits.${spirit.id}`, { ns: "general" });
 
 	const trail = [{ label: t("catalogue.main-title", { ns: "features" }), to: "/me/catalogue" }];
@@ -52,6 +66,44 @@ export function SpiritView({
 	}
 
 	const { previous: before, next: after } = KINGDOM.adjacentSpirits(spirit.id);
+	const [onlyFriendshipTree] = friendshipTrees;
+	let friendshipTreeContent: ReactNode;
+
+	if (friendshipTrees.length > 1) {
+		friendshipTreeContent = (
+			<FriendshipTreeCarousel
+				accessibleLabel={t("spirits.friendship-trees", { ns: "features" })}
+				key={spirit.id}
+			>
+				{friendshipTrees.map(({ variant, tree }) => (
+					<div className={TREE_COLUMN_CLASS} key={variant}>
+						<FriendshipTree
+							data={data}
+							label={t(`spirits.friendship-tree-${variant}`, { ns: "features" })}
+							locale={locale}
+							seasonId={seasonId}
+							tree={tree}
+						/>
+					</div>
+				))}
+			</FriendshipTreeCarousel>
+		);
+	} else if (onlyFriendshipTree) {
+		friendshipTreeContent = (
+			<FriendshipTree
+				data={data}
+				locale={locale}
+				seasonId={seasonId}
+				tree={onlyFriendshipTree.tree}
+			/>
+		);
+	} else {
+		friendshipTreeContent = (
+			<p className="text-base text-gray-600 dark:text-gray-400">
+				{t(`catalogue.spirit-kind-no-friendship-tree.${spirit.kind}`, { ns: "features" })}
+			</p>
+		);
+	}
 
 	return (
 		<>
@@ -69,18 +121,7 @@ export function SpiritView({
 				</p>
 			)}
 
-			{friendshipTree.length > 0 ? (
-				<FriendshipTree
-					data={data}
-					locale={locale}
-					seasonId={isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : undefined}
-					tree={friendshipTree}
-				/>
-			) : (
-				<p className="text-base text-gray-600 dark:text-gray-400">
-					{t(`catalogue.spirit-kind-no-friendship-tree.${spirit.kind}`, { ns: "features" })}
-				</p>
-			)}
+			{friendshipTreeContent}
 
 			<div className="flex flex-wrap items-center gap-2">
 				{before && (

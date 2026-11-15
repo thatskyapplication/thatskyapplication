@@ -382,8 +382,12 @@ export {
 	sumCosts,
 } from "./utility/functions.js";
 export {
+	displayFriendshipTreeVariant,
 	type FriendshipTree,
+	type FriendshipTreeVariant,
+	friendshipTreeFor,
 	friendshipTreeToItems,
+	friendshipTreeVariants,
 	type Item,
 	type ItemCost,
 	isSpiritId,

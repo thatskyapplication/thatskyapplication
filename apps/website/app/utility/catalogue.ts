@@ -9,11 +9,14 @@ import {
 	collectSpiritCosmetics,
 	type EventFamilyOccurrences,
 	type EventIds,
+	friendshipTreeFor,
+	friendshipTreeToItems,
 	isRealm,
 	KINGDOM,
 	LOYALTY,
 	NESTING_WORKSHOP,
 	type RealmName,
+	resolveAllCosmeticsFromItems,
 	SECRET_AREA,
 	type SeasonIds,
 	type SpiritIds,
@@ -156,7 +159,23 @@ export function resolveScopeCosmetics(
 
 	if (type === "spirit") {
 		const spirit = spirits().get(Number(value) as SpiritIds);
-		return spirit ? new Set(spirit.allCosmetics) : null;
+
+		if (!spirit) {
+			return null;
+		}
+
+		const cosmetics = new Set(spirit.allCosmetics);
+		const seasonalFriendshipTree = friendshipTreeFor(spirit, "seasonal");
+
+		if (seasonalFriendshipTree) {
+			for (const cosmetic of resolveAllCosmeticsFromItems(
+				friendshipTreeToItems(seasonalFriendshipTree),
+			)) {
+				cosmetics.add(cosmetic);
+			}
+		}
+
+		return cosmetics;
 	}
 
 	if (type === "event") {

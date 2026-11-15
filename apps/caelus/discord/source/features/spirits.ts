@@ -9,8 +9,8 @@ import {
 	MessageFlags,
 } from "@discordjs/core";
 import { getFixedT, t } from "i18next";
-import { friendshipTreeVariants } from "@thatskyapplication/friendship-tree-generator";
 import {
+	friendshipTreeVariants,
 	isSpiritsHistoryOrderType,
 	type SpiritIds,
 	SpiritsHistoryOrderType,

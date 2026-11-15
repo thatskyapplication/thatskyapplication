@@ -3,6 +3,10 @@ import type { Spirit } from "../models/spirits.js";
 import type { SeasonIds } from "../season.js";
 import type { EventIds } from "./event.js";
 
+const FRIENDSHIP_TREE_VARIANTS = ["seasonal", "current"] as const;
+
+export type FriendshipTreeVariant = (typeof FRIENDSHIP_TREE_VARIANTS)[number];
+
 export const SpiritId = {
 	// Isle of Dawn.
 	PointingCandlemaker: 0,
@@ -509,4 +513,29 @@ export function friendshipTreeToItems(
 	}
 
 	return result;
+}
+
+export function friendshipTreeFor(
+	spirit: Spirit,
+	variant: FriendshipTreeVariant,
+): FriendshipTree | LegacyFriendshipTree | undefined {
+	if (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) {
+		return variant === "seasonal"
+			? spirit.friendshipTrees.seasonal.friendshipTree
+			: spirit.friendshipTrees.postSeason?.friendshipTree;
+	}
+
+	return variant === "current" ? spirit.displayFriendshipTree : undefined;
+}
+
+export function friendshipTreeVariants(spirit: Spirit) {
+	return FRIENDSHIP_TREE_VARIANTS.filter(
+		(variant) => (friendshipTreeFor(spirit, variant)?.length ?? 0) > 0,
+	);
+}
+
+export function displayFriendshipTreeVariant(spirit: Spirit): FriendshipTreeVariant {
+	return (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) && !spirit.friendshipTrees.postSeason
+		? "seasonal"
+		: "current";
 }
