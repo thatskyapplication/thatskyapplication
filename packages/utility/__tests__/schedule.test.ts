@@ -38,32 +38,33 @@ function isSameReturningVisit(actual: ReturningSpiritVisit, expected: ReturningS
 	);
 }
 
-test("Returning spirits schedule returns every visit currently visiting.", () => {
+test("Returning spirits schedule returns every visit that has not ended.", () => {
 	const firstVisit = RETURNING_DATES.first();
 	ok(firstVisit);
-	const beforeFirstVisit = returningSpiritsSchedule(firstVisit.start.subtract({ nanoseconds: 1 }));
-	equal(beforeFirstVisit.length, 1);
-	ok(isSameReturningVisit(beforeFirstVisit[0]!, firstVisit));
-	equal(beforeFirstVisit[0]!.active, false);
 	let latestEnd = firstVisit.end;
 
 	for (const visit of RETURNING_DATES.values()) {
-		for (const date of [visit.start, visit.end.subtract({ nanoseconds: 1 })]) {
+		for (const date of [
+			visit.start.subtract({ nanoseconds: 1 }),
+			visit.start,
+			visit.end.subtract({ nanoseconds: 1 }),
+			visit.end,
+		]) {
 			const schedule = returningSpiritsSchedule(date);
-			const visiting = RETURNING_DATES.filter(({ start, end }) => isActive(start, end, date));
-			equal(schedule.length, visiting.size);
 
-			for (const current of visiting.values()) {
-				ok(schedule.some((entry) => entry.active && isSameReturningVisit(entry, current)));
+			const notEnded = RETURNING_DATES.filter(
+				({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0,
+			);
+
+			equal(schedule.length, notEnded.size);
+			let index = 0;
+
+			for (const expected of notEnded.values()) {
+				const entry = schedule[index]!;
+				ok(isSameReturningVisit(entry, expected));
+				equal(entry.active, isActive(expected.start, expected.end, date));
+				index++;
 			}
-		}
-
-		const afterVisit = returningSpiritsSchedule(visit.end);
-		ok(!afterVisit.some((entry) => isSameReturningVisit(entry, visit)));
-
-		if (afterVisit.some(({ active }) => !active)) {
-			equal(afterVisit.length, 1);
-			ok(Temporal.ZonedDateTime.compare(afterVisit[0]!.start, visit.end) > 0);
 		}
 
 		if (Temporal.ZonedDateTime.compare(visit.end, latestEnd) > 0) {

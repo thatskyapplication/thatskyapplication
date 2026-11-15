@@ -759,23 +759,27 @@ export function buildWhatsHappeningInSkyView({
 		});
 	}
 
+	const upcomingReturningSpirits: UpcomingRow[] = [];
+
 	for (const returningVisit of returningSpiritsSchedule(now)) {
 		const { end, spiritIds, start } = returningVisit;
 
 		if (returningVisit.active) {
 			active.push(returningSpiritsCard(spiritIds, start, end, context));
 		} else {
-			upcomingSections.push({
-				heading: t("returning-spirits", { ns: "general" }),
-				rows: [
-					{
-						...nextTiming(start, context),
-						key: `returning-spirits-${start.epochMilliseconds}`,
-						spiritLinks: spiritIds.map((spiritId) => spiritWikiLink(spiritId, t)),
-					},
-				],
+			upcomingReturningSpirits.push({
+				...nextTiming(start, context),
+				key: `returning-spirits-${start.epochMilliseconds}`,
+				spiritLinks: spiritIds.map((spiritId) => spiritWikiLink(spiritId, t)),
 			});
 		}
+	}
+
+	if (upcomingReturningSpirits.length > 0) {
+		upcomingSections.push({
+			heading: t("returning-spirits", { ns: "general" }),
+			rows: upcomingReturningSpirits,
+		});
 	}
 
 	const nextSeason = skyUpcomingSeason(now);

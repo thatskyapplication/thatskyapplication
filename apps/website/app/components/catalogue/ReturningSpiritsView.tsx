@@ -25,14 +25,16 @@ export function ReturningSpiritsView({
 	const returningSpirits = resolveReturningSpirits(now);
 	const spiritTreeColumns = [];
 
-	const timeRanges = returningSpiritsSchedule(now).map(({ end, start }) => ({
-		key: `${start.epochMilliseconds}-${end.epochMilliseconds}`,
-		label: t("time-range", {
-			ns: "general",
-			start: dateTimeLabels[start.epochMilliseconds],
-			end: dateTimeLabels[end.epochMilliseconds],
-		}),
-	}));
+	const timeRanges = returningSpiritsSchedule(now)
+		.filter(({ active }) => active)
+		.map(({ end, start }) => ({
+			key: `${start.epochMilliseconds}-${end.epochMilliseconds}`,
+			label: t("time-range", {
+				ns: "general",
+				start: dateTimeLabels[start.epochMilliseconds],
+				end: dateTimeLabels[end.epochMilliseconds],
+			}),
+		}));
 
 	if (returningSpirits) {
 		for (const spirit of returningSpirits.values()) {

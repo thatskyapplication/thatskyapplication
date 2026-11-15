@@ -251,20 +251,15 @@ export function travellingSpiritSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function returningSpiritsSchedule(date: Temporal.ZonedDateTime) {
-	const visiting = RETURNING_DATES.filter(({ start, end }) => isActive(start, end, date));
-
-	if (visiting.size > 0) {
-		return visiting.map(({ end, spiritIds, start, type }) => ({
-			active: true,
+	return RETURNING_DATES.filter(({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0).map(
+		({ end, spiritIds, start, type }) => ({
+			active: isActive(start, end, date),
 			end,
 			spiritIds,
 			start,
 			type,
-		}));
-	}
-
-	const next = RETURNING_DATES.find(({ start }) => Temporal.ZonedDateTime.compare(date, start) < 0);
-	return next ? [{ ...next, active: false }] : [];
+		}),
+	);
 }
 
 export function pollutedGeyserSchedule(date: Temporal.ZonedDateTime) {

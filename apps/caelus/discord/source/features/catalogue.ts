@@ -1826,6 +1826,7 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 	const current = t("returning-spirits", { lng: locale, ns: "general" });
 
 	const timeRanges = returningSpiritsSchedule(now)
+		.filter(({ active }) => active)
 		.map((visit) =>
 			t("time-range", {
 				lng: locale,
