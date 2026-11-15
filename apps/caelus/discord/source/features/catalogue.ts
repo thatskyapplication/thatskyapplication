@@ -992,7 +992,6 @@ interface CatalogueTraversalContainerOptions {
 		| CustomId.CatalogueViewElders
 		| `${CustomId.CatalogueViewRealm}§${RealmName}`
 		| `${CustomId.CatalogueViewSeason}§${SeasonIds}`
-		| `${CustomId.CatalogueViewSeason}§${SeasonIds}§seasonal`
 		| `${CustomId.CatalogueViewSeasons}§${number}`
 		| `${CustomId.CatalogueViewEvents}§${number}`;
 	navigationBackEmoji?: APIMessageComponentEmoji | undefined;
@@ -1537,7 +1536,6 @@ export async function viewSeason(
 		| APIMessageComponentButtonInteraction
 		| APIMessageComponentSelectMenuInteraction,
 	seasonId: SeasonIds,
-	seasonalRequested = false,
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
@@ -1548,13 +1546,6 @@ export async function viewSeason(
 	if (!season) {
 		throw new Error("Failed to view a season.");
 	}
-
-	const hasFriendshipTreeToggle = season.spiritsWithGuide.some(
-		(spirit) => friendshipTreeVariants(spirit).length > 1,
-	);
-
-	const seasonal = hasFriendshipTreeToggle && seasonalRequested;
-	const seasonScope = seasonal ? `${season.id}§seasonal` : `${season.id}`;
 
 	const seasonName = t(`seasons.${season.id}`, { lng: locale, ns: "general" });
 	const heading = `[${seasonName}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})`;
@@ -1591,7 +1582,6 @@ export async function viewSeason(
 		data: catalogue?.data,
 		spirits: season.spiritsWithGuide.values(),
 		items: season.items,
-		seasonal,
 		locale,
 		limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
 		includePercentage: true,
@@ -1604,17 +1594,12 @@ export async function viewSeason(
 	}
 
 	for (const [id, text] of offerProgress.spirits) {
-		const spirit = season.spiritsWithGuide.get(id);
-
 		containerComponents.push({
 			type: ComponentType.Section,
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Primary,
-				custom_id:
-					seasonal && spirit && friendshipTreeVariants(spirit).length > 1
-						? `${CustomId.CatalogueViewSpirit}§${id}§seasonal`
-						: `${CustomId.CatalogueViewSpirit}§${id}`,
+				custom_id: `${CustomId.CatalogueViewSpirit}§${id}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: text }],
@@ -1635,7 +1620,7 @@ export async function viewSeason(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: `${CustomId.CatalogueSetSeasonItems}§${seasonScope}`,
+					custom_id: `${CustomId.CatalogueSetSeasonItems}§${season.id}`,
 					max_values: itemsOptions.length,
 					min_values: 0,
 					options: itemsOptions,
@@ -1692,24 +1677,10 @@ export async function viewSeason(
 		nextSeasonButton,
 	];
 
-	if (hasFriendshipTreeToggle) {
-		actionRowComponents.push({
-			type: ComponentType.Button,
-			custom_id: seasonal
-				? `${CustomId.CatalogueViewSeason}§${season.id}`
-				: `${CustomId.CatalogueViewSeason}§${season.id}§seasonal`,
-			label: t(seasonal ? "spirits.friendship-tree-current" : "spirits.friendship-tree-seasonal", {
-				lng: locale,
-				ns: "features",
-			}),
-			style: ButtonStyle.Secondary,
-		});
-	}
-
 	if (catalogue?.show_everything_button) {
 		actionRowComponents.push({
 			type: ComponentType.Button,
-			custom_id: `${CustomId.CatalogueSeasonEverything}§${seasonScope}`,
+			custom_id: `${CustomId.CatalogueSeasonEverything}§${season.id}`,
 			disabled: hasEverything,
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -2165,9 +2136,7 @@ async function viewSpirit(
 					? CustomId.CatalogueViewElders
 					: isStandardSpirit
 						? `${CustomId.CatalogueViewRealm}§${spirit.realm}`
-						: seasonal
-							? `${CustomId.CatalogueViewSeason}§${spirit.seasonId}§seasonal`
-							: `${CustomId.CatalogueViewSeason}§${spirit.seasonId}`,
+						: `${CustomId.CatalogueViewSeason}§${spirit.seasonId}`,
 				navigationBackEmoji:
 					isSeasonalSpirit || isGuideSpirit
 						? (SeasonIdToSeasonalEmoji[spirit.seasonId] ?? undefined)
@@ -2953,7 +2922,7 @@ export async function setElders(interaction: APIMessageComponentButtonInteractio
 }
 
 export async function setSeason(interaction: APIMessageComponentButtonInteraction) {
-	const [seasonId, friendshipTreeVariant] = interaction.data.custom_id
+	const [seasonId] = interaction.data.custom_id
 		.slice(interaction.data.custom_id.indexOf("§") + 1)
 		.split("§");
 
@@ -2972,11 +2941,11 @@ export async function setSeason(interaction: APIMessageComponentButtonInteractio
 	await update(interaction, {
 		data: (existing) => existing.union(allCosmetics),
 	});
-	await viewSeason(interaction, season.id, friendshipTreeVariant === "seasonal");
+	await viewSeason(interaction, season.id);
 }
 
 export async function setSeasonItems(interaction: APIMessageComponentSelectMenuInteraction) {
-	const [seasonId, friendshipTreeVariant] = interaction.data.custom_id
+	const [seasonId] = interaction.data.custom_id
 		.slice(interaction.data.custom_id.indexOf("§") + 1)
 		.split("§");
 
@@ -2989,7 +2958,7 @@ export async function setSeasonItems(interaction: APIMessageComponentSelectMenuI
 	await update(interaction, {
 		data: (existing) => calculateSetItems(interaction, season.allCosmetics, existing),
 	});
-	await viewSeason(interaction, season.id, friendshipTreeVariant === "seasonal");
+	await viewSeason(interaction, season.id);
 }
 
 export async function parseSetItems(

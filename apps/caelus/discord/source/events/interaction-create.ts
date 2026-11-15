@@ -514,7 +514,7 @@ export default {
 					const seasonId = Number(parts[0]!);
 
 					if (isSeasonId(seasonId)) {
-						await viewSeason(data, seasonId, parts[1] === "seasonal");
+						await viewSeason(data, seasonId);
 						return;
 					}
 				}
