@@ -28,8 +28,8 @@ import {
 	type NotificationTypes,
 	ptBR,
 	RADIANCE_EVENTS,
+	RETURNING_DATES,
 	type RealmName,
-	returningSpiritsSchedule,
 	type ReturningSpiritVisit,
 	ru,
 	type SeasonIds,
@@ -383,19 +383,17 @@ const cron = new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		}
 	}
 
-	const returningSpirits = returningSpiritsSchedule(date);
-
-	if (returningSpirits) {
-		const timeUntilStart = Math.floor(returningSpirits.start.since(date).total("minutes"));
+	for (const { start, spiritIds } of RETURNING_DATES.values()) {
+		const timeUntilStart = Math.floor(start.since(date).total("minutes"));
 
 		if (timeUntilStart >= 0 && timeUntilStart <= NOTIFICATION_RETURNING_SPIRITS_MAXIMUM_OFFSET) {
-			const startEpochSeconds = epochSeconds(returningSpirits.start);
+			const startEpochSeconds = epochSeconds(start);
 
 			notifications.push({
 				type: NotificationType.ReturningSpirits,
 				timeUntilStart,
 				startEpochSeconds,
-				spiritIds: returningSpirits.spiritIds,
+				spiritIds,
 				timestamp: `<t:${startEpochSeconds}:R>`,
 			});
 		}

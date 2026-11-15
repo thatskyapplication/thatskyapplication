@@ -23,16 +23,16 @@ export function ReturningSpiritsView({
 }) {
 	const { t } = useTranslation();
 	const returningSpirits = resolveReturningSpirits(now);
-	const visit = returningSpiritsSchedule(now);
 	const spiritTreeColumns = [];
 
-	const timeRange = visit
-		? t("time-range", {
-				ns: "general",
-				start: dateTimeLabels[visit.start.epochMilliseconds],
-				end: dateTimeLabels[visit.end.epochMilliseconds],
-			})
-		: null;
+	const timeRanges = returningSpiritsSchedule(now).map(({ end, start }) => ({
+		key: `${start.epochMilliseconds}-${end.epochMilliseconds}`,
+		label: t("time-range", {
+			ns: "general",
+			start: dateTimeLabels[start.epochMilliseconds],
+			end: dateTimeLabels[end.epochMilliseconds],
+		}),
+	}));
 
 	if (returningSpirits) {
 		for (const spirit of returningSpirits.values()) {
@@ -53,14 +53,16 @@ export function ReturningSpiritsView({
 				trail={[{ label: t("catalogue.main-title", { ns: "features" }), to: "/me/catalogue" }]}
 			/>
 
-			{returningSpirits && visit?.active && (
+			{returningSpirits && (
 				<div>
 					<h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
 						{t("returning-spirits", { ns: "general" })}
 					</h1>
-					<p className={NOTE_CLASS}>
-						{timeZoneEstimated ? <SkeletonText>{timeRange}</SkeletonText> : timeRange}
-					</p>
+					{timeRanges.map(({ key, label }) => (
+						<p className={NOTE_CLASS} key={key}>
+							{timeZoneEstimated ? <SkeletonText>{label}</SkeletonText> : label}
+						</p>
+					))}
 				</div>
 			)}
 

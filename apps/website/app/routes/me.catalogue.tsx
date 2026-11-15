@@ -61,10 +61,11 @@ function viewTimestamps(searchParams: URLSearchParams, now: Temporal.ZonedDateTi
 					])
 				: [];
 		}
-		case "returning-spirits": {
-			const visit = returningSpiritsSchedule(now);
-			return visit ? [visit.start.epochMilliseconds, visit.end.epochMilliseconds] : [];
-		}
+		case "returning-spirits":
+			return returningSpiritsSchedule(now).flatMap(({ start, end }) => [
+				start.epochMilliseconds,
+				end.epochMilliseconds,
+			]);
 		default:
 			return [];
 	}

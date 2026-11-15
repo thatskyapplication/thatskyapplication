@@ -25,7 +25,6 @@ import {
 	nextNestingWorkshop,
 	type Packet,
 	partitionItemCosts,
-	resolveReturningSpirits,
 	returningSpiritsSchedule,
 	ScheduleType,
 	ScheduleTypeToLocaleKey,
@@ -476,7 +475,7 @@ function returningSpiritsCard(
 	end: Temporal.ZonedDateTime,
 	context: ViewContext,
 ): ActiveCard {
-	const { now, t } = context;
+	const { t } = context;
 	const commonSeason = KINGDOM.commonSeasonOf(spiritIds);
 
 	return {
@@ -485,7 +484,10 @@ function returningSpiritsCard(
 		emoji: commonSeason && SeasonIdToSeasonalEmoji[commonSeason.id],
 		key: `returning-spirits-${start.epochMilliseconds}`,
 		label: t("returning-spirits", { ns: "general" }),
-		offer: resolveReturningSpiritsOffer([...resolveReturningSpirits(now)!.values()], context),
+		offer: resolveReturningSpiritsOffer(
+			spiritIds.map((spiritId) => spirits().get(spiritId)!),
+			context,
+		),
 		wide: true,
 	};
 }
@@ -757,24 +759,23 @@ export function buildWhatsHappeningInSkyView({
 		});
 	}
 
-	const returningVisit = returningSpiritsSchedule(now);
-
-	if (returningVisit?.active) {
+	for (const returningVisit of returningSpiritsSchedule(now)) {
 		const { end, spiritIds, start } = returningVisit;
-		active.push(returningSpiritsCard(spiritIds, start, end, context));
-	} else if (returningVisit) {
-		const { spiritIds, start } = returningVisit;
 
-		upcomingSections.push({
-			heading: t("returning-spirits", { ns: "general" }),
-			rows: [
-				{
-					...nextTiming(start, context),
-					key: `returning-spirits-${start.epochMilliseconds}`,
-					spiritLinks: spiritIds.map((spiritId) => spiritWikiLink(spiritId, t)),
-				},
-			],
-		});
+		if (returningVisit.active) {
+			active.push(returningSpiritsCard(spiritIds, start, end, context));
+		} else {
+			upcomingSections.push({
+				heading: t("returning-spirits", { ns: "general" }),
+				rows: [
+					{
+						...nextTiming(start, context),
+						key: `returning-spirits-${start.epochMilliseconds}`,
+						spiritLinks: spiritIds.map((spiritId) => spiritWikiLink(spiritId, t)),
+					},
+				],
+			});
+		}
 	}
 
 	const nextSeason = skyUpcomingSeason(now);

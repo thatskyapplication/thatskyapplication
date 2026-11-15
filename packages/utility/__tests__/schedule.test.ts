@@ -1,6 +1,6 @@
 import { deepEqual, equal, ok } from "node:assert/strict";
 import { test } from "node:test";
-import { skyDate } from "../source/dates.js";
+import { isActive, skyDate } from "../source/dates.js";
 import { RETURNING_DATES } from "../source/kingdom/seasons/index.js";
 import {
 	auroraSchedule,
@@ -29,48 +29,49 @@ import type { ReturningSpiritVisit } from "../source/types/index.js";
 
 const zoned = (isoWithOffset: string) => Temporal.ZonedDateTime.from(isoWithOffset);
 
-function assertReturningSpiritsSchedule(
-	actual: ReturnType<typeof returningSpiritsSchedule>,
-	expected: ReturningSpiritVisit,
-	active: boolean,
-) {
-	ok(actual);
-	equal(Temporal.ZonedDateTime.compare(actual.start, expected.start), 0);
-	equal(Temporal.ZonedDateTime.compare(actual.end, expected.end), 0);
-	equal(actual.type, expected.type);
-	deepEqual(actual.spiritIds, expected.spiritIds);
-	equal(actual.active, active);
+function isSameReturningVisit(actual: ReturningSpiritVisit, expected: ReturningSpiritVisit) {
+	return (
+		Temporal.ZonedDateTime.compare(actual.start, expected.start) === 0 &&
+		Temporal.ZonedDateTime.compare(actual.end, expected.end) === 0 &&
+		actual.type === expected.type &&
+		actual.spiritIds.join() === expected.spiritIds.join()
+	);
 }
 
-test("Returning spirits schedule follows every visit's boundaries.", () => {
+test("Returning spirits schedule returns every visit currently visiting.", () => {
 	const firstVisit = RETURNING_DATES.first();
 	ok(firstVisit);
-	assertReturningSpiritsSchedule(
-		returningSpiritsSchedule(firstVisit.start.subtract({ nanoseconds: 1 })),
-		firstVisit,
-		false,
-	);
+	const beforeFirstVisit = returningSpiritsSchedule(firstVisit.start.subtract({ nanoseconds: 1 }));
+	equal(beforeFirstVisit.length, 1);
+	ok(isSameReturningVisit(beforeFirstVisit[0]!, firstVisit));
+	equal(beforeFirstVisit[0]!.active, false);
+	let latestEnd = firstVisit.end;
 
-	for (const [visitNumber, visit] of RETURNING_DATES) {
-		assertReturningSpiritsSchedule(returningSpiritsSchedule(visit.start), visit, true);
-		assertReturningSpiritsSchedule(
-			returningSpiritsSchedule(visit.end.subtract({ nanoseconds: 1 })),
-			visit,
-			true,
-		);
+	for (const visit of RETURNING_DATES.values()) {
+		for (const date of [visit.start, visit.end.subtract({ nanoseconds: 1 })]) {
+			const schedule = returningSpiritsSchedule(date);
+			const visiting = RETURNING_DATES.filter(({ start, end }) => isActive(start, end, date));
+			equal(schedule.length, visiting.size);
 
-		const nextVisit = RETURNING_DATES.get(visitNumber + 1);
+			for (const current of visiting.values()) {
+				ok(schedule.some((entry) => entry.active && isSameReturningVisit(entry, current)));
+			}
+		}
 
-		if (nextVisit) {
-			assertReturningSpiritsSchedule(
-				returningSpiritsSchedule(visit.end),
-				nextVisit,
-				Temporal.ZonedDateTime.compare(visit.end, nextVisit.start) === 0,
-			);
-		} else {
-			equal(returningSpiritsSchedule(visit.end), null);
+		const afterVisit = returningSpiritsSchedule(visit.end);
+		ok(!afterVisit.some((entry) => isSameReturningVisit(entry, visit)));
+
+		if (afterVisit.some(({ active }) => !active)) {
+			equal(afterVisit.length, 1);
+			ok(Temporal.ZonedDateTime.compare(afterVisit[0]!.start, visit.end) > 0);
+		}
+
+		if (Temporal.ZonedDateTime.compare(visit.end, latestEnd) > 0) {
+			latestEnd = visit.end;
 		}
 	}
+
+	deepEqual(returningSpiritsSchedule(latestEnd), []);
 });
 
 test("International Space Station dates follow the historical rotations.", async (t) => {

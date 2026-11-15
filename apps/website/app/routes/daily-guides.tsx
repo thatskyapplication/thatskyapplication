@@ -423,9 +423,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		});
 	}
 
-	const returningSpirits = returningSpiritsSchedule(today);
-
-	if (returningSpirits) {
+	for (const returningSpirits of returningSpiritsSchedule(today)) {
 		const { start, end, spiritIds } = returningSpirits;
 
 		const commonSeason = KINGDOM.commonSeasonOf(spiritIds);

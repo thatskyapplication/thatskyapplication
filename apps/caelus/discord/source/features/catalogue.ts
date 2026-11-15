@@ -1846,20 +1846,26 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 	const { locale } = interaction;
 	const now = skyNow();
 	const spirits = resolveReturningSpirits(now);
-	const visit = returningSpiritsSchedule(now);
 
-	if (!spirits || !visit?.active) {
+	if (!spirits) {
 		await start({ locale, userId: invoker.id });
 		return;
 	}
 
 	const current = t("returning-spirits", { lng: locale, ns: "general" });
-	const title = `## ${current}\n\n${breadcrumb(locale, current)}\n\n${t("time-range", {
-		lng: locale,
-		ns: "general",
-		start: `<t:${epochSeconds(visit.start)}:s>`,
-		end: `<t:${epochSeconds(visit.end)}:s>`,
-	})}`;
+
+	const timeRanges = returningSpiritsSchedule(now)
+		.map((visit) =>
+			t("time-range", {
+				lng: locale,
+				ns: "general",
+				start: `<t:${epochSeconds(visit.start)}:s>`,
+				end: `<t:${epochSeconds(visit.end)}:s>`,
+			}),
+		)
+		.join("\n");
+
+	const title = `## ${current}\n\n${breadcrumb(locale, current)}\n\n${timeRanges}`;
 
 	const containerComponents: APIComponentInContainer[] = [
 		{

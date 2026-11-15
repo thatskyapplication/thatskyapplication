@@ -6,8 +6,10 @@ import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-lin
 import {
 	formatEmojiURL,
 	daysUntil,
+	returningSpiritsSchedule,
 	upcomingMaintenancePeriods,
 	SCHEDULES,
+	type ScheduleOccurrence,
 	ScheduleType,
 	type ScheduleTypes,
 	skyCurrentSeason,
@@ -215,21 +217,17 @@ function buildScheduleView(
 	const now = Temporal.Instant.fromEpochMilliseconds(timestamp).toZonedDateTimeISO(TIME_ZONE);
 	const cards: DisplayCard[] = [];
 
-	for (const { type, resolve } of SCHEDULES) {
-		const occurrence = resolve(now);
-
-		if (!occurrence) {
-			continue;
-		}
-
-		const { start, end, active, spiritId, spiritIds } = occurrence;
-
+	const scheduleCard = (
+		type: ScheduleTypes,
+		{ start, end, active, spiritId, spiritIds }: ScheduleOccurrence,
+		key: string,
+	): DisplayCard => {
 		const wikiKey = spiritId ? `general:spirit-wiki.${spiritId}` : SCHEDULE_TYPE_TO_WIKI_KEY[type];
 
-		cards.push({
+		return {
 			type: DisplayCardType.Schedule,
 			badge: SCHEDULE_BADGES[type],
-			key: `${type}`,
+			key,
 			label: t(spiritId ? `general:spirits.${spiritId}` : ScheduleTypeToLocaleKey[type]),
 			wikiURL: wikiKey ? t(wikiKey) : undefined,
 			spiritLinks: spiritIds?.map((occurrenceSpiritId) => spiritWikiLink(occurrenceSpiritId, t)),
@@ -250,7 +248,25 @@ function buildScheduleView(
 			end: end ? formatTimestamp(end, preferences, isDistant(end, now)) : null,
 			endRelative: end ? formatRelativeTime(end, now, preferences) : null,
 			endUnix: end?.epochMilliseconds ?? null,
-		});
+		};
+	};
+
+	for (const { type, resolve } of SCHEDULES) {
+		const occurrence = resolve(now);
+
+		if (occurrence) {
+			cards.push(scheduleCard(type, occurrence, `${type}`));
+		}
+	}
+
+	for (const visit of returningSpiritsSchedule(now)) {
+		cards.push(
+			scheduleCard(
+				ScheduleType.ReturningSpirits,
+				visit,
+				`${ScheduleType.ReturningSpirits}-${visit.start.epochMilliseconds}`,
+			),
+		);
 	}
 
 	const season = skyCurrentSeason(now);

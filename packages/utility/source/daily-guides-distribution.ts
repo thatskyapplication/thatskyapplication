@@ -477,9 +477,7 @@ export function dailyGuidesContainer(
 	const eventData = dailyGuidesEventData(today, { emojis, locale, t });
 	footerItems.push(...eventData.eventEndText);
 
-	const returningSpirits = returningSpiritsSchedule(today);
-
-	if (returningSpirits) {
+	for (const returningSpirits of returningSpiritsSchedule(today)) {
 		const { start, end, spiritIds } = returningSpirits;
 
 		const commonSeason = KINGDOM.commonSeasonOf(spiritIds);

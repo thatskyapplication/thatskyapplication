@@ -251,9 +251,20 @@ export function travellingSpiritSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function returningSpiritsSchedule(date: Temporal.ZonedDateTime) {
-	const visit = RETURNING_DATES.find(({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0);
+	const visiting = RETURNING_DATES.filter(({ start, end }) => isActive(start, end, date));
 
-	return visit ? { ...visit, active: isActive(visit.start, visit.end, date) } : null;
+	if (visiting.size > 0) {
+		return visiting.map(({ end, spiritIds, start, type }) => ({
+			active: true,
+			end,
+			spiritIds,
+			start,
+			type,
+		}));
+	}
+
+	const next = RETURNING_DATES.find(({ start }) => Temporal.ZonedDateTime.compare(date, start) < 0);
+	return next ? [{ ...next, active: false }] : [];
 }
 
 export function pollutedGeyserSchedule(date: Temporal.ZonedDateTime) {
@@ -608,7 +619,6 @@ export const SCHEDULES: readonly ScheduleDefinition[] = [
 			return { start, end: visit?.end, active: visit !== null, spiritId: spirit?.spiritId };
 		},
 	},
-	{ type: ScheduleType.ReturningSpirits, resolve: returningSpiritsSchedule },
 	{ type: ScheduleType.PollutedGeyser, resolve: pollutedGeyserSchedule },
 	{ type: ScheduleType.Grandma, resolve: grandmaSchedule },
 	{ type: ScheduleType.Turtle, resolve: turtleSchedule },

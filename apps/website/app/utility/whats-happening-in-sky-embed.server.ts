@@ -122,10 +122,7 @@ export function whatsHappeningInSkyDiscordEmbed({
 	);
 
 	const spirits: string[] = [];
-	const returning = returningSpiritsSchedule(now);
-
-	if (returning) {
-		const { end, spiritIds, start } = returning;
+	for (const { end, spiritIds, start } of returningSpiritsSchedule(now)) {
 		const commonSeason = KINGDOM.commonSeasonOf(spiritIds);
 
 		spirits.push(

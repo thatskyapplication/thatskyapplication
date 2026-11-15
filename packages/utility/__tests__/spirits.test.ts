@@ -169,11 +169,6 @@ test("Returning spirit visits are grouped and numbered chronologically.", () => 
 				startComparison > 0 ||
 					(startComparison === 0 && Temporal.ZonedDateTime.compare(visit.end, previous.end) > 0),
 			);
-
-			ok(
-				Temporal.ZonedDateTime.compare(visit.start, previous.end) >= 0,
-				"Returning spirit visit groups must not overlap.",
-			);
 		}
 
 		for (const spiritId of visit.spiritIds) {

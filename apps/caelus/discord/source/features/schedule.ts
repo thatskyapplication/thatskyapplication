@@ -528,28 +528,32 @@ function returningSpiritsDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
-	const schedule = returningSpiritsSchedule(now);
+	const visits = returningSpiritsSchedule(now);
 	let content: string;
 
-	if (schedule) {
-		const spirits = schedule.spiritIds
-			.map((spiritId) => `- ${spiritWikiMarkdownLink(spiritId, { locale, t })}`)
-			.join("\n");
+	if (visits.length > 0) {
+		content = visits
+			.map((visit) => {
+				const spirits = visit.spiritIds
+					.map((spiritId) => `- ${spiritWikiMarkdownLink(spiritId, { locale, t })}`)
+					.join("\n");
 
-		content = schedule.active
-			? t("schedule.detailed-breakdown-returning-spirits-message-now", {
-					lng: locale,
-					ns: "features",
-					spirits,
-					timestamp: `<t:${epochSeconds(schedule.end)}:s> (<t:${epochSeconds(schedule.end)}:R>)`,
-				})
-			: t("schedule.detailed-breakdown-returning-spirits-message-future", {
-					lng: locale,
-					ns: "features",
-					spirits,
-					start: `<t:${epochSeconds(schedule.start)}:s> (<t:${epochSeconds(schedule.start)}:R>)`,
-					end: `<t:${epochSeconds(schedule.end)}:s> (<t:${epochSeconds(schedule.end)}:R>)`,
-				});
+				return visit.active
+					? t("schedule.detailed-breakdown-returning-spirits-message-now", {
+							lng: locale,
+							ns: "features",
+							spirits,
+							timestamp: `<t:${epochSeconds(visit.end)}:s> (<t:${epochSeconds(visit.end)}:R>)`,
+						})
+					: t("schedule.detailed-breakdown-returning-spirits-message-future", {
+							lng: locale,
+							ns: "features",
+							spirits,
+							start: `<t:${epochSeconds(visit.start)}:s> (<t:${epochSeconds(visit.start)}:R>)`,
+							end: `<t:${epochSeconds(visit.end)}:s> (<t:${epochSeconds(visit.end)}:R>)`,
+						});
+			})
+			.join("\n\n");
 	} else {
 		content = t("schedule.detailed-breakdown-returning-spirits-message-none", {
 			lng: locale,
@@ -1161,29 +1165,28 @@ export async function scheduleOverview(
 						}),
 			}),
 		},
-		...(returningSpirits
-			? [
-					{
-						type: ComponentType.TextDisplay,
-						content: t("schedule.overview", {
-							lng: locale,
-							ns: "features",
-							type: t(ScheduleTypeToLocaleKey[ScheduleType.ReturningSpirits], { lng: locale }),
-							details: returningSpirits.active
-								? t("schedule.overview-ends-timestamp", {
-										lng: locale,
-										ns: "features",
-										timestamp: `<t:${epochSeconds(returningSpirits.end)}:R>`,
-									})
-								: t("schedule.overview-next-available-timestamp", {
-										lng: locale,
-										ns: "features",
-										timestamp: `<t:${epochSeconds(returningSpirits.start)}:R>`,
-									}),
-						}),
-					} satisfies APITextDisplayComponent,
-				]
-			: []),
+		...returningSpirits.map(
+			(visit) =>
+				({
+					type: ComponentType.TextDisplay,
+					content: t("schedule.overview", {
+						lng: locale,
+						ns: "features",
+						type: t(ScheduleTypeToLocaleKey[ScheduleType.ReturningSpirits], { lng: locale }),
+						details: visit.active
+							? t("schedule.overview-ends-timestamp", {
+									lng: locale,
+									ns: "features",
+									timestamp: `<t:${epochSeconds(visit.end)}:R>`,
+								})
+							: t("schedule.overview-next-available-timestamp", {
+									lng: locale,
+									ns: "features",
+									timestamp: `<t:${epochSeconds(visit.start)}:R>`,
+								}),
+					}),
+				}) satisfies APITextDisplayComponent,
+		),
 		{
 			type: ComponentType.TextDisplay,
 			content: t("schedule.overview", {
