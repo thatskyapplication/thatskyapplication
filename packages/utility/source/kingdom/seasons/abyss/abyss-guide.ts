@@ -19,7 +19,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 						cosmetic: Cosmetic.AbyssGuideHeart1,
-						cost: { candles: 3 },
 					},
 					{
 						translation: CosmeticCommon.Pendant,
@@ -55,7 +54,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.AbyssGuideHeart2,
-						cost: { candles: 3 },
 					},
 				],
 				[
@@ -66,6 +64,64 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 						cosmetic: Cosmetic.AbyssGuideHeart3,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.AbyssGuideQuest4,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.AbyssGuideHeart4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.AbyssGuideQuest5,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+						cosmetic: Cosmetic.AbyssGuideHeart5,
+					},
+				],
+				[
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.AbyssGuideMask,
+						cost: { candles: 48 },
+					},
+				],
+			],
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.AbyssGuideQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.AbyssGuideQuest2,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.AbyssGuideHeart1,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.AbyssGuideQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.AbyssGuideHeart2,
 						cost: { candles: 3 },
 					},
 				],
@@ -73,6 +129,11 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 						cosmetic: Cosmetic.AbyssGuideQuest4,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.AbyssGuideHeart3,
+						cost: { candles: 3 },
 					},
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
@@ -86,16 +147,14 @@ export default new GuideSpirit({
 						cosmetic: Cosmetic.AbyssGuideQuest5,
 					},
 					{
-						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
-						cosmetic: Cosmetic.AbyssGuideHeart5,
-						cost: { candles: 3 },
-					},
-				],
-				[
-					{
 						translation: CosmeticCommon.Mask,
 						cosmetic: Cosmetic.AbyssGuideMask,
 						cost: { candles: 48 },
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+						cosmetic: Cosmetic.AbyssGuideHeart5,
+						cost: { candles: 3 },
 					},
 				],
 			],
