@@ -99,5 +99,83 @@ export default new GuideSpirit({
 				],
 			],
 		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.RadianceGuideQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.RadianceGuideQuest2,
+					},
+					{ translation: CosmeticCommon.RedDye, cosmetic: Cosmetic.RadianceGuideRedDye },
+					{ translation: CosmeticCommon.YellowDye, cosmetic: Cosmetic.RadianceGuideYellowDye },
+				],
+				[
+					null,
+					null,
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.RadianceGuideHeart1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.RadianceGuideQuest3,
+					},
+					{ translation: CosmeticCommon.GreenDye, cosmetic: Cosmetic.RadianceGuideGreenDye },
+					{ translation: CosmeticCommon.CyanDye, cosmetic: Cosmetic.RadianceGuideCyanDye },
+				],
+				[
+					null,
+					null,
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.RadianceGuideHeart2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.RadianceGuideQuest4,
+					},
+					{ translation: CosmeticCommon.BlueDye, cosmetic: Cosmetic.RadianceGuideBlueDye },
+					{ translation: CosmeticCommon.PurpleDye, cosmetic: Cosmetic.RadianceGuidePurpleDye },
+				],
+				[
+					null,
+					null,
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.RadianceGuideHeart3,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.RadianceGuideQuest5,
+					},
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.RadianceGuideCape,
+						cost: { hearts: 12 },
+					},
+					{ translation: CosmeticCommon.WhiteDye, cosmetic: Cosmetic.RadianceGuideWhiteDye },
+				],
+				[
+					null,
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.RadianceGuideHeart4,
+					},
+					{ translation: CosmeticCommon.BlackDye, cosmetic: Cosmetic.RadianceGuideBlackDye },
+				],
+			],
+		},
 	},
 });
