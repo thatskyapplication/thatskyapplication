@@ -1,7 +1,9 @@
 name: Triage pull request
 on:
-  pull_request_target:
-permissions: {}
+  pull_request:
+permissions:
+  contents: read
+  pull-requests: write
 jobs:
   label:
     name: Label
