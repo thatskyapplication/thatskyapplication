@@ -115,5 +115,81 @@ export default new GuideSpirit({
 				],
 			],
 		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest2,
+					},
+					{
+						cosmetic: Cosmetic.EmoteRead1,
+					},
+					{
+						cosmetic: Cosmetic.EmoteRead2,
+						cost: { hearts: 3 },
+						level: 2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.TheMoominStorybookHeart1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest4,
+					},
+					{
+						cosmetic: Cosmetic.EmoteRead3,
+						cost: { candles: 5 },
+						level: 3,
+					},
+					{
+						cosmetic: Cosmetic.EmoteRead4,
+						cost: { hearts: 5 },
+						level: 4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest5,
+					},
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.TheMoominStorybookOutfit,
+						cost: { candles: 190 },
+					},
+					{
+						translation: CosmeticCommon.Prop,
+						cosmetic: Cosmetic.TheMoominStorybookProp,
+						cost: { candles: 35 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+						cosmetic: Cosmetic.TheMoominStorybookQuest6,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.TheMoominStorybookHeart2,
+					},
+				],
+			],
+		},
 	},
 });
