@@ -71,6 +71,11 @@ export default new GuideSpirit({
 						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 						cosmetic: Cosmetic.DuetsGuideQuest4,
 					},
+					{
+						cosmetic: Cosmetic.DuetsGuideDuetBow2,
+						cost: { hearts: 8 },
+						level: 2,
+					},
 				],
 				[
 					{
@@ -79,6 +84,56 @@ export default new GuideSpirit({
 					},
 				],
 				[
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.DuetsGuideHeart2,
+					},
+				],
+			],
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.DuetsGuideQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.DuetsGuideQuest2,
+					},
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.DuetsGuideMask,
+						cost: { candles: 65 },
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.DuetsGuideHeart1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.DuetsGuideQuest3,
+					},
+					{
+						cosmetic: Cosmetic.DuetsGuideDuetBow1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.DuetsGuideQuest4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.DuetsGuideQuest5,
+					},
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.DuetsGuideHeart2,
