@@ -62,7 +62,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.LivelyNavigatorMusicSheet,
+						cosmetic: Cosmetic.MusicSheetEverythingAroundUs,
 						cost: { seasonalCandles: 28 },
 					},
 					{
@@ -128,7 +128,7 @@ export default new SeasonalSpirit({
 						level: 4,
 					},
 					{
-						cosmetic: Cosmetic.LivelyNavigatorMusicSheet,
+						cosmetic: Cosmetic.MusicSheetEverythingAroundUs,
 						cost: { candles: 15 },
 					},
 				],

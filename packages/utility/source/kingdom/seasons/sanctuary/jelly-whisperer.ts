@@ -15,7 +15,7 @@ export default new SeasonalSpirit({
 				[{ translation: CosmeticCommon.Call, cosmetic: Cosmetic.CallJellyfish }],
 				[
 					{
-						cosmetic: Cosmetic.JellyWhispererMusicSheet,
+						cosmetic: Cosmetic.MusicSheetUnevenRhythms,
 						cost: { seasonalCandles: 6 },
 					},
 					{
@@ -68,7 +68,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.JellyWhispererMusicSheet,
+						cosmetic: Cosmetic.MusicSheetUnevenRhythms,
 						cost: { candles: 15 },
 					},
 					{

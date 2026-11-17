@@ -19,7 +19,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.WiseGrandparentBlessing1,
 						cost: { seasonalCandles: 10 },
 					},
-					{ cosmetic: Cosmetic.WiseGrandparentMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetSupportFromAbove, seasonPass: true },
 				],
 				[
 					{
@@ -72,7 +72,7 @@ export default new SeasonalSpirit({
 				[
 					{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceWise },
 					{
-						cosmetic: Cosmetic.WiseGrandparentMusicSheet,
+						cosmetic: Cosmetic.MusicSheetSupportFromAbove,
 						cost: { candles: 15 },
 					},
 					{

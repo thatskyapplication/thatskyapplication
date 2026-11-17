@@ -22,7 +22,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.ModestDancerBlessing1,
 						cost: { seasonalCandles: 8 },
 					},
-					{ cosmetic: Cosmetic.ModestDancerMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetHiddenDance, seasonPass: true },
 				],
 				[
 					{
@@ -71,7 +71,7 @@ export default new SeasonalSpirit({
 				[
 					{ cosmetic: Cosmetic.FriendActionDuetDance1 },
 					{
-						cosmetic: Cosmetic.ModestDancerMusicSheet,
+						cosmetic: Cosmetic.MusicSheetHiddenDance,
 						cost: { candles: 15 },
 					},
 				],

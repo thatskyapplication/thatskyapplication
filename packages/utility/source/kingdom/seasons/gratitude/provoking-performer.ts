@@ -18,7 +18,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.ProvokingPerformerMusicSheet,
+						cosmetic: Cosmetic.MusicSheetWideStance,
 						cost: { seasonalCandles: 10 },
 					},
 					{
@@ -69,7 +69,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.ProvokingPerformerMusicSheet,
+						cosmetic: Cosmetic.MusicSheetWideStance,
 						cost: { candles: 15 },
 					},
 					{

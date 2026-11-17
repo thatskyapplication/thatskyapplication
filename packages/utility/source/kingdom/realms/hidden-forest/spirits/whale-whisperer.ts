@@ -36,7 +36,7 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				cosmetic: Cosmetic.WhaleWhispererMusicSheet,
+				cosmetic: Cosmetic.MusicSheetBoundaries,
 				cost: { hearts: 2 },
 			},
 		],

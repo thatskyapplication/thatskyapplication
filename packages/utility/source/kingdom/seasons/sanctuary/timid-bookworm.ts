@@ -19,7 +19,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.TimidBookwormBlessing1,
 						cost: { seasonalCandles: 8 },
 					},
-					{ cosmetic: Cosmetic.TimidBookwormMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetBackAndForth, seasonPass: true },
 				],
 				[
 					{
@@ -60,7 +60,7 @@ export default new SeasonalSpirit({
 				[
 					{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StanceTimid },
 					{
-						cosmetic: Cosmetic.TimidBookwormMusicSheet,
+						cosmetic: Cosmetic.MusicSheetBackAndForth,
 						cost: { candles: 15 },
 					},
 				],

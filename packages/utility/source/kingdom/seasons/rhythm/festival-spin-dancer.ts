@@ -22,7 +22,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.FestivalSpinDancerBlessing1,
 						cost: { seasonalCandles: 10 },
 					},
-					{ cosmetic: Cosmetic.FestivalSpinDancerMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetSpinningThoughts, seasonPass: true },
 				],
 				[
 					{
@@ -71,7 +71,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.FestivalSpinDancerMusicSheet,
+						cosmetic: Cosmetic.MusicSheetSpinningThoughts,
 						cost: { candles: 15 },
 					},
 					{

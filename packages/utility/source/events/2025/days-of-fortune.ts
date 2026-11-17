@@ -34,7 +34,7 @@ export default new Event({
 	},
 	offer: [
 		{
-			cosmetic: Cosmetic.DragonDanceMusicSheet,
+			cosmetic: Cosmetic.MusicSheetDragonDance,
 			cost: { eventTickets: 8 },
 		},
 		{

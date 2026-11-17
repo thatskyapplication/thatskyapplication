@@ -53,7 +53,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.FeudalLordMusicSheet,
+						cosmetic: Cosmetic.MusicSheetDeerSong,
 						cost: { seasonalCandles: 32 },
 					},
 					{
@@ -76,7 +76,7 @@ export default new SeasonalSpirit({
 			friendshipTree: [
 				[
 					{ cosmetic: Cosmetic.FriendActionCradleCarry1 },
-					{ cosmetic: Cosmetic.FeudalLordMusicSheet, cost: { candles: 10 } },
+					{ cosmetic: Cosmetic.MusicSheetDeerSong, cost: { candles: 10 } },
 				],
 				[
 					{

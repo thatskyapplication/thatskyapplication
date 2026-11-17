@@ -22,7 +22,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.GloatingNarcissistBlessing1,
 						cost: { seasonalCandles: 14 },
 					},
-					{ cosmetic: Cosmetic.GloatingNarcissistMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetLookingUpToTheStars, seasonPass: true },
 				],
 				[
 					{
@@ -89,7 +89,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.GloatingNarcissistMusicSheet,
+						cosmetic: Cosmetic.MusicSheetLookingUpToTheStars,
 						cost: { candles: 15 },
 					},
 					{

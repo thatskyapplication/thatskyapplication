@@ -14,7 +14,7 @@ export default new SeasonalSpirit({
 			friendshipTree: [
 				[
 					{
-						cosmetic: Cosmetic.TheMusiciansLegacyMusicSheet,
+						cosmetic: Cosmetic.MusicSheetOldFriends,
 						cost: { seasonalCandles: 14 },
 					},
 					{

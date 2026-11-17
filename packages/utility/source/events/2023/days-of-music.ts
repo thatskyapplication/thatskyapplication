@@ -11,7 +11,7 @@ export default new Event({
 	end: skyDate(2_023, 7, 17),
 	offer: [
 		{
-			cosmetic: Cosmetic.DaysOfMusicMusicSheet,
+			cosmetic: Cosmetic.MusicSheetMusicsEmbrace,
 			cost: { candles: 5 },
 		},
 		{

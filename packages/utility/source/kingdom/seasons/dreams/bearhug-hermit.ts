@@ -30,7 +30,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.BearhugHermitBlessing2,
 						cost: { seasonalCandles: 18 },
 					},
-					{ cosmetic: Cosmetic.BearhugHermitMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetForgottenDance, seasonPass: true },
 				],
 				[
 					{
@@ -67,7 +67,7 @@ export default new SeasonalSpirit({
 				[
 					{ cosmetic: Cosmetic.FriendActionBearhug1 },
 					{
-						cosmetic: Cosmetic.BearhugHermitMusicSheet,
+						cosmetic: Cosmetic.MusicSheetForgottenDance,
 						cost: { candles: 15 },
 					},
 				],

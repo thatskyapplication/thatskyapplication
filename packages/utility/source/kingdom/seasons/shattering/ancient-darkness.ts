@@ -40,7 +40,7 @@ export default [
 					],
 					[
 						{
-							cosmetic: Cosmetic.AncientDarknessPlantMusicSheet,
+							cosmetic: Cosmetic.MusicSheetEarnestLooks,
 							cost: { seasonalCandles: 35 },
 						},
 						{
@@ -80,7 +80,7 @@ export default [
 							cost: { candles: 5 },
 						},
 						{
-							cosmetic: Cosmetic.AncientDarknessPlantMusicSheet,
+							cosmetic: Cosmetic.MusicSheetEarnestLooks,
 							cost: { candles: 15 },
 						},
 						{

@@ -38,7 +38,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.ScaredyCadetMusicSheet,
+						cosmetic: Cosmetic.MusicSheetKeepingMyselfTogether,
 						cost: { seasonalCandles: 15 },
 					},
 					{
@@ -103,7 +103,7 @@ export default new SeasonalSpirit({
 					{ cosmetic: Cosmetic.EmoteEww3, cost: { hearts: 3 }, level: 3 },
 					{ cosmetic: Cosmetic.EmoteEww4, cost: { hearts: 6 }, level: 4 },
 					{
-						cosmetic: Cosmetic.ScaredyCadetMusicSheet,
+						cosmetic: Cosmetic.MusicSheetKeepingMyselfTogether,
 						cost: { candles: 15 },
 					},
 				],

@@ -38,7 +38,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.DaydreamForesterMusicSheet,
+						cosmetic: Cosmetic.MusicSheetForestWalk,
 						cost: { seasonalCandles: 15 },
 					},
 					{
@@ -116,7 +116,7 @@ export default new SeasonalSpirit({
 						level: 4,
 					},
 					{
-						cosmetic: Cosmetic.DaydreamForesterMusicSheet,
+						cosmetic: Cosmetic.MusicSheetForestWalk,
 						cost: { candles: 15 },
 					},
 				],

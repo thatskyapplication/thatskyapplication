@@ -14,7 +14,7 @@ export default new SeasonalSpirit({
 			friendshipTree: [
 				[
 					{
-						cosmetic: Cosmetic.SpiritOfAdventureMusicSheet,
+						cosmetic: Cosmetic.MusicSheetWorldsBetween,
 						cost: { seasonalCandles: 8 },
 					},
 					{

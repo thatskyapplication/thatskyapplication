@@ -31,7 +31,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.CrabWhispererBlessing2,
 						cost: { seasonalCandles: 14 },
 					},
-					{ cosmetic: Cosmetic.CrabWhispererMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetRelaxedSteps, seasonPass: true },
 				],
 				[
 					{
@@ -101,7 +101,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.CrabWhispererMusicSheet,
+						cosmetic: Cosmetic.MusicSheetRelaxedSteps,
 						cost: { candles: 15 },
 					},
 					{

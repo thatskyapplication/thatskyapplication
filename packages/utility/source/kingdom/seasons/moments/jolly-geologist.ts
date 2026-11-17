@@ -50,7 +50,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.JollyGeologistMusicSheet,
+						cosmetic: Cosmetic.MusicSheetWaltzOfThePlains,
 						cost: { seasonalCandles: 34 },
 					},
 					{
@@ -120,7 +120,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 42 },
 					},
 					{
-						cosmetic: Cosmetic.JollyGeologistMusicSheet,
+						cosmetic: Cosmetic.MusicSheetWaltzOfThePlains,
 						cost: { candles: 15 },
 					},
 				],

@@ -18,7 +18,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.PeekingPostmanMusicSheet,
+						cosmetic: Cosmetic.MusicSheetSpringingStep,
 						cost: { seasonalCandles: 12 },
 					},
 					{
@@ -71,7 +71,7 @@ export default new SeasonalSpirit({
 					{ cosmetic: Cosmetic.EmotePeek1 },
 					{ cosmetic: Cosmetic.EmotePeek2, cost: { hearts: 4 }, level: 2 },
 					{
-						cosmetic: Cosmetic.PeekingPostmanMusicSheet,
+						cosmetic: Cosmetic.MusicSheetSpringingStep,
 						cost: { candles: 15 },
 					},
 				],

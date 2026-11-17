@@ -143,7 +143,7 @@ export default new GuideSpirit({
 						cosmetic: Cosmetic.AURORAQuest4,
 					},
 					{
-						cosmetic: Cosmetic.AURORAMusicSheet1,
+						cosmetic: Cosmetic.MusicSheetThroughTheEyesOfAChild,
 						cost: { candles: 20 },
 					},
 				],
@@ -153,7 +153,7 @@ export default new GuideSpirit({
 						cosmetic: Cosmetic.AURORAQuest5,
 					},
 					{
-						cosmetic: Cosmetic.AURORAMusicSheet2,
+						cosmetic: Cosmetic.MusicSheetQueendom,
 						cost: { candles: 20 },
 					},
 					{

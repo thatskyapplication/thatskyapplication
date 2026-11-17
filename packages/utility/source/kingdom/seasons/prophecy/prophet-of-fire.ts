@@ -42,7 +42,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.ProphetOfFireBlessing2,
 						cost: { seasonalCandles: 23 },
 					},
-					{ cosmetic: Cosmetic.ProphetOfFireMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetDisappearingAshes, seasonPass: true },
 				],
 				[
 					{
@@ -118,7 +118,7 @@ export default new SeasonalSpirit({
 						level: 4,
 					},
 					{
-						cosmetic: Cosmetic.ProphetOfFireMusicSheet,
+						cosmetic: Cosmetic.MusicSheetDisappearingAshes,
 						cost: { candles: 15 },
 					},
 				],

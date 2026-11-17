@@ -27,7 +27,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.EchoOfAnAbandonedRefugeMusicSheet,
+						cosmetic: Cosmetic.MusicSheetAQuietWalk,
 						cost: { seasonalCandles: 24 },
 					},
 					{
@@ -99,7 +99,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.EchoOfAnAbandonedRefugeMusicSheet,
+						cosmetic: Cosmetic.MusicSheetAQuietWalk,
 						cost: { candles: 15 },
 					},
 					{

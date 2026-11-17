@@ -130,7 +130,7 @@ export default [
 				friendshipTree: [
 					[
 						{
-							cosmetic: Cosmetic.AncientLightMantaMusicSheet,
+							cosmetic: Cosmetic.MusicSheetSearchingForQuestions,
 							cost: { seasonalCandles: 27 },
 						},
 						{
@@ -194,7 +194,7 @@ export default [
 							cost: { candles: 5 },
 						},
 						{
-							cosmetic: Cosmetic.AncientLightMantaMusicSheet,
+							cosmetic: Cosmetic.MusicSheetSearchingForQuestions,
 							cost: { candles: 15 },
 						},
 						{

@@ -4041,23 +4041,23 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_03",
-		tsKey: "Cosmetic.BirdWhispererMusicSheet",
+		tsKey: "Cosmetic.MusicSheetBoundingAbout",
 	},
 	{
 		upstreamKey: "sheet_04",
-		tsKey: "Cosmetic.WhaleWhispererMusicSheet",
+		tsKey: "Cosmetic.MusicSheetBoundaries",
 	},
 	{
 		upstreamKey: "sheet_05",
-		tsKey: "Cosmetic.MantaWhispererMusicSheet",
+		tsKey: "Cosmetic.MusicSheetAperture",
 	},
 	{
 		upstreamKey: "sheet_07",
-		tsKey: "Cosmetic.ProvokingPerformerMusicSheet",
+		tsKey: "Cosmetic.MusicSheetWideStance",
 	},
 	{
 		upstreamKey: "sheet_08",
-		tsKey: "Cosmetic.SalutingProtectorMusicSheet",
+		tsKey: "Cosmetic.MusicSheetWaltzingInTheRain",
 	},
 	{
 		upstreamKey: "commerce_item_name_founder_pack",
@@ -4065,11 +4065,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_09",
-		tsKey: "Cosmetic.LaidbackPioneerMusicSheet",
+		tsKey: "Cosmetic.MusicSheetFindingTheHorizon",
 	},
 	{
 		upstreamKey: "sheet_10",
-		tsKey: "Cosmetic.CrabWhispererMusicSheet",
+		tsKey: "Cosmetic.MusicSheetRelaxedSteps",
 	},
 	{
 		upstreamKey: "commerce_item_name_ap_cape_bat",
@@ -4085,23 +4085,23 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_12",
-		tsKey: "Cosmetic.HairtousleTeenMusicSheet",
+		tsKey: "Cosmetic.MusicSheetWavyHair",
 	},
 	{
 		upstreamKey: "sheet_11",
-		tsKey: "Cosmetic.WiseGrandparentMusicSheet",
+		tsKey: "Cosmetic.MusicSheetSupportFromAbove",
 	},
 	{
 		upstreamKey: "sheet_01",
-		tsKey: "Cosmetic.TroupeGreeterMusicSheet",
+		tsKey: "Cosmetic.MusicSheetFloatingBubbles",
 	},
 	{
 		upstreamKey: "sheet_02",
-		tsKey: "Cosmetic.FestivalSpinDancerMusicSheet",
+		tsKey: "Cosmetic.MusicSheetSpinningThoughts",
 	},
 	{
 		upstreamKey: "sheet_06",
-		tsKey: "Cosmetic.AdmiringActorMusicSheet",
+		tsKey: "Cosmetic.MusicSheetLightingTheWay",
 	},
 	{
 		upstreamKey: "commerce_item_name_daysoflove_pack",
@@ -4109,7 +4109,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_13",
-		tsKey: "Cosmetic.PlayfightingHerbalistMusicSheet",
+		tsKey: "Cosmetic.MusicSheetDriftingOverSand",
 	},
 	{
 		upstreamKey: "commerce_item_name_daysofnature_pack",
@@ -4121,11 +4121,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_14",
-		tsKey: "Cosmetic.JellyWhispererMusicSheet",
+		tsKey: "Cosmetic.MusicSheetUnevenRhythms",
 	},
 	{
 		upstreamKey: "sheet_15",
-		tsKey: "Cosmetic.TimidBookwormMusicSheet",
+		tsKey: "Cosmetic.MusicSheetBackAndForth",
 	},
 	{
 		upstreamKey: "commerce_item_name_summer_pack",
@@ -4133,11 +4133,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_16",
-		tsKey: "Cosmetic.ProphetOfEarthMusicSheet",
+		tsKey: "Cosmetic.MusicSheetSoftBlanket",
 	},
 	{
 		upstreamKey: "sheet_17",
-		tsKey: "Cosmetic.ProphetOfFireMusicSheet",
+		tsKey: "Cosmetic.MusicSheetDisappearingAshes",
 	},
 	{
 		upstreamKey: "commerce_item_name_mischief_web_cape",
@@ -4165,11 +4165,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_18",
-		tsKey: "Cosmetic.PeekingPostmanMusicSheet",
+		tsKey: "Cosmetic.MusicSheetSpringingStep",
 	},
 	{
 		upstreamKey: "sheet_19",
-		tsKey: "Cosmetic.BearhugHermitMusicSheet",
+		tsKey: "Cosmetic.MusicSheetForgottenDance",
 	},
 	{
 		upstreamKey: "commerce_item_name_fortune_orange",
@@ -4185,11 +4185,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_21",
-		tsKey: "Cosmetic.ScaredyCadetMusicSheet",
+		tsKey: "Cosmetic.MusicSheetKeepingMyselfTogether",
 	},
 	{
 		upstreamKey: "sheet_20",
-		tsKey: "Cosmetic.DaydreamForesterMusicSheet",
+		tsKey: "Cosmetic.MusicSheetForestWalk",
 	},
 	{
 		upstreamKey: "commerce_item_name_nature_oceannecklace",
@@ -4213,11 +4213,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_22",
-		tsKey: "Cosmetic.GloatingNarcissistMusicSheet",
+		tsKey: "Cosmetic.MusicSheetLookingUpToTheStars",
 	},
 	{
 		upstreamKey: "sheet_23",
-		tsKey: "Cosmetic.SlouchingSoldierMusicSheet",
+		tsKey: "Cosmetic.MusicSheetAGlimpseWithin",
 	},
 	{
 		upstreamKey: "commerce_item_name_littleprince_coat",
@@ -4237,11 +4237,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_24",
-		tsKey: "Cosmetic.LivelyNavigatorMusicSheet",
+		tsKey: "Cosmetic.MusicSheetEverythingAroundUs",
 	},
 	{
 		upstreamKey: "sheet_25",
-		tsKey: "Cosmetic.TalentedBuilderMusicSheet",
+		tsKey: "Cosmetic.MusicSheetFlyingAmongTheStars",
 	},
 	{
 		upstreamKey: "commerce_item_name_mischief_witch_body",
@@ -4261,7 +4261,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_26",
-		tsKey: "Cosmetic.OdeToJoyMusicSheet",
+		tsKey: "Cosmetic.MusicSheetOdeToJoy",
 	},
 	{
 		upstreamKey: "commerce_item_name_feast_snowflakepin",
@@ -4281,11 +4281,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_28",
-		tsKey: "Cosmetic.BumblingBoatswainMusicSheet",
+		tsKey: "Cosmetic.MusicSheetWithoutAPaddle",
 	},
 	{
 		upstreamKey: "sheet_27",
-		tsKey: "Cosmetic.CacklingCannoneerMusicSheet",
+		tsKey: "Cosmetic.MusicSheetSowingMischief",
 	},
 	{
 		upstreamKey: "commerce_item_name_fortune_carp",
@@ -4301,11 +4301,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_30",
-		tsKey: "Cosmetic.FranticStagehandMusicSheet",
+		tsKey: "Cosmetic.MusicSheetStepByStep",
 	},
 	{
 		upstreamKey: "sheet_29",
-		tsKey: "Cosmetic.ModestDancerMusicSheet",
+		tsKey: "Cosmetic.MusicSheetHiddenDance",
 	},
 	{
 		upstreamKey: "commerce_item_name_nature_turtlewing",
@@ -4317,19 +4317,19 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_minik0",
-		tsKey: "Cosmetic.HarmonyHallMusicSheet1",
+		tsKey: "Cosmetic.MusicSheetEtudeNo1",
 	},
 	{
 		upstreamKey: "sheet_minik1",
-		tsKey: "Cosmetic.HarmonyHallMusicSheet2",
+		tsKey: "Cosmetic.MusicSheetEtudeNo2",
 	},
 	{
 		upstreamKey: "sheet_minik2",
-		tsKey: "Cosmetic.HarmonyHallMusicSheet3",
+		tsKey: "Cosmetic.MusicSheetEtudeNo3",
 	},
 	{
 		upstreamKey: "sheet_minik3",
-		tsKey: "Cosmetic.HarmonyHallMusicSheet4",
+		tsKey: "Cosmetic.MusicSheetEtudeNo4",
 	},
 	{
 		upstreamKey: "commerce_item_name_musicshop_harp",
@@ -4381,15 +4381,15 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_32",
-		tsKey: "Cosmetic.AncientLightMantaMusicSheet",
+		tsKey: "Cosmetic.MusicSheetSearchingForQuestions",
 	},
 	{
 		upstreamKey: "sheet_31",
-		tsKey: "Cosmetic.AncientDarknessPlantMusicSheet",
+		tsKey: "Cosmetic.MusicSheetEarnestLooks",
 	},
 	{
 		upstreamKey: "sheet_happy_birthday",
-		tsKey: "Cosmetic.HappyBirthdayMusicSheet",
+		tsKey: "Cosmetic.MusicSheetHappyBirthdayToYou",
 	},
 	{
 		upstreamKey: "commerce_item_name_tgc_guitar",
@@ -4405,15 +4405,15 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_37",
-		tsKey: "Cosmetic.RunningWayfarerMusicSheet",
+		tsKey: "Cosmetic.MusicSheetRunaway",
 	},
 	{
 		upstreamKey: "sheet_36",
-		tsKey: "Cosmetic.WarriorOfLoveMusicSheet",
+		tsKey: "Cosmetic.MusicSheetWarrior",
 	},
 	{
 		upstreamKey: "sheet_34",
-		tsKey: "Cosmetic.SeedOfHopeMusicSheet",
+		tsKey: "Cosmetic.MusicSheetTheSeed",
 	},
 	{
 		upstreamKey: "commerce_item_name_mischief_catprop",
@@ -4425,7 +4425,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_33",
-		tsKey: "Cosmetic.AURORAMusicSheet1",
+		tsKey: "Cosmetic.MusicSheetThroughTheEyesOfAChild",
 	},
 	{
 		upstreamKey: "commerce_item_name_aurora_orangecape",
@@ -4437,7 +4437,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_35",
-		tsKey: "Cosmetic.AURORAMusicSheet2",
+		tsKey: "Cosmetic.MusicSheetQueendom",
 	},
 	{
 		upstreamKey: "commerce_item_name_aurora_cape",
@@ -4505,7 +4505,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_38",
-		tsKey: "Cosmetic.DaysOfMusicMusicSheet",
+		tsKey: "Cosmetic.MusicSheetMusicsEmbrace",
 	},
 	{
 		upstreamKey: "commerce_item_name_musicshop_violin",
@@ -4513,7 +4513,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_39",
-		tsKey: "Cosmetic.JollyGeologistMusicSheet",
+		tsKey: "Cosmetic.MusicSheetWaltzOfThePlains",
 	},
 	{
 		upstreamKey: "commerce_item_name_birthday_oreo",
@@ -4557,7 +4557,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_40",
-		tsKey: "Cosmetic.EchoOfAnAbandonedRefugeMusicSheet",
+		tsKey: "Cosmetic.MusicSheetAQuietWalk",
 	},
 	{
 		upstreamKey: "commerce_item_name_mischief_cobwebcape",
@@ -4599,7 +4599,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_41",
-		tsKey: "Cosmetic.FeudalLordMusicSheet",
+		tsKey: "Cosmetic.MusicSheetDeerSong",
 	},
 	{
 		upstreamKey: "commerce_item_name_fortune_dragonrobe",
@@ -4615,7 +4615,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_42",
-		tsKey: "Cosmetic.DaysofLoveMusicSheet",
+		tsKey: "Cosmetic.MusicSheetDaysOfLove",
 	},
 	{
 		upstreamKey: "commerce_item_name_love_meteorwing",
@@ -4675,7 +4675,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_43",
-		tsKey: "Cosmetic.TheMusiciansLegacyMusicSheet",
+		tsKey: "Cosmetic.MusicSheetOldFriends",
 	},
 	{
 		upstreamKey: "commerce_item_name_competition_laurel",
@@ -4717,11 +4717,11 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_45",
-		tsKey: "Cosmetic.SenseOfSelfMusicSheet",
+		tsKey: "Cosmetic.MusicSheetFindingHappiness",
 	},
 	{
 		upstreamKey: "sheet_44",
-		tsKey: "Cosmetic.SpiritOfAdventureMusicSheet",
+		tsKey: "Cosmetic.MusicSheetWorldsBetween",
 	},
 	{
 		upstreamKey: "commerce_item_name_mischief_ravencape",
@@ -4749,7 +4749,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_46",
-		tsKey: "Cosmetic.DragonDanceMusicSheet",
+		tsKey: "Cosmetic.MusicSheetDragonDance",
 	},
 	{
 		upstreamKey: "commerce_item_name_fortune_fanprop",
@@ -4765,7 +4765,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_47",
-		tsKey: "Cosmetic.WoodcuttingPleafulParentMusicSheet",
+		tsKey: "Cosmetic.MusicSheetBlueBirdOfHappiness",
 	},
 	{
 		upstreamKey: "commerce_item_name_bloom_rosewing",
@@ -4813,7 +4813,7 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "sheet_48",
-		tsKey: "Cosmetic.SternShepherdMusicSheet",
+		tsKey: "Cosmetic.MusicSheetLifeAndSanctuary",
 	},
 	{
 		upstreamKey: "commerce_item_name_ember_manateeplush",

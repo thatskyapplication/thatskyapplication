@@ -38,7 +38,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.ProphetOfEarthMusicSheet,
+						cosmetic: Cosmetic.MusicSheetSoftBlanket,
 						cost: { seasonalCandles: 21 },
 					},
 					{
@@ -121,7 +121,7 @@ export default new SeasonalSpirit({
 						level: 4,
 					},
 					{
-						cosmetic: Cosmetic.ProphetOfEarthMusicSheet,
+						cosmetic: Cosmetic.MusicSheetSoftBlanket,
 						cost: { candles: 15 },
 					},
 				],

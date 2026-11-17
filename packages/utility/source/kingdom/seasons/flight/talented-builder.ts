@@ -22,7 +22,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.TalentedBuilderBlessing1,
 						cost: { seasonalCandles: 10 },
 					},
-					{ cosmetic: Cosmetic.TalentedBuilderMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetFlyingAmongTheStars, seasonPass: true },
 				],
 				[
 					{
@@ -125,7 +125,7 @@ export default new SeasonalSpirit({
 						level: 4,
 					},
 					{
-						cosmetic: Cosmetic.TalentedBuilderMusicSheet,
+						cosmetic: Cosmetic.MusicSheetFlyingAmongTheStars,
 						cost: { candles: 15 },
 					},
 				],

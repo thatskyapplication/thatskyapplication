@@ -16,7 +16,7 @@ export default new Event({
 			cost: { hearts: 3 },
 		},
 		{
-			cosmetic: Cosmetic.HappyBirthdayMusicSheet,
+			cosmetic: Cosmetic.MusicSheetHappyBirthdayToYou,
 			cost: { hearts: 10 },
 		},
 		{

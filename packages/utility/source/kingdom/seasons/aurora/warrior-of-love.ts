@@ -50,7 +50,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
+						cosmetic: Cosmetic.MusicSheetWarrior,
 						cost: { seasonalCandles: 24 },
 					},
 					{
@@ -140,7 +140,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
+						cosmetic: Cosmetic.MusicSheetWarrior,
 						cost: { candles: 15 },
 					},
 				],

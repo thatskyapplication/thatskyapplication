@@ -36,7 +36,7 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				cosmetic: Cosmetic.MantaWhispererMusicSheet,
+				cosmetic: Cosmetic.MusicSheetAperture,
 				cost: { hearts: 3 },
 			},
 		],

@@ -22,7 +22,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.CacklingCannoneerBlessing1,
 						cost: { seasonalCandles: 12 },
 					},
-					{ cosmetic: Cosmetic.CacklingCannoneerMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetSowingMischief, seasonPass: true },
 				],
 				[
 					{
@@ -144,7 +144,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.CacklingCannoneerMusicSheet,
+						cosmetic: Cosmetic.MusicSheetSowingMischief,
 						cost: { candles: 15 },
 					},
 				],

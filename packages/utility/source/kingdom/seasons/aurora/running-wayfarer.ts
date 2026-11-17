@@ -54,7 +54,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.RunningWayfarerBlessing3,
 						cost: { seasonalCandles: 24 },
 					},
-					{ cosmetic: Cosmetic.RunningWayfarerMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetRunaway, seasonPass: true },
 				],
 				[
 					{
@@ -129,7 +129,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.RunningWayfarerMusicSheet,
+						cosmetic: Cosmetic.MusicSheetRunaway,
 						cost: { candles: 15 },
 					},
 				],

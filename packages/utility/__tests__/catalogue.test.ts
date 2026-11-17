@@ -192,7 +192,7 @@ test("Music sheets are indexed and target where they are offered.", () => {
 	const [spiritSheet] = catalogueSearch(entries, "Bounding About", 1);
 	ok(spiritSheet?.target.type === CatalogueSearchType.Spirit);
 	equal(spiritSheet.target.spirit.id, SpiritId.BirdWhisperer);
-	equal(spiritSheet.cosmeticDisplay, Cosmetic.BirdWhispererMusicSheet);
+	equal(spiritSheet.cosmeticDisplay, Cosmetic.MusicSheetBoundingAbout);
 
 	const eventSheet = firstTarget("Etude No.1");
 	ok(eventSheet?.type === CatalogueSearchType.Event);

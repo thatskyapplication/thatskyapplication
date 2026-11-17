@@ -22,7 +22,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.AdmiringActorBlessing1,
 						cost: { seasonalCandles: 12 },
 					},
-					{ cosmetic: Cosmetic.AdmiringActorMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetLightingTheWay, seasonPass: true },
 				],
 				[
 					{
@@ -71,7 +71,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.AdmiringActorMusicSheet,
+						cosmetic: Cosmetic.MusicSheetLightingTheWay,
 						cost: { candles: 15 },
 					},
 					{

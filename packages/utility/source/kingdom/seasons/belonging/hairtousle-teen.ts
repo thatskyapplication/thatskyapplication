@@ -30,7 +30,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.HairtousleTeenMusicSheet,
+						cosmetic: Cosmetic.MusicSheetWavyHair,
 						cost: { seasonalCandles: 14 },
 					},
 					{ cosmetic: Cosmetic.FriendActionHairTousle2, level: 2, seasonPass: true },
@@ -74,7 +74,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.HairtousleTeenMusicSheet,
+						cosmetic: Cosmetic.MusicSheetWavyHair,
 						cost: { candles: 15 },
 					},
 					{

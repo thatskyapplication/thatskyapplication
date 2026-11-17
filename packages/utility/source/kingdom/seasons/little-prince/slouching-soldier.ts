@@ -42,7 +42,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.SlouchingSoldierBlessing2,
 						cost: { seasonalCandles: 18 },
 					},
-					{ cosmetic: Cosmetic.SlouchingSoldierMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetAGlimpseWithin, seasonPass: true },
 				],
 				[
 					{
@@ -89,7 +89,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.SlouchingSoldierMusicSheet,
+						cosmetic: Cosmetic.MusicSheetAGlimpseWithin,
 						cost: { candles: 15 },
 					},
 					{

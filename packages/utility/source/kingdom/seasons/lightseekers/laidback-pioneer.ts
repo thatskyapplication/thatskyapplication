@@ -31,7 +31,7 @@ export default new SeasonalSpirit({
 						cosmetic: Cosmetic.LaidbackPioneerBlessing2,
 						cost: { seasonalCandles: 8 },
 					},
-					{ cosmetic: Cosmetic.LaidbackPioneerMusicSheet, seasonPass: true },
+					{ cosmetic: Cosmetic.MusicSheetFindingTheHorizon, seasonPass: true },
 				],
 				[
 					{
@@ -95,7 +95,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.LaidbackPioneerMusicSheet,
+						cosmetic: Cosmetic.MusicSheetFindingTheHorizon,
 						cost: { candles: 15 },
 					},
 					{

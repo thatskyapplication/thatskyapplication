@@ -13,7 +13,7 @@ export default new SeasonalSpirit({
 			friendshipTree: [
 				[
 					{
-						cosmetic: Cosmetic.WoodcuttingPleafulParentMusicSheet,
+						cosmetic: Cosmetic.MusicSheetBlueBirdOfHappiness,
 						cost: { seasonalCandles: 12 },
 					},
 					{

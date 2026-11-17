@@ -18,7 +18,7 @@ export default new SeasonalSpirit({
 				],
 				[
 					{
-						cosmetic: Cosmetic.TroupeGreeterMusicSheet,
+						cosmetic: Cosmetic.MusicSheetFloatingBubbles,
 						cost: { seasonalCandles: 8 },
 					},
 					{
@@ -74,7 +74,7 @@ export default new SeasonalSpirit({
 						cost: { candles: 5 },
 					},
 					{
-						cosmetic: Cosmetic.TroupeGreeterMusicSheet,
+						cosmetic: Cosmetic.MusicSheetFloatingBubbles,
 						cost: { candles: 15 },
 					},
 					{

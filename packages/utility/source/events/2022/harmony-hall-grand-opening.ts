@@ -16,19 +16,19 @@ export default new Event({
 			cost: { candles: 50 },
 		},
 		{
-			cosmetic: Cosmetic.HarmonyHallMusicSheet1,
+			cosmetic: Cosmetic.MusicSheetEtudeNo1,
 			cost: { candles: 10 },
 		},
 		{
-			cosmetic: Cosmetic.HarmonyHallMusicSheet2,
+			cosmetic: Cosmetic.MusicSheetEtudeNo2,
 			cost: { candles: 10 },
 		},
 		{
-			cosmetic: Cosmetic.HarmonyHallMusicSheet3,
+			cosmetic: Cosmetic.MusicSheetEtudeNo3,
 			cost: { candles: 10 },
 		},
 		{
-			cosmetic: Cosmetic.HarmonyHallMusicSheet4,
+			cosmetic: Cosmetic.MusicSheetEtudeNo4,
 			cost: { candles: 10 },
 		},
 		{

@@ -37,7 +37,7 @@ export default new Event({
 			cost: { eventTickets: 27 },
 		},
 		{
-			cosmetic: Cosmetic.DaysofLoveMusicSheet,
+			cosmetic: Cosmetic.MusicSheetDaysOfLove,
 			cost: { eventTickets: 7 },
 		},
 		{
