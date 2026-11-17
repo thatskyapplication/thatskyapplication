@@ -23,7 +23,7 @@ const LEVEL_KEYS = new Set<string>([
 	`cosmetic-common-names.${CosmeticCommon.ExpressionMultipleLevel}`,
 ]);
 
-const { CALL_EMOJIS, CosmeticToEmoji, EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS, STANCE_EMOJIS } =
+const { CALL_EMOJIS, CosmeticToEmoji, EMOTE_EMOJIS, MUSIC_SHEET_EMOJIS, STANCE_EMOJIS } =
 	productionEmojis();
 
 const OFFERED_ITEMS: readonly (readonly [string, ItemWithoutChildren])[] = [
@@ -71,10 +71,12 @@ test("Expression cosmetics are exactly those drawn with an expression emoji.", (
 	deepEqual(drawnAsExpressions, new Set(EXPRESSION_LEVELS.keys()));
 });
 
-test("Music sheet cosmetics are exactly those drawn with the music sheet emoji.", () => {
+test("Music sheet cosmetics are exactly those drawn with a music sheet emoji.", () => {
+	const musicSheetEmojis = new Set<Emoji>(Object.values(MUSIC_SHEET_EMOJIS));
+
 	const drawnAsMusicSheets = new Set(
 		Object.entries(CosmeticToEmoji)
-			.filter(([, emoji]) => emoji === MISCELLANEOUS_EMOJIS.MusicSheet)
+			.filter(([, emoji]) => emoji !== null && musicSheetEmojis.has(emoji))
 			.map(([cosmetic]) => Number(cosmetic)),
 	);
 

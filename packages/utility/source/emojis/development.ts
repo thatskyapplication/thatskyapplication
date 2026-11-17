@@ -26,7 +26,6 @@ const MISCELLANEOUS_EMOJIS = {
 	SpellSharedSpace: { id: "1313864882738823328", name: "spell_shared_space" },
 	WingBuff: { id: "1313864885460926544", name: "wing_buff" },
 	Quest: { id: "1313864888686215261", name: "quest" },
-	MusicSheet: { id: "1313864897657831510", name: "music_sheet" },
 	EventTicket: { id: "1313864891311980584", name: "event_ticket" },
 	ConstellationFlag: { id: "1313864899235151883", name: "constellation_flag" },
 	Bluesky: { id: "1314813267444633610", name: "bluesky" },
@@ -1609,6 +1608,16 @@ const SHARED_SPACE_EMOJIS = {
 	SharedSpace04: { id: "1532453928736915537", name: "04_shared_space" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
+const MUSIC_SHEET_EMOJIS = {
+	MusicSheet01: { id: "1572041146736058469", name: "01_music_sheet" },
+	MusicSheet02: { id: "1572041149823328307", name: "02_music_sheet" },
+	MusicSheet03: { id: "1572041153514307694", name: "03_music_sheet" },
+	MusicSheet04: { id: "1572041156655845404", name: "04_music_sheet" },
+	MusicSheet05: { id: "1572041159969087718", name: "05_music_sheet" },
+	MusicSheet06: { id: "1572041162863153303", name: "06_music_sheet" },
+	MusicSheet07: { id: "1572041165916868608", name: "07_music_sheet" },
+} as const satisfies Readonly<Record<string, Emoji>>;
+
 export const DEVELOPMENT_TABLES = {
 	MISCELLANEOUS_EMOJIS,
 	EMOTE_EMOJIS,
@@ -1631,4 +1640,5 @@ export const DEVELOPMENT_TABLES = {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 	SHARED_SPACE_EMOJIS,
+	MUSIC_SHEET_EMOJIS,
 } as const;

@@ -26,7 +26,6 @@ const MISCELLANEOUS_EMOJIS = {
 	SpellSharedSpace: { id: "1313930708724613192", name: "spell_shared_space" },
 	WingBuff: { id: "1313930710230241383", name: "wing_buff" },
 	Quest: { id: "1313930701623656551", name: "quest" },
-	MusicSheet: { id: "1313930722012168282", name: "music_sheet" },
 	EventTicket: { id: "1313930718723969105", name: "event_ticket" },
 	ConstellationFlag: { id: "1313930715473117305", name: "constellation_flag" },
 	Bluesky: { id: "1314813140210286632", name: "bluesky" },
@@ -5216,6 +5215,37 @@ const SHARED_SPACE_EMOJIS = {
 	SharedSpace04: { id: "1532453831521206333", name: "04_shared_space" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
+const MUSIC_SHEET_EMOJIS = {
+	/**
+	 * N glyph.
+	 */
+	MusicSheet01: { id: "1572041123482837184", name: "01_music_sheet" },
+	/**
+	 * W glyph.
+	 */
+	MusicSheet02: { id: "1572041126922293268", name: "02_music_sheet" },
+	/**
+	 * D glyph.
+	 */
+	MusicSheet03: { id: "1572041130026213498", name: "03_music_sheet" },
+	/**
+	 * Etude No.1.
+	 */
+	MusicSheet04: { id: "1572041133431857152", name: "04_music_sheet" },
+	/**
+	 * Etude No.2.
+	 */
+	MusicSheet05: { id: "1572041136602751077", name: "05_music_sheet" },
+	/**
+	 * Etude No.3.
+	 */
+	MusicSheet06: { id: "1572041140507508837", name: "06_music_sheet" },
+	/**
+	 * Etude No.4.
+	 */
+	MusicSheet07: { id: "1572041143577739264", name: "07_music_sheet" },
+} as const satisfies Readonly<Record<string, Emoji>>;
+
 export const PRODUCTION_TABLES = {
 	MISCELLANEOUS_EMOJIS,
 	EMOTE_EMOJIS,
@@ -5238,4 +5268,5 @@ export const PRODUCTION_TABLES = {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 	SHARED_SPACE_EMOJIS,
+	MUSIC_SHEET_EMOJIS,
 } as const;

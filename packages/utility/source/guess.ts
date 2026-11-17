@@ -31,7 +31,7 @@ export const GuessTypeToLocaleKey = {
 
 export type GuessEmojis = Pick<
 	EmojiTables,
-	"FRIEND_ACTION_EMOJIS" | "MISCELLANEOUS_EMOJIS" | "SEASON_EMOJIS"
+	"FRIEND_ACTION_EMOJIS" | "MISCELLANEOUS_EMOJIS" | "MUSIC_SHEET_EMOJIS" | "SEASON_EMOJIS"
 > &
 	Pick<DerivedEmojis, "CosmeticToEmoji">;
 
@@ -82,6 +82,7 @@ function shuffle<T>(array: T[]) {
 function emojisToSkip({
 	FRIEND_ACTION_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
+	MUSIC_SHEET_EMOJIS,
 	SEASON_EMOJIS,
 }: GuessEmojis): ReadonlySet<Snowflake> {
 	const skipped = new Set<Snowflake>([
@@ -89,7 +90,6 @@ function emojisToSkip({
 		MISCELLANEOUS_EMOJIS.Blessing2.id,
 		MISCELLANEOUS_EMOJIS.Blessing3.id,
 		MISCELLANEOUS_EMOJIS.Heart.id,
-		MISCELLANEOUS_EMOJIS.MusicSheet.id,
 		MISCELLANEOUS_EMOJIS.Quest.id,
 		MISCELLANEOUS_EMOJIS.SpellColourTrail.id,
 		MISCELLANEOUS_EMOJIS.SpellSharedMemory.id,
@@ -107,6 +107,10 @@ function emojisToSkip({
 		FRIEND_ACTION_EMOJIS.HighFive.id,
 		FRIEND_ACTION_EMOJIS.Hug.id,
 	]);
+
+	for (const { id } of Object.values(MUSIC_SHEET_EMOJIS)) {
+		skipped.add(id);
+	}
 
 	for (const [key, { id }] of [
 		...Object.entries(MISCELLANEOUS_EMOJIS),
