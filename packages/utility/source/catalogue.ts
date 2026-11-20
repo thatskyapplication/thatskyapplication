@@ -120,7 +120,7 @@ const nestingWorkshopItems = resolveOfferFromItems([
 	{ cosmetic: Cosmetic.StoneSquareDiningTable, cost: { hearts: 23 } },
 	{ cosmetic: Cosmetic.StoneWallSconce, cost: { ascendedCandles: 8 } },
 	{ cosmetic: Cosmetic.SmallHalfCircleRug, cost: { candles: 45 } },
-	{ cosmetic: Cosmetic.StoneSofaSide, cost: { candles: 80 } },
+	{ cosmetic: Cosmetic.StoneSofaSide, cost: { candles: 20 } },
 	{ cosmetic: Cosmetic.StoneLongDiningTable, cost: { hearts: 33 } },
 	{ cosmetic: Cosmetic.StoneSmallBathtub, cost: { hearts: 25 } },
 	{ cosmetic: Cosmetic.MediumSolidRug, cost: { candles: 40 } },
