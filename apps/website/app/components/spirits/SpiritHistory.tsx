@@ -13,6 +13,7 @@ import {
 	type Spirit,
 } from "@thatskyapplication/utility";
 import { CostList } from "~/components/catalogue/CostList.js";
+import { FriendshipTreeToggle } from "~/components/catalogue/FriendshipTreeToggle.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import Pagination from "~/components/Pagination.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
@@ -123,7 +124,13 @@ export function SpiritHistory({
 	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
-	const { entries, maximumPage, order, page: currentPage } = spiritsHistoryPagination(searchParams);
+	const {
+		entries,
+		maximumPage,
+		order,
+		page: currentPage,
+		seasonal,
+	} = spiritsHistoryPagination(searchParams);
 	const offset = (currentPage - 1) * SPIRIT_HISTORY_PAGE_SIZE;
 	const pageEntries = entries.slice(offset, offset + SPIRIT_HISTORY_PAGE_SIZE);
 
@@ -158,6 +165,13 @@ export function SpiritHistory({
 			<h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100" id="spirit-history-title">
 				{t(SPIRITS_HISTORY_TITLE_KEYS[order], { ns: "features" })}
 			</h2>
+
+			{order === SpiritsHistoryOrderType.Cost && (
+				<FriendshipTreeToggle
+					search={spiritHistoryOrderURL(searchParams, SpiritsHistoryOrderType.Cost)}
+					seasonal={seasonal}
+				/>
+			)}
 
 			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 				{pageEntries.map(({ costs, number, spirit, visit }) => (

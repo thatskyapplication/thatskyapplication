@@ -35,6 +35,14 @@ import {
 
 export const MAXIMUM_SPIRITS_HISTORY_ENTRIES = 10 as const;
 
+const SPIRITS_HISTORY_COST_UNIT_TYPES = new Set<CostEntry["type"]>([
+	"candles",
+	"hearts",
+	"ascendedCandles",
+	"seasonalCandles",
+	"seasonalHearts",
+]);
+
 export function spiritWikiMarkdownLink(
 	spiritId: SpiritIds,
 	{ locale, t }: Pick<MessageFormatting, "locale" | "t">,
@@ -83,37 +91,60 @@ export function friendshipTreeTotalCost(friendshipTree: FriendshipTree | LegacyF
 	return sumCosts(costs);
 }
 
-const postSeasonCosts = new Map<SpiritIds, { costs: readonly CostEntry[]; units: number }>();
+interface SpiritsHistoryCost {
+	readonly costs: readonly CostEntry[];
+	readonly units: number;
+}
+
+function spiritsHistoryCost(
+	friendshipTree: FriendshipTree | LegacyFriendshipTree,
+): SpiritsHistoryCost {
+	const costs = friendshipTreeTotalCost(friendshipTree);
+	let units = 0;
+
+	for (const { amount, type } of costs) {
+		if (SPIRITS_HISTORY_COST_UNIT_TYPES.has(type)) {
+			units += amount;
+		}
+	}
+
+	return { costs, units };
+}
+
+const spiritsHistoryCosts = new Map<
+	SpiritIds,
+	{ readonly postSeason: SpiritsHistoryCost; readonly seasonal: SpiritsHistoryCost }
+>();
 
 for (const season of SEASONS.values()) {
 	for (const spirit of season.spirits.values()) {
-		const { postSeason } = spirit.friendshipTrees;
+		const { postSeason, seasonal } = spirit.friendshipTrees;
 
 		if (!postSeason) {
 			continue;
 		}
 
-		const costs = friendshipTreeTotalCost(postSeason.friendshipTree);
-		let units = 0;
-
-		for (const { amount, type } of costs) {
-			if (type === "candles" || type === "hearts" || type === "ascendedCandles") {
-				units += amount;
-			}
-		}
-
-		postSeasonCosts.set(spirit.id, { costs, units });
+		spiritsHistoryCosts.set(spirit.id, {
+			postSeason: spiritsHistoryCost(postSeason.friendshipTree),
+			seasonal: spiritsHistoryCost(seasonal.friendshipTree),
+		});
 	}
 }
 
-const VISITS_BY_COST = VISITS_ABSENT.filter(({ spiritId }) => postSeasonCosts.has(spiritId)).sort(
-	(a, b) => postSeasonCosts.get(b.spiritId)!.units - postSeasonCosts.get(a.spiritId)!.units,
-);
+function visitsByCost(tree: "postSeason" | "seasonal") {
+	return VISITS_ABSENT.filter(({ spiritId }) => spiritsHistoryCosts.has(spiritId)).sort(
+		(a, b) =>
+			spiritsHistoryCosts.get(b.spiritId)![tree].units -
+			spiritsHistoryCosts.get(a.spiritId)![tree].units,
+	);
+}
+
+const VISITS_BY_SEASONAL_COST = visitsByCost("seasonal");
 
 const SPIRITS_HISTORY_VISITS = {
 	[SpiritsHistoryOrderType.Natural]: TRAVELLING_DATES,
 	[SpiritsHistoryOrderType.Rarity]: VISITS_ABSENT,
-	[SpiritsHistoryOrderType.Cost]: VISITS_BY_COST,
+	[SpiritsHistoryOrderType.Cost]: visitsByCost("postSeason"),
 } as const satisfies Readonly<Record<SpiritsHistoryOrderTypes, unknown>>;
 
 interface SpiritsHistoryEntry {
@@ -123,19 +154,29 @@ interface SpiritsHistoryEntry {
 	readonly visit: IndividualSpiritVisit;
 }
 
-export function spiritsHistoryData(type: SpiritsHistoryOrderTypes, pageSize: number) {
+interface SpiritsHistoryDataOptions {
+	seasonal?: boolean;
+}
+
+export function spiritsHistoryData(
+	type: SpiritsHistoryOrderTypes,
+	pageSize: number,
+	{ seasonal = false }: SpiritsHistoryDataOptions = {},
+) {
 	const availableSpirits = spirits();
 	const entries: SpiritsHistoryEntry[] = [];
+	const cost = type === SpiritsHistoryOrderType.Cost;
+	const visits = cost && seasonal ? VISITS_BY_SEASONAL_COST : SPIRITS_HISTORY_VISITS[type];
 
-	for (const [key, visit] of SPIRITS_HISTORY_VISITS[type]) {
+	for (const [key, visit] of visits) {
 		const spirit = availableSpirits.get(visit.spiritId);
 
 		if (spirit) {
 			entries.push({
-				costs:
-					type === SpiritsHistoryOrderType.Cost
-						? (postSeasonCosts.get(visit.spiritId)?.costs ?? null)
-						: null,
+				costs: cost
+					? (spiritsHistoryCosts.get(visit.spiritId)?.[seasonal ? "seasonal" : "postSeason"]
+							.costs ?? null)
+					: null,
 				number: type === SpiritsHistoryOrderType.Natural ? key : entries.length + 1,
 				spirit,
 				visit,
@@ -260,6 +301,7 @@ interface SpiritsHistoryContainerData extends MessageFormatting {
 	maximumEntries?: number;
 	page: number;
 	pageSize: number;
+	seasonal?: boolean;
 	type: SpiritsHistoryOrderTypes;
 	viewButton: (spiritId: SpiritIds, index: number) => APIButtonComponent;
 }
@@ -270,13 +312,14 @@ export function spiritsHistoryContainer({
 	maximumEntries = MAXIMUM_SPIRITS_HISTORY_ENTRIES,
 	page,
 	pageSize,
+	seasonal = false,
 	t,
 	type,
 	viewButton,
 }: SpiritsHistoryContainerData) {
 	const offset = (page - 1) * pageSize;
 	const limit = offset + Math.min(pageSize, maximumEntries);
-	const { entries, maximumPage } = spiritsHistoryData(type, pageSize);
+	const { entries, maximumPage } = spiritsHistoryData(type, pageSize, { seasonal });
 
 	const components: APIComponentInContainer[] = [
 		{

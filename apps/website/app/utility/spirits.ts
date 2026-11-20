@@ -57,6 +57,7 @@ export function spiritHistoryOrderURL(
 	const orderParameter = SPIRIT_HISTORY_ORDER_PARAMETERS[order];
 	parameters.delete("page");
 	parameters.delete("spirit");
+	parameters.delete("tree");
 
 	if (orderParameter === null) {
 		parameters.delete("order");
@@ -76,6 +77,16 @@ export function spiritsHistoryPagination(searchParams: URLSearchParams) {
 			(type) => SPIRIT_HISTORY_ORDER_PARAMETERS[type] === orderParameter,
 		) ?? SpiritsHistoryOrderType.Natural;
 
-	const { entries, maximumPage } = spiritsHistoryData(order, SPIRIT_HISTORY_PAGE_SIZE);
-	return { entries, maximumPage, order, page: Math.min(parsePage(searchParams), maximumPage) };
+	const seasonal = searchParams.get("tree") === "seasonal";
+	const { entries, maximumPage } = spiritsHistoryData(order, SPIRIT_HISTORY_PAGE_SIZE, {
+		seasonal,
+	});
+
+	return {
+		entries,
+		maximumPage,
+		order,
+		page: Math.min(parsePage(searchParams), maximumPage),
+		seasonal,
+	};
 }

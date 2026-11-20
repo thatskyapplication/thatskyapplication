@@ -161,7 +161,7 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 			friendshipTreeImageURLs: friendshipTreeImageURLs(spirit, locale),
 		});
 	} else if (url.searchParams.has("order") || url.searchParams.has("page")) {
-		const { order, page } = spiritsHistoryPagination(url.searchParams);
+		const { order, page, seasonal } = spiritsHistoryPagination(url.searchParams);
 
 		container = spiritsHistoryContainer({
 			emojis: EMOJIS,
@@ -169,6 +169,7 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 			maximumEntries: SPIRIT_HISTORY_PREVIEW_ENTRIES,
 			page,
 			pageSize: SPIRIT_HISTORY_PAGE_SIZE,
+			seasonal,
 			t,
 			type: order,
 			viewButton: (spiritId) => ({
@@ -205,6 +206,7 @@ function loaderSearchParameters(url: URL) {
 	const parameters = new URLSearchParams(url.search);
 	parameters.delete("order");
 	parameters.delete("page");
+	parameters.delete("tree");
 	return parameters.toString();
 }
 
