@@ -2086,7 +2086,8 @@
 				"command-option-order-description": "Elige un tipo de orden para los espíritus.",
 				"command-option-order-choice-name": {
 					"0": "Orden según aparición (orden cronológico).",
-					"1": "Orden según rareza (espíritus que no han vuelto en mucho tiempo)."
+					"1": "Orden según rareza (espíritus que no han vuelto en mucho tiempo).",
+					"2": ""
 				}
 			},
 			"search": {
@@ -2872,11 +2873,13 @@
 			},
 			"title": {
 				"0": "",
-				"1": ""
+				"1": "",
+				"2": ""
 			},
 			"order-natural": "Orden según aparición",
 			"order-label": "",
-			"order-rarity": "Orden según rareza"
+			"order-rarity": "Orden según rareza",
+			"order-cost": ""
 		},
 		"thatskylink": {
 			"description": "",

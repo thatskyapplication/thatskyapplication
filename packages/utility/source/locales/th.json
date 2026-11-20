@@ -2081,7 +2081,8 @@
 				"command-option-order-description": "",
 				"command-option-order-choice-name": {
 					"0": "",
-					"1": ""
+					"1": "",
+					"2": ""
 				}
 			},
 			"search": {
@@ -2851,11 +2852,13 @@
 			},
 			"title": {
 				"0": "",
-				"1": ""
+				"1": "",
+				"2": ""
 			},
 			"order-natural": "",
 			"order-label": "",
-			"order-rarity": ""
+			"order-rarity": "",
+			"order-cost": ""
 		},
 		"thatskylink": {
 			"description": "",

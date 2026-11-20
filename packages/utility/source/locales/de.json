@@ -2086,7 +2086,8 @@
 				"command-option-order-description": "Wähle die Reihenfolge, wie die Geister angeordnet sind.",
 				"command-option-order-choice-name": {
 					"0": "Ordne nach Auftreten (chronologisch).",
-					"1": "Ordne nach Seltenheit (Geister, die lange nicht zurückgekehrt sind)."
+					"1": "Ordne nach Seltenheit (Geister, die lange nicht zurückgekehrt sind).",
+					"2": ""
 				}
 			},
 			"search": {
@@ -2872,11 +2873,13 @@
 			},
 			"title": {
 				"0": "",
-				"1": ""
+				"1": "",
+				"2": ""
 			},
 			"order-natural": "Ordne nach Auftreten",
 			"order-label": "",
-			"order-rarity": "Ordne nach Seltenheit"
+			"order-rarity": "Ordne nach Seltenheit",
+			"order-cost": ""
 		},
 		"thatskylink": {
 			"description": "",
