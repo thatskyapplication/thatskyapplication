@@ -9,7 +9,7 @@ export const TEXT_COLOUR = "#FFFFFF" as const;
 export const LINE_COLOUR = "#FFFFFF" as const;
 export const IMAGE_SIZE = 100 as const;
 const WIDTH_MODIFIER = 200 as const;
-const HEIGHT_START_OFFSET = 25 as const;
+const PANEL_CONTENT_GAP = 60 as const;
 const LINE_OFFSET = 10 as const;
 export const ASSET_SIZE = 55 as const;
 const ASSET_OFFSET = 5 as const;
@@ -116,32 +116,45 @@ function modernAssetShift(amount: number): number {
 	return 0;
 }
 
-function normaliseTop(layout: FriendshipTreeLayout): FriendshipTreeLayout {
-	let minY = 0;
+function paddedLayout(
+	width: number,
+	lines: FriendshipTreeLine[],
+	nodes: PlacedFriendshipTreeNode[],
+): FriendshipTreeLayout {
+	const padding = BACKGROUND_PADDING + PANEL_CONTENT_GAP;
 
-	for (const node of layout.nodes) {
-		minY = Math.min(minY, node.y);
+	if (nodes.length === 0) {
+		return { width, height: padding * 2, lines, nodes };
+	}
+
+	let top = Number.POSITIVE_INFINITY;
+	let bottom = Number.NEGATIVE_INFINITY;
+
+	for (const node of nodes) {
+		top = Math.min(top, node.y);
+		bottom = Math.max(bottom, node.y + IMAGE_SIZE);
+
+		if (node.cost) {
+			bottom = Math.max(bottom, node.cost.iconY + ASSET_SIZE, node.cost.textBaselineY);
+		}
 
 		if (node.seasonEmoji) {
-			minY = Math.min(minY, node.seasonEmoji.y);
+			top = Math.min(top, node.seasonEmoji.y);
 		}
 
 		if (node.level) {
-			minY = Math.min(minY, node.level.baselineY - LEVEL_BADGE_FONT_SIZE);
+			top = Math.min(top, node.level.baselineY - LEVEL_BADGE_FONT_SIZE);
 		}
 	}
 
-	for (const line of layout.lines) {
-		minY = Math.min(minY, line.y1, line.y2);
+	for (const line of lines) {
+		top = Math.min(top, line.y1, line.y2);
+		bottom = Math.max(bottom, line.y1, line.y2);
 	}
 
-	if (minY >= 0) {
-		return layout;
-	}
+	const shift = padding - top;
 
-	const shift = HEIGHT_START_OFFSET - minY;
-
-	for (const node of layout.nodes) {
+	for (const node of nodes) {
 		node.y += shift;
 
 		if (node.cost) {
@@ -158,12 +171,12 @@ function normaliseTop(layout: FriendshipTreeLayout): FriendshipTreeLayout {
 		}
 	}
 
-	for (const line of layout.lines) {
+	for (const line of lines) {
 		line.y1 += shift;
 		line.y2 += shift;
 	}
 
-	return { ...layout, height: layout.height + shift };
+	return { width, height: bottom + shift + padding, lines, nodes };
 }
 
 function legacyLevelHasSides(level: readonly (Item | null | undefined)[]) {
@@ -178,23 +191,7 @@ function legacyFriendshipTreeLayout(
 	tree: FriendshipTree | LegacyFriendshipTree,
 ): FriendshipTreeLayout {
 	const width = FRIENDSHIP_TREE_WIDTH;
-	const firstNodeHasCostAtStart = tree[0]?.[0]?.cost !== null;
-	const lastLevel = tree.at(-1);
-	let heightStartMiddle = HEIGHT_START_OFFSET;
-
-	if (lastLevel && legacyLevelHasSides(lastLevel)) {
-		heightStartMiddle += SEASON_ICON_SIDES_OFFSET_Y + LEGACY_NODE_SPACING;
-	} else if (lastLevel?.[0]?.seasonPass) {
-		heightStartMiddle += SEASON_ICON_MIDDLE_OFFSET_Y;
-	}
-
-	for (const level of tree.slice(0, -1)) {
-		heightStartMiddle += legacyLevelSpacing(level);
-	}
-
-	const height =
-		heightStartMiddle + IMAGE_SIZE * (firstNodeHasCostAtStart ? 2 : 1) + HEIGHT_START_OFFSET;
-
+	let heightStartMiddle = 0;
 	const imageSizeHalf = IMAGE_SIZE / 2;
 	const widthMiddle = width / 2;
 	const widthStartMiddle = widthMiddle - imageSizeHalf;
@@ -338,28 +335,11 @@ function legacyFriendshipTreeLayout(
 		}
 	}
 
-	return normaliseTop({ width, height, lines, nodes });
+	return paddedLayout(width, lines, nodes);
 }
 
 function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTreeLayout {
 	const width = FRIENDSHIP_TREE_WIDTH;
-	let height = IMAGE_SIZE + HEIGHT_START_OFFSET + NEXT_HEIGHT_LEVEL * tree.length;
-	const firstLevelHasNode = tree[0]?.some((node) => node) ?? false;
-
-	if (firstLevelHasNode) {
-		height += ASSET_SIZE;
-	}
-
-	const lastLevel = tree.at(-1);
-
-	if (lastLevel && lastLevel.length > 0) {
-		if (lastLevel.some((node) => node?.seasonPass)) {
-			height += SEASON_ICON_MIDDLE_OFFSET_Y;
-		}
-
-		height -= NEXT_HEIGHT_LEVEL - HEIGHT_START_OFFSET;
-	}
-
 	const imageSizeHalf = IMAGE_SIZE / 2;
 	const widthStartMiddle = width / 2 - imageSizeHalf;
 	const columnX = [
@@ -368,13 +348,10 @@ function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTreeLayout 
 		widthStartMiddle + WIDTH_MODIFIER,
 	];
 
-	let levelHeight =
-		height - IMAGE_SIZE - (firstLevelHasNode ? ASSET_SIZE : 0) - HEIGHT_START_OFFSET;
+	let levelHeight = 0;
 	const nodes: PlacedFriendshipTreeNode[] = [];
 
-	for (let levelIndex = 0; levelIndex < tree.length; levelIndex++) {
-		const level = tree[levelIndex]!;
-
+	for (const level of tree) {
 		for (const [nodeIndex, node] of level.entries()) {
 			if (!node) {
 				continue;
@@ -424,12 +401,10 @@ function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTreeLayout 
 			nodes.push(placed);
 		}
 
-		if (levelIndex !== tree.length - 1) {
-			levelHeight -= NEXT_HEIGHT_LEVEL;
-		}
+		levelHeight -= NEXT_HEIGHT_LEVEL;
 	}
 
-	return normaliseTop({ width, height, lines: [], nodes });
+	return paddedLayout(width, [], nodes);
 }
 
 export function friendshipTreeLayout(

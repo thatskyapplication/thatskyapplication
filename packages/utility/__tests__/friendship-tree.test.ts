@@ -41,7 +41,7 @@ function verticalBounds(layout: FriendshipTreeLayout) {
 	return { top, bottom };
 }
 
-test("Friendship tree layouts keep everything inside their height.", () => {
+function* spiritLayouts() {
 	for (const spirit of spirits().values()) {
 		const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit : null;
 
@@ -53,19 +53,34 @@ test("Friendship tree layouts keep everything inside their height.", () => {
 			: [spirit.displayFriendshipTree];
 
 		for (const tree of trees) {
-			if (!tree || tree.length === 0) {
-				continue;
+			if (tree && tree.length > 0) {
+				yield { spirit, layout: friendshipTreeLayout(tree, seasonal?.seasonId) };
 			}
-
-			const layout = friendshipTreeLayout(tree, seasonal?.seasonId);
-			const { top, bottom } = verticalBounds(layout);
-			ok(top >= 0, `Spirit ${spirit.id} starts ${-top} px above its layout.`);
-
-			ok(
-				bottom <= layout.height,
-				`Spirit ${spirit.id} ends ${bottom - layout.height} px below its layout.`,
-			);
 		}
+	}
+}
+
+test("Friendship tree layouts keep everything inside their height.", () => {
+	for (const { spirit, layout } of spiritLayouts()) {
+		const { top, bottom } = verticalBounds(layout);
+		ok(top >= 0, `Spirit ${spirit.id} starts ${-top} px above its layout.`);
+
+		ok(
+			bottom <= layout.height,
+			`Spirit ${spirit.id} ends ${bottom - layout.height} px below its layout.`,
+		);
+	}
+});
+
+test("Friendship tree layouts leave the same space above and below.", () => {
+	for (const { spirit, layout } of spiritLayouts()) {
+		const { top, bottom } = verticalBounds(layout);
+
+		equal(
+			top,
+			layout.height - bottom,
+			`Spirit ${spirit.id} has ${top} px above and ${layout.height - bottom} px below.`,
+		);
 	}
 });
 
