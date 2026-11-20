@@ -23,6 +23,7 @@ export default new GuideSpirit({
 							{
 								cosmetic: Cosmetic.EmoteRead2,
 								cost: { hearts: 3 },
+								level: 2,
 							},
 						],
 					},
@@ -74,10 +75,12 @@ export default new GuideSpirit({
 					{
 						cosmetic: Cosmetic.EmoteRead3,
 						cost: { candles: 5 },
+						level: 3,
 						children: [
 							{
 								cosmetic: Cosmetic.EmoteRead4,
 								cost: { hearts: 5 },
+								level: 4,
 							},
 						],
 					},
