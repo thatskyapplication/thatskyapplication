@@ -32,10 +32,16 @@ import {
 import { EMOJIS } from "~/utility/emojis.js";
 import { friendshipTreeImageURLs } from "~/utility/friendship-tree.server.js";
 import { hexColour } from "~/utility/functions.js";
-import { spiritHistoryURL, spiritsHistoryPagination } from "~/utility/spirits.js";
+import {
+	SPIRIT_HISTORY_PAGE_SIZE,
+	spiritHistoryURL,
+	spiritsHistoryPagination,
+} from "~/utility/spirits.js";
 import { dateTimeLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/spirits.js";
+
+const SPIRIT_HISTORY_PREVIEW_ENTRIES = 8 as const;
 
 export const meta: Route.MetaFunction = ({ loaderData, location }) => {
 	const selection = loaderData?.selection;
@@ -158,8 +164,11 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 		const { order, page } = spiritsHistoryPagination(url.searchParams);
 
 		container = spiritsHistoryContainer({
+			emojis: EMOJIS,
 			locale,
+			maximumEntries: SPIRIT_HISTORY_PREVIEW_ENTRIES,
 			page,
+			pageSize: SPIRIT_HISTORY_PAGE_SIZE,
 			t,
 			type: order,
 			viewButton: (spiritId) => ({

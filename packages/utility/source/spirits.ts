@@ -10,13 +10,15 @@ import { epochSeconds, skyNow } from "./dates.js";
 import { formatEmoji } from "./emojis/emoji.js";
 import {
 	RETURNING_DATES,
+	SEASONS,
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
 	visitsForSpirit,
 } from "./kingdom/seasons/index.js";
+import { spirits } from "./kingdom/spirits.js";
 import type { SeasonalSpiritVisitTravellingErrorData, Spirit } from "./models/spirits.js";
-import type { MessageFormatting } from "./types/index.js";
-import { sumCosts } from "./utility/functions.js";
+import type { IndividualSpiritVisit, MessageFormatting } from "./types/index.js";
+import { type CostEntry, sumCosts } from "./utility/functions.js";
 import {
 	type FriendshipTree,
 	friendshipTreeFor,
@@ -31,18 +33,13 @@ import {
 	spiritNotReturnedTranslationKey,
 } from "./utility/spirits.js";
 
-export const SPIRITS_HISTORY_PAGE_SIZE = 10 as const;
+export const MAXIMUM_SPIRITS_HISTORY_ENTRIES = 10 as const;
 
 export function spiritWikiMarkdownLink(
 	spiritId: SpiritIds,
 	{ locale, t }: Pick<MessageFormatting, "locale" | "t">,
 ) {
 	return `[${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spiritId}`, { lng: locale, ns: "general" })})`;
-}
-
-export function spiritsHistoryData(type: SpiritsHistoryOrderTypes) {
-	const visits = type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
-	return { maximumPage: Math.max(1, Math.ceil(visits.size / SPIRITS_HISTORY_PAGE_SIZE)), visits };
 }
 
 function visitField(seasonalSpiritVisit: typeof TRAVELLING_DATES | typeof RETURNING_DATES) {
@@ -74,9 +71,7 @@ function visitErrorField(
 		.join("\n");
 }
 
-function friendshipTreeCosts(
-	friendshipTree: FriendshipTree | LegacyFriendshipTree,
-): readonly ItemCost[] {
+export function friendshipTreeTotalCost(friendshipTree: FriendshipTree | LegacyFriendshipTree) {
 	const costs: ItemCost[] = [];
 
 	for (const { cost } of friendshipTreeToItems(friendshipTree)) {
@@ -85,7 +80,70 @@ function friendshipTreeCosts(
 		}
 	}
 
-	return costs;
+	return sumCosts(costs);
+}
+
+const postSeasonCosts = new Map<SpiritIds, { costs: readonly CostEntry[]; units: number }>();
+
+for (const season of SEASONS.values()) {
+	for (const spirit of season.spirits.values()) {
+		const { postSeason } = spirit.friendshipTrees;
+
+		if (!postSeason) {
+			continue;
+		}
+
+		const costs = friendshipTreeTotalCost(postSeason.friendshipTree);
+		let units = 0;
+
+		for (const { amount, type } of costs) {
+			if (type === "candles" || type === "hearts" || type === "ascendedCandles") {
+				units += amount;
+			}
+		}
+
+		postSeasonCosts.set(spirit.id, { costs, units });
+	}
+}
+
+const VISITS_BY_COST = VISITS_ABSENT.filter(({ spiritId }) => postSeasonCosts.has(spiritId)).sort(
+	(a, b) => postSeasonCosts.get(b.spiritId)!.units - postSeasonCosts.get(a.spiritId)!.units,
+);
+
+const SPIRITS_HISTORY_VISITS = {
+	[SpiritsHistoryOrderType.Natural]: TRAVELLING_DATES,
+	[SpiritsHistoryOrderType.Rarity]: VISITS_ABSENT,
+	[SpiritsHistoryOrderType.Cost]: VISITS_BY_COST,
+} as const satisfies Readonly<Record<SpiritsHistoryOrderTypes, unknown>>;
+
+interface SpiritsHistoryEntry {
+	readonly costs: readonly CostEntry[] | null;
+	readonly number: number;
+	readonly spirit: Spirit;
+	readonly visit: IndividualSpiritVisit;
+}
+
+export function spiritsHistoryData(type: SpiritsHistoryOrderTypes, pageSize: number) {
+	const availableSpirits = spirits();
+	const entries: SpiritsHistoryEntry[] = [];
+
+	for (const [key, visit] of SPIRITS_HISTORY_VISITS[type]) {
+		const spirit = availableSpirits.get(visit.spiritId);
+
+		if (spirit) {
+			entries.push({
+				costs:
+					type === SpiritsHistoryOrderType.Cost
+						? (postSeasonCosts.get(visit.spiritId)?.costs ?? null)
+						: null,
+				number: type === SpiritsHistoryOrderType.Natural ? key : entries.length + 1,
+				spirit,
+				visit,
+			});
+		}
+	}
+
+	return { entries, maximumPage: Math.max(1, Math.ceil(entries.length / pageSize)) };
 }
 
 interface SpiritContainerData extends MessageFormatting {
@@ -141,7 +199,7 @@ export function spiritContainer({
 	const totalOffer = [];
 
 	for (const variant of friendshipTreeVariants(spirit)) {
-		const totalCost = sumCosts(friendshipTreeCosts(friendshipTreeFor(spirit, variant)!));
+		const totalCost = friendshipTreeTotalCost(friendshipTreeFor(spirit, variant)!);
 		const totalCostString = resolveCostToString(totalCost, { emojis, locale }).join("");
 
 		if (totalCostString.length > 0) {
@@ -198,22 +256,27 @@ export function spiritContainer({
 	return { type: ComponentType.Container, components };
 }
 
-interface SpiritsHistoryContainerData extends Pick<MessageFormatting, "locale" | "t"> {
+interface SpiritsHistoryContainerData extends MessageFormatting {
+	maximumEntries?: number;
 	page: number;
+	pageSize: number;
 	type: SpiritsHistoryOrderTypes;
 	viewButton: (spiritId: SpiritIds, index: number) => APIButtonComponent;
 }
 
 export function spiritsHistoryContainer({
+	emojis,
 	locale,
+	maximumEntries = MAXIMUM_SPIRITS_HISTORY_ENTRIES,
 	page,
+	pageSize,
 	t,
 	type,
 	viewButton,
 }: SpiritsHistoryContainerData) {
-	const offset = (page - 1) * SPIRITS_HISTORY_PAGE_SIZE;
-	const limit = offset + SPIRITS_HISTORY_PAGE_SIZE;
-	const { maximumPage, visits } = spiritsHistoryData(type);
+	const offset = (page - 1) * pageSize;
+	const limit = offset + Math.min(pageSize, maximumEntries);
+	const { entries, maximumPage } = spiritsHistoryData(type, pageSize);
 
 	const components: APIComponentInContainer[] = [
 		{
@@ -228,26 +291,30 @@ export function spiritsHistoryContainer({
 	];
 
 	for (let index = offset; index < limit; index++) {
-		const visit = visits.at(index);
+		const entry = entries.at(index);
 
-		if (!visit) {
+		if (!entry) {
 			break;
 		}
 
-		const { spiritId, start } = visit;
-		const visitNumber =
-			type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES.keyAt(index) : null;
+		const { costs, number, spirit, visit } = entry;
 
 		// Need to escape # otherwise Discord will not render the heading correctly.
-		const heading = `###${visitNumber === null || visitNumber === undefined ? "" : ` \\#${visitNumber}`} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
+		const heading = `### \\#${number} ${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}`;
 
-		const startUnix = epochSeconds(start);
-		const lastVisited = `<t:${startUnix}:s> (<t:${startUnix}:R>)`;
+		let detail: string;
+
+		if (costs === null) {
+			const startUnix = epochSeconds(visit.start);
+			detail = `<t:${startUnix}:s> (<t:${startUnix}:R>)`;
+		} else {
+			detail = resolveCostToString(costs, { emojis, locale }).join("");
+		}
 
 		components.push({
 			type: ComponentType.Section,
-			accessory: viewButton(spiritId, index),
-			components: [{ type: ComponentType.TextDisplay, content: `${heading}\n\n${lastVisited}` }],
+			accessory: viewButton(spirit.id, index),
+			components: [{ type: ComponentType.TextDisplay, content: `${heading}\n\n${detail}` }],
 		});
 	}
 

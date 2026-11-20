@@ -1,16 +1,18 @@
 import { clsx } from "clsx";
-import { ArrowRight, CalendarDays, Hourglass } from "lucide-react";
+import { CalendarDays, Coins, Hourglass, type LucideIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import {
+	type CostEntry,
 	type IndividualSpiritVisit,
-	SPIRITS_HISTORY_PAGE_SIZE,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
+	SPIRITS_HISTORY_ORDER_LABEL_KEYS,
+	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	SPIRITS_HISTORY_TITLE_KEYS,
 	type Spirit,
-	spirits,
 } from "@thatskyapplication/utility";
+import { CostList } from "~/components/catalogue/CostList.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import Pagination from "~/components/Pagination.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
@@ -18,6 +20,8 @@ import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { formatRelativeTime } from "~/utility/relative-time.js";
 import {
 	SPIRIT_HISTORY_LOCATION_STATE,
+	SPIRIT_HISTORY_PAGE_SIZE,
+	spiritHistoryOrderURL,
 	spiritsHistoryPagination,
 	spiritURL,
 } from "~/utility/spirits.js";
@@ -25,43 +29,36 @@ import type { DateTimeLabels } from "~/utility/time.js";
 import { VisitNumber } from "./VisitNumber.js";
 
 const ORDER_LINK_CLASS =
-	"flex min-w-0 flex-1 items-center justify-center gap-2 rounded-md px-3 py-2 text-center text-sm font-medium transition-colors" as const;
+	"flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-md px-2 py-2 text-center text-xs font-medium wrap-anywhere transition-colors sm:flex-row sm:gap-2 sm:px-3 sm:text-sm" as const;
 
-function orderURL(searchParams: URLSearchParams, order: SpiritsHistoryOrderTypes) {
-	const parameters = new URLSearchParams(searchParams);
-	parameters.delete("page");
-	parameters.delete("spirit");
-
-	if (order === SpiritsHistoryOrderType.Rarity) {
-		parameters.set("order", "rarity");
-	} else {
-		parameters.delete("order");
-	}
-
-	const query = parameters.toString();
-	return query.length > 0 ? `?${query}` : "/spirits";
-}
+const SPIRITS_HISTORY_ORDER_ICONS = {
+	[SpiritsHistoryOrderType.Natural]: CalendarDays,
+	[SpiritsHistoryOrderType.Rarity]: Hourglass,
+	[SpiritsHistoryOrderType.Cost]: Coins,
+} as const satisfies Readonly<Record<SpiritsHistoryOrderTypes, LucideIcon>>;
 
 function SpiritHistoryEntry({
+	costs,
 	dateTimeLabels,
 	locale,
 	now,
+	number,
 	searchParams,
 	spirit,
 	timeZone,
 	timeZoneEstimated,
 	visit,
-	visitNumber,
 }: {
+	costs: readonly CostEntry[] | null;
 	dateTimeLabels: DateTimeLabels;
 	locale: string;
 	now: number;
+	number: number;
 	searchParams: URLSearchParams;
 	spirit: Spirit;
 	timeZone: string;
 	timeZoneEstimated: boolean;
 	visit: IndividualSpiritVisit;
-	visitNumber: number | null;
 }) {
 	const { t } = useTranslation();
 	const timestamp = visit.start.toInstant().epochMilliseconds;
@@ -70,35 +67,42 @@ function SpiritHistoryEntry({
 
 	return (
 		<Link
-			className="group grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-sm transition-colors hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50"
+			className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-lg border border-gray-200 bg-gray-100 p-3 shadow-sm transition-colors hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 			state={SPIRIT_HISTORY_LOCATION_STATE}
 			to={spiritURL(searchParams, spirit.id)}
 		>
 			{seasonEmoji ? (
-				<EmojiIcon className="h-7 w-7 sm:h-8 sm:w-8" emoji={seasonEmoji} />
+				<EmojiIcon className="h-7 w-7" emoji={seasonEmoji} />
 			) : (
-				<span aria-hidden="true" className="h-7 w-7 sm:h-8 sm:w-8" />
+				<span aria-hidden="true" className="h-7 w-7" />
 			)}
 			<div className="min-w-0">
-				<div className="flex min-w-0 items-baseline gap-2">
-					{visitNumber === null ? null : <VisitNumber visit={visitNumber} />}
-					<h3 className="truncate text-base font-semibold text-gray-900 dark:text-gray-100">
+				<div className="flex min-w-0 items-center gap-2">
+					<VisitNumber visit={number} />
+					<h3 className="min-w-0 text-sm font-semibold wrap-break-word text-gray-900 dark:text-gray-100">
 						{t(`spirits.${spirit.id}`, { ns: "general" })}
 					</h3>
 				</div>
-				<div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-gray-600 dark:text-gray-400">
-					<time dateTime={visit.start.toInstant().toString()}>
-						{timeZoneEstimated ? (
-							<SkeletonText>{dateTimeLabels[timestamp]}</SkeletonText>
-						) : (
-							dateTimeLabels[timestamp]
-						)}
-					</time>
-					<span aria-hidden="true">·</span>
-					<span>{formatRelativeTime(timestamp, now, locale, timeZone)}</span>
+				<div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-gray-600 md:flex-col md:items-start dark:text-gray-400">
+					{costs === null ? (
+						<>
+							<time dateTime={visit.start.toInstant().toString()}>
+								{timeZoneEstimated ? (
+									<SkeletonText>{dateTimeLabels[timestamp]}</SkeletonText>
+								) : (
+									dateTimeLabels[timestamp]
+								)}
+							</time>
+							<span aria-hidden="true" className="md:hidden">
+								·
+							</span>
+							<span>{formatRelativeTime(timestamp, now, locale, timeZone)}</span>
+						</>
+					) : (
+						<CostList costs={costs} locale={locale} />
+					)}
 				</div>
 			</div>
-			<ArrowRight className="h-4 w-4 text-gray-500 transition-transform group-hover:translate-x-0.5 dark:text-gray-400" />
 		</Link>
 	);
 }
@@ -119,33 +123,9 @@ export function SpiritHistory({
 	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
-	const {
-		maximumPage,
-		order,
-		page: currentPage,
-		visits: sourceHistory,
-	} = spiritsHistoryPagination(searchParams);
-	const availableSpirits = spirits();
-	const history: {
-		spirit: Spirit;
-		visit: IndividualSpiritVisit;
-		visitNumber: number | null;
-	}[] = [];
-
-	for (const [key, visit] of sourceHistory) {
-		const spirit = availableSpirits.get(visit.spiritId);
-
-		if (spirit) {
-			history.push({
-				spirit,
-				visit,
-				visitNumber: order === SpiritsHistoryOrderType.Natural ? key : null,
-			});
-		}
-	}
-
-	const offset = (currentPage - 1) * SPIRITS_HISTORY_PAGE_SIZE;
-	const visits = history.slice(offset, offset + SPIRITS_HISTORY_PAGE_SIZE);
+	const { entries, maximumPage, order, page: currentPage } = spiritsHistoryPagination(searchParams);
+	const offset = (currentPage - 1) * SPIRIT_HISTORY_PAGE_SIZE;
+	const pageEntries = entries.slice(offset, offset + SPIRIT_HISTORY_PAGE_SIZE);
 
 	return (
 		<section aria-labelledby="spirit-history-title" className="flex flex-col gap-5">
@@ -153,51 +133,46 @@ export function SpiritHistory({
 				aria-label={t("spirits.order-label", { ns: "features" })}
 				className="flex gap-1 rounded-lg border border-gray-200 bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900"
 			>
-				<Link
-					aria-current={order === SpiritsHistoryOrderType.Natural ? "true" : undefined}
-					className={clsx(
-						ORDER_LINK_CLASS,
-						order === SpiritsHistoryOrderType.Natural
-							? "bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-gray-100"
-							: "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100",
-					)}
-					to={orderURL(searchParams, SpiritsHistoryOrderType.Natural)}
-				>
-					<CalendarDays aria-hidden="true" className="h-4 w-4 shrink-0" />
-					{t("spirits.order-natural", { ns: "features" })}
-				</Link>
-				<Link
-					aria-current={order === SpiritsHistoryOrderType.Rarity ? "true" : undefined}
-					className={clsx(
-						ORDER_LINK_CLASS,
-						order === SpiritsHistoryOrderType.Rarity
-							? "bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-gray-100"
-							: "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100",
-					)}
-					to={orderURL(searchParams, SpiritsHistoryOrderType.Rarity)}
-				>
-					<Hourglass aria-hidden="true" className="h-4 w-4 shrink-0" />
-					{t("spirits.order-rarity", { ns: "features" })}
-				</Link>
+				{SPIRITS_HISTORY_ORDER_TYPE_VALUES.map((orderType) => {
+					const Icon = SPIRITS_HISTORY_ORDER_ICONS[orderType];
+
+					return (
+						<Link
+							aria-current={order === orderType ? "true" : undefined}
+							className={clsx(
+								ORDER_LINK_CLASS,
+								order === orderType
+									? "bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-gray-100"
+									: "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100",
+							)}
+							key={orderType}
+							to={spiritHistoryOrderURL(searchParams, orderType)}
+						>
+							<Icon aria-hidden="true" className="h-4 w-4 shrink-0" />
+							{t(SPIRITS_HISTORY_ORDER_LABEL_KEYS[orderType], { ns: "features" })}
+						</Link>
+					);
+				})}
 			</nav>
 
 			<h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100" id="spirit-history-title">
 				{t(SPIRITS_HISTORY_TITLE_KEYS[order], { ns: "features" })}
 			</h2>
 
-			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-				{visits.map(({ spirit, visit, visitNumber }) => (
+			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+				{pageEntries.map(({ costs, number, spirit, visit }) => (
 					<SpiritHistoryEntry
+						costs={costs}
 						dateTimeLabels={dateTimeLabels}
 						key={`${visit.spiritId}-${visit.start.epochMilliseconds}`}
 						locale={locale}
 						now={now}
+						number={number}
 						searchParams={searchParams}
 						spirit={spirit}
 						timeZone={timeZone}
 						timeZoneEstimated={timeZoneEstimated}
 						visit={visit}
-						visitNumber={visitNumber}
 					/>
 				))}
 			</div>

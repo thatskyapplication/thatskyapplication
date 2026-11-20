@@ -4,6 +4,7 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionResponseCallbackData,
 	type APIMessageComponentButtonInteraction,
+	type APIMessageComponentSelectMenuInteraction,
 	ButtonStyle,
 	ComponentType,
 	MessageFlags,
@@ -12,8 +13,10 @@ import { getFixedT, t } from "i18next";
 import {
 	friendshipTreeVariants,
 	isSpiritsHistoryOrderType,
+	MAXIMUM_SPIRITS_HISTORY_ENTRIES,
 	type SpiritIds,
-	SpiritsHistoryOrderType,
+	SPIRITS_HISTORY_ORDER_LABEL_KEYS,
+	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	type SpiritsHistoryOrderTypes,
 	spiritContainer,
 	spirits,
@@ -189,14 +192,19 @@ interface SpiritsHistoryOptions {
 }
 
 export async function spiritsHistory(
-	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+	interaction:
+		| APIChatInputApplicationCommandInteraction
+		| APIMessageComponentButtonInteraction
+		| APIMessageComponentSelectMenuInteraction,
 	{ page, type, ephemeral, newMessage }: SpiritsHistoryOptions,
 ) {
 	const { locale } = interaction;
 
 	const { container, maximumPage } = spiritsHistoryContainer({
+		emojis: EMOJIS,
 		locale,
 		page,
+		pageSize: MAXIMUM_SPIRITS_HISTORY_ENTRIES,
 		t: getFixedT(locale),
 		type,
 		viewButton: (spiritId, index) => ({
@@ -208,49 +216,51 @@ export async function spiritsHistory(
 		}),
 	});
 
-	container.components.push({
-		type: ComponentType.ActionRow,
-		components: [
-			{
-				type: ComponentType.Button,
-				custom_id: generateSpiritsHistoryCustomId({
-					prefix: CustomId.SpiritsHistoryBack,
-					type,
-					page: page === 1 ? maximumPage : page - 1,
-				}),
-				emoji: { name: "⬅️" },
-				label: t("navigation-back", { lng: locale, ns: "general" }),
-				style: ButtonStyle.Secondary,
-			},
-			{
-				type: ComponentType.Button,
-				custom_id: generateSpiritsHistoryCustomId({
-					prefix: CustomId.SpiritsHistoryNext,
-					type:
-						type === SpiritsHistoryOrderType.Natural
-							? SpiritsHistoryOrderType.Rarity
-							: SpiritsHistoryOrderType.Natural,
-					page: 1,
-				}),
-				label:
-					type === SpiritsHistoryOrderType.Natural
-						? t("spirits.order-rarity", { lng: locale, ns: "features" })
-						: t("spirits.order-natural", { lng: locale, ns: "features" }),
-				style: ButtonStyle.Primary,
-			},
-			{
-				type: ComponentType.Button,
-				custom_id: generateSpiritsHistoryCustomId({
-					prefix: CustomId.SpiritsHistoryNext,
-					type,
-					page: page === maximumPage ? 1 : page + 1,
-				}),
-				emoji: { name: "➡️" },
-				label: t("navigation-next", { lng: locale, ns: "general" }),
-				style: ButtonStyle.Secondary,
-			},
-		],
-	});
+	container.components.push(
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: CustomId.SpiritsHistoryOrder,
+					max_values: 1,
+					min_values: 1,
+					options: SPIRITS_HISTORY_ORDER_TYPE_VALUES.map((order) => ({
+						label: t(SPIRITS_HISTORY_ORDER_LABEL_KEYS[order], { lng: locale, ns: "features" }),
+						value: order.toString(),
+						default: order === type,
+					})),
+				},
+			],
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: generateSpiritsHistoryCustomId({
+						prefix: CustomId.SpiritsHistoryBack,
+						type,
+						page: page === 1 ? maximumPage : page - 1,
+					}),
+					emoji: { name: "⬅️" },
+					label: t("navigation-back", { lng: locale, ns: "general" }),
+					style: ButtonStyle.Secondary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: generateSpiritsHistoryCustomId({
+						prefix: CustomId.SpiritsHistoryNext,
+						type,
+						page: page === maximumPage ? 1 : page + 1,
+					}),
+					emoji: { name: "➡️" },
+					label: t("navigation-next", { lng: locale, ns: "general" }),
+					style: ButtonStyle.Secondary,
+				},
+			],
+		},
+	);
 
 	const response = {
 		components: [container],
@@ -266,4 +276,14 @@ export async function spiritsHistory(
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
+}
+
+export async function spiritsHistoryOrder(interaction: APIMessageComponentSelectMenuInteraction) {
+	const type = Number(interaction.data.values[0]);
+
+	if (!isSpiritsHistoryOrderType(type)) {
+		throw new Error(`Invalid spirits history order type: ${type}`);
+	}
+
+	await spiritsHistory(interaction, { type, page: 1 });
 }

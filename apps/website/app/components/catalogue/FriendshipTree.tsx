@@ -17,9 +17,9 @@ import {
 	friendshipTreeLevelBadge,
 	friendshipTreeTextScale,
 	friendshipTreeToItems,
+	friendshipTreeTotalCost,
 	IMAGE_SIZE,
 	type Item,
-	type ItemCost,
 	type LegacyFriendshipTree,
 	LEVEL_BADGE_FONT_SIZE,
 	LINE_WIDTH,
@@ -348,15 +348,7 @@ export function FriendshipTree(props: FriendshipTreeProps) {
 		return nextData;
 	}, [data, fetchers]);
 	const items = friendshipTreeToItems(tree);
-	const itemCosts: ItemCost[] = [];
-
-	for (const { cost } of items) {
-		if (cost !== null) {
-			itemCosts.push(cost);
-		}
-	}
-
-	const totalCosts = sumCosts(itemCosts);
+	const totalCosts = friendshipTreeTotalCost(tree);
 	const costs =
 		optimisticData === null
 			? totalCosts

@@ -348,7 +348,8 @@ export {
 } from "./sky-profile.js";
 export { skyProfileCatalogueStatistics, skyProfileContainer } from "./sky-profile-container.js";
 export {
-	SPIRITS_HISTORY_PAGE_SIZE,
+	friendshipTreeTotalCost,
+	MAXIMUM_SPIRITS_HISTORY_ENTRIES,
 	spiritContainer,
 	spiritsHistoryContainer,
 	spiritsHistoryData,
@@ -393,6 +394,7 @@ export {
 	isSpiritId,
 	isSpiritsHistoryOrderType,
 	type LegacyFriendshipTree,
+	SPIRITS_HISTORY_ORDER_LABEL_KEYS,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	SPIRITS_HISTORY_TITLE_KEYS,
 	SpiritId,

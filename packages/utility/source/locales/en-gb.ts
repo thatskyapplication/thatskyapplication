@@ -2417,6 +2417,7 @@ export default {
 					[SpiritsHistoryOrderType.Natural]: "Order by appearance (chronological order).",
 					[SpiritsHistoryOrderType.Rarity]:
 						"Order by rarity (spirits that have not returned in a long time).",
+					[SpiritsHistoryOrderType.Cost]: "Order by cost (most expensive friendship trees first).",
 				} satisfies Record<SpiritsHistoryOrderTypes, string>,
 			},
 			search: {
@@ -3316,10 +3317,12 @@ export default {
 			title: {
 				[SpiritsHistoryOrderType.Natural]: "Spirit history",
 				[SpiritsHistoryOrderType.Rarity]: "Spirit rarity",
+				[SpiritsHistoryOrderType.Cost]: "Spirit cost",
 			} satisfies Record<SpiritsHistoryOrderTypes, string>,
 			"order-natural": "Order by appearance",
 			"order-label": "Spirit history order",
 			"order-rarity": "Order by rarity",
+			"order-cost": "Order by cost",
 		},
 		thatskylink: {
 			description: "A link redirector for Sky: Children of the Light.",

@@ -477,6 +477,7 @@ export type FriendshipTree = readonly (readonly [
 export const SpiritsHistoryOrderType = {
 	Natural: 0,
 	Rarity: 1,
+	Cost: 2,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type SpiritsHistoryOrderTypes =
@@ -485,6 +486,13 @@ export type SpiritsHistoryOrderTypes =
 export const SPIRITS_HISTORY_TITLE_KEYS = {
 	[SpiritsHistoryOrderType.Natural]: `spirits.title.${SpiritsHistoryOrderType.Natural}`,
 	[SpiritsHistoryOrderType.Rarity]: `spirits.title.${SpiritsHistoryOrderType.Rarity}`,
+	[SpiritsHistoryOrderType.Cost]: `spirits.title.${SpiritsHistoryOrderType.Cost}`,
+} as const satisfies Readonly<Record<SpiritsHistoryOrderTypes, string>>;
+
+export const SPIRITS_HISTORY_ORDER_LABEL_KEYS = {
+	[SpiritsHistoryOrderType.Natural]: "spirits.order-natural",
+	[SpiritsHistoryOrderType.Rarity]: "spirits.order-rarity",
+	[SpiritsHistoryOrderType.Cost]: "spirits.order-cost",
 } as const satisfies Readonly<Record<SpiritsHistoryOrderTypes, string>>;
 
 export const SPIRITS_HISTORY_ORDER_TYPE_VALUES = Object.values(SpiritsHistoryOrderType);

@@ -123,6 +123,7 @@ import {
 } from "../features/sky-profile/index.js";
 import {
 	spiritsHistory,
+	spiritsHistoryOrder,
 	spiritsParseSpiritsHistoryCustomId,
 	spiritsViewSpirit,
 } from "../features/spirits.js";
@@ -1071,6 +1072,11 @@ export default {
 					SKY_PROFILE_EXPLORER_LIKES.includes(id as (typeof SKY_PROFILE_EXPLORER_LIKES)[number])
 				) {
 					await skyProfileExploreLikedProfile(data);
+					return;
+				}
+
+				if (id === CustomId.SpiritsHistoryOrder) {
+					await spiritsHistoryOrder(data);
 					return;
 				}
 
