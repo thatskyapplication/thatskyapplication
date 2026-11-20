@@ -2081,7 +2081,8 @@
 				"command-option-order-description": "精霊の表示順を選択します。",
 				"command-option-order-choice-name": {
 					"0": "再訪順（時系列昇順）。",
-					"1": "レア度順（精霊単体の再訪降順）。"
+					"1": "レア度順（精霊単体の再訪降順）。",
+					"2": ""
 				}
 			},
 			"search": {
@@ -2851,11 +2852,13 @@
 			},
 			"title": {
 				"0": "",
-				"1": ""
+				"1": "",
+				"2": ""
 			},
 			"order-natural": "再訪順",
 			"order-label": "",
-			"order-rarity": "レア度順"
+			"order-rarity": "レア度順",
+			"order-cost": ""
 		},
 		"thatskylink": {
 			"description": "",

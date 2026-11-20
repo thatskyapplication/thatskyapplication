@@ -2086,7 +2086,8 @@
 				"command-option-order-description": "Choisissez un type d'ordre pour les esprits.",
 				"command-option-order-choice-name": {
 					"0": "Ordre par apparence (ordre chronologique).",
-					"1": "Ordre par rareté (esprits qui ne sont pas revenus depuis un certain moment)."
+					"1": "Ordre par rareté (esprits qui ne sont pas revenus depuis un certain moment).",
+					"2": ""
 				}
 			},
 			"search": {
@@ -2882,11 +2883,13 @@
 			},
 			"title": {
 				"0": "",
-				"1": ""
+				"1": "",
+				"2": ""
 			},
 			"order-natural": "Ordre d'apparence",
 			"order-label": "",
-			"order-rarity": "Ordre de rareté"
+			"order-rarity": "Ordre de rareté",
+			"order-cost": ""
 		},
 		"thatskylink": {
 			"description": "",

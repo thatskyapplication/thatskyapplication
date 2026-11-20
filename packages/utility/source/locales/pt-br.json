@@ -2086,7 +2086,8 @@
 				"command-option-order-description": "Escolha um tipo de ordem para os espíritos.",
 				"command-option-order-choice-name": {
 					"0": "Ordenar por aparência (ordem cronológica).",
-					"1": "Ordenar por raridade (espíritos que não retornam há bastante tempo)."
+					"1": "Ordenar por raridade (espíritos que não retornam há bastante tempo).",
+					"2": ""
 				}
 			},
 			"search": {
@@ -2305,7 +2306,7 @@
 				"large-placeable-props": "Apetrechos grandes",
 				"small-placeable-props": "Apetrechos pequenos"
 			},
-			"source_one": "",
+			"source_one": "Resultado",
 			"source_other": "Resultados"
 		},
 		"daily-guides": {
@@ -2882,11 +2883,13 @@
 			},
 			"title": {
 				"0": "Histórico de espíritos",
-				"1": "Raridade de espíritos"
+				"1": "Raridade de espíritos",
+				"2": ""
 			},
 			"order-natural": "Ordenar por aparência",
 			"order-label": "Ordem por histórico de espíritos",
-			"order-rarity": "Ordenar por raridade"
+			"order-rarity": "Ordenar por raridade",
+			"order-cost": ""
 		},
 		"thatskylink": {
 			"description": "Um redirecionador de links para Sky: Filhos da Luz.",
@@ -2934,24 +2937,24 @@
 			"hug-missing-permissions": "Preciso das seguintes permissões para fazer isso:\n- `Ver Canais`\n- `Enviar mensagens`\n- `Ver Histórico de Mensagens`\nAlguém precisa ajustar as permissões!"
 		},
 		"whats-happening-in-sky": {
-			"name": "",
-			"description-short": "",
-			"ends-today": "",
-			"day-of": "",
-			"owned": "",
-			"still-to-earn": "",
-			"seasonal-candles-left": "",
+			"name": "O que está acontecendo em Sky?",
+			"description-short": "Encontre o que fazer em Sky agora mesmo!",
+			"ends-today": "Acaba hoje",
+			"day-of": "Dia {{day}} de {{total}}",
+			"owned": "Possuídos: {{owned}}/{{total}}",
+			"still-to-earn": "Ainda falta obter:",
+			"seasonal-candles-left": "{{remaining}} ({{remainingSeasonPass}} com o Passe de Temporada)",
 			"event-tickets-left": "",
-			"remaining": "",
-			"sign-in-prompt": "",
-			"catalogue-prompt": "",
-			"upcoming-season": "",
-			"latest-updates": "",
-			"this-month-in-sky": "",
-			"days-left_one": "",
-			"days-left_other": "",
-			"upcoming-events_one": "",
-			"upcoming-events_other": ""
+			"remaining": "Restantes:",
+			"sign-in-prompt": "Entre na sua conta para ver o que está faltando.",
+			"catalogue-prompt": "Marque os itens que você possui no seu catálogo para ver o que está faltando.",
+			"upcoming-season": "Próxima temporada",
+			"latest-updates": "Ultimas atualizações",
+			"this-month-in-sky": "Este Mês em Sky",
+			"days-left_one": "{{count}} dia restante",
+			"days-left_other": "{{count}} dias restantes",
+			"upcoming-events_one": "Próximo evento",
+			"upcoming-events_other": "Próximos eventos"
 		}
 	}
 }
