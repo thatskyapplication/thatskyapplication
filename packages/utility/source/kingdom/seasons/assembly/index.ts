@@ -24,7 +24,7 @@ export default new Season({
 	],
 	seasonalCandlesRotation: null,
 	doubleSeasonalLight: {
-		identifier: "1+2",
+		identifier: "3+4",
 		dates: [{ start: skyDate(2021, 5, 3), end: skyDate(2021, 5, 10) }],
 	},
 });
