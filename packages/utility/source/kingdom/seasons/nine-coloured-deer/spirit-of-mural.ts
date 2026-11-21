@@ -92,5 +92,56 @@ export default new GuideSpirit({
 				],
 			],
 		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.SpiritOfMuralQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.SpiritOfMuralQuest2,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.SpiritOfMuralHeart1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.SpiritOfMuralQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.SpiritOfMuralHeart2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.SpiritOfMuralQuest4,
+					},
+					{
+						translation: CosmeticCommon.HairAccessory,
+						cosmetic: Cosmetic.SpiritOfMuralHairAccessory,
+						cost: { candles: 50 },
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.SpiritOfMuralHeart3,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.SpiritOfMuralQuest5,
+					},
+				],
+			],
+		},
 	},
 });

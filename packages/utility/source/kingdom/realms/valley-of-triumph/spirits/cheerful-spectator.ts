@@ -7,19 +7,12 @@ export default new StandardSpirit({
 	id: SpiritId.CheerfulSpectator,
 	area: AreaName.TempleOfTheValley,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteCheer1 }],
 		[
-			{ cosmetic: Cosmetic.EmoteCheer1 },
 			{
 				cosmetic: Cosmetic.EmoteCheer2,
 				cost: { candles: 3 },
 				level: 2,
-			},
-		],
-		[
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.CheerfulSpectatorBlessing1,
-				cost: { candles: 1 },
 			},
 			{
 				translation: CosmeticCommon.Hair,
@@ -27,16 +20,18 @@ export default new StandardSpirit({
 				cost: { hearts: 5 },
 			},
 			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.CheerfulSpectatorHeart,
-				cost: { candles: 3 },
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.CheerfulSpectatorBlessing1,
+				cost: { candles: 1 },
 			},
 		],
 		[
+			null,
+			null,
 			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.CheerfulSpectatorWingBuff,
-				cost: { ascendedCandles: 2 },
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.CheerfulSpectatorHeart,
+				cost: { candles: 3 },
 			},
 		],
 		[
@@ -46,12 +41,10 @@ export default new StandardSpirit({
 				level: 3,
 			},
 			{
-				cosmetic: Cosmetic.EmoteCheer4,
-				cost: { candles: 4 },
-				level: 4,
+				translation: CosmeticCommon.WingBuff,
+				cosmetic: Cosmetic.CheerfulSpectatorWingBuff,
+				cost: { ascendedCandles: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CheerfulSpectatorBlessing2,
@@ -59,6 +52,11 @@ export default new StandardSpirit({
 			},
 		],
 		[
+			{
+				cosmetic: Cosmetic.EmoteCheer4,
+				cost: { candles: 4 },
+				level: 4,
+			},
 			{
 				cosmetic: Cosmetic.CheerfulSpectatorPiano,
 				cost: { hearts: 10 },

@@ -7,15 +7,13 @@ export default new StandardSpirit({
 	id: SpiritId.PoliteScholar,
 	area: AreaName.LowerVault,
 	friendshipTree: [
+		[{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StancePolite }],
 		[
-			{ translation: CosmeticCommon.Stance, cosmetic: Cosmetic.StancePolite },
 			{
 				translation: CosmeticCommon.Outfit,
 				cosmetic: Cosmetic.PoliteScholarOutfit,
 				cost: { hearts: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.PoliteScholarBlessing1,
@@ -33,8 +31,6 @@ export default new StandardSpirit({
 				cosmetic: Cosmetic.PoliteScholarWingBuff,
 				cost: { ascendedCandles: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PoliteScholarBlessing2,

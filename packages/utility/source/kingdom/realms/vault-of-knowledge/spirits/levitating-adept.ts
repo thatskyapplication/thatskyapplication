@@ -7,19 +7,12 @@ export default new StandardSpirit({
 	id: SpiritId.LevitatingAdept,
 	area: AreaName.VaultRest,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmoteTelekinesis1 }],
 		[
-			{ cosmetic: Cosmetic.EmoteTelekinesis1 },
 			{
 				cosmetic: Cosmetic.EmoteTelekinesis2,
 				cost: { candles: 5 },
 				level: 2,
-			},
-		],
-		[
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.LevitatingAdeptBlessing1,
-				cost: { candles: 1 },
 			},
 			{
 				translation: CosmeticCommon.Hair,
@@ -27,16 +20,18 @@ export default new StandardSpirit({
 				cost: { hearts: 5 },
 			},
 			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.LevitatingAdeptHeart,
-				cost: { candles: 3 },
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.LevitatingAdeptBlessing1,
+				cost: { candles: 1 },
 			},
 		],
 		[
+			null,
+			null,
 			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.LevitatingAdeptWingBuff,
-				cost: { ascendedCandles: 2 },
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.LevitatingAdeptHeart,
+				cost: { candles: 3 },
 			},
 		],
 		[
@@ -46,12 +41,10 @@ export default new StandardSpirit({
 				level: 3,
 			},
 			{
-				cosmetic: Cosmetic.EmoteTelekinesis4,
-				cost: { candles: 7 },
-				level: 4,
+				translation: CosmeticCommon.WingBuff,
+				cosmetic: Cosmetic.LevitatingAdeptWingBuff,
+				cost: { ascendedCandles: 2 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.LevitatingAdeptBlessing2,
@@ -59,6 +52,11 @@ export default new StandardSpirit({
 			},
 		],
 		[
+			{
+				cosmetic: Cosmetic.EmoteTelekinesis4,
+				cost: { candles: 7 },
+				level: 4,
+			},
 			{
 				translation: CosmeticCommon.FaceAccessory,
 				cosmetic: Cosmetic.LevitatingAdeptFaceAccessory,

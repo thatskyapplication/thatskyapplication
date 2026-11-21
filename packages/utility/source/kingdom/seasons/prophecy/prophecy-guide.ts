@@ -19,7 +19,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 						cosmetic: Cosmetic.ProphecyGuideHeart1,
-						cost: { candles: 3 },
 					},
 					{
 						translation: CosmeticCommon.Pendant,
@@ -47,7 +46,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.ProphecyGuideHeart2,
-						cost: { candles: 3 },
 					},
 				],
 				[
@@ -58,6 +56,49 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 						cosmetic: Cosmetic.ProphecyGuideHeart3,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.ProphecyGuideQuest4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.ProphecyGuideHeart4,
+					},
+				],
+			],
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.ProphecyGuideQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.ProphecyGuideQuest2,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.ProphecyGuideHeart1,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.ProphecyGuideQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.ProphecyGuideHeart2,
 						cost: { candles: 3 },
 					},
 				],
@@ -66,13 +107,22 @@ export default new GuideSpirit({
 						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 						cosmetic: Cosmetic.ProphecyGuideQuest4,
 					},
+					{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.ProphecyGuideFriendActionHug },
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.ProphecyGuideHeart3,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					null,
+					null,
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
 						cosmetic: Cosmetic.ProphecyGuideHeart4,
 						cost: { candles: 3 },
 					},
 				],
-				[{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.ProphecyGuideFriendActionHug }],
 			],
 		},
 	},
