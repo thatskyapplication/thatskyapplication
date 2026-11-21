@@ -106,6 +106,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	const nestingWorkshop = formData.get("nesting_workshop");
 	const lightmending = formData.get("lightmending");
 	const doNotDisturbBlessing = formData.get("do_not_disturb");
+	const aviaryVillageCafeBun = formData.get("aviary_village_cafe_bun");
 	const eventTickets = formData.get("event_tickets");
 	const now = new Date();
 
@@ -155,6 +156,10 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 
 		if (doNotDisturbBlessing !== null) {
 			payload.do_not_disturb = doNotDisturbBlessing === "0";
+		}
+
+		if (aviaryVillageCafeBun !== null) {
+			payload.aviary_village_cafe_bun = aviaryVillageCafeBun === "0";
 		}
 
 		if (eventTickets !== null) {
@@ -327,6 +332,10 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		"do_not_disturb",
 		checklistPacket?.do_not_disturb ?? false,
 	);
+	const [aviaryVillageCafeBunFetcher, aviaryVillageCafeBunComplete] = useChecklistToggle(
+		"aviary_village_cafe_bun",
+		checklistPacket?.aviary_village_cafe_bun ?? false,
+	);
 	const [eventTicketsFetcher, eventTicketsComplete] = useChecklistToggle(
 		"event_tickets",
 		checklistPacket?.event_tickets ?? false,
@@ -340,6 +349,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 	const nestingWorkshopVisible = !checklistPacket?.nesting_workshop_hidden;
 	const lightmendingVisible = !checklistPacket?.lightmending_hidden;
 	const doNotDisturbBlessingVisible = !checklistPacket?.do_not_disturb_hidden;
+	const aviaryVillageCafeBunVisible = !checklistPacket?.aviary_village_cafe_bun_hidden;
 	const eventTicketsVisible = eventsWithEventTickets > 0 && !checklistPacket?.event_tickets_hidden;
 
 	const nothingVisible = !(
@@ -351,6 +361,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		nestingWorkshopVisible ||
 		lightmendingVisible ||
 		doNotDisturbBlessingVisible ||
+		aviaryVillageCafeBunVisible ||
 		eventTicketsVisible
 	);
 
@@ -784,6 +795,56 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 									</div>
 								</button>
 							</doNotDisturbBlessingFetcher.Form>
+						</div>
+					)}
+
+					{aviaryVillageCafeBunVisible && (
+						<div>
+							<aviaryVillageCafeBunFetcher.Form className="flex h-full w-full" method="post">
+								<input
+									name="aviary_village_cafe_bun"
+									type="hidden"
+									value={Number(aviaryVillageCafeBunComplete)}
+								/>
+								<button
+									className={clsx(
+										CHECKLIST_INTERACTIVE_CARD_CLASS,
+										aviaryVillageCafeBunComplete
+											? COMPLETE_CARD_CLASS
+											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+									)}
+									type="submit"
+								>
+									<div className="shrink-0">
+										{aviaryVillageCafeBunComplete ? (
+											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+										) : (
+											<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
+										)}
+									</div>
+									<div className="min-w-0 flex-1 text-left">
+										<div
+											className={clsx(
+												CHECKLIST_LABEL_CLASS,
+												aviaryVillageCafeBunComplete
+													? CHECKLIST_COMPLETE_LABEL_CLASS
+													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+											)}
+										>
+											{t("checklist.aviary-village-cafe-bun", { ns: "features" })}
+										</div>
+										<div className={NOTE_CLASS}>
+											{aviaryVillageCafeBunComplete
+												? t("checklist.aviary-village-cafe-bun-message-complete", {
+														ns: "features",
+													})
+												: t("checklist.aviary-village-cafe-bun-message-incomplete", {
+														ns: "features",
+													})}
+										</div>
+									</div>
+								</button>
+							</aviaryVillageCafeBunFetcher.Form>
 						</div>
 					)}
 

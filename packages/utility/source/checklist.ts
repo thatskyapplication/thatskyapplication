@@ -14,6 +14,7 @@ export const CHECKLIST_HIDDEN_COLUMNS = [
 	"nesting_workshop_hidden",
 	"lightmending_hidden",
 	"do_not_disturb_hidden",
+	"aviary_village_cafe_bun_hidden",
 	"event_tickets_hidden",
 ] as const satisfies readonly (keyof Packet<"checklist">)[];
 
@@ -28,6 +29,7 @@ export const ChecklistHiddenColumnToLocaleKey = {
 	nesting_workshop_hidden: ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop],
 	lightmending_hidden: "features:checklist.lightmending",
 	do_not_disturb_hidden: "features:checklist.do-not-disturb-blessing",
+	aviary_village_cafe_bun_hidden: "features:checklist.aviary-village-cafe-bun",
 	event_tickets_hidden: "general:event-tickets",
 } as const satisfies Readonly<Record<ChecklistHiddenColumn, string>>;
 
@@ -44,6 +46,7 @@ export function checklistResetPayload(lastUpdatedAt: Date, now: Date): Checklist
 		.startOfDay();
 
 	if (today.epochMilliseconds > lastUpdatedTimestamp) {
+		payload.aviary_village_cafe_bun = false;
 		payload.daily_quests = false;
 		payload.do_not_disturb = false;
 		payload.lightmending = false;

@@ -171,6 +171,7 @@ export const enum CustomId {
 	ChecklistLightmendingComplete = "166",
 	ChecklistNestingWorkshopComplete = "167",
 	SpiritsHistoryOrder = "168",
+	ChecklistAviaryVillageCafeBunComplete = "169",
 }
 
 export const SHARD_ERUPTION_DATES = [

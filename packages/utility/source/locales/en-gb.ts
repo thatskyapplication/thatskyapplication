@@ -2626,6 +2626,11 @@ export default {
 			"lightmending-message-complete": "You have lightmended today's lantern!",
 			"lightmending-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Fractured_Lantern_Storage#Lightmending_Lanterns",
+			"aviary-village-cafe-bun": "Aviary Village cafe bun",
+			"aviary-village-cafe-bun-message-incomplete":
+				"Obtained the bun from the Aviary Village cafe?",
+			"aviary-village-cafe-bun-message-complete":
+				"You've obtained the bun from the Aviary Village cafe! Lovely!",
 			"nothing-to-do": "Yo, check this Sky kid out. Nothing to do. 'Tis the life.",
 		},
 		cosmetics: {

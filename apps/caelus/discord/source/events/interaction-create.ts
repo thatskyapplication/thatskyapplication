@@ -649,6 +649,11 @@ export default {
 					return;
 				}
 
+				if (id === CustomId.ChecklistAviaryVillageCafeBunComplete) {
+					await checklistToggle(data, "aviary_village_cafe_bun");
+					return;
+				}
+
 				if (id === CustomId.ChecklistSettings) {
 					await checklistSettings(data);
 					return;

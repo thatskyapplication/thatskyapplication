@@ -81,6 +81,7 @@ export interface UpcomingRow {
 }
 
 export interface TodayView {
+	aviaryVillageCafeBunToggle: ChecklistToggleData | undefined;
 	quests: readonly string[];
 	questsToggle: ChecklistToggleData | undefined;
 	shard: {

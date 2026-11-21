@@ -4,6 +4,7 @@ import { checklistResetPayload } from "../source/checklist.js";
 import { skyDate } from "../source/dates.js";
 
 const DAILY_RESET = {
+	aviary_village_cafe_bun: false,
 	daily_quests: false,
 	do_not_disturb: false,
 	lightmending: false,

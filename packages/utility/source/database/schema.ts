@@ -30,6 +30,8 @@ export interface Catalogue {
 }
 
 export interface Checklist {
+  aviary_village_cafe_bun: Generated<boolean>;
+  aviary_village_cafe_bun_hidden: Generated<boolean>;
   daily_quests: Generated<boolean>;
   daily_quests_hidden: Generated<boolean>;
   do_not_disturb: Generated<boolean>;

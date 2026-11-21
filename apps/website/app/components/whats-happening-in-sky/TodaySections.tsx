@@ -16,7 +16,7 @@ import { ChecklistToggle } from "./ChecklistToggle.js";
 export function TodaySections({
 	initialTimestamp,
 	timeZoneEstimated,
-	today: { quests, questsToggle, shard },
+	today: { aviaryVillageCafeBunToggle, quests, questsToggle, shard },
 }: {
 	initialTimestamp: number;
 	timeZoneEstimated: boolean;
@@ -43,6 +43,7 @@ export function TodaySections({
 					</ol>
 				)}
 				{questsToggle && <ChecklistToggle toggle={questsToggle} />}
+				{aviaryVillageCafeBunToggle && <ChecklistToggle toggle={aviaryVillageCafeBunToggle} />}
 			</section>
 			<section className={WHATS_HAPPENING_IN_SKY_CARD_CLASS}>
 				<h2 className={SECTION_HEADING_CLASS}>

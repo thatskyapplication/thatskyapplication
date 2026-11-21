@@ -81,6 +81,7 @@ import type {
 } from "~/utility/whats-happening-in-sky.js";
 
 type ContextualChecklistColumn =
+	| "aviary_village_cafe_bun"
 	| "daily_quests"
 	| "event_tickets"
 	| "nesting_workshop"
@@ -650,6 +651,12 @@ function buildToday(
 	}
 
 	return {
+		aviaryVillageCafeBunToggle: checklistToggle(
+			checklist,
+			"aviary_village_cafe_bun",
+			t("checklist.aviary-village-cafe-bun-message-complete", { ns: "features" }),
+			t("checklist.aviary-village-cafe-bun-message-incomplete", { ns: "features" }),
+		),
 		quests,
 		questsToggle: checklistToggle(
 			checklist,

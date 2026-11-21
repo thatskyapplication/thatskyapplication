@@ -349,58 +349,38 @@ export async function checklist({
 	}
 
 	if (!checklistPacket?.lightmending_hidden) {
-		containerComponents.push(
-			{
-				type: ComponentType.Section,
-				accessory: checklistPacket?.lightmending
-					? {
-							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: `${CustomId.ChecklistLightmendingComplete}§1`,
-							label: t("reset", {
-								lng: locale,
-								ns: "general",
-							}),
-						}
-					: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: `${CustomId.ChecklistLightmendingComplete}§0`,
-							label: t("checklist.complete", {
-								lng: locale,
-								ns: "features",
-							}),
-						},
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: checklistPacket?.lightmending
-							? t("checklist.lightmending-message-complete", {
-									lng: locale,
-									ns: "features",
-								})
-							: t("checklist.lightmending-message-incomplete", {
-									lng: locale,
-									ns: "features",
-								}),
-					},
-				],
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
+		const lightmendingMessage = checklistPacket?.lightmending
+			? t("checklist.lightmending-message-complete", { lng: locale, ns: "features" })
+			: t("checklist.lightmending-message-incomplete", { lng: locale, ns: "features" });
+
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: checklistPacket?.lightmending
+				? {
 						type: ComponentType.Button,
-						style: ButtonStyle.Link,
-						url: t("checklist.lightmending-wiki-button-url", {
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistLightmendingComplete}§1`,
+						label: t("reset", {
+							lng: locale,
+							ns: "general",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistLightmendingComplete}§0`,
+						label: t("checklist.complete", {
 							lng: locale,
 							ns: "features",
 						}),
-						label: t("wiki", { lng: locale, ns: "general" }),
 					},
-				],
-			},
-		);
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `[${lightmendingMessage}](${t("checklist.lightmending-wiki-button-url", { lng: locale, ns: "features" })})`,
+				},
+			],
+		});
 	}
 
 	if (!checklistPacket?.do_not_disturb_hidden) {
@@ -434,6 +414,45 @@ export async function checklist({
 								ns: "features",
 							})
 						: t("checklist.do-not-disturb-blessing-message-incomplete", {
+								lng: locale,
+								ns: "features",
+							}),
+				},
+			],
+		});
+	}
+
+	if (!checklistPacket?.aviary_village_cafe_bun_hidden) {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: checklistPacket?.aviary_village_cafe_bun
+				? {
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistAviaryVillageCafeBunComplete}§1`,
+						label: t("reset", {
+							lng: locale,
+							ns: "general",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistAviaryVillageCafeBunComplete}§0`,
+						label: t("checklist.complete", {
+							lng: locale,
+							ns: "features",
+						}),
+					},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: checklistPacket?.aviary_village_cafe_bun
+						? t("checklist.aviary-village-cafe-bun-message-complete", {
+								lng: locale,
+								ns: "features",
+							})
+						: t("checklist.aviary-village-cafe-bun-message-incomplete", {
 								lng: locale,
 								ns: "features",
 							}),
@@ -574,6 +593,7 @@ export async function checklistSettings(interaction: APIMessageComponentButtonIn
 export async function checklistToggle(
 	interaction: APIMessageComponentButtonInteraction,
 	key:
+		| "aviary_village_cafe_bun"
 		| "daily_quests"
 		| "do_not_disturb"
 		| "dye_workshop"
