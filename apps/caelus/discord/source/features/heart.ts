@@ -27,7 +27,6 @@ import {
 	MAXIMUM_HEARTS_PER_DAY,
 	SkyProfileMissingNameSource,
 	skyNow,
-	TIME_ZONE,
 	totalHearts,
 } from "@thatskyapplication/utility";
 import database from "../database.js";
@@ -235,14 +234,8 @@ export async function gift(
 							ns: "features",
 							number: heartsLeftToGift,
 							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
-							date1: Intl.DateTimeFormat(interaction.locale, {
-								timeZone: TIME_ZONE,
-								dateStyle: "short",
-							}).format(doubleHeartEvent.start.epochMilliseconds),
-							date2: Intl.DateTimeFormat(interaction.locale, {
-								timeZone: TIME_ZONE,
-								dateStyle: "short",
-							}).format(doubleHeartEvent.end.epochMilliseconds),
+							date1: `<t:${epochSeconds(doubleHeartEvent.start)}:s>`,
+							date2: `<t:${epochSeconds(doubleHeartEvent.end)}:s>`,
 						})
 					: t("heart.gift-hearts-left-to-gift", {
 							lng: guildLocale,
