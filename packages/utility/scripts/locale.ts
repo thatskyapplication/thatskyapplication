@@ -1973,11 +1973,6 @@ const MAPPINGS: LocaleMapping[] = [
 				upstreamValue: "Relive Meditating Monastic's memory from Vault of Knowledge",
 				value: "Relive the Meditating Monastic",
 			},
-			fr: {
-				upstreamValue:
-					"Revivez le souvenir de l'moine méditatif dans la Chambre forte de connaissance",
-				value: "Revivez le souvenir du moine méditatif dans la Chambre forte de connaissance",
-			},
 		},
 		tsKey: "DailyQuest.ReliveTheMeditatingMonastic",
 	},
