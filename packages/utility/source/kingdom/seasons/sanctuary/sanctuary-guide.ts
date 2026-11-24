@@ -19,7 +19,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 						cosmetic: Cosmetic.SanctuaryGuideHeart1,
-						cost: { candles: 3 },
 					},
 					{
 						translation: CosmeticCommon.Pendant,
@@ -48,7 +47,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.SanctuaryGuideHeart2,
-						cost: { candles: 3 },
 					},
 				],
 				[
@@ -59,6 +57,69 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 						cosmetic: Cosmetic.SanctuaryGuideHeart3,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.SanctuaryGuideQuest4,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.SanctuaryGuideHeart4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.SanctuaryGuideQuest5,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+						cosmetic: Cosmetic.SanctuaryGuideHeart5,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+						cosmetic: Cosmetic.SanctuaryGuideQuest6,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 6 },
+						cosmetic: Cosmetic.SanctuaryGuideHeart6,
+					},
+				],
+			],
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.SanctuaryGuideQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.SanctuaryGuideQuest2,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.SanctuaryGuideHeart1,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.SanctuaryGuideQuest3,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.SanctuaryGuideHeart2,
 						cost: { candles: 3 },
 					},
 				],
@@ -66,6 +127,11 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 						cosmetic: Cosmetic.SanctuaryGuideQuest4,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.SanctuaryGuideHeart3,
+						cost: { candles: 3 },
 					},
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
@@ -89,13 +155,13 @@ export default new GuideSpirit({
 						translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
 						cosmetic: Cosmetic.SanctuaryGuideQuest6,
 					},
+					{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.SanctuaryGuideFriendActionHug },
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 6 },
 						cosmetic: Cosmetic.SanctuaryGuideHeart6,
 						cost: { candles: 3 },
 					},
 				],
-				[{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.SanctuaryGuideFriendActionHug }],
 			],
 		},
 	},

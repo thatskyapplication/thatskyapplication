@@ -13,19 +13,12 @@ export default new GuideSpirit({
 			friendshipTree: [
 				[
 					{
-						translation: CosmeticCommon.Blessing,
-						cosmetic: Cosmetic.AssemblyGuideBlessing,
-					},
-				],
-				[
-					{
 						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
 						cosmetic: Cosmetic.AssemblyGuideQuest1,
 					},
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 						cosmetic: Cosmetic.AssemblyGuideHeart1,
-						cost: { candles: 3 },
 					},
 					{
 						translation: CosmeticCommon.Pendant,
@@ -77,7 +70,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.AssemblyGuideHeart2,
-						cost: { candles: 3 },
 					},
 				],
 				[{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.AssemblyGuideFriendActionHug }],
@@ -110,7 +102,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 						cosmetic: Cosmetic.AssemblyGuideHeart3,
-						cost: { candles: 3 },
 					},
 					{
 						cosmetic: Cosmetic.AssemblyGuideBookcase,
@@ -121,6 +112,97 @@ export default new GuideSpirit({
 					{
 						cosmetic: Cosmetic.AssemblyGuideTarpaulin,
 						cost: { hearts: 24 },
+					},
+				],
+			],
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.AssemblyGuideQuest1,
+					},
+					null,
+					{
+						translation: CosmeticCommon.Blessing,
+						cosmetic: Cosmetic.AssemblyGuideBlessing,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.AssemblyGuideQuest2,
+					},
+					{ translation: CosmeticCommon.HighFive, cosmetic: Cosmetic.AssemblyGuideHighFive },
+					{
+						cosmetic: Cosmetic.AssemblyGuidePillow,
+						cost: { candles: 5 },
+					},
+				],
+				[
+					null,
+					null,
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.AssemblyGuideHeart1,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.AssemblyGuideQuest3,
+					},
+					{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.AssemblyGuideFriendActionHug },
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.AssemblyGuideHeart2,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.AssemblyGuideQuest4,
+					},
+					{
+						cosmetic: Cosmetic.AssemblyGuideJar,
+						cost: { candles: 8 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.AssemblyGuideQuest5,
+					},
+					{ translation: CosmeticCommon.DoubleFive, cosmetic: Cosmetic.AssemblyGuideDoubleFive },
+					{
+						cosmetic: Cosmetic.AssemblyGuideBrazier,
+						cost: { hearts: 12 },
+					},
+				],
+				[
+					null,
+					null,
+					{
+						cosmetic: Cosmetic.AssemblyGuideTarpaulin,
+						cost: { hearts: 24 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+						cosmetic: Cosmetic.AssemblyGuideQuest6,
+					},
+					{
+						cosmetic: Cosmetic.AssemblyGuideBookcase,
+						cost: { candles: 30 },
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.AssemblyGuideHeart3,
+						cost: { candles: 3 },
 					},
 				],
 			],

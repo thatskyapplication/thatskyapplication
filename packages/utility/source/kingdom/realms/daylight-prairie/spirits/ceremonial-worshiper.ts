@@ -26,8 +26,6 @@ export default new StandardSpirit({
 				cosmetic: Cosmetic.CeremonialWorshipperWingBuff,
 				cost: { ascendedCandles: 1 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CeremonialWorshipperBlessing2,

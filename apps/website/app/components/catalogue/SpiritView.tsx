@@ -31,9 +31,7 @@ export function SpiritView({
 	const { t } = useTranslation();
 	const isStandardSpirit = spirit.isStandardSpirit();
 	const isElderSpirit = spirit.isElderSpirit();
-	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
-	const seasonId = isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : undefined;
 
 	const friendshipTrees = friendshipTreeVariants(spirit).map((variant) => ({
 		variant,
@@ -81,7 +79,7 @@ export function SpiritView({
 							data={data}
 							label={t(`spirits.friendship-tree-${variant}`, { ns: "features" })}
 							locale={locale}
-							seasonId={seasonId}
+							spirit={spirit}
 							tree={tree}
 						/>
 					</div>
@@ -90,12 +88,7 @@ export function SpiritView({
 		);
 	} else if (onlyFriendshipTree) {
 		friendshipTreeContent = (
-			<FriendshipTree
-				data={data}
-				locale={locale}
-				seasonId={seasonId}
-				tree={onlyFriendshipTree.tree}
-			/>
+			<FriendshipTree data={data} locale={locale} spirit={spirit} tree={onlyFriendshipTree.tree} />
 		);
 	} else {
 		friendshipTreeContent = (

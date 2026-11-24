@@ -7,19 +7,12 @@ export default new StandardSpirit({
 	id: SpiritId.PrayingAcolyte,
 	area: AreaName.VaultRest,
 	friendshipTree: [
+		[{ cosmetic: Cosmetic.EmotePray1 }],
 		[
-			{ cosmetic: Cosmetic.EmotePray1 },
 			{
 				cosmetic: Cosmetic.EmotePray2,
 				cost: { candles: 3 },
 				level: 2,
-			},
-		],
-		[
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.PrayingAcolyteBlessing1,
-				cost: { candles: 1 },
 			},
 			{
 				translation: CosmeticCommon.Hair,
@@ -27,16 +20,18 @@ export default new StandardSpirit({
 				cost: { hearts: 5 },
 			},
 			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.PrayingAcolyteHeart,
-				cost: { candles: 3 },
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.PrayingAcolyteBlessing1,
+				cost: { candles: 1 },
 			},
 		],
 		[
+			null,
+			null,
 			{
-				translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
-				cosmetic: Cosmetic.PrayingAcolyteWingBuff1,
-				cost: { ascendedCandles: 3 },
+				translation: CosmeticCommon.Heart,
+				cosmetic: Cosmetic.PrayingAcolyteHeart,
+				cost: { candles: 3 },
 			},
 		],
 		[
@@ -46,12 +41,10 @@ export default new StandardSpirit({
 				level: 3,
 			},
 			{
-				cosmetic: Cosmetic.EmotePray4,
-				cost: { candles: 7 },
-				level: 4,
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
+				cosmetic: Cosmetic.PrayingAcolyteWingBuff1,
+				cost: { ascendedCandles: 3 },
 			},
-		],
-		[
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PrayingAcolyteBlessing2,
@@ -60,6 +53,11 @@ export default new StandardSpirit({
 		],
 		[
 			{
+				cosmetic: Cosmetic.EmotePray4,
+				cost: { candles: 7 },
+				level: 4,
+			},
+			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
 				cosmetic: Cosmetic.PrayingAcolyteCape1,
 				cost: { hearts: 25 },
@@ -67,16 +65,14 @@ export default new StandardSpirit({
 		],
 		[
 			{
-				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
-				cosmetic: Cosmetic.PrayingAcolyteWingBuff2,
-				cost: { ascendedCandles: 9 },
-			},
-		],
-		[
-			{
 				translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 				cosmetic: Cosmetic.PrayingAcolyteCape2,
 				cost: { hearts: 75 },
+			},
+			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
+				cosmetic: Cosmetic.PrayingAcolyteWingBuff2,
+				cost: { ascendedCandles: 9 },
 			},
 		],
 	],

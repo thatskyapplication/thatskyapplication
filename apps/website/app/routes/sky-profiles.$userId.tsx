@@ -476,7 +476,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<EmojiIcon
 								className="mr-2 h-6 w-6"
-								emoji={MISCELLANEOUS_EMOJIS.WingedLight}
+								emoji={MISCELLANEOUS_EMOJIS.WingBuff}
 								label="Winged light icon."
 							/>
 							<div className="flex-1">

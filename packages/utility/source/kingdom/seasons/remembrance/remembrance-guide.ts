@@ -19,7 +19,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 						cosmetic: Cosmetic.RemembranceGuideHeart1,
-						cost: { candles: 3 },
 					},
 					{
 						translation: CosmeticCommon.Pendant,
@@ -53,8 +52,8 @@ export default new GuideSpirit({
 				[
 					{ translation: CosmeticCommon.HighFive, cosmetic: Cosmetic.RemembranceGuideHighFive },
 					{
-						translation: CosmeticCommon.Blessing,
-						cosmetic: Cosmetic.RemembranceGuideBlessing,
+						translation: { key: CosmeticCommon.SharedSpaceSpellMultiple, number: 1 },
+						cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell1,
 					},
 				],
 				[
@@ -65,7 +64,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.RemembranceGuideHeart2,
-						cost: { candles: 3 },
 					},
 				],
 				[
@@ -81,8 +79,8 @@ export default new GuideSpirit({
 				[
 					{ translation: CosmeticCommon.DoubleFive, cosmetic: Cosmetic.RemembranceGuideDoubleFive },
 					{
-						translation: { key: CosmeticCommon.TrailSpellMultiple, number: 1 },
-						cosmetic: Cosmetic.RemembranceGuideTrailSpell1,
+						translation: { key: CosmeticCommon.SharedSpaceSpellMultiple, number: 2 },
+						cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell2,
 					},
 				],
 				[
@@ -93,7 +91,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 						cosmetic: Cosmetic.RemembranceGuideHeart3,
-						cost: { candles: 3 },
 					},
 				],
 				[
@@ -114,7 +111,6 @@ export default new GuideSpirit({
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
 						cosmetic: Cosmetic.RemembranceGuideHeart4,
-						cost: { candles: 3 },
 					},
 				],
 				[
@@ -134,8 +130,8 @@ export default new GuideSpirit({
 				[
 					{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.RemembranceGuideFriendActionHug },
 					{
-						translation: { key: CosmeticCommon.TrailSpellMultiple, number: 2 },
-						cosmetic: Cosmetic.RemembranceGuideTrailSpell2,
+						translation: { key: CosmeticCommon.SharedSpaceSpellMultiple, number: 3 },
+						cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell3,
 					},
 				],
 				[
@@ -144,14 +140,143 @@ export default new GuideSpirit({
 						cosmetic: Cosmetic.RemembranceGuideQuest9,
 					},
 					{
-						translation: { key: CosmeticCommon.TrailSpellMultiple, number: 3 },
-						cosmetic: Cosmetic.RemembranceGuideTrailSpell3,
+						translation: { key: CosmeticCommon.SharedSpaceSpellMultiple, number: 4 },
+						cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell4,
 					},
 				],
 				[
 					{
 						translation: { key: CosmeticCommon.QuestMultiple, number: 10 },
 						cosmetic: Cosmetic.RemembranceGuideQuest10,
+					},
+				],
+			],
+		},
+		postSeason: {
+			friendshipTree: [
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+						cosmetic: Cosmetic.RemembranceGuideQuest1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+						cosmetic: Cosmetic.RemembranceGuideQuest2,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+						cosmetic: Cosmetic.RemembranceGuideQuest3,
+					},
+					{ translation: CosmeticCommon.HighFive, cosmetic: Cosmetic.RemembranceGuideHighFive },
+					{
+						cosmetic: Cosmetic.RemembranceGuideChimes,
+						cost: { candles: 30 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.RemembranceGuideQuest4,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+						cosmetic: Cosmetic.RemembranceGuideHeart1,
+						cost: { candles: 3 },
+					},
+					{
+						translation: CosmeticCommon.Blessing,
+						cosmetic: Cosmetic.RemembranceGuideBlessing,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.RemembranceGuideQuest5,
+					},
+					{ translation: CosmeticCommon.DoubleFive, cosmetic: Cosmetic.RemembranceGuideDoubleFive },
+					{
+						cosmetic: Cosmetic.RemembranceGuideKettle,
+						cost: { candles: 50 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+						cosmetic: Cosmetic.RemembranceGuideQuest6,
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+						cosmetic: Cosmetic.RemembranceGuideHeart2,
+						cost: { candles: 3 },
+					},
+					{
+						translation: { key: CosmeticCommon.TrailSpellMultiple, number: 1 },
+						cosmetic: Cosmetic.RemembranceGuideTrailSpell1,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 7 },
+						cosmetic: Cosmetic.RemembranceGuideQuest7,
+					},
+					{
+						cosmetic: Cosmetic.RemembranceGuidePottedPlant,
+						cost: { candles: 40 },
+					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.RemembranceGuideHeart3,
+						cost: { candles: 3 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 8 },
+						cosmetic: Cosmetic.RemembranceGuideQuest8,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 9 },
+						cosmetic: Cosmetic.RemembranceGuideQuest9,
+					},
+					{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.RemembranceGuideFriendActionHug },
+					{
+						cosmetic: Cosmetic.RemembranceGuideCrabPlushie,
+						cost: { hearts: 19 },
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 10 },
+						cosmetic: Cosmetic.RemembranceGuideQuest10,
+					},
+					{
+						translation: { key: CosmeticCommon.TrailSpellMultiple, number: 2 },
+						cosmetic: Cosmetic.RemembranceGuideTrailSpell2,
+					},
+					{
+						cosmetic: Cosmetic.RemembranceGuideMantaPlushie,
+						cost: { hearts: 17 },
+					},
+				],
+				[
+					null,
+					{
+						translation: { key: CosmeticCommon.TrailSpellMultiple, number: 3 },
+						cosmetic: Cosmetic.RemembranceGuideTrailSpell3,
+					},
+				],
+				[
+					null,
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.RemembranceGuideHeart4,
+						cost: { candles: 3 },
 					},
 				],
 			],

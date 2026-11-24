@@ -28,6 +28,7 @@ import {
 	partitionItemCosts,
 	type PlacedFriendshipTreeNode,
 	type SeasonIds,
+	type Spirit,
 	sumCosts,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
@@ -46,7 +47,7 @@ const UNOWNED_ICON_CLASS = "opacity-25" as const;
 interface FriendshipTreeSharedProps {
 	label?: string;
 	locale: string;
-	seasonId?: SeasonIds | undefined;
+	spirit: Spirit;
 	tree: AnyFriendshipTree;
 }
 
@@ -261,12 +262,14 @@ function InteractiveTreeNode({ data, ...props }: TreeNodeProps & { data: Readonl
 }
 
 export function FriendshipTree(props: FriendshipTreeProps) {
-	const { label, locale, seasonId, tree } = props;
+	const { label, locale, spirit, tree } = props;
 	const data = props.readOnly === true ? null : props.data;
 	const readOnly = data === null;
 	const fetchers = useFetchers();
 	const { t } = useTranslation();
-	const layout = useMemo(() => friendshipTreeLayout(tree, seasonId), [seasonId, tree]);
+	const seasonId =
+		spirit.isSeasonalSpirit() || spirit.isGuideSpirit() ? spirit.seasonId : undefined;
+	const layout = useMemo(() => friendshipTreeLayout(tree, spirit), [spirit, tree]);
 	const [textScale, setTextScale] = useState(1);
 
 	useEffect(() => {

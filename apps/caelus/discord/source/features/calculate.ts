@@ -452,13 +452,13 @@ export async function wingedLight(
 		color: DEFAULT_EMBED_COLOUR,
 		description: `${t("calculate.winged-light.started-with", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji(
 			{
-				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 				amount: wingBuffs.toLocaleString(locale),
 				includeSpaceInEmoji: true,
 			},
 		)}.\n${t("calculate.winged-light.reborn-with", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji(
 			{
-				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 				amount: (accumulation += TopLevelAreaToWingedLight[AreaName.ThePassage]).toLocaleString(
 					locale,
 				),
@@ -477,7 +477,7 @@ export async function wingedLight(
 	}));
 
 	let totalText = resolveCurrencyEmoji({
-		emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+		emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 		amount: accumulation.toLocaleString(locale),
 		includeSpaceInEmoji: true,
 	});
@@ -498,7 +498,7 @@ export async function wingedLight(
 
 	if (nextThreshold) {
 		wedgeText.push(
-			`${t("calculate.winged-light.wedge-next", { lng: locale, ns: "features", amount: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`,
+			`${t("calculate.winged-light.wedge-next", { lng: locale, ns: "features", amount: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingBuff)}`,
 		);
 	}
 
