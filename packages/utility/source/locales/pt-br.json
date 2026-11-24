@@ -409,7 +409,17 @@
 			"315": "Encontre o espírito na Floresta Oculta",
 			"316": "Encontre o espírito no Vale do Triunfo",
 			"317": "Encontre o espírito no Sertão Dourado",
-			"318": "Encontre o espírito no Relicário do Conhecimento"
+			"318": "Encontre o espírito no Relicário do Conhecimento",
+			"319": "Relaxe na fogueira no refúgio aconchegante",
+			"320": "Relaxe na fogueira do cemitério",
+			"321": "Relaxe na fogueira com vista pro riacho",
+			"322": "Relaxe na fogueira do labirinto",
+			"323": "Acenda a lanterna caída no saguão do Relicário",
+			"324": "Acenda a lanterna caída no segundo andar do Relicário",
+			"325": "Acenda a lanterna caída no terceiro andar do Relicário",
+			"326": "Acenda a lanterna caída no quarto andar do Relicário",
+			"327": "Voe pelas estruturas durante a Corrida do Vale Superior",
+			"328": "Acenda uma lanterna"
 		},
 		"light": "Luz",
 		"season": "Temporada",

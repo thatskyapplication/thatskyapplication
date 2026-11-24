@@ -533,6 +533,22 @@ export default {
 			[DailyQuest.MeetASpiritInValleyOfTriumph]: "Meet a spirit in the Valley of Triumph",
 			[DailyQuest.MeetASpiritInGoldenWasteland]: "Meet a spirit in the Golden Wasteland",
 			[DailyQuest.MeetASpiritInVaultOfKnowledge]: "Meet a spirit in the Vault of Knowledge",
+			[DailyQuest.RelaxByTheCampfireInTheCosyHideout]: "Relax by the campfire in the cosy hideout",
+			[DailyQuest.RelaxByTheCampfireInTheGraveyard]: "Relax by the campfire in the graveyard",
+			[DailyQuest.RelaxByTheCampfireOverlookingTheBrook]:
+				"Relax by the campfire overlooking the brook",
+			[DailyQuest.RelaxByTheCampfireInTheLabyrinth]: "Relax by the campfire in the labyrinth",
+			[DailyQuest.LightTheFallenLanternInTheVaultsLobby]:
+				"Light the fallen lantern in the Vault's lobby",
+			[DailyQuest.LightTheFallenLanternOnTheVaultsSecondFloor]:
+				"Light the fallen lantern on the Vault's second floor",
+			[DailyQuest.LightTheFallenLanternOnTheVaultsThirdFloor]:
+				"Light the fallen lantern on the Vault's third floor",
+			[DailyQuest.LightTheFallenLanternOnTheVaultsFourthFloor]:
+				"Light the fallen lantern on the Vault's fourth floor",
+			[DailyQuest.FlyThroughStructuresDuringTheUpperValleyRace]:
+				"Fly through structures during the Upper Valley Race",
+			[DailyQuest.LightALantern]: "Light a lantern",
 		} satisfies Partial<Record<DailyQuests, string>>,
 		light: "Light",
 		season: "Season",

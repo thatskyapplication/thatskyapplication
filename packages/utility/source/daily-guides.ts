@@ -337,6 +337,16 @@ export const DailyQuest = {
 	MeetASpiritInValleyOfTriumph: 316,
 	MeetASpiritInGoldenWasteland: 317,
 	MeetASpiritInVaultOfKnowledge: 318,
+	RelaxByTheCampfireInTheCosyHideout: 319,
+	RelaxByTheCampfireInTheGraveyard: 320,
+	RelaxByTheCampfireOverlookingTheBrook: 321,
+	RelaxByTheCampfireInTheLabyrinth: 322,
+	LightTheFallenLanternInTheVaultsLobby: 323,
+	LightTheFallenLanternOnTheVaultsSecondFloor: 324,
+	LightTheFallenLanternOnTheVaultsThirdFloor: 325,
+	LightTheFallenLanternOnTheVaultsFourthFloor: 326,
+	FlyThroughStructuresDuringTheUpperValleyRace: 327,
+	LightALantern: 328,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -1071,6 +1081,16 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetASpiritInValleyOfTriumph]: null,
 	[DailyQuest.MeetASpiritInGoldenWasteland]: null,
 	[DailyQuest.MeetASpiritInVaultOfKnowledge]: null,
+	[DailyQuest.RelaxByTheCampfireInTheCosyHideout]: null,
+	[DailyQuest.RelaxByTheCampfireInTheGraveyard]: null,
+	[DailyQuest.RelaxByTheCampfireOverlookingTheBrook]: null,
+	[DailyQuest.RelaxByTheCampfireInTheLabyrinth]: null,
+	[DailyQuest.LightTheFallenLanternInTheVaultsLobby]: null,
+	[DailyQuest.LightTheFallenLanternOnTheVaultsSecondFloor]: null,
+	[DailyQuest.LightTheFallenLanternOnTheVaultsThirdFloor]: null,
+	[DailyQuest.LightTheFallenLanternOnTheVaultsFourthFloor]: null,
+	[DailyQuest.FlyThroughStructuresDuringTheUpperValleyRace]: null,
+	[DailyQuest.LightALantern]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 /**
@@ -1396,6 +1416,16 @@ export const DailyQuestToAcknowledgement = {
 	[DailyQuest.MeetASpiritInValleyOfTriumph]: null,
 	[DailyQuest.MeetASpiritInGoldenWasteland]: null,
 	[DailyQuest.MeetASpiritInVaultOfKnowledge]: null,
+	[DailyQuest.RelaxByTheCampfireInTheCosyHideout]: null,
+	[DailyQuest.RelaxByTheCampfireInTheGraveyard]: null,
+	[DailyQuest.RelaxByTheCampfireOverlookingTheBrook]: null,
+	[DailyQuest.RelaxByTheCampfireInTheLabyrinth]: null,
+	[DailyQuest.LightTheFallenLanternInTheVaultsLobby]: null,
+	[DailyQuest.LightTheFallenLanternOnTheVaultsSecondFloor]: null,
+	[DailyQuest.LightTheFallenLanternOnTheVaultsThirdFloor]: null,
+	[DailyQuest.LightTheFallenLanternOnTheVaultsFourthFloor]: null,
+	[DailyQuest.FlyThroughStructuresDuringTheUpperValleyRace]: null,
+	[DailyQuest.LightALantern]: null,
 } as const satisfies Readonly<Record<DailyQuests, "Azure" | "Clement" | "Fungus" | null>>;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [

@@ -924,6 +924,150 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.ProposeAKiteDesignInPrairieHeights",
 	},
 	{
+		upstreamKey: "daily_quest_campfire_day_desc",
+		overrides: {
+			Base: {
+				upstreamValue: "Relax by the campfire in the cozy hideout",
+				value: "Relax by the campfire in the cosy hideout",
+			},
+			de: {
+				upstreamValue: "Entspanne dich am Lagerfeuer im Versteck.",
+				value: "Entspanne dich am Lagerfeuer im Versteck",
+			},
+			es: {
+				upstreamValue: "Relájate junto al fogón en este acogedor refugio.",
+				value: "Relájate junto al fogón en este acogedor refugio",
+			},
+		},
+		tsKey: "DailyQuest.RelaxByTheCampfireInTheCosyHideout",
+	},
+	{
+		upstreamKey: "daily_quest_campfire_dusk_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Entspanne dich am Lagerfeuer im Ödnisfriedhof.",
+				value: "Entspanne dich am Lagerfeuer im Ödnisfriedhof",
+			},
+			es: {
+				upstreamValue: "Relájate junto al fogón en el cementerio.",
+				value: "Relájate junto al fogón en el cementerio",
+			},
+		},
+		tsKey: "DailyQuest.RelaxByTheCampfireInTheGraveyard",
+	},
+	{
+		upstreamKey: "daily_quest_campfire_rain_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Entspanne dich am Lagerfeuer beim Bach.",
+				value: "Entspanne dich am Lagerfeuer beim Bach",
+			},
+			es: {
+				upstreamValue: "Relájate junto al fogón con vista al arroyo.",
+				value: "Relájate junto al fogón con vista al arroyo",
+			},
+		},
+		tsKey: "DailyQuest.RelaxByTheCampfireOverlookingTheBrook",
+	},
+	{
+		upstreamKey: "daily_quest_campfire_sunset_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Entspanne dich am Lagerfeuer im Labyrinth.",
+				value: "Entspanne dich am Lagerfeuer im Labyrinth",
+			},
+			es: {
+				upstreamValue: "Relájate junto al fogón en el laberinto.",
+				value: "Relájate junto al fogón en el laberinto",
+			},
+		},
+		tsKey: "DailyQuest.RelaxByTheCampfireInTheLabyrinth",
+	},
+	{
+		upstreamKey: "daily_quest_fallen_lantern_floor_1_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Entzünde die umgefallene Laterne im Tresoreingangsraum.",
+				value: "Entzünde die umgefallene Laterne im Tresoreingangsraum",
+			},
+			es: {
+				upstreamValue: "Enciende el farol caído en la antesala de la bóveda.",
+				value: "Enciende el farol caído en la antesala de la bóveda",
+			},
+		},
+		tsKey: "DailyQuest.LightTheFallenLanternInTheVaultsLobby",
+	},
+	{
+		upstreamKey: "daily_quest_fallen_lantern_floor_2_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Entzünde die umgefallene Laterne im zweiten Stock des Tresors.",
+				value: "Entzünde die umgefallene Laterne im zweiten Stock des Tresors",
+			},
+			es: {
+				upstreamValue: "Enciende el farol caído en el segundo piso de la bóveda.",
+				value: "Enciende el farol caído en el segundo piso de la bóveda",
+			},
+		},
+		tsKey: "DailyQuest.LightTheFallenLanternOnTheVaultsSecondFloor",
+	},
+	{
+		upstreamKey: "daily_quest_fallen_lantern_floor_3_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Entzünde die umgefallene Laterne im dritten Stock des Tresors.",
+				value: "Entzünde die umgefallene Laterne im dritten Stock des Tresors",
+			},
+			es: {
+				upstreamValue: "Enciende el farol caído en el tercer piso de la bóveda.",
+				value: "Enciende el farol caído en el tercer piso de la bóveda",
+			},
+		},
+		tsKey: "DailyQuest.LightTheFallenLanternOnTheVaultsThirdFloor",
+	},
+	{
+		upstreamKey: "daily_quest_fallen_lantern_floor_4_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Entzünde die umgefallene Laterne im vierten Stock des Tresors.",
+				value: "Entzünde die umgefallene Laterne im vierten Stock des Tresors",
+			},
+			es: {
+				upstreamValue: "Enciende el farol caído en el cuarto piso de la bóveda.",
+				value: "Enciende el farol caído en el cuarto piso de la bóveda",
+			},
+		},
+		tsKey: "DailyQuest.LightTheFallenLanternOnTheVaultsFourthFloor",
+	},
+	{
+		upstreamKey: "daily_quest_fly_through_flyrace_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Fliege durch Strukturen beim Rennen durch die Obere Talstrecke.",
+				value: "Fliege durch Strukturen beim Rennen durch die Obere Talstrecke",
+			},
+			es: {
+				upstreamValue: "Vuela entre las estructuras durante la carrera del Valle Superior.",
+				value: "Vuela entre las estructuras durante la carrera del Valle Superior",
+			},
+		},
+		tsKey: "DailyQuest.FlyThroughStructuresDuringTheUpperValleyRace",
+	},
+	{
+		upstreamKey: "daily_quest_light_a_lantern_desc",
+		overrides: {
+			de: {
+				upstreamValue: "Entzünde eine Laterne.",
+				value: "Entzünde eine Laterne",
+			},
+			es: {
+				upstreamValue: "Enciende un farol.",
+				value: "Enciende un farol",
+			},
+		},
+		tsKey: "DailyQuest.LightALantern",
+	},
+	{
 		upstreamKey: "daily_quest_recharge_another_avatar_desc",
 		tsKey: "DailyQuest.RechargeAnotherPlayersLight",
 	},
