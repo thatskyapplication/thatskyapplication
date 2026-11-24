@@ -1,5 +1,6 @@
 import daysOfBloom from "./days-of-bloom.js";
 import daysOfColour from "./days-of-colour.js";
+import daysOfFeast from "./days-of-feast.js";
 import daysOfFortune from "./days-of-fortune.js";
 import daysOfLove from "./days-of-love.js";
 import daysOfMischief from "./days-of-mischief.js";
@@ -28,4 +29,5 @@ export default [
 	daysOfMoonlight,
 	daysOfMischief,
 	daysOfStyle,
+	daysOfFeast,
 ] as const;

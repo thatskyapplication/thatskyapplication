@@ -862,6 +862,8 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2026",
 			[EventId.DaysOfStyle2026]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Style/2026",
+			[EventId.DaysOfFeast2026]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Feast/2026",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
