@@ -344,7 +344,7 @@ export function skyProfileContainer(
 		miscellaneous.push(
 			`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${
 				isMax
-					? `${count} (${t("sky-profile.winged-light-max", { lng: locale, ns: "features" })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
+					? `${count} (${t("sky-profile.winged-light-max", { lng: locale, ns: "features" })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingBuff)})`
 					: count.toString()
 			}`,
 		);

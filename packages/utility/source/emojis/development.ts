@@ -2,7 +2,6 @@ import type { Emoji } from "./emoji.js";
 
 const MISCELLANEOUS_EMOJIS = {
 	AscendedCandle: { id: "1561011280016314408", name: "ascended_candle" },
-	WingedLight: { id: "1313864860114620427", name: "winged_light" },
 	Yes: { id: "1543769943131160616", name: "yes" },
 	No: { id: "1543766235068633138", name: "no" },
 	PlatformIOS: { id: "1313864864279695392", name: "platform_ios" },
@@ -24,7 +23,7 @@ const MISCELLANEOUS_EMOJIS = {
 	SpellColourTrail: { id: "1313864892943564851", name: "spell_colour_trail" },
 	SpellSharedMemory: { id: "1313864878309638244", name: "spell_shared_memory" },
 	SpellSharedSpace: { id: "1313864882738823328", name: "spell_shared_space" },
-	WingBuff: { id: "1313864885460926544", name: "wing_buff" },
+	WingBuff: { id: "1574906223289962598", name: "wing_buff" },
 	Quest: { id: "1313864888686215261", name: "quest" },
 	EventTicket: { id: "1313864891311980584", name: "event_ticket" },
 	ConstellationFlag: { id: "1313864899235151883", name: "constellation_flag" },
