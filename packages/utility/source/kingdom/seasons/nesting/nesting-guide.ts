@@ -111,6 +111,10 @@ export default new GuideSpirit({
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.NestingGuideHeart2,
 					},
+					{
+						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+						cosmetic: Cosmetic.NestingGuideHeart3,
+					},
 				],
 				[
 					{
@@ -118,8 +122,8 @@ export default new GuideSpirit({
 						cosmetic: Cosmetic.NestingGuideQuest4,
 					},
 					{
-						translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
-						cosmetic: Cosmetic.NestingGuideHeart3,
+						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+						cosmetic: Cosmetic.NestingGuideHeart4,
 					},
 				],
 				[
@@ -128,26 +132,8 @@ export default new GuideSpirit({
 						cosmetic: Cosmetic.NestingGuideQuest5,
 					},
 					{
-						cosmetic: Cosmetic.StonePlantStand,
-					},
-					{
-						cosmetic: Cosmetic.DecorPillowTwoColour,
-					},
-				],
-				[
-					null,
-					{
-						cosmetic: Cosmetic.StoneSofaCorner,
-					},
-					{
-						cosmetic: Cosmetic.StoneSofaSide,
-					},
-				],
-				[
-					null,
-					{
-						translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
-						cosmetic: Cosmetic.NestingGuideHeart4,
+						translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+						cosmetic: Cosmetic.NestingGuideHeart5,
 					},
 				],
 			],
