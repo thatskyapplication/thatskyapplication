@@ -782,6 +782,7 @@ export const PATCH_NOTES: readonly PatchNote[] = [
 	{
 		date: "2026-11-24",
 		identifier: "p355",
+		url: "https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1479-update-35-5---november-24-2026"
 	},
 ];
 
