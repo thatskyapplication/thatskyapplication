@@ -449,9 +449,7 @@ const OUTFIT_EMOJIS = {
 	Outfit71: { id: "1560726014907129977", name: "71_outfit" },
 	Outfit72: { id: "1560712222563631235", name: "72_outfit" },
 	Outfit73: { id: "1560712239382532196", name: "73_outfit" },
-	Outfit74: { id: "1560712246974226523", name: "74_outfit" },
-	Outfit75: { id: "1560712251554668584", name: "75_outfit" },
-	Outfit76: { id: "1562997600645419110", name: "76_outfit" },
+	Outfit74: { id: "1562997600645419110", name: "74_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -531,6 +529,8 @@ const FULL_OUTFIT_EMOJIS = {
 	FullOutfit41: { id: "1561010871612997714", name: "41_full_outfit" },
 	FullOutfit42: { id: "1494755163720781965", name: "42_full_outfit" },
 	FullOutfit43: { id: "1495324967699611779", name: "43_full_outfit" },
+	FullOutfit44: { id: "1560712246974226523", name: "44_full_outfit" },
+	FullOutfit45: { id: "1560712251554668584", name: "45_full_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS = {

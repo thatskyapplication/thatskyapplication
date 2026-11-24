@@ -669,17 +669,9 @@ const OUTFIT_EMOJIS = {
 	 */
 	Outfit73: { id: "1560712188811939891", name: "73_outfit" },
 	/**
-	 * Showy Merchant.
-	 */
-	Outfit74: { id: "1560712197812912198", name: "74_outfit" },
-	/**
-	 * Wrestling Sailor.
-	 */
-	Outfit75: { id: "1560712205668843680", name: "75_outfit" },
-	/**
 	 * Days of Mischief 2026.
 	 */
-	Outfit76: { id: "1562997577367031808", name: "76_outfit" },
+	Outfit74: { id: "1562997577367031808", name: "74_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS = {
@@ -978,6 +970,14 @@ const FULL_OUTFIT_EMOJIS = {
 	 * Carnival Stunt Actor.
 	 */
 	FullOutfit43: { id: "1495324960066109460", name: "43_full_outfit" },
+	/**
+	 * Showy Merchant.
+	 */
+	FullOutfit44: { id: "1560712197812912198", name: "44_full_outfit" },
+	/**
+	 * Wrestling Sailor.
+	 */
+	FullOutfit45: { id: "1560712205668843680", name: "45_full_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS = {
