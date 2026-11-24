@@ -183,6 +183,10 @@ export default new GuideSpirit({
 						translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
 						cosmetic: Cosmetic.AURORAQuest2,
 					},
+					{
+						cosmetic: Cosmetic.MusicSheetThroughTheEyesOfAChild,
+						cost: { candles: 20 },
+					},
 				],
 				[
 					{
