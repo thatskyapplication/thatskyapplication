@@ -11,7 +11,6 @@ export default new GuideSpirit({
 	area: AreaName.PearlVillage,
 	friendshipTrees: {
 		seasonal: {
-			inProgress: true,
 			friendshipTree: [
 				[
 					{
