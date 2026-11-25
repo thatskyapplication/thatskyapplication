@@ -438,6 +438,12 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		};
 	});
 
+	// This ended an hour earlier.
+	// https://discord.com/channels/575762611111592007/591777850726547477/1575131262564307056
+	if (date.equals(skyDate(2026, 11, 25))) {
+		timestamps[0]!.end = skyDate(2026, 11, 25, 4, 40);
+	}
+
 	return {
 		realm: realmForArea(area)!,
 		area,

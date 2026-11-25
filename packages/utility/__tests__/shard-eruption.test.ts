@@ -330,6 +330,19 @@ test("Shard eruption relocations.", async (t) => {
 	}
 });
 
+test("The first shard eruption on 25 November 2026 was rescheduled.", () => {
+	const firstTimestamp = shardEruption(skyDate(2026, 11, 25))?.timestamps[0];
+	ok(firstTimestamp);
+
+	deepEqual(
+		{ start: firstTimestamp.start.toString(), end: firstTimestamp.end.toString() },
+		{
+			start: skyDate(2026, 11, 25, 1, 48, 40).add({ milliseconds: 800 }).toString(),
+			end: skyDate(2026, 11, 25, 4, 40).toString(),
+		},
+	);
+});
+
 test("The input instant is normalised to the Sky calendar day.", () => {
 	const skyDateTime = skyDate(2026, 11, 1, 22);
 	const utcDateTime = skyDateTime.withTimeZone("UTC");
