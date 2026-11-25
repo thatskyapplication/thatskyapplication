@@ -330,16 +330,26 @@ test("Shard eruption relocations.", async (t) => {
 	}
 });
 
-test("The first shard eruption on 25 November 2026 was rescheduled.", () => {
-	const firstTimestamp = shardEruption(skyDate(2026, 11, 25))?.timestamps[0];
-	ok(firstTimestamp);
-
+test("The first shard eruption on 25 November 2026 started 6 hours early, the rest started at the scheduled time and the first two each had a 3-hour window.", () => {
 	deepEqual(
-		{ start: firstTimestamp.start.toString(), end: firstTimestamp.end.toString() },
-		{
-			start: skyDate(2026, 11, 25, 1, 48, 40).add({ milliseconds: 800 }).toString(),
-			end: skyDate(2026, 11, 25, 4, 40).toString(),
-		},
+		shardEruption(skyDate(2026, 11, 25))?.timestamps.map(({ start, end }) => ({
+			start: start.toString(),
+			end: end.toString(),
+		})),
+		[
+			{
+				start: skyDate(2026, 11, 25, 1, 48, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 11, 25, 4, 40).toString(),
+			},
+			{
+				start: skyDate(2026, 11, 25, 7, 48, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 11, 25, 10, 40).toString(),
+			},
+			{
+				start: skyDate(2026, 11, 25, 13, 48, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 11, 25, 16, 40).toString(),
+			},
+		],
 	);
 });
 
