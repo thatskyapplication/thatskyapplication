@@ -406,6 +406,12 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 	let timestampCount = 3;
 	let firstShardPointer = date.add({ milliseconds: offset });
 
+	// This started 6 hours earlier.
+	// https://discord.com/channels/575762611111592007/585339436322259003/1575088057755901952
+	if (date.equals(skyDate(2026, 11, 25))) {
+		firstShardPointer = firstShardPointer.subtract({ hours: 6 });
+	}
+
 	// Account for a shard eruption during DST change.
 	if (date.offsetNanoseconds !== firstShardPointer.offsetNanoseconds) {
 		const becameDST = firstShardPointer.offsetNanoseconds > date.offsetNanoseconds;
