@@ -10,11 +10,6 @@ export default new StandardSpirit({
 		[{ cosmetic: Cosmetic.EmoteNoThanks1 }],
 		[
 			{
-				cosmetic: Cosmetic.EmoteNoThanks2,
-				cost: { candles: 1 },
-				level: 2,
-			},
-			{
 				translation: CosmeticCommon.Hair,
 				cosmetic: Cosmetic.RejectingVoyagerHair,
 				cost: { hearts: 1 },
@@ -24,9 +19,13 @@ export default new StandardSpirit({
 				cosmetic: Cosmetic.RejectingVoyagerBlessing1,
 				cost: { candles: 1 },
 			},
+			{
+				cosmetic: Cosmetic.EmoteNoThanks2,
+				cost: { candles: 1 },
+				level: 2,
+			},
 		],
 		[
-			null,
 			null,
 			{
 				translation: CosmeticCommon.Heart,
@@ -45,6 +44,9 @@ export default new StandardSpirit({
 				cosmetic: Cosmetic.RejectingVoyagerFaceAccessory,
 				cost: { hearts: 3 },
 			},
+		],
+		[
+			null,
 			{
 				translation: CosmeticCommon.WingBuff,
 				cosmetic: Cosmetic.RejectingVoyagerWingBuff,
