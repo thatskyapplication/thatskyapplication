@@ -2,7 +2,13 @@ import type { Spirit } from "./models/spirits.js";
 import { SeasonId } from "./season.js";
 import type { MessageFormatting } from "./types/index.js";
 import { sumCosts } from "./utility/functions.js";
-import type { FriendshipTree, Item, LegacyFriendshipTree } from "./utility/spirits.js";
+import {
+	type FriendshipTree,
+	type Item,
+	type LegacyFriendshipTree,
+	SpiritId,
+	type SpiritIds,
+} from "./utility/spirits.js";
 
 export const BACKGROUND_PADDING = 20 as const;
 export const LINE_WIDTH = 5 as const;
@@ -29,6 +35,7 @@ const LEVEL_BADGE_KEY = "catalogue.friendship-tree-node-level-badge" as const;
 export const FONT_SIZE = 35 as const;
 export const LEVEL_BADGE_FONT_SIZE = 30 as const;
 export const FRIENDSHIP_TREE_WIDTH = WIDTH_MODIFIER * 3.5;
+const MODERN_SEASONAL_SPIRITS: ReadonlySet<SpiritIds> = new Set([SpiritId.CompassionateCellist]);
 const LEGACY_NODE_SPACING = WIDTH_MODIFIER;
 const LEGACY_BRANCHED_NODE_SPACING = Math.round(LEGACY_NODE_SPACING * Math.SQRT2);
 
@@ -412,7 +419,11 @@ function isModernFriendshipTree(
 	tree: FriendshipTree | LegacyFriendshipTree,
 	spirit: Spirit,
 ): boolean {
-	if (spirit.isStandardSpirit() || spirit.isElderSpirit()) {
+	if (
+		spirit.isStandardSpirit() ||
+		spirit.isElderSpirit() ||
+		MODERN_SEASONAL_SPIRITS.has(spirit.id)
+	) {
 		return true;
 	}
 
