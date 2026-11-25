@@ -433,7 +433,7 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		const shardPointer = firstShardPointer.add({ hours: interval * index });
 
 		return {
-			start: shardPointer.add({ seconds: 520 }),
+			start: shardPointer.add({ seconds: 520, milliseconds: 800 }),
 			end: shardPointer.add({ hours: 4 }),
 		};
 	});

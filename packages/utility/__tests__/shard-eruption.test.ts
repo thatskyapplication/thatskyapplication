@@ -19,8 +19,14 @@ const EXPECTED_SHARD_ERUPTIONS = [
 			strong: true,
 			reward: 2.5,
 			timestamps: [
-				{ start: skyDate(2025, 3, 9, 8, 28, 40), end: skyDate(2025, 3, 9, 12, 20) },
-				{ start: skyDate(2025, 3, 9, 14, 28, 40), end: skyDate(2025, 3, 9, 18, 20) },
+				{
+					start: skyDate(2025, 3, 9, 8, 28, 40).add({ milliseconds: 800 }),
+					end: skyDate(2025, 3, 9, 12, 20),
+				},
+				{
+					start: skyDate(2025, 3, 9, 14, 28, 40).add({ milliseconds: 800 }),
+					end: skyDate(2025, 3, 9, 18, 20),
+				},
 			],
 		},
 	},
@@ -33,9 +39,18 @@ const EXPECTED_SHARD_ERUPTIONS = [
 			strong: true,
 			reward: 3.5,
 			timestamps: [
-				{ start: skyDate(2025, 3, 11, 3, 38, 40), end: skyDate(2025, 3, 11, 7, 30) },
-				{ start: skyDate(2025, 3, 11, 9, 38, 40), end: skyDate(2025, 3, 11, 13, 30) },
-				{ start: skyDate(2025, 3, 11, 15, 38, 40), end: skyDate(2025, 3, 11, 19, 30) },
+				{
+					start: skyDate(2025, 3, 11, 3, 38, 40).add({ milliseconds: 800 }),
+					end: skyDate(2025, 3, 11, 7, 30),
+				},
+				{
+					start: skyDate(2025, 3, 11, 9, 38, 40).add({ milliseconds: 800 }),
+					end: skyDate(2025, 3, 11, 13, 30),
+				},
+				{
+					start: skyDate(2025, 3, 11, 15, 38, 40).add({ milliseconds: 800 }),
+					end: skyDate(2025, 3, 11, 19, 30),
+				},
 			],
 		},
 	},
@@ -58,9 +73,18 @@ const EXPECTED_SHARD_ERUPTIONS = [
 			strong: true,
 			reward: 2,
 			timestamps: [
-				{ start: skyDate(2026, 11, 1, 7, 48, 40), end: skyDate(2026, 11, 1, 11, 40) },
-				{ start: skyDate(2026, 11, 1, 13, 48, 40), end: skyDate(2026, 11, 1, 17, 40) },
-				{ start: skyDate(2026, 11, 1, 19, 48, 40), end: skyDate(2026, 11, 1, 23, 40) },
+				{
+					start: skyDate(2026, 11, 1, 7, 48, 40).add({ milliseconds: 800 }),
+					end: skyDate(2026, 11, 1, 11, 40),
+				},
+				{
+					start: skyDate(2026, 11, 1, 13, 48, 40).add({ milliseconds: 800 }),
+					end: skyDate(2026, 11, 1, 17, 40),
+				},
+				{
+					start: skyDate(2026, 11, 1, 19, 48, 40).add({ milliseconds: 800 }),
+					end: skyDate(2026, 11, 1, 23, 40),
+				},
 			],
 		},
 	},
@@ -78,9 +102,18 @@ const EXPECTED_SHARD_ERUPTIONS = [
 			strong: true,
 			reward: 2.5,
 			timestamps: [
-				{ start: skyDate(2027, 11, 7, 7, 48, 40), end: skyDate(2027, 11, 7, 11, 40) },
-				{ start: skyDate(2027, 11, 7, 13, 48, 40), end: skyDate(2027, 11, 7, 17, 40) },
-				{ start: skyDate(2027, 11, 7, 19, 48, 40), end: skyDate(2027, 11, 7, 23, 40) },
+				{
+					start: skyDate(2027, 11, 7, 7, 48, 40).add({ milliseconds: 800 }),
+					end: skyDate(2027, 11, 7, 11, 40),
+				},
+				{
+					start: skyDate(2027, 11, 7, 13, 48, 40).add({ milliseconds: 800 }),
+					end: skyDate(2027, 11, 7, 17, 40),
+				},
+				{
+					start: skyDate(2027, 11, 7, 19, 48, 40).add({ milliseconds: 800 }),
+					end: skyDate(2027, 11, 7, 23, 40),
+				},
 			],
 		},
 	},
@@ -93,9 +126,18 @@ const EXPECTED_SHARD_ERUPTIONS = [
 			strong: true,
 			reward: 3.5,
 			timestamps: [
-				{ start: skyDate(2029, 3, 11, 3, 38, 40), end: skyDate(2029, 3, 11, 7, 30) },
-				{ start: skyDate(2029, 3, 11, 9, 38, 40), end: skyDate(2029, 3, 11, 13, 30) },
-				{ start: skyDate(2029, 3, 11, 15, 38, 40), end: skyDate(2029, 3, 11, 19, 30) },
+				{
+					start: skyDate(2029, 3, 11, 3, 38, 40).add({ milliseconds: 800 }),
+					end: skyDate(2029, 3, 11, 7, 30),
+				},
+				{
+					start: skyDate(2029, 3, 11, 9, 38, 40).add({ milliseconds: 800 }),
+					end: skyDate(2029, 3, 11, 13, 30),
+				},
+				{
+					start: skyDate(2029, 3, 11, 15, 38, 40).add({ milliseconds: 800 }),
+					end: skyDate(2029, 3, 11, 19, 30),
+				},
 			],
 		},
 	},
@@ -108,8 +150,14 @@ const EXPECTED_SHARD_ERUPTIONS = [
 			strong: true,
 			reward: 2.5,
 			timestamps: [
-				{ start: skyDate(2031, 3, 9, 8, 28, 40), end: skyDate(2031, 3, 9, 12, 20) },
-				{ start: skyDate(2031, 3, 9, 14, 28, 40), end: skyDate(2031, 3, 9, 18, 20) },
+				{
+					start: skyDate(2031, 3, 9, 8, 28, 40).add({ milliseconds: 800 }),
+					end: skyDate(2031, 3, 9, 12, 20),
+				},
+				{
+					start: skyDate(2031, 3, 9, 14, 28, 40).add({ milliseconds: 800 }),
+					end: skyDate(2031, 3, 9, 18, 20),
+				},
 			],
 		},
 	},
@@ -162,9 +210,18 @@ test("Confirmed historical shard eruptions.", async (t) => {
 				strong: true,
 				reward: 2.5,
 				timestamps: [
-					{ start: skyDate(2023, 1, 7, 7, 48, 40), end: skyDate(2023, 1, 7, 11, 40) },
-					{ start: skyDate(2023, 1, 7, 13, 48, 40), end: skyDate(2023, 1, 7, 17, 40) },
-					{ start: skyDate(2023, 1, 7, 19, 48, 40), end: skyDate(2023, 1, 7, 23, 40) },
+					{
+						start: skyDate(2023, 1, 7, 7, 48, 40).add({ milliseconds: 800 }),
+						end: skyDate(2023, 1, 7, 11, 40),
+					},
+					{
+						start: skyDate(2023, 1, 7, 13, 48, 40).add({ milliseconds: 800 }),
+						end: skyDate(2023, 1, 7, 17, 40),
+					},
+					{
+						start: skyDate(2023, 1, 7, 19, 48, 40).add({ milliseconds: 800 }),
+						end: skyDate(2023, 1, 7, 23, 40),
+					},
 				],
 			},
 		},
@@ -177,9 +234,18 @@ test("Confirmed historical shard eruptions.", async (t) => {
 				strong: true,
 				reward: 2.5,
 				timestamps: [
-					{ start: skyDate(2023, 1, 9, 2, 28, 40), end: skyDate(2023, 1, 9, 6, 20) },
-					{ start: skyDate(2023, 1, 9, 8, 28, 40), end: skyDate(2023, 1, 9, 12, 20) },
-					{ start: skyDate(2023, 1, 9, 14, 28, 40), end: skyDate(2023, 1, 9, 18, 20) },
+					{
+						start: skyDate(2023, 1, 9, 2, 28, 40).add({ milliseconds: 800 }),
+						end: skyDate(2023, 1, 9, 6, 20),
+					},
+					{
+						start: skyDate(2023, 1, 9, 8, 28, 40).add({ milliseconds: 800 }),
+						end: skyDate(2023, 1, 9, 12, 20),
+					},
+					{
+						start: skyDate(2023, 1, 9, 14, 28, 40).add({ milliseconds: 800 }),
+						end: skyDate(2023, 1, 9, 18, 20),
+					},
 				],
 			},
 		},

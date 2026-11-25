@@ -672,7 +672,7 @@ test("Projector of memories schedule is unavailable before its introduction.", (
 test("Shard eruption schedule finds an active eruption on the requested date.", () => {
 	const result = shardEruptionSchedule(skyDate(2025, 3, 11, 10));
 	ok(result);
-	equal(result.start.toString(), "2025-03-11T09:38:40-07:00[America/Los_Angeles]");
+	equal(result.start.toString(), "2025-03-11T09:38:40.8-07:00[America/Los_Angeles]");
 	equal(result.end.toString(), "2025-03-11T13:30:00-07:00[America/Los_Angeles]");
 	equal(result.active, true);
 });
@@ -680,7 +680,7 @@ test("Shard eruption schedule finds an active eruption on the requested date.", 
 test("Shard eruption schedule searches forward from a requested day with no eruption.", () => {
 	const result = shardEruptionSchedule(skyDate(2025, 3, 8, 12));
 	ok(result);
-	equal(result.start.toString(), "2025-03-09T08:28:40-07:00[America/Los_Angeles]");
+	equal(result.start.toString(), "2025-03-09T08:28:40.8-07:00[America/Los_Angeles]");
 	equal(result.end.toString(), "2025-03-09T12:20:00-07:00[America/Los_Angeles]");
 	equal(result.active, false);
 });
@@ -689,7 +689,7 @@ test("Shard eruption schedule traverses Sky calendar days across spring forward.
 	const input = skyDate(2025, 3, 8, 23, 30).withTimeZone("UTC");
 	const result = shardEruptionSchedule(input);
 	ok(result);
-	equal(result.start.toString(), "2025-03-09T08:28:40-07:00[America/Los_Angeles]");
+	equal(result.start.toString(), "2025-03-09T08:28:40.8-07:00[America/Los_Angeles]");
 	equal(result.end.toString(), "2025-03-09T12:20:00-07:00[America/Los_Angeles]");
 	equal(result.active, false);
 });
@@ -716,7 +716,7 @@ test("Shard eruption schedule does not search before the first eruption date.", 
 
 test("Shard eruption schedule moves from the old sequence to the predicted schedule.", () => {
 	const result = shardEruptionSchedule(skyDate(2022, 9, 30, 23, 50));
-	equal(result.start.toString(), "2022-10-01T07:48:40-07:00[America/Los_Angeles]");
+	equal(result.start.toString(), "2022-10-01T07:48:40.8-07:00[America/Los_Angeles]");
 	equal(result.end.toString(), "2022-10-01T11:40:00-07:00[America/Los_Angeles]");
 	equal(result.active, false);
 });
