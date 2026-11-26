@@ -407,12 +407,20 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 	let firstShardPointer = date.add({ milliseconds: offset });
 	let duration = 4;
 
-	// These started 6 hours earlier and each lasted 3 hours.
+	// This gained a shard eruption 6 hours before the first and each lasted 3 hours.
 	// https://discord.com/channels/575762611111592007/585339436322259003/1575088057755901952
 	// https://discord.com/channels/575762611111592007/591777850726547477/1575131262564307056
 	// https://discord.com/channels/575762611111592007/575827782144098304/1575220878289928345
 	if (date.equals(skyDate(2026, 11, 25))) {
 		firstShardPointer = firstShardPointer.subtract({ hours: 6 });
+		timestampCount = 4;
+		duration = 3;
+	}
+
+	// From 26 November 2026, the 1st, 7th, 13th, 19th, 25th and 31st gained a shard eruption 6 hours before the first and each lasts 3 hours.
+	if (infoIndex === 2 && Temporal.ZonedDateTime.compare(date, skyDate(2026, 11, 26)) >= 0) {
+		firstShardPointer = firstShardPointer.subtract({ hours: 6 });
+		timestampCount = 4;
 		duration = 3;
 	}
 
@@ -434,7 +442,10 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 	}
 
 	const timestamps = Array.from({ length: timestampCount }, (_, index) => {
-		const shardPointer = firstShardPointer.add({ hours: interval * index });
+		const shardPointer = firstShardPointer
+			.toPlainDateTime()
+			.add({ hours: interval * index })
+			.toZonedDateTime(TIME_ZONE);
 
 		return {
 			start: shardPointer.add({ seconds: 520, milliseconds: 800 }),

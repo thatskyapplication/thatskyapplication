@@ -103,16 +103,20 @@ const EXPECTED_SHARD_ERUPTIONS = [
 			reward: 2.5,
 			timestamps: [
 				{
+					start: skyDate(2027, 11, 7, 1, 48, 40).add({ milliseconds: 800 }),
+					end: skyDate(2027, 11, 7, 3, 40),
+				},
+				{
 					start: skyDate(2027, 11, 7, 7, 48, 40).add({ milliseconds: 800 }),
-					end: skyDate(2027, 11, 7, 11, 40),
+					end: skyDate(2027, 11, 7, 10, 40),
 				},
 				{
 					start: skyDate(2027, 11, 7, 13, 48, 40).add({ milliseconds: 800 }),
-					end: skyDate(2027, 11, 7, 17, 40),
+					end: skyDate(2027, 11, 7, 16, 40),
 				},
 				{
 					start: skyDate(2027, 11, 7, 19, 48, 40).add({ milliseconds: 800 }),
-					end: skyDate(2027, 11, 7, 23, 40),
+					end: skyDate(2027, 11, 7, 22, 40),
 				},
 			],
 		},
@@ -330,7 +334,7 @@ test("Shard eruption relocations.", async (t) => {
 	}
 });
 
-test("The first shard eruption on 25 November 2026 started 6 hours early, the rest started at the scheduled time and all three had a 3-hour window.", () => {
+test("The first shard eruption on 25 November 2026 started 6 hours early, the rest started at the scheduled time and all four had a 3-hour window.", () => {
 	deepEqual(
 		shardEruption(skyDate(2026, 11, 25))?.timestamps.map(({ start, end }) => ({
 			start: start.toString(),
@@ -349,6 +353,37 @@ test("The first shard eruption on 25 November 2026 started 6 hours early, the re
 				start: skyDate(2026, 11, 25, 13, 48, 40).add({ milliseconds: 800 }).toString(),
 				// https://discord.com/channels/575762611111592007/575827924343848960/1575310298976616449
 				end: skyDate(2026, 11, 25, 16, 40).toString(),
+			},
+			{
+				start: skyDate(2026, 11, 25, 19, 48, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 11, 25, 22, 40).toString(),
+			},
+		],
+	);
+});
+
+test("From 26 November 2026, the 1st, 7th, 13th, 19th, 25th and 31st gained a shard eruption 6 hours before the first and each has a 3-hour window.", () => {
+	deepEqual(
+		shardEruption(skyDate(2026, 12, 13))?.timestamps.map(({ start, end }) => ({
+			start: start.toString(),
+			end: end.toString(),
+		})),
+		[
+			{
+				start: skyDate(2026, 12, 13, 1, 48, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 12, 13, 4, 40).toString(),
+			},
+			{
+				start: skyDate(2026, 12, 13, 7, 48, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 12, 13, 10, 40).toString(),
+			},
+			{
+				start: skyDate(2026, 12, 13, 13, 48, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 12, 13, 16, 40).toString(),
+			},
+			{
+				start: skyDate(2026, 12, 13, 19, 48, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 12, 13, 22, 40).toString(),
 			},
 		],
 	);
