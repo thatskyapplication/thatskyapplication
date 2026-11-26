@@ -6,6 +6,7 @@ const ACTION_BUTTON_CLASS_NAME =
 	"inline-flex min-w-0 cursor-pointer items-center justify-center gap-2 rounded-sm border font-medium shadow-md transition-colors duration-300 hover:shadow-lg disabled:cursor-not-allowed disabled:shadow-md" as const;
 
 const ACTION_BUTTON_SIZE_CLASS_NAMES = {
+	icon: "size-8",
 	large: "px-5 py-2.5 text-base",
 	medium: "px-4 py-2 text-sm",
 } as const;

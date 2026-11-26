@@ -18,7 +18,6 @@ import {
 	type APINewsChannel,
 	type APIPublicThreadChannel,
 	type APITextChannel,
-	type APIUser,
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
@@ -36,15 +35,20 @@ import { getFixedT, t } from "i18next";
 import pQueue from "p-queue";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
 import {
+	type APIDailyGuidesQuests,
+	type APIDailyGuidesState,
+	type APIDailyGuidesUser,
+	type APIPostDailyGuidesModificationBody,
 	clampPlainDate,
 	currentNestingWorkshop,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
 	dailyGuidesContainer,
-	dailyGuidesDate,
 	DailyGuidesDistributionType,
 	type DailyGuidesDistributionTypes,
+	DailyGuidesModificationType,
+	type DailyGuidesSetData,
 	type DailyQuests,
 	DailyQuestToInfographicURL,
 	fetchDailyGuides,
@@ -53,6 +57,7 @@ import {
 	formatEmoji,
 	isDailyQuest,
 	MAXIMUM_ASSET_BANNER_DIMENSION,
+	NESTING_WORKSHOP_MAXIMUM_PROPS,
 	NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES,
 	NESTING_WORKSHOP_ROTATION_COSMETICS,
 	type NestingWorkshopRotationCategories,
@@ -65,6 +70,8 @@ import {
 	ScheduleTypeToLocaleKey,
 	skyNow,
 	dailyQuestLabel,
+	updateDailyGuides,
+	updateNestingWorkshop,
 } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";
@@ -92,7 +99,6 @@ import {
 	LOCALE_OPTIONS,
 	MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
-	NESTING_WORKSHOP_MAXIMUM_PROPS,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
@@ -108,9 +114,6 @@ import {
 import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
-
-type DailyGuidesSetData = Partial<Omit<Packet<"daily_guides">, "date">> &
-	Pick<Packet<"daily_guides">, "last_updated_user_id" | "last_updated_at">;
 
 type DailyGuidesDistributionAllowedChannel =
 	| Extract<
@@ -172,14 +175,6 @@ export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTo
 			],
 		},
 	];
-}
-
-async function updateDailyGuides(date: Temporal.PlainDate, data: DailyGuidesSetData) {
-	await database
-		.insertInto("daily_guides")
-		.values({ date: dailyGuidesDate(date), ...data })
-		.onConflict((oc) => oc.column("date").doUpdateSet(data))
-		.execute();
 }
 
 function isDailyGuidesDistributionChannel(
@@ -708,7 +703,7 @@ async function distributionData({
 }
 
 interface DailyGuidesDistributionOptions {
-	user: APIUser;
+	user: APIDailyGuidesUser;
 	lastUpdatedUserId: Snowflake;
 	lastUpdatedAt: Date;
 	force?: boolean;
@@ -721,7 +716,7 @@ async function distributeLogic({
 }: DailyGuidesDistributionOptions) {
 	await logModification({ user, content: "distributed daily guides." });
 
-	await updateDailyGuides(skyNow().toPlainDate(), {
+	await updateDailyGuides(database, skyNow().toPlainDate(), {
 		last_updated_user_id: lastUpdatedUserId,
 		last_updated_at: lastUpdatedAt,
 	});
@@ -788,11 +783,17 @@ export async function distribute(options: DailyGuidesDistributionOptions) {
 	}
 
 	const promise = distributeLogic(options).finally(() => {
-		distributionLock = null;
+		if (distributionLock === promise) {
+			distributionLock = null;
+		}
 	});
 
 	distributionLock = promise;
 	await promise;
+}
+
+export function isDistributing() {
+	return distributionLock !== null;
 }
 
 interface DailyGuidesResponseOptions {
@@ -1100,7 +1101,7 @@ export async function interactive(
 }
 
 interface LogModificationOptions {
-	user: Pick<APIUser, "id" | "username" | "discriminator">;
+	user: APIDailyGuidesUser;
 	content: string;
 	diff?: string;
 	travellingRock?: string | null | undefined;
@@ -1111,14 +1112,14 @@ async function logModification({ user, content, diff, travellingRock }: LogModif
 
 	if (!guild) {
 		pino.error("Could not find the support server whilst logging a daily guides modification.");
-		return;
+		return false;
 	}
 
 	const channel = guild.channels.get(DAILY_GUIDES_LOG_CHANNEL_ID);
 
 	if (channel?.type !== ChannelType.GuildText) {
 		pino.error("Could not find the daily guides log channel.");
-		return;
+		return false;
 	}
 
 	const me = await guild.fetchMe();
@@ -1132,7 +1133,7 @@ async function logModification({ user, content, diff, travellingRock }: LogModif
 		})
 	) {
 		pino.error("Missing permissions to post in the daily guides log channel.");
-		return;
+		return false;
 	}
 
 	const createMessageOptions: CreateMessageOptions = {
@@ -1140,8 +1141,9 @@ async function logModification({ user, content, diff, travellingRock }: LogModif
 	};
 
 	const logContent = `<@${user.id}> (${userTag(user)}) ${content}`;
+	const diffBlock = diff && `\`\`\`diff\n${diff}\n\`\`\``;
 
-	if (diff && travellingRock) {
+	if (diffBlock && travellingRock) {
 		createMessageOptions.components = [
 			{
 				type: ComponentType.TextDisplay,
@@ -1162,20 +1164,78 @@ async function logModification({ user, content, diff, travellingRock }: LogModif
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: diff,
+						content: diffBlock,
 					},
 				],
 			},
 		];
 
 		createMessageOptions.flags = MessageFlags.IsComponentsV2;
-	} else if (diff) {
-		createMessageOptions.content = `${logContent}\n${diff}`;
+	} else if (diffBlock) {
+		createMessageOptions.content = `${logContent}\n${diffBlock}`;
 	} else {
 		createMessageOptions.content = logContent;
 	}
 
 	await client.api.channels.createMessage(channel.id, createMessageOptions);
+	return true;
+}
+
+function dailyQuestLogLabel(quest: number | null) {
+	return quest === null || !isDailyQuest(quest) ? null : dailyQuestLabel(quest, t);
+}
+
+function dailyQuestsLogData({ quest1, quest2, quest3, quest4 }: APIDailyGuidesQuests) {
+	return {
+		quest1: dailyQuestLogLabel(quest1),
+		quest2: dailyQuestLogLabel(quest2),
+		quest3: dailyQuestLogLabel(quest3),
+		quest4: dailyQuestLogLabel(quest4),
+	};
+}
+
+function dailyGuidesLogData({
+	travellingRock,
+	travellingRockNotSpawned,
+	...quests
+}: APIDailyGuidesState) {
+	return { ...dailyQuestsLogData(quests), travellingRock, travellingRockNotSpawned };
+}
+
+export async function logDailyGuidesModification(modification: APIPostDailyGuidesModificationBody) {
+	switch (modification.type) {
+		case DailyGuidesModificationType.Set:
+			return logModification({
+				user: modification.user,
+				content: "set daily guides.",
+				diff: diffJSON(
+					dailyGuidesLogData(modification.previous),
+					dailyGuidesLogData(modification.next),
+				),
+				travellingRock: modification.next.travellingRock,
+			});
+		case DailyGuidesModificationType.QuestsReorder:
+			return logModification({
+				user: modification.user,
+				content: "reordered daily quests.",
+				diff: diffJSON(
+					dailyQuestsLogData(modification.previous),
+					dailyQuestsLogData(modification.next),
+				),
+			});
+		case DailyGuidesModificationType.NestingWorkshopSet:
+			return logModification({
+				user: modification.user,
+				content: "set the Nesting Workshop props.",
+				diff: diffJSON({ cosmetics: modification.previous }, { cosmetics: modification.next }),
+			});
+		case DailyGuidesModificationType.NestingWorkshopReorder:
+			return logModification({
+				user: modification.user,
+				content: "reordered the Nesting Workshop props.",
+				diff: diffJSON({ cosmetics: modification.previous }, { cosmetics: modification.next }),
+			});
+	}
 }
 
 export async function handleDistributeButton(
@@ -1266,15 +1326,6 @@ export async function set(
 		return;
 	}
 
-	const oldData = {
-		quest1: oldQuest1 === null || !isDailyQuest(oldQuest1) ? null : dailyQuestLabel(oldQuest1, t),
-		quest2: oldQuest2 === null || !isDailyQuest(oldQuest2) ? null : dailyQuestLabel(oldQuest2, t),
-		quest3: oldQuest3 === null || !isDailyQuest(oldQuest3) ? null : dailyQuestLabel(oldQuest3, t),
-		quest4: oldQuest4 === null || !isDailyQuest(oldQuest4) ? null : dailyQuestLabel(oldQuest4, t),
-		travellingRock,
-		travellingRockNotSpawned,
-	};
-
 	const data: DailyGuidesSetData = {
 		last_updated_user_id: interaction.member.user.id,
 		last_updated_at: snowflakeDate(interaction.id),
@@ -1325,28 +1376,34 @@ export async function set(
 		data.travelling_rock === undefined ? travellingRock : data.travelling_rock;
 	const finalTravellingRockNotSpawned =
 		data.travelling_rock_not_spawned ?? travellingRockNotSpawned;
-	const newData = {
-		quest1: newQuest1 === null || !isDailyQuest(newQuest1) ? null : dailyQuestLabel(newQuest1, t),
-		quest2: newQuest2 === null || !isDailyQuest(newQuest2) ? null : dailyQuestLabel(newQuest2, t),
-		quest3: newQuest3 === null || !isDailyQuest(newQuest3) ? null : dailyQuestLabel(newQuest3, t),
-		quest4: newQuest4 === null || !isDailyQuest(newQuest4) ? null : dailyQuestLabel(newQuest4, t),
-		travellingRock: finalTravellingRock,
-		travellingRockNotSpawned: finalTravellingRockNotSpawned,
-	};
 
 	data.quest1 = newQuest1 === null || !isDailyQuest(newQuest1) ? null : newQuest1;
 	data.quest2 = newQuest2 === null || !isDailyQuest(newQuest2) ? null : newQuest2;
 	data.quest3 = newQuest3 === null || !isDailyQuest(newQuest3) ? null : newQuest3;
 	data.quest4 = newQuest4 === null || !isDailyQuest(newQuest4) ? null : newQuest4;
 
-	await logModification({
+	await logDailyGuidesModification({
+		type: DailyGuidesModificationType.Set,
 		user: interaction.member.user,
-		content: "set daily guides.",
-		diff: `\`\`\`diff\n${diffJSON(oldData, newData)}\n\`\`\``,
-		travellingRock: finalTravellingRock,
+		previous: {
+			quest1: oldQuest1,
+			quest2: oldQuest2,
+			quest3: oldQuest3,
+			quest4: oldQuest4,
+			travellingRock,
+			travellingRockNotSpawned,
+		},
+		next: {
+			quest1: newQuest1,
+			quest2: newQuest2,
+			quest3: newQuest3,
+			quest4: newQuest4,
+			travellingRock: finalTravellingRock,
+			travellingRockNotSpawned: finalTravellingRockNotSpawned,
+		},
 	});
 
-	await updateDailyGuides(date, data);
+	await updateDailyGuides(database, date, data);
 	await interactive(interaction, interactiveOptions);
 }
 
@@ -1448,23 +1505,18 @@ export async function setNestingWorkshop(
 		return;
 	}
 
-	await logModification({
+	await logDailyGuidesModification({
+		type: DailyGuidesModificationType.NestingWorkshopSet,
 		user: interaction.member.user,
-		content: "set the Nesting Workshop props.",
-		diff: `\`\`\`diff\n${diffJSON({ cosmetics: oldCosmetics }, { cosmetics })}\n\`\`\``,
+		previous: oldCosmetics,
+		next: cosmetics,
 	});
 
-	const data = {
+	await updateNestingWorkshop(database, now.toPlainDate(), {
 		cosmetics,
 		last_updated_user_id: interaction.member.user.id,
 		last_updated_at: snowflakeDate(interaction.id),
-	};
-
-	await database
-		.insertInto("nesting_workshop")
-		.values({ date: new Date(start.epochMilliseconds), ...data })
-		.onConflict((onConflict) => onConflict.column("date").doUpdateSet(data))
-		.execute();
+	});
 
 	await interactive(interaction, { locale });
 }
@@ -1493,27 +1545,14 @@ export async function questsReorder(
 		quest4: newQuest4 !== null && isDailyQuest(newQuest4) ? newQuest4 : null,
 	};
 
-	const oldQuests = {
-		quest1: quest1 === null || !isDailyQuest(quest1) ? null : dailyQuestLabel(quest1, t),
-		quest2: quest2 === null || !isDailyQuest(quest2) ? null : dailyQuestLabel(quest2, t),
-		quest3: quest3 === null || !isDailyQuest(quest3) ? null : dailyQuestLabel(quest3, t),
-		quest4: quest4 === null || !isDailyQuest(quest4) ? null : dailyQuestLabel(quest4, t),
-	};
-
-	const newQuests = {
-		quest1: isDailyQuest(newQuest1) ? dailyQuestLabel(newQuest1, t) : null,
-		quest2: isDailyQuest(newQuest2) ? dailyQuestLabel(newQuest2, t) : null,
-		quest3: newQuest3 === null || !isDailyQuest(newQuest3) ? null : dailyQuestLabel(newQuest3, t),
-		quest4: newQuest4 === null || !isDailyQuest(newQuest4) ? null : dailyQuestLabel(newQuest4, t),
-	};
-
-	await logModification({
+	await logDailyGuidesModification({
+		type: DailyGuidesModificationType.QuestsReorder,
 		user: interaction.member.user,
-		content: "reordered daily quests.",
-		diff: `\`\`\`diff\n${diffJSON(oldQuests, newQuests)}\n\`\`\``,
+		previous: { quest1, quest2, quest3, quest4 },
+		next: { quest1: newQuest1, quest2: newQuest2, quest3: newQuest3, quest4: newQuest4 },
 	});
 
-	await updateDailyGuides(date, data);
+	await updateDailyGuides(database, date, data);
 	await interactive(interaction, { type: InteractiveType.Reorder, locale });
 }
 
@@ -1563,10 +1602,11 @@ export async function nestingWorkshopReorder(
 		return;
 	}
 
-	await logModification({
+	await logDailyGuidesModification({
+		type: DailyGuidesModificationType.NestingWorkshopReorder,
 		user: interaction.member.user,
-		content: "reordered the Nesting Workshop props.",
-		diff: `\`\`\`diff\n${diffJSON({ cosmetics: oldCosmetics }, { cosmetics })}\n\`\`\``,
+		previous: oldCosmetics,
+		next: cosmetics,
 	});
 
 	await database

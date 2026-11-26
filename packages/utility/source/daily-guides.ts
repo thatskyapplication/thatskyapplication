@@ -1,5 +1,6 @@
 import { ChannelType } from "discord-api-types/v10";
 import type { Kysely } from "kysely";
+import type { Packet } from "./database/index.js";
 import type { DB } from "./database/schema.js";
 import { isActive, TIME_ZONE } from "./dates.js";
 import { AreaName, isRealm, RealmName } from "./kingdom/geography.js";
@@ -1460,6 +1461,21 @@ export async function fetchDailyGuides(database: Kysely<DB>, date: Temporal.Plai
 	);
 }
 
+export type DailyGuidesSetData = Partial<Omit<Packet<"daily_guides">, "date">> &
+	Pick<Packet<"daily_guides">, "last_updated_user_id" | "last_updated_at">;
+
+export async function updateDailyGuides(
+	database: Kysely<DB>,
+	date: Temporal.PlainDate,
+	data: DailyGuidesSetData,
+) {
+	await database
+		.insertInto("daily_guides")
+		.values({ date: dailyGuidesDate(date), ...data })
+		.onConflict((onConflict) => onConflict.column("date").doUpdateSet(data))
+		.execute();
+}
+
 export async function fetchFirstDailyGuidesDate(database: Kysely<DB>) {
 	const { first } = await database
 		.selectFrom("daily_guides")
@@ -1492,6 +1508,24 @@ export async function fetchNestingWorkshop(database: Kysely<DB>, date: Temporal.
 		.executeTakeFirst();
 
 	return nestingWorkshopPacket ?? null;
+}
+
+export async function updateNestingWorkshop(
+	database: Kysely<DB>,
+	date: Temporal.PlainDate,
+	data: Pick<Packet<"nesting_workshop">, "cosmetics" | "last_updated_user_id" | "last_updated_at">,
+) {
+	const key = nestingWorkshopDate(date);
+
+	if (!key) {
+		throw new Error(`There is no Nesting Workshop rotation on ${date.toString()}.`);
+	}
+
+	await database
+		.insertInto("nesting_workshop")
+		.values({ date: key, ...data })
+		.onConflict((onConflict) => onConflict.column("date").doUpdateSet(data))
+		.execute();
 }
 
 export interface DailyGuidesDaysCountItem {

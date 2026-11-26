@@ -18,6 +18,8 @@ import {
 } from "./utility/functions.js";
 import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
+export const NESTING_WORKSHOP_MAXIMUM_PROPS = 6 as const;
+
 const starterPackItems = resolveOfferFromItems([
 	{
 		cosmetic: Cosmetic.MobileCape,

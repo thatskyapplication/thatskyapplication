@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { Flag, Ticket, Upload } from "lucide-react";
+import { CalendarCheck, Flag, Ticket, Upload } from "lucide-react";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { requireAdminAccess } from "~/utility/functions.server.js";
@@ -20,6 +20,18 @@ export default function Admin() {
 				</div>
 
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+					<Link
+						className="flex w-full items-center gap-4 rounded-lg bg-gray-100 p-4 shadow-md transition-transform duration-200 hover:bg-gray-100/50 hover:shadow-lg sm:hover:translate-y-0 lg:hover:-translate-y-2 dark:bg-gray-900 dark:hover:bg-gray-900/50"
+						to="/admin/daily-guides"
+					>
+						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
+							<CalendarCheck className="h-5 w-5" />
+						</div>
+						<div>
+							<h2 className={SECTION_HEADING_CLASS}>Daily guides</h2>
+						</div>
+					</Link>
+
 					<Link
 						className="flex w-full items-center gap-4 rounded-lg bg-gray-100 p-4 shadow-md transition-transform duration-200 hover:bg-gray-100/50 hover:shadow-lg sm:hover:translate-y-0 lg:hover:-translate-y-2 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 						to="/admin/friendship-actions"

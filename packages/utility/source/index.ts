@@ -17,7 +17,18 @@ import zhTWLocale from "./locales/zh-tw.json" with { type: "json" };
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
 export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
-export { type APIGuildsMeResponse, guildsMeRoute } from "./api.js";
+export {
+	type APIDailyGuidesQuests,
+	type APIDailyGuidesState,
+	type APIDailyGuidesUser,
+	type APIGuildsMeResponse,
+	type APIPostDailyGuidesDistributeBody,
+	type APIPostDailyGuidesModificationBody,
+	DAILY_GUIDES_DISTRIBUTE_ROUTE,
+	DAILY_GUIDES_MODIFICATIONS_ROUTE,
+	DailyGuidesModificationType,
+	guildsMeRoute,
+} from "./api.js";
 export {
 	ALLOWED_IMAGE_MEDIA_TYPES,
 	ANIMATED_HASH_PREFIX,
@@ -55,6 +66,7 @@ export {
 	itemName,
 	LOYALTY,
 	NESTING_WORKSHOP,
+	NESTING_WORKSHOP_MAXIMUM_PROPS,
 	NESTING_WORKSHOP_ROTATION_CATEGORY_VALUES,
 	NESTING_WORKSHOP_ROTATION_COSMETICS,
 	nestingWorkshopPropsLine,
@@ -85,6 +97,7 @@ export {
 	type DailyGuidesDaysCountItem,
 	DailyGuidesDistributionType,
 	type DailyGuidesDistributionTypes,
+	type DailyGuidesSetData,
 	type DailyQuests,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
@@ -96,6 +109,8 @@ export {
 	fetchNestingWorkshop,
 	isDailyQuest,
 	nestingWorkshopDate,
+	updateDailyGuides,
+	updateNestingWorkshop,
 	visibleDaysCountItems,
 } from "./daily-guides.js";
 export { dailyGuidesContainer } from "./daily-guides-distribution.js";

@@ -12,9 +12,12 @@ export const ALLOWED_IMAGE_MEDIA_TYPES = [
 	"image/webp",
 ] as const satisfies readonly `${string}/${string}`[];
 
-export function isValidImageAsset(asset: { size: number; type: string }) {
+export function isValidImageAsset(
+	asset: { size: number; type: string },
+	maximumSize: number = MAXIMUM_ASSET_SIZE,
+) {
 	return (
-		asset.size <= MAXIMUM_ASSET_SIZE &&
+		asset.size <= maximumSize &&
 		ALLOWED_IMAGE_MEDIA_TYPES.some((mediaType) => mediaType === asset.type)
 	);
 }

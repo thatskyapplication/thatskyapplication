@@ -388,7 +388,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 				intent: "create",
 				ok: false,
 			} as const,
-			{ status: 502 },
+			{ status: 503 },
 		);
 	}
 
