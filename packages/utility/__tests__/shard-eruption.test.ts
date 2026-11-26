@@ -330,7 +330,7 @@ test("Shard eruption relocations.", async (t) => {
 	}
 });
 
-test("The first shard eruption on 25 November 2026 started 6 hours early, the rest started at the scheduled time and the first two each had a 3-hour window.", () => {
+test("The first shard eruption on 25 November 2026 started 6 hours early, the rest started at the scheduled time and all three had a 3-hour window.", () => {
 	deepEqual(
 		shardEruption(skyDate(2026, 11, 25))?.timestamps.map(({ start, end }) => ({
 			start: start.toString(),
@@ -347,6 +347,7 @@ test("The first shard eruption on 25 November 2026 started 6 hours early, the re
 			},
 			{
 				start: skyDate(2026, 11, 25, 13, 48, 40).add({ milliseconds: 800 }).toString(),
+				// https://discord.com/channels/575762611111592007/575827924343848960/1575310298976616449
 				end: skyDate(2026, 11, 25, 16, 40).toString(),
 			},
 		],
