@@ -2073,7 +2073,7 @@ export function deriveEmojis<const Tables extends EmojiTables>(
 		[Cosmetic.StoneSmallBathtub]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp65,
 		[Cosmetic.MediumSolidRug]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp49,
 		[Cosmetic.StoneFigurine]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp50,
-		[Cosmetic.StoneKichenDrawers]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp66,
+		[Cosmetic.StoneKitchenDrawers]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp66,
 		[Cosmetic.StoneCoffeeTable]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp67,
 		[Cosmetic.StoneCandleLight]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp68,
 		[Cosmetic.MediumStripesRug]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp51,

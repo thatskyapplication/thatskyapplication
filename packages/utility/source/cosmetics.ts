@@ -2527,7 +2527,7 @@ export enum Cosmetic {
 	StoneFigurine = 2015,
 
 	// 03/06/2024 | Nesting Workshop week 8.
-	StoneKichenDrawers = 2016,
+	StoneKitchenDrawers = 2016,
 	StoneCoffeeTable = 2017,
 	StoneCandleLight = 2018,
 	MediumStripesRug = 2019,

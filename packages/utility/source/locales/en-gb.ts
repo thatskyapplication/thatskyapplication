@@ -1869,7 +1869,7 @@ export default {
 			[Cosmetic.StoneSmallBathtub]: "Stone small bathtub",
 			[Cosmetic.MediumSolidRug]: "Medium solid rug",
 			[Cosmetic.StoneFigurine]: "Stone figurine",
-			[Cosmetic.StoneKichenDrawers]: "Stone kichen drawers",
+			[Cosmetic.StoneKitchenDrawers]: "Stone kitchen drawers",
 			[Cosmetic.StoneCoffeeTable]: "Stone coffee table",
 			[Cosmetic.StoneCandleLight]: "Stone candle light",
 			[Cosmetic.MediumStripesRug]: "Medium stripes rug",
