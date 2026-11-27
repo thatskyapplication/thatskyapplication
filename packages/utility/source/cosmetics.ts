@@ -3865,6 +3865,9 @@ export enum Cosmetic {
 
 	// 27/11/2026 | Version 35.6.
 	ThePearl = 3065,
+	AnglersLanternQuest4 = 3066,
+	AnglersLanternQuest5 = 3067,
+	AnglersLanternQuest6 = 3068,
 }
 
 export enum CosmeticCommon {

@@ -11,7 +11,6 @@ export default new GuideSpirit({
 	area: AreaName.PearlVillage,
 	friendshipTrees: {
 		seasonal: {
-			inProgress: true,
 			friendshipTree: [
 				[
 					{
@@ -54,9 +53,17 @@ export default new GuideSpirit({
 						seasonPass: true,
 					},
 				],
-				[null],
 				[
-					null,
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+						cosmetic: Cosmetic.AnglersLanternQuest4,
+					},
+				],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+						cosmetic: Cosmetic.AnglersLanternQuest5,
+					},
 					{
 						translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 						cosmetic: Cosmetic.AnglersLanternHeart2,
@@ -68,7 +75,12 @@ export default new GuideSpirit({
 						seasonPass: true,
 					},
 				],
-				[null],
+				[
+					{
+						translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+						cosmetic: Cosmetic.AnglersLanternQuest6,
+					},
+				],
 				[
 					null,
 					{
