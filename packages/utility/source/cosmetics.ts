@@ -3862,6 +3862,9 @@ export enum Cosmetic {
 
 	// 13/11/2026 | Version 35.2.
 	OilLamp = 3064,
+
+	// 27/11/2026 | Version 35.6.
+	ThePearl = 3065,
 }
 
 export enum CosmeticCommon {

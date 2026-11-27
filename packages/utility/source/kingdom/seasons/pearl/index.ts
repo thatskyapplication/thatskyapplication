@@ -1,3 +1,4 @@
+import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { SeasonId } from "../../../season.js";
@@ -25,5 +26,11 @@ export default new Season({
 		{ rotation: "1", realm: RealmName.GoldenWasteland },
 		{ rotation: "2", realm: RealmName.VaultOfKnowledge },
 		{ rotation: "1", realm: RealmName.DaylightPrairie },
+	],
+	items: [
+		{
+			cosmetic: Cosmetic.ThePearl,
+			cost: { money: 14.99 },
+		},
 	],
 });

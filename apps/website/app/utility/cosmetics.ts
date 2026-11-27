@@ -1233,6 +1233,7 @@ const COSMETICS_ORDER: readonly CosmeticsSectionDefinition[] = [
 			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp121,
 			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp117,
 			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp118,
+			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp141,
 		],
 	},
 	{

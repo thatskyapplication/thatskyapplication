@@ -2182,6 +2182,7 @@ export default {
 			[Cosmetic.RockingChair]: "Rocking chair",
 			[Cosmetic.Desk]: "Desk",
 			[Cosmetic.OilLamp]: "Oil lamp",
+			[Cosmetic.ThePearl]: "The Pearl",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
