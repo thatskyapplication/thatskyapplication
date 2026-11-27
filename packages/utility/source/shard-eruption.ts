@@ -417,6 +417,12 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		duration = 3;
 	}
 
+	// From 27 November 2026, the 3rd, 9th, 15th, 21st and 27th gained a shard eruption 6 hours after the last and each lasts 3 hours.
+	if (infoIndex === 3 && Temporal.ZonedDateTime.compare(date, skyDate(2026, 11, 27)) >= 0) {
+		timestampCount = 4;
+		duration = 3;
+	}
+
 	// Account for a shard eruption during DST change.
 	if (date.offsetNanoseconds !== firstShardPointer.offsetNanoseconds) {
 		const becameDST = firstShardPointer.offsetNanoseconds > date.offsetNanoseconds;

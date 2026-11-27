@@ -156,11 +156,15 @@ const EXPECTED_SHARD_ERUPTIONS = [
 			timestamps: [
 				{
 					start: skyDate(2031, 3, 9, 8, 28, 40).add({ milliseconds: 800 }),
-					end: skyDate(2031, 3, 9, 12, 20),
+					end: skyDate(2031, 3, 9, 11, 20),
 				},
 				{
 					start: skyDate(2031, 3, 9, 14, 28, 40).add({ milliseconds: 800 }),
-					end: skyDate(2031, 3, 9, 18, 20),
+					end: skyDate(2031, 3, 9, 17, 20),
+				},
+				{
+					start: skyDate(2031, 3, 9, 20, 28, 40).add({ milliseconds: 800 }),
+					end: skyDate(2031, 3, 9, 23, 20),
 				},
 			],
 		},
@@ -385,6 +389,33 @@ test("From 25 November 2026, the 1st, 7th, 13th, 19th, 25th and 31st gained a sh
 			{
 				start: skyDate(2026, 12, 13, 19, 48, 40).add({ milliseconds: 800 }).toString(),
 				end: skyDate(2026, 12, 13, 22, 40).toString(),
+			},
+		],
+	);
+});
+
+test("From 27 November 2026, the 3rd, 9th, 15th, 21st and 27th gained a shard eruption 6 hours after the last and each has a 3-hour window.", () => {
+	deepEqual(
+		shardEruption(skyDate(2026, 11, 27))?.timestamps.map(({ start, end }) => ({
+			start: start.toString(),
+			end: end.toString(),
+		})),
+		[
+			{
+				start: skyDate(2026, 11, 27, 2, 28, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 11, 27, 5, 20).toString(),
+			},
+			{
+				start: skyDate(2026, 11, 27, 8, 28, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 11, 27, 11, 20).toString(),
+			},
+			{
+				start: skyDate(2026, 11, 27, 14, 28, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 11, 27, 17, 20).toString(),
+			},
+			{
+				start: skyDate(2026, 11, 27, 20, 28, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 11, 27, 23, 20).toString(),
 			},
 		],
 	);
