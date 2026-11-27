@@ -3868,6 +3868,12 @@ export enum Cosmetic {
 	AnglersLanternQuest4 = 3066,
 	AnglersLanternQuest5 = 3067,
 	AnglersLanternQuest6 = 3068,
+
+	// 27/11/2026 | Days of Style.
+	DaysOfStyle2026Hair = 3069,
+	DaysOfStyle2026FaceAccessory = 3070,
+	StyleFluffyCoat = 3071,
+	StyleButterflyClips = 3072,
 }
 
 export enum CosmeticCommon {

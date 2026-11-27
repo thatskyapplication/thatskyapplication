@@ -2183,6 +2183,8 @@ export default {
 			[Cosmetic.Desk]: "Desk",
 			[Cosmetic.OilLamp]: "Oil lamp",
 			[Cosmetic.ThePearl]: "The Pearl",
+			[Cosmetic.StyleFluffyCoat]: "Style Fluffy Coat",
+			[Cosmetic.StyleButterflyClips]: "Style Butterfly Clips",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

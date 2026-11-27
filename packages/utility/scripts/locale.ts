@@ -5119,6 +5119,14 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.ThePearl",
 	},
 	{
+		upstreamKey: "commerce_item_name_style_purplecoat",
+		tsKey: "Cosmetic.StyleFluffyCoat",
+	},
+	{
+		upstreamKey: "commerce_item_name_style_butterflyclips",
+		tsKey: "Cosmetic.StyleButterflyClips",
+	},
+	{
 		upstreamKey: "commerce_item_name_fortune_pack",
 		tsKey: "CosmeticPackName.DaysOfFortunePack",
 	},

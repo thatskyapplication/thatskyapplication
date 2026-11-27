@@ -1591,6 +1591,10 @@ const FACE_ACCESSORY_EMOJIS = {
 	 * Fortune Token Glasses.
 	 */
 	FaceAccessory33: { id: "1561010320322072698", name: "33_face_accessory" },
+	/**
+	 * Days of Style 2026.
+	 */
+	FaceAccessory34: { id: "1575840478845337650", name: "34_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS = {
@@ -2516,6 +2520,14 @@ const HAIR_EMOJIS = {
 	 * Days of Mischief 2026.
 	 */
 	Hair191: { id: "1562997580558897242", name: "191_hair" },
+	/**
+	 * Days of Style 2026.
+	 */
+	Hair192: { id: "1575840476576358540", name: "192_hair" },
+	/**
+	 * Style Butterfly Clips.
+	 */
+	Hair193: { id: "1575840483266273403", name: "193_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS = {
@@ -3781,6 +3793,10 @@ const CAPE_EMOJIS = {
 	 * Mischief Impish Wings.
 	 */
 	Cape196: { id: "1562997568533827684", name: "196_cape" },
+	/**
+	 * Style Fluffy Coat.
+	 */
+	Cape197: { id: "1575840481005535323", name: "197_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS = {

@@ -411,6 +411,7 @@ const COSMETICS_ORDER: readonly CosmeticsSectionDefinition[] = [
 			FACE_ACCESSORY_EMOJIS.FaceAccessory31,
 			FACE_ACCESSORY_EMOJIS.FaceAccessory33,
 			FACE_ACCESSORY_EMOJIS.FaceAccessory27,
+			FACE_ACCESSORY_EMOJIS.FaceAccessory34,
 		],
 	},
 	{
@@ -678,6 +679,8 @@ const COSMETICS_ORDER: readonly CosmeticsSectionDefinition[] = [
 			HAIR_EMOJIS.Hair189,
 			HAIR_EMOJIS.Hair190,
 			HAIR_EMOJIS.Hair188,
+			HAIR_EMOJIS.Hair192,
+			HAIR_EMOJIS.Hair193,
 		],
 	},
 	{
@@ -1013,6 +1016,7 @@ const COSMETICS_ORDER: readonly CosmeticsSectionDefinition[] = [
 			CAPE_EMOJIS.Cape195,
 			CAPE_EMOJIS.Cape193,
 			CAPE_EMOJIS.Cape194,
+			CAPE_EMOJIS.Cape197,
 		],
 	},
 	{

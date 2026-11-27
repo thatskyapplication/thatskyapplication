@@ -688,6 +688,7 @@ const FACE_ACCESSORY_EMOJIS = {
 	FaceAccessory31: { id: "1459119288194437336", name: "31_face_accessory" },
 	FaceAccessory32: { id: "1459119290052513854", name: "32_face_accessory" },
 	FaceAccessory33: { id: "1561011471700463748", name: "33_face_accessory" },
+	FaceAccessory34: { id: "1575840487401590847", name: "34_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS = {
@@ -916,6 +917,8 @@ const HAIR_EMOJIS = {
 	Hair189: { id: "1560712243606454443", name: "189_hair" },
 	Hair190: { id: "1560712252783460444", name: "190_hair" },
 	Hair191: { id: "1562997603275251742", name: "191_hair" },
+	Hair192: { id: "1575840485543514193", name: "192_hair" },
+	Hair193: { id: "1575840492162130002", name: "193_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS = {
@@ -1239,6 +1242,7 @@ const CAPE_EMOJIS = {
 	Cape194: { id: "1560712245476991027", name: "194_cape" },
 	Cape195: { id: "1560712249671417878", name: "195_cape" },
 	Cape196: { id: "1562997592596549722", name: "196_cape" },
+	Cape197: { id: "1575840489985286165", name: "197_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS = {
