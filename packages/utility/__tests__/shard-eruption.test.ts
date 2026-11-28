@@ -167,8 +167,8 @@ const EXPECTED_SHARD_ERUPTIONS = [
 					end: skyDate(2031, 3, 9, 17, 20),
 				},
 				{
-					start: skyDate(2031, 3, 9, 20, 28, 40).add({ milliseconds: 800 }),
-					end: skyDate(2031, 3, 9, 23, 20),
+					start: skyDate(2031, 3, 9, 19, 28, 40).add({ milliseconds: 800 }),
+					end: skyDate(2031, 3, 9, 22, 20),
 				},
 			],
 		},
@@ -398,7 +398,7 @@ test("From 25 November 2026, the 1st, 7th, 13th, 19th, 25th and 31st gained a sh
 	);
 });
 
-test("From 27 November 2026, the 3rd, 9th, 15th, 21st and 27th gained a shard eruption 6 hours after the last and each has a 3-hour window.", () => {
+test("From 27 November 2026, the 3rd, 9th, 15th, 21st and 27th gained a shard eruption 5 hours after the last and each has a 3-hour window.", () => {
 	deepEqual(
 		shardEruption(skyDate(2026, 11, 27))?.timestamps.map(({ start, end }) => ({
 			start: start.toString(),
@@ -418,8 +418,9 @@ test("From 27 November 2026, the 3rd, 9th, 15th, 21st and 27th gained a shard er
 				end: skyDate(2026, 11, 27, 17, 20).toString(),
 			},
 			{
-				start: skyDate(2026, 11, 27, 20, 28, 40).add({ milliseconds: 800 }).toString(),
-				end: skyDate(2026, 11, 27, 23, 20).toString(),
+				// https://discord.com/channels/575762611111592007/575827782144098304/1576077415736807455
+				start: skyDate(2026, 11, 27, 19, 28, 40).add({ milliseconds: 800 }).toString(),
+				end: skyDate(2026, 11, 27, 22, 20).toString(),
 			},
 		],
 	);
