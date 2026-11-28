@@ -632,7 +632,8 @@
 			"93": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acampamento_de_Verão",
 			"94": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Luar/2026",
 			"95": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras/2026",
-			"96": ""
+			"96": "",
+			"97": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -2298,6 +2299,9 @@
 			"lightmending-message-incomplete": "",
 			"lightmending-message-complete": "",
 			"lightmending-wiki-button-url": "",
+			"aviary-village-cafe-bun": "",
+			"aviary-village-cafe-bun-message-incomplete": "",
+			"aviary-village-cafe-bun-message-complete": "",
 			"nothing-to-do": "Ei, olhe só esse filho da Luz! Sem nada para fazer. Essa é a vida."
 		},
 		"cosmetics": {
