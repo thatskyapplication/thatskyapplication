@@ -407,18 +407,16 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 	let firstShardPointer = date.add({ milliseconds: offset });
 	let duration = 4;
 
-	// From 25 November 2026, the 1st, 7th, 13th, 19th, 25th and 31st gained a shard eruption 6 hours before the first and each lasts 3 hours.
+	// From 25 November 2026, dangerous shard eruptions gained a fourth eruption and each lasts 3 hours.
+	// The 1st, 7th, 13th, 19th, 25th and 31st gained theirs 6 hours before the first and the rest 6 hours after the last.
 	// https://discord.com/channels/575762611111592007/585339436322259003/1575088057755901952
 	// https://discord.com/channels/575762611111592007/591777850726547477/1575131262564307056
 	// https://discord.com/channels/575762611111592007/575827782144098304/1575220878289928345
-	if (infoIndex === 2 && Temporal.ZonedDateTime.compare(date, skyDate(2026, 11, 25)) >= 0) {
-		firstShardPointer = firstShardPointer.subtract({ hours: 6 });
-		timestampCount = 4;
-		duration = 3;
-	}
+	if (strong && Temporal.ZonedDateTime.compare(date, skyDate(2026, 11, 25)) >= 0) {
+		if (infoIndex === 2) {
+			firstShardPointer = firstShardPointer.subtract({ hours: 6 });
+		}
 
-	// From 27 November 2026, the 3rd, 9th, 15th, 21st and 27th gained a shard eruption 6 hours after the last and each lasts 3 hours.
-	if (infoIndex === 3 && Temporal.ZonedDateTime.compare(date, skyDate(2026, 11, 27)) >= 0) {
 		timestampCount = 4;
 		duration = 3;
 	}
