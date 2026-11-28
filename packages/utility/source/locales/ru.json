@@ -642,7 +642,8 @@
 			"93": "",
 			"94": "",
 			"95": "",
-			"96": ""
+			"96": "",
+			"97": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2318,6 +2319,9 @@
 			"lightmending-message-incomplete": "",
 			"lightmending-message-complete": "",
 			"lightmending-wiki-button-url": "",
+			"aviary-village-cafe-bun": "",
+			"aviary-village-cafe-bun-message-incomplete": "",
+			"aviary-village-cafe-bun-message-complete": "",
 			"nothing-to-do": ""
 		},
 		"cosmetics": {
