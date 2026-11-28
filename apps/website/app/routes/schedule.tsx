@@ -1,5 +1,6 @@
+import { clsx } from "clsx";
 import type { TFunction } from "i18next";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Mail } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/sky-links";
@@ -48,6 +49,7 @@ import {
 	SCHEDULE_TYPE_TO_WIKI_KEY,
 } from "~/utility/schedule.js";
 import { spiritWikiLink } from "~/utility/spirits.js";
+import { ICON_LINK_CLASS, NOTE_CLASS } from "~/utility/styles.js";
 import { formatClockTimes, maintenanceBannerLabels, type TimePreferences } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/schedule.js";
@@ -596,6 +598,12 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 						</div>
 					</div>
 				</div>
+				<p className={clsx(NOTE_CLASS, "text-center")}>
+					<Link className={ICON_LINK_CLASS} to="/me/settings">
+						<Mail className="h-3.5 w-3.5" />
+						{t("email.notifications-prompt", { ns: "features" })}
+					</Link>
+				</p>
 			</div>
 		</CentredSitePage>
 	);

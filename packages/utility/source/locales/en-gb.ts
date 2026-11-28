@@ -2751,6 +2751,7 @@ export default {
 				"Get an email when spirits arrive. Discord will ask you to share your email address.",
 			"notifications-email": "Emails go to {{email}}.",
 			"notifications-unverified": "Your Discord account needs a verified email address.",
+			"notifications-prompt": "Get an email when spirits arrive.",
 			"unsubscribe-description": "Stop all email notifications?",
 			unsubscribe: "Unsubscribe",
 			unsubscribed: "You've unsubscribed from all email notifications.",
