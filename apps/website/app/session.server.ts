@@ -1,5 +1,6 @@
 import { createCookieSessionStorage, type Session as RouterSession } from "react-router";
 import { PRODUCTION, SESSION_SECRET } from "./config.server";
+import type { EmailNotificationsPending } from "./utility/email-notifications.server.js";
 import type { CrowdinUser, DiscordUser } from "./utility/types.js";
 
 const SESSION_COOKIE_MAX_AGE = 2592000 as const;
@@ -16,6 +17,9 @@ interface FlashData {
 	return_to?: string;
 	crowdin_state?: string;
 	settings_saved_at?: string;
+	email_notifications_pending?: EmailNotificationsPending;
+	email_notifications_saved_at?: string;
+	email_notifications_unverified?: boolean;
 }
 
 export type Session = RouterSession<SessionData, FlashData>;

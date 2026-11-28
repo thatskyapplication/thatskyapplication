@@ -6,12 +6,20 @@ export const PRODUCTION = process.env.NODE_ENV === "production";
 // Environment variables.
 if (
 	!(process.env.DISCORD_TOKEN && process.env.DATABASE_URL) ||
-	(PRODUCTION && !(process.env.SENTRY_DATA_SOURCE_NAME && process.env.SENTRY_RELEASE))
+	(PRODUCTION &&
+		!(
+			process.env.CLOUDFLARE_ACCOUNT_ID &&
+			process.env.CLOUDFLARE_API_TOKEN &&
+			process.env.SENTRY_DATA_SOURCE_NAME &&
+			process.env.SENTRY_RELEASE
+		))
 ) {
 	throw new Error("Missing environment variables.");
 }
 
 export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 export const DATABASE_URL = process.env.DATABASE_URL;
+export const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+export const CLOUDFLARE_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
 export const SENTRY_DATA_SOURCE_NAME = process.env.SENTRY_DATA_SOURCE_NAME;
 export const SENTRY_RELEASE = process.env.SENTRY_RELEASE;

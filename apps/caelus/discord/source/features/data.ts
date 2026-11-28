@@ -42,6 +42,7 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 			await transaction.deleteFrom("feedback").where("user_id", "=", userId).execute();
 			await transaction.deleteFrom("feedback_upsell").where("user_id", "=", userId).execute();
 			await transaction.deleteFrom("discord_oauth").where("user_id", "=", userId).execute();
+			await transaction.deleteFrom("notifications_email").where("user_id", "=", userId).execute();
 			await transaction
 				.deleteFrom("sky_profile_likes")
 				.where((eb) => eb.or([eb("user_id", "=", userId), eb("target_id", "=", userId)]))

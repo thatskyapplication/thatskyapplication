@@ -1,4 +1,4 @@
-import { redirect } from "react-router";
+import { redirectDocument } from "react-router";
 import { getRequestSession } from "~/middleware/session";
 import { destroySession } from "~/session.server";
 import { LOGGED_OUT_SEARCH_PARAMETER, resolveReturnTo } from "~/utility/functions.server";
@@ -10,7 +10,7 @@ async function logOut({ context, url }: Route.LoaderArgs) {
 	const destination = new URL(returnTo, url.origin);
 	destination.searchParams.set(LOGGED_OUT_SEARCH_PARAMETER, "");
 
-	return redirect(`${destination.pathname}${destination.search}`, {
+	return redirectDocument(`${destination.pathname}${destination.search}`, {
 		headers: { "Set-Cookie": await destroySession(session) },
 	});
 }

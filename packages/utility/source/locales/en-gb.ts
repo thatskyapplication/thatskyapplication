@@ -2739,11 +2739,25 @@ export default {
 		},
 		data: {
 			"delete-message":
-				"Are you sure you want to delete your data? This will:\n- Delete your Sky profile\n- Delete your catalogue\n- Delete your hearts\n  - Your user id in heart histories for others will be anonymised\n- Delete your maximum streak in the guessing game\n- Delete your checklist data\n- Remove giveaway data\n- Remove your translator role, if you have one",
+				"Are you sure you want to delete your data? This will:\n- Delete your Sky profile\n- Delete your catalogue\n- Delete your hearts\n  - Your user id in heart histories for others will be anonymised\n- Delete your maximum streak in the guessing game\n- Delete your checklist data\n- Turn off email notifications and delete your email address\n- Remove giveaway data\n- Remove your translator role, if you have one",
 			"delete-my-data": "Delete my data",
 			"delete-error":
 				"There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.\n\nIf you want, you may join the [support server]({{url}}) and request to see the status of your data deletion request.",
 			"delete-success": "Your data has been deleted. You are a moth now.",
+		},
+		email: {
+			notifications: "Email notifications",
+			"notifications-description":
+				"Get an email when spirits arrive. Discord will ask you to share your email address.",
+			"notifications-email": "Emails go to {{email}}.",
+			"notifications-unverified": "Your Discord account needs a verified email address.",
+			"unsubscribe-description": "Stop all email notifications?",
+			unsubscribe: "Unsubscribe",
+			unsubscribed: "You've unsubscribed from all email notifications.",
+			"spirits-until_one": "{{spirits}} is here until {{end}}.",
+			"spirits-until_other": "{{spirits}} are here until {{end}}.",
+			footer:
+				"You're getting this email because you turned on email notifications from thatskyapplication.",
 		},
 		"friendship-actions": {
 			"hug-self": "Share the love! Hug someone other than yourself!",

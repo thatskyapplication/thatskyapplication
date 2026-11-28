@@ -45,7 +45,7 @@ jobs:
         env:
           S3_ACCESS_KEY_ID_DATABASE_BACKUP: ${{ secrets.S3_ACCESS_KEY_ID_DATABASE_BACKUP }}
           S3_SECRET_ACCESS_KEY_DATABASE_BACKUP: ${{ secrets.S3_SECRET_ACCESS_KEY_DATABASE_BACKUP }}
-          S3_ENDPOINT: https://${{ secrets.S3_ACCOUNT_ID }}.r2.cloudflarestorage.com
+          S3_ENDPOINT: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
           S3_DEFAULT_REGION: ${{ secrets.S3_DEFAULT_REGION }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}

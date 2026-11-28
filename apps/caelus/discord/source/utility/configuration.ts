@@ -40,7 +40,7 @@ const envSchema = z.object({
 	R2_BUCKET_CDN: z.string().min(1),
 	R2_BUCKET_REPORTS: z.string().min(1),
 	S3_ACCESS_KEY_ID: z.string().min(1),
-	S3_ACCOUNT_ID: z.string().min(1),
+	CLOUDFLARE_ACCOUNT_ID: z.string().min(1),
 	S3_SECRET_ACCESS_KEY: z.string().min(1),
 	// Production-only.
 	SENTRY_DATA_SOURCE_NAME: z.url().optional(),
@@ -75,7 +75,7 @@ export const {
 	R2_BUCKET_CDN,
 	R2_BUCKET_REPORTS,
 	S3_ACCESS_KEY_ID,
-	S3_ACCOUNT_ID,
+	CLOUDFLARE_ACCOUNT_ID,
 	S3_SECRET_ACCESS_KEY,
 	SENTRY_DATA_SOURCE_NAME,
 	SENTRY_RELEASE,

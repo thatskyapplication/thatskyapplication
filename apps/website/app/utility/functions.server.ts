@@ -1,22 +1,59 @@
 import { randomBytes } from "node:crypto";
+import { OAuth2Scopes } from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
 import { isBot } from "isbot";
 import { redirect, type RouterContextProvider } from "react-router";
 import { developerCache } from "~/cache.server.js";
-import { DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "~/config.server.js";
+import {
+	APPLICATION_ID,
+	DEVELOPER_ROLE_ID,
+	REDIRECT_URI_LOGIN,
+	SUPPORT_SERVER_GUILD_ID,
+} from "~/config.server.js";
 import discord from "~/discord.js";
 import { getRequestSession } from "~/middleware/session.js";
+import type { Session } from "~/session.server.js";
 
 const DEVELOPER_CACHE_TIME_TO_LIVE_MINUTES = 5 as const;
 
-interface AuthenticationArguments {
+export interface AuthenticationArguments {
 	context: Readonly<RouterContextProvider>;
 	request: Request;
 	url: URL;
 }
 
+interface DiscordAuthenticationArguments extends AuthenticationArguments {
+	scopes?: readonly OAuth2Scopes[];
+}
+
+interface DiscordAuthorisationRedirectOptions {
+	session: Session;
+	returnTo: string;
+	scopes: readonly OAuth2Scopes[];
+}
+
 export function generateState() {
 	return randomBytes(16).toString("hex");
+}
+
+export function redirectToDiscordAuthorisation({
+	session,
+	returnTo,
+	scopes,
+}: DiscordAuthorisationRedirectOptions) {
+	const oAuthState = generateState();
+	session.flash("oauth_state", oAuthState);
+	session.flash("return_to", returnTo);
+
+	return redirect(
+		discord.oauth2.generateAuthorizationURL({
+			client_id: APPLICATION_ID,
+			response_type: "code",
+			redirect_uri: REDIRECT_URI_LOGIN,
+			scope: scopes.join(" "),
+			state: oAuthState,
+		}),
+	);
 }
 
 export const LOGGED_OUT_SEARCH_PARAMETER = "loggedOut" as const;
@@ -38,7 +75,12 @@ export function resolveReturnTo(returnTo: string | null | undefined, origin: str
 	return `/${pathname}${returnToURL.search}${returnToURL.hash}`;
 }
 
-export function requireDiscordAuthentication({ context, request, url }: AuthenticationArguments) {
+export function requireDiscordAuthentication({
+	context,
+	request,
+	url,
+	scopes = [OAuth2Scopes.Identify],
+}: DiscordAuthenticationArguments) {
 	const session = getRequestSession(context);
 	const discordUser = session.get("discord_user");
 
@@ -50,8 +92,11 @@ export function requireDiscordAuthentication({ context, request, url }: Authenti
 			throw redirect("/");
 		}
 
-		const returnTo = encodeURIComponent(String(url));
-		throw redirect(`/login?returnTo=${returnTo}`);
+		throw redirectToDiscordAuthorisation({
+			session,
+			returnTo: `${url.pathname}${url.search}`,
+			scopes,
+		});
 	}
 
 	return { discordUser };

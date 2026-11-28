@@ -6,15 +6,13 @@ import { SitePage } from "~/components/PageLayout";
 import { caelusInGuild } from "~/utility/caelus.server.js";
 import { APPLICATION_NAME, INVITE_APPLICATION_URL } from "~/utility/constants.js";
 import { guildIconURL } from "~/utility/functions.js";
-import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { requireUserAdminGuilds } from "~/utility/guilds.server.js";
 import { PAGE_TITLE_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/caelus.dashboard.$guildId._index.js";
 
 export const loader = async ({ context, params, request, url }: Route.LoaderArgs) => {
-	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 	const { guildId } = params;
-	const oAuthGuilds = await requireUserAdminGuilds(discordUser.id, url);
+	const oAuthGuilds = await requireUserAdminGuilds({ context, request, url });
 	const oAuthGuild = oAuthGuilds.find((oAuthGuild) => oAuthGuild.id === guildId);
 
 	if (!oAuthGuild) {

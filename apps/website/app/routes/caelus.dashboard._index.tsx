@@ -1,13 +1,10 @@
 import { SitePage } from "~/components/PageLayout";
 import { guildIconURL } from "~/utility/functions.js";
-import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { requireUserAdminGuilds } from "~/utility/guilds.server.js";
 import type { Route } from "./+types/caelus.dashboard._index.js";
 
-export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
-	const { discordUser } = requireDiscordAuthentication({ context, request, url });
-	return requireUserAdminGuilds(discordUser.id, url);
-};
+export const loader = ({ context, request, url }: Route.LoaderArgs) =>
+	requireUserAdminGuilds({ context, request, url });
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
 	const guilds = loaderData;

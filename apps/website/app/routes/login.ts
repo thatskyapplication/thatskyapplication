@@ -1,3 +1,4 @@
+import { OAuth2Scopes } from "@discordjs/core/http-only";
 import { redirect } from "react-router";
 import { APPLICATION_ID, DISCORD_CLIENT_SECRET, REDIRECT_URI_LOGIN } from "~/config.server";
 import discord from "~/discord";
@@ -5,7 +6,8 @@ import { getRequestSession } from "~/middleware/session";
 import pino from "~/pino.js";
 import { clearAuthentication } from "~/session.server";
 import { saveDiscordOAuth } from "~/utility/discord-oauth.server";
-import { generateState, resolveReturnTo } from "~/utility/functions.server";
+import { saveEmailNotifications } from "~/utility/email-notifications.server.js";
+import { redirectToDiscordAuthorisation, resolveReturnTo } from "~/utility/functions.server";
 import type { Route } from "./+types/login.js";
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
@@ -18,6 +20,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	if (code || error) {
 		const storedState = session.get("oauth_state");
 		const storedReturnTo = resolveReturnTo(session.get("return_to") || returnTo, url.origin);
+		const emailNotificationsPending = session.get("email_notifications_pending");
 
 		if (state !== storedState || error || !code) {
 			return redirect(storedReturnTo);
@@ -36,7 +39,12 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 				auth: { prefix: "Bearer", token: tokenExchange.access_token },
 			});
 
-			await saveDiscordOAuth(user.id, tokenExchange);
+			const grantedScopes = tokenExchange.scope.split(" ");
+
+			if (grantedScopes.includes(OAuth2Scopes.Guilds)) {
+				await saveDiscordOAuth(user.id, tokenExchange);
+			}
+
 			clearAuthentication(session);
 
 			session.set("discord_user", {
@@ -46,6 +54,20 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 				avatar: user.avatar,
 			});
 
+			if (emailNotificationsPending && grantedScopes.includes(OAuth2Scopes.Email)) {
+				if (user.email && user.verified) {
+					await saveEmailNotifications({
+						...emailNotificationsPending,
+						userId: user.id,
+						email: user.email,
+					});
+
+					session.flash("email_notifications_saved_at", new Date().toISOString());
+				} else {
+					session.flash("email_notifications_unverified", true);
+				}
+			}
+
 			return redirect(storedReturnTo);
 		} catch (error) {
 			pino.error({ request, error }, "Failed to log in.");
@@ -53,17 +75,5 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		}
 	}
 
-	const oAuthState = generateState();
-	session.flash("oauth_state", oAuthState);
-	session.flash("return_to", returnTo);
-
-	return redirect(
-		discord.oauth2.generateAuthorizationURL({
-			client_id: APPLICATION_ID,
-			response_type: "code",
-			redirect_uri: REDIRECT_URI_LOGIN,
-			scope: "identify guilds",
-			state: oAuthState,
-		}),
-	);
+	return redirectToDiscordAuthorisation({ session, returnTo, scopes: [OAuth2Scopes.Identify] });
 };

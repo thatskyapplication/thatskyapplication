@@ -48,9 +48,14 @@ import {
 	zhTW,
 } from "@thatskyapplication/utility";
 import database from "./database.js";
+import { sendEmailNotifications, stopEmailNotifications } from "./email.js";
 import { NotificationError } from "./models/notification-error.js";
 import pino from "./pino.js";
-import { DISCORD_TOKEN } from "./utility/configuration.js";
+import {
+	CLOUDFLARE_ACCOUNT_ID,
+	CLOUDFLARE_API_TOKEN,
+	DISCORD_TOKEN,
+} from "./utility/configuration.js";
 import { DyeTypeToEmoji, MISCELLANEOUS_EMOJIS, seasonalCandleEmoji } from "./utility/emojis.js";
 import { notificationNonce } from "./utility/functions.js";
 
@@ -663,6 +668,11 @@ const cron = new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	});
 });
 
+const emailNotificationsCron =
+	CLOUDFLARE_ACCOUNT_ID && CLOUDFLARE_API_TOKEN
+		? new Cron("* * * * *", { protect: true, timezone: TIME_ZONE }, sendEmailNotifications)
+		: null;
+
 let shuttingDown = false;
 
 async function shutdown(signal: NodeJS.Signals) {
@@ -677,6 +687,8 @@ async function shutdown(signal: NodeJS.Signals) {
 
 	try {
 		cron.stop();
+		emailNotificationsCron?.stop();
+		await stopEmailNotifications();
 		await database.destroy();
 	} catch (error) {
 		exitCode = 1;

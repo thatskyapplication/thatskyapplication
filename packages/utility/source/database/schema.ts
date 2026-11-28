@@ -170,6 +170,16 @@ export interface Notifications {
   type: number;
 }
 
+export interface NotificationsEmail {
+  email: string;
+  locale: string;
+  returning_spirits_last_emailed_visit_start: Timestamp | null;
+  returning_spirits_subscribed_at: Timestamp | null;
+  travelling_spirit_last_emailed_visit_start: Timestamp | null;
+  travelling_spirit_subscribed_at: Timestamp | null;
+  user_id: string;
+}
+
 export interface SkyProfileLikes {
   target_id: string;
   user_id: string;
@@ -218,6 +228,7 @@ export interface Users {
   artist: boolean | null;
   crowdin_user_id: number | null;
   discord_user_id: string;
+  email_unsubscribe_token: string | null;
   locale_upsell_seen_at: Timestamp | null;
   supporter: boolean | null;
   translator: boolean | null;
@@ -251,6 +262,7 @@ export interface DB {
   messages: Messages;
   nesting_workshop: NestingWorkshop;
   notifications: Notifications;
+  notifications_email: NotificationsEmail;
   sky_profile_likes: SkyProfileLikes;
   sky_profile_reports: SkyProfileReports;
   sky_profiles: SkyProfiles;

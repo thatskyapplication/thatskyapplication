@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { APPLICATION_NAME } from "~/utility/constants";
 import { MAJOR_HEADING_CLASS, PAGE_TITLE_CLASS } from "~/utility/styles.js";
@@ -24,6 +25,18 @@ export default function TermsPrivacy() {
 					Reporting a Sky profile records the reason you give, your user id, and the user id of the
 					person reported. A copy of their Sky profile icon and banner is kept for 90 days so it can
 					be reviewed.
+				</p>
+
+				<h2 className={MAJOR_HEADING_CLASS}>Email notifications</h2>
+				<p>
+					If you turn on email notifications, Discord shares your email address with us. We store it
+					with your language and which notifications you chose, and use it only to send those
+					notifications. Cloudflare sends the emails for us. Your email address is deleted when you
+					unsubscribe (from any email or in your{" "}
+					<Link className="regular-link" to="/me/settings">
+						settings
+					</Link>
+					) or delete your data.
 				</p>
 
 				<h2 className={MAJOR_HEADING_CLASS}>Deleting your data</h2>
