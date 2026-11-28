@@ -61,7 +61,7 @@ export interface EventTicketsAmountData {
 	infographicURL?: string;
 }
 
-interface EventTicketsPoolData {
+export interface EventTicketsPoolData {
 	start: Temporal.ZonedDateTime;
 	end: Temporal.ZonedDateTime;
 	amount: number;

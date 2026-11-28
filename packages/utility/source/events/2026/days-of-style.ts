@@ -1,9 +1,14 @@
 import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
-import { Event, type EventTicketsAmountData } from "../../models/event.js";
+import {
+	Event,
+	type EventTicketsAmountData,
+	type EventTicketsPoolData,
+} from "../../models/event.js";
 import { EventFamilyId, EventId } from "../../utility/event.js";
 
 const eventTicketAmount: EventTicketsAmountData[] = [];
+const eventTicketPool: EventTicketsPoolData[] = [];
 
 for (
 	let start = skyDate(2026, 11, 27), end = skyDate(2026, 12, 11);
@@ -13,6 +18,15 @@ for (
 	eventTicketAmount.push({
 		date: start,
 		amount: 5,
+	});
+
+	// 1 bonus event ticket seen in Bird Nest.
+	// 1 bonus event ticket seen in Forest Cavern.
+	// Assuming 1 each day until the last day, where it will be 2, totalling 15.
+	eventTicketPool.push({
+		amount: start.equals(skyDate(2026, 12, 10)) ? 2 : 1,
+		start,
+		end: skyDate(2026, 12, 10),
 	});
 }
 
@@ -24,14 +38,7 @@ export default new Event({
 	end: skyDate(2026, 12, 11),
 	eventTickets: {
 		amount: eventTicketAmount,
-		pool: [
-			{
-				// 1 bonus event ticket seen in Bird Nest.
-				amount: 1,
-				start: skyDate(2026, 11, 27),
-				end: skyDate(2026, 12, 10),
-			},
-		],
+		pool: eventTicketPool,
 	},
 	offer: [
 		{
